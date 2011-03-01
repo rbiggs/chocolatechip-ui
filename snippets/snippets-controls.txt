@@ -1,3 +1,5 @@
 Snippets for ChocolateChip-UI
 
+Controls
+========
 
