@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Deletion List - Images</title>
+    <link rel="stylesheet" href="chui.css">
+    <script src="chocolatechip.js" type="text/javascript"></script>
+    <script src="chui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+		$.ready(function() {
+			var deleteItem = function(item) {
+				console.log("You've deleted table cell: " + item.id);
+			};
+			$.UIDeleteTableCell("#deletable-items1","#toolbar1", deleteItem);
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="toolbar1">
+				<h1>Tableview</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+						<tableview  id="deletable-items1" ui-tablecell-order="stacked">
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="images/ipod.png">
+								<celltitle>People</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="images/phone.png">
+								<celltitle>Places</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="images/mail.png">
+								<celltitle>This is an example of a very long item that will be truncated because it does fit.</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="images/safari.png">
+								<celltitle>Animals</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="images/sms.png">
+								<celltitle>Food</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="images/store.png">
+								<celltitle>Stuff</celltitle>
+							</tablecell>
+						</tableview>			
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

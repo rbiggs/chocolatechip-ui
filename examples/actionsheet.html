@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Actionsheet</title>
+	<script type="text/javascript" src="chocolatechip.js"></script>
+	<script type="text/javascript" src="chui.js"></script>
+	<link rel="stylesheet" href="chui.css">
+	<style type="text/css">
+	
+	</style>
+
+	<script type="text/javascript">
+		
+		$.ready(function() {
+			var opts = {
+				id : "actionsheet_01",
+				title : "This is an Annoucement!",
+				color : "blue",
+				uiButtons : [
+					{ title : "Delete", uiButtonImplements : "delete", callback : "respondToDeleteButton" },
+					{ title : "Save", uiButtonImplements : "save", callback : "respondToSaveButton"
+					}
+				]
+			};
+			$.body.UIActionSheet(opts);
+						
+			$("#displayActionSheet").bind("click", function() {
+				$.UIShowActionSheet("#actionsheet_01");
+			});
+			
+		}); 
+		
+			var actionSheetButtonResponse = function(text) {
+				return console.log("You pressed the " + text + " uibutton.");
+			};
+			var respondToDeleteButton = function(actionSheetID) {
+				actionSheetButtonResponse("Delete");
+			};
+			var respondToSaveButton = function(actionSheetID) {
+				actionSheetButtonResponse("Save");
+			};
+			
+	</script>
+</head>
+<body>
+<app ui-background-style="striped">
+	<navbar>
+		<h1>Action Sheet</h1>
+		<uibutton id="displayActionSheet" ui-implements="done" ui-bar-align="right">
+			<label>Edit</label>
+		</uibutton>
+	</navbar>
+	<section>
+		<tableview ui-kind="grouped">
+			<tablecell ui-implements="add">
+				<celltitle>People</celltitle>
+			</tablecell>
+			<tablecell ui-implements="add">
+				<celltitle>Places</celltitle>
+			</tablecell>
+			<tablecell ui-implements="add">
+				<celltitle>Entertainment</celltitle>
+			</tablecell>
+			<tablecell ui-implements="add">
+				<celltitle>Exercise</celltitle>
+			</tablecell>
+			<tablecell ui-implements="add">
+				<celltitle>Food</celltitle>
+			</tablecell>
+			<tablecell ui-implements="add">
+				<celltitle>Sleep</celltitle>
+			</tablecell>
+		</tableview>
+	</section>
+</app>
+</body>
+</html>

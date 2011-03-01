@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Grouped Tableviews 5</title>
+    <link rel="stylesheet" href="chui.css">
+    <script src="chocolatechip.js" type="text/javascript"></script>
+    <script src="chui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $.ready(function() {
+        
+		});
+    </script>
+    
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Tableview</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+						<tablecell class="ui-no-hover">
+							<celltitle>People</celltitle>
+							<div class="rounded">
+								<switchcontrol class="off" id="sleepSwitch">
+									<label ui-implements="on">ON</label>
+									<thumb><thumbprop></thumbprop></thumb>
+									<label ui-implements="off">OFF</label>
+									<input type="checkbox" value="ZZZZZZZZ!">
+								</switchcontrol>
+							</div>
+						</tablecell>
+						<tablecell class="ui-no-hover" ui-implements="titleWithButton">
+							<celltitle>Places</celltitle>
+							<div class="rounded">
+								<switchcontrol class="on" id="eatSwitch">
+									<label ui-implements="on">ON</label>
+									<thumb><thumbprop></thumbprop></thumb>
+									<label ui-implements="off">OFF</label>
+									<input type="checkbox" value="Yummy!">
+								</switchcontrol>
+							</div>
+						</tablecell>
+						<tablecell class="ui-no-hover" ui-implements="celltitle-with-button">
+							<celltitle>Things</celltitle>
+							<uibutton ui-bar-align="right">
+								<label>View</label>
+							</uibutton>
+						</tablecell>
+						<tablecell class="ui-no-hover" ui-implements="celltitle-with-button">
+							<celltitle>Animals</celltitle>
+							<uibutton ui-bar-align="right">
+								<label>See</label>
+							</uibutton>
+						</tablecell>
+						<tablecell>
+							<celltitle>Food</celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlID" class="htmlClass">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>ChocolateChip Mobile</title>
+	<link rel="stylesheet" href="chui.css">
+	<style type="text/css">
+		/* Local Styles Here */
+		switchcontrol.customSwitchColor > label[ui-implements=on] {
+			border: solid 1px #005800;
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(#923700), 
+					color-stop(.5, #c04800 ));
+		}
+		switchcontrol.green > label[ui-implements=on] {
+			border: solid 1px #005800;
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(#005e2f), 
+					color-stop(.5, #00a050 ));
+		}    
+		p[ui-kind=grouped] { padding: 10px 10px; }
+	</style>
+	<script src="chocolatechip.js" type="text/javascript"></script>
+	<script src="chui.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		/* Local JavaScript Here */
+	
+		$.ready(function() {
+			 // Initialize click events for switch controls.
+            $$("tableview switchcontrol").forEach(function(item) {
+                item.bind("click", function () {
+                    if (this.checked === true) {
+                        $("#switchResponse").empty();
+                        $("#switchResponse").fill(this.getAttribute("ui-value"));
+                    } else {
+                        $("#switchResponse").empty();
+                    }
+                });
+                
+                item.bind("touchstart", function(e) {
+                    if (this.checked === true) {
+                        $("#switchResponse").empty();
+                    } else {
+                        $("#switchResponse").empty();
+                        $("#switchResponse").fill(this.getAttribute("ui-value"));
+                    }
+                });
+			});
+			
+			// This is for a dynamically created switch control:
+			var switchOpts = {
+				id : "myBestSwitch",
+				customClass : "customSwitchColor",
+				status : "on",
+				value : "sort of working",
+				callback : function(item) {
+					var className = item.className;
+					if (this.checked = true) {
+						console.log("This is on!");
+					} else {
+						console.log("This is turned off!!!");
+					}
+				}
+			};
+			
+			// Uncomment this line to see dynamically created
+			// switch control inserted in response paragraph:
+			//$("p:last-of-type").UICreateSwitchControl(switchOpts);
+		});
+		
+	</script>
+</head>
+<body class="bodyClass" id="bodyID">
+	<app id="appID" class="appClass">
+		<view title="Main" class="mainView" id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="segmentedToolbar">
+				<h1 ui-bar-align="center">Switchcontrol</h1>
+			</navbar>
+			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview id="tableview_01" ui-kind="grouped">
+                    	<tablecell>
+                        <celltitle>Sleep</celltitle>
+                        <switchcontrol class="on" id="sleepSwitch" ui-value="ZZZZZZZZ!">
+                            <label ui-implements="on">ON</label>
+                            <thumb><thumbprop></thumbprop></thumb>
+                            <label ui-implements="off">OFF</label>
+                        </switchcontrol>
+                    	</tablecell>
+                    </tableview>
+                    <tableview ui-kind="grouped">
+                    	<tablecell>
+                        <celltitle>Vacation</celltitle>
+                        <switchcontrol ui-implements="attention" class="off" id="vacationSwitch" ui-value="Later! :-)">
+                            <label ui-implements="on">ON</label>
+                            <thumb><thumbprop></thumbprop></thumb>
+                            <label ui-implements="off">OFF</label>
+                        </switchcontrol>
+                    	</tablecell>
+                    </tableview>
+                    <tableview ui-kind="grouped">
+                    	<tablecell>
+                        <celltitle>Breakfast</celltitle>
+                        <switchcontrol class="off green" id="breakfastSwtich" ui-implements="attention"  ui-value="So, what's the first course?">
+                            <label ui-implements="on">ON</label>
+                            <thumb><thumbprop></thumbprop></thumb>
+                            <label ui-implements="off">OFF</label>
+                        </switchcontrol>
+                    	</tablecell>
+                    </tableview>
+                    <p ui-kind="grouped">
+                    	<span><strong>Response: </strong></span><span id="switchResponse" class="response">ZZZZZZZZ</span>
+                    </p>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

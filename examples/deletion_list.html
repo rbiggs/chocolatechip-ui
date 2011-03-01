@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlID" class="htmlClass">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>ChocolateChip Mobile</title>
+	<link rel="stylesheet" href="chui.css">
+	<style type="text/css">
+		/* Local Styles Here */
+
+	</style>
+	<script src="chocolatechip.js" type="text/javascript"></script>
+	<script src="chui.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$.ready(function() {
+			var deleteItem = function(item) {
+				$("#selection_list_response > span").insert(item.lastElementChild.text() + " ");
+			};
+			$.UIDeleteTableCell("#tableview_01","#toolbar_01", deleteItem);
+		});
+	</script>
+</head>
+<body class="bodyClass" id="bodyID">
+	<app id="appID" class="appClass">
+		<view title="Main" class="mainView" id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="toolbar_01">
+				<h1 ui-bar-align="center">Deletion List</h1>
+			</navbar>
+			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview id="tableview_01">
+						<tablecell id="item1">
+							<celltitle>People</celltitle>
+						</tablecell>
+						<tablecell id="item2">
+							<celltitle>Places</celltitle>
+						</tablecell>
+						<tablecell id="item3">
+							<celltitle>Things</celltitle>
+						</tablecell>
+						<tablecell id="item4" ui-implements="disclosure">
+							<celltitle>Animals</celltitle>
+						</tablecell>
+						<tablecell id="item5" ui-implements="detail-disclosure">
+							<celltitle>Food</celltitle>
+						</tablecell>
+					</tableview>
+					<p id="selection_list_response" ui-kind="grouped">You just deleted: <span></span></p>
+				</scrollpanel>
+			</subview>
+		</view>
+		
+	</app>
+</body>
+</html>

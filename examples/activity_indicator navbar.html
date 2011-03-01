@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Startup Screen</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="shortcut icon" href="favicon.ico"> 
+	<link rel="stylesheet" href="chui.css" />
+	<title>Startup Screen</title> 
+	<meta name="viewport" content="initial-scale=1.0;
+	maximum-scale=1.0; user-scalable=no">
+    <link rel="stylesheet" href="chui.css">
+	<style>
+		html { 
+			height:100% 
+		}
+		body { 
+			height:100%; 
+			background-color:lightgrey; 
+			margin:0; 
+			color: gray 
+		}
+
+		.useSpinner {
+			width:100%;
+			min-height:100%;
+			padding-top:20%;
+			-webkit-box-sizing:border-box;
+			text-align:center;
+			font-size:100px;
+		}
+		.useSpinner > p {
+			font-size: 11pt;
+		}
+		navbar > panel {
+			display: block;
+			height: 30px;
+			width: 30px;
+		}
+	</style>
+	<script src="chocolatechip.js" type="text/javascript"></script>
+	<script src="chui.js" type="text/javascript"></script>
+	<script> 
+		$.ready(function() {
+			$("navbar").UIInsertActivityIndicator({
+			   id: "activity_indicator_01", 
+			   color: "#fff",
+			   container: "navbar > panel",
+			   size: "30px",
+			   style : "position: absolute; right: 10px; top: 7px;"
+			});
+		});
+        </script>
+    </head>
+<body>
+<app>
+	<view ui-navigation-status="current">
+		<navbar>
+			<h1>Activity Indicator</h1>
+		</navbar>
+		
+		<subview ui-associations="withNavBar">
+			<scrollpanel>
+				<tableview>
+					<tablecell ui-implements="detail-disclosure">
+						<celltitle>People</celltitle>
+						<cellsubtitle>Your Friends</cellsubtitle>
+					</tablecell>
+					<tablecell ui-implements="detail-disclosure">
+						<celltitle>Places</celltitle>
+						<cellsubtitle>Interesting Destinations</cellsubtitle>
+					</tablecell>
+					<tablecell ui-implements="detail-disclosure">
+						<celltitle>Animals are a lot of fun</celltitle>
+						<cellsubtitle>Critters from Around the Globe</cellsubtitle>
+					</tablecell>
+					<tablecell ui-implements="detail-disclosure">
+						<celltitle>Cooking</celltitle>
+						<cellsubtitle>Recipes</cellsubtitle>
+					</tablecell>
+					<tablecell ui-implements="detail-disclosure">
+						<celltitle>Food</celltitle>
+						<cellsubtitle>Restaurants</cellsubtitle>
+					</tablecell>
+				</tableview>				
+			</scrollpanel>
+		</subview>
+	</view>
+</app>
+</body>
+</html>
