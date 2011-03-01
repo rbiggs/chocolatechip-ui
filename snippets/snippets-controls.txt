@@ -3,3 +3,34 @@ Snippets for ChocolateChip-UI
 Controls
 ========
 
+
+**Switch Controls: On State**
+
+<switchcontrol class="on" id="switch_01" ui-value="Value Here">
+	<label ui-implements="on">ON</label>
+	<thumb><thumbprop></thumbprop></thumb>
+	<label ui-implements="off">OFF</label>
+</switchcontrol>
+
+
+<switchcontrol class="on" id="switch_02" ui-value="Value Here!" ui-implements="attention">
+	<label ui-implements="on">ON</label>
+	<thumb><thumbprop></thumbprop></thumb>
+	<label ui-implements="off">OFF</label>
+</switchcontrol>
+
+
+**Switch Controls: Off State**
+
+<switchcontrol class="off" id="switch_03" ui-value="Value Here!">
+	<label ui-implements="on">ON</label>
+	<thumb><thumbprop></thumbprop></thumb>
+	<label ui-implements="off">OFF</label>
+</switchcontrol>
+
+
+<switchcontrol class="off" id="switch_04" ui-value="Value Here!" ui-implements="attention">
+	<label ui-implements="on">ON</label>
+	<thumb><thumbprop></thumbprop></thumb>
+	<label ui-implements="off">OFF</label>
+</switchcontrol>

@@ -16,11 +16,23 @@
     Version 0.5 beta
 
 
+$nbsp;
+
+##Constant: UIExpectedChocolateChipJSVersion
+
+The version that this version of ChocolateChip-UI requires. Used by UICheckChocolateChipJSVersion to check the currently loaded version of ChocolateChip.js.
+
+&nbsp;
+
+##Function: UICheckChocolateChipJSVersion
+
+This method checks the currently loaded version of ChocolateChip.js and check it with the constant UIExpectedChocolateChipJSVersion. If the two are not identical, the method logs and error message to the console informing the developer which version of ChocolateChip.js this version of ChocolateChip-UI requires.
+
 &nbsp;
   
 ##Variable: $.UIVersion
 
-A variable to return the version number.
+A variable to return the version number of ChocolateChip-UI.
 
 **Example:**
 

@@ -1514,7 +1514,6 @@ tablecell[ui-implements=disclosure]:hover:after {
     color: #fff;
 }
 tablecell[ui-usage=icon][ui-implements=disclosure]:after, tablecell[ui-implements=disclosure][ui-usage=icon]:after {
-    margin-top: -2px;
     margin-bottom: -20px;
 }
 tablecell[ui-usage=image][ui-implements=disclosure]:after, tablecell[ui-implements=disclosure][ui-usage=image]:after {
@@ -1920,6 +1919,7 @@ tableview > tablecell > cellcounter {
 	float: right;
 	margin-right: 32px;
 	margin-top: 8px;
+	margin-top: 4px;
 	margin-bottom: -20px;
 	font-size: 14px;
 	color: #fff;

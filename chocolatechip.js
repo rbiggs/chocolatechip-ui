@@ -4,8 +4,8 @@
      /OO\
     /OOOO\
   /OOOOOOOO\
- (((OOOOOO)))
- \:~==++==~:/ 
+ ((OOOOOOOO))
+  \:~=++=~:/  
        
 ChocolateChip.js: It's tiny but delicious
 A JavaScript library for mobile Web app development.
@@ -44,7 +44,7 @@ Version 1.1.2
 		} else {
 			Object.keys(prop).forEach(function(p) {
 				if (prop.hasOwnProperty(p)) {
-					Object.defineProperty(obj, prop, {
+					Object.defineProperty(obj, p, {
 						value: prop[p],
 						writable: true,
 						enumerable: false,
@@ -81,9 +81,26 @@ Version 1.1.2
 			}
 		},
 		body : null,
-		app : null
+		
+		app : null,
+		
+		make : function ( HTMLString ) {
+			var nodes = [];
+			var temp = document.createElement("div");
+			temp.innerHTML = HTMLString;
+			var i = 0;
+			var len = temp.childNodes.length;
+			while (i < len) {
+				nodes[i] = temp.childNodes[i];
+				i++;
+			}
+			return nodes;
+		},
+		
+		replace : function ( newElem, oldElem ) {
+			 oldElem.parentNode.replaceChild(newElem, oldElem);
+		}
     });
-    
 	$.extend(HTMLElement.prototype, {
 	
 		previous : function ( ) {
@@ -161,31 +178,7 @@ Version 1.1.2
 		
 		ancestorByPosition : function ( position ) {
 			return this.ancestor(position);
-		}
-    });
- 
-	$.extend($, {
-		
-		make : function ( HTMLString ) {
-			var nodes = [];
-			var temp = document.createElement("div");
-			temp.innerHTML = HTMLString;
-			var i = 0;
-			var len = temp.childNodes.length;
-			while (i < len) {
-				nodes[i] = temp.childNodes[i];
-				i++;
-			}
-			return nodes;
 		},
-		
-		replace : function ( newElem, oldElem ) {
-			 oldElem.parentNode.replaceChild(newElem, oldElem);
-		}
-    });
-    
-	$.extend(HTMLElement.prototype, {
-		
 		empty : function ( ) {
 			this.removeEvents();
 			this.textContent = "";
@@ -206,10 +199,7 @@ Version 1.1.2
 			tempNode.appendChild(whichClone);
 			this.after(tempNode, this);
 			this.remove(this); 
-		}
-    });
-    
-	$.extend(HTMLElement.prototype, {
+		},
 		
 		unwrap : function ( ) {
 			if (this.parentNode.nodeName === "BODY") {
@@ -388,28 +378,7 @@ Version 1.1.2
 				this.style.cssText += property + ":" + value + ";";
 				return this;
 			} 
-		}
-    });
-    
-    $.extend(String.prototype, {
-    
-		capitalize : function ( ) {
-			var str = this;
-			return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 		},
-		
-		capitalizeAll : function ( ) {
-			str = this.split(" ");
-			newstr = [];
-			str.forEach(function(item) {
-				newstr.push(item.capitalize());
-			});
-			return newstr.join(" ");
-		}
-    });
-    
-	$.extend(HTMLElement.prototype, {
-		
 		bind : function( event, callback ) {
 			this.addEventListener(event, callback, false);
 		},
@@ -467,98 +436,7 @@ Version 1.1.2
 				}
 			}
 			this.css("{" + value + "}");
-		}
-	});
-	$.extend($, {
-		
-		delay : function ( fnc, time ) {
-			var argv = Array.prototype.slice.call(arguments, 2);
-    		return setTimeout(function() { 
-    			return fnc.apply(fnc, argv); 
-    		}, time);
 		},
-		
-		defer : function ( fnc ) {
-			return $.delay.apply($, [fnc, 1].concat(Array.prototype.slice.call(arguments, 1)));
-		},
-		
-		enclose : function(func, enclosure) {
-		  	return function() {
-				var args = [func].concat(Array.prototype.slice.call(arguments));
-				return enclosure.apply(enclosure, args);
-		  	};
-		},
-		
-		compose : function() {
-		  	var funcs = Array.prototype.slice.call(arguments);
-		  	return function() {
-				var args = Array.prototype.slice.call(arguments);
-				for (var i=funcs.length-1; i >= 0; i--) {
-			  		args = [funcs[i].apply(this, args)];
-				}
-				return args[0];
-		  	};
-		},
-		
-		events : ['onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onclick', 'onmousemove', 'ondblclick', 'onerror', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress', 'onchange', 'onsubmit', 'onload', 'ontouchstart', 'ontouchmove', 'ontouchend', 'ontouchcancel', 'ongesturestart', 'ongesturechange', 'ongestureend', 'onorientationchange'],
-		
-		loadEvent : function ( F ) {
-			var oldonload = window.onload;
-			if (typeof window.onload !== 'function') {
-			   window.onload = F;
-			} else {
-			   window.onload = function () {
-				  oldonload();
-				  F();
-			   };
-			}
-		},
-		
-		DOMReadyList : [],
-		
-		executeWhenDOMReady : function ( ) {
-			var listLen = $.DOMReadyList.length;
-			var i = 0;
-			while (i < listLen) {
-				$.DOMReadyList[i]();
-				i++;
-			}
-			$.DOMReadyList = null;
-			document.removeEventListener('DOMContentLoaded', $.executeWhenDOMReady, false);
-		},
-		
-		ready : function ( callback ) {
-			if ($.DOMReadyList.length == 0) {
-				document.addEventListener('DOMContentLoaded', $.executeWhenDOMReady, false);
-			}
-	
-			$.DOMReadyList.push(callback);
-		},
-		
-		UIHideURLbar : function() {
-			window.scrollTo(0, 1);
-		},
-		
-		importScript : function ( url ) {
-			var script = document.createElement("script");
-			script.setAttribute("type", "text/javascript");
-			script.setAttribute("src", url);
-			$("head").appendChild(script);
-		},
-    
-    	iphone : /iphone/i.test(navigator.userAgent),
-    	ipad : /ipad/i.test(navigator.userAgent),
-    	ipod : /ipod/i.test(navigator.userAgent),
-    	android : /android/i.test(navigator.userAgent),
-    	webos : /webos/i.test(navigator.userAgent),
-    	blackberry : /blackberry/i.test(navigator.userAgent),
-    	touchEnabled : ("createTouch" in document),
-    	online :  navigator.onLine,
-    	standalone : navigator.standalone
-    });
-    
-	$.extend(HTMLElement.prototype, {
-		
 		xhr : function ( url, options ) {
 			var o = options ? options : {};
 			if (!!options) {
@@ -644,13 +522,120 @@ Version 1.1.2
 			}
 		}
     });
-
-	$.extend($, {	
+	
+    $.extend(String.prototype, {
+    
+		capitalize : function ( ) {
+			var str = this;
+			return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+		},
 		
+		capitalizeAll : function ( ) {
+			str = this.split(" ");
+			newstr = [];
+			str.forEach(function(item) {
+				newstr.push(item.capitalize());
+			});
+			return newstr.join(" ");
+		}
+    });
+    
+    
+	$.extend($, {
+		
+		delay : function ( fnc, time ) {
+			var argv = Array.prototype.slice.call(arguments, 2);
+    		return setTimeout(function() { 
+    			return fnc.apply(fnc, argv); 
+    		}, time);
+		},
+		
+		defer : function ( fnc ) {
+			return $.delay.apply($, [fnc, 1].concat(Array.prototype.slice.call(arguments, 1)));
+		},
+		
+		enclose : function(func, enclosure) {
+		  	return function() {
+				var args = [func].concat(Array.prototype.slice.call(arguments));
+				return enclosure.apply(enclosure, args);
+		  	};
+		},
+		
+		compose : function() {
+		  	var funcs = Array.prototype.slice.call(arguments);
+		  	return function() {
+				var args = Array.prototype.slice.call(arguments);
+				for (var i=funcs.length-1; i >= 0; i--) {
+			  		args = [funcs[i].apply(this, args)];
+				}
+				return args[0];
+		  	};
+		},
+		
+		events : ['onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onclick', 'onmousemove', 'ondblclick', 'onerror', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress', 'onchange', 'onsubmit', 'onload', 'ontouchstart', 'ontouchmove', 'ontouchend', 'ontouchcancel', 'ongesturestart', 'ongesturechange', 'ongestureend', 'onorientationchange'],
+		
+		loadEvent : function ( F ) {
+			var oldonload = window.onload;
+			if (typeof window.onload !== 'function') {
+			   window.onload = F;
+			} else {
+			   window.onload = function () {
+				  oldonload();
+				  F();
+			   };
+			}
+		},
+		
+		DOMReadyList : [],
+		
+		executeWhenDOMReady : function ( ) {
+			var listLen = $.DOMReadyList.length;
+			var i = 0;
+			while (i < listLen) {
+				$.DOMReadyList[i]();
+				i++;
+			}
+			$.DOMReadyList = null;
+			document.removeEventListener('DOMContentLoaded', $.executeWhenDOMReady, false);
+		},
+		
+		ready : function ( callback ) {
+			if ($.DOMReadyList.length == 0) {
+				document.addEventListener('DOMContentLoaded', $.executeWhenDOMReady, false);
+			}
+	
+			$.DOMReadyList.push(callback);
+		},
+		
+		UIHideURLbar : function() {
+			window.scrollTo(0, 1);
+		},
+		
+		importScript : function ( url ) {
+			var script = document.createElement("script");
+			script.setAttribute("type", "text/javascript");
+			script.setAttribute("src", url);
+			$("head").appendChild(script);
+		},
+    
+    	iphone : /iphone/i.test(navigator.userAgent),
+    	ipad : /ipad/i.test(navigator.userAgent),
+    	ipod : /ipod/i.test(navigator.userAgent),
+    	android : /android/i.test(navigator.userAgent),
+    	webos : /webos/i.test(navigator.userAgent),
+    	blackberry : /blackberry/i.test(navigator.userAgent),
+    	touchEnabled : ("createTouch" in document),
+    	online :  navigator.onLine,
+    	standalone : navigator.standalone,
+    	
 		setLocalStorage : function ( key, value ) {
 			try {
 				localStorage.setItem(key, value);
-			} catch(e) {}
+			} catch(e) {
+				if (e === QUOTA_EXCEEDED_ERR) {
+	 	 	 		error.log('Quota exceeded for localStorage!');
+				}
+			} 
 		},
 	
 		getLocalStorage : function ( key ) {
@@ -709,12 +694,10 @@ $.ready(function() {
 				if (window.orientation === 0 || window.orientation === 180) {
 					$.body.removeClass("landscape");
 					$.body.addClass("portrait");
-					console.log($("body").className);
 					$.UIHideURLbar();
 				} else {
 					$.body.removeClass("portrait")
 					$.body.addClass("landscape");
-					console.log($("body").className);
 					$.UIHideURLbar();
 				}
 				$.UIHideURLbar();

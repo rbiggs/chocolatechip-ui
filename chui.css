@@ -4,8 +4,8 @@
      /OO\
     /OOOO\
   /OOOOOOOO\
- (((OOOOOO)))
- \:~==++==~:/   
+ ((OOOOOOOO))
+  \:~=++=~:/   
  
 ChocolateChip-UI
 Thee yummy ingredients make this something to sink your teeth into:
@@ -17,8 +17,8 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.0 beta
-Dependencies: chocolatechip.1.1.0.js or later, chui.1.0.js
+Version: 0.5 beta
+Dependencies: chocolatechip.1.1.0.js or later, chui.0.5.js
 
 ======================================
 For Next Release:
@@ -54,6 +54,11 @@ app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, cell
 app {
 	overflow-y: auto;
 	overflow-x: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 }
 
 view {
@@ -113,8 +118,7 @@ subview[ui-associations="withTopToolBar withBottomToolBar"] {
 	bottom: 45px;
 	overflow-y: auto;
 }
-view[ui-background-style=striped], 
-subview[ui-background-style=striped] {
+*[ui-background-style=striped] {
 	background: #cbd2d8;
 	background-image: 
 		-webkit-gradient(linear, left top, right top, 
@@ -124,7 +128,122 @@ subview[ui-background-style=striped] {
 			to(transparent)); 
 	-webkit-background-size: 5px 100%;
 	background-size: 5px 100%;
-	-webkit-text-size-adjust: 100%;
+}
+*[ui-background-style=vertical-striped] {
+	background-image: 
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.75, rgba(0,0,0,0.1)), 
+			color-stop(0.75, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 5px 100%;
+	background-size: 5px 100%;
+}
+*[ui-background-style=horizontal-striped] {
+
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.75, rgba(0,0,0,0.1)), 
+			color-stop(0.75, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 100% 5px;
+	background-size: 100% 5px;
+}
+*[ui-background-style=slanted-left] {
+	background-image: 
+		-webkit-gradient(linear, right top, left bottom, 
+		from(transparent), 
+		color-stop(0.15, transparent),  
+		color-stop(0.15, rgba(0,0,0,0.1)), 
+		color-stop(0.50, rgba(0,0,0,0.1)), 
+		color-stop(0.50, transparent), 
+		color-stop(0.65, transparent),
+		color-stop(0.69, rgba(0,0,0,0.1)),  
+		to(rgba(0,0,0,0.1)));
+	-webkit-background-size: 6px 6px;
+	background-size: 6px 6px;
+}
+*[ui-background-style=slanted-right] {
+	background-image: 
+		-webkit-gradient(linear, left top, right bottom, 
+		from(transparent), 
+		color-stop(0.15, transparent),  
+		color-stop(0.15, rgba(0,0,0,0.1)), 
+		color-stop(0.50, rgba(0,0,0,0.1)), 
+		color-stop(0.50, transparent), 
+		color-stop(0.65, transparent),
+		color-stop(0.69, rgba(0,0,0,0.1)),  
+		to(rgba(0,0,0,0.1)));
+	-webkit-background-size: 6px 6px;
+	background-size: 6px 6px;
+}
+*[ui-background-style=squared] {
+	background-image: 
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.05)), 
+			color-stop(0.75, rgba(0,0,0,0.05)), 
+			color-stop(0.75, transparent), 
+			to(transparent)),
+			
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.05)), 
+			color-stop(0.75, rgba(0,0,0,0.05)), 
+			color-stop(0.75, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 5px 100%, 100% 5px;
+	background-size: 5px 100%, 100% 5px;
+}
+*[ui-background-style=checkered] {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			color-stop(.5, transparent), 
+			color-stop(.5, rgba(0, 0, 0, .1)), 
+			to(rgba(0, 0, 0, .1))),
+		-webkit-gradient(linear, left bottom, right bottom, 
+			color-stop(.5, transparent), 
+			color-stop(.5, rgba(0, 0, 0, .1)), 
+			to(rgba(0, 0, 0, .1)));
+	-webkit-background-size: 10px 10px;
+	background-size: 10px 10px;
+}
+*[ui-background-style=chess] {
+	background-image: 
+		-webkit-gradient(linear, 0 0, 100% 100%, 
+			color-stop(.25, rgba(0,0,0,0.1)), 
+			color-stop(.25, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, 0 100%, 100% 0, 
+			color-stop(.25, rgba(0,0,0,0.1)), 
+			color-stop(.25, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, 0 0, 100% 100%, 
+			color-stop(.75, transparent), 
+			color-stop(.75, rgba(0,0,0,0.1))),
+		-webkit-gradient(linear, 0 100%, 100% 0, 
+			color-stop(.75, transparent), 
+			color-stop(.75, rgba(0,0,0,0.1)));
+	-webkit-background-size: 10px 10px;
+	background-size: 10px 10px;
+}
+*[ui-background-style=speckled] {
+	background-image:
+		-webkit-gradient(radial, 4 4, 4, 4 4, 2, 
+			from(rgba(0,0,0,0)), 
+			color-stop(.6,rgba(0,0,0,0.1)),
+			to(rgba(0,0,0,0.1)));
+	-webkit-background-size: 8px 8px;
+	background-size: 8px 8px;
+
+}
+*[ui-background-style=spotted] {
+	background-image:
+		-webkit-gradient(radial, 6 6, 6, 6 6, 3, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(.6,rgba(0,0,0,0.1)),
+			to(rgba(0,0,0,0)));
+	-webkit-background-size: 20px 20px;
+	background-size: 10px 10px;
 }
 /*  Layout Flexible Box Styles */
 *[ui-box=horizontal] {
@@ -155,13 +274,9 @@ subview[ui-background-style=striped] {
 }
 *[ui-box-align=stretch] {
 	-webkit-box-align: stretch;
-	-moz-box-align: stretch;
-	box-align: stretch;
 }
 *[ui-box-align=center] {
 	-webkit-box-align: center;
-	-moz-box-align: center;
-	box-align: center;
 }
 *[ui-box-align=start] {
 	-webkit-box-align: start;
@@ -223,9 +338,11 @@ subview[ui-background-style=striped] {
 }
 stack {
 	display: -webkit-box;
+	-webkit-box-align: center;
 }
 stack > * {
 	-webkit-box-flex: 1;
+	display: -webkit-box !important;
 }
 stack[ui-kind=horizontal] {
 	display: -webkit-box;
@@ -237,12 +354,35 @@ stack[ui-kind=vertical] {
 }
 /* End Layout Flexible Box Styles */
 
-/* Button Styles */
-button, button * {
+/* UIButton Styles */
+uibutton, uibutton * {
 	cursor: pointer;
 }
-button {
-	-webkit-appearance: none;
+/* Basic UIButton Styles */
+uibutton {
+	-webkit-box-sizing: border-box;
+	-webkit-box-flex: 1;
+	display: block;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    
+}
+navbar > uibutton, 
+toolbar > uibutton {
+	-webkit-box-flex: 0 !important;
+	display: inline-box;
+}
+uibutton > label, 
+uibutton > img {
+	display: block;
+    -webkit-box-align: center;
+}
+uibutton icon[style*=-webkit-mask-image] {
+    background-color: #fff;
+}
+uibutton {
 	-webkit-box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
 	border: solid 1px #54617d;
 	border-color: #484e59 #54617d #4c5c7a #54617d; 
@@ -268,13 +408,14 @@ button {
 	position: relative;
    	cursor: pointer;
    	display: -webkit-box;
-   	-webkit-box-orient: vertical;
+   	-webkit-box-orient: horizontal;
    	-webkit-box-align: center;
+   	-webkit-box-direction: normal;
 }
-button:hover, 
-button.touched, 
-button[ui-implements=done]:hover, 
-button[ui-implements=done].touched {
+uibutton:hover, 
+uibutton.touched, 
+uibutton[ui-implements=done]:hover, 
+uibutton[ui-implements=done].touched {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(#7d88a5), 
@@ -285,21 +426,21 @@ button[ui-implements=done].touched {
 			to(#273f6d));
 	-webkit-tap-highlight-color: transparent;
 }
-/* Begin Toolbar Bordered Button Styles */
-navbar button, toolbar button {
+/* Begin Toolbar Bordered uibutton Styles */
+navbar uibutton, toolbar uibutton {
 	margin: 0px 3px 0px 10px;
 	-webkit-margin-collapse: discard;
 }
-navbar button:first-of-type, 
-toolbar button:first-of-type  {
+navbar uibutton:first-of-type, 
+toolbar uibutton:first-of-type  {
 	margin-top: -.25px;
 }
-navbar button + button, 
-toolbar button + button {
+navbar uibutton + uibutton, 
+toolbar uibutton + uibutton {
 	margin: 0px 3px;
 }
-navbar button:last-of-type, 
-toolbar button:last-of-type {
+navbar uibutton:last-of-type, 
+toolbar uibutton:last-of-type {
 	margin-right: 10px;
 }
 /* Toolbar Plain Icon Styles */
@@ -307,7 +448,7 @@ navbar.ui-box-pack-justify,
 toolbar.ui-box-pack-justify {
 	 -webkit-box-pack: justify;
 }
-button[ui-kind=icon] {
+uibutton[ui-kind=icon] {
     height: 43px;
     width: 43px;
     display: -webkit-box;
@@ -323,14 +464,14 @@ button[ui-kind=icon] {
 	-webkit-box-pack: center;
 	-webkit-box-align: center;
 }
-button[ui-kind=icon].disabled, button[ui-kind=icon].disabled:hover, button[ui-kind=icon].disabled.touched {
+uibutton[ui-kind=icon].disabled, uibutton[ui-kind=icon].disabled:hover, uibutton[ui-kind=icon].disabled.touched {
 	background: none;
 }
-button[ui-kind=icon].disabled > buttoncontent, button.disabled icon {
+uibutton[ui-kind=icon].disabled /*> uibuttoncontent*/, uibutton.disabled icon {
 	opacity: 0.75;
 }
-button[ui-kind=icon]:hover, 
-button[ui-kind=icon].touched {
+uibutton[ui-kind=icon]:hover, 
+uibutton[ui-kind=icon].touched {
     background-image:
         -webkit-gradient(radial,50% 50%,0,50% 50%,20,
             color-stop(0%,rgba(213,231,247,0.9)),
@@ -341,7 +482,7 @@ icon {
     -webkit-mask-position: 50% 50%;;
     -webkit-mask-size: 22px 22px;
     background-size: 23px 23px;
-    margin: 15% auto 0px auto;
+    margin: 2px auto 0px auto;
     height: 23px;
     width: 23px;
     display: inline-block;
@@ -349,109 +490,86 @@ icon {
 
 
 
-button[ui-kind=icon] icon[style*="webkit-mask-image"], 
-button[ui-kind=icon] icon[style*="webkit-mask-image"],
-icon[ui-implements="icon-mask"] {  {
+uibutton[ui-kind=icon] icon[style*="webkit-mask-image"], 
+uibutton[ui-kind=icon] icon[style*="webkit-mask-image"],
+icon[ui-implements="icon-mask"] {
 	margin: 0;
 	background-color: #fff;
 }
-button[ui-kind=icon] > buttoncontent {
-    display: block;
-    padding-top: 2px;
-}
-button[ui-kind=icon] > buttoncontent > icon {
+uibutton[ui-kind=icon] > icon {
     background-position: center center;
     -webkit-mask-position: 50% 50%;;
     -webkit-mask-size: 23px 23px;
     background-size: 23px 23px;
-    margin: 0 auto 0px auto !important;
+    margin: 45% auto 0px auto !important;
 }
-button[ui-implements="icon"] {
+uibutton[ui-implements="icon"] {
 	padding: 0px 4px;
 }
 
 /* End Toolbar Plain Icon Styles */
 
-/* Basic Button Styles */
-button > buttoncontent {
-	-webkit-box-sizing: border-box;
-	-webkit-box-flex: 1;
-	display: block;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
-    display: -webkit-box;
-    -webkit-box-orient: horizontal;
     
-}
-button > buttoncontent > label, 
-button > buttoncontent > img {
-	display: block;
-    -webkit-box-align: center;
-}
-button icon[style*=-webkit-mask-image] {
-    background-color: #fff;
-}
-.stretch {
-	-webkit-box-flex: 1;
-}
-button.disabled label, button.disabled icon, 
-button.disabled label, button.disabled icon {
+uibutton.disabled label, uibutton.disabled icon, 
+uibutton.disabled label, uibutton.disabled icon {
     opacity: 0.5;
 }
-/* End Basic Button Styles */
+/* End Basic UIButton Styles */
 
 /* Icon Alignment */
-button icon + label {
+uibutton icon + label {
 	margin-left: 4px;
 }
-button[ui-icon-align="right"] icon + label {
+uibutton[ui-icon-align="right"] icon + label {
 	margin-left: 0;
 	margin-right: 4px;
 }
-button[ui-icon-align="top"] icon + label {
+uibutton[ui-icon-align="top"] icon + label {
 	margin-left: 0;
 }
-button[ui-icon-align="bottom"] icon + label {
+uibutton[ui-icon-align="bottom"] icon + label {
 	margin-left: 0;
 }
-button[ui-icon-align="right"] > buttoncontent {
+uibutton[ui-icon-align="right"],
+uibutton[ui-kind=action][ui-icon-align="right"]{
     -webkit-box-direction: reverse !important;
+    -webkit-box-orient: horizontal !important;
 }
-button[ui-icon-align=top] > buttoncontent {
+uibutton[ui-icon-align=top] {
     display: -webkit-box;
     -webkit-background-clip: padding;
     -webkit-box-align: center;
-    -webkit-box-orient: vertical;
+    -webkit-box-orient: vertical !important;
 }
 
-button[ui-icon-align=bottom]> buttoncontent {
+uibutton[ui-icon-align=bottom] {
     display: -webkit-box;
     -webkit-background-clip: padding;
     -webkit-box-orient: vertical;
     -webkit-box-align: justify;
 	-webkit-box-direction: reverse;
 }
-button[ui-icon-align=top], 
-button[ui-icon-align=bottom],
-button[ui-kind=action][ui-icon-align=top], 
-button[ui-kind=action][ui-icon-align=bottom] {
+uibutton[ui-icon-align=top], 
+uibutton[ui-icon-align=bottom],
+uibutton[ui-kind=action][ui-icon-align=top], 
+uibutton[ui-kind=action][ui-icon-align=bottom] {
 	-webkit-box-pack: center !important;
 	-webkit-box-align: center !important;
 }
-button[ui-kind=action][ui-icon-align=top] > buttoncontent,
-button[ui-kind=action][ui-icon-align=bottom] > buttoncontent {
+uibutton[ui-kind=action][ui-icon-align=top],
+uibutton[ui-kind=action][ui-icon-align=bottom] {
 	-webkit-box-pack: center;
 	-webkit-box-align: center;
 }
-button[ui-usage=icon] {
+uibutton[ui-usage=icon] {
     padding: 0px 5px !important;
 }
 /* End Icon Alignment Styles */
 
-/* Edit Button Styles */
-button[ui-implements=done], 
-button[ui-implements=done].disabled:hover, 
-button[ui-implements=done].disabled.touched {
+/* Edit uibutton Styles */
+uibutton[ui-implements=done], 
+uibutton[ui-implements=done].disabled:hover, 
+uibutton[ui-implements=done].disabled.touched {
     border: solid 1px #2c344b;
     border-color: #2c344b #2d54b9 #1a49b5 #2d54b9; 
     background-image:
@@ -463,8 +581,8 @@ button[ui-implements=done].disabled.touched {
             color-stop(0.75, #2465dd), 
             to(#2461de));
 }
-button[ui-implements=done]:hover, 
-button[ui-implements=done].touched {
+uibutton[ui-implements=done]:hover, 
+uibutton[ui-implements=done].touched {
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
@@ -475,10 +593,10 @@ button[ui-implements=done].touched {
             color-stop(0.75, #273f6d),
             to(#273f6d));
 }
-/* End Important Bordered Button Styles */
+/* End Important Bordered UIButton Styles */
 
-/* Delete Button Styles */
-button[ui-implements=delete], button[ui-implements=delete].disabled:hover, button[ui-implements=delete].disabled.touched {
+/* Delete uibutton Styles */
+uibutton[ui-implements=delete], uibutton[ui-implements=delete].disabled:hover, uibutton[ui-implements=delete].disabled.touched {
     border: solid 1px #4b353a;
     border-color: #4b353a #832936 #1a49b5 #832936; 
     background-image:
@@ -490,7 +608,7 @@ button[ui-implements=delete], button[ui-implements=delete].disabled:hover, butto
             color-stop(0.75, #a40018), 
             to(#7d1022));
 }
-button[ui-implements=delete]:hover, button[ui-implements=done].touched {
+uibutton[ui-implements=delete]:hover, uibutton[ui-implements=done].touched {
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
@@ -501,24 +619,24 @@ button[ui-implements=delete]:hover, button[ui-implements=done].touched {
             color-stop(0.75, #273f6d),
             to(#273f6d));
 }
-button[ui-implements=delete].disabled label {
+uibutton[ui-implements=delete].disabled label {
 	cursor: auto;
 	opacity: 0.5;
 }
-/* End Warning Bordered Button Styles */
+/* End Warning Bordered UIButton Styles */
 
-/* Back Bordered Button Styles */
-button[ui-implements=back] {
+/* Back Bordered UIButton Styles */
+uibutton[ui-implements=back] {
     padding: 0px 7px 0px 3px;
     margin-left: 20px;
     position: relative;
     border-left-color: transparent;
 }
-button[ui-implements=back] > label {
+uibutton[ui-implements=back] > label {
     position: relative;
     z-index: 1;
 }
-button[ui-implements=back] > pointer {
+uibutton[ui-implements=back] > pointer {
     z-index: 0;
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
@@ -548,8 +666,8 @@ button[ui-implements=back] > pointer {
     top: 2.5px;
     -webkit-background-clip: content;
 }
-button[ui-implements=back]:hover > pointer, 
-button.touched > pointer {
+uibutton[ui-implements=back]:hover > pointer, 
+uibutton.touched > pointer {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
             from(#7d88a5), 
@@ -559,8 +677,8 @@ button.touched > pointer {
             color-stop(0.75, #273f6d),
             to(#273f6d)); 
 }
-button[ui-implements=back].disabled:hover > pointer, 
-button[ui-implements=back].disabled.touched > pointer {
+uibutton[ui-implements=back].disabled:hover > pointer, 
+uibutton[ui-implements=back].disabled.touched > pointer {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
             from(#92a1bf), 
@@ -570,21 +688,21 @@ button[ui-implements=back].disabled.touched > pointer {
             color-stop(0.75, #566c98),
             to(#546993)); 
 }
-/* End Back Bordered Button Styles */
+/* End Back Bordered uibutton Styles */
 
-/* Next Bordered Button Styles */
-button[ui-implements=next]:last-of-type {
+/* Next Bordered UIButton Styles */
+uibutton[ui-implements=next]:last-of-type {
     padding: 0px 3px 0px 7px;
     margin-right: 0px;
     right: 20px !important;
     position: relative;
     border-right-color: transparent;
 }
-button[ui-implements=next] > label {
+uibutton[ui-implements=next] > label {
     position: relative;
     z-index: 1;
 }
-button[ui-implements=next] > pointer {
+uibutton[ui-implements=next] > pointer {
     z-index: 0;
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
@@ -616,8 +734,8 @@ button[ui-implements=next] > pointer {
     top: 2.5px;
     -webkit-background-clip: content;
 }
-button[ui-implements=next]:hover > pointer, 
-button[ui-implements=back].touched > pointer {
+uibutton[ui-implements=next]:hover > pointer, 
+uibutton[ui-implements=back].touched > pointer {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
             from(#7d88a5), 
@@ -627,8 +745,8 @@ button[ui-implements=back].touched > pointer {
             color-stop(0.75, #273f6d),
             to(#273f6d)); 
 }
-button[ui-implements=next].disabled:hover > pointer,
-button[ui-implements=next].disabled.touched > pointer {
+uibutton[ui-implements=next].disabled:hover > pointer,
+uibutton[ui-implements=next].disabled.touched > pointer {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
             from(#92a1bf), 
@@ -638,9 +756,9 @@ button[ui-implements=next].disabled.touched > pointer {
             color-stop(0.75, #566c98),
             to(#546993)); 
 }
-/* End Next Bordered Button Styles */
+/* End Next Bordered uibutton Styles */
 
-/* Segmented Button Styles */
+/* Segmented UIButton Styles */
 segmentedcontrol {
     -webkit-box-orient: horizontal;
     -webkit-box-pack:justify;
@@ -649,19 +767,22 @@ segmentedcontrol {
     display: -webkit-inline-box;
     -webkit-box-flex: 1;
 }
-segmentedcontrol.stretch, segmentedcontrol[ui-full-width=true] {
+segmentedcontrol.stretch, 
+segmentedcontrol[ui-full-width=true] {
 	display: -webkit-box;
 }
 navbar > segmentedcontrol,
 toolbar > segmentedcontrol  {
+	display: -webkit-inline-box;
     margin: 0px 10px;
 }
-segmentedcontrol > button {
+segmentedcontrol > uibutton, 
+segmentedcontrol > uibutton.disabled:hover {
     display: -webkit-box;
     -webkit-box-orient: vertical !important;
     -webkit-box-align: center;
     -webkit-box-flex: 1;
-    -webkit-box-pack:justify;
+    -webkit-box-pack:center;
     border: none;
     background: none;
     -webkit-box-shadow: none;
@@ -671,6 +792,9 @@ segmentedcontrol > button {
     -webkit-border-radius: 0px;
     border-radius: 0px;
     text-align: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    -webkit-box-flex: 1;
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#fbfbfb), 
@@ -680,19 +804,14 @@ segmentedcontrol > button {
     -webkit-box-sizing: border-box;
     height: 30px;
     cursor: pointer;
-    margin: 0px;
+    margin: 0px !important;
     padding: 0px 10px;
 }
-segmentedcontrol > button > buttoncontent {
-    display: -webkit-box;
-    -webkit-box-flex: 1;
-    -webkit-box-align: center;
-}
-segmentedcontrol > button:hover, 
-button.segmented > button.touched, 
-segmentedcontrol > button.selected, 
-segmentedcontrol > button.selected:hover, 
-segmentedcontrol > button.selected.touched {
+segmentedcontrol > uibutton:hover, 
+uibutton.segmented > uibutton.touched, 
+segmentedcontrol > uibutton.selected, 
+segmentedcontrol > uibutton.selected:hover, 
+segmentedcontrol > uibutton.selected.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#2a55b1), 
@@ -700,8 +819,8 @@ segmentedcontrol > button.selected.touched {
     color: #fff;
     border-color: #193a7f;
 }
-segmentedcontrol > button.disabled:hover, 
-button.segmented > button.disabled.touched {
+segmentedcontrol > uibutton.disabled:hover, 
+uibutton.segmented > uibutton.disabled.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#fbfbfb), 
@@ -710,26 +829,32 @@ button.segmented > button.disabled.touched {
     border-color: #9a9a99;
     cursor: auto;
 }
-segmentedcontrol > button:first-of-type {
+segmentedcontrol > uibutton:first-of-type {
     -webkit-border-top-left-radius: 8px;
     -webkit-border-bottom-left-radius: 8px;
     border-left: solid 1px #9a9a99;
+    margin-top: 0px;
 }
-segmentedcontrol > button:last-of-type {
+segmentedcontrol > uibutton:last-of-type {
     -webkit-border-top-right-radius: 8px;
     -webkit-border-bottom-right-radius: 8px;
     margin-right: 0;
 }
-/* End Segmented Button Styles */
+navbar > segmentedcontrol > uibutton,
+toolbar > segmentedcontrol > uibutton {
+	display: -webkit-box !important;
+}
+/* End Segmented UIButton Styles */
 
-/* Segmented Buttons in Toolbar */
-navbar segmentedcontrol > button,
-toolbar segmentedcontrol > button {
+/* Segmented UIButton in Toolbar */
+navbar > segmentedcontrol > uibutton,
+toolbar > segmentedcontrol > uibutton {
+	display: -webkit-inline-box;
     -webkit-box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
     border: solid 1px #54617d;
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     cursor: pointer;
-    margin: 0;
+    margin: 0 !important;
     padding: 0px 10px;
     font-size: 12px;
     line-height: 28px;
@@ -739,19 +864,19 @@ toolbar segmentedcontrol > button {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#92a1bf), 
-            color-stop(0.25, #798aad),
-            color-stop(0.5, #6276a0), 
-            color-stop(0.5, #556a97), 
-            color-stop(0.75, #566c98),
-            to(#546993)); 
+			color-stop(0.25, #798aad),
+			color-stop(0.5, #6276a0), 
+			color-stop(0.5, #556a97), 
+			color-stop(0.75, #566c98),
+			to(#546993));
     color: #fff;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
 }
-navbar > segmentedcontrol > button:hover, 
-navbar > segmentedcontrol > button.selected, 
-navbar > segmentedcontrol > button.selected:hover, 
-navbar > segmentedcontrol > button.selected.touched {
+navbar > segmentedcontrol > uibutton:hover, 
+navbar > segmentedcontrol > uibutton.selected, 
+navbar > segmentedcontrol > uibutton.selected:hover, 
+navbar > segmentedcontrol > uibutton.selected.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
 			from(#7d88a5), 
@@ -759,50 +884,89 @@ navbar > segmentedcontrol > button.selected.touched {
 			color-stop(0.5, #3a4e78), 
 			color-stop(0.5, #253c6a), 
 			color-stop(0.75, #273f6d),
-			to(#273f6d));
+			to(#273f6d)) !important;
     color: #fff;
     border-color: #193a7f;
 }
-navbar segmentedcontrol > button.disabled:hover, 
-navbar button.segmented > button.disabled.touched, 
-toolbar segmentedcontrol > button.disabled:hover, 
-toolbar button.segmented > button.disabledtouched {
+navbar segmentedcontrol > uibutton.disabled:hover, 
+navbar uibutton.segmented > uibutton.disabled.touched, 
+toolbar segmentedcontrol > uibutton.disabled:hover, 
+toolbar uibutton.segmented > uibutton.disabledtouched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#92a1bf), 
-            color-stop(0.25, #798aad),
-            color-stop(0.5, #6276a0), 
-            color-stop(0.5, #556a97), 
-            color-stop(0.75, #566c98),
-            to(#546993)); 
+			color-stop(0.25, #798aad),
+			color-stop(0.5, #6276a0), 
+			color-stop(0.5, #556a97), 
+			color-stop(0.75, #566c98),
+			to(#546993));  
     color: #fff;
     border-color: #484e59 #54617d #4c5c7a #54617d;
 }
-navbar segmentedcontrol > button:first-of-type,
-toolbar segmentedcontrol > button:first-of-type {
+navbar segmentedcontrol > uibutton:first-of-type,
+toolbar segmentedcontrol > uibutton:first-of-type {
     -webkit-border-top-left-radius: 6px;
     -webkit-border-bottom-left-radius: 6px;
     border-left: solid 1px #424650;
 }
-navbar segmentedcontrol > button:last-of-type,
-toolbar segmentedcontrol > button:last-of-type {
+navbar segmentedcontrol > uibutton:last-of-type,
+toolbar segmentedcontrol > uibutton:last-of-type {
     -webkit-border-top-right-radius: 6px;
     -webkit-border-bottom-right-radius: 6px;
 }
-segmentedcontrol > button[ui-usage=icon] > buttoncontent {
+segmentedcontrol > uibutton[ui-usage=icon] {
 	display: -webkit-box;
 	-webkit-box-pack: center;
 	-webkit-box-align: cetner;
 }
-segmentedcontrol > button > buttoncontent > icon {
-	display: -webkit-box;
+segmentedcontrol > uibutton > icon {
+	ddisplay: inline-block;
 	margin: 0;
 }
-/* End Segmented Buttons in Toolbar */
+segmentedcontrol > uibutton > label {
+	display: -webkit-inline-box;
+	position: relative;
+}
+segmentedcontrol > uibutton > icon + label {
+	position: relative;
+	top: -6px;
+}
+segmentedcontrol > uibutton[ui-icon-align=right] {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: reverse;
+}
+segmentedcontrol > uibutton[ui-icon-align=right] icon,
+segmentedcontrol > uibutton[ui-icon-align=right] label {
+	display: block;
+}
+segmentedcontrol > uibutton[ui-icon-align=right] label {
+	margin-bottom: -9px;
+}
+segmentedcontrol > uibutton[ui-icon-align=top] {
+	-webkit-box-orient: vertical !important;
+	-webkit-box-pack: center;
+}
+segmentedcontrol > uibutton[ui-icon-align=bottom] {
+	-webkit-box-orient: vertical !important;
+	-webkit-box-direction: reverse !important;
+	-webkit-box-pack: center;
+}
+segmentedcontrol > uibutton[ui-icon-align=top] > icon + label,
+segmentedcontrol > uibutton[ui-icon-align=bottom] > icon + label{
+	position: static !important;
+}
+segmentedcontrol > uibutton[ui-icon-align=top] > label,
+segmentedcontrol > uibutton[ui-icon-align=top] > icon,
+segmentedcontrol > uibutton[ui-icon-align=bottom] > label,
+segmentedcontrol > uibutton[ui-icon-align=bottom] > icon {
+	display: block;
+}
+/* End Segmented uibuttons in Toolbar */
 
-/* Rounded Rectangle Button Styles */
-button[ui-kind="rounded-rectangle"] {
-	display: block !important;
+/* Rounded Rectangle UIButton Styles */
+uibutton[ui-kind="rounded-rectangle"] {
+	display: -webkit-box !important;
     -webkit-box-sizing: border-box;
     -webkit-box-orient: horizontal;
     height: 46px;
@@ -818,10 +982,10 @@ button[ui-kind="rounded-rectangle"] {
     cursor: pointer;
     padding: 0 8px;
 }
-button[ui-kind="rounded-rectangle"]:hover, 
-button[ui-kind="rounded-rectangle"].touched, 
-button[ui-kind="rounded-rectangle"][ui-implements=done]:hover, 
-button[ui-kind="rounded-rectangle"][ui-implements=done].touched {
+uibutton[ui-kind="rounded-rectangle"]:hover, 
+uibutton[ui-kind="rounded-rectangle"].touched, 
+uibutton[ui-kind="rounded-rectangle"][ui-implements=attention]:hover, 
+uibutton[ui-kind="rounded-rectangle"][ui-implements=attention].touched {
     color: #fff;
     background-image:
         -webkit-gradient(linear, left top, left bottom,
@@ -829,53 +993,59 @@ button[ui-kind="rounded-rectangle"][ui-implements=done].touched {
             color-stop(0.5, #2886eb),
             to(#2874e5));
 }
-button[ui-kind="rounded-rectangle"][ui-implements=done], 
-button[ui-implements=done][ui-kind="rounded-rectangle"] {
+uibutton[ui-kind="rounded-rectangle"][ui-implements=attention], 
+uibutton[ui-implements=attention][ui-kind="rounded-rectangle"] {
     color: #000;
 }
-button[ui-kind="rounded-rectangle"][ui-implements=done]:hover, 
-button[ui-kind="rounded-rectangle"][ui-implements=done].touched  {
+uibutton[ui-kind="rounded-rectangle"][ui-implements=attention]:hover, 
+uibutton[ui-kind="rounded-rectangle"][ui-implements=attention].touched  {
     color: #fff;
 }
-button[ui-kind="rounded-rectangle"].disabled span:last-of-type {
+uibutton[ui-kind="rounded-rectangle"].disabled span:last-of-type {
     opacity: 0.5;
 }
-button[ui-kind="rounded-rectangle"].disabled:hover, 
-button[ui-kind="rounded-rectangle"].disabled.touched {
+uibutton[ui-kind="rounded-rectangle"].disabled:hover, 
+uibutton[ui-kind="rounded-rectangle"].disabled.touched {
     color: #3c6094;
     background-image: none;
     cursor: auto;
 }
-button[ui-kind="rounded-rectangle"][ui-implements=done].disabled:hover,
-button[ui-kind="rounded-rectangle"][ui-implements=done].disabled.touched {
+uibutton[ui-kind="rounded-rectangle"][ui-implements=attention].disabled:hover,
+uibutton[ui-kind="rounded-rectangle"][ui-implements=attention].disabled.touched {
     color: #000;
     background-image: none;
     cursor: auto;
 }
-button[ui-kind="rounded-rectangle"].stretch {
-	width: 94%;
-	margin: 20px auto;
-}
-/* End Rounded Rectangle Button Styles */
 
-/* Default White Action Button Styles */
-button[ui-kind=action] {
+uibuttonn[ui-kind="rounded-rectangle"][ui-implements=attention]:hover, 
+uibuttonn[ui-kind="rounded-rectangle"][ui-implements=attention].touched,
+uibuttonn[ui-implements=attention][ui-kind="rounded-rectangle"]:hover, 
+uibuttonn[ui-implements=attention][ui-kind="rounded-rectangle"].touched{
+    border-color:a7abae !important;
+}
+
+/* End Rounded Rectangle UIButton Styles */
+
+/* Default White Action uibutton Styles */
+uibutton[ui-kind=action] {
     border: solid 1px #64676a;
     border-color: #64676a #717375 #717375 #717375;
     -webkit-box-shadow: 0 1px 1px #fff;
-    display: -webkit-inline-box !important;
+    display: -webkit-box;
+    -webkit-box-pack: justify;
+    -webkit-box-align: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-flex: 1;
 }
-button[ui-kind=action].stretch {
-    display: -webkit-box !important;
-}
-actionsheet > button[ui-kind=action], 
-actionsheet > button[ui-kind=action].disabled, 
-actionsheet > button[ui-kind=action].disabled {
+
+actionsheet > uibutton[ui-kind=action], 
+actionsheet > uibutton[ui-kind=action].disabled, 
+actionsheet > uibutton[ui-kind=action].disabled {
     webkit-box-shadow: none;
 }
-button[ui-kind=action],
-button[ui-kind=action].disabled:hover, 
-button[ui-kind=action].disabled.touched {
+uibutton[ui-kind=action],
+uibutton[ui-kind=action].disabled:hover, 
+uibutton[ui-kind=action].disabled.touched {
     margin: 20px 10px;
     min-width: 110px;
     cursor: pointer;
@@ -894,9 +1064,11 @@ button[ui-kind=action].disabled.touched {
     text-shadow: 0 1px 1px #fff;
     padding: 0px 11px;
     -webkit-font-smoothing: antialiased;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
 }
-button[ui-kind=action]:hover, 
-button[ui-kind=action].touched {
+uibutton[ui-kind=action]:hover, 
+uibutton[ui-kind=action].touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(135,148,203,0.7)), 
@@ -906,23 +1078,28 @@ button[ui-kind=action].touched {
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
-button[ui-kind=action] > buttoncontent > label {
+uibutton[ui-kind=action] > label {
     line-height: 23px;
 }
-button[ui-kind=action].disabled, 
-button[ui-usage=icon].disabled  {
+uibutton[ui-kind=action].disabled, 
+uibutton[ui-usage=icon].disabled  {
     cursor: auto !important;
 }
-button[ui-kind=action].disabled > label {
+uibutton[ui-kind=action].disabled > label {
     opacity: 0.5;
     cursor: auto;
 }
-/* End Default White Action Button Style */
 
-/* Action Cancel Button */
-button[ui-kind=action][ui-implements=cancel],
-button[ui-kind=action][ui-implements=cancel].disabled:hover,
-button[ui-kind=action][ui-implements=cancel].disabled.touched {
+uibutton[ui-kind=action][ui-icon-align=top], 
+uibutton[ui-kind=action][ui-icon-align=bottom] {
+	-webkit-box-orient: vertical !important;
+}
+/* End Default White Action uibutton Style */
+
+/* Action Cancel uibutton */
+uibutton[ui-kind=action][ui-implements=cancel],
+uibutton[ui-kind=action][ui-implements=cancel].disabled:hover,
+uibutton[ui-kind=action][ui-implements=cancel].disabled.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(74,74,74,0.7)), 
@@ -932,8 +1109,8 @@ button[ui-kind=action][ui-implements=cancel].disabled.touched {
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
-button[ui-kind=action][ui-implements=cancel]:hover, 
-button[ui-kind=action][ui-implements=cancel].touched  {
+uibutton[ui-kind=action][ui-implements=cancel]:hover, 
+uibutton[ui-kind=action][ui-implements=cancel].touched  {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(135,148,203,0.7)), 
@@ -943,12 +1120,12 @@ button[ui-kind=action][ui-implements=cancel].touched  {
     color: #fff;
     text-shadow: #000 0 1px 0;
 }
-/* End Action Cancel Button */
+/* End Action Cancel UIButton */
 
-/* Action Delete Button */
-button[ui-kind=action][ui-implements=delete],
-button[ui-kind=action][ui-implements=delete].disabled:hover, 
-button[ui-kind=action][ui-implements=delete].disabled.touched  {
+/* Action Delete UIButton */
+uibutton[ui-kind=action][ui-implements=delete],
+uibutton[ui-kind=action][ui-implements=delete].disabled:hover, 
+uibutton[ui-kind=action][ui-implements=delete].disabled.touched  {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(255,124,151,0.7)), 
@@ -958,8 +1135,8 @@ button[ui-kind=action][ui-implements=delete].disabled.touched  {
     color: #fff;
     text-shadow: #000 0 1px 0;
 }
-button[ui-kind=action][ui-implements=delete]:hover, 
-button[ui-kind=action][ui-implements=delete].touched {
+uibutton[ui-kind=action][ui-implements=delete]:hover, 
+uibutton[ui-kind=action][ui-implements=delete].touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(135,148,203,0.7)), 
@@ -968,12 +1145,12 @@ button[ui-kind=action][ui-implements=delete].touched {
             to(rgba(2,59,152,0.7))); 
     color: #fff;
 }
-/* End Action Delete Button */
+/* End Action Delete UIButton */
 
-/* Action Green Button */
-button[ui-kind=action].green, 
-button[ui-kind=action].green.disabled:hover, 
-button[ui-kind=action].green.disabled.touched {
+/* Action Green UIButton */
+uibutton[ui-kind=action].green, 
+uibutton[ui-kind=action].green.disabled:hover, 
+uibutton[ui-kind=action].green.disabled.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(79,156,74,0.7)), 
@@ -983,8 +1160,8 @@ button[ui-kind=action].green.disabled.touched {
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
-button[ui-kind=action].green:hover, 
-button[ui-kind=action].green.touched {
+uibutton[ui-kind=action].green:hover, 
+uibutton[ui-kind=action].green.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(135,148,203,0.7)), 
@@ -993,12 +1170,12 @@ button[ui-kind=action].green.touched {
             to(rgba(2,59,152,0.7))); 
     color: #fff;
 }
-/* End Action Green Button */
+/* End Action Green UIButton */
 
-/* Gold Action Button */
-button[ui-kind=action].gold,
-button[ui-kind=action].gold.disabled:hover, 
-button[ui-kind=action].gold.disabled.touched {
+/* Gold Action UIButton */
+uibutton[ui-kind=action].gold,
+uibutton[ui-kind=action].gold.disabled:hover, 
+uibutton[ui-kind=action].gold.disabled.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(255,217,0,0.7)), 
@@ -1008,8 +1185,8 @@ button[ui-kind=action].gold.disabled.touched {
     color: #000;
     text-shadow: 0 1px 0 #ccc;
 }
-button[ui-kind=action].gold:hover, 
-button[ui-kind=action].gold.touched {
+uibutton[ui-kind=action].gold:hover, 
+uibutton[ui-kind=action].gold.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(135,148,203,0.7)), 
@@ -1019,12 +1196,12 @@ button[ui-kind=action].gold.touched {
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
-/* End Gold Action Button */
+/* End Gold Action UIButton */
 
-/* Action Important Button */
-button[ui-kind=action][ui-implements=done],
-button[ui-kind=action][ui-implements=done].disabled:hover > span, 
-button[ui-kind=action][ui-implements=done].disabled.touched > span  {
+/* Action Important UIButton */
+uibutton[ui-kind=action][ui-implements=done],
+uibutton[ui-kind=action][ui-implements=done].disabled:hover > span, 
+uibutton[ui-kind=action][ui-implements=done].disabled.touched > span  {
     background-image: 
         -webkit-gradient(linear, left top, left bottom,     
             from(rgba(123,159,235,0.7)), 
@@ -1034,8 +1211,8 @@ button[ui-kind=action][ui-implements=done].disabled.touched > span  {
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
-button[ui-kind=action][ui-implements=done]:hover, 
-button[ui-kind=action][ui-implements=done].touched {
+uibutton[ui-kind=action][ui-implements=done]:hover, 
+uibutton[ui-kind=action][ui-implements=done].touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(rgba(135,148,203,0.7)), 
@@ -1044,7 +1221,7 @@ button[ui-kind=action][ui-implements=done].touched {
             to(rgba(2,59,152,0.7))); 
     color: #fff;
 }
-/* End Action Important Button */
+/* End Action Important UIButton */
 
 /* Sgwt Custom Tint Styles */
 navbar.ui-custom-tint,
@@ -1058,12 +1235,12 @@ toolbar.ui-custom-tint {
 	border-top: 1px solid #878788;
 	border-bottom: 1px solid #2c2c2c; 
 }
-button.ui-custom-tint, 
-button.ui-custom-tint.disabled:hover, 
-button.ui-custom-tint.disabled.touched, 
-button[ui-implements=done].ui-custom-tint.disabled:hover, button[ui-implements=done].ui-custom-tint.disabled.touched, 
-button[ui-implements=delete].ui-custom-tint.disabled:hover, 
-button[ui-implements=delete].ui-custom-tint.disabled.touched {
+uibutton.ui-custom-tint, 
+uibutton.ui-custom-tint.disabled:hover, 
+uibutton.ui-custom-tint.disabled.touched, 
+uibutton[ui-implements=done].ui-custom-tint.disabled:hover, uibutton[ui-implements=done].ui-custom-tint.disabled.touched, 
+uibutton[ui-implements=delete].ui-custom-tint.disabled:hover, 
+uibutton[ui-implements=delete].ui-custom-tint.disabled.touched {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(rgba(255,255,255,.5)), 
@@ -1073,12 +1250,12 @@ button[ui-implements=delete].ui-custom-tint.disabled.touched {
     border: solid 1px #808080;
     border-color: #6f6f6f #4d4d4d #676767 #616161;
 }
-button.ui-custom-tint:hover, 
-button.ui-custom-tint.touched, 
-button[ui-implements=done].ui-custom-tint:hover, 
-button[ui-implements=done].ui-custom-tint.touched, 
-button[ui-implements=delete].ui-custom-tint:hover, 
-button[ui-implements=delete].ui-custom-tint.touched {
+uibutton.ui-custom-tint:hover, 
+uibutton.ui-custom-tint.touched, 
+uibutton[ui-implements=done].ui-custom-tint:hover, 
+uibutton[ui-implements=done].ui-custom-tint.touched, 
+uibutton[ui-implements=delete].ui-custom-tint:hover, 
+uibutton[ui-implements=delete].ui-custom-tint.touched {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(rgba(0,0,0,.1)), 
@@ -1086,7 +1263,7 @@ button[ui-implements=delete].ui-custom-tint.touched {
 			color-stop(0.5, rgba(0,0,0,.6)), 
 			to(rgba(255,255,255,.2)));
 }
-button[ui-implements=back].ui-custom-tint > pointer {
+uibutton[ui-implements=back].ui-custom-tint > pointer {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
 			color-stop(0.05,rgba(255,255,255,.5)), 
@@ -1094,8 +1271,8 @@ button[ui-implements=back].ui-custom-tint > pointer {
 			color-stop(0.5, rgba(0,0,0,.5)), 
 			color-stop(0.95,rgba(0,0,0,.5)));
 }
-button[ui-implements=back].ui-custom-tint:hover > pointer, 
-button[ui-implements=back].ui-custom-tint.touched > pointer {
+uibutton[ui-implements=back].ui-custom-tint:hover > pointer, 
+uibutton[ui-implements=back].ui-custom-tint.touched > pointer {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
 			color-stop(0.05,rgba(0,0,0,.1)), 
@@ -1104,7 +1281,7 @@ button[ui-implements=back].ui-custom-tint.touched > pointer {
 			color-stop(0.95,rgba(255,255,255,.2)));
 }
 
-button[ui-implements=next].ui-custom-tint > pointer {
+uibutton[ui-implements=next].ui-custom-tint > pointer {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
 			color-stop(0.05,rgba(255,255,255,.5)), 
@@ -1112,8 +1289,8 @@ button[ui-implements=next].ui-custom-tint > pointer {
 			color-stop(0.5, rgba(0,0,0,.5)), 
 			color-stop(0.95,rgba(0,0,0,.5)));
 }
-button[ui-implements=next].ui-custom-tint:hover > pointer, 
-button[ui-implements=next].ui-custom-tint.touched > pointer {
+uibutton[ui-implements=next].ui-custom-tint:hover > pointer, 
+uibutton[ui-implements=next].ui-custom-tint.touched > pointer {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
 			color-stop(0.05,rgba(0,0,0,.1)), 
@@ -1121,9 +1298,9 @@ button[ui-implements=next].ui-custom-tint.touched > pointer {
 			color-stop(0.5, rgba(0,0,0,.6)), 
 			color-stop(0.95,rgba(255,255,255,.2)));
 }
-segmentedcontrol > button.ui-custom-tint,
-segmentedcontrol > button.ui-custom-tint.disabled:hover, 
-segmentedcontrol > button.ui-custom-tint.disabled.touched {
+segmentedcontrol > uibutton.ui-custom-tint,
+segmentedcontrol > uibutton.ui-custom-tint.disabled:hover, 
+segmentedcontrol > uibutton.ui-custom-tint.disabled.touched {
 	border: solid 1px #484E59;
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
@@ -1133,8 +1310,8 @@ segmentedcontrol > button.ui-custom-tint.disabled.touched {
 			to(rgba(0,0,0,.5)));
 	color: #fff;
 }
-segmentedcontrol > button.ui-custom-tint:hover, 
-segmentedcontrol > button.ui-custom-tint.touched {
+segmentedcontrol > uibutton.ui-custom-tint:hover, 
+segmentedcontrol > uibutton.ui-custom-tint.touched {
 	border: solid 1px #484E59;
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
@@ -1144,9 +1321,9 @@ segmentedcontrol > button.ui-custom-tint.touched {
 			to(rgba(255,255,255,.35)));
 	color: #fff;
 }
-button[ui-kind=action].ui-custom-tint,
-button[ui-kind=action].ui-custom-tint.disabled:hover, 
-button[ui-kind=action].ui-custom-tint.disabled.touched {
+uibutton[ui-kind=action].ui-custom-tint,
+uibutton[ui-kind=action].ui-custom-tint.disabled:hover, 
+uibutton[ui-kind=action].ui-custom-tint.disabled.touched {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(rgba(255,255,255,.5)), 
@@ -1156,8 +1333,8 @@ button[ui-kind=action].ui-custom-tint.disabled.touched {
 	color: #fff;
 text-shadow: 0 1px 1px #000;
 }
-button[ui-kind=action].ui-custom-tint:hover, 
-button[ui-kind=action].ui-custom-tint.touched {
+uibutton[ui-kind=action].ui-custom-tint:hover, 
+uibutton[ui-kind=action].ui-custom-tint.touched {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(rgba(0,0,0,.45)), 
@@ -1169,16 +1346,17 @@ button[ui-kind=action].ui-custom-tint.touched {
 }
 /* End Sgwt Custom Tint Styles */
 
-*[ui-contains="action-buttons"] {
-	display: -webkit-box;
+*[ui-contains="action-uibuttons"] {
 	-webkit-box-orient: vertical;
 }
 *[ui-contains="action-buttons"] button[ui-kind=action], 
 *[ui-contains="action-buttons"] button[ui-kind=action].disabled:hover {
 	width: 94%;
 	margin: 20px auto;
+margin: 20px auto;
+	-webkit-box-flex: 1 !important;
 }
-/* End Button Styles */
+/* End UIButton Styles */
 
 /* Navbar & Toolbar Styles */
 navbar, toolbar {
@@ -1218,12 +1396,10 @@ navbar h1 {
 	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
 	color: #fff;
 }
-/* Navbar and toolbar alignment for buttons, etc. */
-div[ui-bar-align=left],
-stack[ui-bar-align=left], 
-h1[ui-bar-align=left], 
-button[ui-bar-align=left], 
-button[ui-implements=back][ui-bar-align=left], 
+/* Navbar and toolbar alignment for uibuttons, etc. */
+*[ui-bar-align=left],
+uibutton[ui-bar-align=left], 
+uibutton[ui-implements=back][ui-bar-align=left], 
 segmentedcontrol[ui-bar-align=left] {
 	position: absolute;
 	left: 0px;
@@ -1233,11 +1409,11 @@ segmentedcontrol[ui-bar-align=left] {
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
 }
-div[ui-bar-align=right],
+*[ui-bar-align=right],
 stack[ui-bar-align=right],
 h1[ui-bar-align=right],  
-button[ui-bar-align=right], 
-button[ui-implements=next][ui-bar-align=right], 
+uibutton[ui-bar-align=right], 
+uibutton[ui-implements=next][ui-bar-align=right], 
 segmentedcontrol[ui-bar-align=right] {
 	position: absolute;
 	right: 10px;
@@ -1249,38 +1425,13 @@ segmentedcontrol[ui-bar-align=right] {
 	-webkit-box-sizing: border-box;
 	-webkit-box-pack: end;
 }
-button[ui-bar-align=right], 
-stack[ui-bar-align=right] > button:last-of-type,
+uibutton[ui-bar-align=right], 
+stack[ui-bar-align=right] > uibutton:last-of-type,
 segmentedcontrol[ui-bar-align=right] {
 	margin-right: 0 !important;
 }
-
-button[ui-bar-align=center],
-segmentedcontrol[ui-bar-align=center] {
-	text-align: center;
-	margin: 0 auto !important;
-	display: -webkit-box;
-	-webkit-box-flex: 0;
-	-webkit-box-align: center;
-	-webkit-box-orient: horizontal;
-	-webkit-box-sizing: border-box;
-	-webkit-box-pack: center;
-}
-h1[ui-bar-align=center] {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-	-webkit-box-flex: 0 !important;
-	text-align: center;
-	margin: 0px auto;
-	-webkit-box-flex: 0;
-	font: bold 20px/32px Helvetica, Sans-serif;
-	letter-spacing: -1px;
-	text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
-	color: #fff;
-	display: block;
-}
-button[ui-bar-align=left] > buttoncontent, navbar button > buttoncontent {
+uibutton[ui-bar-align=left], 
+navbar uibutton {
 	height: 30px;
 }
 navbar segmentedcontrol, 
@@ -1326,8 +1477,21 @@ tableview > tablecell:hover, tableview > tablecell.touched {
             to(#194fdb));
     color: #fff;
 }
+
+tableview > tablecell.ui-no-hover:hover,
+tableview > tablecell.ui-no-hover.touched,
+tableview > tablecell.ui-no-hover:hover > celltitle {
+	background-image: none !important;
+	color: #000 !important;
+}
 tableview > tablecell:hover > * {
 	color: #fff !important;
+}
+view tableview > tablecell.ui-no-hover:hover > cellsubtitle {
+	color: #586B96 !important;
+}
+view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
+	color: #666 !important;
 }
 tableview > tablecell:hover > span, tableview > tablecell.touched > span {
     color: #fff;
@@ -1350,11 +1514,10 @@ tablecell[ui-implements=disclosure]:hover:after {
     color: #fff;
 }
 tablecell[ui-usage=icon][ui-implements=disclosure]:after, tablecell[ui-implements=disclosure][ui-usage=icon]:after {
-    margin-top: -2px;
     margin-bottom: -20px;
 }
-tablecell[ui-usage=image][ui-implements=disclosure]:after {, tablecell[ui-implements=disclosure][ui-usage=image]:after
-    margin-top: 11px;
+tablecell[ui-usage=image][ui-implements=disclosure]:after, tablecell[ui-implements=disclosure][ui-usage=image]:after {
+    margin-top: 11px !important;
     margin-bottom: -20px;
 }
 tablecell[ui-implements=detail-disclosure]:after {
@@ -1377,7 +1540,7 @@ tablecell[ui-implements=detail-disclosure]:after {
     border: solid 3px #fff;
     -webkit-box-shadow: 0 1px 3px #666;
     float: right;
-    margin-top: 0px;
+    margin-top: -1px;
     margin-left: -10px;
     -webkit-box-sizing: border-box;
     position: absolute !important;
@@ -1391,6 +1554,9 @@ tablecell[ui-implements=add][ui-usage=icon]:after {
     margin-top: 6px;
     margin-bottom: -16px;
     margin-left: -10px;
+}
+tablecell[ui-usage=icon][ui-implements=add]:after {
+	margin-top: -25px;
 }
 tablecell[ui-usage=image][ui-implements=disclosure]:after, 
 tablecell[ui-implements=disclosure][ui-usage=image][:after, 
@@ -1443,20 +1609,22 @@ tablecell > celltitle {
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
+    margin-top: 2px;
+}
+tablecell > celltitle:not(celltitle + subtitle) {
+	width: 80%;
 }
 tablecell > cellsubtitle {
     color: #586b96;
     position: absolute;
     right: 10px;
+    margin-top: 4px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
 }
-tablecell/*[ui-subtitle-alignment=right]*/ > celltitle {
-    width: 40%;
-}
-tablecell/*[ui-subtitle-alignment=right]*/ > cellsubtitle {
+tablecell > cellsubtitle {
     width: 54%;
     text-align: right;
     margin-right: 0px;
@@ -1464,15 +1632,20 @@ tablecell/*[ui-subtitle-alignment=right]*/ > cellsubtitle {
 }
 /* End default celltitle and cellsubtitle styles */
 
+tablecell[ui-implements=disclosure] > celltitle:only-child, 
+tablecell[ui-implements=detail-disclosure] > celltitle:only-child, 
+tablecell[ui-implements=add] > celltitle:only-child {
+    width: 90%; 
+}
 tablecell[ui-implements=disclosure] > celltitle, 
 tablecell[ui-implements=detail-disclosure] > celltitle, 
 tablecell[ui-implements=add] > celltitle {
-    width: 90%;
+    width: 45%;
 }
 tablecell[ui-usage=icon] > celltitle {
     width: 70%;
 }
-tablecell[ui-usage=icon] > span, tablecell[ui-usage=image] > span {
+tablecell[ui-usage=icon] > img, tablecell[ui-usage=image] > img {
     display: inline-block;
     margin-right: 6px;
 	-webkit-transition: -webkit-transform .25s ease-in-out;
@@ -1480,24 +1653,46 @@ tablecell[ui-usage=icon] > span, tablecell[ui-usage=image] > span {
 tableview > tablecell[ui-usage=image] {
     padding: 0 6px 0 0;
 }
-tablecell[ui-usage=icon] > span > img, 
-tablecell[ui-usage=image] > span > img {
-    display: block;
+tablecell[ui-usage=icon] > img {
+	margin-bottom: -10px;
 }
-tablecell[ui-usage=image] > span:first-of-type {
-    float: left;
+tablecell[ui-usage=image] > img {
+    float: left !important;
     height: 55px;
     width: 55px;
 }
-tableview > tablecell[ui-usage=icon] > celltitle {
+tableview > tablecell[ui-usage=icon] > celltitle,
+tableview[ui-tablecell-order=stacked][ui-usage=icon] > celltitle,
+tableview[ui-usage=icon][ui-tablecell-order=stacked] > celltitle {
     position: relative;
-    top: -6px;
-    width: 75% !important;
+    top: 2px;
+    width: 70% !important;
+    display: inline-block !important;
 }
-tablecell[ui-usage=image] > span + celltitle {
-    margin-top: 15px;
+tableview > tablecell[ui-usage=icon] > cellsubtitle,
+tableview[ui-tablecell-order=stacked][ui-usage=icon] > img + cellsubtitle,
+tableview[ui-usage=icon][ui-tablecell-order=stacked] > img + cellsubtitle {
+    position: relative;
+    top: 2px;
+    width: 70% !important;
+    display: inline-block !important;
+    margin-left: 40px !important;
+}
+tablecell[ui-usage=image] > img + celltitle {
+    position: relative;
+    top: 14px;
     width: 70%;
-    float: left;
+}
+
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle, {
+    width: 75%;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > img + celltitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > img ~ cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > img + celltitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > img ~ cellsubtitle {
+	width: 63% !important;
 }
 tablecell[ui-implements=disclosure] > cellsubtitle, 
 tablecell[ui-implements=detail-disclosure] > cellsubtitle, 
@@ -1505,12 +1700,12 @@ tablecell[ui-implements=add] > cellsubtitle {
     width: 46%;
     margin-right: 26px;
 }
-tableview[ui-table-cell-order=centered] > tablecell {
+tableview[ui-tablecell-order=centered] > tablecell {
 	position: relative;
 }
-tableview[ui-table-cell-order=centered] > tablecell > celltitle,
-tableview[ui-table-cell-order=centered][ui-kind=grouped] > tablecell > celltitle,
-tableview[ui-kind=grouped][ui-table-cell-order=centered] > tablecell > celltitle  {
+tableview[ui-tablecell-order=centered] > tablecell > celltitle,
+tableview[ui-tablecell-order=centered][ui-kind=grouped] > tablecell > celltitle,
+tableview[ui-kind=grouped][ui-tablecell-order=centered] > tablecell > celltitle  {
     color: #586B96;
     text-align: right;
     font-size: 14px;
@@ -1522,7 +1717,7 @@ tableview[ui-kind=grouped][ui-table-cell-order=centered] > tablecell > celltitle
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-tableview[ui-table-cell-order=centered] > tablecell > cellsubtitle {
+tableview[ui-tablecell-order=centered] > tablecell > cellsubtitle {
     color: #000;
     text-align: left;
     font-size: 16px;
@@ -1538,125 +1733,132 @@ tableview[ui-table-cell-order=centered] > tablecell > cellsubtitle {
     float: none;
     text-align: left;
 }
-tableview[ui-table-cell-order=stacked] > tablecell > cellsubtitle {
+tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
 	float: none;
 	position: relative;
 	margin-left: 0px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell > span, 
-tableview[ui-table-cell-order=stacked]> tablecell > celltitle, 
-tableview[ui-table-cell-order=stacked] > tablecell > cellsubtitle {
+tableview[ui-tablecell-order=stacked] > tablecell > span, 
+tableview[ui-tablecell-order=stacked]> tablecell > celltitle, 
+tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
     display: block;
     position: static;
     text-align: left;
 }
-tableview[ui-table-cell-order=stacked] > tablecell > celltitle {
+tableview[ui-tablecell-order=stacked] > tablecell > celltitle {
 	width: 65%
 }
-tableview[ui-table-cell-order=stacked] > tablecell > cellsubtitle {
+tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
 	color: #666;
 	width: 90%;
 }
-body.portrait tableview[ui-table-cell-order=stacked] > tablecell > cellsubtitle {
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
 	width: 85% !important;
 }
-body.portrait tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon] > cellsubtitle, 
-body.portrait tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > cellsubtitle, 
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
 	width: 60% !important;
 }
-body.portrait tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon] > cellsubtitle {
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > cellsubtitle {
 	width: 70% !important;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=disclosure]:after, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=detail-disclosure]:after, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=add]:after {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=disclosure]:after, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=detail-disclosure]:after, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=add]:after {
     position: absolute;
     right: 10px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=disclosure]:after {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=disclosure]:after {
 	top: 10px;
 }
-tableview[ui-kind=grouped][ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=image][ui-implements=detail-disclosure]:after, 
-tableview[ui-kind=grouped][ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=detail-disclosure][ui-usage=image]:after {
+tableview[ui-kind=grouped][ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=image][ui-implements=detail-disclosure]:after, 
+tableview[ui-kind=grouped][ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=detail-disclosure][ui-usage=image]:after {
 	top: 10px !important;
 	position: absolute;
 	right: 10px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=disclosure] > celldetail, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=detail-disclosure] > celldetail, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=add] > celldetail {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=disclosure] > celldetail, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=detail-disclosure] > celldetail, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=add] > celldetail {
     padding-right: 30px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > celldetail {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celldetail {
     margin-left: 68px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > celltitle {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle {
     margin-top: 6px;
-    margin-left: 6px;
+    margin-left: 66px;
+
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
 	display: inline-block;
 	margin-top: 0;
 	margin-left: 6px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > celldetail {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celldetail {
 	display: block;
 	margin-top: 0;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image]:after {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image]:after {
     float: none;
     position: absolute !important;
     right: 10px;
     top: 10px !important;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > celltitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
-    width: 75%;
+tablecell[ui-usage=icon][ui-implements=disclosure] > img + celltitle + cellcounter + cellsubtitle {
+	width: 60%;	
 }
-
-body.portrait tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > celltitle, 
-body.portrait tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle, 
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
 	width: 20%;
 }
-body.portrait tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > celltitle, body.portrait tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle, body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
     width: 65% !important;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=icon][ui-implements=disclosure] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=icon][ui-implements=detail-disclosure] > cellsubtitle, tableview[ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=icon][ui-implements=add] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=disclosure][ui-usage=icon] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=detail-disclosure][ui-usage=icon] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=add][ui-usage=icon] > cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=icon][ui-implements=disclosure] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=icon][ui-implements=detail-disclosure] > cellsubtitle, tableview[ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=icon][ui-implements=add] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=disclosure][ui-usage=icon] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=detail-disclosure][ui-usage=icon] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=add][ui-usage=icon] > cellsubtitle,
 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon][ui-subtitle-alignment=right][ui-implements=disclosure] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon][ui-subtitle-alignment=right][ui-implements=detail-disclosure] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon][ui-subtitle-alignment=right][ui-implements=add] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=disclosure][ui-subtitle-alignment=right][ui-usage=icon] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=detail-disclosure][ui-subtitle-alignment=right][ui-usage=icon] > cellsubtitle,
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=add][ui-subtitle-alignment=right][ui-usage=icon] > cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon][ui-subtitle-alignment=right][ui-implements=disclosure] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon][ui-subtitle-alignment=right][ui-implements=detail-disclosure] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon][ui-subtitle-alignment=right][ui-implements=add] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=disclosure][ui-subtitle-alignment=right][ui-usage=icon] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=detail-disclosure][ui-subtitle-alignment=right][ui-usage=icon] > cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=add][ui-subtitle-alignment=right][ui-usage=icon] > cellsubtitle,
 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon][ui-implements=disclosure][ui-subtitle-alignment=right] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon][ui-implements=detail-disclosure][ui-subtitle-alignment=right] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon][ui-implements=add][ui-subtitle-alignment=right] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=disclosure][ui-usage=icon][ui-subtitle-alignment=right] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=detail-disclosure][ui-usage=icon][ui-subtitle-alignment=right] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=add][ui-usage=icon][ui-subtitle-alignment=right] > cellsubtitle {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon][ui-implements=disclosure][ui-subtitle-alignment=right] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon][ui-implements=detail-disclosure][ui-subtitle-alignment=right] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon][ui-implements=add][ui-subtitle-alignment=right] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=disclosure][ui-usage=icon][ui-subtitle-alignment=right] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=detail-disclosure][ui-usage=icon][ui-subtitle-alignment=right] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=add][ui-usage=icon][ui-subtitle-alignment=right] > cellsubtitle {
 	width: 68% !important;
 }
-tableview[ui-table-cell-order=stacked] > tablecell > celldetail {
+tablecell > celldetail {
     font-size: 12px;
     color: #4c5f70;
     line-height: 16px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon] > span:first-of-type {
+
+tableview > tablecell.ui-no-hover:hover > celldetail,
+tableview > tablecell.ui-no-hover.touched > celldetail {
+	font-size: 12px;
+    color: #4c5f70 !important;
+    line-height: 16px;
+}
+
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > span:first-of-type {
     float: left;
     width: auto;
     margin-top: 6px;
 }
 
-tableview[ui-table-cell-order=stacked] > tablecell[ui-usage=icon] > .subtitle {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > .subtitle {
 	width: 75% !important;
 }
-tableview > tablecell[ui-implements=celltitle-with-button] > button {
+tableview > tablecell[ui-implements=celltitle-with-button] > uibutton {
     display: -webkit-inline-box;
     float: right;
 }
@@ -1704,7 +1906,7 @@ celldatetime {
 	color: #2671d8;
 	float: right;
 	margin-right: 34px;
-	margin-top: -20px;
+	margin-top: -24px;
 	font-size: 14px;
 	text-align: right;
 	-webkit-transform: translate3d(0,0,0);
@@ -1716,17 +1918,15 @@ tableview > tablecell > cellcounter {
 	display: inline-block !important;
 	float: right;
 	margin-right: 32px;
-	margin-top: -11px;
+	margin-top: 8px;
+	margin-top: 4px;
 	margin-bottom: -20px;
 	font-size: 14px;
 	color: #fff;
 	padding: 0 8px;
 	line-height: 20px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell[ui-implements=detail-disclosure] > cellcounter {
-	margin-top: -10px;
-}
-tableview > tablecell > button {
+tableview > tablecell > uibutton {
 	display: inline-box !important;
 }
 
@@ -1782,7 +1982,7 @@ tableview > tablecell > celltitle, tableview > tablecell > cellsubtitle, tablevi
 tableview.ui-show-delete-disclosures celltitle {
 	-webkit-transform: translate3d(40px,0,0);
 }
-tableview[ui-table-cell-order=centered].ui-show-delete-disclosures celltitle {
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures celltitle {
 	-webkit-transform: none;
 	width: 35%;
 }
@@ -1798,26 +1998,26 @@ tableview.ui-show-delete-disclosures tablecell:after, tableview.ui-show-delete-d
 tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle, tableview.ui-show-move-indicator > tablecell[ui-draggable]:hover > cellsubtitle {
     color: #586b96 !important;
 }
-tableview[ui-table-cell-order=centered].ui-show-delete-disclosures > tablecell:hover > celltitle, tableview[ui-table-cell-order=centered].ui-show-move-indicator > tablecell[ui-draggable]:hover > celltitle {
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures > tablecell:hover > celltitle, tableview[ui-tablecell-order=centered].ui-show-move-indicator > tablecell[ui-draggable]:hover > celltitle {
     color: #586B96 !important;
 }
-tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle, tableview.ui-show-move-indicator > tablecell:hover > cellsubtitle, tableview[ui-table-cell-order=centered].ui-show-move-indicator > tablecell[ui-draggable]:hover > cellsubtitle {
+tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle, tableview.ui-show-move-indicator > tablecell:hover > cellsubtitle, tableview[ui-tablecell-order=centered].ui-show-move-indicator > tablecell[ui-draggable]:hover > cellsubtitle {
     color: #000 !important;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell:hover > cellsubtitle, 
-tableview[ui-table-cell-order=stacked].ui-show-move-indicator > tablecell:hover > cellsubtitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > cellsubtitle, 
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell:hover > cellsubtitle {
 	color: #666 !important;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldetail, 
-tableview[ui-table-cell-order=stacked].ui-show-move-indicator > tablecell:hover > celldetail {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldetail, 
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell:hover > celldetail {
     color: #4c5f70 !important;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldatetime, 
-tableview[ui-table-cell-order=stacked].ui-show-move-indicator > tablecell:hover > .celldatetime {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldatetime, 
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell:hover > .celldatetime {
 	color: #2671d8 !important;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell > cellsubtitle, 
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell > celldetail {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell > cellsubtitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell > celldetail {
 	-webkit-transform: translate3d(40px,0,0);
 }
 tableview.ui-show-delete-disclosures > tablecell[ui-usage=icon] span:nth-child(2), 
@@ -1826,41 +2026,41 @@ tableview.ui-show-delete-disclosures > tablecell[ui-usage=image] span:nth-child(
 }
 
 /* Adjust widths for delete-disclosure */
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=disclosure] > celltitle, 
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[imlements=detail-disclosure] > celltitle, 
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=add] > celltitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=disclosure] > celltitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[imlements=detail-disclosure] > celltitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=add] > celltitle {
     width: 80%;
 }
 tableview.ui-show-delete-disclosures > tablecell.subtitle > celltitle {
 	width: 30%;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
     width: 60%;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
     width: 72%;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
     width: 65% !important;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=image] > span + celltitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=image] > span + celltitle {
     width: 60%;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=disclosure] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=detail-disclosure] > cellsubtitle, 
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=add] > cellsubtitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=disclosure] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=detail-disclosure] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=add] > cellsubtitle {
     width: 36%;
 }
-tableview[ui-table-cell-order=centered].ui-show-delete-disclosures  > tablecell > celltitle {
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures  > tablecell > celltitle {
     width: 22%;
 }
-tableview[ui-table-cell-order=centered].ui-show-delete-disclosures  > tablecell > cellsubtitle {
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures  > tablecell > cellsubtitle {
     width: 60%;
 }
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures  > tablecell > celltitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures  > tablecell > celltitle {
 	width: 40%
 } 
-tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures  > tablecell > cellsubtitle {
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures  > tablecell > cellsubtitle {
 	width: 80%;
 }
 /* Styles for Move Indicator */
@@ -1874,8 +2074,8 @@ tableview[ui-table-cell-order=stacked].ui-show-delete-disclosures  > tablecell >
 	top: 12px;
 	right: 10px;
 }
-tableview[ui-table-cell-order=stacked] > tablecell .ui-move-indicator, 
-tableview[ui-table-cell-order=stacked].ui-show-move-indicator > tablecell .ui-move-indicator {
+tableview[ui-tablecell-order=stacked] > tablecell .ui-move-indicator, 
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell .ui-move-indicator {
 	top: 20px;
 }
 .ui-show-move-indicator > tablecell .ui-move-indicator {
@@ -1890,11 +2090,11 @@ tableview.ui-show-move-indicator > tablecell > cellsubtitle {
 	-webkit-transform: translate3d(-40px,0,0);
 	width: 45%;
 }
-tableview[ui-table-cell-order=stacked].ui-show-move-indicator > tablecell > cellsubtitle {
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell > cellsubtitle {
 	width: 85%;
 	-webkit-transform: translate3d(0px,0,0);
 }
-tableview[ui-table-cell-order=stacked].ui-show-move-indicator > tablecell > celldatetime {
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell > celldatetime {
 	-webkit-transition: transform .25s ease-in-out;
 	-webkit-transform: translate3d(-10px,0,0);
 }
@@ -1903,6 +2103,7 @@ tableview[ui-table-cell-order=stacked].ui-show-move-indicator > tablecell > cell
 /* Table Headers and Footers */
 tableheader {
 	padding: 6px 10px;
+	text-align: center;
 	font-size: 16px;
 	color: #666;
 	text-shadow: 0px 1px 1px #fff;
@@ -1923,10 +2124,8 @@ popup {
 	width: 320px;
 	border: solid 1px #72767b;
 	-webkit-box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
-	-moz-box-shadow: 0px 0px 1px #72767b,  0px 4px 6px #666;
-	box-shadow: 0px 0px 1px #72767b, 0px 4px 6px #666;
+	box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
 	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
 	border-radius: 10px;
 	padding: 0px;
 	opacity: 1;
@@ -1992,7 +2191,7 @@ popup toolbar > h1 {
 popup > panel > p, popup > panel > message {
 	margin-top: 0;
 }
-popup > panel > button {
+popup > panel > uibutton {
 
 	text-align: center;
 	display: -webkit-box;
@@ -2010,7 +2209,7 @@ popup > panel > toolbar[ui-placement=bottom] {
 	height: auto;
 	position: relative;
 }
-popup > panel > toolbar[ui-placement=bottom] > button {
+popup > panel > toolbar[ui-placement=bottom] > uibutton {
 	-webkit-box-flex: 1;
 	display: -webkit-box;
 	width: 45%;
@@ -2022,7 +2221,7 @@ popup > panel > toolbar[ui-placement=bottom] > button {
 	line-height: 32px;
 	-webkit-border-radius: 8px;padding: 4px 10px;
 }
-popup toolbar[ui-placement=bottom] > button[ui-kind=action][ui-implements=cancel] {
+popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cancel] {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(#828ba3), 
@@ -2036,7 +2235,7 @@ popup toolbar[ui-placement=bottom] > button[ui-kind=action][ui-implements=cancel
     		-webkit-font-smoothing: antialiased;
     		padding: 9px;
 }
-popup toolbar[ui-placement=bottom] > button[ui-kind=action][ui-implements=continue] {
+popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=continue] {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(#b0b6c4), 
@@ -2050,7 +2249,7 @@ popup toolbar[ui-placement=bottom] > button[ui-kind=action][ui-implements=contin
 			-webkit-font-smoothing: antialiased;
     		padding: 9px;
 }
-popup toolbar[ui-placement=bottom] > button[ui-kind=action]:hover, popup toolbar[ui-placement=bottom] > button[ui-kind=action].hover {
+popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action]:hover, popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action].hover {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(#70747f), 
@@ -2206,12 +2405,6 @@ switchcontrol[ui-implements=attention] > label[ui-implements=on] {
 switchcontrol.disabled {
     display: none;
 }
-tableview > tablecell[ui-prevent-hover=true].ui-no-hover:hover,
-tableview > tablecell[ui-prevent-hover=true].ui-no-hover.touched,
-tableview > tablecell[ui-prevent-hover=true].ui-no-hover:hover > celltitle {
-	background-image: none !important;
-	color: #000 !important;
-}
 /* End switchcontrol */
 /* Styles for actionsheet */
 actionsheet, actionsheet[ui-action-sheet-color=blue] {
@@ -2286,6 +2479,92 @@ screencover {
 screencover.hidden {
 	display: none;
 }
+
+/* Styles for Slider */
+slider {
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+    height: 9px;
+    padding: 1px;
+    -webkit-border-radius: 4px;
+    background-image: 
+        -webkit-gradient(linear, left top ,left bottom,
+           from(#0a3a86),
+           color-stop(.5, #4c8de7),
+           color-stop(.95, #6babf5),
+           to(#0a3a86)),
+        -webkit-gradient(linear, left top ,left bottom,
+            from(#bbbbbb),
+            color-stop(.5, #f0f0f0),
+            color-stop(.5, #fff));
+    background-repeat: no-repeat, repeat-x;
+    -webkit-background-size: 0px 9px, 100% 9px;
+}
+slider > thumb {
+	display: block;
+	-webkit-box-size: border-box;
+    position:relative;
+    -webkit-box-shadow: 1px 1px 2px #666;
+    height:24px;
+    width:25px;
+    left: 0px; 
+    top: -10px;
+    -webkit-border-radius: 12px;
+    background-image: 
+        -webkit-gradient(linear, left top, left bottom,
+            from(#d1d1d1),
+            to(#fdfdfd));
+    cursor: move;
+    -webkit-tap-highlight-color: transparent;
+    overflow: hidden;
+}
+slider > thumb > thumbprop {
+	display: block;
+    width 19px;
+    height: 19px;
+    margin: 3px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 -2px 3px #fff;
+}
+slider.media-player {
+	background-image:
+        -webkit-gradient(linear, left top ,left bottom,
+           from(#c9d3e7),
+           color-stop(.5, #75a9f5),
+           color-stop(.5, #2d6fc6),
+           to(#3195e7)),
+		-webkit-gradient(linear, left top, left bottom,
+			from(#f0f0f0),
+			color-stop(.2, #9a9a9a),
+			color-stop(.3, #cbcbcb),
+			color-stop(.4, #f0f0f0),
+			to(#f0f0f0));
+}
+slider.media-player > thumb {
+	background-image: none;
+	border: solid 1px #cbcbcb;
+	margin-top: 2px;
+	height: 20px;
+	width: 21px;
+}
+slider.media-player > thumb > thumbprop {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+	background-image:
+		-webkit-gradient(radial, right 130%, 0, right bottom, 36, 
+			from(rgba(0,0,0,0)), 
+			color-stop(.43, rgba(0,0,0,.1)),
+			color-stop(.45, rgba(0,0,0,.4)), 
+			color-stop(.5, rgba(255,255,255,.8)), 
+			to(#fff)),
+		
+		-webkit-gradient(linear, left top, left bottom,
+			from(#8e8e8e),
+			to(#fff));
+}
+/* End Slider Styles */
 /* End Action Sheet Styles */
 .UIActivityIndicator {
 	background-image: -webkit-canvas(area);

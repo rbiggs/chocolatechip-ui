@@ -72,9 +72,11 @@ $.UIGallery
 
 $.ready(function() {
 	
+	const UIExpectedChocolateChipJSVersion = "1.1.2";
+	
 	UICheckChocolateChipJSVersion = function() {
-		if ($.version !== "1.1.2") {
-			console.error("This version of ChocolateChip-UI requries ChococlateChip.js version 1.1.2");
+		if ($.version !== UIExpectedChocolateChipJSVersion) {
+			console.error("This version of ChocolateChip-UI requries ChococlateChip.js version " + UIExpectedChocolateChipJSVersion + "!");
 		}
 	};
 	UICheckChocolateChipJSVersion();
