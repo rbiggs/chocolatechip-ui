@@ -71,6 +71,14 @@ $.UIGallery
 */
 
 $.ready(function() {
+	
+	UICheckChocolateChipJSVersion = function() {
+		if ($.version !== "1.1.2") {
+			console.error("This version of ChocolateChip-UI requries ChococlateChip.js version 1.1.2");
+		}
+	};
+	UICheckChocolateChipJSVersion();
+	
 	$.extend($, {
 		UIVersion : "0.5beta",
 		

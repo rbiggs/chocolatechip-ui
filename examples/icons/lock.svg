@@ -1,42 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:xlink="http://www.w3.org/1999/xlink"
-   version="1.1"
-   width="48"
-   height="48"
-   id="svg3193">
-  <defs
-     id="defs3195">
-    <mask
-       id="mask5773">
-      <image
-         xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAgCAAAAABxv6TAAAAAAXNCSVQI5gpbmQAAAN1JREFUOI2Nk0sVxSAMBUcCEiqhUpAQCU9CnSCpUpCQt6BQ/g27kpkk93AKZ1TziSdcuNvK344LDc4FGx+cC0ryLHzahbSZfAaJktJSf+z43JR63Pq8az/CR/SqmoVt9Hp+EdbR24SsCqtG1LVZ9H7VRphEH25aYeg3zuwEjVQbR4E+VS8IR4keTw5kLwhS1rgdl0pvMPA56BO3Nxj51LvE7QwmfPoVyyO2BjNeNf5+cVqohCHevBWzy53BeLU3MPEVgI1/EYx8gbDyGcPMPyB2Phl4O68qePB2XtXzBwVHSZxAaGMtAAAAAElFTkSuQmCC"
-         width="1"
-         height="1"
-         id="image5775" />
-    </mask>
-    <clipPath
-       id="clipPath5767">
-      <path
-         d="m 15.8847,1131.666 48,0 0,32 -48,0 0,-32 z"
-         id="path5769" />
-    </clipPath>
-  </defs>
-  <g
-     id="layer1"
-     style="display:none">
-    <image
-       xlink:href="file:///Users/rbiggs/chocolatechip-ui-03/examples/icons/apple-logo.jpg"
-       x="-62"
-       y="-53"
-       width="172"
-       height="154"
-       id="image3320" />
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px"
+	 height="48px">
   <g
      id="layer2">
     <g

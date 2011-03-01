@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
    xmlns:svg="http://www.w3.org/2000/svg"
@@ -9,19 +8,6 @@
    width="64"
    height="64"
    id="svg3426">
-  <defs
-     id="defs3428" />
-  <g
-     id="layer1"
-     style="display:none">
-    <image
-       xlink:href="file:///Users/rbiggs/chocolatechip-ui-03/examples/icons/droid_logo.png"
-       x="-119.02852"
-       y="-84.57222"
-       width="300"
-       height="264"
-       id="image3498" />
-  </g>
   <g
      id="layer3">
     <path

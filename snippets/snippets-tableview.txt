@@ -3,3 +3,581 @@ Snippets for ChocolateChip-UI
 
 Tableviews
 ==========
+
+**Basic Tableview**
+
+<tableview>
+	<tablecell>
+		<celltitle>Item</celltitle>
+	</tablecell>
+</tableview>
+
+
+**Tableview with Tableheader**
+
+<tableview>
+	<tableheader>
+		Tableview Header.
+	</tableheader>
+	<tablecell>
+		<celltitle>Item</celltitle>
+	</tablecell>
+</tableview>
+
+
+**Tableview with Tablefooter**
+
+<tableview>
+	<tablecell>
+		<celltitle>Item</celltitle>
+	</tablecell>
+	<tablefooter>
+		Tableview Footer.
+	</tablefooter>
+</tableview>
+
+
+**Grouped Tableviews**
+
+<tableview ui-kind="grouped">
+	<tablecell>
+		<celltitle>Item</celltitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped">
+	<tableheader>
+		Tableview Header.
+	</tableheader>
+	<tablecell>
+		<celltitle>Item</celltitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped">
+	<tablecell>
+		<celltitle>Item</celltitle>
+	</tablecell>
+	<tablefooter>
+		Tableview Footer.
+	</tablefooter>
+</tableview>
+
+
+**Tablecells is Cell Indicators**
+
+<tablecell ui-implements="disclosure">
+	<celltitle>Item</celltitle>
+</tablecell>
+
+
+<tablecell>
+	<celltitle ui-implements="detail-disclosure">Item</celltitle>
+</tablecell>
+	
+
+<tablecell ui-implements="detail-disclosure" class="green">
+	<celltitle>Item</celltitle>
+</tablecell>
+
+
+<tablecell ui-implements="add">
+	<celltitle>Item</celltitle>
+</tablecell>
+
+
+<tablecell ui-implements="add" class="green">
+	<celltitle>Item</celltitle>
+</tablecell>
+	
+
+**Tablecell with Image**
+
+<tablecell ui-usage="image">
+	<img src="images/image.png">
+	<celltitle>Song 1</celltitle>
+</tablecell>
+
+	
+<tablecell ui-usage="image" ui-implements="detail-disclosure">
+	<img src="images/image.png">
+	<celltitle>Song 1</celltitle>
+</tablecell>
+
+
+**Tablecell with Icon**
+
+<tablecell ui-usage="icon">
+	<img src="images/image.png">
+	<celltitle>Item</celltitle>
+</tablecell>
+	
+
+<tablecell ui-usage="icon" ui-implements="disclosure">
+	<img src="images/image.png">
+	<celltitle>Item</celltitle>
+</tablecell>
+
+
+**Tablecell with Button**
+
+<tablecell ui-implements="celltitle-with-button" class="ui-no-hover">
+	<celltitle>Item</celltitle>
+	<button>
+		<label>Button</label>
+	</button>
+</tablecell>
+
+
+**Tablecell with Switch Control**
+
+<tablecell class="ui-no-hover">
+	<celltitle>Item</celltitle>
+	<switchcontrol class="off" id="switch_01">
+		<label ui-implements="on">ON</label>
+		<thumb><thumbprop></thumbprop></thumb>
+		<label ui-implements="off">OFF</label>
+		<input type="checkbox" value="Put Your Value Here">
+	</switchcontrol>
+</tablecell>
+
+
+**Tablecells with Celltitle**
+
+<tablecell>
+	<tablecell>
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tablecell>
+
+
+<tablecell>
+	<tablecell ui-implements="detail">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tablecell>
+
+
+<tablecell>
+	<tablecell ui-implements="detail-disclosure">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tablecell>
+
+
+<tablecell>
+	<tablecell ui-implements="detail-disclosure" class="green">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tablecell>
+
+
+<tablecell>
+	<tablecell ui-implements="add">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tablecell>
+
+
+<tablecell>
+	<tablecell ui-implements="add" class="green">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tablecell>
+
+
+**Stacked Tablecells**
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell>
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell>
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-implements="disclosure">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-implements="detail-disclosure">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-implements="detail-disclosure" class="green">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-implements="add">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-implements="add" class="green">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+**Stacked Tablecell with Image**
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="image">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell  ui-usage="image">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="image" ui-implements="disclosure">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="image" ui-implements="detail-disclosure">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="image" ui-implements="detail-disclosure" class="green">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="image" ui-implements="add">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="image" ui-implements="add" class="green">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+**Centered Tableview**
+
+<tableview ui-tablecell-order="centered">
+	<tablecell>
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="centered">
+	<tablecell>
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+**Tableview with Celldetail**
+
+<tableview>
+	<tablecell class="ui-no-hover">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped">
+	<tablecell class="ui-no-hover">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+**Stacked Tableview with Celldetail**
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell class="ui-no-hover">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell class="ui-no-hover">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+**Stacked Tablview with Celldetail and Image**
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-usage="image" class="ui-no-hover">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-usage="image" ui-implements="disclosure">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-usage="image" ui-implements="detail-disclosure">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell ui-usage="image" class="ui-no-hover">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell ui-usage="image" ui-implements="detail-disclosure">
+		<img src="images/image.png">
+		<celltitle>Item</celltitle>
+		<cellsubtitle>Item Subtitle</cellsubtitle>
+		<celldetail>Lorem ipsum dolor sit amet.
+		</celldetail>
+	</tablecell>
+</tableview>
+
+
+**Tablecell with Datetime Indicator**
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell>
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-implements="disclosure">
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-implements="detail-disclosure">
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-implements="detail-disclosure" class="green">
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-implements="add">
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell ui-implements="add" class="green">
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell>
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell ui-implements="disclosure">
+		<celltitle>People</celltitle>
+		<celldatetime>Monday</celldatetime>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+**Tablecells with Cellcounters**
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="icon" ui-implements="disclosure">
+		<img src="images/ipod.png">
+		<celltitle>People</celltitle>
+		<cellcounter>2</cellcounter>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="icon" ui-implements="detail-disclosure">
+		<img src="images/ipod.png">
+		<celltitle>People</celltitle>
+		<cellcounter>2</cellcounter>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="icon" ui-implements="detail-disclosure" class="green">
+		<img src="images/ipod.png">
+		<celltitle>People</celltitle>
+		<cellcounter>2</cellcounter>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="icon" ui-implements="add">
+		<img src="images/ipod.png">
+		<celltitle>People</celltitle>
+		<cellcounter>2</cellcounter>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-tablecell-order="stacked">
+	<tablecell  ui-usage="icon" ui-implements="add" class="green">
+		<img src="images/ipod.png">
+		<celltitle>People</celltitle>
+		<cellcounter>2</cellcounter>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell  ui-usage="icon" ui-implements="disclosure">
+		<img src="images/ipod.png">
+		<celltitle>People</celltitle>
+		<cellcounter>2</cellcounter>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>
+
+
+<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+	<tablecell  ui-usage="icon" ui-implements="detail-disclosure">
+		<img src="images/ipod.png">
+		<celltitle>People</celltitle>
+		<cellcounter>2</cellcounter>
+		<cellsubtitle>Your Friends</cellsubtitle>
+	</tablecell>
+</tableview>

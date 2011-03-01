@@ -1859,7 +1859,7 @@ tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > span:first-of
 tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > .subtitle {
 	width: 75% !important;
 }
-tableview > tablecell[ui-implements=celltitle-with-button] > button {
+tableview > tablecell[ui-implements=celltitle-with-button] > uibutton {
     display: -webkit-inline-box;
     float: right;
 }
