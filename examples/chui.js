@@ -900,7 +900,7 @@ $.extend($, {
 	}
 });
 
-$.extend(Element.prototype, {
+$.extend(HTMLElement.prototype, {
 	UIScreenCover : function() {
 		var screencover = '<screencover ui-visible-state="hidden"></screencover>';
 		if (!$("screencover")) {
@@ -1031,7 +1031,7 @@ $.ready(function() {
 	
 });
 
-$.extend(Element.prototype, {
+$.extend(HTMLElement.prototype, {
 	UISelectionList : function ( callback ) {
 		var listitems = $.collectionToArray(this.children);
 		listitems.forEach(function(item) {
@@ -1053,7 +1053,7 @@ $.extend(Element.prototype, {
 	}
 });
 
-$.extend(Element.prototype, {
+$.extend(HTMLElement.prototype, {
 	UICreateSwitchControl : function( opts ) {
 		var customClass, status, value, callback;
 		var id = opts.id;
@@ -1094,7 +1094,7 @@ $.extend(Element.prototype, {
 	}
 });
 
-$.extend(Element.prototype, {
+$.extend(HTMLElement.prototype, {
 	UISwitchControl : function (callback) {
 		if (!callback) {
 			var callback = function() { return false; };
@@ -1135,7 +1135,7 @@ $.ready(function() {
 	$.app.UIInitSwitchToggling();
 });
 
-$.extend(Element.prototype, {
+$.extend(HTMLElement.prototype, {
 	UICreateSegmentedControl : function(opts, position) {
 		
 		var position = position || null;
@@ -1193,7 +1193,7 @@ $.extend(Element.prototype, {
 	}
 });
 
-$.extend(Element.prototype, {
+$.extend(HTMLElement.prototype, {
 	UISegmentedControl : function() {
 		var that = this;
 		var buttons = $.collectionToArray(this.children);
@@ -1456,7 +1456,7 @@ $.extend($, {
 	}
 });
 
-$.extend(Element.prototype, {
+$.extend(HTMLElement.prototype, {
 	UISliderTouch : function( event ) {
 		event.preventDefault();
 		var sliderLength = this.parentNode.getAttribute("ui-slider-length");
