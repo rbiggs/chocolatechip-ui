@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlID" class="htmlClass">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>ChocolateChip Mobile</title>
+	<link rel="stylesheet" href="chui/chui.css">
+	<style type="text/css">
+		/* Local Styles Here */
+		
+	</style>
+	<script src="chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="chui/chui.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		/* Local JavaScript Here */
+	
+		$.ready(function() {
+			var timestamp = new Date();
+			timestamp = timestamp.getTime();
+			if (!$.localItem("expires")) {
+				$.localItem("expires", timestamp);
+			} else {
+				var theDate = $.localItem("expires");
+				$("tablecell:nth-of-type(1)").fill(theDate);
+				var tempDate = parseInt(theDate, 10);
+				
+				tempDate = new Date(tempDate);
+				$("tablecell:nth-of-type(2)").fill(tempDate.getHours() + ":" + tempDate.getSeconds());
+				if (tempDate.getSeconds() > new Date().getSeconds()) {
+					localStorage.clear();
+					$("tablecell:nth-of-type(3)").fill("Your time ran out!");
+				} else {
+					$("tablecell:nth-of-type(3)").fill("You still have more time.");
+				}
+			}
+			
+		});
+		
+	</script>
+</head>
+<body class="bodyClass" id="bodyID">
+	<app id="appID" class="appClass">
+		<view title="Main" class="mainView" id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="segmentedToolbar">
+				<h1 ui-bar-align="center">LocalStorage</h1>
+			</navbar>
+			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview id="tableview_01" class="myTableView">
+						<tableheader>This checks the seconds of the time stored in locaStorage against actual seconds in real time. When the time runs out it emptys the localStorage.</tableheader>
+						<tablecell>
+							<celltitle></celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle></celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle></celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

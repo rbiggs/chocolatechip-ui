@@ -628,17 +628,18 @@ Version 1.1.3
         
         localItem : function ( key, value ) {
             try {
-            	if (!value) {
-            		try {
-						var value = localStorage.getItem(key);
-						if (value[0] === "{") {
-							value = JSON.parse(value);
-						}
-						return value;
-            	} catche(e) {}
-            	if (typeof value == "object") {
-					value = JSON.stringify(value);
-				}
+                if (!value) {
+                    try {
+                        var value = localStorage.getItem(key);
+                        if (value[0] === "{") {
+                            value = JSON.parse(value);
+                        }
+                        return value;
+                    } catch(e) {}
+                } 
+                if (typeof value === "object") {
+                    value = JSON.stringify(value);
+                }
                 localStorage.setItem(key, value);
             } catch(e) {
                 if (e === "QUOTA_EXCEEDED_ERR") {
@@ -652,7 +653,7 @@ Version 1.1.3
             } catch(e) {}
         },
         clearLocalItems : function ( ) {
-        	localStorage.clear();
+            localStorage.clear();
         },
         
         jsmtCache : {},
@@ -688,7 +689,7 @@ Version 1.1.3
     }
 })(); 
 $.ready(function() {
-	
+    
     $.body = $("body");
     $.app = $("app");
     
