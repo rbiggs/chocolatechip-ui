@@ -628,6 +628,9 @@ Version 1.1.2
         
         setLocalStorage : function ( key, value ) {
             try {
+            	if (typeof value == "object") {
+					value = JSON.stringify(value);
+				}
                 localStorage.setItem(key, value);
             } catch(e) {
                 if (e === "QUOTA_EXCEEDED_ERR") {
@@ -638,7 +641,11 @@ Version 1.1.2
     
         getLocalStorage : function ( key ) {
             try {
-                localStorage.getItem(key);
+            	var value = localStorage.getItem(key);
+                if (value[0] === "{") {
+                	value = JSON.parse(value);
+                }
+                return value;
             } catch(e) {}
         },
             
