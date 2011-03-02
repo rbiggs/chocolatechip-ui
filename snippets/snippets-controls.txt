@@ -34,3 +34,16 @@ Controls
 	<thumb><thumbprop></thumbprop></thumb>
 	<label ui-implements="off">OFF</label>
 </switchcontrol>
+
+
+
+**Sliders**
+
+<slider id="slider_01" style="width: 255px;">
+	<thumb><thumbprop></thumbprop></thumb>
+</slider>
+
+<slider id="slider_02" style="width: 255px;" class="media-player">
+	<thumb><thumbprop></thumbprop></thumb>
+</slider>
+
