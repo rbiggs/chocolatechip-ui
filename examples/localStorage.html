@@ -23,14 +23,15 @@
 			timestamp = timestamp.getTime();
 			if (!$.localItem("expires")) {
 				$.localItem("expires", timestamp);
+				$("tablecell:nth-of-type(1)").fill("The localStorage timestamp is: " + timestamp);
 			} else {
 				var theDate = $.localItem("expires");
-				$("tablecell:nth-of-type(1)").fill(theDate);
+				$("tablecell:nth-of-type(1)").fill("The localStorage timestamp is: " + theDate);
 				var tempDate = parseInt(theDate, 10);
 				
 				tempDate = new Date(tempDate);
-				$("tablecell:nth-of-type(2)").fill(tempDate.getHours() + ":" + tempDate.getSeconds());
-				if (tempDate.getSeconds() > new Date().getSeconds()) {
+				$("tablecell:nth-of-type(2)").fill("The timestamp's minutes and seconds are: " +tempDate.getMinutes() + ":" + tempDate.getSeconds());
+				if (tempDate.getSeconds() > new Date().getSeconds() || tempDate.getSeconds() < 5) {
 					localStorage.clear();
 					$("tablecell:nth-of-type(3)").fill("Your time ran out!");
 				} else {
