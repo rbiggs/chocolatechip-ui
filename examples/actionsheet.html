@@ -47,34 +47,38 @@
 </head>
 <body>
 <app ui-background-style="striped">
-	<navbar>
-		<h1>Action Sheet</h1>
-		<uibutton id="displayActionSheet" ui-implements="done" ui-bar-align="right">
-			<label>Edit</label>
-		</uibutton>
-	</navbar>
-	<section>
-		<tableview ui-kind="grouped">
-			<tablecell ui-implements="add">
-				<celltitle>People</celltitle>
-			</tablecell>
-			<tablecell ui-implements="add">
-				<celltitle>Places</celltitle>
-			</tablecell>
-			<tablecell ui-implements="add">
-				<celltitle>Entertainment</celltitle>
-			</tablecell>
-			<tablecell ui-implements="add">
-				<celltitle>Exercise</celltitle>
-			</tablecell>
-			<tablecell ui-implements="add">
-				<celltitle>Food</celltitle>
-			</tablecell>
-			<tablecell ui-implements="add">
-				<celltitle>Sleep</celltitle>
-			</tablecell>
-		</tableview>
-	</section>
+	<view>
+		<navbar>
+			<h1>Action Sheet</h1>
+			<uibutton id="displayActionSheet" ui-implements="done" ui-bar-align="right">
+				<label>Edit</label>
+			</uibutton>
+		</navbar>
+		<subview ui-associations="withNavBar">
+			<scrollpanel>
+				<tableview ui-kind="grouped">
+					<tablecell ui-implements="add">
+						<celltitle>People</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Places</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Entertainment</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Exercise</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Food</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Sleep</celltitle>
+					</tablecell>
+				</tableview>
+			</scrollpanel>
+		</subview>
+	</view>
 </app>
 </body>
 </html>
