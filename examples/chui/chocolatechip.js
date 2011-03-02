@@ -626,8 +626,16 @@ Version 1.1.3
         online :  navigator.onLine,
         standalone : navigator.standalone,
         
-        setLocalStorage : function ( key, value ) {
+        localItem : function ( key, value ) {
             try {
+            	if (!value) {
+            		try {
+						var value = localStorage.getItem(key);
+						if (value[0] === "{") {
+							value = JSON.parse(value);
+						}
+						return value;
+            	} catche(e) {}
             	if (typeof value == "object") {
 					value = JSON.stringify(value);
 				}
@@ -638,21 +646,13 @@ Version 1.1.3
                 }
             } 
         },
-    
-        getLocalStorage : function ( key ) {
-            try {
-            	var value = localStorage.getItem(key);
-                if (value[0] === "{") {
-                	value = JSON.parse(value);
-                }
-                return value;
-            } catch(e) {}
-        },
-            
-        deleteLocalStorage : function ( key ) {
+        deleteLocalItem : function ( key ) {
             try {
                 localStorage.removeItem(key);
             } catch(e) {}
+        },
+        clearLocalItems : function ( ) {
+        	localStorage.clear();
         },
         
         jsmtCache : {},
