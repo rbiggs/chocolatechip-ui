@@ -1446,56 +1446,37 @@ A method to remove a dataset from an element.
 
 &nbsp;
 
-##Function: $.setLocalStorage
+##Function: $.localItem
 
-Set a key/value pair to the browser's localstorage.
+Set a key/value pair to the browser's localStorage, or retrieve a key value. If you pass only a key, it returns the key's value if that key is present in localStorage. Otherwise, passing a key and a value will set these on localStorage.
 
 **Syntax:**
 
-    $.setLocalStorage(key, value)
+    $.localItem(key, value)
+    $.localItem(key)
 
 **Parameters:**
 
+- key: The key to retrieve from the browser's localStorage.
 - key: A key to add to the browser's localStorage.
 - value: A value to set to the key of the browser's localStorage.
 
 **Example:**
 
-    $.setLocalStorage("clientFirstName", "Robert");
-
-
-
-
-&nbsp;
-
-##Function: $.getLocalStorage
-
-Get the value of a key in the browser's localstorage.
-
-**Syntax:**
-
-    $.getLocalStorage(key)
-
-**Parameters:**
-
-- key: The key to retrieve from the browser's localStorage.
-
-**Example:**
-
-    var clientFirstName = $.getLocalStorage("clientFirstName");
-
-
+    $.localItem("clientFirstName", "Robert");
+    var clientFirstName = $.localItem("clientFirstName");
+    console.log("The client's name is: " + clientFirstName");
 
 
 &nbsp;
 
-##Function: $.deleteLocalStorage
+##Function: $.deleteLocalItem
 
 Set a key/value pair to the browser's localstorage.
 
 **Syntax:**
 
-    $.deleteLocalStorage(key)
+    $.deleteLocalItem(key)
 
 **Parameters:**
 
@@ -1503,7 +1484,18 @@ Set a key/value pair to the browser's localstorage.
 
 **Example:**
 
-    $.deleteLocalStorage("clientFirstName");
+    $.deleteLocalItem("clientFirstName");
+
+
+&nbsp;
+
+##Function: $.clearLocalItems
+
+A method to delete the localStorage. This requires no parameters and will completely remove the browser's localStorage for that domain. A new one can be create again at any time.
+
+**Example:**
+
+	$.clearLocalItem();
 
 
 <a name="$jsmtCached"></a>

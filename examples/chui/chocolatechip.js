@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
 
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.1.2
+Version 1.1.3
 
 */
 
@@ -57,7 +57,7 @@ Version 1.1.2
     
     $.extend($, {
 
-        version : "1.1.2",
+        version : "1.1.3",
         
         collectionToArray : function ( collection ) {
             var array = [];
