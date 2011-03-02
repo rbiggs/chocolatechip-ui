@@ -1186,7 +1186,7 @@ $.extend(HTMLElement.prototype, {
                 segmentedControl += ">";
                 if (opts.iconsOfSegments) {
                     if (!!opts.iconsOfSegments[i]) {
-                    segmentedControl += "<icon ui-implements='icon-mask' style='-webkit-mask-box-image: url(icons/" + opts.iconsOfSegments[count-1] +".png)'  ui-implements='icon-mask'></icon>";
+                    segmentedControl += "<icon ui-implements='icon-mask' style='-webkit-mask-box-image: url(icons/" + opts.iconsOfSegments[count-1] +".svg)'  ui-implements='icon-mask'></icon>";
                     }
                 }
                 if (opts.titlesOfSegments) {
