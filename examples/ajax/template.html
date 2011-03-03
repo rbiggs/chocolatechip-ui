@@ -40,6 +40,15 @@
 				}
 			});
 		});
+		$.ready(function() {
+			$.defer(function() {
+				// Process the template of ID "template_01" with JSON data in the variable "data".
+				// This is read from an Ajax call to an external JSON object in json.json.
+				var result = $.template("template_01", data);
+				// insert the results of the parsed template into the div with id "template_1_output."
+				$("#main tableview:first-of-type").insert(result);		
+			});
+		});
 	</script>
 	<script id="template_01" type="text/jsmt">
 		<% for (var i = 0; i < users.length; i++) { %>
@@ -64,16 +73,5 @@
 			</subview>
 		</view>
 	</app>
-	<script type="text/javascript">
-		$.ready(function() {
-			$.defer(function() {
-				// Process the template of ID "template_01" with JSON data in the variable "data".
-				// This is read from an Ajax call to an external JSON object in json.json.
-				var result = $.template("template_01", data);
-				// insert the results of the parsed template into the div with id "template_1_output."
-				$("#main tableview:first-of-type").insert(result);		
-			});
-		});
-	</script>
 </body>
 </html>
