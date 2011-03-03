@@ -1327,7 +1327,7 @@ document.addEventListener("orientationchange", function() {
 
 $.extend($, {
     UIAdjustToolBarTitle : function() {
-        $$("h1").forEach(function(title) {
+        $$("navbar > h1").forEach(function(title) {
             var availableSpace = window.innerWidth;
             var siblingLeftWidth = 0;
             var siblingRightWidth = 0;
