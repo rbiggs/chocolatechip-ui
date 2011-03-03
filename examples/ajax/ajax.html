@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width; height=device-height; initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Chocolate Chip</title>
+	<style type="text/css">
+
+	</style>
+	<script type="text/javascript" src="../chui/chocolatechip.js"></script>
+	<script type="text/javascript">
+		$.ready(function() {
+	
+			var content = $("#content1");
+			content.xhr("data.html", {
+				successCallback: function() {
+					content.insert($.responseText);
+					$.responseText = null;
+					content.insert("<h2>Ajax call was successful.</h2>");
+				},
+				errorCallback: function() {
+					content.insert("<h2>There was an error getting the file.</h2>");
+				}
+			});
+			var job = $.make("<span id='role'></span>.");
+			var content2 = $("#content2")
+			content2.insert(job, "last");
+			content2.xhrjson("data.json", { 
+				"firstName": "#firstName",
+				"lastName": "#lastName",
+				"role":"#role",
+				"job": "#job"
+			});
+		});
+	</script>
+</head>
+<body>
+	<h1>Chocolate Chip</h1>
+	<div id="content1"></div>
+	<div id="content2"><span id='firstName'>Joe</span> <span id='lastName'>Bodoni</span> is a <span id='job'>great waiter at a restaurant downtown.</span></div>
+	<div id="ajaxcomplete"></div>
+
+</body>
+</html>

@@ -70,19 +70,23 @@ $.UIGallery
 
 */
 
+const CHUIVersion = "0.5beta";
+	
+const UIExpectedChocolateChipJSVersion = "1.1.3";
+
 $.ready(function() {
     
-    const UIExpectedChocolateChipJSVersion = "1.1.2";
     
     UICheckChocolateChipJSVersion = function() {
         if ($.version !== UIExpectedChocolateChipJSVersion) {
             console.error("This version of ChocolateChip-UI requries ChococlateChip.js version " + UIExpectedChocolateChipJSVersion + "!");
+            console.error("ChocolateChip.js has been disabled until this problem is resolved.");
+            window.$ = null;
         }
     };
     UICheckChocolateChipJSVersion();
     
     $.extend($, {
-        UIVersion : "0.5beta",
         
         UITouchedButton : null,
         
