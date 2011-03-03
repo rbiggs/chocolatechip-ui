@@ -2,59 +2,43 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<title>Example of using $.Template</title>
-	<link rel="apple-touch-startup-image" href="/Splash.png" />
-	<link rel="apple-touch-icon" href="app.png">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>ChocolateChip Mobile</title>
 	<link rel="stylesheet" href="../chui/chui.css">
 	<style type="text/css">
-		
+		/* Local Styles Here */
+		view#main {
+			background-color: rgba(192,132,96,0.25);
+		}
+		view#main tableview > tablecell {
+			background-color: rgba(255,255,255,0.75);
+		}	
 	</style>
-	<script type="text/javascript" src="../chui/chocolatechip.js"></script>
-	<script type="text/javascript" src="../chui/chui.js"></script>
+	<script src="../chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="../chui/chui.js" type="text/javascript"></script>
 	<script type="text/javascript">
+		/* Local JavaScript Here */
+	
 		$.ready(function() {
-
-	var data = {
-		users : [
-			{
-				firstName : "Ron",
-				lastName : "Buddle",
-				address : "123 Whatever LN, Sometown, AL 11109",
-				description : "A normal guy with normal likes and dislikes that can see to get too excited about anything, unless its the Super Bowl or World Series. He likes drinking beer and is always dreaming of going on spring break someplace exciting and different."
-				
-			},
-			{
-				firstName: "Joe",
-				lastName : "Bodoni",
-				address : "9 Silly DR, Bozoville, MO 33393",
-				description : "Pretty much a totally looser and coach potato who really plans on being successful some day. But he is really good at watch reruns from the coach in his mother's basement."
-			},
-			{
-				firstName : "Sally",
-				lastName : "Ambercrumble",
-				address : "000 Deadend AVE, Zombie City, NY 00000",
-				description : "Rather sassy gal who is a hard worker and knows how to look out for herself. Don't giver her no lip though or she'll throw you for a loop. She's got a black belt in Judo"
-			},
-			{
-				firstName : "Bonny",
-				lastName : "Beezle",
-				address : "222 Twittledee RD, Bongo-bongo, FL 939393",
-				description : "Mostly loves to bead and do hand stitching and lace work while gazing lovingly at her cat on the sofa."
-			},
-			{
-				firstName : "Bondo",
-				lastName : "McKong",
-				address : "101 Ducky Highway, Flanders, WY 101010",
-				description : "This guy doesn't think the world is going to end in 2012. He thinks it already ended in Y2K and is freaked out about surviving in the post apocalyptic world where alien hybrids from another galaxy have infiltrated human populations."
-			}
-		]
-	};
-	// Process the template of ID "template_01" with JSON data in the variable "data".
-	var r = $.template("template_01", data);
-	// insert the results of the parsed template into the div with id "template_1_output."
-	$("#main tableview:first-of-type").insert(r);			
+			
+		});
+		
+	</script>	<script type="text/javascript">
+		$.ready(function() {
+			var data = null;
+			$.app.xhr("template_json.json", {
+				successCallback: function() {
+					data = $.responseText;
+					var script = document.createElement("script");
+					script.setAttribute("type", "text/javascript");
+					script.insert(data);
+					$("head").insert(script, "last");
+				}
+			});
 		});
 	</script>
 	<script id="template_01" type="text/jsmt">
@@ -67,19 +51,29 @@
 		<%  } %>
 	</script>
 </head>
-
 <body>
-<app>
-	<view id="main" ui-background-style="slanted-left">
-		<navbar><h1>$.Template</h1</navbar>
-		<subview ui-associations="withNavBar">
-			<scrollpanel>
-				<tableview ui-tablecell-order="stacked" ui-kind="grouped">
+	<app>
+		<view id="main" ui-background-style="slanted-left" ui-navigation-status="current">
+		<navbar class="ui-custom-tint"><h1>$.Template</h1</navbar>
+			<subview id="subview1" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked" ui-kind="grouped">
 				
-				</tableview>
-			</scrollpanel>
-		</subview>
-	</view>
-</app>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+	<script type="text/javascript">
+		$.ready(function() {
+			$.defer(function() {
+				// Process the template of ID "template_01" with JSON data in the variable "data".
+				// This is read from an Ajax call to an external JSON object in json.json.
+				var result = $.template("template_01", data);
+				// insert the results of the parsed template into the div with id "template_1_output."
+				$("#main tableview:first-of-type").insert(result);		
+			});
+		});
+	</script>
 </body>
 </html>
