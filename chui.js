@@ -70,9 +70,9 @@ $.UIGallery
 
 */
 
-const CHUIVersion = "0.5beta";
+const CHUIVersion = "0.6beta";
 	
-const UIExpectedChocolateChipJSVersion = "1.1.3";
+const UIExpectedChocolateChipJSVersion = "1.1.4";
 
 $.ready(function() {
     

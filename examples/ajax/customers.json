@@ -1,0 +1,47 @@
+var data = {
+	customers : [
+		{
+			firstName : "Ron",
+			lastName : "Buddle",
+			address : "123 Whatever LN, Sometown, AL 11109",
+			description : "A normal guy with normal likes and dislikes that can see to get too excited about anything, unless its the Super Bowl or World Series. He likes drinking beer and is always dreaming of going on spring break someplace exciting and different."
+			
+		},
+		{
+			firstName: "Joe",
+			lastName : "Bodoni",
+			address : "9 Silly DR, Bozoville, MO 33393",
+			description : "Pretty much a totally looser and coach potato who really plans on being successful some day. But he is really good at watch reruns from the coach in his mother's basement."
+		},
+		{
+			firstName : "Sally",
+			lastName : "Ambercrumble",
+			address : "000 Deadend AVE, Zombie City, NY 00000",
+			description : "Rather sassy gal who is a hard worker and knows how to look out for herself. Don't giver her no lip though or she'll throw you for a loop. She's got a black belt in Judo"
+		},
+		{
+			firstName : "Bonny",
+			lastName : "Beezle",
+			address : "222 Twittledee RD, Bongo-bongo, FL 939393",
+			description : "Mostly loves to bead and do hand stitching and lace work while gazing lovingly at her cat on the sofa."
+		},
+		{
+			firstName : "Bondo",
+			lastName : "McKong",
+			address : "101 Ducky Highway, Flanders, WY 101010",
+			description : "This guy doesn't think the world is going to end in 2012. He thinks it already ended in Y2K and is freaked out about surviving in the post apocalyptic world where alien hybrids from another galaxy have infiltrated human populations."
+		},
+		{
+			firstName : "Binkie",
+			lastName : "Bongo",
+			address : "101 Telegraph AVE, Berkeley, CA 10101",
+			description : "A wacky one-eared rabbit that struts the streets in Berkeley spouting non-stop insanity and waiting for his next debut in a comic strip."
+		},
+		{
+			firstName : "Bardo",
+			lastName : "Rangle",
+			address : "Out in a field somewhere, WY, 992992",
+			description : "Cow poke riding the range looking out for the boss's cattle. Has no home, no life but the range."
+		}
+	]
+};

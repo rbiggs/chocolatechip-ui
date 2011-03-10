@@ -57,7 +57,7 @@ Version 1.1.3
     
     $.extend($, {
 
-        version : "1.1.3",
+        version : "1.1.4",
         
         collectionToArray : function ( collection ) {
             var array = [];
@@ -99,6 +99,13 @@ Version 1.1.3
         
         replace : function ( newElem, oldElem ) {
              oldElem.parentNode.replaceChild(newElem, oldElem);
+        },
+        
+        processJSON : function ( data ) {
+            var script = document.createElement("script");
+            script.setAttribute("type", "text/javascript");
+            script.insert(data);
+            $("head").insert(script, "last");
         }
     });
     $.extend(HTMLElement.prototype, {
@@ -518,7 +525,19 @@ Version 1.1.3
             } else {
                 this.removeAttribute("data-" + key);
             }
-        }
+        },
+
+        UICheckForOverflow : function (){
+            var origOverflow = this.css("overflow");
+            if ( !origOverflow || origOverflow === "visible" ) {
+                this.style.overflow = "hidden";
+            }
+            var overflow = this.clientWidth < this.scrollWidth || 
+               this.clientHeight < this.scrollHeight;
+            this.css("overflow", origOverflow);
+    
+            return overflow;
+        }        
     });
     
     $.extend(String.prototype, {
@@ -656,44 +675,35 @@ Version 1.1.3
             localStorage.clear();
         },
         
-        jsmtCache : {},
-        
-        template : function tmpl(str, data) {
-            var err = "";
-            try {
-                var fn = !/\W/.test(str) ?
-                $.jsmtCache[str] = $.jsmtCache[str] ||
-                $.template(document.getElementById(str).innerHTML) : 
-                new Function("obj", "var p = [];" +
-                "with (obj) { p.push('" +
-                str.replace(/[\r\t\n]/g, " ")
-                .replace(/'(?=[^#]*#>)/g, "\t")
-                .split("'").join("\\'")
-                .split("\t").join("'")
-                .replace(/<%=(.+?)%>/g, "',$1,'")
-                .split("<%").join("');")
-                .split("%>").join("p.push('") + "');}return p.join('');");
-                return data ? fn(data) : fn;
-            } catch (e) {
-                err = e.message;
-            }
-        }
-    });
-    
-    if (window.$ === undefined) {
-        window.$ = $;
-        window.$$ = $.$$;
-    } else {
-        window.__$ = $;
-        window.__$$ = $.$$;
-    }
-})(); 
-$.ready(function() {
-    
-    $.body = $("body");
-    $.app = $("app");
-    
-    $.extend($, {
+		templates : {},
+		
+        templateCache : {},
+		
+		template : function(str, data) {
+			if ($.templates[str]) {
+				var str = $.templates[str];
+			} else {
+				var str = str;
+			}
+			var tmpl = 'var p=[],print=function(){p.push.apply(p,arguments);};' +
+			  'with(obj||{}){p.push(\'' +
+			  str.replace(/\\/g, '\\\\')
+				 .replace(/'/g, "\\'")
+				 .replace(/<%=([\s\S]+?)%>/g, function(match, code) {
+					return "'," + code.replace(/\\'/g, "'") + ",'";
+				 })
+				 .replace(/<%([\s\S]+?)%>/g || null, function(match, code) {
+					return "');" + code.replace(/\\'/g, "'")
+					.replace(/[\r\n\t]/g, ' ') + "p.push('";
+				 })
+				 .replace(/\r/g, '\\r')
+				 .replace(/\n/g, '\\n')
+				 .replace(/\t/g, '\\t')
+				 + "');} return p.join('');";
+			var fn = new Function('obj', tmpl);
+			return data ? fn(data) : fn;
+		},
+		
         UIUpdateOrientationChange : function ( ) {
             document.addEventListener("orientationchange", function() {
                 if (window.orientation === 0 || window.orientation === 180) {
@@ -708,6 +718,7 @@ $.ready(function() {
                 $.UIHideURLbar();
             }, false);      
         },
+        
         UIListenForWindowResize : function ( ) {
             window.addEventListener("resize", function() {
                 if (window.innerHeight > window.innerWidth) {
@@ -721,10 +732,21 @@ $.ready(function() {
                 }
             }, false);
         }
-    });
+    });   
+    if (window.$ === undefined) {
+        window.$ = $;
+        window.$$ = $.$$;
+    } else {
+        window.__$ = $;
+        window.__$$ = $.$$;
+    }
+})(); 
+$.ready(function() {
+    
+    $.body = $("body");
+    $.app = $("app");
     $.UIUpdateOrientationChange();
     $.UIListenForWindowResize();
-
 });
 
 if (!Function.prototype.bind) {
@@ -735,17 +757,3 @@ if (!Function.prototype.bind) {
         };
     };
 }
-
-$.extend(HTMLElement.prototype, {
-    UICheckForOverflow : function (){
-        var origOverflow = this.css("overflow");
-        if ( !origOverflow || origOverflow === "visible" ) {
-            this.style.overflow = "hidden";
-        }
-        var overflow = this.clientWidth < this.scrollWidth || 
-           this.clientHeight < this.scrollHeight;
-        this.css("overflow", origOverflow);
-
-        return overflow;
-    }
-});
