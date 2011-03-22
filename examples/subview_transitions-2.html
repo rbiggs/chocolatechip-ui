@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Tableviews 1</title>
+    <link rel="stylesheet" href="chui/chui.css">
+    <style type="text/css">
+		
+		
+		#flip subview:nth-of-type(1) {
+			background-color: rgba(192,168,96,0.5);
+			background-size: 20px 20px;
+		}
+		#flip subview:nth-of-type(2) {
+			background-color: #bfe6ff;
+		}
+		#pop {
+			background-color: #576990;
+		}
+		#pop subview:nth-of-type(2) {
+			background-color: #ffefbf;
+		}
+		#pop subview:nth-of-type(2) tableheader,
+		#pop subview:nth-of-type(2) tablefooter,
+		#fade subview:nth-of-type(1) tableheader,
+		#fade subview:nth-of-type(1) tablefooter {
+			color: #000;
+		}
+		#fade subview:nth-of-type(1) {
+			background-color: #8090c8;
+		}
+		#fade subview:nth-of-type(2) {
+			background-color: #91c2c2;
+		}
+		#spin subview:nth-of-type(1) {
+			background-color: #c7e0c7;
+			background-size: 12px 12px;
+		}
+		#spin subview:nth-of-type(2) {
+			background-color: #ffc64e;
+			background-size: 20px 20px;
+		}
+		#pop tableheader, #pop tablefooter {
+			color: #fff;
+		}
+		
+    </style>
+    <script src="chui/chocolatechip.js" type="text/javascript"></script>
+    <script src="chui/chui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $.ready(function() {
+        	$("view:nth-of-type(2) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Flip", "Flip Back");
+        	});
+        	$("view:nth-of-type(3) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Fade In", "Fade Out");
+        	});
+        	$("view:nth-of-type(4) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Pop In", "Close");
+        	});
+        	$("view:nth-of-type(5) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Spin In", "Spin Out");
+        	});
+        	$("#flipbutton").UIFlipSubview("left");
+        	$("#fadebutton").UIFadeSubview();
+        	$("#popbutton").UIPopSubview();
+        	$("#spinbutton").UISpinSubview("right");
+		});
+    </script>
+    
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Subview Transitions</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview>
+						<tablecell href="#flip" ui-implements="detail-disclosure">
+							<celltitle>Fip</celltitle>
+						</tablecell>
+						<tablecell href="#fade" ui-implements="detail-disclosure">
+							<celltitle>Fade</celltitle>
+						</tablecell>
+						<tablecell href="#pop" ui-implements="detail-disclosure">
+							<celltitle>Pop</celltitle>
+						</tablecell>
+						<tablecell href="#spin" ui-implements="detail-disclosure">
+							<celltitle>Spin</celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="flip" ui-background-style="slanted-right" ui-navigation-status="upcoming">
+			<navbar>
+				<uibutton ui-bar-align="left" ui-implements="back">
+					<label>Back</label>
+				</uibutton>
+				<h1>Flip Example</h1>
+				<uibutton id="flipbutton" ui-bar-align="right">
+					<label>Flip</label>
+				</uibutton>	
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped" ui-tablecell-order="stacked">
+						<tableheader>
+							This is the Front Side.
+						</tableheader>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Front of Flip
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Front of Flip
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablefooter>
+							Summary for table about flips.
+						</tablefooter>
+					</tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar" ui-background-style="horizontal-striped">
+				<scrollpanel>
+					<shim></shim>
+					<shim></shim>
+					<tableview ui-tablecell-order="stacked">
+						<tableheader>
+							This is the back side.
+						</tableheader>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Back of Flip
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Back of Flip
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablefooter>
+							Summary for table about flips.
+						</tablefooter>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="fade" ui-background-style="squared" ui-tablecell-order="stacked" ui-navigation-status="upcoming">
+			<navbar>
+				<uibutton ui-bar-align="left" ui-implements="back">
+					<label>Back</label>
+				</uibutton>
+				<h1>Fade Example</h1>
+				<uibutton id="fadebutton" ui-bar-align="right">
+					<label>Fade In</label>
+				</uibutton>	
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+						<tableheader>
+							This is a detail page about animals.
+						</tableheader>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Animals, they are out to get you.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablefooter>
+							The summary of what animals will do to you and those you care about.
+						</tablefooter>
+					</tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar" ui-background-style="vertical-striped">
+				<scrollpanel>
+					<tableview>
+						<tableheader>
+							This is a detail page with Fade In/Out.
+						</tableheader>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Fade In Page.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablefooter>
+							The summary of what animals will do to you and those you care about.
+						</tablefooter>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view style="background-size: 6px 6px !important;" id="pop" ui-background-style="checkered" ui-tablecell-order="stacked" ui-navigation-status="upcoming">
+			<navbar>
+				<uibutton ui-bar-align="left" ui-implements="back">
+					<label>Back</label>
+				</uibutton>
+				<h1>Pop Example</h1>
+				<uibutton id="popbutton" ui-bar-align="right">
+					<label>Pop In</label>
+				</uibutton>	
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+						<tableheader>
+							This is a detail page.
+						</tableheader>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Landing Screen Here.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablefooter>
+							The summary of what food you and those you care about can eat.
+						</tablefooter>
+					</tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview>
+						<tableheader>
+							This is a detail page for the pop in screen.
+						</tableheader>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Pop In Screen.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Pop In Screen.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Pop In Screen.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablefooter>
+							The summary of what food you and those you care about can eat.
+						</tablefooter>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="spin" ui-background-style="speckled" ui-tablecell-order="stacked" ui-navigation-status="upcoming">
+			<navbar>
+				<uibutton ui-bar-align="left" ui-implements="back">
+					<label>Back</label>
+				</uibutton>
+				<h1>Spin Example</h1>
+				<uibutton id="spinbutton" ui-bar-align="right">
+					<label>Spin In</label>
+				</uibutton>	
+			</navbar>
+			<subview ui-associations="withNavBar" ui-background-style="slanted-left">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Start Screen for Spin In.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+						<tablefooter>
+							The summary of what food you and those you care about can eat.
+						</tablefooter>
+					</tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-background-style="slanted-right" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+						<tableheader>
+							This is a detail page for Spin In.
+						</tableheader>
+						<tablecell class="ui-no-hover">
+							<celltitle>
+								Spinning is fun.
+							</celltitle>
+							<celldetail>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</celldetail>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

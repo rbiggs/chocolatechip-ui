@@ -8,7 +8,7 @@ Tableviews
 
 <tableview>
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 	</tablecell>
 </tableview>
 
@@ -20,7 +20,7 @@ Tableviews
 		Tableview Header.
 	</tableheader>
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 	</tablecell>
 </tableview>
 
@@ -29,7 +29,7 @@ Tableviews
 
 <tableview>
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 	</tablecell>
 	<tablefooter>
 		Tableview Footer.
@@ -41,7 +41,7 @@ Tableviews
 
 <tableview ui-kind="grouped">
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 	</tablecell>
 </tableview>
 
@@ -51,14 +51,14 @@ Tableviews
 		Tableview Header.
 	</tableheader>
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 	</tablecell>
 </tableview>
 
 
 <tableview ui-kind="grouped">
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 	</tablecell>
 	<tablefooter>
 		Tableview Footer.
@@ -148,7 +148,7 @@ Tableviews
 
 <tablecell>
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 		<cellsubtitle>Item Subtitle</cellsubtitle>
 	</tablecell>
 </tablecell>
@@ -198,7 +198,7 @@ Tableviews
 
 <tableview ui-tablecell-order="stacked">
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 		<cellsubtitle>Item Subtitle</cellsubtitle>
 	</tablecell>
 </tableview>
@@ -206,7 +206,7 @@ Tableviews
 
 <tableview ui-kind="grouped" ui-tablecell-order="stacked">
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 		<cellsubtitle>Item Subtitle</cellsubtitle>
 	</tablecell>
 </tableview>
@@ -321,7 +321,7 @@ Tableviews
 
 <tableview ui-tablecell-order="centered">
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 		<cellsubtitle>Item Subtitle</cellsubtitle>
 	</tablecell>
 </tableview>
@@ -329,7 +329,7 @@ Tableviews
 
 <tableview ui-kind="grouped" ui-tablecell-order="centered">
 	<tablecell>
-		<celltitle>Item</celltitle>
+	<celltitle>Item</celltitle>
 		<cellsubtitle>Item Subtitle</cellsubtitle>
 	</tablecell>
 </tableview>
@@ -441,7 +441,7 @@ Tableviews
 
 <tableview ui-tablecell-order="stacked">
 	<tablecell>
-		<celltitle>People</celltitle>
+	<celltitle>People</celltitle>
 		<celldatetime>Monday</celldatetime>
 		<cellsubtitle>Your Friends</cellsubtitle>
 	</tablecell>
@@ -495,7 +495,7 @@ Tableviews
 
 <tableview ui-kind="grouped" ui-tablecell-order="stacked">
 	<tablecell>
-		<celltitle>People</celltitle>
+	<celltitle>People</celltitle>
 		<celldatetime>Monday</celldatetime>
 		<cellsubtitle>Your Friends</cellsubtitle>
 	</tablecell>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Element.xhr and </title>
+	<link rel="stylesheet" href="../chui/chui.css">
+	<style type="text/css">
+		view[ui-background-style=slanted-left] {
+				background-color: #d4e0f3;
+				background-image: 
+				-webkit-gradient(linear, left bottom, right top,
+					color-stop(0.25, rgba(0,0,0,0.1)), 
+					color-stop(.3, transparent),
+					color-stop(0.5, transparent), 
+					color-stop(.5, rgba(0,0,0,0.1)),
+					color-stop(0.75, rgba(0,0,0,0.1)), 
+					color-stop(.8, transparent),
+					to(transparent));
+			-webkit-background-size: 40px 40px;
+			background-size: 15px 15px;		
+		}
+		view h1 {
+			font-size: 24px
+		}
+		view h2 {
+			font-size: 18px;
+		}
+	</style>
+	<script src="../chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="../chui/chui.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$.ready(function() {
+	
+			/* Example without callback. This just attempts to insert the content
+			directly into the container. If error, an error message will be output. */
+			var content = $("#content_01");
+			content.xhr("data.html", {
+				errorCallback: function() {
+					content.insert("<h4>There was an error getting the file.</h4>");
+				}
+			});
+			
+			var content2 = $("#content_02");
+			content2.xhrjson("data.json", { 
+				"firstName": "#firstName",
+				"lastName": "#lastName",
+				"role":"#role",
+				"job": "#job"
+			});
+		});
+	</script>
+</head>
+<body>
+<app>
+<app>
+	<view id="main" ui-background-style="slanted-left" ui-navigation-status="current">
+	<navbar class="ui-custom-tint"><h1>$.Template</h1</navbar>
+		<subview id="subview1" ui-associations="withNavBar">
+			<scrollpanel>
+				<tableview ui-tablecell-order="stacked" ui-kind="grouped">
+					<tablecell class="ui-no-hover">
+						<celldetail  id="content_01"></celldetail>
+						<celldetail id="content_02"><span id='firstName'>Joe</span> <span id='lastName'>Bodoni</span> is a <span id='job'>great waiter at a restaurant downtown.</span><span id='role'></celldetail></div>
+						<celldetail id="ajaxcomplete"></celldetail>
+					</tablecell>
+				</tableview>
+			</scrollpanel>
+		</subview>
+	</view>
+</app>
+</body>
+</html>
+

@@ -170,29 +170,6 @@ An array of nodes comprising an element collection.
 
 &nbsp;
 
-##Variable: $.body
-
-This variable holds a reference to the body tag. This is a shortcut for accessing the body tag so you don't have to waste processing time getting the body tag with *$.("body")*. See below.
-
-**Example:**
-
-    $.body.toggleClass("portrait", "landscape");
-    console.log($.body.className);
-
-
-&nbsp;
-
-##Variable: $.app
-
-This variable holds a reference to the app tag. It is a shortcut for accessing the app tag so you don't have to waste processing time getting the body tag with *$.("app")*. See below:
-
-**Example:**
-
-    $.app.delegate("uibutton", "touchstart", executeMyFavFunc);
-
-
-&nbsp;
-
 ##Function: Element.previous
 
 This method returns the previous sibling of the element upon which it executes. This method is attached directly to the Element object.

@@ -742,9 +742,6 @@ Version 1.1.3
     }
 })(); 
 $.ready(function() {
-    
-    $.body = $("body");
-    $.app = $("app");
     $.UIUpdateOrientationChange();
     $.UIListenForWindowResize();
 });

@@ -311,7 +311,6 @@ Layout
 		<view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="slanted-right">
 			<navbar>
 				<uibutton ui-implements="back">
-					<pointer></pointer>
 					<label>Back</label>
 				</uibutton>
 				<h1>Title</h1>
@@ -379,7 +378,6 @@ Layout
 		<view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="slanted-right">
 			<navbar>
 				<uibutton ui-implements="back">
-					<pointer></pointer>
 					<label>Back</label>
 				</uibutton>
 				<h1>Title</h1>
@@ -399,7 +397,6 @@ Layout
 		<view id="item_01_detail_view" ui-navigation-status="upcoming" ui-background-style="squared">
 			<navbar>
 				<uibutton ui-implements="back">
-					<pointer></pointer>
 					<label>Back</label>
 				</uibutton>
 				<h1>Title</h1>
@@ -442,7 +439,6 @@ Layout
 <view id="view_02" ui-navigation-status="upcoming">
 	<navbar>
 		<uibutton ui-implements="back">
-			<pointer></pointer>
 			<label>Back</label>
 		</uibutton>
 		<h1>Title</h1>
@@ -460,8 +456,7 @@ Layout
 
 <view id="view_02" ui-navigation-status="upcoming">
 	<navbar>
-		<uibutton ui-implements="back">
-			<pointer></pointer>
+		<uibutton ui-implements="back">\
 			<label>Back</label>
 		</uibutton>
 		<h1>Title</h1>

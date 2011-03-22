@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>ChocolateChip Mobile</title>
+	<link rel="stylesheet" href="chui/chui.css">
+	<style type="text/css">
+		/* Local Styles Here */
+		#main {
+			background-color: rgba(128,96,0,0.5);
+		}
+		#main navbar {
+			background-color: rgba(63,128,0,0.2);
+		}
+		#stackpanel_01 {
+			border: solid 2px red;
+			margin: 0 20px;
+			overflow: hidden;
+			position: relative;
+			height: 100px;
+		}
+		#stackpanel_01 > panel {
+			height: 100px;
+			width: 100%;
+			display: -webkit-box !important;
+			-webkit-box-pack: stretch;
+			-webkit-box-align: center;
+			padding: 10px;
+			position: absolute;
+			opacity: 0px;
+			-webkit-transition: all 0.25s  ease-in-out;
+			z-index: 1;
+		}
+		#stackpanel_01 > panel:nth-of-type(1) {
+			background-color: rgb(255,255,0);
+		}
+		#stackpanel_01 > panel:nth-of-type(2) {
+			background-color: rgb(0,255,0);
+		}
+		#stackpanel_01 > panel:nth-of-type(3) {
+			background-color: rgb(0,0,255);
+		}
+		#stackpanel_01 > panel:nth-of-type(4) {
+			background-color: rgb(255,0,255);
+		}
+		#stackpanel_01 > panel > panel {
+			display: block;
+			backgroud-color: rgb(255,255,0);
+			-webkit-box-flex: 1;
+			height: 100%;
+		}
+		subview:nth-of-type(1) {
+		    background: rgba(255,255,0,0.22);
+		}
+		subview:nth-of-type(2) {
+		    background: rgba(255,0,255,0.12);
+		}
+		subview:nth-of-type(3) {
+		    background: rgba(0,0,255,0.12);
+		}
+		subview:nth-of-type(4) {
+		    background: rgba(0,0,255,0.12);
+		}
+		subview:nth-of-type(5) {
+		    background: rgba(0,255,0,0.12);
+		}
+		
+	</style>
+	<script src="chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="chui/chui.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		/* Local JavaScript Here */
+	
+		$.ready(function() {
+			$("#main").UISegmentedPagingControl();
+		});
+		
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="slanted-right" ui-navigation-status="current">
+			<navbar class="ui-custom-tint">
+				<h1 ui-bar-alignment="center">Paging</h1>
+				<segmentedcontrol ui-implements="segmented-paging" ui-paging="vertical" ui-bar-align="right">
+				    <uibutton class="ui-custom-tint"  ui-implements="icon">
+				        <icon></icon>
+				    </uibutton>
+				    <uibutton class="ui-custom-tint"  ui-implements="icon">
+				        <icon></icon>
+				    </uibutton>
+				</segmentedcontrol>
+			</navbar>
+			<subview id="subview1" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+                        <tableheader>
+                            TableView for First Subview
+                        </tableheader>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing One</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Two</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Three</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Four</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Five</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Six</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Seven</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Eight</celltitle>
+                        </tablecell>					
+				    </tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview>
+                        <tableheader>
+                            TableView for Second Subview
+                        </tableheader>
+                        <tablecell>
+                            <celltitle>Item One</celltitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item Two</celltitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item Three</celltitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item Four</celltitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item Five</celltitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item Six</celltitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item Seven</celltitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item Eight</celltitle>
+                        </tablecell>
+                    </tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+                    <tableview ui-kind="grouped">
+                        <tableheader>
+                            TableView for Third Subview
+                        </tableheader>
+                        <tablecell>
+                            <celltitle>Item 1</celltitle>
+                            <cellsubtitle>Item 1 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 2</celltitle>
+                            <cellsubtitle>Item 2 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 3</celltitle>
+                            <cellsubtitle>Item 3 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 4</celltitle>
+                            <cellsubtitle>Item 4 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 5</celltitle>
+                            <cellsubtitle>Item 5 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 6</celltitle>
+                            <cellsubtitle>Item 6 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 7</celltitle>
+                            <cellsubtitle>Item 7 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 8</celltitle>
+                            <cellsubtitle>Item 8 Subtitle</cellsubtitle>
+                        </tablecell>
+                    </tableview>					
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+                    <tableview>				
+                        <tableheader>
+                            TableView for Fourth Subview
+                        </tableheader>
+                        <tablecell>
+                            <celltitle>Something Here</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Someting Else</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Another Thing</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Yet Another</celltitle>
+                        </tablecell>	
+                        <tablecell>
+                            <celltitle>Doh!</celltitle>
+                        </tablecell>	
+                        <tablecell>
+                            <celltitle>Oh Well</celltitle>
+                        </tablecell>	
+                        <tablecell>
+                            <celltitle>Boring!</celltitle>
+                        </tablecell>	
+                        <tablecell>
+                            <celltitle>Get me out of here!</celltitle>
+                        </tablecell>
+                    </tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+                        <tableheader>
+                            TableView for Fifth Subview
+                        </tableheader>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing One</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Two</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Three</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Four</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Five</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Six</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Seven</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Eight</celltitle>
+                        </tablecell>					
+				    </tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

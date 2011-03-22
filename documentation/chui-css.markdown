@@ -13,7 +13,7 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 1.1.2
+    Version 0.6 beta
 
 
 ##Block Elements:
@@ -424,6 +424,31 @@ There are two possible looks for the slider. The default is a plastic look. By g
 		/* Whatever styles you want here. */
 	}
 
+##Tab Bar
+
+ChocolateChip-UI provides a tab bar for enabling toggling between different subviews in the same view. This mimics the tab bar control on iOS. Because of the limited space on a mobile handset in portrait mode, you should put more than 5 tabs in a tab bar. Tabs are just uibuttons with a *ui-implements* value of "tab". The tab has an icon and a label that gets displayed below the icon. Below is a typical tab bar:
+
+    <tabbar ui-selected-tab="0">
+        <uibutton implements="tab" class="selected">
+            <icon style="-webkit-mask-box-image: url(icons/refresh.svg);"></icon>
+            <label>Refresh</label>
+        </uibutton>
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/add.svg);"></icon>
+            <label>Add</label>                
+        </uibutton>
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/info.svg);"></icon>
+            <label>Info</label>                
+        </uibutton>
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/downloads.svg);"></icon>
+            <label>Downloads</label>                
+        </uibutton>
+    </tabbar>
+
+
+
 <a name="custom_tints"></a>
 
 ##Custom tints
@@ -454,10 +479,13 @@ Using this technique you can style uibuttons in toolbars, uibuttons in segmented
 		</uibutton>
 	</toolbar>
 
-When styling "back" and "next" uibuttons for use in a navbar, be aware that you also need to put the same custom tint on these uibuttons' pointer tag:
-
+When styling "back" and "next" uibuttons for use in a navbar, be aware that you also need to define the same custom tint for these uibuttons' pointer tag using CSS (Put the CSS in your app's head tag stylesheet):
+    
+    uibutton[style="background-color: #ff5614"].before {
+        background-color: #ff5614;
+    }
+    
 	<uibutton ui-implements="back" class="ui-custom-tint" style="background-color: #ff5614" ui-bar-align="left">
-		<pointer style="background-color: #ff5614"></pointer>
 		<label>Back</label>
 	</uibutton>
 

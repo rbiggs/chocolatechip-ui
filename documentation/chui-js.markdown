@@ -13,7 +13,7 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 0.5 beta
+    Version 0.6 beta
 
 
 $nbsp;
@@ -39,6 +39,164 @@ A variable to return the version number of ChocolateChip-UI.
     if (parseFloat($.UIVersion) < 0.5) {
     	alert("You need to upgrade to a newer version of ChUI.js!");
     }
+
+
+&nbsp;
+
+##Variable: $.body
+
+This variable holds a reference to the body tag. This is a shortcut for accessing the body tag so you don't have to waste processing time getting the body tag with *$.("body")*. See below.
+
+**Example:**
+
+    $.body.toggleClass("portrait", "landscape");
+    console.log($.body.className);
+
+
+&nbsp;
+
+##Variable: $.app
+
+This variable holds a reference to the app tag. It is a shortcut for accessing the app tag so you don't have to waste processing time getting the body tag with *$.("app")*. See below:
+
+**Example:**
+
+    $.app.delegate("uibutton", "touchstart", executeMyFavFunc);
+
+
+&nbsp;
+
+##Variable: $.main
+
+This variable holds a reference to the app's first view. This is a shortcut for accessing that view so you don't have to waste processing time getting it with *$.("#main")*. See below.
+
+**Example:**
+
+    $.main.UITabBar();
+
+
+&nbsp;
+
+##Variable: $.views
+
+This variable holds a reference to all the app's views. It is a shortcut for accessing the views so you don't have to waste processing time getting them with *$$.("views")*. See below:
+
+**Example:**
+
+    $.views.forEach(function(view) {
+        view.setAttribute("ui-navigation-status", "upcoming");
+    };
+    $.views[0].setAttribute("ui-navigation-status", "current");
+
+
+&nbsp;
+
+<a name="UIUuidSeed"></a>
+
+##Function: $.UIUuidSeed
+
+A method to generat a set of four random alpha-numeric characters. This method is used by $.UIUuid to create a uuid for use as a unique ID of elements in ChocolateChip-UI. If a seed is passed, you can force $.UIUuidSeed to generate a different number of characters. The default value that it uses is 16, which produces four characters. Passing a seed value of 20 would produce three alpha-numeric characters.
+
+**Parameters:**
+
+- seed: An integer used to create a set of alpha-numeric values. 
+
+**See Also:**
+
+[$.AlphaSeed](#AlphaSeed)
+
+[$.UIUuid](#UIUuid)
+
+
+
+&nbsp;
+
+<a name="AlphaSeed"></a>
+
+##Function: $.AlphaSeed
+
+A method to return a random alphabetic character. This will be either lower or upper case. This method is used by $.UIUuid to create the first character of a uuid. This is necessary be by default a true uuid can begin with any alpha-numeric value. Since $.UIUuid is for creating unique IDs for elements, and IDs must beging with an alphabetic character, this method is necessary.
+
+**See Also:**
+
+[$.UIUuidSeed](#UIUuidSeed)
+
+[$.UIUuid](#UIUuid)
+
+
+&nbsp;
+
+<a name="UIUuid"></a>
+
+##Function: $.UIUuid
+
+A method to create a uuid-like value for unique IDs on elements. This method uses $.UIUuidSeed and $.AlphaSeed to generate a uuid-like value for use as IDs. The value returned has the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx. Although this is not a true uuid, the basic format and possibility of a duplicate being generated in an app are extremely unlikely.
+
+**Example:**
+
+    // Set a unique ID on each tablecell in the 3rd view:
+    $("view:nth-of-type(3) tablecell).forEach(function(cell) {
+        cell.setAttribute("id", $.UIUuid()); 
+    });
+    
+Another useful way of identifying nodes in a collection is to use the Element.UIIdentifyChildNodes method. This identifies each node in a collection with an attribute *ui-child-position* and a numeric value indicating the nodes position in the collection.
+
+**See Also:**
+
+[$.AlphaSeed](#AlphaSeed)
+
+[$.UIUuidSeed](#UIUuidSeed)
+
+[Element.UIIdentifyChildNodes](#UIIdentifyChildNodes)
+
+
+
+&nbsp;
+
+<a name="UIIdentifyChildNodes"></a>
+
+##Function: Element.UIIdentifyChildNodes
+
+A method to identify the position of child nodes in a collection. Often you may find yourself looping through the child nodes of an element looking for which element is the one you need to change a value on based on a particular set of circumstances. To alleviate the need to loop through child nodes, ChocolateChip-UI provides this method that allows you to identify the position of child nodes with *ui-child-position* and a numeric value starting with 0. This means that you can query a child node's *ui-child-position* attribute to find out what its position is in the collection. This is especially convenient where interaction with one set of elements triggers a reaction on another set of corresponding elements, such as segmented controls and panels. By getting the *ui-child-position* value to the segmented control's segment, we can then hide or show the appropriate corresponding panel in the panel collection. It's simple to use, just execute it on the element whose child nodes you want to identify.
+
+**Example:**
+
+    // Number all tablecells in the tableview of view "main":
+    $("#main tableview").UIIdentifyChildNodes();
+    
+    $("tablecell", this).bind("touchstart", function() {
+        console.log("This item is at position: " + this.getAttribute("ui-child-position"));
+    });
+
+**See Also:**
+
+[$.UIUuid](#UIUuid)
+
+
+
+&nbsp;
+
+<a name="UIToggleButtonLabel"></a>
+
+##Function: Element.UIToggleButtonLabel
+
+A method to toggle the label value of a uibutton. There are cases where when implementing a user interaction you want the button's label to toggle between two values. You might also want to toggle a class on the button or and *ui-implements* value as well. To do this you simply pass this method the two label values you wish to toggle. The first value will be the default value of the uibutton's label.
+
+**Parameters:**
+
+- label1: A string defining the default value for the uibutton label.
+- label2: A string defining the secondary value for the uibutton label.
+
+**Example:**
+
+    $(toolbar + " > uibutton[ui-implements=edit]").bind("click", function() {
+        if ($("label", this).text() === "Edit") {
+            this.UIToggleButtonLabel("Edit", "Done");
+            this.setAttribute("ui-implements", "done");
+        }
+    });
+
+
 
 
 &nbsp;
@@ -605,19 +763,113 @@ A method to create and insert a segmented control into a container. The segmente
 
 A method to handle toggling of a UISegementedControl's uibuttons. This get's called during the DOMContentLoaded event so that all segmented controls have basic toggling of uibuttons. If you create a segmented control dynamically, you can call this method on it to enable toggling. See example below.
 
+By passing an argument for a container with child nodes you can implement a segmented control that toggles the visibility of corresponding panels, similar to a tab bar. For this to work each panel must correspond to a segment. If there are more panels then segments, the segmented control will only be able to reveal the panels that numerically correspond to the number of segments. If there are more segments than panels, you will get an error. You cannot create a segmented control where some segments toggle the visibility of panels and other segments perform actions. This would be very bad usability anyway. 
+
 **Synatx:**
 
-    Element.UISegmentedControl();
+    Element.UISegmentedControl(callback);
+    Element.UISegmentedControl(callback, container);
+
+**Paramters:**
+
+- callback: A function to execute when a segmented is touched.
+- container: An optional container of elements which correspond to each segment of the control.
+
 
 **Example:**
 
     $$("segmentedcontrol").forEach(function(segmentedcontrol) {
         segmentedcontrol.UISegmentedControl();
     });    
+    
+    // A segmented control that toggles the child nodes of a container:
+    var logChildPosition = function(item) {
+        console.log("The child position is: " + item.getAttribute("ui-child-position"));
+    }
+    $("segmentedcontrol").UISegmentedControl(logChildPosition, "#stackpanel_1");
 
 **See Also:**
 
 [Element.UICreateSegmentedControl](#UICreateSegmentedControl)
+
+[Element.UISegmentedPagingControl](#UISegmentedPagingControl)
+
+
+
+
+&nbsp;
+
+<a name="UISegmentedPagingControl"></a>
+
+##Function: Element.UISegmentedPagingControl
+
+A method to implement subview paging with a specialized segmented control. To create a segmented control for paging two attributes are required: *ui-implements="segmented-paging"* and *ui-paging*, which can have a value of "vertical" or "horizontal". When the *ui-paging* value is "horizontal", the segmented paging control will consist of two segmented buttons with arrows pointing left and right. When the value is "vertical", the arrows will be pointing down and up. When touching the right arrow, subviews slide in from the right. Touching the left arrow slides them out to the left. Touching the up arrow will slide subviews up from below. Touching the down arrow will slide them back down out of view. For either set, the segmented button automatically disables when there are no more subviews to navigate, leaving only the opposite direction as a choice.
+
+This method is executed on the view whose subviews you wish to page through. It identifies the segmented control by the *ui-implements="segmented-paging"* attribute, then it identifies the subviews that it will page. Based on the value of the *ui-paging* attribute on the segmented paging control, it sets up CSS transitions for the subviews. This paging control is not like a normal segmented control or tab bar in that it can have any number of subviews to page through.
+
+Normally you will put the segmented paging control a navbar using *ui-bar-align="right"*. When using vertical paging, subviews slide up and down underneath any navbars, toolbars or tab bars.
+
+**See Also:**
+
+[Element.UICreateSegmentedControl](#UICreateSegmentedControl)
+
+[Element.UISegmentedControl](#UISegmentedControl)
+
+
+
+
+&nbsp;
+
+<a name="UICreateTabBar"></a>
+
+##Function: Element.UICreateTabBar
+
+A method to create a tab bar for toggling a set of subviews. Based on the values passed in as an object literal, the method constructs and tab bar and inserts it into the targeted view. The subviews that it toggles will sit between it and any top navbar or toolbar.
+
+**Syntax:**
+
+    var opts = {
+        id : "tabbar_001",
+        numberOfTabs : 5,
+        imagePath : "myIcons\/",
+        iconsOfTabs : ["refresh", "add", "info", "downloads", "top_rated"],
+        tabLabels : ["Refresh", "Add", "Info", "Downloads", "Favorite"],
+        selectedTab : 2
+    };
+    $("#main").UICreateTabBar(opts);
+
+
+**Parameters:**
+
+- id : a unique id for the tab bar. You could use $.UIUuid if you want or whatever id works for you.
+- numberOfTabs : An integer indicating the number of tabs. Please not that on a mobile device in portrait mode the maximum number of tabs that can fit is five.
+- imagePath : The path to where the tabs' icons are. This defaults to "icons/" if none is supplied.
+- iconsOfTabs : And array of icon names to be used by each tab. You only need to supply the icon name, not the path or the file extension. This expects an SVG icon. By default all ChocolateChip-UI icons are stored in the "icons" folder.
+- tabLabels : An array of labels that appear below the tab icons.
+- selectedTab : An integer indicating a default selected state for the tab bar. By default the first tab and its subview will be selected. Numbering starts from 0. 
+
+**See Also:**
+
+[Element.UITabBar](#UITabBar)
+
+
+
+&nbsp;
+
+<a name="UITabBar"></a>
+
+##Function: Element.UITabBar
+
+A method for toggling a set of subviews. This method gets executed when a tab bar is created or, if you have created a tab bar manually, you can invoke it on the view where the tab bar resides. It takes no arguments but automatically finds the tab bar in the view and identifies the subviews to toggle.
+
+**Syntax:**
+
+    $("#main").UITabBar();
+
+**See Also:**
+
+[Element.UICreateTabBar](#UICreateTabBar)
+
 
 
 &nbsp;
@@ -1110,3 +1362,155 @@ Method to initialize a range slider for mouse interaction. This gets invoke the 
 
 [$.UISliderValue](#UISliderValue)
 
+
+
+
+&nbsp;
+
+<a name="UISetTranstionType"></a>
+
+##Function: Element.UISetTranstionType
+
+A method to set the type of transition for toggling between two subviews. Possible transitions are flip, pop, fade and spin. Depending on the type of transition, it sets up the appropriate CSS on the view so that the subviews can transition properly. This gets invoked automatically by element.UIFlipSubview, element.UIPopSubview, element.UIFadeSubview. and element.UISpinSubview.
+
+**Parameters:**
+
+- flip: 
+- pop: 
+- fade: 
+- spin: 
+
+**See Also:**
+
+[Element.UIFipSubview](#UIFipSubview)
+
+[Element.UIPopSubview](#UIPopSubview)
+
+[Element.UIFadeSubview](#UIFadeSubview)
+
+[Element.UISpinSubview](#UISpinSubview)
+
+
+
+&nbsp;
+
+<a name="UIFipSubview"></a>
+
+##Function: Element.UIFipSubview
+
+A method for flipping over a subview to reveal another subview, like flipping a card over to see its back. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this flipping of subviews, bind this to the uibutton or other element you want to trigger the action.
+
+**Parameters:**
+
+- right: Flips the subview over to the right to reveal another subview as its back.
+- left: Flips the subview over to the left to reveal another subview as its back.
+- top: Flips the subview upwards to reveal another subview as its back.
+- bottom: Flips the subview downwards to reveal another subview as its back.
+
+**Syntax:**
+
+    Element.UIFlipSubview(direction);
+
+**Example:**
+
+    $("#flipbutton").UIFlipSubview("bottom");
+
+**See Also:**
+
+[Element.UISetTranstionType](#UISetTranstionType)
+
+[Element.UIPopSubview](#UIPopSubview)
+
+[Element.UIFadeSubview](#UIFadeSubview)
+
+[Element.UISpinSubview](UISpinSubview)
+
+
+
+&nbsp;
+
+<a name="UIPopSubview"></a>
+
+##Function: Element.UIPopSubview
+
+A method for popping up or popping out a subview over the current subview. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this popping of subviews, bind this to the uibutton or other element you want to trigger the action.
+
+**Syntax:**
+
+    Element.UIPopSubview();
+
+**Example:**
+
+    $("#popbutton").UIPopSubview();
+
+**See Also:**
+
+[Element.UISetTranstionType](#UISetTranstionType)
+
+[Element.UIFipSubview](#UIFipSubview)
+
+[Element.UIFadeSubview](#UIFadeSubview)
+
+[Element.UISpinSubview](#UISpinSubview)
+
+
+
+
+&nbsp;
+
+<a name="UIFadeSubview"></a>
+
+##Function: Element.UIFadeSubview
+
+A method to implement the fading in and out of a secondary subview. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this fading of subviews, bind this to the uibutton or other element you want to trigger the action.
+
+**Syntax:**
+
+    Element.UIFadeSubview();
+
+**Example:**
+
+    $("#fadebutton").UIFadeSubview();
+
+**See Also:**
+
+[Element.UISetTranstionType](#UISetTranstionType)
+
+[Element.UIFipSubview](#UIFipSubview)
+
+[Element.UIPopSubview](#UIPopSubview)
+
+[Element.UISpinSubview](#UISpinSubview)
+
+
+
+&nbsp;
+
+<a name="UISpinSubview"></a>
+
+##Function: Element.UISpinSubview
+
+A method to spin in and out a secondary subview. The method toggles a pair of classes to trigger the different transitions between the two subviews. To implement this spinning of subviews, bind this to the uibutton or other element you want to trigger the action.
+
+**Syntax:**
+
+    Element.UISpinSubview(direction);
+    
+**Parameters:**
+
+- left: Will spin the subview in clockwise.
+- right: Will spin the subview in counterclockwise.
+
+**Example:**
+
+    $("#spinbutton").UISpinSubview("left");
+
+**See Also:**
+
+[Element.UISetTranstionType](#UISetTranstionType)
+
+[Element.UIFipSubview](#UIFipSubview)
+
+[Element.UIPopSubview](#UIPopSubview)
+
+[Element.UIFadeSubview](#UIFadeSubview)

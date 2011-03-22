@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="64"
+   height="64"
+   id="svg2878">
+  <defs
+     id="defs2880" />
+  <g
+     id="layer1">
+    <g
+       transform="matrix(1.25,0,0,-1.25,5.6879862,1497.8505)"
+       id="g2958">
+      <g
+         id="g2960" />
+      <g
+         id="g2962">
+        <g
+           transform="matrix(1,0,0,-1,0,1191.97)"
+           id="g2964">
+          <path
+             d="m 4.806353,28.30078 c -1.02147,0 -1.849551,-0.828 -1.849551,-1.84949 l 0,-22.630489 c 0,-1.021485 0.828081,-1.84961 1.849551,-1.84961 l 32.486517,0 c 1.02147,0 1.84955,0.828125 1.84955,1.84961 l 0,22.630489 c 0,1.02149 -0.82808,1.84949 -1.84955,1.84949 l -32.486517,0 z"
+             id="path2966"
+             style="fill:none;stroke:#000000;stroke-width:2.24299097;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" />
+        </g>
+        <path
+           d="m 17.03681,1155.644 8.166405,0 0,4.928 -8.166405,0 0,-4.928 z"
+           id="path2968"
+           style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+        <g
+           transform="matrix(1,0,0,-1,0,1191.97)"
+           id="g2970">
+          <path
+             d="m 17.03681,31.39844 8.166405,0 0,4.927979 -8.166405,0 0,-4.927979 z"
+             id="path2972"
+             style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" />
+        </g>
+        <g
+           transform="matrix(1,0,0,-1,0,1191.97)"
+           id="g2974">
+          <path
+             d="m 13.02401,35.97449 15.98081,0 0,0.633545 -15.98081,0 0,-0.633545 z"
+             id="path2976"
+             style="fill:none;stroke:#000000;stroke-width:2.24299097;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

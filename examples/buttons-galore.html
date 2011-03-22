@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Buttons</title>
-    <link rel="stylesheet" href="chui/chui.css">
+    <link rel="stylesheet" href="chui/chui-min.css">
     <style type="text/css">
         body {
             background: #cbd2d8;
@@ -80,6 +80,12 @@
 			-webkit-background-size: 40px 40px;
 			background-size: 15px 15px;				
 			}		
+			navbar[style="background-color: #4f8020"] > uibutton:before {
+			    background-color: #ff5614;
+			}
+			uibutton[style="background-color: #ff5614"]:before {
+				background-color: #ff5614;
+			}
     </style>
     <script src="chui/chocolatechip.js" type="text/javascript"></script>
     
@@ -203,12 +209,10 @@
     		<br><br>
 			<navbar>
                 <uibutton ui-implements="back" ui-bar-align="left">
-                	<pointer></pointer>
 					<label>Back</label>
                 </uibutton>
                 <h1>Home</h1>
                 <uibutton ui-implements="next" ui-bar-align="right">
-                	<pointer></pointer>
 					<label>Next</label>
                 </uibutton>
             </navbar>
@@ -216,12 +220,10 @@
             
 			<navbar class="ui-custom-tint" style="background-color: #4f8020">
                 <uibutton ui-implements="back" class="ui-custom-tint" style="background-color: #ff5614" ui-bar-align="left">
-                    <pointer style="background-color: #ff5614"></pointer>
 					<label>Back</label>
                 </uibutton>
                 <h1>Home</h1>
                 <uibutton ui-implements="next" ui-bar-align="right" class="ui-custom-tint" style="background-color: #ff5614">
-                    <pointer style="background-color: #ff5614"></pointer>
 					<label>Next</label>
                 </uibutton>
             </navbar>
@@ -232,12 +234,10 @@
             
             <navbar>
                 <uibutton ui-implements="back" ui-bar-align="left" class="disabled">
-                	<pointer></pointer>
 					<label>Back</label>
                 </uibutton>
                 <h1>Home</h1>
                 <uibutton ui-implements="next" ui-bar-align="right" class="disabled">
-                	<pointer></pointer>
 					<label>Next</label>
                 </uibutton>
             </navbar>
@@ -377,7 +377,7 @@
             <navbar>
                 <segmentedcontrol>
                     <uibutton>
-						<icon style="-webkit-mask-image: url(icons/reload.svg);"></icon>
+						<icon class="disabled" style="-webkit-mask-image: url(icons/reload.svg);"></icon>
 						<label>Canada</label>
                     </uibutton>
                     <uibutton ui-icon-align="right">         

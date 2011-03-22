@@ -57,12 +57,10 @@ Buttons
 **Navigation Buttons**
 
 <uibutton ui-implements="back" ui-bar-align="left">
-	<pointer></pointer>
 	<label>Back</label>
 </uibutton>
 
 <uibutton ui-implements="next" ui-bar-align="right">
-	<pointer></pointer>
 	<label>Next</label>
 </uibutton>
 
@@ -161,11 +159,6 @@ Buttons
 
 <uibutton class="ui-custom-tint" style="background-color: brown;">
 	<label>Save</label>
-</uibutton>
-
-<uibutton ui-implements="back" ui-bar-align="left" class="ui-custom-tint" style="background-color: brown;">
-	<pointer style="background-color: brown;"></pointer>
-	<label>Back</label>
 </uibutton>
 
 

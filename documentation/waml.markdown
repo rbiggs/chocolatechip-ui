@@ -74,7 +74,7 @@ WAML introduces the following elements for building Web apps: app, view, subview
 
 ##WAML inline and inline-box elements:
 
-WAML introduces the following elements: uibutton, pointer, segmentedcontrol, icon, slider, switchcontrol, thumb, thumbprop, checkmark, deletedisclosure.
+WAML introduces the following elements: uibutton, segmentedcontrol, icon, slider, switchcontrol, thumb, thumbprop, checkmark, deletedisclosure.
 
 
 &nbsp;
@@ -221,7 +221,7 @@ A container for hold elements. This element uses and attribute *"ui-kind"* to in
 
 ##Tag: uibutton
 
-In WAML the uibutton tag is a WAML replacement for the HTML uibutton input to avoid conflicts with that tag's inherent styles, properties and behaviors. The uibutton can have child nodes. These can be pointer, used to form the left and right pointing element of navigation uibuttons. It can also contain a label or icon tag.
+In WAML the uibutton tag is a WAML replacement for the HTML uibutton input to avoid conflicts with that tag's inherent styles, properties and behaviors. The uibutton can have child nodes. These can be a label or icon.
 
 By default a uibutton tag has a particular appearance and dimensions suited for use in navbars and toolbars. You can indicate different uses of a uibutton with the ui-implements attribute. Possible values for the attribute are:
 
@@ -396,17 +396,15 @@ uibuttons of kind action have a default gray color. You can change that just lik
 
 **Navigation uibuttons:**
 
-These are produced by putting a pointer tag inside the uibutton. You would also need to give it an appropriate ui-implements value of either "back" or "next". You could also designmate it's placement in the navbar with a ui-bar-align value of "left", "center" or "right".
+These are produced by giving a uibutton an appropriate *ui-implements* value of either "back" or "next". You could also designmate it's placement in the navbar with a *ui-bar-align* value of "left", "center" or "right".
 
 **Example:**
 
 	<uibutton ui-implements="back" ui-bar-align="left">
-		<pointer></pointer>
 		<label>Back</label>
 	</uibutton>
 	
 	<uibutton ui-implements="next" ui-bar-align="right">
-		<pointer></pointer>
 		<label>Next</label>
 	</uibutton>
 
@@ -457,12 +455,10 @@ A navbar is visually identical to a toolbar. The difference is in what they are 
     	
 	<navbar>
 		<uibutton ui-implements="back" ui-bar-align="left">
-			<pointer></pointer>
 			<label>Back</label>
 		</uibutton>
 		<h1>Home</h1>
 		<uibutton ui-implements="next" ui-bar-align="right">
-			<pointer></pointer>
 			<label>Next</label>
 		</uibutton>
 	</navbar>
@@ -518,6 +514,14 @@ A toolbar, like a navbar, is for holding uibuttons. It, however, is never used f
 
 [ui-box-pack](#ui_box_pack)
 
+
+&nbsp;
+
+<a name="tabbar"></a>
+
+##Tag: tabbar
+
+The tabbar is an implementation of the iOS tab bar for toggling a corresponding set of subviews. It contains a series of tabs. These tabs are uibuttons with a *ui-implements* value of "tab".
 
 &nbsp;
 
