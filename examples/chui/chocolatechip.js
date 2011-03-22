@@ -705,34 +705,36 @@ Version 1.1.3
 		},
 		
         UIUpdateOrientationChange : function ( ) {
+        	var body = $("body");
             document.addEventListener("orientationchange", function() {
                 if (window.orientation === 0 || window.orientation === 180) {
-                    $.body.removeClass("landscape");
-                    $.body.addClass("portrait");
+                    body.removeClass("landscape");
+                    body.addClass("portrait");
                     $.UIHideURLbar();
                 } else {
-                    $.body.removeClass("portrait");
-                    $.body.addClass("landscape");
-                    $.UIHideURLbar();
+                    body.removeClass("portrait");
+                    body.addClass("landscape");
+                    UIHideURLbar();
                 }
                 $.UIHideURLbar();
             }, false);      
         },
         
         UIListenForWindowResize : function ( ) {
+        	var body = $("body");
             window.addEventListener("resize", function() {
                 if (window.innerHeight > window.innerWidth) {
-                    $.body.removeClass("landscape");
-                    $.body.addClass("portrait");
-                    $.UIHideURLbar();
+                    body.removeClass("landscape");
+                    body.addClass("portrait");
+                    UIHideURLbar();
                 } else {
-                    $.body.removeClass("portrait");
-                    $.body.addClass("landscape");
+                    body.removeClass("portrait");
+                    body.addClass("landscape");
                     $.UIHideURLbar();
                 }
             }, false);
         }
-    });   
+    });
     if (window.$ === undefined) {
         window.$ = $;
         window.$$ = $.$$;
