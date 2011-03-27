@@ -26,9 +26,14 @@ Version 1.1.3
                 return context.querySelector(selector);
             } 
         } else {
-            return document.querySelector(selector);
+        	if (typeof selector === "function") {
+        		$.ready(function() {
+        			selector.call(selector);
+        		});
+        	} else {
+            	return document.querySelector(selector);
+            }
         }
-        return document.querySelector(selector);
     };
 
     $.extend = function(obj, prop) {
@@ -80,9 +85,6 @@ Version 1.1.3
                 return $.collectionToArray(document.querySelectorAll(selector));
             }
         },
-        body : null,
-        
-        app : null,
         
         make : function ( HTMLString ) {
             var nodes = [];
@@ -714,7 +716,7 @@ Version 1.1.3
                 } else {
                     body.removeClass("portrait");
                     body.addClass("landscape");
-                    UIHideURLbar();
+                    $.UIHideURLbar();
                 }
                 $.UIHideURLbar();
             }, false);      
@@ -726,7 +728,7 @@ Version 1.1.3
                 if (window.innerHeight > window.innerWidth) {
                     body.removeClass("landscape");
                     body.addClass("portrait");
-                    UIHideURLbar();
+                    $.UIHideURLbar();
                 } else {
                     body.removeClass("portrait");
                     body.addClass("landscape");
