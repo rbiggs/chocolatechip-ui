@@ -26,9 +26,14 @@ Version 1.1.3
                 return context.querySelector(selector);
             } 
         } else {
-            return document.querySelector(selector);
+        	if (typeof selector === "function") {
+        		$.ready(function() {
+        			selector.call(selector);
+        		});
+        	} else {
+            	return document.querySelector(selector);
+            }
         }
-        return document.querySelector(selector);
     };
 
     $.extend = function(obj, prop) {
@@ -80,9 +85,6 @@ Version 1.1.3
                 return $.collectionToArray(document.querySelectorAll(selector));
             }
         },
-        body : null,
-        
-        app : null,
         
         make : function ( HTMLString ) {
             var nodes = [];
@@ -705,14 +707,15 @@ Version 1.1.3
 		},
 		
         UIUpdateOrientationChange : function ( ) {
+        	var body = $("body");
             document.addEventListener("orientationchange", function() {
                 if (window.orientation === 0 || window.orientation === 180) {
-                    $.body.removeClass("landscape");
-                    $.body.addClass("portrait");
+                    body.removeClass("landscape");
+                    body.addClass("portrait");
                     $.UIHideURLbar();
                 } else {
-                    $.body.removeClass("portrait");
-                    $.body.addClass("landscape");
+                    body.removeClass("portrait");
+                    body.addClass("landscape");
                     $.UIHideURLbar();
                 }
                 $.UIHideURLbar();
@@ -720,19 +723,20 @@ Version 1.1.3
         },
         
         UIListenForWindowResize : function ( ) {
+        	var body = $("body");
             window.addEventListener("resize", function() {
                 if (window.innerHeight > window.innerWidth) {
-                    $.body.removeClass("landscape");
-                    $.body.addClass("portrait");
+                    body.removeClass("landscape");
+                    body.addClass("portrait");
                     $.UIHideURLbar();
                 } else {
-                    $.body.removeClass("portrait");
-                    $.body.addClass("landscape");
+                    body.removeClass("portrait");
+                    body.addClass("landscape");
                     $.UIHideURLbar();
                 }
             }, false);
         }
-    });   
+    });
     if (window.$ === undefined) {
         window.$ = $;
         window.$$ = $.$$;
