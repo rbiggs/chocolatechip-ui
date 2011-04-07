@@ -1,0 +1,43 @@
+dialog {
+	display: block;
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	width: 400px;
+	height: 300px;
+	margin-left: -200px;
+	margin-top: -150px;
+	background: #eee;
+	border: 1px solid #fff;
+	-webkit-box-shadow: 0 2px 8px rgba(0,0,0,.6);
+	-webkit-border-radius: 8px;
+	font-size: 14px;
+}
+dialog message, dialog buttons {
+	display: block;
+}
+dialog header {
+	font-size: 16px;
+	line-height: 22px;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 6px;
+}
+dialog message {
+	height: 180px;
+	padding: 10px;
+	margin-bottom: 6px;
+}
+dialog buttons {
+	height: 25px;
+	padding: 10px;
+}
+modal {
+	display: block;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0,0,0,.5);
+}

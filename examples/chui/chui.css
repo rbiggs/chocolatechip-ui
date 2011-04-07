@@ -70,15 +70,12 @@ view {
 
 view[ui-navigation-status=upcoming] {
 	-webkit-transform: translate3d(100%,0%,0%);
-	opacity: 0;
 }
 view[ui-navigation-status=current] {
 	-webkit-transform: translate3d(0%,0%, 0%);
-	opacity: 1;
 }
 view[ui-navigation-status=traversed] {
 	-webkit-transform: translate3d(-100%, 0%, 0%);
-	opacity: 0;
 }
 
 subview > scrollpanel {
@@ -489,9 +486,6 @@ icon {
     width: 23px;
     display: inline-block;
 }
-
-
-
 uibutton[ui-kind=icon] icon[style*="webkit-mask-image"], 
 uibutton[ui-kind=icon] icon[style*="webkit-mask-image"],
 icon[ui-implements="icon-mask"] {
@@ -511,7 +505,6 @@ uibutton[ui-implements="icon"] {
 
 /* End Toolbar Plain Icon Styles */
 
-    
 uibutton.disabled label, uibutton.disabled icon, 
 uibutton.disabled label, uibutton.disabled icon {
     opacity: 0.5;
@@ -683,7 +676,8 @@ uibutton[ui-implements=back].disabled.touched:before {
     top: 2.5px;
     -webkit-background-clip: content;
 }
-uibutton[ui-implements=back]:hover:before {
+uibutton[ui-implements=back]:hover:before, 
+uibutton[ui-implements=back].touched:before {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
             from(#7d88a5), 
@@ -2504,6 +2498,7 @@ screencover {
 screencover.hidden {
 	display: none;
 }
+/* End Action Sheet Styles */
 
 /* Styles for Slider */
 slider {
@@ -2684,7 +2679,133 @@ tabbar > uibutton.touched > icon {
     color:#68B3DA;
 }
 /* End Tab Bar Styles */
-/* End Action Sheet Styles */
+
+/* Expander Styles */
+expander {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	height: auto;
+	position: relative;
+}
+expander > header {
+	position: relative;
+	z-index: 100;
+	padding-left: 40px;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,
+			from(#92a1bf),
+			color-stop(0.8, #546993),
+			color-stop(0.8, #a7babe),
+			to(#a7babe));
+	background-size: 100% 8px;
+	background-repeat: repeat-x;
+	padding-bottom: 8px;
+	cursor: pointer;
+	margin-top: 10px;
+} 
+expander > header > label {
+	display: inline-block;
+	background-color: #a8b1c3;
+	border-radius: 20px;
+	color: #fff;
+	text-shadow: 0 1px 1px #666;
+	position: absolute;
+	top: -14px;
+	padding: 2px 10px;
+	margin-left: 10px;
+	border: solid 2px #fff;
+	-webkit-box-shadow: 0 3px 4px rgba(0,0,0,0.25),  
+		0 -1px 4px rgba(0,0,0,0.25);
+	cursor: pointer;
+}
+expander > header:before {
+	content: "";
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -12px;
+	left: 10px;
+	border: solid 2px rgba(154,189,219,0.8);
+	background-color: #556a97;
+	border-radius: 20px;
+	-webkit-box-sizing: border-box;
+	-webkit-background-clip: padding-box;
+	padding: 2px;
+	-webkit-box-shadow: 
+		0 3px 4px rgba(0,0,0,0.25),  
+		0 -1px 4px rgba(0,0,0,0.25);
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#ddd), 
+			to(#556a97));
+			
+	
+} 
+expander > header:after {
+	content: "";
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -13px;
+	left: 10px;
+	border-radius: 30px;
+	-webkit-mask-image: url(../icons/arrow_right.svg);
+	-webkit-mask-repeat: no-repeat;
+	background-position: center center;
+	-webkit-mask-position: 50% 50%;
+	-webkit-mask-size: 20px 20px;
+	-webkit-box-sizing: border-box;
+	background-color: #fff;
+	cursor: pointer;
+	-webkit-transition: all 0.5s  ease-in-out;
+	-webkit-transform: rotate(0deg);
+	-webkit-mask-clip: border-box;
+} 
+expander > panel {
+	position: relative;
+	z-index: 1;
+	-webkit-transition: all 0.25s  ease-in-out;
+	opacity: 1;
+	-webkit-transform-origin-y: 0px;
+	overflow: hidden;
+	padding-bottom: 10px;
+} 
+expander.ui-status-expanded > header {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,
+			from(#92a1bf),
+			color-stop(0.8, #546993),
+			color-stop(0.8, rgba(0,0,0,0.1)),
+			to(rgba(0,0,0,0.15)));
+}
+expander.ui-status-expanded > panel {
+	opacity: 1;
+	background-color: rgba(0,0,0,0.1);
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,
+			from(#92a1bf),
+			color-stop(0.8, #546993),
+			color-stop(0.8, #a7babe),
+			to(#a7babe));
+	background-size: 100% 8px;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+} 
+expander.ui-status-expanded > header:after {
+	-webkit-transform: rotate(90deg);
+	-webkit-mask-position: 6px 4px;
+}
+expander.ui-status-expanded > header:before {background-image: 
+-webkit-gradient(linear, left top, left bottom, 
+	from(#ddd), 
+	to(#182743));
+}
+expander.ui-status-expanded > header > label {
+	background-color: #7a89a4;
+}
+/* End Expander Styles */
 .UIActivityIndicator {
 	background-image: -webkit-canvas(area);
 }

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Simpli5 Twitter Demo</title>
+<link rel="stylesheet" href="../css/HoverMenu.css" />
+<link rel="stylesheet" href="../css/Stack.css" />
+<style type="text/css">
+	person {
+		display: block;
+		position: relative;
+		background: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#ddd));
+		background: -moz-linear-gradient(-90deg, #f6f6f6, #ddd);
+		color: #666;
+		border-radius: 6px;
+		-webkit-border-radius: 6px;
+		-moz-border-radius: 6px;
+		overflow: hidden;
+		border: 1px solid #fff;
+		
+		-moz-box-shadow: 0 1px 3px rgba(0,0,0,.5);
+		-moz-user-select: none;
+		-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.5);
+		-webkit-user-select: none;
+	}
+	person + person {
+		margin-top: 10px;
+	}
+	person stack {
+		padding: 6px;
+	}
+	person name {
+		font: 14px/22px arial, sans-serif;
+	}
+	person img {
+		float: left;
+		margin-right: 10px;
+		width: 48px;
+		height: 48px;
+		padding: 2px;
+		border: 1px solid #ccc;
+		background-color: #fff;
+	}
+	person h4 {
+		margin: 0 0 10px;
+	}
+	person > hover-menu {
+		position: absolute;
+		right: 0px;
+		top: 0px;
+	}
+	person stack > * {
+		-webkit-transition: opacity .5s ease-in-out;
+		-moz-transition: opacity .2s ease-in-out;
+		display: block;
+	}
+	
+</style>
+<script type="text/javascript" src="../simpli5.js"></script>
+<script type="text/javascript" src="../src/component.js"></script>
+<script type="text/javascript" src="../components/Stack.js"></script>
+<script type="text/javascript" src="../components/List.js"></script>
+<script type="text/javascript" src="../components/HoverMenu.js"></script>
+<script type="text/javascript">
+
+simpli5.on('ready', function() {
+	dummy = [
+		{ firstName: "Jacob", lastName: "Wright", hometown: "Highland", avatar: "http://a1.twimg.com/profile_images/646830026/bw-avatar_normal.png" },
+		{ firstName: "James", lastName: "Estes", hometown: "Laquey", avatar: "http://a1.twimg.com/profile_images/59399672/mug_2_normal.jpg" },
+		{ firstName: "Ryan", lastName: "Tyer", hometown: "Lafayette", avatar: "http://a1.twimg.com/profile_images/64442182/0ea0acc_normal.jpg" }
+	];
+	
+	//document.find('list').data = dummy;
+});
+</script>
+</head>
+<body>
+
+<list data="{dummy}">
+	<person>
+		<hover-menu>
+			<menu>
+				<menu-item>Do somethin</menu-item>
+			</menu>
+		</hover-menu>
+		<stack onclick="this.toggle()">
+			<main>
+				<img src="{data.avatar}" alt="avatar">
+				<name>{data.lastName}, {data.firstName}</name>
+			</main>
+			<other-info>
+				<h4>Additional Information</h4>
+				Hometown: <span>{data.hometown}</span>
+			</other-info>
+		</stack>
+	</person>
+</list>
+
+</body>
+</html>

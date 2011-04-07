@@ -1,0 +1,372 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Flexible Box Model Layouts</title>
+	<style type="text/css">
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0px;
+			padding: 0px;
+			font: normal 14px/16px Helvetica, Sans-serif;
+		}
+		ul, li {
+			list-style: none;
+			padding: 0px;
+			margin: 0px;
+		}
+		header {
+			height: 45px; 
+			border-bottom: 1px solid #838a9a;
+			background-color: #424242;
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(#f1f2f5), 
+					color-stop(0.4, #d7dae0), 
+					to(#9498a8)); 
+			-webkit-border-top-left-radius: 4px;
+			-webkit-border-top-right-radius: 4px;
+			position: relative;
+			padding-top: 1px;
+			z-index: 1;
+		}
+		header > h1 {
+			line-height: 20px;
+			color: #717880;
+			text-shadow: 0 1px 0 #fff;
+			font-size: 18px; 
+			font-weight: bold;
+			text-align: center;
+		}
+		.grouped {
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			background-color: rgba(255,255,255,0.85);
+			border: solid 1px rgba(0,0,0,0.5);
+			padding: 10px;
+			margin: 10px;
+		}
+		.scroller {
+			padding-bottom: 80px;
+		}
+		.scrollerWrapper {
+			position: relative;
+		}
+		#splitview {
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			display: -webkit-box;
+			-webkit-box-orient: horizontal;
+			-webkit-box-align: stretch;
+			-webkit-box-sizing: border-box;
+			background:#424242;
+		}
+		#detailview, #rootview {
+			display: block;
+			position: relative;
+			-webkit-box-sizing: border-box;
+			-webkit-box-flex: 1;
+			height: 100%;
+		}
+		#rootview {
+			width: 320px;
+			-webkit-box-flex: 0;
+			margin-right: 1px;
+		}
+		#rootview .scrollerWrapper {
+			background-color: #dcdee4;
+		}
+		#detailview .scrollerWrapper {
+			background-color: #d6dadf;
+		}
+		#detailview > div, #rootview > div {
+			height: 100%;
+		}
+    	#rootview ul {
+        	background-color: #fff;
+    	}
+    	#rootview ul li {
+			padding:0 10px;
+			border-top: 1px solid #e1e5e9;
+			border-bottom: 1px solid #ccc;
+			height:40px; line-height:40px;
+			position: relative;
+			background-image:
+				-webkit-gradient(linear, left top, left bottom,
+					from(#dcdee4),
+					color-stop(0.5, #d7dbe0),
+					to(#d6dadf));
+		}
+    	li.disclosure:after {
+			content: "›";
+			font: normal 28px/28px Verdana;
+			color: #808080;
+			display: inline-block;
+			height: 48px;
+			position: absolute;
+			right: 10px;
+			top: 4px;
+		}
+		#rootview ul li:hover {
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(#4286f5), 
+					to(#194fdb));
+			color: #fff;
+			border-top-color: #4286f5;
+		}
+		#rootview ul li:hover:after {
+			color: #fff;
+		}	
+		.detailtitle {
+			text-align: center;
+			color: #3b435b;
+			font-size: 14px;
+			font-weight: bold;
+			margin: 10px 10px;
+		}
+		p + .detailtitle {
+			margin-top: 20px;
+		}
+		.detailfooter {
+			font-size: 14px;
+			color: #777;
+			text-align: center;
+			text-shadow: 0px 1px 1px #fff;
+			margin: 0 0 10px 0;
+		}
+		.detailfooter + p {
+			margin-top: 20px;
+		}
+		p.grouped + p.detailfooter {
+			margin: -10px 10px;
+		}
+		button {
+			-webkit-appearance: none;
+			border: none;
+			background-color: transparent;
+			-webkit-box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
+			border: solid 1px #54617d;
+			border-color: #484e59 #54617d #4c5c7a #54617d; 
+			display: block;
+			padding: 0px 10px;
+			font-size: 12px;
+			line-height: 28px;
+			height: 30px;
+			-webkit-box-sizing: border-box;
+			-webkit-border-radius: 5px;
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(#92a1bf), 
+					color-stop(0.25, #798aad),
+					color-stop(0.5, #6276a0), 
+					color-stop(0.5, #556a97), 
+					color-stop(0.75, #566c98),
+					to(#546993)); 
+			color: #fff;
+			-webkit-tap-highlight-color: transparent;
+			-webkit-user-select: none;
+		}
+		button.navigation {
+			position: absolute;
+			left: 10px;	
+			top: 8px;
+		}
+		button:hover, button.touched {	
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(#7d88a5), 
+					color-stop(0.25, #58698c),
+					color-stop(0.5, #3a4e78), 
+					color-stop(0.5, #253c6a), 
+					color-stop(0.75, #273f6d),
+					to(#273f6d));
+		}
+		.landscape header button.navigation {
+			display: none;
+		}
+		body.portrait #rootview {
+			display: none;
+			position: absolute;
+			top: 44px;
+			left: 10px;
+			z-index: 10000;
+			height: 100%;
+			border-radius: 6px 6px;
+			-webkit-box-shadow: 0 0 10px #000;
+			border: solid 4px #000;
+			background-color: #000;
+		}
+		body.portrait #rootview > div {
+			height: auto;
+		}
+		body.portrait #rootview:after {
+			content: "";
+			position: absolute;
+			display: block;
+			top: -17px;
+			left: 17px;
+			height: 30px !important;
+			width: 30px;
+			border: solid 4px #000;
+			border-radius: 5px;
+			border-bottom: none;
+			border-right: none;
+			background-color: #9e9e9e !important;
+			-webkit-transform: rotate(45deg);
+			-webkit-mask-image: 
+				-webkit-gradient(linear, left top, right bottom, 
+					from(#000000), 
+					color-stop(0.5,#000000), 
+					color-stop(0.5, transparent), 
+					to(transparent));
+		}
+		body.portrait #rootview header {
+			margin-top: 0;
+			background-color: none;
+			background-image:
+				-webkit-gradient(linear, left top, left bottom, 
+					from(rgba(255,255,255,.5)), 
+					color-stop(0.5,rgba(30,30,30,.5)), 
+					color-stop(0.5, rgba(0,0,0,.5)), 
+					to(rgba(0,0,0,.45)));
+		}
+		body.portrait #rootview header h1 {
+			color:#fff;
+			text-shadow: none;
+		}
+	</style>
+	<script src="../chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="uiscroll.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		$.ready(function() {
+			scrollNav1 = new $.UIScroll('#scroller1');
+			scrollNav2 = new $.UIScroll('#scroller2');
+			body = $("body");
+			rootView = $("#rootview");
+			var buttonLabel = $("#rootview > header").text();
+			$("#detailview > header").insert("<button class='navigation'>"+buttonLabel+"</button>", "first");
+			
+			var resizeEvt = 'onorientationchange' in window ? 'orientationchange' : 'resize';
+			if (window.innerWidth > window.innerHeight) {
+				body.className = "landscape";
+				rootView.css("{display: block; height: 100%; margin-bottom: 1px;}");
+				$("#rootview > div").css("overflow: hidden; {height: " + ($("#rootview").innerHeight - 45) + "px;}");
+			} else {
+				body.className = "portrait";
+				rootView.css("{display: none; height: " + (window.innerHeight - 100) + "px;}");
+				$("#rootview > div").css("{overflow: hidden; height: " + (window.innerHeight - 155) + "px;}");
+			}
+			var setAppOrientation = function() {
+				if (resizeEvt) {
+					if (window.innerWidth > window.innerHeight) {
+						body.className = "landscape";
+						$("#rootview").css("{display: block; height: 100%; margin-bottom: 1px;}");
+						$("#rootview > div").css("{overflow: hidden; height: 100%;}");
+					} else {
+						body.className = "portrait";
+						$("#rootview").css("{display: none; height: " + (window.innerHeight - 100) + "px;}");
+						$("#rootview > div").css("{overflow: hidden; height:" + (window.innerHeight - 155) + "px;}");
+					}
+				}
+			};
+			$("body").onorientationchange = function(){
+				setAppOrientation();
+			};
+			window.onresize = function() {
+				setAppOrientation();
+			};
+			toggleRootView = function() {
+				if (rootView.style.display === "none") {
+					rootView.css("{display: block;}");
+					scrollNav1.destroy();
+					scrollNav2.destroy();
+					scrollNav1 = new $.UIScroll('#scroller1');
+					scrollNav2 = new $.UIScroll('#scroller2');
+				} else {
+					rootView.style.display = "none";
+					scrollNav1.destroy();
+					scrollNav2.destroy();
+					scrollNav1 = new $.UIScroll('#scroller1');
+					scrollNav2 = new $.UIScroll('#scroller2');
+				}
+			};
+			$("#detailview > header > button").bind("click", function() {
+				toggleRootView();
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="splitview">
+		<div id="rootview">
+			<header>
+				<h1>Navigation</h1>
+			</header>
+			<div class="scrollerWrapper">
+				<section id="scroller1" class="scroller">
+					<ul>
+						<li>Item 1</li>
+						<li>Item 2</li>
+						<li>Item 3</li>
+						<li>Item 4</li>
+						<li>Item 5</li>
+						<li>Item 6</li>
+						<li>Item 7</li>
+						<li>Item 8</li>
+						<li>Item 9</li>
+						<li>Item 10</li>
+						<li>Item 11</li>
+						<li>Item 12</li>
+						<li>Item 13</li>
+						<li>Item 14</li>
+						<li>Item 15</li>
+						<li>Item 16</li>
+						<li>Item 17</li>
+						<li>Item 18</li>
+						<li>Item 19</li>
+						<li>Item 20</li>
+						<li>Item 21</li>
+						<li>Item 22</li>
+						<li>Item 23</li>
+						<li>Item 24</li>
+						<li>Item 25</li>
+						<li>Item 26</li>
+						<li>Item 27</li>
+						<li>Item 28</li>
+						<li>Item 29</li>
+						<li>Item 30</li>
+					</ul>
+				</section>
+			</div>
+		</div>
+		<div id="detailview">
+			<header>
+				<h1>Detail View</h1>
+			</header>
+			<div class="scrollerWrapper">
+				<section id="scroller2" class="scroller">
+					<p class="detailtitle">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit</p>
+					<p class="grouped">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.<p>
+					
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+				</section>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

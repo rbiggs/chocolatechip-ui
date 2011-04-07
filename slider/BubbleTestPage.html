@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+  <title>Bubble Test</title>
+  <link rel="stylesheet" type="text/css" href="bubble.css" />
+  <link rel="stylesheet" href="scheduleEngine.css" />
+  <script type="text/javascript" src="scheduleEngine.js"></script>
+  <script type="text/javascript" src="library.js"></script>
+
+  <script type="text/javascript">
+  var XOJET = {
+    disableWordBalloon : function() {
+    },
+    enableWordBalloon : function() {
+      var wordBubble = document.getElementById("WordBubble");
+      wordBubble.style.width = XOJET.wordBalloon.width;
+      wordBubble.style.height = XOJET.wordBalloon.height;
+      addEvent( document, "mousedown", XOJET.wordBalloon.show );
+    },
+    wordBalloon : {
+      isVisible : false,
+      wordBubbleID : "WordBubble",
+      wordBubbleCalloutID : "WordBubbleCallout",
+      width:300,
+      height:340,
+      minimalVerticalOffset: 10,
+      minimalHorizontalOffset: 10,
+      minimalVerticalOffsetForCallout: 40,
+      minimalHorizontalOffsetForCallout: 30,
+      commentValue : null,  // holds the comments entered into textarea
+      currentlySelectedDayType : null,
+      selectionTrackingArray : [],
+      setSelected : function( anObject ) {
+        SelectNone( this.selectionTrackingArray );
+        ToggleSelectState( anObject, this.selectionTrackingArray );
+        this.currentlySelectedDayType = anObject.id;
+      },
+      hide : function(event) {
+        SelectNone( this.selectionTrackingArray );
+        XOJET.wordBalloon.commentValue = null;
+        showOrHide( XOJET.wordBalloon.wordBubbleID, false );
+        showOrHide( XOJET.wordBalloon.wordBubbleCalloutID, false );
+        XOJET.wordBalloon.isVisible = false;
+        XOJET.enableWordBalloon();
+      },
+      show : function(event) {
+        // Remove mousedown event handler attached to the document so we can get clicks within the wordballoon
+        removeEvent( document, "mousedown", XOJET.wordBalloon.show );
+        var NS = (navigator.appName == "Netscape");
+        if (!XOJET.wordBalloon.isVisible) {
+          showOrHide( XOJET.wordBalloon.wordBubbleID, true );
+          showOrHide( XOJET.wordBalloon.wordBubbleCalloutID, true );
+          XOJET.wordBalloon.isVisible = true;
+        }  
+        var event = (window.event) ? window.event : event;
+        var mouseX = ((NS) ? event.pageX : event.clientX);
+        var mouseY = ((NS) ? event.pageY : event.clientY);
+ 	      var pageWidth   = window.innerWidth != undefined ? window.innerWidth : document.body.parentElement.offsetWidth; //document.body.offsetWidth;
+        var pageHeight  = window.innerHeight != undefined ? window.innerHeight : document.body.parentElement.offsetHeight; //document.body.offsetHeight;
+        var balloonWidth = XOJET.wordBalloon.width;
+        var balloonHeight = XOJET.wordBalloon.height;
+        // Basically, if there is room available to display the balloon to the left, do that.  Otherwise, display to the right regardless
+        var balloonDirection = ((mouseX - balloonWidth + XOJET.wordBalloon.minimalHorizontalOffsetForCallout) > 0) ? "BubbleLeft" : "BubbleRight";
+
+        var wordBubbleCallout = document.getElementById("WordBubbleCallout");
+        wordBubbleCallout.className = balloonDirection;
+        wordBubbleCallout.style.top   = (( balloonDirection=="BubbleLeft" ) ? mouseY-((NS)?9:11) : mouseY-((NS)?10:12)) + "px";
+        wordBubbleCallout.style.left  = (( balloonDirection=="BubbleLeft" ) ? mouseX-24 : mouseX-((NS)?4:6)) + "px";
+
+        var caTop     = parseInt(wordBubbleCallout.style.top);
+        var caLeft    = parseInt(wordBubbleCallout.style.left);
+        var caHeight  = parseInt(wordBubbleCallout.offsetHeight);
+        var caWidth   = parseInt(wordBubbleCallout.offsetWidth);
+        var minVerticalOffset = XOJET.wordBalloon.minimalVerticalOffset;
+        var minCalloutVertOffset = XOJET.wordBalloon.minimalVerticalOffsetForCallout;
+        var theWordBubbleTop = caTop + minCalloutVertOffset + "px";
+        var theWordBubbleLeft    = caLeft + "px"
+        switch (true) {
+          // We are at the bottom of the page with not quite enough room to display the entire word balloon
+          case ( caTop + caHeight + minCalloutVertOffset > pageHeight ) :
+            theWordBubbleTop = (caTop + caHeight + minCalloutVertOffset - balloonHeight);
+            status = "(caTop + caHeight + minCalloutVertOffset > pageHeight)";
+            break;
+          // We are at the top of the page with not quite enough room to display the entire word balloon
+          case (caTop - minCalloutVertOffset <= 0 ) :
+            theWordBubbleTop = (caTop - minCalloutVertOffset);
+            status="(caTop - minCalloutVertOffset <= 0 )";
+            break;
+          // We are in the middle of the page with enough room to display entire word balloon towards the top (shifts callout down)
+          case ( caTop - minCalloutVertOffset - minVerticalOffset - balloonHeight/2 < 0 ) :
+            theWordBubbleTop = minVerticalOffset;
+            status = "(caTop - minCalloutVertOffset - balloonHeight/2 < 0)";
+            break;
+          // We are in the middle of the page with enough room to display the entire word balloon towards the top (shifts callout up)
+          case (( caTop - minCalloutVertOffset - balloonHeight/2 + balloonHeight ) > pageHeight ) :
+            theWordBubbleTop = pageHeight - minVerticalOffset - balloonHeight;
+            status = "((caTop - minCalloutVertOffset - balloonHeight/2 + balloonHeight) > pageHeight)";
+            break;
+          default : 
+            theWordBubbleTop = caTop - minCalloutVertOffset - balloonHeight/2;
+            break;
+        }
+
+        if (balloonDirection=="BubbleLeft") {
+          theWordBubbleLeft = (caLeft - balloonWidth + 19);
+        } else {
+          theWordBubbleLeft = (caLeft + caWidth - 14);
+        }
+        var wordBubble = document.getElementById("WordBubble");
+        wordBubble.style.top  = theWordBubbleTop + "px";
+        wordBubble.style.left = theWordBubbleLeft + "px";
+      }    
+    }
+  }
+  function setup() {
+    XOJET.enableWordBalloon();
+  }
+  </script>
+</head>
+<body onload="setup()">
+<h1>Click somewhere on the page</h1>
+  <div id="WordBubbleCallout" class="BubbleRight"></div>
+  <div id="WordBubble" class="WordBubble">
+    <div>
+      <div class='BubbleUpperLeft'></div>
+      <div class='BubbleUpperMid'></div>
+      <div class='BubbleUpperRight'></div>
+    </div>    
+    <div>
+      <div class='BubbleMidLeft'></div>
+      <div class='BubbleMidMid'>
+        <h1 id="PilotName">Gurnley Blansteinwitz</h1>
+        <h3 id="DateRange">Tuesday, March 3 - Thursday, March 31</h3>
+        <table cellpadding="5" cellspacing="5">
+          <tr><td id="day_type_R" class="R" onmousedown="XOJET.wordBalloon.setSelected(this);">R</td><td class="plain">Rotation Day</td><td id="day_type_NR" class="NR" onmousedown="XOJET.wordBalloon.setSelected(this);">&nbsp</td><td class="plain">Non-Rotation Day</td></tr>
+          <tr><td id="day_type_RDO" class="RDO" onmousedown="XOJET.wordBalloon.setSelected(this);">RDO</td><td class="plain">Requested Day Off</td><td id="day_type_OFF" class="OFF" onmousedown="XOJET.wordBalloon.setSelected(this);">OFF</td><td class="plain">Day Off</td></tr>
+          <tr><td id="day_type_TR" class="TR" onmousedown="XOJET.wordBalloon.setSelected(this);">TR</td><td class="plain">Training</td><td id="day_type_TVL" class="TVL" onmousedown="XOJET.wordBalloon.setSelected(this);">TVL</td><td class="plain">Travel</td></tr>
+          <tr><td id="day_type_OT" class="OT" onmousedown="XOJET.wordBalloon.setSelected(this);">OT</td><td class="plain">Overtime</td><td id="day_type_O" class="O" onmousedown="XOJET.wordBalloon.setSelected(this);">O</td><td class="plain">Office</td></tr>
+          <tr><td id="day_type_S" class="S" onmousedown="XOJET.wordBalloon.setSelected(this);">S</td><td class="plain">Sick Day</td><td id="day_type_LOA" class="LOA" onmousedown="XOJET.wordBalloon.setSelected(this);">LOA</td><td class="plain">Leave of Absence</td></tr>
+          <tr><td colspan="4" class="plain">Comments<br /><textarea onchange="XOJET.wordBalloon.commentValue=this.value;" rows="3" cols="26"></textarea></td></tr>
+          <tr><td colspan="4" class="plainButtons"><button onclick="alert('DayType Selected:' + XOJET.wordBalloon.currentlySelectedDayType + '\nComment:' + XOJET.wordBalloon.commentValue);XOJET.wordBalloon.hide();">OK</button><button onclick="XOJET.wordBalloon.hide();">Cancel</button></td></tr>
+        </table>
+      </div>				
+      <div class='BubbleMidRight'></div>		
+    </div>
+    <div>
+      <div class='BubbleLowerLeft'></div>			
+      <div class='BubbleLowerMid'></div>				
+      <div class='BubbleLowerRight'></div>		
+    </div>
+  </div>
+</body>
+</html>

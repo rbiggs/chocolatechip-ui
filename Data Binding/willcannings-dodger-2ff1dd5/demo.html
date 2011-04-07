@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script src="ext/raphael-min.js"></script>
+    <script src="src/support.js"></script>
+    <script src="src/series.js"></script>
+    <script src="src/graph.js"></script>
+    <script src="src/axisPainters/graphPaperAxisPainter.js"></script>
+    <script src="src/graphPainters/lineGraphPainter.js"></script>
+    <script src="src/symbolPainters/circleSymbolPainter.js"></script>
+    <script src="src/symbolPainters/imageSymbolPainter.js"></script>
+    <script src="src/labelPainters/contextBoxLabelPainter.js"></script>
+  </head>
+  <body>
+    <div id="graph" style="width: 500; height: 200;"></div>
+    
+    <script>
+      var graph = new Graph({
+        element: document.getElementById('graph'),
+        width: 500,
+        height: 200,
+        axisPainter: new GraphPaperAxisPainter()
+      });
+      
+      graph.addLineGraph({
+        series: new Series([
+          {x: 0, y: 300},
+          {x: 15, y: 270,
+          symbol: new ImageSymbolPainter({
+              image: {
+                src: 'images/point_dollar.png',
+                width: 16,
+                height: 26
+              }
+            }),
+          label: new ContextBoxLabelPainter(),
+          label1: 'It costs',
+          label2: '$90 today'
+          },
+          {x: 20, y: 200}
+        ]),
+        smooth: true,
+        
+        style: {
+          stroke: '#BCC15C',
+          fill: 'rgba(212,235,138,0.80)'
+        },
+
+        symbols: new ImageSymbolPainter({
+          image: {
+            src: 'images/point.png',
+            width: 15,
+            height: 15
+          }
+        })
+      });
+      
+      graph.draw();
+    </script>
+  </body>
+</html>

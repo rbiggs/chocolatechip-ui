@@ -1,0 +1,99 @@
+tree-menu {
+	display: block;
+	cursor: default;
+	white-space: nowrap;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	overflow: auto;
+}
+tree-menu menu {
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+tree-menu menu-item {
+	display: block;
+	clear: left;
+}
+tree-menu.sizing > menu, tree-menu.sizing > menu > menu-item {
+	float: left;
+}
+tree-menu opener {
+	display: block;
+	float: left;
+	padding: 1px;
+	height: 16px;
+	width: 16px;
+}
+tree-menu menu-item.open > opener {
+	background: url(../images/file_arrow.png) no-repeat 0 -36px;
+}
+tree-menu menu-item.open > opener:hover {
+	background: url(../images/file_arrow.png) no-repeat 0 -54px;
+}
+tree-menu menu-item.closed > opener {
+	background: url(../images/file_arrow.png) no-repeat 0 0;
+}
+tree-menu menu-item.closed > opener:hover {
+	background: url(../images/file_arrow.png) no-repeat 0 -18px;
+}
+tree-menu menu-item.open > menu {
+	display: block;
+}
+tree-menu content {
+	display: block;
+	position: relative;
+	overflow: hidden;
+}
+tree-menu icon-space {
+	display: inline-block;
+	float: left;
+	padding-right: 1px;
+	width: 16px;
+	height: 16px;
+	border: 1px solid transparent;
+	
+	border-right: none;
+	border-radius: 3px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+tree-menu icon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background: url(../images/page_white_text.png) no-repeat 50% 50%;
+}
+tree-menu text {
+	display: inline-block;
+	padding: 0 4px 0 2px;
+	font: 13px/16px arial, sans-serif;
+	color: #444;
+	border: 1px solid transparent;
+	border-left: none;
+	border-radius: 3px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+tree-menu.popout {
+	position: absolute;
+	z-index: 500;
+}
+tree-menu.popout text {
+	background: #fff;
+	color: #222;
+}
+tree-menu content:hover text {
+	color: #222;
+}
+tree-menu menu-item.selected > content > * {
+	background-color: #b3e6ff;
+	border-color: #8cd8ff;
+	color: #000;
+}
+tree-menu menu-item menu {
+	display: none;
+	margin-left: 18px;
+}

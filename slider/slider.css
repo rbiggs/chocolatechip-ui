@@ -1,0 +1,142 @@
+/* BEGIN Demo-specific CSS */
+
+body { background-color: white; padding-left:30px; margin-top:20px; }
+#mySlider, #yourSlider, #sliderTickMarksAbove, #sliderTickMarksBelow {  float:left; left:130px;}
+span { float:left; width:70px;border:solid 1px blue;}
+
+/* END Demo-specific CSS */
+/* Horizontal Slider */
+.horizontalSlider {
+  position: absolute;
+  height:12px;
+}
+.horizontalSlider * {
+  margin:0;
+  padding:0;
+  height:12px;
+}
+.horizontalSlider .sliderTrack {
+  background-image: url('sliderTrack_H.png');
+  background-repeat:repeat-x;
+  float:left;
+  z-index:1;
+}
+.horizontalSlider .sliderTrackLeft {
+  background-image: url('sliderTrackLeft_H.png');
+  width:2px;
+  float:left;
+  z-index:1;
+}
+.horizontalSlider .sliderTrackRight {
+  background-image: url('sliderTrackRight_H.png');
+  width:2px;
+  float:left;
+  z-index:1;
+}
+.horizontalSlider .sliderThumb {
+  position:absolute;
+  top:-1px;
+  left:1px;
+  background: url('sliderThumb_H.png') no-repeat;
+  width:15px;
+  height:12px;
+  cursor:default;
+  z-index:2;
+}
+.horizontalSlider .sliderTicks, .horizontalSlider .sliderTicksAbove, .horizontalSlider .sliderTicksBelow {
+  height:12px;
+  cursor:default;
+  display:none;
+  z-index:0;
+  position:absolute;
+}
+.horizontalSlider .sliderTicksAbove {
+  margin-top:-13px;
+}
+.horizontalSlider .sliderTicksBelow {
+  margin-top:16px;
+}
+.horizontalSlider .tickMark {
+  position:absolute;
+  width:1px;
+  height:6px;
+  border:none;
+  border-left:solid 1px black;
+  margin:0;
+  padding:0;
+}
+/* Vertical Slider */
+.verticalSlider {
+  position: absolute;
+  width:12px;
+}
+.verticalSlider * {
+  margin:0;
+  padding:0;
+  width:12px;
+}
+.verticalSlider .sliderTrack {
+  background-image: url('sliderTrack_V.png');
+  background-repeat:repeat-y;
+  float:left;
+  z-index:1;
+}
+.verticalSlider .sliderTrackLeft {
+  background-image: url('sliderTrackTop_V.png');
+  height:2px;
+  float:left;
+  z-index:1;
+}
+.verticalSlider .sliderTrackRight {
+  background-image: url('sliderTrackBottom_V.png');
+  height:2px;
+  float:left;
+  z-index:1;
+}
+.verticalSlider .sliderThumb {
+  position:absolute;
+  top:1px;
+  left:0px;
+  background: url('sliderThumb_V.png') no-repeat;
+  width:16px;
+  height:15px;
+  cursor:default;
+  z-index:2;
+}
+
+.verticalSlider .sliderTicks, .verticalSlider .sliderTicksAbove, .verticalSlider .sliderTicksBelow {
+  width:12px;
+  cursor:default;
+  display:none;
+  z-index:0;
+  position:absolute;
+}
+.verticalSlider .sliderTicksAbove {
+  margin-left:-13px;
+}
+.verticalSlider .sliderTicksBelow {
+  margin-left:16px;
+}
+.verticalSlider .tickMark {
+  position:absolute;
+  width:6px;
+  height:1px;
+  border:none;
+  border-top:solid 1px black;
+  margin:0;
+  padding:0;
+}
+
+input[type="range"].verticalSlider{
+-webkit-appearance: slider-vertical;
+border: initial;
+margin: 2px;
+padding: initial;
+display: inline-block;
+border:1px solid red;
+width: 12px;
+height: 100px;
+}
+input[type="range"].verticalSlider::-webkit-slider-thumb {
+  -webkit-appearance: sliderthumb-vertical;
+}

@@ -1,0 +1,177 @@
+﻿/* bubble.css - Support for rounded dialogs
+   ========== */
+body {
+  background-color:Red;
+}
+    .WordBubble {
+      position:absolute;
+      left:0px;
+      top:0px;
+      width:300px;
+      height:340px;
+      overflow:visible;
+      font-family:Segoe UI, Tahoma;
+      padding:0;
+      margin:0;
+      display:none;
+    }
+    .WordBubble h1, .WordBubble h2, .WordBubble h3 { 
+      padding:0; 
+      margin:0; 
+      text-align:center; 
+      text-overflow:ellipsis; 
+      width:inherit;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis; 
+    }
+
+    .WordBubble h1 {
+      font-size:16pt;
+    }
+    
+    .WordBubble h2 {
+      font-size:14pt;
+      margin-top:10px;
+      text-decoration:underline;
+    }
+
+    .WordBubble h3 {
+      font-size:9pt;
+    }
+    .WordBubble table {
+      margin-top:10px;
+    }
+    .WordBubble td {
+      border:solid 1px black;
+      margin-right:10px;
+      font-size:7pt;
+      text-align:center;
+    }
+    
+    .WordBubble td:hover {
+      border:solid 1px red;
+    }
+    .WordBubble .plain { border:none; text-align:left; white-space:nowrap;}
+    .WordBubble .plain:hover { border:none;  }
+    
+    .WordBubble .plainButtons, .WordBubble .plainButtons:hover {
+      text-align:center;
+      padding-left:-30px;
+      border:none;
+    }
+
+    button { padding-left:20px; padding-right:20px; margin-right:5px;}
+    
+    .WordBubble textarea {
+      overflow:hidden;
+      border:solid 1px lightBlue;
+      height:30px;
+      width:expression(document.getElementById('WordBubble').offsetWidth-66);
+    }
+    .WordBubble .BubbleUpperLeft {
+      position:absolute;
+      top:0px;
+      left:0px;
+      height:15px;
+      width:19px;
+      background:url('UpperLeft.png') no-repeat top left; 
+      z-index:2;        
+    }  
+
+    .WordBubble .BubbleUpperMid {
+      position:absolute;
+      top:0px;
+      left:19px;
+      height:15px;
+      right:19px;
+      background:url('UpperMid.png') repeat-x top left ;
+      z-index:2;
+      padding-top:3px;
+      font-family:Segoe UI,Tahoma,Trebuchet;
+      font-size: 1em;
+      font-weight:600;
+      color:Black;
+    }  
+
+    .WordBubble .BubbleUpperRight {
+      position:absolute;
+      top:0px;
+      width:19px;
+      height:15px;
+      right:0px;
+      background:url('UpperRight.png') no-repeat top left ;
+    } 
+
+    .WordBubble .BubbleMidLeft {
+      position:absolute;
+      left:-1px;
+      width:19px;
+      top:15px;
+      bottom:19px;
+      background:url('MidLeft.png') repeat-y top left; 
+      z-index:2;   
+    } 
+    
+    .WordBubble .BubbleMidMid {
+      position:absolute;
+      background-color:White;
+      left:18px;
+      top:15px;
+      right:19px;
+      bottom:19px;
+    }
+    .WordBubble .BubbleMidRight {
+      position:absolute;
+      right:0px;
+      width:19px;
+      top:15px;
+      bottom:19px;
+      background:url('MidRight.png') repeat-y top left; 
+      z-index:2;   
+    }
+    .WordBubble .BubbleLowerLeft {
+      position:absolute;
+      bottom:0px;
+      left:-1px;
+      width:19px;
+      height:19px;
+      background:url('LowerLeft.png') no-repeat top left; 
+    }
+    .WordBubble .BubbleLowerMid {
+      position:absolute;
+      bottom:0px;
+      left:18px;
+      right:19px;
+      height:19px;
+      background:url('LowerMid.png') repeat-x top left;
+    }
+    .WordBubble .BubbleLowerRight {
+      position:absolute;
+      bottom:0px;
+      right:0px;
+      width:19px;
+      height:19px;
+      background:url('LowerRight.png') no-repeat top left; 
+    }
+    #WordBubbleCallout.BubbleRight {
+      display:none;
+      position:absolute;
+      left:10px;
+      top:10px; 
+      width:28px;
+      height:27px;
+      background:url('LeftArrow.png') no-repeat top left; 
+      z-index:3;
+    }
+   
+    #WordBubbleCallout.BubbleLeft {
+      display:none;
+      position:absolute;
+      right:-12px;
+      top:120px;
+      width:31px;
+      height:27px;
+      background:url('RightArrow.png') no-repeat top left; 
+      z-index:3;
+    }

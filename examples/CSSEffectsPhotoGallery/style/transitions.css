@@ -1,0 +1,652 @@
+/*
+
+File: transitions.css
+
+Abstract: A Cascading Style Sheets file containing classes that are used
+  to create the common image transition effects.
+
+Version: 1.0
+
+Disclaimer: IMPORTANT:  This Apple software is supplied to you by 
+Apple Inc. ("Apple") in consideration of your agreement to the
+following terms, and your use, installation, modification or
+redistribution of this Apple software constitutes acceptance of these
+terms.  If you do not agree with these terms, please do not use,
+install, modify or redistribute this Apple software.
+
+In consideration of your agreement to abide by the following terms, and
+subject to these terms, Apple grants you a personal, non-exclusive
+license, under Apple's copyrights in this original Apple software (the
+"Apple Software"), to use, reproduce, modify and redistribute the Apple
+Software, with or without modifications, in source and/or binary forms;
+provided that if you redistribute the Apple Software in its entirety and
+without modifications, you must retain this notice and the following
+text and disclaimers in all such redistributions of the Apple Software. 
+Neither the name, trademarks, service marks or logos of Apple Inc. 
+may be used to endorse or promote products derived from the Apple
+Software without specific prior written permission from Apple.  Except
+as expressly stated in this notice, no other rights or licenses, express
+or implied, are granted by Apple herein, including but not limited to
+any patent rights that may be infringed by your derivative works or by
+other works in which the Apple Software may be incorporated.
+
+The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
+MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
+THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
+OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
+
+IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
+MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
+AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
+STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+Copyright (C) 2010 Apple Inc. All Rights Reserved.
+
+*/
+
+#photo-container > * {
+  position: absolute;
+  height: 680px;
+  width: 1024px;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* --------------------------- appear --------------------------------- */
+
+#photo-container.appear > * {
+}
+
+#photo-container.appear.initial .outgoing {
+}
+
+#photo-container.appear.initial .incoming {
+}
+
+#photo-container.appear.final .outgoing {
+}
+
+#photo-container.appear.final .incoming {
+}
+
+/* --------------------------- crossfade --------------------------------- */
+
+#photo-container.crossfade > * {
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.crossfade.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.crossfade.initial .outgoing {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+#photo-container.crossfade.initial .incoming {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* final state */
+#photo-container.crossfade.final .outgoing {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+#photo-container.crossfade.final .incoming {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* --------------------------- push --------------------------------- */
+
+#photo-container.push > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.push.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.push.initial .outgoing {
+  -webkit-transform: translateX(0);
+  opacity: 1;
+}
+
+#photo-container.push.initial .incoming {
+  -webkit-transform: translateX(100%);
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.push.final .outgoing {
+  -webkit-transform: translateX(-100%);
+  opacity: 0;
+}
+
+#photo-container.push.final .incoming {
+  -webkit-transform: translateX(0);
+  opacity: 1;
+}
+
+/* --------------------------- pushdown --------------------------------- */
+
+#photo-container.pushdown {
+  position: relative;
+  overflow: hidden;
+}
+
+#photo-container.pushdown > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.pushdown.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.pushdown.initial .outgoing {
+  -webkit-transform: translateY(0);
+  opacity: 1;
+}
+
+#photo-container.pushdown.initial .incoming {
+  -webkit-transform: translateY(-100%);
+  opacity: 1;
+}
+
+/* final state */
+#photo-container.pushdown.final .outgoing {
+  -webkit-transform: translateY(100%);
+  opacity: 1;
+}
+
+#photo-container.pushdown.final .incoming {
+  -webkit-transform: translateY(0);
+  opacity: 1;
+}
+
+/* --------------------------- zoomout --------------------------------- */
+
+#photo-container.zoomout > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.zoomout.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.zoomout.initial .outgoing {
+  -webkit-transform: scale(1, 1);
+  opacity: 1;
+}
+
+#photo-container.zoomout.initial .incoming {
+  -webkit-transform: scale(0, 0);
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.zoomout.final .outgoing {
+  -webkit-transform: scale(0, 0);
+  opacity: 0;
+}
+
+#photo-container.zoomout.final .incoming {
+  -webkit-transform: scale(1, 1);
+  opacity: 1;
+}
+
+/* --------------------------- scaleout --------------------------------- */
+
+#photo-container.scaleout > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.scaleout.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.scaleout.initial .outgoing {
+  -webkit-transform: scale(1, 1);
+  opacity: 1;
+}
+
+#photo-container.scaleout.initial .incoming {
+  -webkit-transform: scale(1, 1);
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.scaleout.final .outgoing {
+  -webkit-transform: scale(1.2, 1.2);
+  opacity: 0;
+}
+
+#photo-container.scaleout.final .incoming {
+  -webkit-transform: scale(1, 1);
+  opacity: 1;
+}
+
+/* --------------------------- swipe --------------------------------- */
+
+#photo-container.swipe > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.swipe.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.swipe.initial .outgoing {
+  -webkit-transform: translateX(0);
+  opacity: 1;
+}
+
+#photo-container.swipe.initial .incoming {
+  -webkit-transform: translateX(100%);
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.swipe.final .outgoing {
+  -webkit-transform: translateX(0);
+  opacity: 1;
+}
+
+#photo-container.swipe.final .incoming {
+  -webkit-transform: translateX(0);
+  opacity: 1;
+}
+
+/* --------------------------- pop --------------------------------- */
+
+/* initial state */
+
+#photo-container.pop.initial .incoming {
+  opacity: 0;
+}
+
+/* final state */
+
+#photo-container.pop.final .incoming {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  -webkit-animation-name: pop;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out
+}
+
+#photo-container.pop.final.slowmode .incoming {
+  -webkit-animation-duration: 5s;
+}
+
+@-webkit-keyframes pop {
+  from {
+    -webkit-transform: scale(0, 0);
+    opacity: 0;
+    -webkit-animation-timing-function: ease-out;
+  }
+  70% {
+    -webkit-transform: scale(1.2, 1.2);
+    opacity: 1;
+    -webkit-animation-timing-function: ease-in-out;
+  }
+  to {
+    -webkit-transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+/* --------------------------- drop --------------------------------- */
+
+/* initial state */
+
+#photo-container.drop.initial .incoming {
+  opacity: 0;
+}
+
+/* final state */
+
+#photo-container.drop.final .incoming {
+  opacity: 1;
+  -webkit-animation-name: drop;
+  -webkit-animation-duration: 1s;
+/*  -webkit-animation-timing-function: ease-in;*/
+}
+
+#photo-container.drop.final.slowmode .incoming {
+  -webkit-animation-duration: 5s;
+}
+
+@-webkit-keyframes drop {
+	0% {
+    -webkit-transform: translateY(-100%);
+    opacity: 0;
+    -webkit-animation-timing-function: ease-in;
+  }
+	40% {
+    -webkit-transform: translateY(0);
+    opacity: 1;
+    -webkit-animation-timing-function: ease-out;
+  }
+  
+  60% {
+    -webkit-transform: translateY(-15%);
+    -webkit-animation-timing-function: ease-in;
+  }
+
+  78% {
+    -webkit-transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+  }
+
+  91% {
+    -webkit-transform: translateY(-6%);
+    -webkit-animation-timing-function: ease-in;
+  }
+
+	100% {
+    -webkit-transform: translateY(0);
+	  opacity: 1;
+	}
+}
+
+/* --------------------------- spin --------------------------------- */
+
+#photo-container.spin > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.spin.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.spin.initial .outgoing {
+  -webkit-transform: rotate(0);
+  opacity: 1;
+}
+
+#photo-container.spin.initial .incoming {
+  -webkit-transform: rotate(-180deg);
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.spin.final .outgoing {
+  -webkit-transform: rotate(-180deg);
+  opacity: 0;
+}
+
+#photo-container.spin.final .incoming {
+  -webkit-transform: rotate(0);
+  opacity: 1;
+}
+
+/* --------------------------- batspin --------------------------------- */
+
+#photo-container.batspin > * {
+  -webkit-transition-property: -webkit-transform;
+  -webkit-transition-duration: 1000ms;
+  -webkit-transition-duration: linear;
+}
+
+#photo-container.batspin.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.batspin.initial .incoming {
+  -webkit-transform: rotate(-720deg) scale(0);
+}
+
+/* final state */
+#photo-container.batspin.final .incoming {
+  -webkit-transform: rotate(0deg) scale(1);
+}
+
+/* --------------------------- cube --------------------------------- */
+
+#photo-container.cube > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+}
+
+#photo-container.cube.initial > * {
+  -webkit-transition-duration: 0;
+}
+
+#photo-container.cube.final > * {
+  -webkit-transition-duration: 1000ms;
+}
+
+#photo-container.cube.slowmode.final > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.cube.initial .outgoing {
+  /* The z translate is half the width */
+  -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
+}
+
+#photo-container.cube.initial .incoming {
+  -webkit-transform: translateZ(-512px) rotateY(90deg) translateZ(512px);
+}
+
+/* final state */
+#photo-container.cube.final .outgoing {
+  -webkit-transform: translateZ(-512px) rotateY(-90deg) translateZ(512px);
+}
+
+#photo-container.cube.final .incoming {
+  -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
+}
+
+/* --------------------------- horizontalflip --------------------------------- */
+
+#photo-container.horizontalflip > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+  -webkit-backface-visibility: hidden;
+}
+
+#photo-container.horizontalflip.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.horizontalflip.initial .outgoing {
+  -webkit-transform: rotateX(0deg);
+}
+
+#photo-container.horizontalflip.initial .incoming {
+  -webkit-transform: rotateX(180deg);
+}
+
+/* final state */
+#photo-container.horizontalflip.final .outgoing {
+  -webkit-transform: rotateX(-180deg);
+}
+
+#photo-container.horizontalflip.final .incoming {
+  -webkit-transform: rotateX(0deg);
+}
+
+/* --------------------------- fall --------------------------------- */
+
+#photo-container.fall > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+  -webkit-transform-origin: 50% bottom;
+}
+
+#photo-container.fall.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.fall.initial .outgoing {
+  -webkit-transform: rotateX(0deg);
+  opacity: 1;
+}
+
+#photo-container.fall.initial .incoming {
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.fall.final .outgoing {
+  -webkit-transform: rotateX(-90deg);
+  opacity: 0;
+}
+
+#photo-container.fall.final .incoming {
+  opacity: 1;
+}
+
+/* --------------------------- rolodex --------------------------------- */
+
+#photo-container.rolodex > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+  -webkit-transform-origin: 50% bottom;
+}
+
+#photo-container.rolodex.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.rolodex.initial .incoming {
+  -webkit-transform: rotateX(90deg);
+  opacity: 1;
+}
+
+#photo-container.rolodex.initial .outgoing {
+  -webkit-transform: rotateX(0deg);
+  opacity: 1;
+}
+
+#photo-container.rolodex.initial .incoming {
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.rolodex.final .outgoing {
+  -webkit-transform: rotateX(-90deg);
+  opacity: 0;
+}
+
+#photo-container.rolodex.final .incoming {
+  -webkit-transform: rotateX(0);
+  opacity: 1;
+}
+/* --------------------------- door --------------------------------- */
+
+#photo-container.door > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+  -webkit-transition-duration: 1000ms;
+  -webkit-transform-origin: left 50%;
+}
+
+#photo-container.door.slowmode > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+#photo-container.door.initial .outgoing {
+  -webkit-transform: rotateY(0deg);
+  opacity: 1;
+}
+
+#photo-container.door.initial .incoming {
+  -webkit-transform: rotateY(90deg);
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.door.final .outgoing {
+  -webkit-transform: rotateY(-90deg);
+  opacity: 0;
+}
+
+#photo-container.door.final .incoming {
+  -webkit-transform: rotateY(0deg);
+  opacity: 1;
+}
+
+/* --------------------------- swap --------------------------------- */
+
+/* initial state */
+#photo-container.swap.initial .incoming {
+  opacity: 0;
+}
+
+/* final state */
+#photo-container.swap.final .outgoing {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  -webkit-animation-name: swap-out;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out
+}
+
+#photo-container.swap.final .incoming {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  -webkit-animation-name: swap-in;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out
+}
+
+#photo-container.swap.final.slowmode .outgoing,
+#photo-container.swap.final.slowmode .incoming {
+  -webkit-animation-duration: 5s;
+}
+
+@-webkit-keyframes swap-out {
+  0% {
+    -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
+    -webkit-animation-timing-function: ease-in-out;
+  }
+  50% {
+    -webkit-transform: translate3d(-512px, 0px, -560px) rotateY(20deg);
+    -webkit-animation-timing-function: ease-in;
+  }
+  100% {
+    -webkit-transform: translate3d(0px, 0px, -1000px) rotateY(50deg);
+  }
+}
+
+@-webkit-keyframes swap-in {
+  0% {
+    -webkit-transform: translate3d(0px, 0px, -1000px) rotateY(-50deg);
+    -webkit-animation-timing-function: ease-out;
+  }
+  50% {
+    -webkit-transform: translate3d(512px, 0px, -560px) rotateY(-20deg);
+    -webkit-animation-timing-function: ease-in-out;
+  }
+  100% {
+    -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
+  }
+}

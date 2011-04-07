@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<title>Hover Menu Demo</title>
+<link rel="stylesheet" href="../css/HoverMenu.css" />
+<script type="text/javascript" src="../simpli5.js"></script>
+<script type="text/javascript" src="../components/HoverMenu.js"></script>
+<style type="text/css">
+	html, body {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+	body {
+		font: 12px sans-serif;
+	}
+	div {
+		padding: 4px 20px;
+	}
+	hover-menu {
+		display: inline-block;
+	}
+</style>
+</head>
+<body>
+	
+	<div>
+		onSelect Event:
+		<hover-menu>
+			<menu onselect="alert('selected \'' + event.target.text() + '\'')">
+				<menu-item>Item One</menu-item>
+				<menu-item>Item Two <menu>
+					<menu-item>Item Two-One</menu-item>
+					<menu-item>Item Two-Two</menu-item>
+					<menu-item>Item Two-Three</menu-item>
+				</menu></menu-item>
+				<menu-separator></menu-separator>
+				<menu-item>Item Three</menu-item>
+			</menu>
+		</hover-menu>
+	</div>
+	
+	<div>
+		Click Only:
+		<hover-menu click-only="true">
+			<menu>
+				<menu-item>Item One</menu-item>
+				<menu-item>Item Two <menu>
+					<menu-item>Item Two-One</menu-item>
+					<menu-item>Item Two-Two</menu-item>
+					<menu-item>Item Two-Three</menu-item>
+				</menu></menu-item>
+				<menu-separator></menu-separator>
+				<menu-item>Item Three</menu-item>
+			</menu>
+		</hover-menu>
+	</div>
+	
+	<div>
+		No Auto-close:
+		<hover-menu auto-close="false">
+			<menu>
+				<menu-item>Item One</menu-item>
+				<menu-item>Item Two <menu>
+					<menu-item>Item Two-One</menu-item>
+					<menu-item>Item Two-Two</menu-item>
+					<menu-item>Item Two-Three</menu-item>
+				</menu></menu-item>
+				<menu-separator></menu-separator>
+				<menu-item>Item Three</menu-item>
+			</menu>
+		</hover-menu>
+	</div>
+
+	<div style="position: absolute; bottom: 10px; right: 10px">
+		Menu Position
+		<hover-menu auto-close="false">
+			<menu>
+				<menu-item>Item One</menu-item>
+				<menu-item>Item Two <menu>
+					<menu-item>Item Two-One</menu-item>
+					<menu-item>Item Two-Two</menu-item>
+					<menu-item>Item Two-Three</menu-item>
+					<menu-item>Item Two-Four</menu-item>
+					<menu-item>Item Two-Five</menu-item>
+				</menu></menu-item>
+				<menu-separator></menu-separator>
+				<menu-item>Item Three</menu-item>
+			</menu>
+		</hover-menu>
+	</div>
+
+</body>
+</html>

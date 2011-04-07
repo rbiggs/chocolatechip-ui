@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<!--
+
+ File: photo-gallery.html
+
+ Abstract: Main HTML file for the Photo Gallery CSS Effects sample.
+
+ Version: 1.0
+
+ Disclaimer: IMPORTANT:  This Apple software is supplied to you by 
+ Apple Inc. ("Apple") in consideration of your agreement to the
+ following terms, and your use, installation, modification or
+ redistribution of this Apple software constitutes acceptance of these
+ terms.  If you do not agree with these terms, please do not use,
+ install, modify or redistribute this Apple software.
+
+ In consideration of your agreement to abide by the following terms, and
+ subject to these terms, Apple grants you a personal, non-exclusive
+ license, under Apple's copyrights in this original Apple software (the
+ "Apple Software"), to use, reproduce, modify and redistribute the Apple
+ Software, with or without modifications, in source and/or binary forms;
+ provided that if you redistribute the Apple Software in its entirety and
+ without modifications, you must retain this notice and the following
+ text and disclaimers in all such redistributions of the Apple Software. 
+ Neither the name, trademarks, service marks or logos of Apple Inc. 
+ may be used to endorse or promote products derived from the Apple
+ Software without specific prior written permission from Apple.  Except
+ as expressly stated in this notice, no other rights or licenses, express
+ or implied, are granted by Apple herein, including but not limited to
+ any patent rights that may be infringed by your derivative works or by
+ other works in which the Apple Software may be incorporated.
+
+ The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
+ MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
+ THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
+ FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
+ OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
+
+ IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
+ OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
+ MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
+ AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
+ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+
+ Copyright (C) 2009 Apple Inc. All Rights Reserved.
+
+-->
+
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Photo Gallery</title>
+
+  <link rel="stylesheet" href="style/shared.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <script src="scripts/utilities.js" type="text/javascript" charset="utf-8"></script>
+
+  <!-- transition styles -->
+  <link rel="stylesheet" href="style/transitions.css" type="text/css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="style/tile-transitions.css" type="text/css" media="screen" title="no title" charset="utf-8">
+
+  <!-- JS for transitions -->
+  <script src="scripts/transitions.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/tile-transition.js" type="text/javascript" charset="utf-8"></script>
+
+  <!-- some utility classes -->
+  <script src="scripts/gridview.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/slideshow.js" type="text/javascript" charset="utf-8"></script>
+  
+  <!-- photo-gallery files -->
+  <script src="scripts/photo-data.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/photo-gallery.js" type="text/javascript" charset="utf-8"></script>
+
+  <!-- main CSS file -->
+  <link rel="stylesheet" href="style/photo-gallery.css" type="text/css" media="screen" title="no title" charset="utf-8">  
+
+  <!-- stylesheet for iPad -->
+  <link rel="stylesheet" media="all and (min-device-width: 481px) and (max-device-width: 1024px)" href="style/gallery-ipad.css"> 
+
+</head>
+<body>
+
+    <header>
+      <h1>CSS Effects Photo Gallery</h1>
+    </header>
+
+    <nav>
+      <p>Click on an image to enter the slideshow, then use the arrow keys, or click or touch on the images to advance through
+        the gallery. Use the Return key to flip the images over, revealing their metadata.</p>
+      <ul class="thumbs">
+        <li class="image-container"><img src="images/thumbs/IMG_0085.jpg" width="200" height="133" alt="IMG 0085"></li>
+        <li class="image-container"><img src="images/thumbs/IMG_0106.jpg" width="200" height="133" alt="IMG 0106"></li>
+        <li class="image-container"><img src="images/thumbs/IMG_0284.jpg" width="200" height="133" alt="IMG 0284"></li>
+        <li class="image-container"><img src="images/thumbs/IMG_0288.jpg" width="200" height="133" alt="IMG 0288"></li>
+        <li class="image-container"><img src="images/thumbs/IMG_0306.jpg" width="200" height="133" alt="IMG 0306"></li>
+        <li class="image-container"><img src="images/thumbs/IMG_0316.jpg" width="200" height="133" alt="IMG 0316"></li>
+        <li class="image-container"><img src="images/thumbs/IMG_0403.jpg" width="200" height="133" alt="IMG 0403"></li>
+        <li class="image-container"><img src="images/thumbs/IMG_0438.jpg" width="200" height="133" alt="IMG 0438"></li>
+      </ul>
+    </nav>
+
+    <!-- This is the overlay that will contain the photo gallery -->
+    <div id="overlay" class="hidden">
+      <div id="gallery-container">
+        <div id="thumbs">
+          <div id="thumb-scroller"></div>
+        </div>
+        <div class="flipper">
+          <div id="photo-container"></div>
+        </div>
+      </div>
+    </div>
+
+</body>
+</html>

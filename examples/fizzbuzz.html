@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    <title>FizzBuzz CSS Version</title>
+    <style type="text/css">
+    ul {
+        counter-reset: number;
+        width: 100px;
+        padding: 0;
+        margin: 0;
+        border-top: solid 1px #ccc;
+        margin-left: 20px;
+    }
+    li {
+    	border: solid 1px #ccc;
+    	border-top: none;
+    	font: normal 12pt/14pt Helvetica, Arial, Sans-serif;
+    }
+    li:before {
+        counter-increment: number;
+        content: counter(number);
+        padding: 2px;
+    }
+    li:nth-child(3n):before {
+        content: "Fizz";
+        color: blue;
+        background-color: #eee;
+        font-weight: bold;
+        display: block;
+    }
+    li:nth-child(5n):before {
+        content: "Buzz";
+        color: red;
+        background-color: #eee;
+        font-weight: bold;
+        display: block;
+    }
+    li:nth-child(3n):nth-child(5n):before {
+        content: "FizzBuzz";
+        color: green;
+        background-color: #eee;
+        font-weight: bold;
+        display: block;
+    }
+    ul, li {
+    	list-style: none;
+    }
+    </style>
+    <script src="chui/chocolatechip.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    	$.ready(function() {
+    		var list = "";
+    		for (var i = 0; i < 100; i++) {
+    			list += "<li></li>";
+    		}
+    		$("ul").insert(list)
+    	});
+    </script>
+
+</head>
+<body>
+    <h1>FizzBuzz implemented with CSS generated content and nth child selectors</h1>
+    <p>Known to work in Firefox 3.5, Safari 4.0, Opera 10.10 and Chrome 4.0.</p>
+    <ul>
+    </ul>
+</body>
+</html>

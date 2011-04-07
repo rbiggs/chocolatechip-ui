@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>iScroll demo: iPad</title>
+
+<script type="application/javascript" src="../chui/chocolatechip.js"></script>
+<script type="application/javascript" src="../chui/uiscroll.js"></script>
+
+<script type="text/javascript">
+
+$.ready(function() {
+	var scrollContent = null;
+		scrollNav1 = null;
+		scrollNav2 = null;
+		
+	RESIZE_EVs = 'onorientationchange' in window ? 'orientationchange' : 'resize';
+	var setAppOrientation = function() {
+		if (RESIZE_EVs) {
+			if (window.innerWidth > window.innerHeight) {
+				document.getElementsByTagName("body")[0].className = "landscape";
+				$("#sidebar").css("{display: block; height: 100%; margin-bottom: 1px;}");
+			} else {
+				document.getElementsByTagName("body")[0].className = "portrait";
+				$("#sidebar").css("{display: none; height: " + (window.innerHeight - 100) + "px;}");
+			}
+		} else if (window.innerWidth < window.innerHeight) {
+			document.getElementsByTagName("body")[0].className = "portrait";
+			$("#sidebar").css("{display: none; height: " + (window.innerHeight - 100) + "px;}");
+		} 
+	};
+	function loaded() {
+		scrollContent = new $.UIScroll('#contentScroller');
+		scrollNav1 = new $.UIScroll('#navScroller');
+		setAppOrientation();
+	}
+	loaded();
+	var rootView = document.getElementById("sidebar");
+	toggleRootView = function() {
+		if (rootView.style.display === "none") {
+			$("#sidebar").css("{display: block;}");
+			scrollNav1.destroy();
+			scrollNav2 = new $.UIScroll('#navScroller');
+		} else {
+			rootView.style.display = "none";
+			scrollNav1.destroy();
+			scrollNav2.destroy();
+		}
+	};
+	$("header > button").bind("click", function() {
+		toggleRootView();
+	});
+	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+	//window.addEventListener('resize', setAppOrientation, false);
+});
+
+</script>
+<style type="text/css" media="all">
+html,body {
+	height:100%;
+}
+
+body,ul,li,header,nav,aside,section,article,p {
+	padding:0;
+	margin:0;
+	border:0;
+}
+
+body {
+	font-size:12px;
+	-webkit-user-select:none;
+    -webkit-text-size-adjust:none;
+	font-family:helvetica;
+	background:#424242;
+}
+
+p {
+	margin-bottom:1.5em;
+	line-height:150%;
+}
+
+header,nav,aside,section,article {
+	display:block;
+}
+
+#page {
+	width:100%; height:100%;
+	position:relative;
+	display:-webkit-box;
+	-webkit-box-orient:horizontal;
+	background:#424242;
+}
+
+#sidebar {
+	width:320px;
+	margin-right:1px;
+	padding-bottom: 20px;
+}
+body.portrait #sidebar {
+	display: none;
+	position: absolute;
+	top: 44px;
+	left: 10px;
+	z-index: 10000;
+	height: 100%;
+	border-radius: 6px 6px;
+	-webkit-box-shadow: 0 0 10px #000;
+	border: solid 4px #000;
+	background-color: #000;
+}
+body.portrait #sidebar #navWrapper {
+	-webkit-border-bottom-left-radius: 4px 4px;
+	-webkit-border-bottom-right-radius: 4px 4px;
+}
+body.portrait #sidebar:after {
+	content: " ";
+	position: absolute;
+	display: block;
+	top: -17px;
+	left: 17px;
+	height: 30px !important;
+	width: 30px;
+	border: solid 4px #000;
+	border-radius: 5px;
+	border-bottom: none;
+	border-right: none;
+	background-color: #9e9e9e !important;
+	-webkit-transform: rotate(45deg);
+	-webkit-mask-image: 
+		-webkit-gradient(linear, left top, right bottom, 
+			from(#000000), 
+			color-stop(0.5,#000000), 
+			color-stop(0.5, transparent), 
+			to(transparent));
+}
+body.portrait #sidebar header {
+	margin-top: 0;
+	background-color: none;
+	background-image:
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(255,255,255,.5)), 
+			color-stop(0.5,rgba(30,30,30,.5)), 
+			color-stop(0.5, rgba(0,0,0,.5)), 
+			to(rgba(0,0,0,.45)));
+	color:#fff;
+	text-shadow: none;
+}
+
+#content {
+	-webkit-box-flex:1;
+}
+
+#sidebar, #content {
+	position:relative;
+	height:100%;
+}
+
+header {
+	height:43px; line-height:43px;
+	border-bottom:1px solid #838a9a;
+	background:#424242 -webkit-gradient(linear, 0 0, 0 100, from(#f4f5f7), to(#999da9));
+	color:#717880;
+	text-shadow:0 1px 0 #fff;
+	font-size:18px; font-weight:bold;
+	text-align:center;
+	-webkit-border-top-left-radius:4px;
+	-webkit-border-top-right-radius:4px;
+	position: relative;
+}
+
+#navScroller > li {
+	padding:0 10px;
+	border-bottom:1px solid #ccc;
+	height:40px; line-height:40px;
+}
+#navScroller {
+	padding-bottom: 40px;
+}
+#contentScroller {
+	-webkit-box-sizing:border-box;
+	padding:20px;
+}
+
+nav, article {
+	position:absolute;
+	top:44px; bottom:0; left:0; right:0;
+	font-size:15px;
+	background:#fff;
+	
+}
+button {
+	-webkit-appearance: none;
+	-webkit-box-sizing: border-box;
+	-webkit-box-flex: 1;
+	display: block;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+		-webkit-box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
+	border: solid 1px #54617d;
+	border-color: #484e59 #54617d #4c5c7a #54617d; 
+	display: block;
+	padding: 0px 10px;
+	font-size: 12px;
+	line-height: 28px;
+	height: 30px;
+	-webkit-box-sizing: border-box;
+	-webkit-border-radius: 5px;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#92a1bf), 
+			color-stop(0.25, #798aad),
+			color-stop(0.5, #6276a0), 
+			color-stop(0.5, #556a97), 
+			color-stop(0.75, #566c98),
+			to(#546993)); 
+	color: #fff;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-user-select: none;
+	margin: 0px 10px;
+	position: relative;
+   	cursor: pointer;
+   	display: -webkit-box;
+   	-webkit-box-orient: horizontal;
+   	-webkit-box-align: center;
+   	-webkit-box-direction: normal;
+}
+button > label {
+	display: block;
+    -webkit-box-align: center;
+}
+button[ui-bar-align="left"] {
+	position: absolute;
+	left: 10px;
+	top: 5px;
+}
+body.landscape header > button {
+	display: none;
+}
+</style>
+</head>
+<body>
+
+<div id="page">
+	<div id="sidebar">
+		<header>Navigation</header>
+		<nav id="navWrapper">
+			<ul id="navScroller">
+				<li>Option 1</li>
+				<li>Option 2</li>
+				<li>Option 3</li>
+				<li>Option 4</li>
+				<li>Option 5</li>
+				<li>Option 6</li>
+				<li>Option 7</li>
+				<li>Option 8</li>
+				<li>Option 9</li>
+				<li>Option 10</li>
+				<li>Option 11</li>
+				<li>Option 12</li>
+				<li>Option 13</li>
+				<li>Option 14</li>
+				<li>Option 15</li>
+				<li>Option 16</li>
+				<li>Option 17</li>
+				<li>Option 18</li>
+				<li>Option 19</li>
+				<li>Option 20</li>
+				<li>Option 21</li>
+				<li>Option 22</li>
+				<li>Option 23</li>
+				<li>Option 24</li>
+				<li>Option 25</li>
+				<li>Option 26</li>
+				<li>Option 27</li>
+				<li>Option 28</li>
+				<li>Option 29</li>
+				<li>Option 30</li>
+				<li>Option 31</li>
+				<li>Option 32</li>
+				<li>Option 33</li>
+				<li>Option 34</li>
+				<li>Option 35</li>
+				<li>Option 36</li>
+				<li>Option 37</li>
+				<li>Option 38</li>
+				<li>Option 39</li>
+				<li>Option 40</li>
+			</ul>
+		</nav>
+	</div>
+
+	<div id="content">
+		<header>
+		<button ui-bar-align="left"><label>Navigation</label></button>
+		Main Content Area</header>
+		<article id="contentWrapper">
+			<div id="contentScroller">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+				<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+			</div>
+		</article>
+	</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+Simpli5 is an HTML5 Javascript library. What this means is that we do away with much of the code that is used for cross-browser compatibiltiy and workarounds for non-compliant browsers. This also means that this library will not work for gerneral public apps until most browsers support HTML5.
+
+Meant to be used for HTML AIR applications, mobile device applications, or applications where you tell your users to grow up and get a big-boy browser. ;)

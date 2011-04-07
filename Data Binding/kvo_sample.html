@@ -1,0 +1,76 @@
+<html>
+<head>
+<script>
+  // Key Value Observer Function:
+  var $ = {};
+  $.kvo = function () {
+	// Register observers of a key of this object:
+	this.registerObserver = function(observer, key) {
+	  if (this.observers == null)
+		this.observers = {};
+	  if(this.observers[key] == null)
+		this.observers[key] = [observer];
+	  else
+		this.observers[key].push(observer);
+	};
+	
+	// Set a value of this object, and inform observers of the assignment:
+	this.set = function(key, value) {
+	  if (this.observers != null && this.observers[key] != null) {
+		currentValue = this[key];
+		for(var i = 0; i < this.observers[key].length; i++)
+		  this.observers[key][i].keyWillUpdate(this, key, currentValue, value);
+	  }
+	  this[key] = value;
+	}
+	
+	// Simple function to help with consistency:
+	this.get = function(key) {
+	  return this[key];
+	}
+  }
+</script>
+</head>
+<body>
+	<input type="checkbox" id="checkbox"> Turn me on and off
+	<p id="result">Off</p>
+	<br><br>
+	<input id="textinput" type="text">
+	<br>
+	<label id="labeltext">Doh!</label>
+	
+	<script>
+		// References to the two screen elements:
+		checkbox = document.getElementById('checkbox');
+		result = document.getElementById('result');
+		
+		// Create a new KVC object:
+		var kvo = new $.kvo();
+		
+		// Register the p tag to observe the checked key of the object:
+		kvo.registerObserver(result, 'checked');
+		
+		// Define what happens when the p tag is informed of an assignment:
+		result.keyWillUpdate = function(object, key, currentValue, newValue) {
+		if(newValue)
+		  this.innerHTML = "On";
+		else
+		  this.innerHTML = "Off";
+		}
+		// When the button is clicked, set the checked key of the kvc object to true:
+		checkbox.onclick = function() { kvo.set('checked', this.checked); }
+		
+		input = document.getElementById("textinput");
+		label = document.getElementById("labeltext");
+		kvo.registerObserver(label, "text");
+		//var currentValue = "Bozo;
+		label.keyWillUpdate = function(object, key, currentValue, newValue) {
+			if(newValue)
+				this.innerText = input.value;
+			else
+				this.innerText = currentValue;
+		}
+		input.onkeyup = function() {kvo.set("text", this.value);}
+	</script>
+</body>
+</html>

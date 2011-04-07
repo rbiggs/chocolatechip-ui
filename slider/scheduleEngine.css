@@ -1,0 +1,90 @@
+﻿/* scheduleEngine.css
+   ================== */
+  .schedule {
+    border:solid 1px black;
+    padding:0;
+    margin:0;
+    font-family:Arial Narrow,Verdana,Trebuchet, Tahoma;
+    font-weight:500;
+    font-size:14pt;
+  }
+  .schedule th {
+    
+  }
+  .schedule th {
+    background-color: #c0c0c0;
+    text-align:center;
+    border:none;
+    border-right:solid 1px black;
+    border-bottom: solid 1px black;
+    padding-left:3px;
+    padding-right:3px;
+  }
+  .schedule th em {
+    font-weight:800;
+    color: red;
+    font-style:normal;
+  }
+  .schedule td {
+    text-align:center;
+    border-right:solid 1px black;
+    border-bottom: solid 1px black;
+    padding-left:3px;
+    padding-right:3px;
+
+  }
+  .schedule td.sys {
+    font-weight:bolder;
+    background-color: #339966;
+    white-space:nowrap;
+  }
+  .schedule td.name {
+    text-align:left;
+    white-space:nowrap;
+  }
+  .schedule td.equipment {
+    white-space:nowrap;
+  }
+  .schedule td.status {
+    font-weight:bolder;
+    background-color: #c0c0c0;
+  }
+
+td.E, td.E_COMMENT { background-color: #ff99cc; font-weight:bolder; }
+td.LOA, td.LOA_COMMENT { background-color: #c0c0c0; font-weight:bolder; }
+td.MEDICAL, td.MEDICAL_COMMENT { background-color: #ffff99; font-weight:bolder; }
+td.NRD, td.NRD_COMMENT { background-color: #ffffff; font-weight:bolder; }
+td.RDO, td.RDO_COMMENT { background-Color: #339966; font-weight:bolder; }
+td.O, td.O_COMMENT { background-Color: #69bd45; font-weight:bolder; }
+td.NR, td.NR_COMMENT { background-Color: #ffffff; font-weight:bolder; }
+td.OFF, td.OFF_COMMENT { background-Color: #ffff99; font-weight:bolder; }
+td.OT, td.OT_COMMENT  { background-color: #ff99cc; font-weight:bolder; }
+td.R, td.R_COMMENT { background-Color: #3366ff; font-weight:bolder; }
+td.R_DOUBLE, td.R_DOUBLE_COMMENT { background-color: #00ccff; font-weight:bolder; }
+td.S, td.S_COMMENT { background-color: #ff0000; font-weight:bolder; }
+td.TR, td.TR_COMMENT { background-Color: #993366; font-weight:bolder; }
+td.TVL, td.TVL_COMMENT { background-color: #ffff00; font-weight:bolder; }
+
+  td._COMMENT,
+  td.E_COMMENT,
+  td.LOA_COMMENT,
+  td.MEDICAL_COMMENT,
+  td.NRD_COMMENT,
+  td.RDO_COMMENT,
+  td.NR_COMMENT,
+  td.O_COMMENT,
+  td.OFF_COMMENT,
+  td.OT_COMMENT,
+  td.R_COMMENT,
+  td.R_DOUBLE_COMMENT,
+  td.S_COMMENT,
+  td.TR_COMMENT,
+  td.TVL_COMMENT {
+    background-image: url('images/comment.gif');
+    background-repeat: no-repeat;
+    background-position: top right;
+  }  
+
+
+#contextMenu{ background: #9BD1FA; width:200px;margin-left:400px;margin-top:20px;z-index:2;position:absolute; border:solid 1px blue;}
+#Goal { position:absolute; top:0; left:0; z-index:1;}

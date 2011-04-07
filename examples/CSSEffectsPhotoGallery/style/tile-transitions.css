@@ -1,0 +1,455 @@
+/*
+
+File: tile-transitions.css
+
+Abstract: A Cascading Style Sheets file containing classes that are used
+  to create some of the more advanced tiling effects.
+
+Version: 1.0
+
+Disclaimer: IMPORTANT:  This Apple software is supplied to you by 
+Apple Inc. ("Apple") in consideration of your agreement to the
+following terms, and your use, installation, modification or
+redistribution of this Apple software constitutes acceptance of these
+terms.  If you do not agree with these terms, please do not use,
+install, modify or redistribute this Apple software.
+
+In consideration of your agreement to abide by the following terms, and
+subject to these terms, Apple grants you a personal, non-exclusive
+license, under Apple's copyrights in this original Apple software (the
+"Apple Software"), to use, reproduce, modify and redistribute the Apple
+Software, with or without modifications, in source and/or binary forms;
+provided that if you redistribute the Apple Software in its entirety and
+without modifications, you must retain this notice and the following
+text and disclaimers in all such redistributions of the Apple Software. 
+Neither the name, trademarks, service marks or logos of Apple Inc. 
+may be used to endorse or promote products derived from the Apple
+Software without specific prior written permission from Apple.  Except
+as expressly stated in this notice, no other rights or licenses, express
+or implied, are granted by Apple herein, including but not limited to
+any patent rights that may be infringed by your derivative works or by
+other works in which the Apple Software may be incorporated.
+
+The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
+MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
+THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
+OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
+
+IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
+OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
+MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
+AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
+STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+Copyright (C) 2010 Apple Inc. All Rights Reserved.
+
+*/
+
+.tile-container {
+  -webkit-transform-style: preserve-3d;
+}
+
+.tile-container > div {
+  position: absolute;
+  -webkit-animation-fill-mode: both; /* Note: only supported in Safari 5 and iPhone 4.0 and later. */
+}
+
+
+.tile-container > div > div {
+  position: absolute;
+  height: 136px;
+  width: 128px;
+  -webkit-animation-fill-mode: both; /* Note: only supported in Safari 5 and iPhone 4.0 and later. */
+}
+
+/* -------------------------- tile-drop ---------------------------------- */
+
+#photo-container.tile-drop > * {
+}
+
+/* initial state */
+#photo-container.tile-drop.initial .incoming {
+  opacity: 0;
+}
+
+#photo-container.tile-drop.final .incoming {
+  opacity: 1;
+}
+
+/* final state */
+#photo-container.tile-drop.initial .outgoing {
+}
+
+#photo-container.tile-drop.final .outgoing {
+}
+
+#photo-container.tile-drop.final .incoming .tile-container > div {
+  -webkit-animation-name: tile-drop-incoming-tile;
+  -webkit-animation-duration: 800ms;
+  -webkit-animation-timing-function: ease-in;
+}
+
+#photo-container.tile-drop.final .outgoing .tile-container > div {
+  -webkit-animation-name: tile-drop-outgoing-tile;
+  -webkit-animation-duration: 800ms;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-transform-origin: right top;
+}
+
+#photo-container.tile-drop.final.slowmode .outgoing .tile-container > div,
+#photo-container.tile-drop.final.slowmode .incoming .tile-container > div {
+  -webkit-animation-duration: 3s;
+}
+
+@-webkit-keyframes tile-drop-incoming-tile {
+  from {
+    opacity: 0;
+    -webkit-transform: translate(0, -680px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+  }
+}
+
+@-webkit-keyframes tile-drop-outgoing-tile {
+  from {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translate(0, 680px);
+  }
+}
+
+/* -------------------------- tile-fall ---------------------------------- */
+
+#photo-container.tile-fall > * {
+}
+
+#photo-container.tile-fall.initial .incoming {
+  opacity: 0;
+}
+
+#photo-container.tile-fall.final .incoming {
+  opacity: 1;
+}
+
+#photo-container.tile-fall.initial .outgoing {
+}
+
+#photo-container.tile-fall.final .outgoing {
+}
+
+#photo-container.tile-fall.final .incoming .tile-container > div {
+  -webkit-animation-name: tile-fall-incoming-tile;
+  -webkit-animation-duration: 6s;
+  -webkit-animation-timing-function: ease-in;
+}
+
+#photo-container.tile-fall.final .outgoing .tile-container > div {
+  -webkit-animation-name: tile-fall-outgoing-tile;
+  -webkit-animation-duration: 4s;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-transform-origin: right top;
+}
+
+#photo-container.tile-fall.final.slowmode .outgoing .tile-container > div,
+#photo-container.tile-fall.final.slowmode .incoming .tile-container > div {
+  -webkit-animation-duration: 8s;
+}
+
+@-webkit-keyframes tile-fall-incoming-tile {
+	0% { -webkit-transform: translateY(-680px); opacity: 0; }
+	35% { -webkit-transform: translateY(-680px) rotate(8deg); opacity: 0; }
+	38% { -webkit-transform: translateY(0px) rotate(-2deg); opacity: 1; }
+	41% { -webkit-transform: translateY(-10px) rotate(-4deg); }
+	44% { -webkit-transform: translateY(0px) rotate(-1deg); }
+	47% { -webkit-transform: translateY(-5px) rotate(3deg); }
+	50% { -webkit-transform: translateY(0) rotate(0deg); }
+	100% { -webkit-transform: translateY(0); opacity: 1; }
+}
+
+@-webkit-keyframes tile-fall-outgoing-tile {
+	0% { -webkit-transform: translateY(0); opacity: 1; }
+	10% { -webkit-transform: translateY(0) rotate(-60deg); }
+	16% { -webkit-transform: translateY(0) rotate(-40deg); }
+	22% { -webkit-transform: translateY(0) rotate(-50deg); }
+	28% { -webkit-transform: translateY(0) rotate(-45deg); }	
+	34% { -webkit-transform: translateY(500px) rotate(-45deg); opacity: 0; }
+	100% { -webkit-transform: translateY(500px) rotate(-45deg); opacity: 0; }
+}
+
+/* --------------------------- tile-implode --------------------------------- */
+
+#photo-container.tile-implode > * {
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 1s;
+}
+
+#photo-container.tile-implode.initial .incoming {
+  opacity: 0;
+}
+
+#photo-container.tile-implode.final .incoming {
+  opacity: 1;
+}
+
+#photo-container.tile-implode.initial .outgoing {
+  opacity: 1;
+}
+
+#photo-container.tile-implode.final .outgoing {
+  opacity: 0;
+}
+
+#photo-container.tile-implode .tile-container > div {
+  -webkit-transform-style: preserve-3d;
+}
+
+#photo-container.tile-implode.final .incoming .tile-container > div {
+  -webkit-animation-duration: 2.6s;
+  -webkit-animation-timing-function: ease-in;
+}
+
+#photo-container.tile-implode.final .outgoing .tile-container > div {
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease-out;
+}
+
+#photo-container.tile-implode.final.slowmode .incoming .tile-container > div {
+  -webkit-animation-duration: 7.8s;
+}
+
+#photo-container.tile-implode.final.slowmode .outgoing .tile-container > div {
+  -webkit-animation-duration: 6s;
+}
+
+#photo-container.tile-implode.final .tile-container > div > div {
+  -webkit-animation: implode-spin 1300ms 2 linear;
+}
+
+#photo-container.tile-implode.final.slowmode .tile-container > div > div {
+  -webkit-animation-duration: 3.9s;
+}
+
+@-webkit-keyframes implode-spin {
+  from {
+    -webkit-transform: rotateY(0);
+  }
+  
+  to {
+    -webkit-transform: rotateY(360deg);
+  }
+}
+
+
+/* ------------------------ tile-unfold-down ------------------------------------ */
+
+#photo-container.tile-unfold-down .tile-container > div {
+  position: absolute;
+  height: 250px;
+  width: 100%;
+  -webkit-animation-fill-mode: both; /* FIXME: doesn't work on iPad */
+}
+
+#photo-container.tile-unfold-down > * {
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 1s;
+}
+
+#photo-container.tile-unfold-down.initial .incoming {
+  opacity: 0;
+}
+
+#photo-container.tile-unfold-down.final .incoming {
+  opacity: 1;
+}
+
+#photo-container.tile-unfold-down.initial .outgoing {
+  opacity: 0;
+}
+
+#photo-container.tile-unfold-down.final .outgoing {
+  opacity: 0;
+}
+
+#photo-container.tile-unfold-down .tile-container > div {
+}
+
+#photo-container.tile-unfold-down.final .incoming .tile-container > div {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease-in;
+}
+
+#photo-container.tile-unfold-down.final .outgoing .tile-container > div {
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease-out;
+}
+
+#photo-container.tile-unfold-down.final.slowmode .outgoing .tile-container> div,
+#photo-container.tile-unfold-down.final.slowmode .incoming .tile-container> div {
+  -webkit-animation-duration: 15s;
+}
+
+#photo-container.tile-unfold-down.final .incoming .tile-container > :nth-child(1) {
+  -webkit-transform-origin: top left;
+  -webkit-animation-name: top-unfold;
+}
+
+#photo-container.tile-unfold-down.final .incoming .tile-container > :nth-child(2) {
+  -webkit-transform-origin: top left;
+  -webkit-animation-name: center-unfold;
+}
+
+#photo-container.tile-unfold-down.final .incoming .tile-container > :nth-child(3) {
+  -webkit-transform-origin: top left;
+  -webkit-animation-name: bottom-unfold;
+}
+
+@-webkit-keyframes top-unfold {
+  0% { -webkit-transform: rotateX(130deg); -webkit-animation-timing-function: ease-in-out; }
+  19% { -webkit-transform: rotateX(-12deg); }
+  26% { -webkit-transform: rotateX(12deg); }
+  30% { -webkit-transform: rotateX(0); }
+  100% { -webkit-transform: rotateX(0); }
+}
+
+@-webkit-keyframes center-unfold {
+  0% { opacity: 0; }
+  28% { -webkit-transform: rotateX(130deg); opacity: 0; }
+  31% { -webkit-transform: rotateX(130deg); -webkit-animation-timing-function: ease-in-out; opacity: 1; }
+  45% { -webkit-transform: rotateX(-18deg); }
+  53% { -webkit-transform: rotateX(18deg); }
+  57% { -webkit-transform: rotateX(0); }
+  100% { -webkit-transform: rotateX(0); }
+}
+
+@-webkit-keyframes bottom-unfold {
+  0% { opacity: 0; }
+  55% { -webkit-transform: rotateX(140deg); opacity: 0; }
+  56% { -webkit-transform: rotateX(140deg); -webkit-animation-timing-function: ease-in-out; opacity: 1; }
+  68% { -webkit-transform: rotateX(-28deg); }
+  76% { -webkit-transform: rotateX(28deg); }
+  84% { -webkit-transform: rotateX(-11deg); }
+  92% { -webkit-transform: rotateX(11deg); -webkit-animation-timing-function: ease-out; }
+  100% { -webkit-transform: rotateX(0); }
+}
+
+/* ------------------------ tile-unfold-right ------------------------------------ */
+
+#photo-container.tile-unfold-right .tile-container > div {
+  position: absolute;
+  height: 250px;
+  width: 100%;
+  -webkit-animation-fill-mode: both; /* FIXME: doesn't work on iPad */
+}
+
+#photo-container.tile-unfold-right > * {
+}
+
+#photo-container.tile-unfold-right.initial .incoming {
+  opacity: 0;
+}
+
+#photo-container.tile-unfold-right.final .incoming {
+  opacity: 1;
+}
+
+#photo-container.tile-unfold-right.initial .outgoing {
+  opacity: 0;
+}
+
+#photo-container.tile-unfold-right.final .outgoing {
+  opacity: 0;
+}
+
+#photo-container.tile-unfold-right .tile-container > div {
+}
+
+#photo-container.tile-unfold-right.final .incoming .tile-container > div {
+  -webkit-animation-duration: 3s;
+  -webkit-animation-timing-function: ease-in;
+}
+
+#photo-container.tile-unfold-right.final .outgoing .tile-container > div {
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: ease-out;
+}
+
+#photo-container.tile-unfold-right.final.slowmode .outgoing .tile-container > div,
+#photo-container.tile-unfold-right.final.slowmode .incoming .tile-container > div {
+  -webkit-animation-duration: 15s;
+}
+
+#photo-container.tile-unfold-right.final .incoming .tile-container > :nth-child(1) {
+  -webkit-transform-origin: top left;
+  -webkit-animation-name: horiz-unfold-1;
+}
+
+#photo-container.tile-unfold-right.final .incoming .tile-container > :nth-child(2) {
+  -webkit-transform-origin: top left;
+  -webkit-animation-name: horiz-unfold-2, horiz-unfold-2-opacity;
+}
+
+#photo-container.tile-unfold-right.final .incoming .tile-container > :nth-child(3) {
+  -webkit-transform-origin: top left;
+  -webkit-animation-name: horiz-unfold-3, horiz-unfold-3-opacity;
+}
+
+#photo-container.tile-unfold-right.final .incoming .tile-container > :nth-child(4) {
+  -webkit-transform-origin: top left;
+  -webkit-animation-name: horiz-unfold-4, horiz-unfold-4-opacity;
+}
+
+@-webkit-keyframes horiz-unfold-1 {
+  0%  { -webkit-transform: rotateY(-130deg); opacity: 0;}
+  25% { -webkit-transform: rotateY(0deg); opacity: 1;}
+  100% { -webkit-transform: rotateY(0deg); }
+}
+
+@-webkit-keyframes horiz-unfold-2 {
+  0% { -webkit-transform: rotateY(-160deg); }
+  25% { -webkit-transform: rotateY(-160deg) }
+  50% { -webkit-transform: rotateY(0deg); }
+  100% { -webkit-transform: rotateY(0deg); }
+}
+
+@-webkit-keyframes horiz-unfold-2-opacity {
+  0% { opacity: 0; }
+  25% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes horiz-unfold-3 {
+  0% { -webkit-transform: rotateY(-130deg); }
+  50% { -webkit-transform: rotateY(-130deg); }
+  75% { -webkit-transform: rotateY(0deg); }
+  100% { -webkit-transform: rotateY(0deg); }
+}
+
+@-webkit-keyframes horiz-unfold-3-opacity {
+  0% { opacity: 0; }
+  50% { opacity: 0; }
+  55% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@-webkit-keyframes horiz-unfold-4 {
+  0% { -webkit-transform: rotateY(-130deg); }
+  75% { -webkit-transform: rotateY(-130deg); }
+  100% { -webkit-transform: rotateY(0deg); }
+}
+
+@-webkit-keyframes horiz-unfold-4-opacity {
+  0% { opacity: 0; }
+  75% { opacity: 0; }
+  80% { opacity: 1; }
+  100% { opacity: 1; }
+}

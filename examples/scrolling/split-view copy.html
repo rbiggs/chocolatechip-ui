@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Flexible Box Model Layouts</title>
+	<style type="text/css">
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0px;
+			padding: 0px;
+			font: normal 14px/16px Helvetica, Sans-serif;
+		}
+		ul, li {
+			list-style: none;
+			padding: 0px;
+			margin: 0px;
+		}
+		/* for Firefox */
+		article, header, section, nav, aside, footer {
+			display: block;
+		}
+		/* end Firefox */
+		article {
+			min-height: 100%;
+			overflow: hidden;
+		}
+		article > section {
+			display: -webkit-box;
+			-webikit-box-orient: horizontal;
+			-webkit-box-align: stretch;
+			display: -moz-box;
+			-moz-box-orient: horizontal;
+			-moz-box-align: stretch;
+			-moz-box-lines: multiple;
+		}
+		article > section > aside {
+			width: 200px;
+			border-right: 1px solid #acacac;
+		}
+		section > section {
+			-webkit-box-flex: 1;
+			-moz-box-flex: 1;
+			padding: 10px 20px;
+			background-color: #cbd2d8;
+			background-image: -webkit-gradient(linear, left top, right top, from(#c5ccd4), color-stop(0.75, #c5ccd4), color-stop(0.75, transparent), to(transparent)); 
+			background-image: -moz-linear-gradient(left, #c5ccd4, #c5ccd4 75%, transparent 75%, transparent);
+			-webkit-background-size: 5px 100%;
+			-moz-background-size: 5px 100%;
+		}
+		header {
+			height:45px; line-height:45px;
+			border-bottom:1px solid #838a9a;
+			background:#424242 -webkit-gradient(linear, 0 0, 0 100, from(#f4f5f7), to(#999da9));
+			color:#717880;
+			text-shadow:0 1px 0 #fff;
+			font-size:18px; font-weight:bold;
+			text-align:center;
+			-webkit-border-top-left-radius:4px;
+			-webkit-border-top-right-radius:4px;
+			position: relative;
+		}
+		header h1 {
+			text-align: center;
+			font: bold 21px/21px Helvetica, Arial, Sans-serif;
+			letter-spacing: -1px;
+			color:#717880;
+			text-shadow:0 1px 0 #fff;
+			font-size:18px; 
+			font-weight:bold;
+			line-height: 45px;
+			margin: 0px;
+		}
+		footer {
+			background-color: #b0bccd;
+			background-image: -webkit-gradient(linear, left top, left bottom, 
+				from(#b0bccd), 
+				color-stop(0.5, #889bb3), 
+				color-stop(0.5, #8195af), 
+				to(#6d84a2));
+			background-image: -moz-linear-gradient(top, #b0bccd, #889bb3 50%, #8195af 50%, #6d84a2); 
+			padding: 1px 0px;
+			text-align: center;
+			color: #fff;
+		}
+		nav li > a {
+			text-decoration: none;
+			display: block;
+			padding: 8px 10px;
+		}
+		nav li > a {
+			cursor: pointer;
+			padding: 8px;
+			border-bottom: 1px solid #acacac;
+			background-color: #fff;
+			font-weight: bold;
+			color: rgba(0,0,0,.75);
+		}
+		nav li > a:after {
+			content: "›";
+			font: normal 28px/28px Verdana;
+			color: rgba(0,0,0,.5);
+			display: block;
+			float: right;
+			margin-top: -6px;
+		}
+		nav li > a:hover {
+			background-image: -moz-linear-gradient(top, #4286f5, #194fdb);
+			background-image: -webkit-gradient(linear, left top, left bottom, from(#4286f5), to(#194fdb));
+			color: #fff;
+		}
+		nav li > a:hover:after {
+			color: #fff;
+		}
+		h2 {
+			color: #666;
+			text-shadow: 0px -1px 1px #fff;
+		}
+		section > p {
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			background-color: rgba(255,255,255,0.85);
+			border: solid 1px rgba(0,0,0,0.5);
+			padding: 10px;
+		}
+		#splitview {
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			display: -webkit-box;
+			-webkit-box-orient: horizontal;
+			-webkit-box-align: stretch;
+			-webkit-box-sizing: border-box;
+			background:#424242;
+		}
+		#rootview {
+			display: block;
+			position: relative;
+			-webkit-box-sizing: border-box;
+			width: 30%;
+			max-width: 320px;
+			height: 100%;
+			padding-bottom: 50px;
+			overflow: hidden;
+			border-right: 1px solid #acacac;
+		}
+		#rootview > footer, #detailview > footer {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+		#detailview {
+			display: block;
+			position: relative;
+			-webkit-box-sizing: border-box;
+			-webkit-box-flex: 1;
+			height: 100%;
+			overflow: hidden;
+		}
+	</style>
+	<script type="text/javascript">
+for(var i=0; i<4; i++) {
+  setTimeout(
+    // argument #1 to setTimeout is a function.
+    // this "outer function" is immediately executed, with `i` as its parameter
+    (function(x) {
+      // the "outer function" returns an "inner function" which now has x=i at the
+      // time the "outer function" was called
+      return function() {  
+        console.log("i=="+i+", x=="+x);
+      };
+    })(i) // execute the "closure" immediately, x=i, returns a "callback" function
+  // finishing up arguments to setTimeout
+  , i*100);
+}
+	</script>
+</head>
+<body>
+	<div id="splitview">
+		<div id="rootview">
+			<header>
+				<h1>Main</h1>
+			</header>
+			<section>
+				<aside>
+					<nav>
+						<ul>
+							<li><a href="#">Item 1</a></li>
+							<li><a href="#">Item 2</a></li>
+							<li><a href="#">Item 3</a></li>
+							<li><a href="#">Item 4</a></li>
+							<li><a href="#">Item 5</a></li>
+							<li><a href="#">Item 6</a></li>
+							<li><a href="#">Item 7</a></li>
+							<li><a href="#">Item 8</a></li>
+							<li><a href="#">Item 9</a></li>
+						</ul>
+					</nav>
+				</aside>
+			</section>
+		</div>
+		<div id="detailview">
+		<header>
+			<h1>Details</h1>
+		</header>
+		<section>
+			<h2>Subtitle Here</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+
+			<p><b>Sed dignissim lacinia nunc. Curabitur tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit</b>. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nibh. <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit</i>. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+			
+			<p><b>Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Curabitur tortorLorem ipsum dolor sit amet, consectetur adipiscing elit</b>. Sed dignissim lacinia nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nibh. <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit</i>. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+			
+			<p>Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. <b>Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh</b>. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. </p>
+			<p><b>Positum lorem amet sit ipsum, consectetur adipiscing elit</b>. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit</i>. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
+		</section>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+hover-menu {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	background: url(../images/control_play.png) no-repeat 50% 50%;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+hover-menu.below {
+	background: url(../images/control_play_down.png) no-repeat 50% 50%;
+}
+menu.hover-menu-root, menu.hover-menu-root menu {
+	display: block;
+	position: absolute;
+	z-index: 10000;
+	padding: 4px 0;
+	background-color: #fff;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .65);
+	transition: opacity .2s ease-out;
+	border-radius: 4px;
+	cursor: default;
+	
+	-webkit-transition: opacity .2s ease-out;
+	-moz-transition: opacity .2s ease-out;
+	
+	-webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, .65);
+	-moz-box-shadow: 0 2px 8px rgba(0, 0, 0, .65);
+	
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+menu.hover-menu-root:not(.below) {
+	margin-top: -5px;
+	margin-left: -1px;
+}
+menu.hover-menu-root.below {
+	margin-left: -4px;
+	margin-top: -1px;
+}
+menu.hover-menu-root menu {
+	margin: -4px 0 0 -2px;
+}
+menu.hover-menu-root menu {
+	border-top-left-radius: 0;
+	
+	-webkit-border-top-left-radius: 0;
+	-moz-border-radius-topleft: 0;
+}
+menu.hover-menu-root menu.up {
+	margin-top: 4px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 0;
+	
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 0;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-bottomleft: 0;
+}
+menu.hover-menu-root menu.left {
+	margin-left: 2px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 0;
+	
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 0;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-topright: 0;
+}
+menu.hover-menu-root menu.up.left {
+	border-radius: 4px;
+	border-bottom-right-radius: 0;
+	
+	-webkit-border-radius: 4px;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius: 4px;
+	-moz-border-radius-bottomright: 0;
+}
+menu.hover-menu-root menu-content {
+	display: block;
+	padding: 4px 12px;
+}
+menu.hover-menu-root menu-item {
+	display: block;
+	font: 13px arial, sans-serif;
+	color: #000;
+	position: relative;
+	white-space: nowrap;
+	padding: 2px 16px;
+	border: 1px solid transparent;
+	border-left: none;
+	border-right: none;
+}
+menu.hover-menu-root menu-item.submenu {
+	background: url(../images/menu_arrow.png) no-repeat 100% 50%;
+	padding-right: 32px;
+}
+menu.hover-menu-root menu-item:hover:not(.disabled), menu.hover-menu-root menu-item.open {
+	background-color: #d8f2ff;
+	border-color: #b2e5ff;
+}
+menu.hover-menu-root menu-item.disabled {
+	background-color: transparent;
+	opacity: .5;
+}
+menu.hover-menu-root menu-separator {
+	display: block;
+	border: 1px solid transparent;
+	border-top: 1px solid #ddd;
+	border-bottom: none;
+	height: 0;
+	padding: 0;
+	overflow: hidden;
+	margin: 5px 2px 6px;
+}
