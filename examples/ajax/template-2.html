@@ -36,7 +36,14 @@
 				}
 			});
 		});
-	</script>
+		$.ready(function() {
+			// Process the template $.template.customers with JSON data in the variable "data".
+			// This is read from an Ajax call to an external JSON object in json.json.
+			$.templateCache.customers = $.template("customers", data); 
+			// insert the results of the parsed template into the div with id "template_1_output."
+			$("#main tableview:first-of-type").insert($.templateCache.customers);	
+		});
+</script>
 </head>
 
 <body>
@@ -52,16 +59,5 @@
 		</subview>
 	</view>
 </app>
-<script type="text/javascript">
-	$.ready(function() {
-		$.defer(function() {
-			// Process the template of ID "template_01" with JSON data in the variable "data".
-			// This is read from an Ajax call to an external JSON object in json.json.
-			$.templateCache.customers = $.template("customers", data); 
-			// insert the results of the parsed template into the div with id "template_1_output."
-			$("#main tableview:first-of-type").insert($.templateCache.customers);		
-		});
-	});
-</script>
 </body>
 </html>
