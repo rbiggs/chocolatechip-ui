@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="app-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Title</title>
+	<link rel="stylesheet" href="chui/chui.css">
+	<style type="text/css">
+		/* Local Styles Here */
+			celltitle a {
+				text-decoration:none;
+				color:#666;
+				width:100%;
+				display:block;
+			}
+
+			celltitle a:hover {
+				color:#fff;
+			}
+
+	</style>
+	<script src="chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="chui/chui.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		/* Local JavaScript Here */
+		$.ready(function() {
+			
+		});
+		
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Examples</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="actionsheet.html" >Actionsheet</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="activity_indicator%20navbar.html" >Activity Indicator</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="activity_indicator.html" >Activity Indicator</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="background-gradient.html" >Background Gradient</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="button-example-plain.html" >Button Plain</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="button-example.html" >Button 2</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="button-icons.html" >Button Icons</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="buttons-galore.html" >Button Galore</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="deletion_list-grouped.html" >Deletion List Grouped</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="deletion_list-icons-grouped.html" >Deletion List Icons Grouped</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="deletion_list-icons.html" >Deletion List icons</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="deletion_list-images-grouped.html" >Deletion List Images Grouped</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="deletion_list-images.html" >Deletion List Images</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="deletion_list.html" >Deletion List basic</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="localStorage.html" >Local Storage</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="navigation-list-2.html" >Navigation List Advanced</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="navigation-list.html" >Navigation List Basic</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="paging.html" >Paging Basic</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="paging_horizontal.html" >Paging Horizontal</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="paging_vertical.html" >Paging Vertical</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="popup.html" >Popup</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="segmented_control-1.html" >Segmented Control</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="segmented_control-2.html" >Segmented Control 2</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="selection_list.html" >Selection List</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="slider.html" >Slider</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="subview_transitions-1.html" >Subview transitions basic</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="subview_transitions-2.html" >Subview transitions 2</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="switch-control.html" >Control</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tabbar.html" >Tabbar</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tabbar_manual.html" >Tabbar Manual</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-1.html" >Table View Advanced Basic</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-2.html" >Table View Advanced 2</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-3.html" >Table View Advanced 3</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-4.html" >Table View Advanced 4</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-5.html" >Table View Advanced 5</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-6.html" >Table View Advanced 6</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-7.html" >Table View Advanced 7</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-8.html" >Table View Advanced 8</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-9.html" >Table View Advanced 9</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-10.html" >Table View Advanced 10</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-1.html" >Table View Advanced Grouped 1</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-2.html" >Table View Advanced Grouped 2</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-3.html" >Table View Advanced Grouped 3</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-4.html" >Table View Advanced Grouped 4</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-5.html" >Table View Advanced Grouped 5</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-6.html" >Table View Advanced Grouped 6</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-7.html" >Table View Advanced Grouped 7</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-8.html" >Table View Advanced Grouped 8</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-advanced-grouped-9.html" >Table View Advanced Grouped 9</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-1.html" >Table View Simple 1</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-2.html" >Table View Simple 2</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-3.html" >Table View Simple 3</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-4.html" >Table View Simple 4</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-5.html" >Table View Simple 5</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-grouped-1.html" >Table View Simple Grouped 1</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-grouped-2.html" >Table View Simple Grouped 2</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-grouped-3.html" >Table View Simple Grouped 3</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-grouped-4.html" >Table View Simple Grouped 4</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-simple-grouped-5.html" >Table View Simple Grouped 5</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-with-tablefooter.html" >Table View with Table Footer</a></celltitle>
+						</tablecell>
+						<tablecell href="#people_view" ui-implements="detail-disclosure">
+							<celltitle><a href="tableview-with-tableheader.html" >Table View with Table Header</a></celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpane>
+			</subview>	
+		</view>
+	</app>
+</body>
+</html>
