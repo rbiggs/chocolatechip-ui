@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Simple spinner</title>
+
+    <script type="text/javascript">
+        function RotateSpinner(spinnerId, up) {
+            document.getElementById(spinnerId).value = up ? parseInt(document.getElementById(spinnerId).value) + 1 : parseInt(document.getElementById(spinnerId).value) - 1;
+        }
+    </script>
+
+    <style>
+        *
+        {
+            padding: 0;
+            margin: 0;
+        }
+        .spinner
+        {
+            list-style: none;
+            display: inline-block;
+            line-height: 0;
+            vertical-align: middle;
+        }
+        .spinner input
+        {
+            font-size: .45em;
+            border-width: .5px;
+            height: 1.5em;
+            width: 2em;
+        }
+    </style>
+</head>
+<body>
+    <input id="spinner" type="text" value="0" />
+    <ul class="spinner">
+        <li>
+            <input type="button" value="&#9650;" onclick="RotateSpinner('spinner', true)" />
+        </li>
+        <li>
+            <input type="button" value="&#9660;" onclick="RotateSpinner('spinner', false)" />
+        </li>
+    </ul>
+</body>
+</html>

@@ -14,6 +14,52 @@
 			-webkit-transform: none;
 			position: static;
 		}	
+		*[ui-background-style=vertical-striped-equal] {
+			background-image: 
+				-webkit-gradient(linear, left top, right top, 
+					from(rgba(0,0,0,0.1)), 
+					color-stop(0.5, rgba(0,0,0,0.1)), 
+					color-stop(0.5, transparent), 
+					to(transparent)); 
+			-webkit-background-size: 10px 100%;
+			background-size: 10px 100%;
+		}
+		*[ui-background-style=horizontal-striped-equal] {
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(rgba(0,0,0,0.1)), 
+					color-stop(0.5, rgba(0,0,0,0.1)), 
+					color-stop(0.5, transparent), 
+					to(transparent)); 
+			-webkit-background-size: 100% 10px;
+			background-size: 100% 10px;
+		}
+		*[ui-background-style=slanted-left-equal] {
+			background-image: 
+				-webkit-gradient(linear, right top, left bottom,
+					color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+					color-stop(0.25, transparent),
+					color-stop(0.5, transparent), 
+					color-stop(0.5, rgba(0, 0, 0, 0.1)),
+					color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+					color-stop(0.75, transparent),
+					to(transparent));
+			-webkit-background-size: 15px 15px;
+			background-size: 15px 15px;
+		}
+		*[ui-background-style=slanted-right-equal] {
+			background-image: 
+				-webkit-gradient(linear, left top, right bottom, 
+					color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+					color-stop(0.25, transparent),
+					color-stop(0.5, transparent), 
+					color-stop(0.5, rgba(0, 0, 0, 0.1)),
+					color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+					color-stop(0.75, transparent),
+					to(transparent));
+			-webkit-background-size: 15px 15px;
+			background-size: 15px 15px;
+		}
     </style>
 </head>
 <body>
@@ -29,6 +75,18 @@
 		</view>
 		<view ui-background-style="slanted-right">
 			<navbar><h1>ui-background-style="slanted-right"</h1></navbar>
+		</view>
+		<view ui-background-style="vertical-striped-equal">
+			<navbar><h1>ui-background-style="vertical-striped-equal"</h1></navbar>
+		</view>
+		<view ui-background-style="horizontal-striped-equal">
+			<navbar><h1>ui-background-style="horizontal-striped-equal"</h1></navbar>
+		</view>
+		<view ui-background-style="slanted-left-equal">
+			<navbar><h1>ui-background-style="slanted-left-equal"</h1></navbar>
+		</view>
+		<view ui-background-style="slanted-right-equal">
+			<navbar><h1>ui-background-style="slanted-right-equal"</h1></navbar>
 		</view>
 		<view ui-background-style="squared">
 			<navbar><h1>ui-background-style="squared"</h1></navbar>

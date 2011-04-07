@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="iphone-viewport" content="minimum-scale=1.0, maximum-scale=1.0, width=device-width" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<link rel="stylesheet" href="picker.css" type="text/css" media="all" />
+	<script src="../../chui/chocolatechip.js" type="text/javascript"></script>
+	<script type="text/javascript" src="picker.js"></script>
+
+	<title>Spinning Wheel for iPhone/iPod touch</title>
+
+<script type="text/javascript">
+function openWeight() {
+	
+	var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	$.Picker.addSlot(numbers, 'right');
+	$.Picker.addSlot(numbers, 'right');
+	$.Picker.addSlot(numbers, 'right');
+	$.Picker.addSlot('.' , 'readonly shrink');
+	$.Picker.addSlot(numbers, 'right');
+	$.Picker.addSlot(['Kg', 'Lb', 'St'], 'shrink');
+	$.Picker.setCancelAction(cancel);
+	$.Picker.setDoneAction(done);
+	$.Picker.open();
+}
+
+function openBirthDate() {
+	var now = new Date();
+	var days = { };
+	var years = { };
+	var months = ['Gen', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ];
+	for( var i = 1; i < 32; i += 1 ) {
+		days[i] = i;
+	}
+	for( i = now.getFullYear()-100; i < now.getFullYear()+1; i += 1 ) {
+		years[i] = i;
+	}
+
+	$.Picker.addSlot(years, 'right', 1999);
+	$.Picker.addSlot(months, '', 4);
+	$.Picker.addSlot(days, 'right', 12);
+	$.Picker.setCancelAction(cancel);
+	$.Picker.setDoneAction(done);
+	$.Picker.open();
+}
+
+function openOneSlot() {
+	$.Picker.addSlot({1: 'Ichi', 2: 'Ni', 3: 'San', 4: 'Shi', 5: 'Go'});
+	$.Picker.setCancelAction(cancel);
+	$.Picker.setDoneAction(done);
+	$.Picker.open();
+}
+
+function done() {
+	var results = $.Picker.getSelectedValues();
+	$('#result').innerHTML = 'values: ' + results.values.join(' ') + '<br />keys: ' + results.keys.join(', ');
+}
+
+function cancel() {
+	$('#result').innerHTML = 'cancelled!';
+}
+
+
+//window.addEventListener('load', function(){ setTimeout(function(){ window.scrollTo(0,0); }, 100); }, true);
+
+</script>
+
+
+<style type="text/css">
+	body { text-align:center; font-family:helvetica; }
+	button { font-size:16px; }
+	#result { margin:10px; background:#aaa; -webkit-border-radius:8px; padding:8px; font-size:18px; }
+</style>
+
+</head>
+
+<body>
+<div  style="height: 100%;">
+<p>Spinning Wheel slot machine alike widget for iPhone and iPod touch. 
+This demo works only on the simulator and the real devices, it does not work on any other browser.</p>
+<button onclick="openBirthDate()">birth date</button>
+<button onclick="openWeight()">weight</button>
+<button onclick="openOneSlot()">1 slot</button>
+<p id="result">results</p>
+<p><a href="http://cubiq.org/spinning-wheel-on-webkit-for-iphone-ipod-touch/11">Read the related article on cubiq.org</a></p>
+<br><br><br><br><br><br>
+
+this text is here for the sole purpose of making the page longer
+</div>
+</body>
+
+</html>

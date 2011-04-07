@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width; height=device-height; initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Picker</title>
+	<link rel="stylesheet" href="../../chui/chui.css">
+	<link rel="stylesheet" href="picker.css">
+	
+	<style type="text/css">
+		html, body {
+			padding: 0;
+			margin: 0;
+			font: normal 14px/18px Helvetica, Sans-serif;
+			height: 100%;
+		}
+		#content { 
+			padding: 20px; 
+			-webkit-box-sizing: border-box;
+		}
+		#content > p {
+			
+			border: solid 2px #ccc;
+			padding: 6px;
+		}
+	</style>
+	<script src="../../chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="picker.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		// Example of "Done" button functionality for Picker to get the selected values:
+		function done() {
+			var results = Picker.getSelectedValues();
+			document.getElementById('result').innerHTML = '<strong>Values:</strong> ' + results.values.join(' ') + '<br /><strong>Keys:</strong> ' + results.keys.join(', ');
+		}
+		// Example of "Cancel" button functionality for Picker:
+		function cancel() {
+			document.getElementById('result').innerHTML = 'cancelled!';
+		}
+		
+		function openOneSlot() {
+			Picker.addSlot({1: 1, 2: 2, 3: 3, 4: 4, 5: 5}, "right disabled shrink", 3);
+			Picker.addSlot({1: 'Ichi', 2: 'Ni', 3: 'San', 4: 'Shi', 5: 'Go'}, "left", 4);
+			Picker.addSlot({1: 'Sashimi', 2: 'Unagi', 3: 'Takemaki', 4: 'Maguro', 5: 'Ebi'}, "right");
+			Picker.setCancelAction(cancel);
+			Picker.setDoneAction(done);
+			
+			Picker.open();
+		}
+		
+		window.addEventListener('load', function(){ setTimeout(function(){ window.scrollTo(0,0); }, 100); }, true);
+		
+		// Resize the Picker on orientationchange:
+		window.addEventListener("orientationchange", function() {
+			// For this document, not picker:
+			document.getElementById("content").style.width = window.innerWidth + "px";
+			// Resize Picker:
+			var picker = document.getElementById("sgwt-picker-wrapper");
+			picker.style.width = window.innerWidth + "px";
+		}, false);
+		
+	</script>
+</head>
+<body>
+	<navbar>
+		<uibutton  onclick="openOneSlot()" ui-bar-align="right">
+			<label>Show Picker</label>
+		</uibutton>
+	</navbar>
+	
+	<subview>
+		<scrollpanel>
+		<p id="result">Results</p>
+		</scrollpanel>
+	</subview>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"><html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" id="iphone-viewport" content="minimum-scale=1.0, maximum-scale=1.0, width=device-width" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+
+	<title>Spinning Wheel for iPhone/iPod touch</title>
+	<link rel="stylesheet" href="spinningwheel.css" type="text/css" media="all" />
+	<link rel="stylesheet" href="../../chui/chui.css" type="text/css" media="all" />
+	<script type="text/javascript" src="../../chui/chocolatechip.js"></script>
+	<script type="text/javascript" src="../../chui/chui.js"></script>
+	<script type="text/javascript" src="spinningwheel.js"></script>
+
+<script type="text/javascript">
+function openWeight() {
+	
+	var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	SpinningWheel.addSlot(numbers, 'right');
+	SpinningWheel.addSlot(numbers, 'right');
+	SpinningWheel.addSlot(numbers, 'right');
+	SpinningWheel.addSlot({ separator: '.' }, 'readonly shrink');
+	SpinningWheel.addSlot(numbers, 'right');
+	SpinningWheel.addSlot(['Kg', 'Lb', 'St' ], 'shrink');
+	
+	SpinningWheel.setCancelAction(cancel);
+	SpinningWheel.setDoneAction(done);
+	
+	SpinningWheel.open();
+}
+
+function openBirthDate() {
+	var now = new Date();
+	var days = { };
+	var years = { };
+	var months = ['Gen', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	
+	for( var i = 1; i < 32; i += 1 ) {
+		days[i] = i;
+	}
+
+	for( i = now.getFullYear()-100; i < now.getFullYear()+1; i += 1 ) {
+		years[i] = i;
+	}
+
+	SpinningWheel.addSlot(years, 'right', 1999);
+	SpinningWheel.addSlot(months, '', 4);
+	SpinningWheel.addSlot(days, 'right', 12);
+	
+	SpinningWheel.setCancelAction(cancel);
+	SpinningWheel.setDoneAction(done);
+	
+	SpinningWheel.open();
+}
+
+function openOneSlot() {
+	SpinningWheel.addSlot({1: 'Ichi', 2: 'Ni', 3: 'San', 4: 'Shi', 5: 'Go'});
+	
+	SpinningWheel.setCancelAction(cancel);
+	SpinningWheel.setDoneAction(done);
+	
+	SpinningWheel.open();
+}
+
+function done() {
+	var results = SpinningWheel.getSelectedValues();
+	document.getElementById('result').innerHTML = 'values: ' + results.values.join(' ') + '<br />keys: ' + results.keys.join(', ');
+}
+
+function cancel() {
+	document.getElementById('result').innerHTML = 'cancelled!';
+}
+
+
+window.addEventListener('load', function(){ setTimeout(function(){ window.scrollTo(0,0); }, 100); }, true);
+
+</script>
+
+
+<style type="text/css">
+body { text-align:center; font-family:helvetica; }
+button { font-size:16px; }
+#result { margin:10px; background:#aaa; -webkit-border-radius:8px; padding:8px; font-size:18px; }
+</style>
+
+</head>
+
+<body>
+<app>
+	<view>
+		<toolbar>
+			<uibutton onclick="openBirthDate()">birth date</uibutton>
+			<uibutton onclick="openWeight()">weight</uibutton>
+			<uibutton onclick="openOneSlot()">1 slot</uibutton>
+		</toolbar>
+		<subview>
+			<scrollpanel>
+				<p>Picker control for iPhone and iPod touch. 
+				This demo works only on the simulator and real devices, it does not work on desktop browsers.</p>
+				<p id="result">results</p>
+			</scrollpanel>
+		</subview>
+	</view>
+</app>
+</body>
+
+</html>
