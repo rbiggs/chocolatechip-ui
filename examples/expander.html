@@ -14,18 +14,17 @@
 		
 	</style>
 	<script src="chui/chocolatechip.js" type="text/javascript"></script>
-	<script src="chui/uiscroll.js" type="text/javascript"></script>
 	<script src="chui/chui.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		/* Local JavaScript Here */
-	
+
 		$(function() {
 			var opts = {
 				status: "collapsed",
 				title: "Open",
 				altTitle: "Close"
 			};	
-			$("expander").UIExpander({status: "expandedd"});
+			$("expander").UIExpander(opts);
 		});
 		
 	</script>
@@ -40,11 +39,10 @@
 				<scrollpanel>
 					<tableview ui-kind="grouped">
                     	<tablecell>
-                        	<celltitle>Sleep</celltitle>
+                        	<celltitle>Wake Up</celltitle>
                     	</tablecell>
                     </tableview>
                     <expander>
-                    	<header><label>Open</label></header>
                     	<panel>
 							<tableview ui-kind="grouped">
 								<tablecell>

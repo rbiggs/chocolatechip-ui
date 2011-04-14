@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.7 beta
+Version: 0.8 beta
 
 */
 html, body {
@@ -169,6 +169,52 @@ subview[ui-associations="withToolBar withTabBar"] {
 		to(rgba(0,0,0,0.1)));
 	-webkit-background-size: 6px 6px;
 	background-size: 6px 6px;
+}
+*[ui-background-style=vertical-striped-equal] {
+	background-image: 
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 10px 100%;
+	background-size: 10px 100%;
+}
+*[ui-background-style=horizontal-striped-equal] {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 100% 10px;
+	background-size: 100% 10px;
+}
+*[ui-background-style=slanted-left-equal] {
+	background-image: 
+		-webkit-gradient(linear, right top, left bottom,
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent));
+	-webkit-background-size: 15px 15px;
+	background-size: 15px 15px;
+}
+*[ui-background-style=slanted-right-equal] {
+	background-image: 
+		-webkit-gradient(linear, left top, right bottom, 
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent));
+	-webkit-background-size: 15px 15px;
+	background-size: 15px 15px;
 }
 *[ui-background-style=squared] {
 	background-image: 
@@ -2626,16 +2672,16 @@ tabbar > uibutton {
     margin: 3px 3px 3px 3px;
     padding: 4px 0 0 0;
 }
-tabbar > uibutton[implements=tab]:hover,
+tabbar > uibutton[ui-implements=tab]:hover,
 tabbar > uibutton.selected,
 tabbar > uibutton.touched {
     background: rgba(255, 255, 255, 0.15) !important;
 }
-tabbar > uibutton[implements=tab].disabled:hover {
+tabbar > uibutton[ui-implements=tab].disabled:hover {
     background: none !important;
 }
 tabbar > uibutton > icon,
-tabbar > uibutton[implements=tab].disabled:hover > icon {
+tabbar > uibutton[ui-implements=tab].disabled:hover > icon {
     display: block;
     margin: 0;
     height: 30px;
@@ -2650,8 +2696,8 @@ tabbar > uibutton[implements=tab].disabled:hover > icon {
     -webkit-mask-size: 30px 30px;
     background-size: 30px 30px;
 }
-tabbar > uibutton[implements=tab].disabled:hover > icon,
-tabbar > uibutton[implements=tab].disabled:hover {
+tabbar > uibutton[ui-implements=tab].disabled:hover > icon,
+tabbar > uibutton[ui-implements=tab].disabled:hover {
     cursor: default;
 }
 
@@ -2797,15 +2843,138 @@ expander.ui-status-expanded > header:after {
 	-webkit-transform: rotate(90deg);
 	-webkit-mask-position: 6px 4px;
 }
-expander.ui-status-expanded > header:before {background-image: 
--webkit-gradient(linear, left top, left bottom, 
-	from(#ddd), 
-	to(#182743));
+expander.ui-status-expanded > header:before {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#ddd), 
+			to(#182743));
 }
 expander.ui-status-expanded > header > label {
 	background-color: #7a89a4;
 }
 /* End Expander Styles */
+/* Progress Bar Styles */
+progressbar {
+	display: block;
+	width: 100px;
+	height: 15px;
+	border: 1px solid #666;
+	border-bottom-color: #666;
+	border-top-color: #999;
+	margin: 10px auto;
+	position: relative;
+	-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	border-radius: 7px;
+	background-color: rgb(56,138,213);
+	background-image:
+		-webkit-gradient(linear, 0 0, 0 100%,
+			color-stop(0.20, transparent),
+			color-stop(0.20, rgba(255,255,255,.5)),
+			color-stop(0.32, rgba(255,255,255,.5)),
+			color-stop(0.32, transparent)),
+		-webkit-gradient(linear, 0 0, 0 100%,
+			color-stop(0, rgba(255,255,255,.85)),
+			color-stop(0.45, rgba(255,255,255,.05)),
+			color-stop(0.55, rgba(0,0,0,.05)),
+			color-stop(0.85, rgba(0,0,0,.2)),
+			color-stop(0.98, rgba(0,0,0,.5))),
+		-webkit-gradient(linear, 18 0, 0 10,
+			color-stop(0.23, rgba(255,255,255,0)),
+			color-stop(0.3, rgba(255,255,255,0.8)),
+			color-stop(0.3, rgba(255,255,255,1)),
+			color-stop(0.7, rgba(255,255,255,1)),
+			color-stop(0.7, rgba(255,255,255,0.85)),
+			color-stop(0.77, rgba(255,255,255,0)));
+	background-repeat: repeat-x;
+	-webkit-background-size: 20px 20px;
+	-webkit-background-position-x: 0%;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-name: progressBarAnim;
+	background-size: 20px 20px;
+	
+}
+/* Paging Control Styles */
+stack[ui-implements="paging"] {
+	margin: 0 auto;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-packing: start;
+	-webkit-box-align: center;
+	width: 320px;
+	height: 280px;
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+stack[ui-implements="paging"] > panel {
+	display: block !important;
+	-webkit-box-flex: 0;
+}
+stack[ui-implements="paging"] > panel > stack {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+stack[ui-implements="paging"] > panel > stack > panel {
+	-webkit-box-sizing: border-box;
+	display: block !important; 
+	width: 320px; 
+	height: 280px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 140%;
+	padding: 10px;
+}
+stack[ui-implements="indicators"] {
+	display: -webkit-box; 
+	width: 320px;
+	padding: 10px 10px 10px 10px;
+	-webkit-box-sizing: border-box;
+	-webkit-box-orient: horizontal; 
+	-wekit-box-align: center; 
+	-webkit-box-pack: center;
+	margin: 0 auto 10px auto;
+}
+stack[ui-implements="indicators"] > indicator {
+	display: block;
+	width: 8px; 
+	height: 8px;
+	-webkit-border-radius:4px;
+	background-color: #ddd;
+	overflow: hidden;
+	margin-right: 10px;
+}
+stack[ui-implements="indicators"] > indicator.active {
+	background-color: #888;
+}
+stack[ui-implements="indicators"] > indicator:first-child {
+	margin-left: 0;
+}
+stack[ui-implements="indicators"] > indicator:last-child {
+	margin: 0;
+}
+stack[ui-implements="paging"] > panel panel > h4 {
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+}
+stack[ui-implements="paging"] > panel panel > p {
+	text-align: left;
+	margin: 0;
+}
+stack[ui-implements=paging], stack[ui-implements=indicators] {
+	background-color: #fff;
+}
+/* End Paging Control Styles */
+@-webkit-keyframes progressBarAnim {
+	0% { background-position-x:  0%, 0%, 0%; }
+	100% { background-position-x: 0%,  0%,  100%; }
+}
+/*  End Progress Bar Styles */
 .UIActivityIndicator {
 	background-image: -webkit-canvas(area);
 }

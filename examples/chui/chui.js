@@ -176,7 +176,7 @@ $.extend($, {
 		var doc = document;
 		var div = null;
 		var i = null;
-		that.wrapper = typeof el == 'object' ? el : $(el).parentNode;
+		that.wrapper = (typeof el == 'object' ? el : $(el).parentNode);
 		that.wrapper.style.overflow = 'hidden';
 		that.scroller = that.wrapper.children[0];
 		that.options = {
@@ -273,7 +273,7 @@ $.UIScroll.prototype = {
 		switch(e.type) {
 			case $.UIStartEvt: that._start(e); break;
 			case $.UIMoveEvt: that._move(e); break;
-			case $.UIEndEvt:
+			case $.UIEndEvt: ;
 			case $.UICancelEvt: that._end(e); break;
 			case 'webkitTransitionEnd': that._transitionEnd(e); break;
 			case $.UIResizeEvt: that._resize(); break;
@@ -285,9 +285,9 @@ $.UIScroll.prototype = {
 		}
 	},
 	_scrollbar: function (dir) {
-		var that = this,
-			doc = document,
-			bar;
+		var that = this;
+		var	doc = document;
+		var	bar = null;
 		if (!that[dir + 'Scrollbar']) {
 			if (that[dir + 'ScrollbarWrapper']) {
 				that[dir + 'ScrollbarIndicator'].style.webkitTransform = '';	
@@ -337,11 +337,11 @@ $.UIScroll.prototype = {
 		}, 0);
 	},
 	_checkSize: function () {
-		var that = this,
-			scrollerW,
-			scrollerH;
+		var that = this;
+		var	scrollerW = null;
+		var	scrollerH = null;
 		if (that.moved || that.zoomed || !that.contentReady) return;
-		scrollerW = Math.round(that.scroller.offsetWidth * that.scale),
+		scrollerW = Math.round(that.scroller.offsetWidth * that.scale);
 		scrollerH = Math.round((that.scroller.offsetHeight - that.offsetBottom - that.offsetTop) * that.scale);
 		if (scrollerW == that.scrollerW && scrollerH == that.scrollerH) return;
 		that.refresh();
@@ -355,8 +355,8 @@ $.UIScroll.prototype = {
 		that._indicatorPos('v');
 	},
 	_indicatorPos: function (dir, hidden) {
-		var that = this,
-			pos = dir == 'h' ? that.x : that.y;
+		var that = this;
+		var	pos = dir == 'h' ? that.x : that.y;
 		if (!that[dir + 'Scrollbar']) return;
 		pos = that[dir + 'ScrollbarProp'] * pos;
 		if (pos < 0) {
@@ -378,9 +378,9 @@ $.UIScroll.prototype = {
 		if (that.vScrollbar) that.vScrollbarIndicator.style.webkitTransitionDuration = time;
 	},
 	_start: function (e) {
-		var that = this,
-			point = $.UISupportsTouch ? e.changedTouches[0] : e,
-			matrix;
+		var that = this;
+		var	point = $.UISupportsTouch ? e.changedTouches[0] : e;
+		var	matrix = null;
 		that.moved = false;
 		e.preventDefault();
 		if ($.UISupportsTouch && e.touches.length == 2 && that.options.zoom && $.UISupportsGestures && !that.zoomed) {
@@ -431,12 +431,12 @@ $.UIScroll.prototype = {
 	},
 	_move: function (e) {
 		if ($.UISupportsTouch && e.touches.length > 1) return;
-		var that = this,
-			point = $.UISupportsTouch ? e.changedTouches[0] : e,
-			deltaX = point.pageX - that.pointX,
-			deltaY = point.pageY - that.pointY,
-			newX = that.x + deltaX,
-			newY = that.y + deltaY;
+		var that = this;
+		var	point = $.UISupportsTouch ? e.changedTouches[0] : e;
+		var	deltaX = point.pageX - that.pointX;
+		var	deltaY = point.pageY - that.pointY;
+		var	newX = that.x + deltaX;
+		var	newY = that.y + deltaY;
 		e.preventDefault();
 		that.pointX = point.pageX;
 		that.pointY = point.pageY;
@@ -490,15 +490,16 @@ $.UIScroll.prototype = {
 	},
 	_end: function (e) {
 		if ($.UISupportsTouch && e.touches.length != 0) return;
-		var that = this,
-			point = $.UISupportsTouch ? e.changedTouches[0] : e,
-			target, ev,
-			momentumX = { dist:0, time:0 },
-			momentumY = { dist:0, time:0 },
-			duration = e.timeStamp - that.startTime,
-			newPosX = that.x, newPosY = that.y,
-			newDuration,
-			snap;
+		var that = this;
+		var	point = $.UISupportsTouch ? e.changedTouches[0] : e;
+		var	target, ev;
+		var	momentumX = { dist:0, time:0 };
+		var	momentumY = { dist:0, time:0 };
+		var	duration = e.timeStamp - that.startTime;
+		var	newPosX = that.x; 
+		var newPosY = that.y;
+		var	newDuration;
+		var	snap;
 		that._unbind($.UIMoveEvt);
 		that._unbind($.UIEndEvt);
 		that._unbind($.UICancelEvt);
@@ -579,9 +580,9 @@ $.UIScroll.prototype = {
 		that._resetPos();
 	},
 	_resetPos: function (time) {
-		var that = this,
-			resetX = that.x,
-			resetY = that.y;
+		var that = this;
+		var	resetX = that.x;
+		var	resetY = that.y;
 		if (that.x >= 0) resetX = 0;
 		else if (that.x < that.maxScrollX) resetX = that.maxScrollX;
 
@@ -616,17 +617,18 @@ $.UIScroll.prototype = {
 		that.scrollTo(resetX, resetY, time);
 	},
 	_timedScroll: function (destX, destY, runtime) {
-		var that = this,
-			startX = that.x, startY = that.y,
-			startTime = (new Date).getTime(),
-			easeOut;
+		var that = this;
+		var	startX = that.x; 
+		var startY = that.y;
+		var	startTime = (new Date()).getTime();
+		var	easeOut;
 		that._transitionTime(0);
 		if (that.scrollInterval) {
 			clearInterval(that.scrollInterval);
 			that.scrollInterval = null;
 		}
 		that.scrollInterval = setInterval(function () {
-			var now = (new Date).getTime(),
+			var now = (new Date()).getTime(),
 				newX, newY;
 			if (now >= startTime + runtime) {
 				clearInterval(that.scrollInterval);
@@ -661,9 +663,9 @@ $.UIScroll.prototype = {
 		that._bind('gesturecancel');
 	},
 	_gestChange: function (e) {
-		var that = this,
-			scale = that.scale * e.scale,
-			x, y, relScale;
+		var that = this;
+		var	scale = that.scale * e.scale;
+		var	x, y, relScale;
 		that.zoomed = true;
 		if (scale < that.options.zoomMin) scale = that.options.zoomMin;
 		else if (scale > that.options.zoomMax) scale = that.options.zoomMax;
@@ -674,9 +676,9 @@ $.UIScroll.prototype = {
 		that.lastScale = relScale;
 	},
 	_gestEnd: function (e) {
-		var that = this,
-			scale = that.scale,
-			lastScale = that.lastScale;
+		var that = this;
+		var	scale = that.scale;
+		var	lastScale = that.lastScale;
 		that.scale = scale * lastScale;
 		if (that.scale < that.options.zoomMin + 0.05) that.scale = that.options.zoomMin;
 		else if (that.scale > that.options.zoomMax - 0.05) that.scale = that.options.zoomMax;
@@ -693,9 +695,9 @@ $.UIScroll.prototype = {
 		that._unbind('gesturecancel');
 	},
 	_wheel: function (e) {
-		var that = this,
-			deltaX = that.x + e.wheelDeltaX / 12,
-			deltaY = that.y + e.wheelDeltaY / 12;
+		var that = this;
+		var	deltaX = that.x + e.wheelDeltaX / 12;
+		var	deltaY = that.y + e.wheelDeltaY / 12;
 		if (deltaX > 0) deltaX = 0;
 		else if (deltaX < that.maxScrollX) deltaX = that.maxScrollX;
 		if (deltaY > 0) deltaY = 0;
@@ -726,8 +728,8 @@ $.UIScroll.prototype = {
 		return { dist: newDist, time: Math.round(newTime) };
 	},
 	_offset: function (el, tree) {
-		var left = -el.offsetLeft,
-			top = -el.offsetTop;
+		var left = -el.offsetLeft;
+		var	top = -el.offsetTop;
 		if (!tree) return { x: left, y: top };
 		while (el = el.offsetParent) {
 			left -= el.offsetLeft;
@@ -736,10 +738,13 @@ $.UIScroll.prototype = {
 		return { x: left, y: top };
 	},
 	_snap: function (x, y) {
-		var that = this,
-			i, l,
-			page, time,
-			sizeX, sizeY;
+		var that = this;
+		var	i; 
+		var l;
+		var	page; 
+		var time;
+		var	sizeX; 
+		var sizeY;
 		page = that.pagesX.length-1;
 		for (i=0, l=that.pagesX.length; i<l; i++) {
 			if (x >= that.pagesX[i]) {
@@ -801,11 +806,15 @@ $.UIScroll.prototype = {
 		}
 	},
 	refresh: function () {
-		var that = this,
-			pos = 0, page = 0,
-			i, l, els,
-			oldHeight, offsets,
-			loading;
+		var that = this;
+		var	pos = 0; 
+		var page = 0;
+		var	i; 
+		var l; 
+		var els;
+		var	oldHeight;
+		var offsets;
+		var	loading;
 		if (that.pullDownToRefresh) {
 			loading = that.pullDownEl.className.match('loading');
 			if (loading && !that.contentReady) {
@@ -934,8 +943,8 @@ $.UIScroll.prototype = {
 		that.scrollTo(x, y, time || 400);
 	},
 	zoom: function (x, y, scale) {
-		var that = this,
-			relScale = scale / that.scale;
+		var that = this;
+		var	relScale = scale / that.scale;
 		x = x - that.wrapperOffsetLeft - that.x;
 		y = y - that.wrapperOffsetTop - that.y;
 		that.x = x - x * relScale + that.x;
@@ -969,7 +978,85 @@ $.extend($, {
 	}
 });
 $.UIEnableScrolling({ desktopCompatibility: true });
+$.extend($, {
+	UIPaging : function( selector, opts ) {
+		var myPager = new $.UIScroll( selector, opts );
+		var stack = null;
+		if (selector.nodeType === 1) {
+			stack = $("stack", selector);
+			selector.parentNode.setAttribute("ui-scroller", "myPager");
+		} else {
+			stack = $("stack", $(selector));
+			selector = $(selector);
+			selector.parentNode.setAttribute("ui-scroller", "myPager");
+		}
+		var panels = stack.children.length;
+		var indicatorsWidth = selector.parentNode.css("width");
+		var indicators = '<stack ui-implements="indicators" style="width:"' + indicatorsWidth + ';">';
+		for (var i = 0; i < panels; i++) {
+			if (i === 0) {
+				indicators += '<indicator class="active"></indicator>';
+			} else {
+				indicators += "<indicator></indicator>";
+			}
+		}
+		indicators += "</stack>";
+		// The maximum number of indicators in portrait view is 17.
+		selector.parentNode.parentNode.insert(indicators);
+	}
+});
 
+$.ready(function() {
+	if ($("stack[ui-implements=paging]")) {
+		$.UIPaging("stack[ui-implements=paging] > panel", {
+			snap: true,
+			momentum: false,
+			hScrollbar: false,
+			onScrollEnd: function () {
+				document.querySelector('stack[ui-implements="indicators"] > indicator.active').removeClass('active');
+				document.querySelector('stack[ui-implements="indicators"] > indicator:nth-child(' + (this.currPageX+1) + ')').addClass('active');
+			}
+		});
+	
+	}
+});
+$.extend(HTMLElement.prototype, {
+	UIExpander : function ( opts ) {
+		opts = opts || {};
+		var status = opts.status || "expanded";
+		var title = opts.title || "Open";
+		var altTitle = opts.altTitle || "Close";
+		var expander = this;
+		var panel = $("panel", this);
+		var header = "<header><label></label></header>";
+		this.insert(header, "first");
+		panel.setAttribute("ui-height", parseInt(panel.css("height"), 10));
+		if (status === "expanded") {
+			expander.toggleClass("ui-status-expanded", "ui-status-collapsed");
+			$("label", this).text(altTitle);
+			panel.style.height = panel.getAttribute("ui-height") + "px";
+			panel.css("{opacity: 1;}");
+		} else {
+			$("label", this).text(title);
+			panel.css("{height: 0px; opacity: 0;}");
+			expander.toggleClass("ui-status-collapsed", "ui-status-expanded");
+		}
+		expander.delegate("header", "click", function() {
+			alert("hi");
+			if (panel.style.height === "0px") {
+				panel.style.height = panel.getAttribute("ui-height") + "px";
+				panel.style.opacity = 1;
+				$("label", this).text(altTitle);
+				expander.toggleClass("ui-status-collapsed", "ui-status-expanded");
+				
+			} else {
+				panel.css("{height: 0px; opacity: 0;}");
+				$("label", this).text(title);
+				expander.toggleClass("ui-status-expanded", "ui-status-collapsed");
+			}
+		});
+	}
+});
 $.extend($, {
     UIDeletableTableCells : [],
     UIDeleteTableCell : function( selector, toolbar, callback ) {
@@ -1325,7 +1412,7 @@ $.extend(HTMLElement.prototype, {
                         segmentedControl += " disabled'";
                     }
                 }
-                segmentedControl += "'"
+                segmentedControl += "'";
                 
                 segmentedControl += " ui-kind='segmented'";
                 if (opts.placementOfIcons) {
@@ -1453,14 +1540,15 @@ $.extend(HTMLElement.prototype, {
                     this.addClass("selected");
                     childPosition = this.getAttribute("ui-child-position");
                     if (that.getAttribute("ui-segmented-container")) {
-                        var container = that.getAttribute("ui-segmented-container");
-                        container = $(container);
+                        var container = $(that.getAttribute("ui-segmented-container"));
+                        //container = $(container);
                         container.children(oldSelection).css("{opacity: 0; z-index: 1;}");
                         container.children(uisi).css("{opacity: 1; z-index: 3;}");
-                    container.children[oldSelectedSegment.getAttribute("ui-child-position")].css("{z-index: 1;}");
-                    container.children[childPosition].css("{z-index: " + container.children.length + "}");
-                    container.style.height = container.children[childPosition].css("height");
-                    var scroller = new $.UIScroll(container.ancestor("scrollpanel"), { desktopCompatibility: true });
+                    	container.children[oldSelectedSegment.getAttribute("ui-child-position")].css("{z-index: 1;}");
+                    	container.children[childPosition].css("{z-index: " + container.children.length + "}");
+                    	container.style.height = container.children[childPosition].css("height");
+                    	var scrollpanel = container.ancestor("scrollpanel");
+                    	var scroller = new $.UIScroll(scrollpanel, { desktopCompatibility: true });
                     }
                 }
                 this.addClass("selected");
@@ -1474,6 +1562,9 @@ $.extend(HTMLElement.prototype, {
 $.ready(function() {   
     $$("segmentedcontrol").forEach(function(segmentedcontrol) {
         segmentedcontrol.UISegmentedControl();
+        var scroller = segmentedcontrol.ancestor("scrollpanel").getAttribute("ui-scroller");
+        $.UIScrollers[scroller].destroy();
+        $.UIScrollers[scroller] = new $.UIScroll(segmentedcontrol.ancestor("scrollpanel").parentNode); 
     });
 });
 
@@ -1541,7 +1632,7 @@ $.extend(HTMLElement.prototype, {
         var tabbar = "<tabbar ui-selected-tab='" + selectedTab + "'>";
         this.setAttribute("ui-tabbar-id", id);
         for (var i = 0; i < numberOfTabs; i++) {
-            tabbar += "<uibutton implements='tab' ";
+            tabbar += "<uibutton ui-implements='tab' ";
             if (i === selectedTab || i === disabledTab) {
                 tabbar += "class='";
                 if (i === selectedTab) {
@@ -1564,7 +1655,7 @@ $.extend(HTMLElement.prototype, {
     },
 
     UITabBar : function ( ) {
-        var tabs = $$("tabbar > uibutton[implements=tab]", this);
+        var tabs = $$("tabbar > uibutton[ui-implements=tab]", this);
         $("tabbar", this).UIIdentifyChildNodes();
         var tabbar = $("tabbar", this);
         var subviews = $$("subview", this);
@@ -1621,8 +1712,7 @@ $.extend(HTMLElement.prototype, {
                 uiButtons += uiButtonTitle;
                 uiButtons +=    "</label></uibutton>"   ;           
             }
-            actionSheetStr += uiButtons + "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#" + actionSheetID + "\")'>\
-            <label>Cancel</label></uibutton></scrollpanel></actionsheet>";
+            actionSheetStr += uiButtons + "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#" + actionSheetID + "\")'><label>Cancel</label></uibutton></scrollpanel></actionsheet>";
             var actionSheet = $.make(actionSheetStr);
             that.insert(actionSheet, "last");
         };
@@ -1633,7 +1723,7 @@ $.extend(HTMLElement.prototype, {
                 $.UIHideActionSheet();
             });
         });
-        var myScroll = new $.UIScrollControl($("#" + actionSheetID + " > scrollpanel"), { desktopCompatibility: true });
+        var myScroll = new $.UIScroll($("#" + actionSheetID + " > scrollpanel"), { desktopCompatibility: true });
     }
 });
 $.extend($, {
@@ -1678,7 +1768,9 @@ $.extend(HTMLElement.prototype, {
 		var title = opts.title || "Open";
 		var altTitle = opts.altTitle || "Close";
 		var expander = this;
-		var panel = $("expander > panel");
+		var panel = $("panel", this);
+		var header = "<header><label></label></header>";
+		this.insert(header, "first");
 		panel.setAttribute("ui-height", parseInt(panel.css("height"), 10));
 		if (status === "expanded") {
 			expander.toggleClass("ui-status-expanded", "ui-status-collapsed");
@@ -1705,7 +1797,46 @@ $.extend(HTMLElement.prototype, {
 		});
 	}
 });
-
+$.extend(HTMLElement.prototype, {
+	UICalculateNumberOfLines : function () {
+		var lineHeight = parseInt(this.css("line-height"), 10);
+		var height = parseInt(this.css("height"), 10);
+		var lineNums = Math.floor(height / lineHeight);
+		return lineNums;
+	},
+	UIParagraphEllipsis : function () {
+		var lines = this.UICalculateNumberOfLines();
+		console.log(lines);
+		this.css("{-webkit-line-clamp:" + lines + "}");
+	}
+});
+$.extend(HTMLElement.prototype, {
+	UIProgressBar : function ( opts ) {
+		if (!opts) {
+			var opts = {};
+		}
+		var className = opts.className || false;
+		var width = opts.width || 100;
+		var speed = opts.speed || 5;
+		var position = opts.position || "after";
+		var margin = opts.margin || "10px auto";
+		var bar = "<progressbar";
+		if (className) {
+			bar += " class='" + className + "'";
+		}
+		bar += " style='width: " + width + "px;";
+		bar += " -webkit-animation-duration: " + speed +"s;";
+		bar += " margin: " + margin + ";'";
+		bar += "></progressbar>";
+		this.insert(bar);
+	},
+	UIHideNavBarHeader : function ( ) {
+		this.css("{visibility: hidden; position: absolute;}");
+	},
+	UIShowNavBarHeader : function ( ) {
+		this.css("{visibility: visible; position: static;}");
+	}
+});
 $.extend($, {
     UIAdjustToolBarTitle : function() {
         $$("navbar h1").forEach(function(title) {
@@ -1723,22 +1854,28 @@ $.extend($, {
             if (subtractableWidth > 0) {
                 if((availableSpace - subtractableWidth) < 40) {
                     
-                    title.style.cssText =  "display: none;";
+                    title.css("{display: none;}");
                 } else {
-                    title.style.cssText =  "display: block; width: " + (availableSpace - subtractableWidth - 20) + "px;";
+                    title.css("{display: block; width: " + (availableSpace - subtractableWidth - 20) + "px;}");
                 }
             }
         });
     }
 });
 document.addEventListener("DOMContentLoaded", function() {
-    $.UIAdjustToolBarTitle();
+	if (!$("splitview")) {
+    	$.UIAdjustToolBarTitle();
+    }
 }, false);
 document.addEventListener("orientationchange", function() {
-    $.UIAdjustToolBarTitle();
+	if (!$("splitview")) {
+    	$.UIAdjustToolBarTitle();
+    }
 }, false);
 window.addEventListener("resize", function() {
-    $.UIAdjustToolBarTitle();
+	if (!$("splitview")) {
+    	$.UIAdjustToolBarTitle();
+    }
 }, false);
 
 $.UIActivityIndicator = function() {};
@@ -2086,4 +2223,74 @@ $.extend(HTMLElement.prototype, {
             });
         }
     }
+});
+$.ready(function() {
+	$.extend($, {
+		UISplitViewScroller1 : null,
+		UISplitViewScroller2 : null,
+		body : $("body"),
+		rootview : $("rootview"),
+		resizeEvt : ('onorientationchange' in window ? 'orientationchange' : 'resize'),
+		UISplitView : function ( ) {	
+			$.UISplitViewScroller1 = new $.UIScroll('#scroller1 > scrollpanel');
+			$.UISplitViewScroller2 = new $.UIScroll('#scroller2 > scrollpanel');		
+			var buttonLabel = $("rootview > panel > view[ui-navigation-status=current] > navbar").text();
+			$("detailview > navbar").insert("<uibutton id ='showRootView'  class='navigation' ui-bar-align='left'>"+buttonLabel+"</uibutton>", "first");
+			if (window.innerWidth > window.innerHeight) {
+				$.body.className = "landscape";
+				$.rootview.css("{display: block; height: 100%; margin-bottom: 1px;}");
+				$("#scroller1").css("overflow: hidden; {height: " + ($.rootview.innerHeight - 45) + "px;}");
+			} else {
+				$.body.className = "portrait";
+				$.rootview.css("{display: none; height: " + (window.innerHeight - 100) + "px;}");
+				$("#scroller1").css("{overflow: hidden; height: " + (window.innerHeight - 155) + "px;}");
+			}
+		},
+		
+		UISetSplitviewOrientation : function() {
+			if ($.resizeEvt) {
+				if (window.innerWidth > window.innerHeight) {
+					$.body.className = "landscape";
+					$.rootview.css("{display: block; height: 100%; margin-bottom: 1px;}");
+					$("#scroller1").css("{overflow: hidden; height: 100%;}");
+				} else {
+					$.body.className = "portrait";
+					$.rootview.css("{display: none; height: " + (window.innerHeight - 100) + "px;}");
+					$("#scroller1").css("{overflow: hidden; height:" + (window.innerHeight - 155) + "px;}");
+				}
+			}
+		},
+		
+		UIToggleRootView : function() {
+			if ($.rootview.style.display === "none") {
+				$.rootview.css("{display: block;}");
+				$.UISplitViewScroller1.destroy();
+				$.UISplitViewScroller2.destroy();
+				$.UISplitViewScroller1 = new $.UIScroll('#scroller1 > scrollpanel');
+				$.UISplitViewScroller2 = new $.UIScroll('#scroller2 > scrollpanel');
+			} else {
+				$.rootview.style.display = "none";
+				$.UISplitViewScroller1.destroy();
+				$.UISplitViewScroller2.destroy();
+				$.UISplitViewScroller1 = new $.UIScroll('#scroller1 > scrollpanel');
+				$.UISplitViewScroller2 = new $.UIScroll('#scroller2 > scrollpanel');
+			}
+		},
+		
+		UICheckForSplitView : function ( ) {
+			if ($("splitview")) {
+				$.UISplitView();
+				$("#showRootView").bind("click", function() {
+					$.UIToggleRootView();
+				});
+				$.body.onorientationchange = function(){
+					$.UISetSplitviewOrientation();
+				};
+				window.onresize = function() {
+					$.UISetSplitviewOrientation();
+				};
+			}
+		}
+	});
+	$.UICheckForSplitView();
 });

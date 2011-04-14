@@ -1,107 +1,76 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Buttons</title>
-    <link rel="stylesheet" href="chui/chui.css">
-    <script src="chui/chocolatechip.js" type="text/javascript"></script>
+    <title>Background Patterns</title>
+    <link rel="stylesheet" href="chui/chui.css">    
     <style type="text/css">
-		view { 
+		scrollpanel > panel { 
 			height 200px;
-			max-height: 200px;
-			-webkit-transform: none;
-			position: static;
+			height: 200px;
 		}	
-		*[ui-background-style=vertical-striped-equal] {
-			background-image: 
-				-webkit-gradient(linear, left top, right top, 
-					from(rgba(0,0,0,0.1)), 
-					color-stop(0.5, rgba(0,0,0,0.1)), 
-					color-stop(0.5, transparent), 
-					to(transparent)); 
-			-webkit-background-size: 10px 100%;
-			background-size: 10px 100%;
-		}
-		*[ui-background-style=horizontal-striped-equal] {
-			background-image: 
-				-webkit-gradient(linear, left top, left bottom, 
-					from(rgba(0,0,0,0.1)), 
-					color-stop(0.5, rgba(0,0,0,0.1)), 
-					color-stop(0.5, transparent), 
-					to(transparent)); 
-			-webkit-background-size: 100% 10px;
-			background-size: 100% 10px;
-		}
-		*[ui-background-style=slanted-left-equal] {
-			background-image: 
-				-webkit-gradient(linear, right top, left bottom,
-					color-stop(0.23, rgba(0, 0, 0, 0.1)), 
-					color-stop(0.25, transparent),
-					color-stop(0.5, transparent), 
-					color-stop(0.5, rgba(0, 0, 0, 0.1)),
-					color-stop(0.73, rgba(0, 0, 0, 0.1)), 
-					color-stop(0.75, transparent),
-					to(transparent));
-			-webkit-background-size: 15px 15px;
-			background-size: 15px 15px;
-		}
-		*[ui-background-style=slanted-right-equal] {
-			background-image: 
-				-webkit-gradient(linear, left top, right bottom, 
-					color-stop(0.23, rgba(0, 0, 0, 0.1)), 
-					color-stop(0.25, transparent),
-					color-stop(0.5, transparent), 
-					color-stop(0.5, rgba(0, 0, 0, 0.1)),
-					color-stop(0.73, rgba(0, 0, 0, 0.1)), 
-					color-stop(0.75, transparent),
-					to(transparent));
-			-webkit-background-size: 15px 15px;
-			background-size: 15px 15px;
-		}
     </style>
+    <script src="chui/chocolatechip.js" type="text/javascript"></script>
+    <script src="chui/chui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $.ready(function() {
+        
+		});
+    </script>
+    
 </head>
 <body>
 	<app>
-		<view ui-background-style="vertical-striped">
-			<navbar><h1>ui-background-style="vertical-striped"</h1></navbar>
-		</view>
-		<view ui-background-style="horizontal-striped">
-			<navbar><h1>ui-background-style="horizontal-striped"</h1></navbar>
-		</view>
-		<view ui-background-style="slanted-left">
-			<navbar><h1>ui-background-style="slanted-left"</h1></navbar>
-		</view>
-		<view ui-background-style="slanted-right">
-			<navbar><h1>ui-background-style="slanted-right"</h1></navbar>
-		</view>
-		<view ui-background-style="vertical-striped-equal">
-			<navbar><h1>ui-background-style="vertical-striped-equal"</h1></navbar>
-		</view>
-		<view ui-background-style="horizontal-striped-equal">
-			<navbar><h1>ui-background-style="horizontal-striped-equal"</h1></navbar>
-		</view>
-		<view ui-background-style="slanted-left-equal">
-			<navbar><h1>ui-background-style="slanted-left-equal"</h1></navbar>
-		</view>
-		<view ui-background-style="slanted-right-equal">
-			<navbar><h1>ui-background-style="slanted-right-equal"</h1></navbar>
-		</view>
-		<view ui-background-style="squared">
-			<navbar><h1>ui-background-style="squared"</h1></navbar>
-		</view>
-		<view ui-background-style="checkered">
-			<navbar><h1>ui-background-style="checkered"</h1></navbar>
-		</view>
-		<view ui-background-style="chess">
-			<navbar><h1>ui-background-style="chess"</h1></navbar>
-		</view>
-		<view ui-background-style="speckled">
-			<navbar><h1>ui-background-style="speckled"</h1></navbar>
-		</view>
-		<view ui-background-style="spotted">
-			<navbar><h1>ui-background-style="spotted"</h1></navbar>
+		<view id="main" ui-navigation-status="current">
+			<navbar>
+				<h1>Background Patterns</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<shim></shim>
+					<panel ui-background-style="vertical-striped">
+						<navbar><h1>vertical-striped</h1></navbar>
+					</panel>
+					<panel ui-background-style="horizontal-striped">
+						<navbar><h1>horizontal-striped</h1></navbar>
+					</panel>
+					<panel ui-background-style="slanted-left">
+						<navbar><h1>slanted-left</h1></navbar>
+					</panel>
+					<panel ui-background-style="slanted-right">
+						<navbar><h1>slanted-right</h1></navbar>
+					</panel>
+					<panel ui-background-style="vertical-striped-equal">
+						<navbar><h1>vertical-striped-equal</h1></navbar>
+					</panel>
+					<panel ui-background-style="horizontal-striped-equal">
+						<navbar><h1>horizontal-striped-equal</h1></navbar>
+					</panel>
+					<panel ui-background-style="slanted-left-equal">
+						<navbar><h1>slanted-left-equal</h1></navbar>
+					</panel>
+					<panel ui-background-style="slanted-right-equal">
+						<navbar><h1>slanted-right-equal</h1></navbar>
+					</panel>
+					<panel ui-background-style="squared">
+						<navbar><h1>squared</h1></navbar>
+					</panel>
+					<panel ui-background-style="checkered">
+						<navbar><h1>checkered</h1></navbar>
+					</panel>
+					<panel ui-background-style="chess">
+						<navbar><h1>chess</h1></navbar>
+					</panel>
+					<panel ui-background-style="speckled">
+						<navbar><h1>speckled</h1></navbar>
+					</panel>
+					<panel ui-background-style="spotted">
+						<navbar><h1>spotted</h1></navbar>
+					</panel>			
+				</scrollpanel>
+			</subview>
 		</view>
 	</app>
 </body>

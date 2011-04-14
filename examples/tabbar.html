@@ -84,6 +84,7 @@
                 selectedTab : 0
 			};
 			$("#main").UICreateTabBar(opts);
+			
 		});
 		
 	</script>
@@ -94,7 +95,7 @@
 			<navbar class="ui-custom-tint">
 				<h1 ui-bar-alignment="center">Tab Bar</h1>
 			</navbar>
-			<subview id="subview1" ui-associations="withNavBar withTabBar">
+			<subview ui-associations="withNavBar withTabBar">
 				<scrollpanel>
 					<shim></shim>
 					<stack>
