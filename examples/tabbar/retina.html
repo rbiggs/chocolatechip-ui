@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>Webkit Masked iPhone Nav Example by Jordan Dobson</title>
+
+    <meta name="title"        content="Webkit Masked iPhone Nav Example by Jordan Dobson" />
+    <meta name="description"  content="Webkit Masked iPhone Nav Example by Jordan Dobson" />
+    <meta name="keywords"     content="" />
+    <meta name="author"       content="Jordan R. Dobson" />
+    <meta http-equiv="Pragma" content="Public" />
+    <meta name="robots"       content="index,follow" />
+    <meta name="viewport"     content="user-scalable=no, width=device-width, maximum-scale=1, user-scalable=0" />
+    <meta http-equiv="Cache-Control" content="Public" />
+    
+    
+    <!-- Free to use this code as you see fit. Please give credit to Jordan Dobson. -->
+    <!-- Development, Design, HTML and CSS by Jordan Dobson http://JordanDobson.com -->
+    
+    <link rel="stylesheet" type="text/css" href="reset.css" media="screen" />
+    
+    <!-- CSS for Navigation -->
+    
+    <style type="text/css">
+      
+    /* Nav Container */
+      
+      nav{
+        background-color:       #000;
+        padding:                .1em 0;
+        position:               fixed;
+        bottom:                 0;
+        width:                  100%;
+        border-top:             .05em solid rgba(255,255,255,.33);
+        -webkit-box-shadow:     0 -0.05em 0 rgba(0,0,0,0.9);
+        background-image:       -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255,255,255,.15)), color-stop(0.5, rgba(255,255,255,.10)), color-stop(0.505, rgba(255,255,255,.0)), to(rgba(255,255,255,.0)));
+      }
+      
+    /* Nav item Example */
+      
+      a{
+        margin:                 0 auto;
+        width:                  3.5em;
+        height:                 2.5em;
+        position:               relative;
+        border-radius:          .25em;
+        -webkit-border-radius:  .25em;
+        display:                inline-block;
+        vertical-align:         middle;
+      }
+      
+      a > strong{
+        position:               absolute;
+        font-size:              .5em;
+        color:                  #999;
+        bottom:                 0;
+        width:                  100%;
+        text-align:             center;
+        line-height:            1.5em;
+        font-weight:            bold;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a::after,
+      a::before{
+        position:               absolute;
+        content:                " ";
+        top:                    -1em;
+        left:                   0;
+        right:                  0;
+        bottom:                 0;
+
+        -webkit-mask-position:  center center;
+        -webkit-mask-repeat:    no-repeat;
+        -webkit-mask-image:     url('target-2x.png');
+        
+        zoom:                   .5; /* Scales to 50% Size & has better rendering than transform */
+      }
+      
+      /* Grey Icon */
+
+      a::before{
+        background-image:       -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#333));
+        z-index:                1;
+      }
+      
+      /* Icon Shadow */
+      
+      a::after{
+        margin-top:             -.2em;
+        background-color:       rgba(0,0,0,.75);
+        z-index:                0;
+      }
+      
+      /* Active Settings */
+      
+      a.active{
+        background-color:       rgba(255,255,255,.10);
+      }
+      
+      a.active > strong{
+        color:                  #fff;
+      }
+      
+      a.active::before{
+        background:             -webkit-gradient(linear, 38% 0%, 60% 70%, from(#DDE9F0), color-stop(0.6, #79B2EC), color-stop(0.7, #2E91E5), to(#3FC5F8));
+      }
+      
+      a.active::after{
+        margin-top:             .2em;
+      }
+
+/*    Don't want to serve low resolution devices a high resolution image?
+      Use a low res image, zoom out & cut a few positioning values in half. */
+/*
+      @media screen and (-webkit-min-device-pixel-ratio: 1) {
+        
+        a::after,
+        a::before{
+          top:                  -.5em;
+          -webkit-mask-image:   url('target.png');
+          zoom:                 1;
+        }
+        
+        a::after{
+          margin-top:           -.1em;
+        }
+
+        a.active::after{
+          margin-top:           .1em;
+        }
+      }
+*/
+    </style>
+  </head>
+  <body id="home" class="index">
+
+  <!-- START: Navigation Markup -->
+  
+    <nav>
+      <a href="#" class="">
+        <strong>Bullseye</strong>
+      </a>
+      
+      <a href="#" class="active">
+        <strong>Bullseye</strong>
+      </a>
+
+    </nav>
+    
+  <!-- END: Navigation Markup -->
+    
+    <p>Supports iPhone, iPhone 4, BlackBerry 6 & Android. Two tabs are identical except for an added "active" class. A single greyscale PNG mask image is all that is required.</p>
+    
+    <script type="text/javascript" src="http://include.reinvigorate.net/re_.js"></script>
+    <script type="text/javascript">
+    re_("5m97n-58narw448h");
+    </script>
+  </body>
+</html>

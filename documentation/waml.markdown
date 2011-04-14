@@ -1,19 +1,19 @@
 #WAML&mdash;Web App Markup Language
 
-	   pO\     
-	  6  /\
-		/OO\
-	   /OOOO\
-	 /OOOOOOOO\
-	((OOOOOOOO))
-	 \:~=++=~:/ 
-	
-	ChocolateChip-UI: A framework for mobile Web app development.
-	WAML: Web App Markup Language
-	
-	Copyright 2011 Robert Biggs: www.choclatechip-ui.com
-	License: BSD
-	Version 0.5 beta
+       pO\     
+      6  /\
+        /OO\
+       /OOOO\
+     /OOOOOOOO\
+    ((OOOOOOOO))
+     \:~=++=~:/ 
+    
+    ChocolateChip-UI: A framework for mobile Web app development.
+    WAML: Web App Markup Language
+    
+    Copyright 2011 Robert Biggs: www.choclatechip-ui.com
+    License: BSD
+    Version 0.8 beta
 
 
 &nbsp;
@@ -28,32 +28,32 @@ how to judge their correctness. Although a validator will not know about WAML ta
 ChocolateChip-UI also uses another technique with some of the HTML tags it uses. Besides the regular DOM which a browser exposes for access through CSS and JavaScript, there is also a hidden or shadow DOM which browsers do not expose. For example, elements such as uibutton, select and input have child elements that cannot be accessed by JavaScript and do not appear in the DOM. They're there as the shadow DOM. ChocolateChip takes a sledge hammer to the shadow DOM by directly placing new child elements in the uibutton tag. Technically, according to specs, the uibutton tag has no child elements. But because of the shadow DOM, you can give a uibutton a child element and the browser will render it without a problem. You just need to override it's default look using *-webkit-appearance="none".* It would only depend on your styling of it to look good. Following this course, ChocolateChip provides new tags and old tags used in new ways as well as custom attributes to make the creation of controls for Web apps straightforward and intuitive.
 
 Because a WAML document is just HTML5, it uses the html file extension. A WAML document expects the following basic document structure with links to ChocolateChip.js ChUI.js and ChUI.css. The links for favicon, startup image, etc. would need to be created for your app. Please note the the meta tag for viewport does not have a device-width value. Do not set this but instead use the viewport meta tag as displayed below. Also, if you want to use a cache manifest, you'd need to create one and change the value in the html tag to match the name of your manifest. Note, a cache manifest always has a file tile of ".manifest" and the server where you app resides needs to support this mime-type. Do an online search for "cache manifest" if you need to learn more about this feature of HTML5.
-
-	<!DOCTYPE html>
-	<html lang="en" manifest="cache.manifest">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<link rel="apple-touch-startup-image" href="startup.png">
-		<link rel="apple-touch-icon" href="touchicon.png"/>
-		<link rel="shortcut icon" href="favicon.ico">
-		<title>Untitled</title>
-		<link rel="stylesheet" href="chui.css">
+    
+    <!DOCTYPE html>
+    <html lang="en" manifest="cache.manifest">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="apple-touch-startup-image" href="startup.png">
+        <link rel="apple-touch-icon" href="touchicon.png"/>
+        <link rel="shortcut icon" href="favicon.ico">
+        <title>Untitled</title>
+        <link rel="stylesheet" href="chui.css">
         <style type="text/css">
             /* Custom styles for you application go here */
         </style>
-		<script src="chocolatechip.js" type="text/javascript"></script>
-		<script src="chui.js" type="text/javascript">
+        <script src="chocolatechip.js" type="text/javascript"></script>
+        <script src="chui.js" type="text/javascript">
             // Custom JavaScript for your application goes here.
-		</script>
-	</head>
-	<body>
-		<app>
-            <!-- Your application markup in here -->	
-		</app>
-	</body>
-	</html>
+        </script>
+    </head>
+    <body>
+        <app>
+            <!-- Your application markup in here -->    
+        </app>
+    </body>
+    </html>
 
 &nbsp;
 
@@ -207,12 +207,37 @@ There is also box sizing, which affects how the browser renders the dimensions o
 
 <a name="stack"></a>
 
-##Tag: stack
+##Tag: stack (Paging Control)
 
 A container for hold elements. This element uses and attribute *"ui-kind"* to indicate whether its elements are stacked vertically or horizontally:
 
 - ui-kind="vertical"
 - ui-kind="horizontal"
+
+A stack can also used to create a paging control. This is done by giving the stack he attribute *stack ui-implements="paging"* and putting a panel tag inside of it. It bit of nesting is necessary to create the structures to enable the horizontal paging behavior. A stack contains the pnaels that will be paged. Because of the limited horizontal space in portrait mode in a handheld device it is only possible to have up to 17 pagable panels. If you need more then you should use the segmented paging control. See tutorials for how to implement it. ChocolateChip-UI automatically creates a stack underneath it with dots to indicate navigable panels based on the number of panels in your structure. All you have to do to implement the paging control is to use the right markup structure, ChocolateChip-UI will initialize it for you automatically. Here's the structure of a typical paging control:
+
+    <stack ui-implements="paging">
+        <panel>
+            <stack>
+                <panel>
+                    <h4>Panel 1</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                </panel>
+                <panel>
+                    <h4>Panel 2</h4>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                </panel>
+                <panel>
+                    <h4>Panel 3</h4>
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
+                </panel>
+                <panel>
+                    <h4>Panel 4</h4>
+                    <p> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem.</p>
+                </panel>
+            </stack>
+        </panel>
+    </stack>
 
 
 &nbsp;
@@ -302,30 +327,30 @@ To display an icon in a uibutton you use an icon tag with an inline style indica
 
 **Example:**
 
-	<uibutton>
-		<icon style="background-image: url(icons/add.svg)">
-		<label>Add</label>
-	</uibutton>
+    <uibutton>
+        <icon style="background-image: url(icons/add.svg)">
+        <label>Add</label>
+    </uibutton>
 
 
 When using icons in a uibutton, you can designate whether the icon is simply display in its original color or to use it as a mask. When using as a mask, the icon's background colors are revealed in the icon. Using background gradients on an icon with a image mask can create interesting effects. To accomplish this, instead of putting a background image on the icon, you put a *-webkit-mask image* value in its inline style definition, as illustrated below.
 
 **Example:**
 
-	<uibutton>
-		<icon style="-webkit-mask-image: url(icons/add.svg)">
-		<label>Add</label>
-	</uibutton>
+    <uibutton>
+        <icon style="-webkit-mask-image: url(icons/add.svg)">
+        <label>Add</label>
+    </uibutton>
 
 
 By default the background color used by the mask is white. If you want to change this, you can output a different background color in the icon's inline style by hand or by JavaScript. Using an rgba color value with transparency set will cause the color masked icon to appear in that color. Setting the transparency to 0 will cause no icon to show.
 
 **Example:**
 
-	<uibutton>
-		<icon style="-webkit-mask-image: url(icons/add.svg); background-color: #ff0000">
-		<label>Add</label>
-	</uibutton>
+    <uibutton>
+        <icon style="-webkit-mask-image: url(icons/add.svg); background-color: #ff0000">
+        <label>Add</label>
+    </uibutton>
 
 
 **See Also:**
@@ -359,29 +384,29 @@ uibuttons of kind action have a default gray color. You can change that just lik
 
 **Example:**
 
-	<uibutton ui-kind="action" class="stretch">
-		<label>Set Value</label>
-	</uibutton>
+    <uibutton ui-kind="action" class="stretch">
+        <label>Set Value</label>
+    </uibutton>
     
-	<uibutton ui-kind="action" ui-implements="cancel" class="stretch">
-		<label>Cancel</label>
-	</uibutton>
+    <uibutton ui-kind="action" ui-implements="cancel" class="stretch">
+        <label>Cancel</label>
+    </uibutton>
     
-	<uibutton ui-kind="action" ui-implements="delete" class="stretch">
-		<label>Delete</label>
-	</uibutton>
+    <uibutton ui-kind="action" ui-implements="delete" class="stretch">
+        <label>Delete</label>
+    </uibutton>
     
-	<uibutton ui-kind="action" class="green stretch" style="height: 80px;">
-		<label>Green</label>
-	</uibutton>
+    <uibutton ui-kind="action" class="green stretch" style="height: 80px;">
+        <label>Green</label>
+    </uibutton>
     
-	<uibutton ui-kind="action" class="gold stretch" style="height: 100px;">
-		<label>Gold</label>
-	</uibutton>
-    	
-	<uibutton ui-kind="action" ui-implements="done" class="stretch">
-		<label>Save</label>
-	</uibutton>
+    <uibutton ui-kind="action" class="gold stretch" style="height: 100px;">
+        <label>Gold</label>
+    </uibutton>
+        
+    <uibutton ui-kind="action" ui-implements="done" class="stretch">
+        <label>Save</label>
+    </uibutton>
 
 **See Also:**
 
@@ -391,7 +416,7 @@ uibuttons of kind action have a default gray color. You can change that just lik
 
 
 &nbsp;
-	
+    
 <a name="navigation_uibuttons"></a>
 
 **Navigation uibuttons:**
@@ -400,13 +425,13 @@ These are produced by giving a uibutton an appropriate *ui-implements* value of 
 
 **Example:**
 
-	<uibutton ui-implements="back" ui-bar-align="left">
-		<label>Back</label>
-	</uibutton>
-	
-	<uibutton ui-implements="next" ui-bar-align="right">
-		<label>Next</label>
-	</uibutton>
+    <uibutton ui-implements="back" ui-bar-align="left">
+        <label>Back</label>
+    </uibutton>
+    
+    <uibutton ui-implements="next" ui-bar-align="right">
+        <label>Next</label>
+    </uibutton>
 
 **See Also:**
 
@@ -449,29 +474,29 @@ A navbar is visually identical to a toolbar. The difference is in what they are 
 
 **Example:**
 
-	<navbar>
-		<h1>Action uibuttons in a View</h1>
-	</navbar>
-    	
-	<navbar>
-		<uibutton ui-implements="back" ui-bar-align="left">
-			<label>Back</label>
-		</uibutton>
-		<h1>Home</h1>
-		<uibutton ui-implements="next" ui-bar-align="right">
-			<label>Next</label>
-		</uibutton>
-	</navbar>
+    <navbar>
+        <h1>Action uibuttons in a View</h1>
+    </navbar>
+        
+    <navbar>
+        <uibutton ui-implements="back" ui-bar-align="left">
+            <label>Back</label>
+        </uibutton>
+        <h1>Home</h1>
+        <uibutton ui-implements="next" ui-bar-align="right">
+            <label>Next</label>
+        </uibutton>
+    </navbar>
     
-	<navbar>
-		<uibutton ui-bar-align="left" ui-implements="delete">
-			<label>Delete</label>
-		</uibutton>
-		<h1>uibuttons</h1>
-		<uibutton ui-icon-align="right">
-			<label>Edit</label>
-		</uibutton>
-	</navbar>
+    <navbar>
+        <uibutton ui-bar-align="left" ui-implements="delete">
+            <label>Delete</label>
+        </uibutton>
+        <h1>uibuttons</h1>
+        <uibutton ui-icon-align="right">
+            <label>Edit</label>
+        </uibutton>
+    </navbar>
 
 
 
@@ -491,20 +516,20 @@ A toolbar, like a navbar, is for holding uibuttons. It, however, is never used f
 
 **Example:**
 
-	<toolbar>
-		<uibutton ui-implements="icon">
-			<icon style="background-image: url(icons/logo.png);"></icon>
-		</uibutton>
-		<uibutton ui-kind="icon">
-			<icon style="-webkit-mask-image: url(icons/download.svg); background-color: yellow"></icon>
-		</uibutton>
-		<uibutton ui-kind="icon">
-			<icon style="-webkit-mask-image: url(icons/add.svg);"></icon>
-		</uibutton>
-		<uibutton class="disabled">
-			<label>Add to Favorites</label>
-		</uibutton>
-	</toolbar>
+    <toolbar>
+        <uibutton ui-implements="icon">
+            <icon style="background-image: url(icons/logo.png);"></icon>
+        </uibutton>
+        <uibutton ui-kind="icon">
+            <icon style="-webkit-mask-image: url(icons/download.svg); background-color: yellow"></icon>
+        </uibutton>
+        <uibutton ui-kind="icon">
+            <icon style="-webkit-mask-image: url(icons/add.svg);"></icon>
+        </uibutton>
+        <uibutton class="disabled">
+            <label>Add to Favorites</label>
+        </uibutton>
+    </toolbar>
 
 
 
@@ -521,7 +546,31 @@ A toolbar, like a navbar, is for holding uibuttons. It, however, is never used f
 
 ##Tag: tabbar
 
-The tabbar is an implementation of the iOS tab bar for toggling a corresponding set of subviews. It contains a series of tabs. These tabs are uibuttons with a *ui-implements* value of "tab".
+The tabbar is an implementation of the iOS tab bar for toggling a corresponding set of subviews. It contains a series of tabs. These tabs are uibuttons with a *ui-implements* value of "tab". The uibuttons in the tabbar have the attribute *ui-implements="tab"*. The uibutton has an icon with an image mask set for the icon image to show and a label that gets displayed below the icon. Here's an example of a typical tabbar:
+
+    <tabbar ui-selected-tab="0">
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/refresh.svg);"></icon>
+            <label>Refresh</label>         
+        </uibutton>
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/add.svg);"></icon>
+            <label>Add</label>  
+        </uibutton>
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/info.svg);"></icon>
+            <label>Info</label>   
+        </uibutton>
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/downloads.svg);"></icon>
+            <label>Downloads</label>                
+        </uibutton>
+        <uibutton implements="tab">                
+            <icon style="-webkit-mask-box-image: url(icons/top_rated.svg);"></icon>
+            <label>Favorite</label>                
+        </uibutton>
+    </tabbar>
+
 
 &nbsp;
 
@@ -848,21 +897,21 @@ This tag is the root of the popup control which ChocolateChip-UI provides for pr
 
 The structure of a popup controls is as follows:
 
-	<popup ui-visible-state="hidden" style="top: 120px; left: 359px; ">
-		<panel>
-			<toolbar ui-placement="top">
-				<h1>Attention Viewers!</h1></toolbar>
-				<p>This is a message from the sponsors. Please be seated while we are getting ready. Thank you for your patience.</p>
-			<toolbar ui-placement="bottom">
-				<uibutton ui-kind="action" ui-implements="cancel">
-					<label>Skip</label>
-				</uibutton>
-				<uibutton ui-kind="action" ui-implements="continue">
-					<label>Stay for it</label>
-				</uibutton>
-			</toolbar>
-		</panel>
-	</popup>
+    <popup ui-visible-state="hidden" style="top: 120px; left: 359px; ">
+        <panel>
+            <toolbar ui-placement="top">
+                <h1>Attention Viewers!</h1></toolbar>
+                <p>This is a message from the sponsors. Please be seated while we are getting ready. Thank you for your patience.</p>
+            <toolbar ui-placement="bottom">
+                <uibutton ui-kind="action" ui-implements="cancel">
+                    <label>Skip</label>
+                </uibutton>
+                <uibutton ui-kind="action" ui-implements="continue">
+                    <label>Stay for it</label>
+                </uibutton>
+            </toolbar>
+        </panel>
+    </popup>
 
 
 &nbsp;
@@ -935,15 +984,15 @@ This this control is used to present the user with a single choice situation: on
 
 The structure of a switchcontrol is as follows:
 
-	<switchcontrol class="off" ui-implements="attention" id="breakfastSwtich">
-		<label ui-implements="on">ON</label>
-		<thumb>
-			<thumbprop></thumbprop>
-		</thumb>
-		<label ui-implements="off">OFF</label>
-		<input type="checkbox" value="So, what's the first course?">
-	</switchcontrol>
-	
+    <switchcontrol class="off" ui-implements="attention" id="breakfastSwtich">
+        <label ui-implements="on">ON</label>
+        <thumb>
+            <thumbprop></thumbprop>
+        </thumb>
+        <label ui-implements="off">OFF</label>
+        <input type="checkbox" value="So, what's the first course?">
+    </switchcontrol>
+    
 If you want or need to, you can give your switch control a class that allows you to override the default "on" color with the color of your choice. Please refer to the documentation for ChUI.css and ChUI.js for more information.
 
 **See Also:**
@@ -951,3 +1000,78 @@ If you want or need to, you can give your switch control a class that allows you
 [thumb](#thumb)
 
 [thumbprop](#thumbprop)
+
+
+
+&nbsp;
+
+<a name="splitview"></a>
+
+##Tag: splitview
+
+The splitview is a special layout type for tablets. This type of layout is not for use on mobile devices such as cellphones like the iPhone, Android, Blackberry or devices like the iPod Touch. The layout is optimized for a minimum screen size of 1024 x 768 pixels. It has two child elements: rootview and detailview. The root view is on the left side and provides n area for actionable items or navigation through list to drill down. The detailview show the result of a navigation drill down or the results of an action initiated in the rootview. The splitview layout has automatic readjustment or orientation change. This results in the rootview being hidden in portrait mode with a button in the upper left of the detailview with the same title as the rootview that will toggle the visibility of the rootview. When the device is returned to landscape mode, the rootview will automatically be visible by default.
+
+[rootview](#rootview)
+
+[detailview](#detailview)
+
+
+
+
+&nbsp;
+
+<a name="rootview"></a>
+
+##Tag: rootview
+
+The rootview is the area for navigation and drilldown allowing the user to get to the information to display in the detailview. It can also contain actionable list or uibuttons which offer the user ways to interact with the data in the detail view.
+
+[splitview](#splitview)
+
+[detailview](#detailview)
+
+
+
+
+&nbsp;
+
+<a name="detailview"></a>
+
+##Tag: detailview
+
+The detailview is the area in the splitview where a user is presented with the result of a navigation choice or action choice.
+
+[splitview](#splitview)
+
+[rootview](#rootview)
+
+
+
+&nbsp;
+
+##Tag: expander
+
+The expander tag provides a way to collapse or expand a vertical section of your app. To create an expander you Put an expander tag with a panel tag into your document. The expander's panel will contain whatever content you wish to be able to hide and show. ChocolateChip-UI will take care of implementing the hiding and showing for you. Please see the tutorial on UIExpander for options on the expanded state and the expander's label titles. Here's what an expander looks like:
+
+    <expander>
+        <panel>
+            <tableview ui-kind="grouped">
+                <tablecell>
+                    <celltitle>Breakfast</celltitle>
+                </tablecell>
+                <tablecell>
+                    <celltitle>Lunch</celltitle>
+                </tablecell>
+                <tablecell>
+                    <celltitle>Dinner</celltitle>
+                </tablecell>
+            </tableview>
+        </panel>
+    </expander>
+
+
+&nbsp;
+
+##Tag: progressbar
+
+This tag creates an animated progress bar. The defaults are: height: 15px, width: 100px and has its margins set to 10px auto so that it centers in its container. Its background color controls the color of the stripes. The default is rgb(56,138,213). You can change the default color by adding a class to the progress bar and then defining a different background-color for the progress bar. In most cases you'll want to create and delete it with JavaScript. Please see the tutorial for UIProgressBar.

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlID" class="htmlClass">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Application of Ellipsis to a Paragraph</title>
+	<link rel="stylesheet" href="chui/chui.css">
+	<style type="text/css">
+		/* Local Styles Here */
+		#clip {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			overflow : hidden;
+			text-overflow: ellipsis;
+			height: 200px;
+		}
+		p {
+			font-size: 14px;
+			line-height: 20px;
+		}
+		panel {
+			padding: 20px;
+		}		
+	</style>
+	<script src="chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="chui/chui.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$.ready(function() {
+			$("#clip").UIParagraphEllipsis();
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="toolbar_01">
+				<h1 ui-bar-align="center">Ellipsis</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<panel>
+						<p id="clip">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+						</p>
+					</panel>
+				</scrollpanel>
+			</subview>
+		</view>
+		
+	</app>
+</body>
+</html>

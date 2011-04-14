@@ -76,6 +76,7 @@
 			}
 			$("segmentedcontrol").UISegmentedControl(seggie, "#stackpanel_01");
 			$("#stackpanel_01").UIIdentifyChildNodes();
+			
 			$("#main").UITabBar();
 		});
 		
@@ -87,7 +88,7 @@
 			<navbar class="ui-custom-tint">
 				<h1 ui-bar-alignment="center">Tab Bar</h1>
 			</navbar>
-			<subview id="subview1" ui-associations="withNavBar withTabBar">
+			<subview ui-associations="withNavBar withTabBar">
 				<scrollpanel>
 					<shim></shim>
 					<stack>
@@ -299,23 +300,23 @@
 				</scrollpanel>
 			</subview>
 			<tabbar ui-selected-tab="0">
-				<uibutton implements="tab">                
+				<uibutton ui-implements="tab">                
 					<icon style="-webkit-mask-box-image: url(icons/refresh.svg);"></icon>
 					<label>Refresh</label>         
 				</uibutton>
-				<uibutton implements="tab">                
+				<uibutton ui-implements="tab">                
 					<icon style="-webkit-mask-box-image: url(icons/add.svg);"></icon>
 					<label>Add</label>  
 				</uibutton>
-				<uibutton implements="tab">                
+				<uibutton ui-implements="tab">                
 					<icon style="-webkit-mask-box-image: url(icons/info.svg);"></icon>
 					<label>Info</label>   
 				</uibutton>
-				<uibutton implements="tab">                
+				<uibutton ui-implements="tab">                
 					<icon style="-webkit-mask-box-image: url(icons/downloads.svg);"></icon>
 					<label>Downloads</label>                
 				</uibutton>
-				<uibutton implements="tab">                
+				<uibutton ui-implements="tab">                
 					<icon style="-webkit-mask-box-image: url(icons/top_rated.svg);"></icon>
 					<label>Favorite</label>                
 				</uibutton>

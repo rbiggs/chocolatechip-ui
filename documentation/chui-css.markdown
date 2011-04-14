@@ -1,21 +1,23 @@
 #ChUI.css
     
-	   pO\     
-	  6  /\
-		/OO\
-	   /OOOO\
-	 /OOOOOOOO\
-	((OOOOOOOO))
-	 \:~=++=~:/ 
+       pO\     
+      6  /\
+        /OO\
+       /OOOO\
+     /OOOOOOOO\
+    ((OOOOOOOO))
+     \:~=++=~:/ 
     
     ChocolateChip-UI: A framework for mobile Web app development.
     ChUI.css: Good looks do impress
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 0.7 beta
+    Version 0.8 beta
 
 
+&nbsp;
+    
 ##Block Elements:
 
 These are new elements provided by WAML -- Web App Markup Language. Since WAML is a supper set of tags for use in and HTML5 document, we need to tell the browser how to display them. By default browsers display unknown tags as inline elemtns. ChocolateChip-UI initially sets them to block: app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, celltitle, cellsubtitle, celldetail, tableheader, tablefooter, popover, popup, picker, screencover, actionsheet, stack, panel, scrollpanel.
@@ -26,11 +28,15 @@ Some of these may later be given a display value of -webkit-box or even -webki-i
 
 **See Also:**
 
+&nbsp;
+    
 ##Tag: app
 
 This tag is the root of all WAML documents. It is the first child of the body tag. It has its overflow property set so that horizontal overflow is hidden and vertical overflow is auto. This is to prevent navigation of views to the left or right from causing scrolling.
 
 
+&nbsp;
+    
 ##Tab: view 
 
 This tag has its display property set to -webkit-box and its -webkit-box-orient set to vertical. It has the following transition definition -webkit-transition: all 0.25s  ease-in-out. The tag is also positioned absolutely with its top, right, bottom and left are set to 0. This causes the view to stretch to the edges of the available screen space, minus any browser chrome when in the mobile browser. It also has its overflow set to hidden. Allow any overflow will be hidden, ChocolateChip-UI uses other descendant tags, CSS and JavaScript to allow scrolling of the hidden content.
@@ -43,18 +49,20 @@ This tag has its display property set to -webkit-box and its -webkit-box-orient 
 
 A view can also have a *ui-background-style* set to "striped". This produces a pattern of vertical stripes on the background of the view. This is created with CSS3 gradients. If you want to produce a different background, perhaps just a solid color, or a gradient with different colors or different thickness of stripes, you can override the default definition by putting your own definition right in a style tag in the head of your app's document. The default colors for the *ui-background-style* attribute are:
 
-	background: #cbd2d8;
-	background-image: 
-		-webkit-gradient(linear, left top, right top, 
-			from(#c5ccd4), 
-			color-stop(0.75, #c5ccd4), 
-			color-stop(0.75, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 5px 100%;
-	background-size: 5px 100%;
+    background: #cbd2d8;
+    background-image: 
+        -webkit-gradient(linear, left top, right top, 
+            from(#c5ccd4), 
+            color-stop(0.75, #c5ccd4), 
+            color-stop(0.75, transparent), 
+            to(transparent)); 
+    -webkit-background-size: 5px 100%;
+    background-size: 5px 100%;
 
 To cancel the CSS gradient you would redefine the background-image property to *background-image: none*. To change the thickness of the stripes you would need to change the value of the background-size from 5 pixels to whatever size you want. Note that there are two definitions for background size. This is because the latest version of Webkit has dropped the need to use the -webkit prefix for that property. To support older versions of Webkit you still need to include background-size with the -webkit prefix. To change the colors of the gradient you can modify the colors individual until you find the combination that you like.
 
+&nbsp;
+    
 ##Tag: subview
 
 This tag serves as the container for chunks of data presented in a view through with the app offers some type of navigation or paging without leaving the current view. It will often have a scroll panel as its first child, but if you know that its content will never exceed the limitations of the mobile device's viewport, you can output your content directly to the subview. That said, it is very unlikely that you would need or want to consider doing this.
@@ -69,10 +77,14 @@ When you need to include a navbar or toolbar with a subview, you need to inform 
 If the view does not have the default striped patter, you may want to apply that to the subview. This is done by giving the subview the attribute: *ui-background-style*. You may want to try out some other type of gradient pattern. There are quite a view possibilities. You can learn more about CSS3 gradients from [this blog post](#http://css3wizardry.com/2010/08/19/css3-gradients-and-patterns/). **Note:** you only need implement Webkit style gradients for a Web app since it is the dominant platform for mobile Web apps.
 
 
+&nbsp;
+    
 ##Tag: scrollpanel
 
 This tag has its height set to auto with a min-height of 100%. This means the scrollpanel will vertically fill its container and expand vertically to hold more content. It has 45 pixels of bottom padding to account for vertical scrolling implemented by ChocolateChip-UI. If you were using a view without any subviews, you could put the scrollpanel as the first child of the view to providing scrolling of content inside the view. This might be the case where the view has no navbar or toolbar so that you have the entire viewport for presenting data and therefore need to have the entire view capable of scrolling.
 
+&nbsp;
+    
 ##Attribute: box sizing
 
 ChocolateChip-UI provides various box sizing properties for implement various possible layouts. For these properties to have any effect, the container must have its display property set to "-webkit-box" or "-webkit-inline-box".
@@ -140,13 +152,15 @@ This attribute affects the flexibility of the child elements of a container. It 
 - ui-box-flex=3, etc.
 
 
+&nbsp;
+    
 ##Tag: uibutton
 
 This tag has a number of default CSS definitions. The default uibutton styles are what is used when a uibutton is placed in a navbar or toolbar. If you want, you can override these styles with a new style defined in a style tag in the head of your document. I strongly recommend that you use a custom class for this purpose, such as in the code below:
 
-	<uibutton class="mySpecialButtonStyle">
-		<label>Activate</label>
-	</uibutton>
+    <uibutton class="mySpecialButtonStyle">
+        <label>Activate</label>
+    </uibutton>
 
     <style type="text/css">
         uibutton.mySpecialButtonStyle {
@@ -156,19 +170,20 @@ This tag has a number of default CSS definitions. The default uibutton styles ar
             display: block
             -webkit-border-radius: 10px;
             background-image: 
-				-webkit-gradient(linear, left top, left bottom, 
-					from(yellow), 
-					to(orange)); 
+                -webkit-gradient(linear, left top, left bottom, 
+                    from(yellow), 
+                    to(orange)); 
             color: red;
         }
         uibutton.mySpecialButtonStyle:hover {
-        	color: blue;
+            color: blue;
             background-image: 
-				-webkit-gradient(linear, left top, left bottom, 
-					from(orange), 
-					to(yellow)); 
+                -webkit-gradient(linear, left top, left bottom, 
+                    from(orange), 
+                    to(yellow)); 
         }
     </style>
+    &nbsp;
     
 ##Tag icon
 
@@ -182,9 +197,9 @@ Sometimes you may not want to hide the uibutton's style but have it visible with
 
 The markup below will display just the download icon with a yellow color. If we use an rgba color with the transparency bit set, the icon will appear as transparent as the color's transparency bit setting just as if you had set transparency on the uibutton itself. You could also set a CSS3 gradient as the background, which can produce some interesting effects. Although the example below is of kind icon, you can use the image mask with background colors for an icon in any type of uibutton. Feel free to create special classes for icons in the head of your document.
 
-	<uibutton ui-kind="icon">
-		<icon style="-webkit-mask-image: url(icons/download.svg); background-color: yellow"></icon>
-	</uibutton>
+    <uibutton ui-kind="icon">
+        <icon style="-webkit-mask-image: url(icons/download.svg); background-color: yellow"></icon>
+    </uibutton>
 
 **Icon alignment**
 
@@ -210,6 +225,8 @@ When uibuttons have *ui-kind="action"* they display as large, colorful uibuttons
 To best way to change the color of any uibutton is to use ChocolateChip-UI's [custom tint technique](#custom_tints).
 
 
+&nbsp;
+    
 ##Tag: segmentedcontrol
 
 The segmented control is just a container for a set of two or more uibuttons which implement a set of actions or page through a set of subviews. By default the styles for the segmented control will rounded the left corners of the first uibutton and the right corners of the last uibutton. The segmented control's uibuttons are joined together into one contiguous unit. The minimal number of uibuttons  would be two. You probably don't want to have more than four uibuttons or it will become very cramped and hard for the user to determine what he or she needs to accomplish with the control. By default the uibuttons in a segmented control collapse to fit their content. When placing a segmented control outside of a toolbar bar, such as within a view or subview, you can make it stretch to the available with by giving it a class of "stretch". When a segmented controls is placed in a navbar or toolbar, its uibuttons use the default style of all toolbar uibuttons. When a segmented control is placed in a view or subview, its uibuttons have a completely different style. You can override either style in the head of your document. Just search for segmented control in ChUI.css, add a class to the controls styles and create your own styles. 
@@ -217,6 +234,8 @@ The segmented control is just a container for a set of two or more uibuttons whi
 
 To best way to change the color of a segmentedcontrol's uibuttons is to use ChocolateChip-UI's [custom tint technique](#custom_tints).
 
+&nbsp;
+    
 <a name="navbar"></a>
 
 ##Tag: navbar
@@ -225,6 +244,8 @@ The navbar uses *ui-bar-align* to define where uibuttons or segmented controls a
 
 To best way to change the color of a navbar is to use ChocolateChip-UI's [custom tint technique](#custom_tints).
 
+&nbsp;
+    
 <a name="toolbar"></a>
 
 ##Tag: toolbar
@@ -233,6 +254,8 @@ By default toolbars implement box packing as justified so that all icons and uib
 
 To best way to change the color of a toolbar is to use ChocolateChip-UI's [custom tint technique](#custom_tints).
 
+&nbsp;
+    
 ##Tag: tableview
 
 The tableview and its related descendant tags have a large number of pre-defined styles to implement different layout types. Please refer to the documentation for WAML to see what layout options are there. If you have a layout need not supplied by these, trying creating a custom class style on the tableview tag or tablecell tag in your document's head. You may need to examine the styles for tableview elements carefully in ChUI.css, as these are very complex. You may need to override values for celltitle, cellsubtitle, celldetail, etc. to achieve the layout you desire. The layouts which ChocolateChip-UI provides are based on the basic type described by Apple in the Mobile Human Interface Guidelines.
@@ -281,42 +304,46 @@ You can indicate how ChocolateChip-UI treats the order of items in a tablecell b
 
 You can also have ChocolateChip-UI center your celltitles and details from the center of the cells using *ui-tablecell-order="centered"*. In this mode the celltitles will be smaller and bluish while the cellsubtitles will be larger and black. You would use this type of layout where you want to emphasis the cellsubtitles over the celltites.
 
+&nbsp;
+    
 ##Control: switchcontrol
 
 ChocolateChip-UI uses CSS to style and animate the components constituting the switch control. Simply search for switch control in ChUI.css to find the styles that affect this control. You can easily change the color of the font. Or you may want to create a new "on" color. The default is the standard blue. ChocolateChip provides another option for an orange colored on state which Apple sometimes uses for actions that will cause an important event. ChocolateChip-UI.s element.UICreateSwitchControl method allows you to pass a custom class as an argument durring creation of a switch control. Notice the addition of a custom class on the switch control's markup:
 
-	<switchcontrol class="off myCustomColor" ui-implements="attention" id="breakfastSwtich">
-		<label ui-implements="on">ON</label>
-		<thumb>
-			<thumbprop></thumbprop>
-		</thumb>
-		<label ui-implements="off">OFF</label>
-		<input type="checkbox" value="So, what's the first course?">
-	</switchcontrol>
-	
+    <switchcontrol class="off myCustomColor" ui-implements="attention" id="breakfastSwtich">
+        <label ui-implements="on">ON</label>
+        <thumb>
+            <thumbprop></thumbprop>
+        </thumb>
+        <label ui-implements="off">OFF</label>
+        <input type="checkbox" value="So, what's the first course?">
+    </switchcontrol>
+    
 To change the "on" color of the switch control using that class we could do the following in our document's head tag (Note: the colors below are just to illustrate the technique, choose your colors wisely):
 
-	<style type="text/css"
-		switchcontrol.myCustomColor > label[ui-implements=on] {
-			border: solid 1px green;
-			background-image: 
-				-webkit-gradient(linear, left top, left bottom, 
-					from(#005e2f), 
-					color-stop(.5, #00a050));
-		}    
-	</style>
+    <style type="text/css"
+        switchcontrol.myCustomColor > label[ui-implements=on] {
+            border: solid 1px green;
+            background-image: 
+                -webkit-gradient(linear, left top, left bottom, 
+                    from(#005e2f), 
+                    color-stop(.5, #00a050));
+        }    
+    </style>
 
 You might also want to change the font colors. This is very easily done using the following selectors with the above custom class:
 
-	switchcontrol.myCustomColor > label[ui-implements=on] {
-		color: red;
-	}
-	switchcontrol.myCustomColor > label[ui-implements=off] {
-		color: purple;
-	}
+    switchcontrol.myCustomColor > label[ui-implements=on] {
+        color: red;
+    }
+    switchcontrol.myCustomColor > label[ui-implements=off] {
+        color: purple;
+    }
 
 **Note:** When using a switch control make sure that its parent container has positioning set to either relative or absolute. This is because ChocolateChip-UI uses absolute positioning to place the switch control on the right side of its container. If the container does not have some type of positioning, the switch control will appear placed somewhere towards the top right of the document. Of course, if you know the container already has positioning, you don't need to bother setting it. Tablecells already have positioning set.
 
+&nbsp;
+    
 ##Control: actionsheet
 
 The action sheet search as the container for various action uibuttons. This slides up from the bottom of the screen. It's appearance and animation are all implemented with CSS. The default color for the action sheet is bluish, but you can also opt for a blackish color by passing the control a color option during setup. To indicate which of the two colors to use, you pass in an argument for color in the options: *color : "blue"* or *color : "black"*. Please refer to ChUI.js documentation for how to create an action sheet control.
@@ -330,18 +357,18 @@ You can override the default colors of the action sheet by placing new styles fo
     /* This will create a yellow to red gradient on the actionsheet: */
     actionsheet {
         background-image:
-		-webkit-gradient(linear, left top, left bottom,
-			from(#000),
-			color-stop(0.5, #000),
-			color-stop(0.5, rgba(255,255,255,.6)),
-			to(rgba(255,255,255,.6))),
-		-webkit-gradient(linear, left top, left bottom,
-			from(rgba(255,255,255,.5)),
-			color-stop(0.9, rgba(255,255,255,.15)),
-			to(rgba(255,255,255,.015))),
-		-webkit-gradient(linear, left top, left bottom,
-			from(rgba(255,255,0,0.85)),
-			to(rgba(225,0,0,0.85)));
+        -webkit-gradient(linear, left top, left bottom,
+            from(#000),
+            color-stop(0.5, #000),
+            color-stop(0.5, rgba(255,255,255,.6)),
+            to(rgba(255,255,255,.6))),
+        -webkit-gradient(linear, left top, left bottom,
+            from(rgba(255,255,255,.5)),
+            color-stop(0.9, rgba(255,255,255,.15)),
+            to(rgba(255,255,255,.015))),
+        -webkit-gradient(linear, left top, left bottom,
+            from(rgba(255,255,0,0.85)),
+            to(rgba(225,0,0,0.85)));
     }
 </style>
 </head>
@@ -350,45 +377,61 @@ When modifying CSS gradients remember that the first gradient defined will be to
 
 
 
+&nbsp;
+    
 ##Control: popup
 
 Although the popup parts are created dynamically by JavaScript by envoking the $.UIPopUp method. Please refer to the ChUI.js and WAML documentation for the popup control for more details on how it is created and used. You can find the default styles for the popup control by searching for "popup" in ChUI.css.
 
 You can override the default styles for the popup by defining them in your document's head:
 
-	popup {
-		/* Modify these values for the popup's border: */
-		border: solid 1px #72767b;
-		/* Modify these values to change the appearance of the
-		linear gradient on the background of the popup: */
-		background-image: 
-			-webkit-gradient(linear, left top, left bottom,
-				from(rgba(0,15,70,0.5)),
-				to(rgba(0,0,70,0.5)));
-	}
-	
-	popup > panel {
-		/* Modify these values for the popup's inner border: */
-		border: solid 2px #e6e7ed;
-		/* modify these values to change the appearance of the 
-		semi-circular arch behind the popup title: */
-		background-image: 
-		   -webkit-gradient(radial, 50% -1180, 150, 50% -280, 1400,
-			   color-stop(0, rgba(143,150,171, 1)),
-			   color-stop(0.48, rgba(143,150,171, 1)),
-			   color-stop(0.499, rgba(75,88,120, .6)),
-			   color-stop(0.5, rgba(75,88,120,0)));
-		color: #fff;
-	}
+    popup {
+        /* Modify these values for the popup's border: */
+        border: solid 1px #72767b;
+        /* Modify these values to change the appearance of the
+        linear gradient on the background of the popup: */
+        background-image: 
+            -webkit-gradient(linear, left top, left bottom,
+                from(rgba(0,15,70,0.5)),
+                to(rgba(0,0,70,0.5)));
+    }
+    
+    popup > panel {
+        /* Modify these values for the popup's inner border: */
+        border: solid 2px #e6e7ed;
+        /* modify these values to change the appearance of the 
+        semi-circular arch behind the popup title: */
+        background-image: 
+           -webkit-gradient(radial, 50% -1180, 150, 50% -280, 1400,
+               color-stop(0, rgba(143,150,171, 1)),
+               color-stop(0.48, rgba(143,150,171, 1)),
+               color-stop(0.499, rgba(75,88,120, .6)),
+               color-stop(0.5, rgba(75,88,120,0)));
+        color: #fff;
+    }
 
 
 
 
+&nbsp;
+    
 ##Control: activity indicator
 
 The activity indicate is a canvas background image created dynamically by JavaScipt, so it is not stylable by CSS. You can, however, customize the look of it by passing the $.UIActivityIndicator method appropriate values. Please refer to the $.UIActivityIndicator method in the ChUI.js documentation.
 
+&nbsp;
+    
+##Control: progress bar
 
+The progress bar is used to show that something is happening, such as data being loaded by an Ajax call. Although you can create a progress bar by simply inserting a progressbar tag in your app, in most situations you'll want to do so dynamically using ChocolateChip-UI's Element.UIProgressBar() method. You can pass this method several parameters to define the width, the animation speed and a class with which you can define a custom background color. In fact, the color that you see as the stripes of the progress bar is nothing but a background color showing through transparent parts of the bar. To change the progress bar's default bluish background to green, you could do the following:
+
+progressbar.green {
+    background-color: green;
+}
+$("view#main > subview").UIProgressBar({className: "green"});
+
+&nbsp;
+    
 ##Control: slider
 
 The slider is a simple control consisting of a track with a thumb. The visual complexity of the slider's track is implemented with CSS gradients. As the thumb is dragged, ChocolateChip-UI's JavaScript methods keep track of the position of the thumb and resize the blue gradient to match the thumb's position. The blue progress track is not a separate element but just a second gradient stacked over the underlying base gradient of the slider. 
@@ -399,31 +442,34 @@ The slider's thumb has a child element called thumbprop. This exists purely for 
 
 There are two possible looks for the slider. The default is a plastic look. By giving the slider a class of *media-player* it takes on a metallic look. You can modify the following properties in your document's head tag to override the default styles, or you could create a new class:
 
-	slider.myNewSliderStyle {
-		background-image: 
-			/* The first gradient defined here is the blue progress track.
-			Modify its color values to change it to another color: */
-			-webkit-gradient(linear, left top ,left bottom,
-			   from(#0a3a86),
-			   color-stop(.5, #4c8de7),
-			   color-stop(.95, #6babf5),
-			   to(#0a3a86)),
-			/* This gradient defines the default background of the slider track.
-			Modify its color values to change the appearance of the overall track. */
-			-webkit-gradient(linear, left top ,left bottom,
-				from(#bbbbbb),
-				color-stop(.5, #f0f0f0),
-				color-stop(.5, #fff));
-	}
-	slider.myNewSliderStyle > thumb {
-		/* Whatever syles you want here.
-		You can redefine the default gradient
-		or cancel it by setting background-image to none. */
-	}
-	slider.myNewSliderStyle > thumb > thumbprop {
-		/* Whatever styles you want here. */
-	}
+    slider.myNewSliderStyle {
+        background-image: 
+            /* The first gradient defined here is the blue progress track.
+            Modify its color values to change it to another color: */
+            -webkit-gradient(linear, left top ,left bottom,
+               from(#0a3a86),
+               color-stop(.5, #4c8de7),
+               color-stop(.95, #6babf5),
+               to(#0a3a86)),
+            /* This gradient defines the default background of the slider track.
+            Modify its color values to change the appearance of the overall track. */
+            -webkit-gradient(linear, left top ,left bottom,
+                from(#bbbbbb),
+                color-stop(.5, #f0f0f0),
+                color-stop(.5, #fff));
+    }
+    slider.myNewSliderStyle > thumb {
+        /* Whatever syles you want here.
+        You can redefine the default gradient
+        or cancel it by setting background-image to none. */
+    }
+    slider.myNewSliderStyle > thumb > thumbprop {
+        /* Whatever styles you want here. */
+    }
+    
 
+&nbsp;
+    
 ##Tab Bar
 
 ChocolateChip-UI provides a tab bar for enabling toggling between different subviews in the same view. This mimics the tab bar control on iOS. Because of the limited space on a mobile handset in portrait mode, you should put more than 5 tabs in a tab bar. Tabs are just uibuttons with a *ui-implements* value of "tab". The tab has an icon and a label that gets displayed below the icon. Below is a typical tab bar:
@@ -448,17 +494,109 @@ ChocolateChip-UI provides a tab bar for enabling toggling between different subv
     </tabbar>
 
 
+&nbsp;
+    
+##Expander
+
+The expander control provides a way to collapse and expand a vertical section of an app. To create an expander you just need to put an expander tag with a panel tag inside of it. You put your content inside that panel. ChocolateChip-UI will find that expander tag at launch time and add the functionality for you automatically. It also creates the header for the expander. This consists of a header tag with a label. ChococlateChip-UI styles the label and creates the circular expander button using before and after pseudo-elements. If you need to change the default colors of the expander control to match your app's theme, it isn't that hard. Here are the pieces to work with:
+
+This defines the border along the top of the expander, the height is 8px:
+
+expander > header {
+    background-image: 
+        -webkit-gradient(linear, left top, left bottom,
+            from(#92a1bf),
+            color-stop(0.8, #546993),
+            color-stop(0.8, #a7babe),
+            to(#a7babe));
+    background-size: 100% 8px;
+} 
+
+These are the color styles for the label:
+
+    expander > header > label {
+        background-color: #a8b1c3;
+        color: #fff;
+        border: solid 2px #fff;
+    }
+
+This defines the colors for the base of the circular widget button:
+    expander > header:before {
+        border: solid 2px rgba(154,189,219,0.8);
+        background-color: #556a97;
+        -webkit-box-shadow: 
+            0 3px 4px rgba(0,0,0,0.25),  
+            0 -1px 4px rgba(0,0,0,0.25);
+        background-image: 
+            -webkit-gradient(linear, left top, left bottom, 
+                from(#ddd), 
+                to(#556a97));
+    } 
+
+This value defines the color of the arrow icon on the expander widget:
+
+    expander > header:after {
+        background-color: #fff;
+    } 
+
+This defines the colors for the expanded 
+    expander.ui-status-expanded > header {
+        background-image: 
+            -webkit-gradient(linear, left top, left bottom,
+                from(#92a1bf),
+                color-stop(0.8, #546993),
+                color-stop(0.8, rgba(0,0,0,0.1)),
+                to(rgba(0,0,0,0.15)));
+    }
+
+This defines the background color of the expander's panel when it is opened. The gradient defines the border along the bottom of the expanded panel:
+
+    expander.ui-status-expanded > panel {
+        background-color: rgba(0,0,0,0.1);
+        background-image: 
+            -webkit-gradient(linear, left top, left bottom,
+                from(#92a1bf),
+                color-stop(0.8, #546993),
+                color-stop(0.8, #a7babe),
+                to(#a7babe));
+    } 
+
+This defines the background of the circular expander button in its open state:
+
+    expander.ui-status-expanded > header:before {
+        background-image: 
+            -webkit-gradient(linear, left top, left bottom, 
+                from(#ddd), 
+                to(#182743));
+    }
+
+This defines the background color of the label with the expander is expanded:
+
+    expander.ui-status-expanded > header > label {
+        background-color: #7a89a4;
+    }
+
+
+
+&nbsp;
+
+##UIPaging: a paging control
+
+ChocolateChip-UI provides a type of stack that implements horizontal paging with dots below it to indicate how many pages/panels there are and which on is current. 
+
+
+&nbsp;
 
 <a name="custom_tints"></a>
-
+    
 ##Custom tints
 
 ChocolateChip-UI enables you to create custom tints for many of its controls. The technique is very straightforward a easy to implement. You simply put a class of *ui-custom-tint" on the object you want to give a custom tint, then the base color in an inline style definition. Here's an example of a uibutton:
 
-	<uibutton ui-icon-align="right" class="ui-custom-tint" style="background-color: #6f8000">
-		<icon style="-webkit-mask-image: url(icons/cog.svg)"></icon>
-		<label>Add to Favorites</label>
-	</uibutton>
+    <uibutton ui-icon-align="right" class="ui-custom-tint" style="background-color: #6f8000">
+        <icon style="-webkit-mask-image: url(icons/cog.svg)"></icon>
+        <label>Add to Favorites</label>
+    </uibutton>
 
 What ChocolateChip-UI does when it see the class *ui-custom-tint* is it switches out the default background gradient with a special, translucent one. This transparent gradient consists of color values to create shades over a background color. The background color to shows through the transparent gradient. This uses the same background color to also implement the hover/touched states. 
 
@@ -466,18 +604,18 @@ Using this technique you can style uibuttons in toolbars, uibuttons in segmented
 
 **Toolbar and UIButtons with Custom Tint:**
 
-	<toolbar class="ui-custom-tint" style="background-color: rgba(255,192,0,.5);">
-		<uibutton ui-implements="done" class="ui-custom-tint" style="background-color: #008040">
-			<icon style="-webkit-mask-image: url(icons/attachement.png);"></icon>
-			<label>Save</label>
-		</uibutton>
-		<uibutton class="ui-custom-tint" style="background-color: #5a3fff">
-			<label>Click3</label>
-		</uibutton>
-		<uibutton class="ui-custom-tint">
-			<label>Save</label>
-		</uibutton>
-	</toolbar>
+    <toolbar class="ui-custom-tint" style="background-color: rgba(255,192,0,.5);">
+        <uibutton ui-implements="done" class="ui-custom-tint" style="background-color: #008040">
+            <icon style="-webkit-mask-image: url(icons/attachement.png);"></icon>
+            <label>Save</label>
+        </uibutton>
+        <uibutton class="ui-custom-tint" style="background-color: #5a3fff">
+            <label>Click3</label>
+        </uibutton>
+        <uibutton class="ui-custom-tint">
+            <label>Save</label>
+        </uibutton>
+    </toolbar>
 
 When styling "back" and "next" uibuttons for use in a navbar, be aware that you also need to define the same custom tint for these uibuttons' pointer tag using CSS (Put the CSS in your app's head tag stylesheet):
     
@@ -485,39 +623,41 @@ When styling "back" and "next" uibuttons for use in a navbar, be aware that you 
         background-color: #ff5614;
     }
     
-	<uibutton ui-implements="back" class="ui-custom-tint" style="background-color: #ff5614" ui-bar-align="left">
-		<label>Back</label>
-	</uibutton>
+    <uibutton ui-implements="back" class="ui-custom-tint" style="background-color: #ff5614" ui-bar-align="left">
+        <label>Back</label>
+    </uibutton>
 
 **Segmentedcontrol with Custom Tint:**
 
-	<segmentedcontrol>
-		<uibutton class="ui-custom-tint" style="background-color: #ffaf7f">
-			<icon style="-webkit-mask-image: url(icons/chart.svg); background-color: #401800;"></icon>
-			<label>Canada</label>
-		</uibutton>
-		<uibutton ui-icon-align="right" class="ui-custom-tint" style="background-color: #ffaf7f">
-			<icon style="-webkit-mask-image: url(icons/chart.svg);  background-color: #401800;"></icon>
-			<label>USA</label>
-		</uibutton>
-		<uibutton ui-icon-align="right" class="disabled ui-custom-tint" style="background-color: #ffaf7f">
-			<icon style="-webkit-mask-image: url(icons/cog.svg); background-color: #401800;"></icon>
-			<label>Mexico</label>
-		</uibutton>
-	</segmentedcontrol>
+    <segmentedcontrol>
+        <uibutton class="ui-custom-tint" style="background-color: #ffaf7f">
+            <icon style="-webkit-mask-image: url(icons/chart.svg); background-color: #401800;"></icon>
+            <label>Canada</label>
+        </uibutton>
+        <uibutton ui-icon-align="right" class="ui-custom-tint" style="background-color: #ffaf7f">
+            <icon style="-webkit-mask-image: url(icons/chart.svg);  background-color: #401800;"></icon>
+            <label>USA</label>
+        </uibutton>
+        <uibutton ui-icon-align="right" class="disabled ui-custom-tint" style="background-color: #ffaf7f">
+            <icon style="-webkit-mask-image: url(icons/cog.svg); background-color: #401800;"></icon>
+            <label>Mexico</label>
+        </uibutton>
+    </segmentedcontrol>
 
 **Action UIButtons with Custom Tint:**
 
-	<uibutton ui-kind="action" ui-implements="default" class="stretch ui-custom-tint" style="background-color: #8fc060">
-		<icon style="-webkit-mask-image: url(icons/location_pin.svg);"></icon>
-		<label>Set Value</label>
-	</uibutton>
-	<uibutton ui-kind="action" ui-implements="default" class="stretch ui-custom-tint" style="background-color: #ff6666">
-		<icon style="-webkit-mask-image: url(icons/location_pin.svg);"></icon>
-		<label>Set Value</label>
-	</uibutton>
+    <uibutton ui-kind="action" ui-implements="default" class="stretch ui-custom-tint" style="background-color: #8fc060">
+        <icon style="-webkit-mask-image: url(icons/location_pin.svg);"></icon>
+        <label>Set Value</label>
+    </uibutton>
+    <uibutton ui-kind="action" ui-implements="default" class="stretch ui-custom-tint" style="background-color: #ff6666">
+        <icon style="-webkit-mask-image: url(icons/location_pin.svg);"></icon>
+        <label>Set Value</label>
+    </uibutton>
 
 
+&nbsp;
+    
 ##Custom background gradients
 
 ChocolateChip-UI offers the attribute *ui-background-style="striped"* as a way to put the standard grayish/bluish vertical stripes on a view or subview. ChocolateChip-UI also gives you other background gradient options for containers. These are all transparent grayscale gradient patterns. This means you can add whatever background color to a container along with any of these attributes and you can create customized styles.
@@ -551,15 +691,15 @@ If you want, you can redefine or create new custom gradients to use as the backg
 
 The attribute *ui-background-style="striped"* to put the standard vertical striped background on a view or subview. You can modify this in your document's head using a new class like this:
 
-	view[ui-background-style=vertical-striped] {
-		background-image: 
-			-webkit-gradient(linear, left top, right top, 
-				from(rgba(0,0,0,0.1)), 
-				color-stop(0.75, rgba(0,0,0,0.1)), 
-				color-stop(0.75, transparent), 
-				to(transparent)); 
-		-webkit-background-size: 5px 100%;
-		background-size: 5px 100%;
-	}		
+    view[ui-background-style=vertical-striped] {
+        background-image: 
+            -webkit-gradient(linear, left top, right top, 
+                from(rgba(0,0,0,0.1)), 
+                color-stop(0.75, rgba(0,0,0,0.1)), 
+                color-stop(0.75, transparent), 
+                to(transparent)); 
+        -webkit-background-size: 5px 100%;
+        background-size: 5px 100%;
+    }        
 
 You could  modify the color stops and the background size of gradients to create interesting patters. I've written a blog post about [how to create CSS3 gradients](#http://css3wizardry.com/2010/08/19/css3-gradients-and-patterns/) which you can reference for insights into how to create your own gradients.

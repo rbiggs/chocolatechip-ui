@@ -1,21 +1,21 @@
 #ChUI.js
     
-	   pO\     
-	  6  /\
-		/OO\
-	   /OOOO\
-	 /OOOOOOOO\
-	((OOOOOOOO))
-	 \:~=++=~:/ 
+       pO\     
+      6  /\
+        /OO\
+       /OOOO\
+     /OOOOOOOO\
+    ((OOOOOOOO))
+     \:~=++=~:/ 
     
     ChocolateChip-UI: A framework for mobile Web app development.
     ChUI.js: The magic to make it happen.
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 0.7 beta
+    Version 0.8 beta
 
-
+    
 $nbsp;
 
 ##Constant: UIExpectedChocolateChipJSVersion
@@ -37,7 +37,7 @@ A variable to return the version number of ChocolateChip-UI.
 **Example:**
 
     if (parseFloat($.UIVersion) < 0.5) {
-    	alert("You need to upgrade to a newer version of ChUI.js!");
+        alert("You need to upgrade to a newer version of ChUI.js!");
     }
 
 
@@ -95,7 +95,7 @@ This variable holds a reference to all the app's views. It is a shortcut for acc
 
 ##Function: $.UIUuidSeed
 
-A method to generat a set of four random alpha-numeric characters. This method is used by $.UIUuid to create a uuid for use as a unique ID of elements in ChocolateChip-UI. If a seed is passed, you can force $.UIUuidSeed to generate a different number of characters. The default value that it uses is 16, which produces four characters. Passing a seed value of 20 would produce three alpha-numeric characters.
+A method to generate a set of four random alpha-numeric characters. This method is used by $.UIUuid to create a uuid for use as a unique ID of elements in ChocolateChip-UI. If a seed is passed, you can force $.UIUuidSeed to generate a different number of characters. The default value that it uses is 16, which produces four characters. Passing a seed value of 20 would produce three alpha-numeric characters.
 
 **Parameters:**
 
@@ -339,6 +339,70 @@ A method to implement automatic scrolling for all scroll panels inside of subvie
 **See Also:**
 
 [$.UIScrollControl](#UIScrollControl)
+
+
+
+&nbsp;
+ 
+<a name="UIDeletableTableCells"></a>
+
+##Function: $.UIPaging
+
+A method to implement horizontal paging through a set of panels in a stack. For this to work the stack must have the attribute *ui-implements="paging"*. This method is executed automatically at load time when ChocolateChip-UI find a stack with the above attribute, so you don't need to do anything but create the structure for the paging control. Because of the limited horizontal space in handheld devices the maximum number of pagable panels is 17. If you need more than that then you should look at using the segmented paging control.
+
+**Syntax:**
+
+    $.UIPaging(selector, options);
+
+**Parameters:**
+
+$.UIPaging gets executed during DOMContentLoaded event and attempts to find a stack tag as follows:
+
+    stack[ui-implements=paging]
+ 
+It then executes the function with predefined options:
+
+    $.UIPaging("stack[ui-implements=paging] > panel", {
+        snap: true,
+        momentum: false,
+        hScrollbar: false,
+        onScrollEnd: function () {
+            document.querySelector('stack[ui-implements="indicators"] > indicator.active').removeClass('active');
+            document.querySelector('stack[ui-implements="indicators"] > indicator:nth-child(' + (this.currPageX+1) + ')').addClass('active');
+        }
+    });
+
+**Example:**
+
+    <stack ui-implements="paging">
+        <panel>
+            <stack>
+                <panel>
+                    <h4>Panel 1</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                </panel>
+                <panel>
+                    <h4>Panel 2</h4>
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                </panel>
+                <panel>
+                    <h4>Panel 3</h4>
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
+                </panel>
+                <panel>
+                    <h4>Panel 4</h4>
+                    <p> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem.</p>
+                </panel>
+            </stack>
+        </panel>
+    </stack>
+
+**See Also:**
+
+[Element.UISegmentedPagingControl](#UISegmentedPagingControl)
+
+A method to implement a paging control with dots along the bottom to indicate page position. This is used for horizontal scrolling with a swipe gesture to navigate through a small collection of panels, not more than 17. If you have a need to navigate through more than 17 you should look into using the [segmented paging control](#UISegmentedPagingControl).
+
 
 
 &nbsp;
@@ -607,8 +671,8 @@ A method to initialize a list of single choice options, similar to how a group o
        // Each tablecell has its value set in the "ui-value" attribute.
        // We therefore get that value to do whater we need to do with it.
     $("#buyerOptions").UISelectionList(function(item){
-		console.log(item.getAttribute("ui-value"));
-	});
+        console.log(item.getAttribute("ui-value"));
+    });
 
   
   
@@ -746,8 +810,8 @@ A method to create and insert a segmented control into a container. The segmente
         iconsOfSegments : ["", "add", "info"],
         placementOfIcons : ["", "right", ""],
         selectedSegment : 1,
-        disabledSegment : 3				
-	};
+        disabledSegment : 3                
+    };
     $("#segmentedToolbar").UICreateSegmentedControl(seg, "first");
 
 **See Also:**
@@ -1002,6 +1066,179 @@ A method to readjust the positioning of an action sheet after orientation change
 [$.UIHideActionSheet](#UIHideActionSheet)
 
 
+
+&nbsp;
+
+##Function: Element.UIExpander
+
+A method for creating an expander. This was inspired by the WebOS expander control. This is used to allow collapsing and expanding of a vertical section of the app, similar to a typical Web accordion control. Unlike the accordion, the expander is for a single collapsible section. It requires a specialized tag: **expander**. 
+
+**Syntax:**
+
+    Element.UIExpander(options);
+
+**Parameters:**
+
+ - options: an object literal of possible options.
+     - status: "collapsed" or "expanded", the default is expanded.
+     - title: a title for the label, the default is "Open".
+     - altTitle: a title for when the expander is closed, the default is "Close".
+
+**Example:**
+
+    $.ready(function() {
+        var opts = {
+            status: "collapsed",
+            title: "Open",
+            altTitle: "Close"
+        };    
+        $("expander").UIExpander(opts);
+    });
+    
+    <expander>
+        <panel>
+            <tableview ui-kind="grouped">
+                <tablecell>
+                    <celltitle>Breakfast</celltitle>
+                </tablecell>
+                <tablecell>
+                    <celltitle>Lunch</celltitle>
+                </tablecell>
+                <tablecell>
+                    <celltitle>Dinner</celltitle>
+                </tablecell>
+            </tableview>
+        </panel>
+    </expander>
+
+In the above markup notice that the content is in a panel inside the expander. ChocolateChip-UI will find the expander and create a header tag with a label based on the title/altTitle values you supply, otherwise the label gets the default of "Open"/"Close".
+
+
+&nbsp;
+
+<a name="UICalculateNumberOfLines"></a>
+
+##Function: Element.UICalculateNumberOfLines
+
+A method to find the number of lines of text that fit in a contain based on the container's height and the line-height. For this to work it requires that the container have a designated height. It will not work with a container whose height is set to auto.
+
+**Syntax:**
+
+    Element.UICalculateNumberOfLines();
+    
+**See Also:**
+
+[Element.UIParagraphEllipsis](#UIParagraphEllipsis)
+
+
+&nbsp;
+
+<a name="UIParagraphEllipsis"></a>
+
+##Function: Element.UIParagraphEllipsis
+
+A method to limit the number of lines of text that appear in a container and clipping it with an ellipsis. This uses the Element.UICalculateNumberOfLines() function to get the number of lines of text that can fit in the container based on its height. The container must have a fixed height, in other words, it cannot be set to "auto". The text will be fine until there is an overflow, at which time the ellipsis clipping will occur. 
+
+**Syntax:**
+
+    Element.UIParagraphEllipsis();
+
+**Example:**
+
+    $("#clipedParagraph").UIParagraphEllipsis();
+
+**See Also:**
+
+[Element.UICalculateNumberOfLines](#UICalculateNumberOfLines)
+
+&nbsp;
+
+##Function: Element.UIProgressBar
+
+A method to create a progress bar. You execute this method on the container in which you want the progress bar to appear. 
+
+**Syntax:**
+
+    Element.UIProgressBar(options);
+    
+**Parameters:**
+
+- options: object literal of possible options.
+    - className: an optional class name for the progress bar. This is used for to allow changing the default background color of the progress bar. The default color is bluish: rgb(56,138,213).
+    - width: an integer indicating the width of the progress bar. The default is: 100.
+    - speed: an integer indicating the speed in seconds for the animation. The default is 5.
+    - position: an valid flag for the Element.insert method, such as "before", "after" or an integer representing a position in a collection of child nodes. The default is "after".
+    - margin: any valid margin values. In order to center the progress bar be sure to designate the left and right margin values as "auto". The default value is: "10px auto".
+
+**Example:**
+
+
+&nbsp;
+
+<a name="UIHideNavBarHeader"></a>
+
+##Function: Element.UIHideNavBarHeader
+
+This method hides the H1 in a navbar. This is used for the cases where you want to inject a progress bar in the navbar where the header is. 
+
+**Syntax:**
+
+    Element.UIHideNavBarHeader();
+
+**Example:**
+
+    $("#toggleProgressBar").bind("click", function() {
+        if (this.text().trim() == "Show") {
+            this.UIToggleButtonLabel("Show", "Hide");
+            $("navbar > h1").UIHideNavBarHeader();
+            $("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
+            
+        } else if (this.text().trim() == "Hide") {
+            this.UIToggleButtonLabel("Show", "Hide");
+            $("navbar > h1").UIShowNavBarHeader();
+            $("navbar > progressbar").remove();
+        }
+    });
+
+**See Also:**
+
+[Element.UIShowNavBarHeader](#UIShowNavBarHeader)
+
+
+
+<a name="UIShowNavBarHeader"></a>
+
+&nbsp;
+
+##Function: Element.UIShowNavBarHeader
+
+This method shows the title (H1) of the navbar that was hidden by the Element.UIHideNavBarHeader() method.
+
+**Syntax:**
+
+    Element.UIShowNavBarHeader();
+
+**Example:**
+
+    $("#toggleProgressBar").bind("click", function() {
+        if (this.text().trim() == "Show") {
+            this.UIToggleButtonLabel("Show", "Hide");
+            $("navbar > h1").UIHideNavBarHeader();
+            $("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
+            
+        } else if (this.text().trim() == "Hide") {
+            this.UIToggleButtonLabel("Show", "Hide");
+            $("navbar > h1").UIShowNavBarHeader();
+            $("navbar > progressbar").remove();
+        }
+    });
+
+**See Also:**
+
+[Element.UIHideNavBarHeader](#UIHideNavBarHeader)
+
+&nbsp;
+
 ##Function: $.UIAdjustToolBarTitle
 
 A method to adjust the length of a title in a navbar. This method is execute when DOMContentLoad, onorientationchage and window.resize occur. It check the navbar for the title's siblings, calculates their widths and determines, based on the current width of the navbar, how much space is left for the title. It then adjust the width of the title. By default the navbar's title has a text-overflow value of ellipsis, so when the width of the title is less than the content, the text gets truncated and replaced with an ellipsis. When there is just enough room for only one character and an ellipsis, the method hides the title completely.
@@ -1133,31 +1370,31 @@ When using this method there is no need to invoke $.UIActivityIndicator.init, $.
 
 **Example:**
 
-	var content = $("#content");
-	// First insert an activity indicator:
-	content.UIInsertActivityIndicator({
-		id: "activity_indicator_01", 
-		color: "#fff",
-		container: "navbar > panel",
-		size: "40px",
-		style : "margin: 40px auto 0 auto;"
-	});
+    var content = $("#content");
+    // First insert an activity indicator:
+    content.UIInsertActivityIndicator({
+        id: "activity_indicator_01", 
+        color: "#fff",
+        container: "navbar > panel",
+        size: "40px",
+        style : "margin: 40px auto 0 auto;"
+    });
     // Then make the Ajax call:
-	content.xhr("data.html", {
-		successCallback: function() {
+    content.xhr("data.html", {
+        successCallback: function() {
             // If the call is successful, empty the
             // container to get rid of the activity indicator:
             content.empty();
-			content.insert($.responseText);
-			$.responseText = null;
-			content.after($.make("<h2>Ajax call was successful.</h2>"));
-		},
-		errorCallback: function() {
+            content.insert($.responseText);
+            $.responseText = null;
+            content.after($.make("<h2>Ajax call was successful.</h2>"));
+        },
+        errorCallback: function() {
             // If there was an error, remove activity indicator:
             content.empty();
-			content.insert("There was an error getting the file.");
-		}
-	});
+            content.insert("There was an error getting the file.");
+        }
+    });
 
 
 &nbsp;

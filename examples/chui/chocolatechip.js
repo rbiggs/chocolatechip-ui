@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
 
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.1.3
+Version 1.1.4
 
 */
 
