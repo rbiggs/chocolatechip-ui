@@ -18,7 +18,7 @@
 	<script type="text/javascript">
 		/* Local JavaScript Here */
 		$.ready(function() {
-			 .delegate("tablecell", "click", function(cell) {
+			 $("tableview").delegate("tablecell", "click", function(cell) {
 				window.location = cell.getAttribute("href");
 			});
 		});

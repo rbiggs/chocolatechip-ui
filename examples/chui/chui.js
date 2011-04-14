@@ -1306,11 +1306,11 @@ $.extend(HTMLElement.prototype, {
                         container = $(container);
                         container.children(oldSelection).css("{opacity: 0; z-index: 1;}");
                         container.children(uisi).css("{opacity: 1; z-index: 3;}");
+                    	container.children[oldSelectedSegment.getAttribute("ui-child-position")].css("{z-index: 1;}");
+                    	container.children[childPosition].css("{z-index: " + container.children.length + "}");
+                    	container.style.height = container.children[childPosition].css("height");
+                    	var scroller = new $.UIScrollControl(container.ancestor("scrollpanel"), { 	desktopCompatibility: true });
                     }
-                    container.children[oldSelectedSegment.getAttribute("ui-child-position")].css("{z-index: 1;}");
-                    container.children[childPosition].css("{z-index: " + container.children.length + "}");
-                    container.style.height = container.children[childPosition].css("height");
-                    var scroller = new $.UIScrollControl(container.ancestor("scrollpanel"), { desktopCompatibility: true });
                 }
                 this.addClass("selected");
                     callback.call(callback, button);
