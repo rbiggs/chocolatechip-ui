@@ -3299,3 +3299,6 @@ subview[ui-paging-orient=vertical][ui-navigation-status=traversed] {
 	-webkit-transform: translate3d(0%, -100%, 0%);
 	opacity: 0;
 }
+app[ui-kind="navigation-with-one-navbar"] > navbar > uibutton[ui-implements="back"] {
+	display: none;
+}
