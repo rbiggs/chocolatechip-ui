@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" >
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>KVO</title>
+    <link rel="stylesheet" href="chui/chui.css">
+    <style>
+        uibutton[ui-kind="action"]:hover {
+            color: #fff !important;
+        }
+        input[type=text] {
+            font-size: 14px;
+        }
+    </style>
+    <script src="chui/chocolatechip.js"></script>
+    <script src="chui/chui-min.js"></script>
+    <script>
+    // Key Value Observer Function:
+  	$(function() {
+		// References to the two screen elements:
+		checkbox = $('#checkbox');
+		result = $('#result');
+		// Create a new KVC object:
+		kvo = new $.kvo();
+		// Register the p tag to observe the checked key of the object:
+		kvo.registerObserver(result, 'checked');
+		// Define what happens when the p tag is informed of an assignment:
+		result.keyWillUpdate = function(object, key, currentValue, newValue) {
+			if (newValue) {
+		  		this.innerHTML = "On";
+			} else {
+		  		this.innerHTML = "Off";
+		  	}
+		};
+		// When the button is clicked, set the checked key of the kvo object to true:
+		checkbox.bind("click", function() { 
+			kvo.set('checked', this.checked); 
+		});
+		
+		// Bind the text of the label to the value of the input.
+		input = $("#textinput");
+	    label = $("#labeltext");
+	    // Register and observer:
+		kvo.registerObserver(label, "text");
+		// Define what will happen when the key updates:
+		label.keyWillUpdate = function(object, key, currentValue, newValue) {
+			if (newValue) {
+				this.innerText = input.value;
+			} else {
+				this.innerText = currentValue;
+			}
+		};
+		// Bind a keyup event to trigger the updating of the key value to the value of the input.
+		input.bind("keyup", function() {
+			kvo.set("text", this.value);
+		});
+		
+	    
+	    // Bind the value of an input to the value of an obj.
+	    // Create an object:
+		window.obj = { value: null };
+		// Register an observer for it and the first input:
+		kvo.registerObserver(input, "obj");
+		var updateObj = $("#updateObj");
+		// Define what will happen when the key updates
+		// (Set the value of the first input to the value of the obj:
+		input.keyWillUpdate = function(object, key, currentValue, newValue) {
+		    input.value = obj.value;
+		}
+		// Bind an event to the uibutton to update
+		// the object's value to the second input's value.
+		// Then trigger a click on the first input to also update the label.
+		updateObj.bind("click", function() {
+		    obj.value = $("#objInput").value;
+		    kvo.set('obj', input.value); 
+		    // Trigger a "keyup" event on the input to 
+		    // propagate the data change to the label.
+		    input.trigger("keyup");
+		});
+	});
+    </script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="slanted-left" ui-navigation-status="current">
+            <navbar class="ui-custom-tint"><h1>$.KVO</h1</navbar>
+            <subview id="subview1" ui-associations="withNavBar">
+                <scrollpanel>
+                    <tableview ui-tablecell-order="stacked" ui-kind="grouped" class="ui-no-hover">
+                        <tablecell>
+                            <p>The paragraph below this checkbox is bound to the checkbox's value and will update to reflex the checked state.</p>
+                            <input type="checkbox" name="checkbox" id="checkbox"> <label for="checkbox">Turn me on and off</label>
+                            <p id="result">Off</p>
+                            <p>The value of the paragraph below is bound to the value of this input. As the value of the input changes, the value of the paragraph will update accordingly.</p>
+                            <input id="textinput" type="text">
+                            <p id="labeltext">Doh!</p>
+                            <p>By entering text in the input below and clicking the "Update Object Value" button, you will be updating an object, which will trigger the updating of the value of the previous input above.</p>
+                            <input id="objInput" type="text" name="updateObject">
+                            <br><br>
+                            <uibutton ui-kind="action" id="updateObj">
+                                <label>Update Object Value</label>
+                            </uibutton>
+                        </tablecell>
+                    </tableview>
+                </scrollpanel>
+            </subview>
+		</view>
+	</app>
+</body>
+</html>
