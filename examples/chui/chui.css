@@ -1543,7 +1543,11 @@ tableview > tablecell.ui-no-hover.touched,
 tableview.ui-no-hover > tablecell.touched,
 tableview.ui-no-hover > tablecell:hover > celltitle,
 tableview.ui-no-hover > tablecell.touched > celltitle,
-tableview > tablecell.ui-no-hover:hover > celltitle {
+tableview > tablecell.ui-no-hover:hover > celltitle,
+tableview[ui-tablecell-order=stacked].ui-no-hover > tablecell:hover >cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover:hover >cellsubtitle,
+tableview[ui-tablecell-order=stacked].ui-no-hover > tablecell.touched >cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover.touched >cellsubtitle {
 	background-image: none !important;
 	color: #000 !important;
 	cursor: auto;
@@ -2975,6 +2979,81 @@ stack[ui-implements=paging], stack[ui-implements=indicators] {
 	background-color: #fff;
 }
 /* End Paging Control Styles */
+/* Spinner Styles */
+spinner {
+	display: -webkit-inline-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+}
+spinner > input {
+	margin: 0;
+	display: none;
+}
+spinner > label {
+	display: inline-block;
+	-webkit-box-sizing: border-box;
+	border: solid 1px #484e59;
+	border-bottom-color: #4c5c7a;
+	width: 50px;
+	height: 31px;
+	font: bold 16px/30px Helvetica;
+	text-align: center;
+}
+spinner > uibutton {
+	display: -inline-box;
+	-webkit-box-sizing: border-box;
+	width: 33px;
+}
+tablecell:hover spinner > uibutton > label {
+	color: #000 !important;
+}
+spinner > uibutton:hover {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#7d88a5), 
+			color-stop(0.25, #58698c),
+			color-stop(0.5, #3a4e78), 
+			color-stop(0.5, #253c6a), 
+			color-stop(0.75, #273f6d),
+			to(#273f6d));
+	-webkit-tap-highlight-color: transparent;
+}
+spinner > uibutton.green {
+	background-color: lightgreen;
+}
+spinner > uibutton.green:first-of-type {
+	background-color: red;
+}
+spinner > uibutton > icon {
+	background-color: #fff !important;
+}
+spinner > uibutton:first-of-type {
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	margin-right: 0;
+}
+spinner > uibutton:last-of-type {
+	-webkit-border-top-left-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	margin-left: 0;
+}
+spinner > uibutton:first-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_down.svg);
+}
+spinner > uibutton:last-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_up.svg);
+}
+spinner > uibutton:first-of-type > icon.indicator {
+	-webkit-mask-image: url(../icons/minus.svg);
+}
+spinner > uibutton:last-of-type > icon.indicator {
+	-webkit-mask-image: url(../icons/add.svg);
+}
+spinner > uibutton.disabled > span {
+	opacity: 0.5;
+}
+/* End Spinner Styels*/
 @-webkit-keyframes progressBarAnim {
 	0% { background-position-x:  0%, 0%, 0%; }
 	100% { background-position-x: 0%,  0%,  100%; }
