@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
 
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.1.5
+Version 1.1.6
 
 */
 
@@ -61,7 +61,7 @@ Version 1.1.5
     
     $.extend($, {
 
-        version : "1.1.5",
+        version : "1.1.6",
         
         collectionToArray : function ( collection ) {
             var array = [];
@@ -182,6 +182,19 @@ Version 1.1.5
                } 
             }
         },      
+        
+        ancestorByTag : function ( selector ) {
+            return this.ancestor(selector);
+        },
+        
+        ancestorByClass : function ( selector ) {
+            selector = "." + selector;
+            return this.ancestor(selector);
+        },
+        
+        ancestorByPosition : function ( position ) {
+            return this.ancestor(position);
+        },
         
         clone : function ( value ) {
             if (value === true || !value) {
@@ -513,6 +526,7 @@ Version 1.1.5
          
         data : function ( key, value ) {
             if (!!document.documentElement.dataset) {
+            	var key = key.camelize();
                 if (!value) {
                 	if (/{/.test(value)) {
                 		return JSON.parse(this.dataset[key]);
@@ -527,7 +541,7 @@ Version 1.1.5
                     }
                 }
             // Fallback for earlier versions of Webkit:
-            } else {
+           } else {
                 if (!value) {
                 	if (/{/.test(value)) {
                 		return JSON.parse(this.getAttribute("data-" + key));
@@ -540,7 +554,7 @@ Version 1.1.5
                 	} else {
                     	this.setAttribute("data-" + key, value);
                     }
-                }
+                } 
             }
         },
         
@@ -580,6 +594,12 @@ Version 1.1.5
                 newstr.push(item.capitalize());
             });
             return newstr.join(" ");
+        },
+        camelize : function ( ) {
+      		return this.replace(/\-(.)/g, function(m, l){return l.toUpperCase()});
+      	},
+      	deCamelize : function ( ) {
+            return this.replace(/([A-Z])/g, '-$1').toLowerCase();
         }
     });
     
@@ -664,7 +684,7 @@ Version 1.1.5
         iphone : /iphone/i.test(navigator.userAgent),
         ipad : /ipad/i.test(navigator.userAgent),
         ipod : /ipod/i.test(navigator.userAgent),
-        ios : $.iphone || $.ipad || $.ipod,
+        ios : /ip(hone|od|ad)/i.test(navigator.userAgent),
         android : /android/i.test(navigator.userAgent),
         webos : /webos/i.test(navigator.userAgent),
         blackberry : /blackberry/i.test(navigator.userAgent),

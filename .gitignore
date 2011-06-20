@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # osx noise
 .DS_Store
 profile
@@ -16,3 +17,15 @@ xcuserdata
 # svn & cvs
 .svn
 CVS
+=======
+.DS_Store
+snippets/.DS_Store
+icons/.DS_Store
+examples/images/.DS_Store
+examples/icons/.DS_Store
+examples/.DS_Store
+>>>>>>> Development
+.gitignore
+.gitignore
+examples.zip
+chocolatechip-ui.zip

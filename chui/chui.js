@@ -17,13 +17,13 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.5 beta
+Version: 0.8.6 beta
 
 */
 
-const CHUIVersion = "0.8.5 beta";
+const CHUIVersion = "0.8.6 beta";
     
-const UIExpectedChocolateChipJSVersion = "1.1.5"; 
+const UIExpectedChocolateChipJSVersion = "1.1.6"; 
 
 UICheckChocolateChipJSVersion = function() {
     if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -62,24 +62,16 @@ $.extend($, {
     UIUuid : function() {
         return ($.AlphaSeed() + $.UIUuidSeed(20) + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + $.UIUuidSeed() + $.UIUuidSeed());
     },
-    cache : {},
-    resetCache : function ( ) {
-        $.cache = {};
-    },
-    cacheItem : function ( property, value ) {
-        if (!value) {
-            return $.cache[property];
-        } else {
-            $.cache[property] = value;
-        }
-    },
-    resetApp : function ( ) {
-        $.resetCache();
-        $.views.forEach(function(view) {
-            view.setAttribute("ui-navigation-status", "upcoming");
-        });
-        $.main.setAttribute("ui-navigation-status", "current");
-        $.UINavigationHistory = ["#main"];
+    resetApp : function ( hard ) {
+    	if (hard === "hard") {
+    		window.location.reload(true);
+    	} else {
+	        $.views.forEach(function(view) {
+	            view.setAttribute("ui-navigation-status", "upcoming");
+	        });
+	        $.main.setAttribute("ui-navigation-status", "current");
+	        $.UINavigationHistory = ["#main"];
+    	}
     }
 });
 $.extend(HTMLElement.prototype, {
@@ -1249,6 +1241,116 @@ $.extend(HTMLElement.prototype, {
             this.insert(screencover);
         }
     }
+});
+$.extend($, {
+	/*
+		option values:
+		selector:
+		name: 
+		range: {start:, end:, values: }
+		step:
+		defaultValue:
+		buttonClass:
+		indicator:
+	*/
+	UISpinner : function (opts) {
+		if (!!opts.selector) {
+			var spinner = $(opts.selector);
+		}
+		var defaultValue = null;
+		var step = opts.step;
+		if (opts.range.start >= 0) {
+			var rangeStart = opts.range.start || "";
+			var rangeEnd = opts.range.end || "";
+			var tempNum = rangeEnd - rangeStart;
+			tempNum++;
+			var range = [];
+			if (step) {
+				var mod = ((rangeEnd-rangeStart)/step);
+				if (opts.range.start == 0) {
+					range.push(0);
+				} else {
+					range.push(rangeStart);
+				}
+				for (var i = 1; i < mod; i++) {
+					range.push(range[i-1] + step);
+				}
+				range.push(range[range.length-1] + step);
+			} else {
+				for (var i = 0, tempNum; i < tempNum; i++) {
+					range.push(rangeStart + i);				
+				}
+			}
+		}
+		var icon = (opts.indicator === "plus") ? "<icon class='indicator'></icon>" : "<icon></icon>";
+		var buttonClass = opts.buttonClass ? " class='" + opts.buttonClass + "' " : "";
+		var decreaseButton = "<uibutton " + buttonClass + "ui-implements='icon'>" + icon + "</uibutton>";
+		var increaseButton = "<uibutton " + buttonClass + "ui-implements='icon'>" + icon + "</uibutton>";
+		var spinnerTemp = decreaseButton + "<label ui-kind='spinner-label'></label><input type='text'/>" + increaseButton;
+		spinner.insert(spinnerTemp);
+		if (opts.range.values) {
+			spinner.data("range-value", opts.range.values.join(","));
+		}
+		if (!opts.defaultValue) {
+			if (!!opts.range.start || opts.range.start == 0) {
+				defaultValue = opts.range.start == 0 ? "0": opts.range.start;
+			} else if (opts.range.values instanceof Array) {
+				defaultValue = opts.range.values[0];
+				$("uibutton:first-of-type", opts.selector).addClass("disabled");
+			}
+		} else {
+			defaultValue = opts.defaultValue
+		}
+		if (range) {
+			spinner.data("range-value", range.join(","));
+		}
+		
+		$("label[ui-kind=spinner-label]", spinner).text(defaultValue);
+		$("input", spinner).value = defaultValue;
+		
+		if (defaultValue == opts.range.start) {
+			$("uibutton:first-of-type", spinner).addClass("disabled");
+		}
+		if (defaultValue == opts.range.end) {
+			$("uibutton:last-of-type", spinner).addClass("disabled");
+		}
+		$("uibutton:first-of-type", opts.selector).bind("click", function(button) {
+			$.decreaseSpinnerValue.call(this, opts.selector);
+		});
+		$("uibutton:last-of-type", opts.selector).bind("click", function(button) {
+			$.increaseSpinnerValue.call(this, opts.selector);
+		});
+	},
+	
+	decreaseSpinnerValue : function(selector) {
+		var values = $(selector).data("range-value");
+		values = values.split(",");
+		var defaultValue = $("label", selector).text().trim();
+		var idx = values.indexOf(defaultValue);
+		if (idx !== -1) {
+			$("uibutton:last-of-type", selector).removeClass("disabled");
+			$("[ui-kind=spinner-label]", selector).text(values[idx-1]);
+			$("input", selector).value = values[idx-1];
+			if (idx === 1) {
+				this.addClass("disabled");
+			} 
+		}	
+	},
+	
+	increaseSpinnerValue : function(selector) {
+		var values = $(selector).data("range-value");
+		values = values.split(",");
+		var defaultValue = $("label", selector).text().trim();
+		var idx = values.indexOf(defaultValue);
+		if (idx !== -1) {
+			$("uibutton:first-of-type", selector).removeClass("disabled");
+			$("label[ui-kind=spinner-label]", selector).text(values[idx+1]);
+			$("input", selector).value = values[idx+1];
+			if (idx === values.length-2) {
+				this.addClass("disabled");
+			}
+		}
+	}	
 });
 
 $.extend($, {

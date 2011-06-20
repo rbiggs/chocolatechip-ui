@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.5 beta
+Version: 0.8.6 beta
 
 */
 html, body {
@@ -3018,12 +3018,6 @@ spinner > uibutton:hover {
 			color-stop(0.75, #273f6d),
 			to(#273f6d));
 	-webkit-tap-highlight-color: transparent;
-}
-spinner > uibutton.green {
-	background-color: lightgreen;
-}
-spinner > uibutton.green:first-of-type {
-	background-color: red;
 }
 spinner > uibutton > icon {
 	background-color: #fff !important;

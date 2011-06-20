@@ -1075,3 +1075,24 @@ The expander tag provides a way to collapse or expand a vertical section of your
 ##Tag: progressbar
 
 This tag creates an animated progress bar. The defaults are: height: 15px, width: 100px and has its margins set to 10px auto so that it centers in its container. Its background color controls the color of the stripes. The default is rgb(56,138,213). You can change the default color by adding a class to the progress bar and then defining a different background-color for the progress bar. In most cases you'll want to create and delete it with JavaScript. Please see the tutorial for UIProgressBar.
+
+##Tag: spinner
+
+This tag create a spinner for a set of data, which might be strings or integers. The structure of a spinner is so:
+
+	<spinner id="days" data-range-value="Sun,Mon,Tue,Wed,Thu,Fri,Sat">
+		<uibutton class="ui-custom-tint green disabled" ui-implements="icon">
+			<icon></icon>
+		</uibutton>
+		<label ui-kind="spinner-label">Sun</label>
+		<input type="text">
+		<uibutton class="ui-custom-tint green" ui-implements="icon">
+			<icon></icon>
+		</uibutton>
+	</spinner>
+	
+However, to make a spinner all you need to to is put a basic spinner tag in you document and initialize. You can put the spinner tag there by hand coding it, or by injecting it dynamically with JavaScript. You put the tag in your document with a unique identifier, such as an id or class, unless you simply intend to use a complex CSS3 selector to target the spinner. The tag should be like this:
+
+	<spinner></spinner>
+
+You would then init the spinner using the $.UISpinner method while passing in the arguments for the spinner. See the documentation on Chui.js and the Tutorial on spinners for more information about how to initialize a spinner.

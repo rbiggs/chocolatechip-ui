@@ -17,13 +17,13 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.5 beta
+Version: 0.8.6 beta
 
 */
 
-const CHUIVersion = "0.8.5 beta";
+const CHUIVersion = "0.8.6 beta";
     
-const UIExpectedChocolateChipJSVersion = "1.1.5"; 
+const UIExpectedChocolateChipJSVersion = "1.1.6"; 
 
 UICheckChocolateChipJSVersion = function() {
     if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -62,24 +62,16 @@ $.extend($, {
     UIUuid : function() {
         return ($.AlphaSeed() + $.UIUuidSeed(20) + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + $.UIUuidSeed() + $.UIUuidSeed());
     },
-    cache : {},
-    resetCache : function ( ) {
-        $.cache = {};
-    },
-    cacheItem : function ( property, value ) {
-        if (!value) {
-            return $.cache[property];
-        } else {
-            $.cache[property] = value;
-        }
-    },
-    resetApp : function ( ) {
-        $.resetCache();
-        $.views.forEach(function(view) {
-            view.setAttribute("ui-navigation-status", "upcoming");
-        });
-        $.main.setAttribute("ui-navigation-status", "current");
-        $.UINavigationHistory = ["#main"];
+    resetApp : function ( hard ) {
+    	if (hard === "hard") {
+    		window.location.reload(true);
+    	} else {
+	        $.views.forEach(function(view) {
+	            view.setAttribute("ui-navigation-status", "upcoming");
+	        });
+	        $.main.setAttribute("ui-navigation-status", "current");
+	        $.UINavigationHistory = ["#main"];
+    	}
     }
 });
 $.extend(HTMLElement.prototype, {
@@ -1265,6 +1257,7 @@ $.extend($, {
 		if (!!opts.selector) {
 			var spinner = $(opts.selector);
 		}
+		var defaultValue = null;
 		var step = opts.step;
 		if (opts.range.start >= 0) {
 			var rangeStart = opts.range.start || "";
@@ -1298,11 +1291,28 @@ $.extend($, {
 		if (opts.range.values) {
 			spinner.data("range-value", opts.range.values.join(","));
 		}
+		if (!opts.defaultValue) {
+			if (!!opts.range.start || opts.range.start == 0) {
+				defaultValue = opts.range.start == 0 ? "0": opts.range.start;
+			} else if (opts.range.values instanceof Array) {
+				defaultValue = opts.range.values[0];
+				$("uibutton:first-of-type", opts.selector).addClass("disabled");
+			}
+		} else {
+			defaultValue = opts.defaultValue
+		}
 		if (range) {
 			spinner.data("range-value", range.join(","));
 		}
-		if (opts.defaultValue) {
-			$("label[ui-kind=spinner-label]", spinner).text(opts.defaultValue);
+		
+		$("label[ui-kind=spinner-label]", spinner).text(defaultValue);
+		$("input", spinner).value = defaultValue;
+		
+		if (defaultValue == opts.range.start) {
+			$("uibutton:first-of-type", spinner).addClass("disabled");
+		}
+		if (defaultValue == opts.range.end) {
+			$("uibutton:last-of-type", spinner).addClass("disabled");
 		}
 		$("uibutton:first-of-type", opts.selector).bind("click", function(button) {
 			$.decreaseSpinnerValue.call(this, opts.selector);
@@ -1340,7 +1350,7 @@ $.extend($, {
 				this.addClass("disabled");
 			}
 		}
-	}
+	}	
 });
 
 $.extend($, {

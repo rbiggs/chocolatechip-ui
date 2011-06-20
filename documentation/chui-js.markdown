@@ -13,10 +13,10 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 0.8 beta
+    Version 0.8.5 beta
 
     
-$nbsp;
+&nbsp;
 
 ##Constant: UIExpectedChocolateChipJSVersion
 
@@ -148,6 +148,24 @@ Another useful way of identifying nodes in a collection is to use the Element.UI
 [$.UIUuidSeed](#UIUuidSeed)
 
 [Element.UIIdentifyChildNodes](#UIIdentifyChildNodes)
+
+
+
+&nbsp;
+
+<a name="resetApp"></a>
+
+##Function: $.resetApp
+
+A method to reset the defaults of an app. This clear's the app's cache if it has one, clears the navigation history and returns the user to the main screen.
+
+**Example:**
+
+    $.resetApp();
+
+**See Also:**
+
+[$.UINavigationHistory](#UINavigationHistory)
 
 
 
@@ -1751,3 +1769,84 @@ A method to spin in and out a secondary subview. The method toggles a pair of cl
 [Element.UIPopSubview](#UIPopSubview)
 
 [Element.UIFadeSubview](#UIFadeSubview)
+
+&nbsp;
+
+<a name="UISpinner"></a>
+
+##Function: $.UISpinner
+
+A method to create a spinner for a set of values. The values can be a set of strings, such as days or months, or a range of number, such as from 0-9. The method expects the presence of a spinner tag. See examples below. When this method initializes the spinner tag, it also creates a hidden input tag where the values of the spinner are stored. 
+
+The method takes a set of options passed as an object literal. The possible values are as follows.
+
+- selector: A selector defining the spinner to initialize.
+- name: A name for the spinner's input.
+- range: value: The range.value object is used to pass in a set of strings as values for the spinner. See examples below for how to use it.
+- range: Two create a numeric spinner, you can pass in the start and end values using range.start and range.end. See the examples below.
+- step: A numerical value by which to increase or decrease the value of the spinner. This is for use with numeric values, allowing you to create a spinner whose numeric value increase by steps.
+- defaultValue: If the spinner is numeric, a numeric value should be passed. If the spinner's values are strings, a default string value can be passed. If no default value is passed, the spinner will be set to the first value of the array of strings or numbers.
+- buttonClass: Any valid class names. Use clases to customize the colors of the spinner's increase and decrease buttons.
+- indicator: By default the spinner has increase and decrease buttons with up and down arrows. If you want to instead have "plus" and "minus" symbols, you can pass the value "plus".
+
+**Syntax:**
+
+    $.UISpinner(options);
+
+The markup for this spinner would be:
+
+    <spinner id="range2"></spinner>
+    
+You could inject a spinner into a document dynamically using this:
+
+    $("#tableview1").insert("<spinner id='spinner1'></spinner");
+    
+Then you could initialize it with $.UISpinner.
+
+**Examples:** 
+
+    $.UISpinner({
+        selector: "#days", 
+        buttonClass: "ui-custom-tint green", 
+        range: {values: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']}
+    });
+    
+    $.UISpinner({
+        selector: "#months", 
+        buttonClass: "ui-custom-tint green", 
+        range: {values: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
+        defaultValue: "Mar"
+    });
+    
+    $.UISpinner({
+        selector: "#date", 
+        buttonClass: "ui-custom-tint green", 
+        range: {start: 0, end: 31},
+        defaultValue: 10,
+    });
+    
+    $.UISpinner({
+        selector: "#range1", 
+        range: {start: 0, end: 40},
+        step: 4
+    });
+    
+    $.UISpinner({
+        selector: "#range2", 
+        buttonClass: "ui-custom-tint green", 
+        range: {start: 3, end: 30},
+        defaultValue: 9,
+        step: 3,
+        indicator: "plus"
+    });
+    
+    $.UISpinner({
+        selector: "#range3", 
+        buttonClass: "ui-custom-tint green", 
+        range: {start: 0, end: 96},
+        defaultValue: 24,
+        step: 12,
+        indicator: "plus"
+    });
+    
+Please examine the examples in spinner.html in the examples folder of the source code.
