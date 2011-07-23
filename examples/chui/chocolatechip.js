@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
 
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.1.6
+Version 1.1.7
 
 */
 
@@ -61,7 +61,7 @@ Version 1.1.6
     
     $.extend($, {
 
-        version : "1.1.6",
+        version : "1.1.7",
         
         collectionToArray : function ( collection ) {
             var array = [];
@@ -181,20 +181,7 @@ Version 1.1.6
                    return p.ancestor(selector);
                } 
             }
-        },      
-        
-        ancestorByTag : function ( selector ) {
-            return this.ancestor(selector);
-        },
-        
-        ancestorByClass : function ( selector ) {
-            selector = "." + selector;
-            return this.ancestor(selector);
-        },
-        
-        ancestorByPosition : function ( position ) {
-            return this.ancestor(position);
-        },
+        }, 
         
         clone : function ( value ) {
             if (value === true || !value) {
@@ -403,6 +390,7 @@ Version 1.1.6
                 return this;
             } 
         },
+        
         bind : function( event, callback ) {
             this.addEventListener(event, callback, false);
         },
@@ -743,7 +731,7 @@ Version 1.1.6
 			} else if (/\[\[/.test(str) || /$\[/.test(str)) {
 				regex1 = /\$\[([\s\S]+?)\]/g;
 				regex2 = /\[\[([\s\S]+?)\]\]/g;
-			} else if (/<%/.test(str) || /<%=/.test(str)) {
+			} else if (/<%=/.test(str) || /<%/.test(str)) {
 				regex1 = /<%=([\s\S]+?)%>/g;
 				regex2 = /<%([\s\S]+?)%>/g;
 			}	
@@ -843,8 +831,6 @@ Version 1.1.6
                             if (namePart.indexOf('[') > -1) {
                                 arrName = namePart.substr(0, namePart.indexOf('['));
                                 var arrIdx = namePart.replace(/^[a-z]+\[|\]$/gi, '');
-                                /* Because arrIdx in field name can be not zero-based and step can be other than 1, we can't use them in target array directly. Instead we're making a hash where key is arrIdx and value is a reference to added array element */
-        
                                 if (!arrays[arrName]) {
                                     arrays[arrName] = {};
                                 }
@@ -862,7 +848,6 @@ Version 1.1.6
                                 }
                                 currResult = arrays[arrName][arrIdx];
                             } else {
-                                /* Not the last part of name - means object */
                                 if (j < nameParts.length - 1) { 
                                     if (!currResult[namePart]) {
                                         currResult[namePart] = {};
@@ -893,8 +878,8 @@ Version 1.1.6
                 return result;
             }
             function getFieldValue(fieldNode) {
-                if (fieldNode.nodeName == 'INPUT') {
-                    if (fieldNode.type.toLowerCase() == 'radio' || fieldNode.type.toLowerCase() == 'checkbox') {
+                if (fieldNode.nodeName === 'INPUT') {
+                    if (fieldNode.type.toLowerCase() === 'radio' || fieldNode.type.toLowerCase() === 'checkbox') {
                         if (fieldNode.checked) {
                             return fieldNode.value;
                         }
@@ -904,10 +889,10 @@ Version 1.1.6
                         }
                     }
                 } else {
-                    if (fieldNode.nodeName == 'TEXTAREA') {
+                    if (fieldNode.nodeName === 'TEXTAREA') {
                         return fieldNode.value;
                     } else {
-                        if (fieldNode.nodeName == 'SELECT') {
+                        if (fieldNode.nodeName === 'SELECT') {
                             return getSelectedOptionValue(fieldNode);
                         }
                     }

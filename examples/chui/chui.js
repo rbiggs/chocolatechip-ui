@@ -17,13 +17,13 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.6 beta
+Version: 0.8.7 beta
 
 */
 
-const CHUIVersion = "0.8.6 beta";
+const CHUIVersion = "0.8.7 beta";
     
-const UIExpectedChocolateChipJSVersion = "1.1.6"; 
+const UIExpectedChocolateChipJSVersion = "1.1.7"; 
 
 UICheckChocolateChipJSVersion = function() {
     if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -83,30 +83,6 @@ $.extend(HTMLElement.prototype, {
     }
 });
 $.extend($, {
-    UITouchedButton : null,
-    
-    UIButton : function() {
-        $.app.delegate("uibutton", "touchstart", function(button) {
-            if (!$.UITouchedButton) {
-                if (!button.hasClass("disabled")) {
-                    $.UITouchedButton = button;
-                    button.addClass("touched");
-                } else {
-                    return false;
-                }
-            } else {
-                if (!button.hasClass("disabled")) {
-                    $.UITouchedButton.removeClass("touched");
-                    $.UITouchedButton = button;
-                    button.addClass("touched");
-                } else {
-                    return false;
-                }
-            }
-        });
-        
-    },
-    
     UINavigationHistory : ["#main"],
     UINavigateBack : function() {
          var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
@@ -152,6 +128,10 @@ $.extend($, {
     UIFirstTapTime : 0,
     UINavigationList : function() {
         $.app.delegate("tablecell", "click", function(item) {
+			var ancestor = item.ancestor("view");
+			if ($("tableview", ancestor).hasAttribute("ui-show-delete-disclosures")) {
+				return false;
+			}
             setTimeout(function() {
                 var navigateList = function(item) {
                     if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar") {
@@ -189,29 +169,11 @@ $.extend($, {
                 }
             }, 50);
         });
-    },
-    
-    UITouchedTableCell : null,
-    
-    UITableview : function() {
-        $.app.delegate("tablecell", "touchstart", function(item) {
-            if (!$.UITouchedTableCell) {
-                $.UITouchedTableCell = item;
-                item.addClass("touched");
-            } else {
-                $.UITouchedTableCell.removeClass("touched");
-                item.addClass("touched");
-                $.UITouchedTableCell = item;
-            }
-        });
-        
     }
 });
 $.ready(function() {
-    $.UIButton();
     $.UIBackNavigation();
     $.UINavigationList();
-    $.UITableview();
     $.app.delegate("input", "click", function(input) {
         input.focus();
     });
@@ -1105,43 +1067,7 @@ $.ready(function() {
     
     }
 });
-$.extend(HTMLElement.prototype, {
-    UIExpander : function ( opts ) {
-        opts = opts || {};
-        var status = opts.status || "expanded";
-        var title = opts.title || "Open";
-        var altTitle = opts.altTitle || "Close";
-        var expander = this;
-        var panel = $("panel", this);
-        var header = "<header><label></label></header>";
-        this.insert(header, "first");
-        panel.setAttribute("ui-height", parseInt(panel.css("height"), 10));
-        if (status === "expanded") {
-            expander.toggleClass("ui-status-expanded", "ui-status-collapsed");
-            $("label", this).text(altTitle);
-            panel.style.height = panel.getAttribute("ui-height") + "px";
-            panel.css("{opacity: 1;}");
-        } else {
-            $("label", this).text(title);
-            panel.css("{height: 0px; opacity: 0;}");
-            expander.toggleClass("ui-status-collapsed", "ui-status-expanded");
-        }
-        expander.delegate("header", "click", function() {
-            alert("hi");
-            if (panel.style.height === "0px") {
-                panel.style.height = panel.getAttribute("ui-height") + "px";
-                panel.style.opacity = 1;
-                $("label", this).text(altTitle);
-                expander.toggleClass("ui-status-collapsed", "ui-status-expanded");
-                
-            } else {
-                panel.css("{height: 0px; opacity: 0;}");
-                $("label", this).text(title);
-                expander.toggleClass("ui-status-expanded", "ui-status-collapsed");
-            }
-        });
-    }
-});
+
 $.extend($, {
     UIDeletableTableCells : [],
     UIDeleteTableCell : function( selector, toolbar, callback ) {
@@ -1178,7 +1104,7 @@ $.extend($, {
                    listEl.removeClass("ui-show-delete-disclosures");
                    $$("deletedisclosure").forEach(function(disclosure) {
                        disclosure.removeClass("checked");
-                       disclosure.ancestorByTag("tablecell").removeClass("deletable");
+                       disclosure.ancestor("tablecell").removeClass("deletable");
                    });
                    if (/uibutton/i.test(toolbarEl.children[1].nodeName)) {
                        toolbarEl.children[1].css("display", "-webkit-inline-box;");
@@ -1195,9 +1121,9 @@ $.extend($, {
             $$("deletedisclosure").forEach(function(disclosure) {
                 disclosure.bind("click", function() {
                     disclosure.toggleClass("checked");
-                    disclosure.ancestorByTag("tablecell").toggleClass("deletable");
+                    disclosure.ancestor("tablecell").toggleClass("deletable");
                     $("uibutton[ui-implements=delete]").removeClass("disabled");
-                    if (!disclosure.ancestorByTag("tablecell").hasClass("deletable")) {
+                    if (!disclosure.ancestor("tablecell").hasClass("deletable")) {
                         listEl.setAttribute("data-deletable-items", parseInt(listEl.data("deletable-items"), 10) - 1);
                         if (parseInt(listEl.data("deletable-items"), 10) === 0) {
                             toolbarEl.firstElementChild.addClass("disabled");

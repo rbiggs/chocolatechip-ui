@@ -65,17 +65,17 @@ view {
 	bottom: 0;
 	right: 0;
 }
-view[ui-navigation-status=upcoming] {
+view[ui-navigation-status="upcoming"] {
 	-webkit-transform: translateX(100%);
-	-webkit-transform: translate3d(100%,0%,0%);
+	-webkit-transform: translate3d(100%,0,0);
 }
-view[ui-navigation-status=current] {
-	-webkit-transform: translateX(0%);
-	-webkit-transform: translate3d(0%,0%, 0%);
+view[ui-navigation-status="current"] {
+	-webkit-transform: translateX(0);
+	-webkit-transform: translate3d(0,0,0);
 }
-view[ui-navigation-status=traversed] {
+view[ui-navigation-status="traversed"] {
 	-webkit-transform: translateX(-100%);
-	-webkit-transform: translate3d(-100%, 0%, 0%);
+	-webkit-transform: translate3d(-100%,0,0);
 }
 subview > scrollpanel {
 	height: auto;
@@ -2007,7 +2007,7 @@ tableview > tablecell > uibutton {
 
 deletedisclosure {
 	-webkit-transition: -webkit-transform .25s ease-in-out;
-	-webkit-transform: translate3d(0px, 0, 0);
+	-webkit-transform: translate3d(0,0,0);
     -webkit-box-sizing: border-box;
     padding: 2px 5px 13px 1px;
     height: 24px;
@@ -2047,7 +2047,7 @@ deletedisclosure.checked > span {
 }
 tableview.ui-show-delete-disclosures deletedisclosure {
 	display: block;
-	-webkit-transform: translate3d(40px, 0, 0);
+	-webkit-transform: translate3d(40px,0,0);
 }
 tableview > tablecell > celltitle, tableview > tablecell > cellsubtitle, tableview > tablecell > celldetail {
 	-webkit-transition-property: -webkit-transform, width;
@@ -2391,7 +2391,7 @@ switchcontrol > thumb {
     border: solid 1px #919191;
     -webkit-transition: all 0.125s  ease-in-out;
     -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+    -webkit-transform: translate3d(0,0,0);
 }
 switchcontrol > thumb:before {
 	content: "";
@@ -2425,7 +2425,7 @@ switchcontrol > label[ui-implements=on] {
     -webkit-transition: all 0.125s  ease-in-out;
     position: relative;
     -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+    -webkit-transform: translate3d(0,0,0);
 }
 switchcontrol > label[ui-implements=off] {
 	display: block;
@@ -2444,31 +2444,31 @@ switchcontrol > label[ui-implements=off] {
     -webkit-transition: all 0.125s  ease-in-out;
     position: relative;
     -webkit-transform: translateX(-54px);
-    -webkit-transform: translate3d(-54px,0%,0%);
+    -webkit-transform: translate3d(-54px,0,0);
 }
 switchcontrol.off > thumb {
     -webkit-transform: translateX(-54px);
-    -webkit-transform: translate3d(-54px,0%,0%);
+    -webkit-transform: translate3d(-54px,0,0);
 }
 switchcontrol.on > thumb {
-    -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+    -webkit-transform: translateX(0);
+    -webkit-transform: translate3d(0,0,0);
 }
 switchcontrol.off > label[ui-implements=on] {
     -webkit-transform: translateX(-60px);
-    -webkit-transform: translate3d(-60px,0%,0%);
+    -webkit-transform: translate3d(-60px,0,0);
 }
 switchcontrol.on > label[ui-implements=on] {
-    -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+    -webkit-transform: translateX(0);
+    -webkit-transform: translate3d(0,0,0);
 }
 switchcontrol.off > label[ui-implements=off] {
     -webkit-transform: translateX(-54px);
-    -webkit-transform: translate3d(-54px,0%,0%);
+    -webkit-transform: translate3d(-54px,0,0);
 }
 switchcontrol.on > label[ui-implements=off] {
     -webkit-transform: translateX(6px);
-    -webkit-transform: translate3d(6px,0%,0%);
+    -webkit-transform: translate3d(6px,0,0);
 }
 /* For Very Important Changes, use the this class */
 switchcontrol[ui-implements=attention] > label[ui-implements=on] {
@@ -3356,34 +3356,34 @@ subview[ui-paging-orient] {
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=upcoming] {
 	-webkit-transform: translateX(100%);
-	-webkit-transform: translate3d(100%,0%,0%);
+	-webkit-transform: translate3d(100%,0,0);
 	opacity: 0;
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=current] {
 	-webkit-transform: translateX(0%);
-	-webkit-transform: translate3d(0%,0%, 0%);
+	-webkit-transform: translate3d(0,0,0);
 	opacity: 1;
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=traversed] {
 	-webkit-transform: translateX(-100%);
-	-webkit-transform: translate3d(-100%, 0%, 0%);
+	-webkit-transform: translate3d(-100%,0,0);
 	opacity: 0;
 }
 
 
 subview[ui-paging-orient=vertical][ui-navigation-status=upcoming] {
 	-webkit-transform: translateY(100%);
-	-webkit-transform: translate3d(0%,100%,0%);
+	-webkit-transform: translate3d(0,100%,0);
 	opacity: 0;
 }
 subview[ui-paging-orient=vertical][ui-navigation-status=current] {
 	-webkit-transform: translateY(0%);
-	-webkit-transform: translate3d(0%,0%, 0%);
+	-webkit-transform: translate3d(0,0,0);
 	opacity: 1;
 }
 subview[ui-paging-orient=vertical][ui-navigation-status=traversed] {
 	-webkit-transform: translateY(-100%);
-	-webkit-transform: translate3d(0%, -100%, 0%);
+	-webkit-transform: translate3d(0,-100%,0);
 	opacity: 0;
 }
 app[ui-kind="navigation-with-one-navbar"] > navbar > uibutton[ui-implements="back"] {
