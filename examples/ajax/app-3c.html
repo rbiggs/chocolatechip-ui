@@ -29,6 +29,14 @@
 			font-size: 16px !important;
 			line-height: 20px;
 		}
+		rating {
+			font-weight: bold;
+			color: #656fc7;
+			font-size: 14px;
+		}
+		rating::before {
+			content: "Rating: "
+		}
     </style>
     <script src="../chui/chocolatechip.js"></script>
     <script src="../chui/chui.js"></script>
@@ -43,6 +51,9 @@
 			            <celltitle>$[ customer.firstName ] $[ customer.lastName ]</celltitle>\
 			            <cellsubtitle>$[ customer.address ]</cellsubtitle>\
 			            <celldetail>$[ customer.description ]</celldetail>\
+			            [[ if (customer.rating) { ]]\
+			            	<celldetail><rating>$[ customer.rating ]</rating></celldetail>\
+			            [[ } ]]\
 			        </tablecell>\
 			    [[ }); ]]";
 		    /* The next two templates will be nested in $.templates.recipes: */
@@ -82,7 +93,7 @@
 				[[ }); ]]";
 			$.templates.songs = 
 				"[[ songs.forEach(function(song) { ]]\
-					[[ if (song.genre === 'Latin') { ]]\
+					[[ if (song.genre !== 'Latin') { ]]\
                         <tablecell class='ui-no-hover' ui-usage='image'>\
                             <img src='$[ song.image ]'>\
                             <celltitle>$[ song.title ]</celltitle>\
@@ -103,10 +114,13 @@
 			
 			$("#view1 tableview").empty().insert($.template("customers", data));
 			$.UIScrollers[$("#view1 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+			
 			$("#view2 tableview").empty().insert($.template("recipes", data));
 			$.UIScrollers[$("#view2 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+			
 			$("#view3 tableview").empty().insert($.template("songs", data));
 			$.UIScrollers[$("#view3 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+			
 			$.UIDeleteTableCell("#view3 tableview", "#view3 navbar");
 		});
     </script>
