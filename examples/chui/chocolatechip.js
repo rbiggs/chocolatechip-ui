@@ -560,6 +560,7 @@ Version 1.1.6
         
         removeData : function ( key ) {
             if (!!document.documentElement.dataset) {
+            	var key = key.camelize();
                 this.dataset[key] = null;
             // Fallback for earlier versions of Webkit:
             } else {

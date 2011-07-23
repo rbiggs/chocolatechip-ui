@@ -12,12 +12,11 @@ A JavaScript library for mobile Web app development.
 
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.1.3
+Version 1.1.6
 
 */
 
 (function() {
-
     var $ = function ( selector, context ) {
         if (!!context) {
             if (typeof context === "string") {
@@ -62,7 +61,7 @@ Version 1.1.3
     
     $.extend($, {
 
-        version : "1.1.4",
+        version : "1.1.6",
         
         collectionToArray : function ( collection ) {
             var array = [];
@@ -106,8 +105,14 @@ Version 1.1.3
         processJSON : function ( data ) {
             var script = document.createElement("script");
             script.setAttribute("type", "text/javascript");
+			var scriptID = $.UIUuid();
+			script.setAttribute("id", scriptID);
             script.insert(data);
             $("head").insert(script, "last");
+			$.defer(function() {
+				var id = "#" + scriptID;
+				$(id).remove();
+			});
         }
     });
     $.extend(HTMLElement.prototype, {
@@ -206,6 +211,7 @@ Version 1.1.3
             tempNode.appendChild(whichClone);
             this.after(tempNode, this);
             this.remove(this); 
+            return this;
         },
         
         unwrap : function ( ) {
@@ -214,6 +220,7 @@ Version 1.1.3
             }
             var element = this.cloneNode(true);
             $.replace(element, this.parentNode);
+            return this;
         },
         
         text : function ( value ) {
@@ -231,11 +238,13 @@ Version 1.1.3
             } else {
                 this.insert(content);
             }
+            return this;
         },
         
         empty : function ( ) {
             this.removeEvents();
             this.textContent = "";
+            return this;
         },
         
         remove : function ( ) {
@@ -271,6 +280,7 @@ Version 1.1.3
                     i++;
                 }
             }
+            return this;
         },
         
         before : function ( content ) {
@@ -284,6 +294,7 @@ Version 1.1.3
             } else {
                this.parentNode.insertBefore(content, this);
             }
+            return this;
         },
         
         after : function ( content ) {
@@ -305,6 +316,7 @@ Version 1.1.3
                     parent.insertBefore(content, this.next());
                 }
             }
+            return this;
         },
         
         hasClass : function ( className ) {
@@ -314,6 +326,7 @@ Version 1.1.3
         addClass : function ( className ) {
             if (!this.hasClass(className)) {
                 this.className = [this.className, className].join(' ').replace(/^\s*|\s*$/g, "");
+                return this;
             }
         },
         
@@ -321,6 +334,7 @@ Version 1.1.3
             if (this.hasClass(className)) {
                 var currentClasses = this.className;
                 this.className = currentClasses.replace(new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)', 'g'), ' ').replace(/^\s*|\s*$/g, "");
+                return this;
             }
         },
         
@@ -328,11 +342,13 @@ Version 1.1.3
             this.addClass("disabled");
             this.css("{cursor: default;}");
             this.preventDefault();
+            return this;
         },
         
         enable : function ( ) {
             this.removeClass("disabled");
             this.css("{cursor: pointer;}");
+            return this;
         },
         
         toggleClass : function ( firstClassName, secondClassName ) {
@@ -351,6 +367,7 @@ Version 1.1.3
                     this.addClass(secondClassName);
                 }
             }
+            return this;
         },
         
         getTop : function() {
@@ -433,7 +450,7 @@ Version 1.1.3
             var onEnd = null;
             var value = "-webkit-transition: all " + (duration + " " || ".5s ") + easing + ";" || "" + ";";
             for (var prop in options) {
-                if (prop === "onend") {
+                if (prop === "onEnd") {
                     onEnd = options[prop];
                     this.bind("webkitTransitionEnd", function() {
                         onEnd();
@@ -446,9 +463,11 @@ Version 1.1.3
         },
         xhr : function ( url, options ) {
             var o = options ? options : {};
+            var successCallback = null;
+            var errorCallback = null;
             if (!!options) {
-                if (!!options.successCallback) {
-                    o.callback = options.successCallback;
+                if (!!options.successCallback || !!options.success) {
+                    successCallback = options.successCallback || options.success;
                 }
             }
             var that   = this,
@@ -459,13 +478,12 @@ Version 1.1.3
                 i = 0;
             request.queryString = params;
             request.open(method, url, async);
-     
             if (o.headers) {
                 for (; i<o.headers.length; i++) {
                   request.setRequestHeader(o.headers[i].name, o.headers[i].value);
                 }
             }
-            request.handleResp = (o.callback != null) ? o.callback : function() { 
+            request.handleResp = (successCallback != null) ? successCallback : function() { 
                 that.insert(this.responseText); 
             }; 
             function hdl(){ 
@@ -473,7 +491,10 @@ Version 1.1.3
                     $.responseText = request.responseText;
                     request.handleResp(); 
                 } else {
-                    options.errorCallback();
+                	if (!!options.errorCallback || !!options.error) {
+                		var errorCallback = options.errorCallback || options.error;
+                    	errorCallback();
+                    }
                 }
             }
             if(async) request.onreadystatechange = hdl;
@@ -502,26 +523,44 @@ Version 1.1.3
             this.xhr(url, options);
             return this;
         },
-        
+         
         data : function ( key, value ) {
             if (!!document.documentElement.dataset) {
+            	var key = key.camelize();
                 if (!value) {
-                    return this.dataset[key];
+                	if (/{/.test(value)) {
+                		return JSON.parse(this.dataset[key]);
+                	} else {
+                    	return this.dataset[key];
+                    }
                 } else {
-                    this.dataset[key] = value;
+                	if (typeof value === "object") {
+                		this.dataset[key] = JSON.stringify(value);
+                	} else {
+                    	this.dataset[key] = value;
+                    }
                 }
             // Fallback for earlier versions of Webkit:
-            } else {
+           } else {
                 if (!value) {
-                    return this.getAttribute("data-" + key);
+                	if (/{/.test(value)) {
+                		return JSON.parse(this.getAttribute("data-" + key));
+                	} else {
+                    	return this.getAttribute("data-" + key);
+                    }
                 } else {
-                    this.setAttribute("data-" + key, value);
-                }
+                	if (typeof value === "object") {
+                		this.setAttribute("data-" + key, JSON.stringify(value));
+                	} else {
+                    	this.setAttribute("data-" + key, value);
+                    }
+                } 
             }
         },
         
         removeData : function ( key ) {
             if (!!document.documentElement.dataset) {
+            	var key = key.camelize();
                 this.dataset[key] = null;
             // Fallback for earlier versions of Webkit:
             } else {
@@ -556,6 +595,12 @@ Version 1.1.3
                 newstr.push(item.capitalize());
             });
             return newstr.join(" ");
+        },
+        camelize : function ( ) {
+      		return this.replace(/\-(.)/g, function(m, l){return l.toUpperCase()});
+      	},
+      	deCamelize : function ( ) {
+            return this.replace(/([A-Z])/g, '-$1').toLowerCase();
         }
     });
     
@@ -640,6 +685,7 @@ Version 1.1.3
         iphone : /iphone/i.test(navigator.userAgent),
         ipad : /ipad/i.test(navigator.userAgent),
         ipod : /ipod/i.test(navigator.userAgent),
+        ios : /ip(hone|od|ad)/i.test(navigator.userAgent),
         android : /android/i.test(navigator.userAgent),
         webos : /webos/i.test(navigator.userAgent),
         blackberry : /blackberry/i.test(navigator.userAgent),
@@ -679,22 +725,35 @@ Version 1.1.3
         
 		templates : {},
 		
-        templateCache : {},
-		
 		template : function(str, data) {
+			if ($.ajaxStatus === null || $.ajaxStatus === false) {
+				return data;
+			}
 			if ($.templates[str]) {
 				var str = $.templates[str];
 			} else {
 				var str = str;
 			}
-			var tmpl = 'var p=[],print=function(){p.push.apply(p,arguments);};' +
-			  'with(obj||{}){p.push(\'' +
+			var tmpl = 'var p=[],print=function(){p.push.apply(p,arguments);};with(obj||{}){p.push(\''; 
+			var regex1; 
+			var regex2;
+			if (/{{/.test(str) || /${/.test(str)) {
+				regex1 = /\$\{([\s\S]+?)\}/g;
+				regex2 = /\{\{([\s\S]+?)\}\}/g;
+			} else if (/\[\[/.test(str) || /$\[/.test(str)) {
+				regex1 = /\$\[([\s\S]+?)\]/g;
+				regex2 = /\[\[([\s\S]+?)\]\]/g;
+			} else if (/<%/.test(str) || /<%=/.test(str)) {
+				regex1 = /<%=([\s\S]+?)%>/g;
+				regex2 = /<%([\s\S]+?)%>/g;
+			}	
+			tmpl +=
 			  str.replace(/\\/g, '\\\\')
 				 .replace(/'/g, "\\'")
-				 .replace(/<%=([\s\S]+?)%>/g, function(match, code) {
+				 .replace(regex1, function(match, code) {
 					return "'," + code.replace(/\\'/g, "'") + ",'";
 				 })
-				 .replace(/<%([\s\S]+?)%>/g || null, function(match, code) {
+				 .replace(regex2 || null, function(match, code) {
 					return "');" + code.replace(/\\'/g, "'")
 					.replace(/[\r\n\t]/g, ' ') + "p.push('";
 				 })
@@ -735,7 +794,142 @@ Version 1.1.3
                     $.UIHideURLbar();
                 }
             }, false);
-        }
+        },
+		kvo : function () {
+			// Register observers of a key for this object:
+			this.registerObserver = function(observer, key) {
+		  		if (this.observers == null) {
+					this.observers = {};
+				}
+		  		if (this.observers[key] == null) {
+					this.observers[key] = [observer];
+		  		} else {
+					this.observers[key].push(observer);
+				}
+			},
+	
+			// Set a value of this object, and inform observers of the assignment:
+			this.set = function(key, value) {
+	  			if (this.observers != null && this.observers[key] != null) {
+					currentValue = this[key];
+	  				this.observers[key].forEach(function(observer) {
+	  					observer.keyWillUpdate(this, key, currentValue, value);
+	  				});
+	  				this[key] = value;
+				}
+  			}
+		},
+	    form2JSON : function(rootNode, delimiter) {
+            rootNode = typeof rootNode == 'string' ? $(rootNode) : rootNode;
+            delimiter = delimiter || '.';
+            var formValues = getFormValues(rootNode);
+            var result = {};
+            var arrays = {};
+    
+            formValues.forEach(function(item) {
+                var value = item.value;
+                if (value !== '') {
+                    var name = item.name;
+                    var nameParts = name.split(delimiter);
+                    var currResult = result;
+                    for (var j = 0; j < nameParts.length; j++) {
+                        var namePart = nameParts[j];
+                        var arrName;
+                        if (namePart.indexOf('[]') > -1 && j == nameParts.length - 1) {
+                            arrName = namePart.substr(0, namePart.indexOf('['));
+                            if (!currResult[arrName]) currResult[arrName] = [];
+                            currResult[arrName].push(value);
+                        } else {
+                            if (namePart.indexOf('[') > -1) {
+                                arrName = namePart.substr(0, namePart.indexOf('['));
+                                var arrIdx = namePart.replace(/^[a-z]+\[|\]$/gi, '');
+                                /* Because arrIdx in field name can be not zero-based and step can be other than 1, we can't use them in target array directly. Instead we're making a hash where key is arrIdx and value is a reference to added array element */
+        
+                                if (!arrays[arrName]) {
+                                    arrays[arrName] = {};
+                                }
+                                if (!currResult[arrName]) {
+                                    currResult[arrName] = [];
+                                }
+                                if (j == nameParts.length - 1) {
+                                    currResult[arrName].push(value);
+                                } else {
+                                    if (!arrays[arrName][arrIdx]) {
+                                        currResult[arrName].push({});
+                                        arrays[arrName][arrIdx] = 
+										currResult[arrName][currResult[arrName].length - 1];
+                                    }
+                                }
+                                currResult = arrays[arrName][arrIdx];
+                            } else {
+                                /* Not the last part of name - means object */
+                                if (j < nameParts.length - 1) { 
+                                    if (!currResult[namePart]) {
+                                        currResult[namePart] = {};
+                                    }
+                                    currResult = currResult[namePart];
+                                } else {
+                                    currResult[namePart] = value;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            return result;
+            
+            function getFormValues(rootNode) {
+                var result = [];
+                var currentNode = rootNode.firstChild;
+                while (currentNode) {
+                    if (currentNode.nodeName.match(/INPUT|SELECT|TEXTAREA/i)) {
+                        result.push({ name: currentNode.name, value: getFieldValue(currentNode)});
+                    } else {
+                        var subresult = getFormValues(currentNode);
+                        result = result.concat(subresult);
+                    }
+                    currentNode = currentNode.nextSibling;
+                }
+                return result;
+            }
+            function getFieldValue(fieldNode) {
+                if (fieldNode.nodeName == 'INPUT') {
+                    if (fieldNode.type.toLowerCase() == 'radio' || fieldNode.type.toLowerCase() == 'checkbox') {
+                        if (fieldNode.checked) {
+                            return fieldNode.value;
+                        }
+                    } else {
+                        if (!fieldNode.type.toLowerCase().match(/button|reset|submit|image/i)) {
+                            return fieldNode.value;
+                        }
+                    }
+                } else {
+                    if (fieldNode.nodeName == 'TEXTAREA') {
+                        return fieldNode.value;
+                    } else {
+                        if (fieldNode.nodeName == 'SELECT') {
+                            return getSelectedOptionValue(fieldNode);
+                        }
+                    }
+                }
+                return '';
+            }
+            function getSelectedOptionValue(selectNode) {
+                var multiple = selectNode.multiple;
+                if (!multiple) {
+                    return selectNode.value;
+                }
+                if (selectNode.selectedIndex > -1) {
+                    var result = [];
+                    $$("option", selectNode).forEach(function(item) {
+                        if (item.selected) {
+                            result.push(item.value);
+                        }
+                    });
+                    return result;
+                }
+            } 
+		}		
     });
     if (window.$ === undefined) {
         window.$ = $;

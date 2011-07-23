@@ -8,7 +8,7 @@
   \:~=++=~:/   
  
 ChocolateChip-UI
-Thee yummy ingredients make this something to sink your teeth into:
+Three yummy ingredients make this something to sink your teeth into:
 ChococlateChip.js: It's tiny but delicious
 ChUI.css: Good looks do impress
 ChUI.js: The magic to make it happen
@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.7 beta
+Version: 0.8.6 beta
 
 */
 html, body {
@@ -26,7 +26,6 @@ html, body {
 	min-height: 100%;
 	font: normal 14px/18px Helvetica, Sans-serif;
 }
-
 app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, celltitle, cellsubtitle, celldetail, tableheader, tablefooter, popover, popup, picker, screencover, stack, panel, scrollpanel, shim {
 	display: block;
 	padding: 0;
@@ -50,7 +49,6 @@ app {
 	bottom: 0;
 	left: 0;
 }
-
 view {
 	width: 100%;
 	display: -webkit-box;
@@ -67,20 +65,18 @@ view {
 	bottom: 0;
 	right: 0;
 }
-
 view[ui-navigation-status=upcoming] {
+	-webkit-transform: translateX(100%);
 	-webkit-transform: translate3d(100%,0%,0%);
-	opacity: 0;
 }
 view[ui-navigation-status=current] {
+	-webkit-transform: translateX(0%);
 	-webkit-transform: translate3d(0%,0%, 0%);
-	opacity: 1;
 }
 view[ui-navigation-status=traversed] {
+	-webkit-transform: translateX(-100%);
 	-webkit-transform: translate3d(-100%, 0%, 0%);
-	opacity: 0;
 }
-
 subview > scrollpanel {
 	height: auto;
 	min-height: 100%;
@@ -172,6 +168,52 @@ subview[ui-associations="withToolBar withTabBar"] {
 		to(rgba(0,0,0,0.1)));
 	-webkit-background-size: 6px 6px;
 	background-size: 6px 6px;
+}
+*[ui-background-style=vertical-striped-equal] {
+	background-image: 
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 10px 100%;
+	background-size: 10px 100%;
+}
+*[ui-background-style=horizontal-striped-equal] {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 100% 10px;
+	background-size: 100% 10px;
+}
+*[ui-background-style=slanted-left-equal] {
+	background-image: 
+		-webkit-gradient(linear, right top, left bottom,
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent));
+	-webkit-background-size: 15px 15px;
+	background-size: 15px 15px;
+}
+*[ui-background-style=slanted-right-equal] {
+	background-image: 
+		-webkit-gradient(linear, left top, right bottom, 
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent));
+	-webkit-background-size: 15px 15px;
+	background-size: 15px 15px;
 }
 *[ui-background-style=squared] {
 	background-image: 
@@ -489,9 +531,6 @@ icon {
     width: 23px;
     display: inline-block;
 }
-
-
-
 uibutton[ui-kind=icon] icon[style*="webkit-mask-image"], 
 uibutton[ui-kind=icon] icon[style*="webkit-mask-image"],
 icon[ui-implements="icon-mask"] {
@@ -511,7 +550,6 @@ uibutton[ui-implements="icon"] {
 
 /* End Toolbar Plain Icon Styles */
 
-    
 uibutton.disabled label, uibutton.disabled icon, 
 uibutton.disabled label, uibutton.disabled icon {
     opacity: 0.5;
@@ -543,7 +581,6 @@ uibutton[ui-icon-align=top] {
     -webkit-box-align: center;
     -webkit-box-orient: vertical !important;
 }
-
 uibutton[ui-icon-align=bottom] {
     display: -webkit-box;
     -webkit-background-clip: padding;
@@ -652,7 +689,7 @@ uibutton[ui-implements=back] > label {
 uibutton[ui-implements=back]:before,
 uibutton[ui-implements=back].disabled:hover:before,
 uibutton[ui-implements=back].disabled.touched:before {
-    content: " ";
+    content: "";
     display: block;
     z-index: 0;
     background-image: 
@@ -683,7 +720,8 @@ uibutton[ui-implements=back].disabled.touched:before {
     top: 2.5px;
     -webkit-background-clip: content;
 }
-uibutton[ui-implements=back]:hover:before {
+uibutton[ui-implements=back]:hover:before, 
+uibutton[ui-implements=back].touched:before {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
             from(#7d88a5), 
@@ -711,7 +749,7 @@ uibutton[ui-implements=next] > label {
 uibutton[ui-implements=next]:before,
 uibutton[ui-implements=next].disabled:hover:before, 
 uibutton[ui-implements=next].disabled.touched:before  {
-    content: " ";
+    content: "";
     display: block;
     z-index: 0;
     background-image: 
@@ -1502,17 +1540,29 @@ tableview > tablecell:hover, tableview > tablecell.touched {
             to(#194fdb));
     color: #fff;
 }
-
+tableview.ui-no-hover > tablecell:hover,
 tableview > tablecell.ui-no-hover:hover,
 tableview > tablecell.ui-no-hover.touched,
-tableview > tablecell.ui-no-hover:hover > celltitle {
+tableview.ui-no-hover > tablecell.touched,
+tableview.ui-no-hover > tablecell:hover > celltitle,
+tableview.ui-no-hover > tablecell.touched > celltitle,
+tableview > tablecell.ui-no-hover:hover > celltitle,
+tableview[ui-tablecell-order=stacked].ui-no-hover > tablecell:hover >cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover:hover >cellsubtitle,
+tableview[ui-tablecell-order=stacked].ui-no-hover > tablecell.touched >cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover.touched >cellsubtitle {
 	background-image: none !important;
 	color: #000 !important;
+	cursor: auto;
 }
 tableview > tablecell:hover > * {
 	color: #fff !important;
 }
-view tableview > tablecell.ui-no-hover:hover > cellsubtitle {
+tableview > tablecell.ui-no-hover > *, tableview.ui-no-hover > tablecell > * {
+    color: #000 !important
+}
+view tableview > tablecell.ui-no-hover:hover > cellsubtitle,
+view tableview.ui-no-hover > tablecell:hover > cellsubtitle {
 	color: #586B96 !important;
 }
 view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
@@ -2343,7 +2393,8 @@ switchcontrol > thumb {
     -webkit-transform: translateX(0px);
     -webkit-transform: translate3d(0px,0%,0%);
 }
-switchcontrol > thumb > thumbprop {
+switchcontrol > thumb:before {
+	content: "";
     display: block;
     -webkit-box-sizing: border-box;
     height: 25px;
@@ -2504,6 +2555,7 @@ screencover {
 screencover.hidden {
 	display: none;
 }
+/* End Action Sheet Styles */
 
 /* Styles for Slider */
 slider {
@@ -2544,7 +2596,8 @@ slider > thumb {
     -webkit-tap-highlight-color: transparent;
     overflow: hidden;
 }
-slider > thumb > thumbprop {
+slider > thumb:after {
+	content: "";
 	display: block;
     width 19px;
     height: 19px;
@@ -2573,7 +2626,7 @@ slider.media-player > thumb {
 	height: 20px;
 	width: 21px;
 }
-slider.media-player > thumb > thumbprop {
+slider.media-player > thumb:after{
     margin: 0;
     height: 100%;
     width: 100%;
@@ -2631,16 +2684,16 @@ tabbar > uibutton {
     margin: 3px 3px 3px 3px;
     padding: 4px 0 0 0;
 }
-tabbar > uibutton[implements=tab]:hover,
+tabbar > uibutton[ui-implements=tab]:hover,
 tabbar > uibutton.selected,
 tabbar > uibutton.touched {
     background: rgba(255, 255, 255, 0.15) !important;
 }
-tabbar > uibutton[implements=tab].disabled:hover {
+tabbar > uibutton[ui-implements=tab].disabled:hover {
     background: none !important;
 }
 tabbar > uibutton > icon,
-tabbar > uibutton[implements=tab].disabled:hover > icon {
+tabbar > uibutton[ui-implements=tab].disabled:hover > icon {
     display: block;
     margin: 0;
     height: 30px;
@@ -2655,8 +2708,8 @@ tabbar > uibutton[implements=tab].disabled:hover > icon {
     -webkit-mask-size: 30px 30px;
     background-size: 30px 30px;
 }
-tabbar > uibutton[implements=tab].disabled:hover > icon,
-tabbar > uibutton[implements=tab].disabled:hover {
+tabbar > uibutton[ui-implements=tab].disabled:hover > icon,
+tabbar > uibutton[ui-implements=tab].disabled:hover {
     cursor: default;
 }
 
@@ -2684,7 +2737,325 @@ tabbar > uibutton.touched > icon {
     color:#68B3DA;
 }
 /* End Tab Bar Styles */
-/* End Action Sheet Styles */
+
+/* Expander Styles */
+expander {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	height: auto;
+	position: relative;
+}
+expander > header {
+	position: relative;
+	z-index: 100;
+	padding-left: 40px;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,
+			from(#92a1bf),
+			color-stop(0.8, #546993),
+			color-stop(0.8, #a7babe),
+			to(#a7babe));
+	background-size: 100% 8px;
+	background-repeat: repeat-x;
+	padding-bottom: 8px;
+	cursor: pointer;
+	margin-top: 10px;
+} 
+expander > header > label {
+	display: inline-block;
+	background-color: #a8b1c3;
+	border-radius: 20px;
+	color: #fff;
+	text-shadow: 0 1px 1px #666;
+	position: absolute;
+	top: -14px;
+	padding: 2px 10px;
+	margin-left: 10px;
+	border: solid 2px #fff;
+	-webkit-box-shadow: 0 3px 4px rgba(0,0,0,0.25),  
+		0 -1px 4px rgba(0,0,0,0.25);
+	cursor: pointer;
+}
+expander > header:before {
+	content: "";
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -12px;
+	left: 10px;
+	border: solid 2px rgba(154,189,219,0.8);
+	background-color: #556a97;
+	border-radius: 20px;
+	-webkit-box-sizing: border-box;
+	-webkit-background-clip: padding-box;
+	padding: 2px;
+	-webkit-box-shadow: 
+		0 3px 4px rgba(0,0,0,0.25),  
+		0 -1px 4px rgba(0,0,0,0.25);
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#ddd), 
+			to(#556a97));
+			
+	
+} 
+expander > header:after {
+	content: "";
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -13px;
+	left: 10px;
+	border-radius: 30px;
+	-webkit-mask-image: url(../icons/arrow_right.svg);
+	-webkit-mask-repeat: no-repeat;
+	background-position: center center;
+	-webkit-mask-position: 50% 50%;
+	-webkit-mask-size: 20px 20px;
+	-webkit-box-sizing: border-box;
+	background-color: #fff;
+	cursor: pointer;
+	-webkit-transition: all 0.5s  ease-in-out;
+	-webkit-transform: rotate(0deg);
+	-webkit-mask-clip: border-box;
+} 
+expander > panel {
+	position: relative;
+	z-index: 1;
+	-webkit-transition: all 0.25s  ease-in-out;
+	opacity: 1;
+	-webkit-transform-origin-y: 0px;
+	overflow: hidden;
+	padding-bottom: 10px;
+} 
+expander.ui-status-expanded > header {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,
+			from(#92a1bf),
+			color-stop(0.8, #546993),
+			color-stop(0.8, rgba(0,0,0,0.1)),
+			to(rgba(0,0,0,0.15)));
+}
+expander.ui-status-expanded > panel {
+	opacity: 1;
+	background-color: rgba(0,0,0,0.1);
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,
+			from(#92a1bf),
+			color-stop(0.8, #546993),
+			color-stop(0.8, #a7babe),
+			to(#a7babe));
+	background-size: 100% 8px;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+} 
+expander.ui-status-expanded > header:after {
+	-webkit-transform: rotate(90deg);
+	-webkit-mask-position: 6px 4px;
+}
+expander.ui-status-expanded > header:before {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#ddd), 
+			to(#182743));
+}
+expander.ui-status-expanded > header > label {
+	background-color: #7a89a4;
+}
+/* End Expander Styles */
+/* Progress Bar Styles */
+progressbar {
+	display: block;
+	width: 100px;
+	height: 15px;
+	border: 1px solid #666;
+	border-bottom-color: #666;
+	border-top-color: #999;
+	margin: 10px auto;
+	position: relative;
+	-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	border-radius: 7px;
+	background-color: rgb(56,138,213);
+	background-image:
+		-webkit-gradient(linear, 0 0, 0 100%,
+			color-stop(0.20, transparent),
+			color-stop(0.20, rgba(255,255,255,.5)),
+			color-stop(0.32, rgba(255,255,255,.5)),
+			color-stop(0.32, transparent)),
+		-webkit-gradient(linear, 0 0, 0 100%,
+			color-stop(0, rgba(255,255,255,.85)),
+			color-stop(0.45, rgba(255,255,255,.05)),
+			color-stop(0.55, rgba(0,0,0,.05)),
+			color-stop(0.85, rgba(0,0,0,.2)),
+			color-stop(0.98, rgba(0,0,0,.5))),
+		-webkit-gradient(linear, 18 0, 0 10,
+			color-stop(0.23, rgba(255,255,255,0)),
+			color-stop(0.3, rgba(255,255,255,0.8)),
+			color-stop(0.3, rgba(255,255,255,1)),
+			color-stop(0.7, rgba(255,255,255,1)),
+			color-stop(0.7, rgba(255,255,255,0.85)),
+			color-stop(0.77, rgba(255,255,255,0)));
+	background-repeat: repeat-x;
+	-webkit-background-size: 20px 20px;
+	-webkit-background-position-x: 0%;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-name: progressBarAnim;
+	background-size: 20px 20px;
+	
+}
+/* Paging Control Styles */
+stack[ui-implements="paging"] {
+	margin: 0 auto;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-packing: start;
+	-webkit-box-align: center;
+	width: 320px;
+	height: 280px;
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+stack[ui-implements="paging"] > panel {
+	display: block !important;
+	-webkit-box-flex: 0;
+}
+stack[ui-implements="paging"] > panel > stack {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+stack[ui-implements="paging"] > panel > stack > panel {
+	-webkit-box-sizing: border-box;
+	display: block !important; 
+	width: 320px; 
+	height: 280px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 140%;
+	padding: 10px;
+}
+stack[ui-implements="indicators"] {
+	display: -webkit-box; 
+	width: 320px;
+	padding: 10px 10px 10px 10px;
+	-webkit-box-sizing: border-box;
+	-webkit-box-orient: horizontal; 
+	-wekit-box-align: center; 
+	-webkit-box-pack: center;
+	margin: 0 auto 10px auto;
+}
+stack[ui-implements="indicators"] > indicator {
+	display: block;
+	width: 8px; 
+	height: 8px;
+	-webkit-border-radius:4px;
+	background-color: #ddd;
+	overflow: hidden;
+	margin-right: 10px;
+}
+stack[ui-implements="indicators"] > indicator.active {
+	background-color: #888;
+}
+stack[ui-implements="indicators"] > indicator:first-child {
+	margin-left: 0;
+}
+stack[ui-implements="indicators"] > indicator:last-child {
+	margin: 0;
+}
+stack[ui-implements="paging"] > panel panel > h4 {
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+}
+stack[ui-implements="paging"] > panel panel > p {
+	text-align: left;
+	margin: 0;
+}
+stack[ui-implements=paging], stack[ui-implements=indicators] {
+	background-color: #fff;
+}
+/* End Paging Control Styles */
+/* Spinner Styles */
+spinner {
+	display: -webkit-inline-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+}
+spinner > input {
+	margin: 0;
+	display: none;
+}
+spinner > label {
+	display: inline-block;
+	-webkit-box-sizing: border-box;
+	border: solid 1px #484e59;
+	border-bottom-color: #4c5c7a;
+	width: 50px;
+	height: 31px;
+	font: bold 16px/30px Helvetica;
+	text-align: center;
+}
+spinner > uibutton {
+	display: -inline-box;
+	-webkit-box-sizing: border-box;
+	width: 33px;
+}
+tablecell:hover spinner > uibutton > label {
+	color: #000 !important;
+}
+spinner > uibutton:hover {
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#7d88a5), 
+			color-stop(0.25, #58698c),
+			color-stop(0.5, #3a4e78), 
+			color-stop(0.5, #253c6a), 
+			color-stop(0.75, #273f6d),
+			to(#273f6d));
+	-webkit-tap-highlight-color: transparent;
+}
+spinner > uibutton > icon {
+	background-color: #fff !important;
+}
+spinner > uibutton:first-of-type {
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	margin-right: 0;
+}
+spinner > uibutton:last-of-type {
+	-webkit-border-top-left-radius: 0;
+	-webkit-border-bottom-left-radius: 0;
+	margin-left: 0;
+}
+spinner > uibutton:first-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_down.svg);
+}
+spinner > uibutton:last-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_up.svg);
+}
+spinner > uibutton:first-of-type > icon.indicator {
+	-webkit-mask-image: url(../icons/minus.svg);
+}
+spinner > uibutton:last-of-type > icon.indicator {
+	-webkit-mask-image: url(../icons/add.svg);
+}
+spinner > uibutton.disabled > span {
+	opacity: 0.5;
+}
+/* End Spinner Styels*/
+@-webkit-keyframes progressBarAnim {
+	0% { background-position-x:  0%, 0%, 0%; }
+	100% { background-position-x: 0%,  0%,  100%; }
+}
+/*  End Progress Bar Styles */
 .UIActivityIndicator {
 	background-image: -webkit-canvas(area);
 }
@@ -2984,28 +3355,82 @@ subview[ui-paging-orient] {
 	-webkit-transform: translate3d(0,0,0);
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=upcoming] {
+	-webkit-transform: translateX(100%);
 	-webkit-transform: translate3d(100%,0%,0%);
 	opacity: 0;
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=current] {
+	-webkit-transform: translateX(0%);
 	-webkit-transform: translate3d(0%,0%, 0%);
 	opacity: 1;
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=traversed] {
+	-webkit-transform: translateX(-100%);
 	-webkit-transform: translate3d(-100%, 0%, 0%);
 	opacity: 0;
 }
 
 
 subview[ui-paging-orient=vertical][ui-navigation-status=upcoming] {
+	-webkit-transform: translateY(100%);
 	-webkit-transform: translate3d(0%,100%,0%);
 	opacity: 0;
 }
 subview[ui-paging-orient=vertical][ui-navigation-status=current] {
+	-webkit-transform: translateY(0%);
 	-webkit-transform: translate3d(0%,0%, 0%);
 	opacity: 1;
 }
 subview[ui-paging-orient=vertical][ui-navigation-status=traversed] {
+	-webkit-transform: translateY(-100%);
 	-webkit-transform: translate3d(0%, -100%, 0%);
 	opacity: 0;
 }
+app[ui-kind="navigation-with-one-navbar"] > navbar > uibutton[ui-implements="back"] {
+	display: none;
+}
+
+/* Cube Transtion */
+view[ui-transition=cube] > *,
+subview[ui-transition=cube] > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+}
+,
+view[ui-transition=cube][ui-transition-state=initial] > *,
+subview[ui-transition=cube][ui-transition-state=initial] > * {
+  -webkit-transition-duration: 0;
+}
+
+view[ui-transition=cube][ui-transition-state=final] > *,
+subview[ui-transition=cube][ui-transition-state=final] > * {
+  -webkit-transition-duration: 1000ms;
+}
+
+view[ui-transition=cube][ui-transition-state="slowmode final" > *,
+subview[ui-transition=cube][ui-transition-state="slowmode final" > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+view[ui-transition=cube][ui-transition-state="initial outgoing"],
+subview[ui-transition=cube][ui-transition-state="initial outgoing"] {
+  /* The z translate is half the width */
+  -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
+}
+
+view[ui-transition=cube][ui-transition-state="initial incoming"],
+subview[ui-transition=cube][ui-transition-state="initial incoming"] {
+  -webkit-transform: translateZ(-512px) rotateY(90deg) translateZ(512px);
+}
+
+/* final state */
+view[ui-transition=cube][ui-transition-state="final outgoing"] ,
+subview[ui-transition=cube][ui-transition-state="final outgoing"] {
+  -webkit-transform: translateZ(-512px) rotateY(-90deg) translateZ(512px);
+}
+
+view[ui-transition=cube][ui-transition-state="final incoming"],
+subview[ui-transition=cube][ui-transition-state="final incoming"] {
+  -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
+}
+/* End Cube Transition */
