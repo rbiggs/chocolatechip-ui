@@ -128,47 +128,47 @@ $.extend($, {
     UIFirstTapTime : 0,
     UINavigationList : function() {
         $.app.delegate("tablecell", "click", function(item) {
-			var ancestor = item.ancestor("view");
-			if ($("tableview", ancestor).hasAttribute("ui-show-delete-disclosures")) {
+			if (item.ancestor("tableview").hasClass("ui-show-delete-disclosures")) {
 				return false;
-			}
-            setTimeout(function() {
-                var navigateList = function(item) {
-                    if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar") {
-                        $("navbar > uibutton[ui-implements=back]", $.app).css("{display: block;}");
-                    }
-                    $(item.getAttribute("href")).setAttribute("ui-navigation-status", "current");
-                    $($.UINavigationHistory[$.UINavigationHistory.length-1]).setAttribute("ui-navigation-status", "traversed");
-                    if ($("#main").getAttribute("ui-navigation-status") !== "traversed") {
-                        $("#main").setAttribute("ui-navigation-status", "traversed");
-                    }
-                    $.UINavigationHistory.push(item.getAttribute("href"));
-                    $.UIHideURLbar();  
-                };
-                if (item.hasAttribute("href")) {
-                    if ($.UIFirstTapTime === 0) {
-                        navigateList(item);
-                        $.UIFirstTapTime = new Date().getTime();
-                    } else if ((new Date().getTime() - $.UIFirstTapTime) >= 2500) {
-                        $.UIFirstTapTime = 0;
-                        navigateList(item);
-                    } else if ($.UIFirstTapTime > 0 ) {
-                        if ($.ipad) {
-                            if ((new Date().getTime() - $.UIFirstTapTime) < 2500) {
-                                $.UIFirstTapTime = 0;
-                                return false;
-                            }
-                        }
-                        if ((new Date().getTime() - $.UIFirstTapTime) < 2000) {
-                            $.UIFirstTapTime = 0;
-                            return false;
-                        } else {
-                            navigateList(item);
-                        }
-                    } 
-                }
-            }, 50);
-        });
+			} else {
+	            setTimeout(function() {
+	                var navigateList = function(item) {
+	                    if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar") {
+	                        $("navbar > uibutton[ui-implements=back]", $.app).css("{display: block;}");
+	                    }
+	                    $(item.getAttribute("href")).setAttribute("ui-navigation-status", "current");
+	                    $($.UINavigationHistory[$.UINavigationHistory.length-1]).setAttribute("ui-navigation-status", "traversed");
+	                    if ($("#main").getAttribute("ui-navigation-status") !== "traversed") {
+	                        $("#main").setAttribute("ui-navigation-status", "traversed");
+	                    }
+	                    $.UINavigationHistory.push(item.getAttribute("href"));
+	                    $.UIHideURLbar();  
+	                };
+	                if (item.hasAttribute("href")) {
+	                    if ($.UIFirstTapTime === 0) {
+	                        navigateList(item);
+	                        $.UIFirstTapTime = new Date().getTime();
+	                    } else if ((new Date().getTime() - $.UIFirstTapTime) >= 2500) {
+	                        $.UIFirstTapTime = 0;
+	                        navigateList(item);
+	                    } else if ($.UIFirstTapTime > 0 ) {
+	                        if ($.ipad) {
+	                            if ((new Date().getTime() - $.UIFirstTapTime) < 2500) {
+	                                $.UIFirstTapTime = 0;
+	                                return false;
+	                            }
+	                        }
+	                        if ((new Date().getTime() - $.UIFirstTapTime) < 2000) {
+	                            $.UIFirstTapTime = 0;
+	                            return false;
+	                        } else {
+	                            navigateList(item);
+	                        }
+	                    } 
+	                }
+	            }, 50);
+	         }
+	    });
     }
 });
 $.ready(function() {
