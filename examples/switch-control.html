@@ -62,7 +62,7 @@
 				value : "sort of working",
 				callback : function(item) {
 					var className = item.className;
-					if (this.checked = true) {
+					if (item.checked === false) {
 						console.log("This is on!");
 					} else {
 						console.log("This is turned off!!!");
@@ -72,7 +72,7 @@
 			
 			// Uncomment this line to see dynamically created
 			// switch control inserted in response paragraph:
-			//$("p:last-of-type").UICreateSwitchControl(switchOpts);
+			$("p:last-of-type").UICreateSwitchControl(switchOpts);
 		});
 		
 	</script>
