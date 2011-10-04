@@ -6,16 +6,16 @@
   /OOOOOOOO\
  ((OOOOOOOO))
   \:~=++=~:/  
-	   
+		
 ChocolateChip.js: It's tiny but delicious
 A JavaScript library for mobile Web app development.
-
+ 
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
 Version 1.1.7
-
+ 
 */
-
+ 
 (function() {
 	var $ = function ( selector, context ) {
 		if (!!context) {
@@ -25,16 +25,17 @@ Version 1.1.7
 				return context.querySelector(selector);
 			} 
 		} else if (typeof selector === "function") {
-			return $.ready(function() {
+			$.ready(function() {
 				selector.call(selector);
+				return this;
 			});
 		} else {
 			return document.querySelector(selector);
 		}
+		return false;
 	};
-
+ 
 	$.extend = function(obj, prop) {
-		var extendedObj = null;
 		if (!Object.keys) {
 			if (!prop) {
 				prop = obj;
@@ -45,7 +46,7 @@ Version 1.1.7
 			}
 			return obj;
 		} else {
-			extendedObj = Object.keys(prop).forEach(function(p) {
+			Object.keys(prop).forEach(function(p) {
 				if (prop.hasOwnProperty(p)) {
 					Object.defineProperty(obj, p, {
 						value: prop[p],
@@ -55,14 +56,14 @@ Version 1.1.7
 					});
 				}
 			});
-			return extendedObj;
 		}
+		return this;
 	};
-	
+	 
 	$.extend($, {
-
+ 
 		version : "1.1.7",
-		
+		 
 		collectionToArray : function ( collection ) {
 			var array = [];
 			var i = 0, len = collection.length;
@@ -72,7 +73,7 @@ Version 1.1.7
 			}
 			return array;
 		},
-		
+		 
 		$$ : function ( selector, context ) {
 			if (!!context) {
 				if (typeof context === "string") {
@@ -84,7 +85,7 @@ Version 1.1.7
 				return $.collectionToArray(document.querySelectorAll(selector));
 			}
 		},
-		
+		 
 		make : function ( HTMLString ) {
 			var nodes = [];
 			var temp = document.createElement("div");
@@ -97,11 +98,11 @@ Version 1.1.7
 			}
 			return nodes;
 		},
-		
+		 
 		replace : function ( newElem, oldElem ) {
 			 oldElem.parentNode.replaceChild(newElem, oldElem);
 		},
-		
+		 
 		processJSON : function ( data ) {
 			var script = document.createElement("script");
 			script.setAttribute("type", "text/javascript");
@@ -116,31 +117,31 @@ Version 1.1.7
 		}
 	});
 	$.extend(HTMLElement.prototype, {
-		
+	
 		find : function ( selector ) {
 			return $(selector, this);
 		},
 		
-		findAll : function( selector ) {
+		findAll : function ( selector ) {
 			return $$(selector, this);
 		},
-		
+			 
 		previous : function ( ) {
 			return this.previousElementSibling;
 		},
-	
+	 
 		next : function ( ) {
 			return this.nextElementSibling;
 		},
-		
+		 
 		first : function ( ) {
 			return this.firstElementChild;
 		},
-		
+		 
 		last : function ( ) {
 			return this.lastElementChild;
 		},
-	
+	 
 		ancestor : function( selector ) {
 			var idCheck = new RegExp("^#");
 			var classCheck = new RegExp("^.");
@@ -190,7 +191,7 @@ Version 1.1.7
 			   } 
 			}
 		}, 
-		
+		 
 		clone : function ( value ) {
 			if (value === true || !value) {
 				return this.cloneNode(true);
@@ -198,7 +199,7 @@ Version 1.1.7
 				return this.cloneNode(false);
 			}
 		},
-		
+		 
 		wrap : function ( string ) {
 			var tempNode = $.make(string);
 			tempNode = tempNode[0];
@@ -208,7 +209,7 @@ Version 1.1.7
 			this.remove(this); 
 			return this;
 		},
-		
+		 
 		unwrap : function ( ) {
 			if (this.parentNode.nodeName === "BODY") {
 				return false;
@@ -217,7 +218,7 @@ Version 1.1.7
 			$.replace(element, this.parentNode);
 			return this;
 		},
-		
+		 
 		text : function ( value ) {
 			if (!!value) {
 				this.innerText = value;
@@ -226,7 +227,7 @@ Version 1.1.7
 				return this.innerText;
 			}
 		},
-		
+		 
 		fill : function ( content ) {
 			this.empty();
 			if (typeof content === "string") {
@@ -236,19 +237,18 @@ Version 1.1.7
 			}
 			return this;
 		},
-		
+		 
 		empty : function ( ) {
 			this.removeEvents();
 			this.textContent = "";
 			return this;
 		},
-		
+		 
 		remove : function ( ) {
 			this.removeEvents();
 			this.parentNode.removeChild(this);
-			return this;
 		},
-		
+		 
 		insert : function ( content, position ) {
 			var c = "";
 			if (typeof content === "string") {
@@ -279,7 +279,7 @@ Version 1.1.7
 			}
 			return this;
 		},
-		
+		 
 		before : function ( content ) {
 			if (content.constructor === Array) {
 			   var len = content.length;
@@ -293,7 +293,7 @@ Version 1.1.7
 			}
 			return this;
 		},
-		
+		 
 		after : function ( content ) {
 			var parent = this.parentNode;
 			if (content.constructor === Array) {
@@ -315,18 +315,18 @@ Version 1.1.7
 			}
 			return this;
 		},
-		
+		 
 		hasClass : function ( className ) {
 			return new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)').test(this.className);
 		},
-		
+		 
 		addClass : function ( className ) {
 			if (!this.hasClass(className)) {
 				this.className = [this.className, className].join(' ').replace(/^\s*|\s*$/g, "");
 				return this;
 			}
 		},
-		
+		 
 		removeClass : function ( className ) {
 			if (this.hasClass(className)) {
 				var currentClasses = this.className;
@@ -334,20 +334,20 @@ Version 1.1.7
 				return this;
 			}
 		},
-		
+		 
 		disable : function ( ) {
 			this.addClass("disabled");
 			this.css("{cursor: default;}");
 			this.preventDefault();
 			return this;
 		},
-		
+		 
 		enable : function ( ) {
 			this.removeClass("disabled");
 			this.css("{cursor: pointer;}");
 			return this;
 		},
-		
+		 
 		toggleClass : function ( firstClassName, secondClassName ) {
 		   if (!secondClassName) {
 			   if (!this.hasClass(firstClassName)) {
@@ -366,7 +366,7 @@ Version 1.1.7
 			}
 			return this;
 		},
-		
+		 
 		getTop : function() {
 			var element = this;
 			var pos = 0;
@@ -377,8 +377,8 @@ Version 1.1.7
 			pos = pos + document.body.offsetTop;
 			return pos;
 		},
-		
-		getLeft : function() {
+		 
+		getLeft : function(element) {
 			element = this;
 			var pos = 0;
 			while (element.offsetParent) {
@@ -388,30 +388,33 @@ Version 1.1.7
 			pos = pos + document.body.offsetLeft;
 			return pos;
 		},
-		
-        css : function ( property, value ) {
-        	if (property instanceof Object) {
-        		for (key in property) {
-        			this.style[key] = property[key];
-        		}
-        	} else if (typeof property === "string" && /:/.test(property) && !value) {
-                this.style.cssText += property;
-            } else if (!value) {
-                return document.defaultView.getComputedStyle(this, null).getPropertyValue(property.toLowerCase());
-            } else if (value) {
-                this.style.cssText += property + ":" + value + ";";
-                return this;
-            } 
-        },
-		
+		 
+		css : function ( property, value ) {
+			if (property instanceof Object) {
+				for (var key in property) {
+					this.style[key] = property[key];
+				}
+			} else if (typeof property === "string" && (/:/).test(property) && !value) {
+				this.style.cssText += property;
+			} else if (!value) {
+				return document.defaultView.getComputedStyle(this, null).getPropertyValue(property.toLowerCase());
+			} else if (value) {
+				this.style.cssText += property + ":" + value + ";";
+				return this;
+			} else {
+				return false;
+			}
+			return this;
+		},
+		 
 		bind : function( event, callback ) {
 			this.addEventListener(event, callback, false);
 		},
-		
+		 
 		unbind : function( event, callback ) {
 			this.removeEventListener( event, callback, false );
 		},
-	  
+	   
 		removeEvents : function ( ) {
 			var i = 0, len = $.events.length;
 			while (i < len) {
@@ -419,7 +422,7 @@ Version 1.1.7
 				i++;
 			}
 		},
-		
+		 
 		delegate : function ( selector, event, callback ) {
 			this.addEventListener(event, function(e) {
 				var target = e.target;
@@ -438,7 +441,7 @@ Version 1.1.7
 				});
 			}, false);
 		},
-		
+		 
 		trigger : function ( event ) {
 			if( document.createEvent ) {
 			  var evtObj = document.createEvent('Events');
@@ -446,22 +449,19 @@ Version 1.1.7
 			  this.dispatchEvent(evtObj);
 			}
 		},
-		
-		anim : function ( options, duration, easing ) {
-			var onEnd = function() {};
-			var value = "-webkit-transition: all " + (duration + " " || ".5s ") + easing + ";" || "" + ";";
-			for (var prop in options) {
+		 
+		anim : function ( options ) {
+			var onEnd = null;
+			var value = "-webkit-transition: all " + (options.duration + " " || ".5s ") + (options.easing + ";") || "linear;";
+			for (var prop in options.values) {
 				if (prop === "onEnd") {
-					onEnd = options[prop];
+					onEnd = options.values[prop];
+					this.bind("webkitTransitionEnd", onEnd());
 				} else {
-					value += prop + ":" + options[prop] + ";";
+					value += prop + ":" + options.values[prop] + ";";
 				}
 			}
-			
-			this.bind("webkitTransitionEnd", function() {
-				onEnd();
-			});
-			this.css("{" + value + "}");
+			this.css(value);
 		},
 		xhr : function ( url, options ) {
 			var o = options ? options : {};
@@ -504,7 +504,7 @@ Version 1.1.7
 			if(!async) hdl();
 			return this;
 		},
-		
+		 
 		xhrjson : function ( url, options ) {
 			if (options === "undefined") {
 				return this;
@@ -516,6 +516,7 @@ Version 1.1.7
 				};
 			}
 			var callback = function () {
+				//var o = eval('(' + this.responseText + ')');
 				var o = JSON.parse(this.responseText);
 				for (var prop in o) {
 					$(options[prop]).fill(c(o[prop]));
@@ -525,7 +526,7 @@ Version 1.1.7
 			this.xhr(url, options);
 			return this;
 		},
-		 
+
 		data : function ( key, value ) {
 			if (!!document.documentElement.dataset) {
 				key = key.camelize();
@@ -541,7 +542,6 @@ Version 1.1.7
 					} else {
 						this.dataset[key] = value;
 					}
-					return this;
 				}
 			// Fallback for earlier versions of Webkit:
 		   } else {
@@ -557,11 +557,11 @@ Version 1.1.7
 					} else {
 						this.setAttribute("data-" + key, value);
 					}
-					return this;
 				} 
 			}
+			return this;
 		},
-		
+		 
 		removeData : function ( key ) {
 			if (!!document.documentElement.dataset) {
 				key = key.camelize();
@@ -571,7 +571,7 @@ Version 1.1.7
 				this.removeAttribute("data-" + key);
 			}
 		},
-
+ 
 		UICheckForOverflow : function (){
 			var origOverflow = this.css("overflow");
 			if ( !origOverflow || origOverflow === "visible" ) {
@@ -580,18 +580,18 @@ Version 1.1.7
 			var overflow = this.clientWidth < this.scrollWidth || 
 			   this.clientHeight < this.scrollHeight;
 			this.css("overflow", origOverflow);
-	
+	 
 			return overflow;
 		}		 
 	});
-	
+	 
 	$.extend(String.prototype, {
-	
+	 
 		capitalize : function ( ) {
 			var str = this;
 			return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 		},
-		
+		 
 		capitalizeAll : function ( ) {
 			var str = this.split(" ");
 			var newstr = [];
@@ -607,28 +607,28 @@ Version 1.1.7
 			return this.replace(/([A-Z])/g, '-$1').toLowerCase();
 		}
 	});
-	
-	
+	 
+	 
 	$.extend($, {
-		
+		 
 		delay : function ( fnc, time ) {
 			var argv = Array.prototype.slice.call(arguments, 2);
 			return setTimeout(function() { 
 				return fnc.apply(fnc, argv); 
 			}, time);
 		},
-		
+		 
 		defer : function ( fnc ) {
 			return $.delay.apply($, [fnc, 1].concat(Array.prototype.slice.call(arguments, 1)));
 		},
-		
+		 
 		enclose : function(func, enclosure) {
 			return function() {
 				var args = [func].concat(Array.prototype.slice.call(arguments));
 				return enclosure.apply(enclosure, args);
 			};
 		},
-		
+		 
 		compose : function() {
 			var funcs = Array.prototype.slice.call(arguments);
 			return function() {
@@ -639,9 +639,9 @@ Version 1.1.7
 				return args[0];
 			};
 		},
-		
+		 
 		events : ['onmousedown', 'onmouseup', 'onmouseover', 'onmouseout', 'onclick', 'onmousemove', 'ondblclick', 'onerror', 'onresize', 'onscroll', 'onkeydown', 'onkeyup', 'onkeypress', 'onchange', 'onsubmit', 'onload', 'ontouchstart', 'ontouchmove', 'ontouchend', 'ontouchcancel', 'ongesturestart', 'ongesturechange', 'ongestureend', 'onorientationchange'],
-		
+		 
 		loadEvent : function ( F ) {
 			var oldonload = window.onload;
 			if (typeof window.onload !== 'function') {
@@ -653,9 +653,9 @@ Version 1.1.7
 			   };
 			}
 		},
-		
+		 
 		DOMReadyList : [],
-		
+		 
 		executeWhenDOMReady : function ( ) {
 			var listLen = $.DOMReadyList.length;
 			var i = 0;
@@ -666,37 +666,37 @@ Version 1.1.7
 			$.DOMReadyList = null;
 			document.removeEventListener('DOMContentLoaded', $.executeWhenDOMReady, false);
 		},
-		
+		 
 		ready : function ( callback ) {
 			if ($.DOMReadyList.length === 0) {
 				document.addEventListener('DOMContentLoaded', $.executeWhenDOMReady, false);
 			}
-	
+	 
 			$.DOMReadyList.push(callback);
 		},
-		
+		 
 		UIHideURLbar : function() {
 			window.scrollTo(0, 1);
 		},
-		
+		 
 		importScript : function ( url ) {
 			var script = document.createElement("script");
 			script.setAttribute("type", "text/javascript");
 			script.setAttribute("src", url);
 			$("head").appendChild(script);
 		},
-	
-		iphone : /iphone/i.test(navigator.userAgent),
-		ipad : /ipad/i.test(navigator.userAgent),
-		ipod : /ipod/i.test(navigator.userAgent),
-		ios : /ip(hone|od|ad)/i.test(navigator.userAgent),
-		android : /android/i.test(navigator.userAgent),
-		webos : /webos/i.test(navigator.userAgent),
-		blackberry : /blackberry/i.test(navigator.userAgent),
+	 
+		iphone : /iphone/img.test(navigator.userAgent),
+		ipad : /ipad/img.test(navigator.userAgent),
+		ipod : /ipod/img.test(navigator.userAgent),
+		ios : /ip(hone|od|ad)/img.test(navigator.userAgent),
+		android : /android/img.test(navigator.userAgent),
+		webos : /webos/img.test(navigator.userAgent),
+		blackberry : /blackberry/img.test(navigator.userAgent),
 		touchEnabled : ("createTouch" in document),
 		online :  navigator.onLine,
 		standalone : navigator.standalone,
-		
+		 
 		localItem : function ( key, value ) {
 			try {
 				if (!value) {
@@ -710,16 +710,14 @@ Version 1.1.7
 				} 
 				if (typeof value === "object") {
 					value = JSON.stringify(value);
-					return value;
 				}
 				localStorage.setItem(key, value);
 			} catch(err) {
-				if (err === "QUOTA_EXCEEDED_ERR") {
+				if (e === "QUOTA_EXCEEDED_ERR") {
 					console.error('Quota exceeded for localStorage!');
-					return false;
 				}
 			} 
-			return false;
+			return this;
 		},
 		deleteLocalItem : function ( key ) {
 			try {
@@ -729,9 +727,9 @@ Version 1.1.7
 		clearLocalItems : function ( ) {
 			localStorage.clear();
 		},
-		
+		 
 		templates : {},
-		
+		 
 		template : function(str, data) {
 			if ($.ajaxStatus === null || $.ajaxStatus === false) {
 				return data;
@@ -744,13 +742,13 @@ Version 1.1.7
 			var tmpl = 'var p=[],print=function(){p.push.apply(p,arguments);};with(obj||{}){p.push(\''; 
 			var regex1; 
 			var regex2;
-			if (/\{\{/.test(str) || (/$\{/.test(str))) {
+			if (/\{\{/.test(str) || (/$\{/).test(str)) {
 				regex1 = /\$\{([\s\S]+?)\}/g;
 				regex2 = /\{\{([\s\S]+?)\}\}/g;
-			} else if (/\[\[/.test(str) || (/$\[/.test(str))) {
+			} else if (/\[\[/.test(str) || (/$\[/).test(str)) {
 				regex1 = /\$\[([\s\S]+?)\]/g;
 				regex2 = /\[\[([\s\S]+?)\]\]/g;
-			} else if (/<%=/.test(str) || (/<%/.test(str))) {
+			} else if (/<%=/.test(str) || (/<%/).test(str)) {
 				regex1 = /<%=([\s\S]+?)%>/g;
 				regex2 = /<%([\s\S]+?)%>/g;
 			}	
@@ -770,7 +768,7 @@ Version 1.1.7
 			var fn = new Function('obj', tmpl);
 			return data ? fn(data) : fn;
 		},
-		
+		 
 		UIUpdateOrientationChange : function ( ) {
 			var body = $("body");
 			document.addEventListener("orientationchange", function() {
@@ -786,7 +784,7 @@ Version 1.1.7
 				$.UIHideURLbar();
 			}, false);		
 		},
-		
+		 
 		UIListenForWindowResize : function ( ) {
 			var body = $("body");
 			window.addEventListener("resize", function() {
@@ -813,7 +811,7 @@ Version 1.1.7
 					this.observers[key].push(observer);
 				}
 			};
-	
+	 
 			// Set a value of this object, and inform observers of the assignment:
 			this.set = function(key, value) {
 				if (this.observers !== null && this.observers[key] !== null) {
@@ -882,7 +880,7 @@ Version 1.1.7
 					});
 					return result;
 				}
-			}	
+			}	  
 			formValues.forEach(function(item) {
 				var value = item.value;
 				if (value !== '') {
@@ -945,7 +943,7 @@ $.ready(function() {
 	$.UIUpdateOrientationChange();
 	$.UIListenForWindowResize();
 });
-
+ 
 if (!Function.prototype.bind) {
 	Function.prototype.bind = function(func, obj) {
 		var args = Array.prototype.slice.call(arguments, 2);

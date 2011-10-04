@@ -1269,92 +1269,87 @@ $.extend($, {
 		}
 	}	
 });
-
-$.extend($, {
+$(function() {
+	$.extend($, {
+		UIPopUpIsActive : null,
+		UIPopUpIdentifier : null,
 	
-	UIPopUpIsActive : null,
-	UIPopUpIdentifier : null,
-	
-	UIPopUp : function( opts ) {
-		var selector = null;
-		if (opts.selector) {
-			selector = opts.selector;
-		} else {
-			return;
-		}
-		var title = "Alert!";
-		if (opts.title) {
-			title = opts.title;
-		}
-		var message = "";
-		if (opts.message) {
-			message = opts.message;
-		}
-		var cancelUIButton = "Cancel";
-		if (opts.cancelUIButton) {
-			cancelUIButton = opts.cancelUIButton;
-		}
-		var continueUIButton = "Continue";
-		if (opts.continueUIButton) {
-			continueUIButton = opts.continueUIButton;
-		}
-		var popup = '<popup ui-visible-state="hidden"><panel>';
-		popup += '<toolbar ui-placement="top"><h1>' + title + '</h1></toolbar>';
-		popup += '<p>' + message +'</p><toolbar ui-placement="bottom">';
-		popup += '<uibutton ui-kind="action" ui-implements="cancel"><label>' + cancelUIButton + '</label></uibutton>';
-		popup += '<uibutton ui-kind="action" ui-implements="continue"><label>' + continueUIButton + '</label></uibutton></toolbar></panel></popup>';
-		$(selector).UIScreenCover();
-		$(selector).insertAdjacentHTML("beforeEnd", popup);
-		$(selector + " popup uibutton").forEach(function(button) {
-			button.addEventListener("click", function(e) {
-				e.preventDefault();
-				$(selector + " screencover").setAttribute("ui-visible-state", "hidden");
-				$(selector + " popup").setAttribute("ui-visible-state", "hidden");
-			}, false);
-			$.UIPopUpIsActive = false;
-			$.UIPopUpIdentifier = null;
-			popupUIButtons[i].addEventListener("touchend", function(e) {
-				e.preventDefault();
-				$(selector + " screencover").setAttribute("ui-visible-state", "hidden");
-				$(selector + " popup").setAttribute("ui-visible-state", "hidden");
-			}, false);
-			$.UIPopUpIsActive = false;
-			$.UIPopUpIdentifier = null;
-		});
-		if (opts.callback) {
-			var callbackSelector = selector + " popup uibutton[ui-implements=continue]";
-			$(callbackSelector).addEventListener("click", function() {
-				opts.callback.call(opts.callback, this);
+		UIPopUp : function( opts ) {
+			var id = opts.id || $.UIUuid();
+			var title = opts.title || "Alert!";
+			var message = opts.message || "";
+			var cancelUIButton = opts.cancelUIButton || "Cancel";
+			var continueUIButton = opts.continueUIButton || "Continue";
+			var callback = opts.callback || function() {};
+			var popup = '<popup id=' + id + ' ui-visible-state="hidden">\
+				<panel>\
+					<toolbar ui-placement="top">\
+						<h1>' + title + '</h1>\
+					</toolbar>\
+					<p>' + message + '</p>\
+					<toolbar ui-placement="bottom">\
+						<uibutton ui-kind="action" ui-implements="cancel">\
+							<label>' + cancelUIButton + '</label>\
+						</uibutton>\
+						<uibutton ui-kind="action" ui-implements="continue">\
+							<label>' + continueUIButton + '</label>\
+						</uibutton>\
+					</toolbar>\
+				</panel>\
+			</popup>';
+			$("app").UIScreenCover();
+			$("app").insertAdjacentHTML("beforeEnd", popup);
+			var popupBtn = "#" + id + " uibutton";
+			$$(popupBtn).forEach(function(button) {
+			  	button.addEventListener("click", function(e) {
+	                e.preventDefault();
+	                $("screencover").setAttribute("ui-visible-state", "hidden");
+	                $("#" + id).setAttribute("ui-visible-state", "hidden");
+	            }, false);
+	            $.UIPopUpIsActive = false;
+	            $.UIPopUpIdentifier = null;
+	            button.addEventListener("touchend", function(e) {
+	                e.preventDefault();
+	                $("screencover").setAttribute("ui-visible-state", "hidden");
+	                $("#" + id).setAttribute("ui-visible-state", "hidden");
+	            }, false);
+	            $.UIPopUpIsActive = false;
+	            $.UIPopUpIdentifier = null;
+	        });
+			var callbackSelector = "#" + id + " uibutton[ui-implements=continue]";
+			$(callbackSelector).bind("click", function() {
+				callback.call(callback, this);
 			}, false);
 		}
-	}
+	});
 });
 
 $.extend($, {
 	UIPopUpIsActive : false,
 	UIPopUpIdentifier : null,
 	UIScreenCoverIdentifier : null,
-	UIShowPopUp : function( selector ) {
+	UIShowPopUp : function( popup ) {
 		$.UIPopUpIsActive = true;
 		$.UIPopUpIdentifier = selector;
-		var screenCover = $(selector + " screencover");
+		var screenCover = $("screencover");
 		$.UIScreenCoverIdentifier = screenCover;
 		screenCover.addEventListener("touchmove", function(e) {
 			e.preventDefault();
 		}, false );
-		$.UIPositionScreenCover(screenCover);
+		$.UIPositionScreenCover(screenCover); 
 		$.UIPositionPopUp(selector);
-		$(selector + " screencover").setAttribute("ui-visible-state", "visible");
-		$(selector + " popup").setAttribute("ui-visible-state", "visible");
+		screenCover.setAttribute("ui-visible-state", "visible");
+		$(popup).setAttribute("ui-visible-state", "visible");
+		
 	},
 	UIPositionScreenCover : function(screenCover) {
 		screenCover.cssText = "height:" + (window.innerHeight + window.pageYOffset) + "px";
-		var popup = $($.UIPopUpIdentifier + " popup");
+		var popup = $($.UIPopUpIdentifier);
 	},
 	UIPositionPopUp : function(selector) {
 		$.UIPopUpIsActive = true;
 		$.UIPopUpIdentifier = selector;
-		var popup = $(selector + " popup");
+		var popup = $(selector);
 		
 		popup.style.top = ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + "px";
 		popup.style.left = (window.innerWidth / 2) - (popup.clientWidth / 2) + "px";

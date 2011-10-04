@@ -21,9 +21,9 @@ Version: 0.8.6 beta
 
 */
 
-const CHUIVersion = "0.8.6 beta";
+const CHUIVersion = "0.8.8 beta";
     
-const UIExpectedChocolateChipJSVersion = "1.1.6"; 
+const UIExpectedChocolateChipJSVersion = "1.1.7"; 
 
 UICheckChocolateChipJSVersion = function() {
     if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -1359,10 +1359,8 @@ $.extend($, {
     UIPopUpIdentifier : null,
     
     UIPopUp : function( opts ) {
-        var selector = null;
-        if (opts.selector) {
-            selector = opts.selector;
-        } else {
+        var selector = opts.selector;
+        if (!selector) {
             return false;
         }
         var title = "Alert!";
@@ -1386,8 +1384,8 @@ $.extend($, {
         popup += '<p>' + message +'</p><toolbar ui-placement="bottom">';
         popup += '<uibutton ui-kind="action" ui-implements="cancel"><label>' + cancelUIButton + '</label></uibutton>';
         popup += '<uibutton ui-kind="action" ui-implements="continue"><label>' + continueUIButton + '</label></uibutton></toolbar></panel></popup>';
-        $(selector).UIScreenCover();
-        $(selector).insertAdjacentHTML("beforeEnd", popup);
+        $.app.UIScreenCover();
+        $.app.insertAdjacentHTML("beforeEnd", popup);
         var popupUIButtons = document.querySelectorAll(selector + " popup uibutton");
         for (var i = 0, len = popupUIButtons.length; i < len; i++) {
             popupUIButtons[i].addEventListener("click", function(e) {
