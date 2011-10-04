@@ -125,8 +125,10 @@ $.extend($, {
 			$.UIDoubleTapFunction2();
 		}
 	},
-    UINavigationList : function() {
-    
+	
+	UINavigationEvent : false,
+	
+    UINavigationEvent : function() {
 		var navigateList = function(item) {
 			if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar") {
 				$("navbar > uibutton[ui-implements=back]", $.app).css("display: block;");
@@ -147,6 +149,7 @@ $.extend($, {
             if ($.UINavigationEvent) {
                 return;
             } else {
+				$.UINavigationEvent = false;
                 navigateList(item);
             }
         });
