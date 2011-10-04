@@ -128,7 +128,7 @@ $.extend($, {
 	
 	UINavigationEvent : false,
 	
-    UINavigationEvent : function() {
+    UINavigationList : function() {
 		var navigateList = function(item) {
 			if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar") {
 				$("navbar > uibutton[ui-implements=back]", $.app).css("display: block;");
@@ -143,17 +143,16 @@ $.extend($, {
 		};
         $.app.delegate("tablecell", "click", function(item) {
             if (item.hasAttribute("href")) {
-                $.UINavigationEvent = true;
-                navigateList(item);
-            }
-            if ($.UINavigationEvent) {
-                return;
-            } else {
-				$.UINavigationEvent = false;
-                navigateList(item);
+	            if ($.UINavigationEvent) {
+	                return;
+	            } else {
+					$.UINavigationEvent = false;
+	                navigateList(item);
+					$.UINavigationEvent = true;
+	            }
             }
         });
-    },
+	},
     
     UITouchedTableCell : null
 });
@@ -177,7 +176,8 @@ $.ready(function() {
             $($.UINavigationHistory[$.UINavigationHistory.length-2])     
                 .setAttribute("ui-navigation-status", "current");
             $.UINavigationHistory.pop(); 
-        }
+        }	
+		$.UINavigationEvent = false;
     });
 });
  
