@@ -17,11 +17,11 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.7 beta
+Version: 0.8.8 beta
 
 */
 
-var CHUIVersion = "0.8.7 beta";
+var CHUIVersion = "0.8.8 beta";
 	
 var UIExpectedChocolateChipJSVersion = "1.1.7"; 
 
@@ -1304,25 +1304,30 @@ $(function() {
 			$("app").insertAdjacentHTML("beforeEnd", popup);
 			var popupBtn = "#" + id + " uibutton";
 			$$(popupBtn).forEach(function(button) {
-			  	button.addEventListener("click", function(e) {
+			  	button.bind("click", function(e) {
 	                e.preventDefault();
 	                $("screencover").setAttribute("ui-visible-state", "hidden");
 	                $("#" + id).setAttribute("ui-visible-state", "hidden");
-	            }, false);
+	            });
+			  	button.bind("click", function(e) {
+	                e.preventDefault();
+	                $("screencover").setAttribute("ui-visible-state", "hidden");
+	                $("#" + id).setAttribute("ui-visible-state", "hidden");
+	            });
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
-	            button.addEventListener("touchend", function(e) {
+	            button.bind("touchend", function(e) {
 	                e.preventDefault();
 	                $("screencover").setAttribute("ui-visible-state", "hidden");
 	                $("#" + id).setAttribute("ui-visible-state", "hidden");
-	            }, false);
+	            }); 
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
 	        });
 			var callbackSelector = "#" + id + " uibutton[ui-implements=continue]";
 			$(callbackSelector).bind("click", function() {
 				callback.call(callback, this);
-			}, false);
+			});
 		}
 	});
 });
@@ -1333,50 +1338,48 @@ $.extend($, {
 	UIScreenCoverIdentifier : null,
 	UIShowPopUp : function( popup ) {
 		$.UIPopUpIsActive = true;
-		$.UIPopUpIdentifier = selector;
+		$.UIPopUpIdentifier = popup;
 		var screenCover = $("screencover");
 		$.UIScreenCoverIdentifier = screenCover;
-		screenCover.addEventListener("touchmove", function(e) {
+		screenCover.bind("touchmove", function(e) {
 			e.preventDefault();
-		}, false );
+		});
 		$.UIPositionScreenCover(screenCover); 
-		$.UIPositionPopUp(selector);
+		$.UIPositionPopUp(popup);
 		screenCover.setAttribute("ui-visible-state", "visible");
 		$(popup).setAttribute("ui-visible-state", "visible");
 		
 	},
 	UIPositionScreenCover : function(screenCover) {
 		screenCover.cssText = "height:" + (window.innerHeight + window.pageYOffset) + "px";
-		var popup = $($.UIPopUpIdentifier);
 	},
 	UIPositionPopUp : function(selector) {
 		$.UIPopUpIsActive = true;
 		$.UIPopUpIdentifier = selector;
 		var popup = $(selector);
-		
 		popup.style.top = ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + "px";
 		popup.style.left = (window.innerWidth / 2) - (popup.clientWidth / 2) + "px";
 	},
 	UIRepositionPopupOnOrientationChange : function ( ) {
 		$.body.bind("orientationchange", function() {
-				if (window.orientation === 90 || window.orientation === -90) {
-					if ($.UIPopUpIsActive) {
-						$.UIPositionScreenCover($.UIScreenCoverIdentifier);
-						$.UIPositionPopUp($.UIPopUpIdentifier);
-					}
-				} else {
-					if ($.UIPopUpIsActive) {
-						$.UIPositionScreenCover($.UIScreenCoverIdentifier);
-						$.UIPositionPopUp($.UIPopUpIdentifier);
-					}
-				}
-			});
-			window.addEventListener("resize", function() {
+			if (window.orientation === 90 || window.orientation === -90) {
 				if ($.UIPopUpIsActive) {
 					$.UIPositionScreenCover($.UIScreenCoverIdentifier);
 					$.UIPositionPopUp($.UIPopUpIdentifier);
 				}
-			}, false);	
+			} else {
+				if ($.UIPopUpIsActive) {
+					$.UIPositionScreenCover($.UIScreenCoverIdentifier);
+					$.UIPositionPopUp($.UIPopUpIdentifier);
+				}
+			}
+		});
+		window.addEventListener("resize", function() {
+			if ($.UIPopUpIsActive) {
+				$.UIPositionScreenCover($.UIScreenCoverIdentifier);
+				$.UIPositionPopUp($.UIPopUpIdentifier);
+			}
+		}, false);	
 	}
 });
 
@@ -1408,28 +1411,11 @@ $.extend(HTMLElement.prototype, {
 
 $.extend(HTMLElement.prototype, {
 	UICreateSwitchControl : function( opts ) {
-		var customClass, status, value, callback;
 		var id = opts.id;
-		if(!opts.customClass) {
-			customClass = "";
-		} else {
-			customClass = ' ' + opts.customClass;
-		}
-		if (!!opts.status) {
-			status = opts.status;
-		} else {
-			status = "off";
-		}
-		if (!!opts.value) {
-			value = opts.value;
-		} else {
-			value = "";
-		}
-		if (!!opts.callback) {
-			callback = opts.callback;
-		} else {
-			callback = function() { return false; };
-		}
+		var customClass = opts.customClass || "";
+		var status = opts.status || "off";
+		var value = opts.value || "";
+		var callback = opts.callback || function() { return false; };
 		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '" ui-value="' + value + '"><label ui-implements="on">ON</label><thumb></thumb><label ui-implements="off">OFF</label></switchcontrol>';
 		if (this.css("position")  !== "absolute") {
 			this.css("position: relative;");
@@ -1451,6 +1437,7 @@ $.extend(HTMLElement.prototype, {
 			if (this.hasClass("off")) {
 				this.toggleClass("on", "off");
 				this.checked = true;
+				this.querySelector("thumb").focus();
 			} else {
 				this.toggleClass("on", "off");
 				this.checked = false;

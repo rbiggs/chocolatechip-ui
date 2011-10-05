@@ -143,6 +143,9 @@ Version 1.1.7
 		},
 	 
 		ancestor : function( selector ) {
+			if (!selector) {
+				return false;
+			}
 			var idCheck = new RegExp("^#");
 			var classCheck = new RegExp("^.");
 			var position = null;

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" id="htmlID" class="htmlClass">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>ChocolateChip Mobile</title>
+	<link rel="stylesheet" href="chui/chui.css">
+	<style>
+		/* Local Styles Here */
+		p[ui-kind=grouped] { padding: 10px 10px; }
+		switchcontrol {
+			height:  28px;
+			width: 77px;
+			border:  1px solid #979797;
+			-webkit-border-radius: 20px;
+			box-shadow: inset 0 1px 3px #bababa, inset 0 5px 15px #d4d4d4;
+		}
+		switchcontrol:before {
+			content: "";
+			display:  block;
+			height: 26px;
+			-webkit-border-radius: 20px;
+			box-shadow: inset 0 1px 3px #0063b7, inset 0 7px 15px #0071d1;
+			background-color: #64b1f2;
+			position:  absolute;
+			width:  75px;
+		}
+		switchcontrol.off:before {
+			width:  0;
+		}
+		switchcontrol.on:before {
+			width: 100%;
+		}
+		switchcontrol > thumb {
+			position:  relative;
+			top: -1px;
+			-webkit-border-radius: 28px;
+			width:  26px;
+			height:  26px;
+			box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
+			background-image: 
+			    -webkit-linear-gradient(top, 
+			        #cecece, 
+			        #fbfbfb);
+		}
+		switchcontrol > thumb:focus {
+		background-image: 
+		    -webkit-linear-gradient(top, 
+		        #fbfbfb, 
+		        #cecece);
+		}
+		switchcontrol.off > thumb {
+		   -webkit-transform: translateX(0px);
+		   -webkit-transform: translate3d(-1px,0,0);
+		}
+		switchcontrol.on > thumb {
+		    -webkit-transform: translateX(0px);
+		    -webkit-transform: translate3d(48px,0,0);
+		}
+		switchcontrol > thumb:before {
+		 	content:  "";
+		 	height: 14px;
+		 	width: 2px;
+		 	background:  none;
+		 	background-color: #fff;
+		 	box-shadow: 0px -1px 1px #666;
+		 	border:  none;
+		 	position: absolute;
+		 	top: 6px;
+		 	
+		 }
+		 switchcontrol.off > thumb:before {
+		 	display: none;
+		 }
+		 switchcontrol.on > thumb:before {
+		 	left: -24px;
+		 }
+		 switchcontrol > thumb:after {
+		 	content:  "";
+		 	display:  block;
+		 	height: 10px;
+		 	width: 10px;
+		 	-webkit-border-radius: 10px;
+		 	border: solid 2px #777777;
+		 	position:  absolute;
+		 	right:  -32px;
+		 	top: 6px;
+		 }
+		 switchcontrol[ui-implements=attention]:before {
+		 	box-shadow: inset 0 3px 10px #ea6502, inset 0 7px 15px #ea6502;
+		 	background-color: #ff9c12;
+		 }
+		 switchcontrol[ui-kind=generic] {
+		 	box-shadow: inset 0 3px 10px #b7b7b7, inset 0 7px 15px #f4f4f4;
+		 	background-color: #eaeaea;
+		 }
+		 switchcontrol[ui-kind=generic] > thumb {
+		 	box-shadow: none;
+		 	background-image: 
+		 	    -webkit-linear-gradient(top, 
+		 	        #f4f4f4, 
+		 	        #e3e3e3);
+		 }
+		 switchcontrol[ui-kind=generic]:before {
+		 	box-shadow: inset 0 3px 10px #8e8e8e, inset 0 7px 15px #bfbfbf;
+		 	background-color: #c4c4c4;
+		 }
+		 switchcontrol[ui-kind=generic] > thumb:before {
+		 	display: none;
+		 }
+		 switchcontrol[ui-kind=generic] > thumb:after {
+		 	display: none;
+		 }
+	</style>
+	<script src="chui/chocolatechip.js"></script>
+	<script src="chui/chui.js"></script>
+	<script>
+		/* Local JavaScript Here */
+	
+		$.ready(function() {
+			 // Initialize click events for switch controls.
+            $$("tableview switchcontrol").forEach(function(item) {
+                item.bind("click", function () {
+                    if (this.checked === true) {
+                        $("#switchResponse").empty();
+                        $("#switchResponse").fill(this.getAttribute("ui-value"));
+                    } else {
+                        $("#switchResponse").empty();
+                    }
+                });
+                
+                item.bind("touchstart", function(e) {
+                    if (this.checked === true) {
+                        $("#switchResponse").empty();
+                    } else {
+                        $("#switchResponse").empty();
+                        $("#switchResponse").fill(this.getAttribute("ui-value"));
+                    }
+                });
+			});
+			
+			// This is for a dynamically created switch control:
+			var switchOpts = {
+				id : "myBestSwitch",
+				customClass : "customSwitchColor",
+				status : "on",
+				value : "sort of working",
+				callback : function(item) {
+					var className = item.className;
+					if (this.checked = true) {
+						console.log("This is on!");
+					} else {
+						console.log("This is turned off!!!");
+					}
+				}
+			};
+			
+			// Uncomment this line to see dynamically created
+			// switch control inserted in response paragraph:
+			//$("p:last-of-type").UICreateSwitchControl(switchOpts);
+		});
+		
+	</script>
+</head>
+<body class="bodyClass" id="bodyID">
+	<app id="appID" class="appClass">
+		<view title="Main" class="mainView" id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="segmentedToolbar">
+				<h1 ui-bar-align="center">Switchcontrol</h1>
+			</navbar>
+			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview id="tableview_01" ui-kind="grouped">
+                    	<tablecell>
+                        <celltitle>Sleep</celltitle>
+                        <switchcontrol class="on" id="sleepSwitch" ui-value="ZZZZZZZZ!">
+                            <thumb></thumb>
+                        </switchcontrol>
+                    	</tablecell>
+                    </tableview>
+                    <tableview ui-kind="grouped">
+                    	<tablecell>
+                        <celltitle>Vacation</celltitle>
+                        <switchcontrol ui-kind="generic" class="off" id="vacationSwitch" ui-value="Later! :-)">
+                            <thumb></thumb>
+                        </switchcontrol>
+                    	</tablecell>
+                    </tableview>
+                    <tableview ui-kind="grouped">
+                    	<tablecell>
+                        <celltitle>Breakfast</celltitle>
+                        <switchcontrol ui-implements="attention" class="off green" id="breakfastSwtich" ui-implements="attention"  ui-value="So, what's the first course?">
+                            <thumb></thumb>
+                        </switchcontrol>
+                    	</tablecell>
+                    </tableview>
+                    <p ui-kind="grouped">
+                    	<span><strong>Response: </strong></span><span id="switchResponse" class="response">ZZZZZZZZ</span>
+                    </p>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>
