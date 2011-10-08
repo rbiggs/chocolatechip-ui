@@ -3434,3 +3434,251 @@ subview[ui-transition=cube][ui-transition-state="final incoming"] {
   -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
 }
 /* End Cube Transition */
+
+        
+/* Popover Styles */
+popover  {
+    width: 320px;
+    background-color: #121a2e;
+    border: solid 2px #4f4f4f;
+    margin: 0px;
+    -webkit-padding-start: 0px;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 2px 2px 10px #000;
+    position: absolute;
+    z-index: 10000000;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -webkit-transition: opacity: 0.25s ease-in-out;
+}
+
+popover > section {
+    background-color: #fff;
+    margin: 0px 5px 5px 5px !important; 
+    -webkit-border-radius: 5px;
+    sborder: solid 1px transparent;
+    min-height: 50px;
+    position: relative;
+    z-index: 1000;
+}
+popover  > header {
+    -webkit-box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack:justify;
+    -webkit-box-sizing: border-box;
+    height: 45px;
+    padding: 6px 10px;
+    background-image: 
+        -webkit-gradient(linear, 0% 0%, 0% 100%, 
+            from(#7d828c),
+            color-stop(0.5, #303749), 
+            color-stop(0.5, #121a2e), 
+            to(#121a2e));
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    position: relative;
+}
+popover  > header > h3 {
+    margin: 0px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 18px;
+    line-height: 34px;
+    display: block;
+    -webkit-box-flex: 1;
+    text-align: center;
+    text-shadow: -1px -1px 1px #000;
+    font-weight: normal;
+}
+popover  > section .actionSheet {
+    height: 100%;
+    margin: -1px;
+    -webkit-border-radius: 5px;
+    padding: 1px;
+    
+}
+popover > section .sgwt-button.action {
+    margin: 10px 4px !important;
+}
+popover header {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: stretch;
+    position: relative;
+    z-index: 2000;
+}
+popover:after {
+    content: "";
+    position: absolute;
+    z-index: 10000;
+    top: -16px;
+    left: 17px;
+    height: 30px !important;
+    width: 30px;
+    border: solid 2px #4f4f4f;
+    border-radius: 5px;
+    border-bottom: none;
+    border-right: none;
+    background-color: #7d828c !important;
+    -webkit-transform: rotate(45deg);
+    -webkit-mask-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#000000), 
+            color-stop(0.5,#000000), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=top-left]:after {
+    top: -16px;
+    left: 17px;
+    right: auto;
+    display: block;
+}
+[ui-pointer-position=top-right]:after {
+    top: -16px;
+    left: auto;
+    right: 17px;
+    display: block;
+}
+[ui-pointer-position=top-center]:after {
+    top: -16px;
+    left: 44.5%;
+    right: auto;
+    display: block;
+}
+[ui-pointer-position=right]:after {
+    -webkit-transform: rotate(135deg);
+    background-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#121a2e), 
+            color-stop(0.5,#121a2e), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=right-top]:after {
+    top: 20px;
+    left: auto;
+    right: -17px;
+    display: block;
+}
+[ui-pointer-position=right-center]:after {
+    top: 44.5%;
+    left: auto;
+    right: -17px;
+    display: block;
+}
+[ui-pointer-position=right-bottom]:after {
+    top: auto;
+    left: auto;
+    right: -17px;
+    bottom: 20px;
+    display: block;
+}
+[ui-pointer-position*=bottom]:after {
+    -webkit-transform: rotate(-135deg);
+    background-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#121a2e), 
+            color-stop(0.5,#121a2e), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=bottom-left]:after {
+    top: auto;
+    bottom: -16px;
+    left: 20px;
+    display: block;
+}
+[ui-pointer-position=bottom-center]:after {
+    top: auto;
+    bottom: -16px;
+    left: 44.5%;
+    display: block;
+}
+[ui-pointer-position=bottom-right]:after {
+    top: auto;
+    bottom: -16px;
+    left: auto;
+    right: 20px;
+    display: block;
+}
+[ui-pointer-position=left]:after {
+    -webkit-transform: rotate(-45deg);
+    background-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#121a2e), 
+            color-stop(0.5,#121a2e), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=left-top]:after {
+    top: 20px;
+    left: -17px;
+    display: block;
+}
+[ui-pointer-position=left-center]:after {
+    top: 44.5%;
+    left: -17px;
+    display: block;
+}
+[ui-pointer-position=left-bottom]:after {
+    top: auto;
+    bottom: 20px;
+    left: -17px;
+    display: block;
+}
+.fade-in {
+    -webkit-transform: scale(1) !important;
+    -webkit-animation-duration: .35s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-name: fadeInAnim;
+}
+.fade-out {
+    -webkit-transform: scale(1) !important;
+    -webkit-animation-duration: .25s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-name: fadeOutAnim;
+}
+@-webkit-keyframes fadeInAnim {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-webkit-keyframes fadeOutAnim {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+popover tableview[ui-kind=grouped] {
+    margin: 6px;
+}      
+/* Styles for actionsheet in popover */
+.popover-content {
+	position: relative;
+}
+popover actionsheet {
+	min-height: 20px;
+    width: 310px;
+    -webkit-box-sizing: border-box;
+    padding: 1px 0px 1px;
+    background: none;
+    background-color: rgba(65,72,92,1);
+    display: block;
+    -webkit-border-radius: 0px;
+    position: static;
+    -webkit-border-radius: 5px;
+    box-shadow: 0 0 2px  rgba(65,72,92,1);
+}
+overlay {
+	display: block;
+	opacity: .01;
+	background-color: #000;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+}

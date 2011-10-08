@@ -21,9 +21,9 @@ Version: 0.8.8 beta
 
 */
 
-var CHUIVersion = "0.8.8 beta";
+var CHUIVersion = "0.8.9 beta";
 	
-var UIExpectedChocolateChipJSVersion = "1.1.7"; 
+var UIExpectedChocolateChipJSVersion = "1.1.8"; 
 
 var UICheckChocolateChipJSVersion = function() {
 	if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -1005,21 +1005,22 @@ $.UIScroll.prototype = {
 
 $.extend($, {
 	UIScrollers : {},
-	UIEnableScrolling : function(options) {
-		$.ready(function() {
-			try {
-				var scrollpanels = $$("scrollpanel");
-				var count = 0;
-				scrollpanels.forEach(function(item) {
-					item.setAttribute("ui-scroller", $.UIUuid());
-					var whichScroller = item.getAttribute("ui-scroller");
-					$.UIScrollers[whichScroller] = new $.UIScroll(item.parentNode, options);
-				});
-			} catch(e) { }
-		});
+	
+	UIEnableScrolling : function ( options ) {
+		try {
+			var scrollpanels = $$("scrollpanel");
+			var count = 0;
+			scrollpanels.forEach(function(item) {
+				item.setAttribute("ui-scroller", $.UIUuid());
+				var whichScroller = item.getAttribute("ui-scroller");
+				$.UIScrollers[whichScroller] = new $.UIScroll(item.parentNode, options);
+			});
+		} catch(e) { }
 	}
 });
-$.UIEnableScrolling({ desktopCompatibility: true });
+$.ready(function() {
+	$.UIEnableScrolling({ desktopCompatibility: true });
+});
 $.extend($, {
 	UIPaging : function( selector, opts ) {
 		var myPager = new $.UIScroll( selector, opts );
@@ -1309,17 +1310,19 @@ $(function() {
 	                $("screencover").setAttribute("ui-visible-state", "hidden");
 	                $("#" + id).setAttribute("ui-visible-state", "hidden");
 	            });
-			  	button.bind("click", function(e) {
+			  	button.bind("click", cancelClickPopup = function(e) {
 	                e.preventDefault();
-	                $("screencover").setAttribute("ui-visible-state", "hidden");
-	                $("#" + id).setAttribute("ui-visible-state", "hidden");
+					$.UIClosePopup("#" + id);
+	                /*$("screencover").setAttribute("ui-visible-state", "hidden");
+	                $("#" + id).setAttribute("ui-visible-state", "hidden");*/
 	            });
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
-	            button.bind("touchend", function(e) {
+	            button.bind("touchend", cancelTouchPopup = function(e) {
 	                e.preventDefault();
-	                $("screencover").setAttribute("ui-visible-state", "hidden");
-	                $("#" + id).setAttribute("ui-visible-state", "hidden");
+					$.UIClosePopup("#" + id);
+	                /*$("screencover").setAttribute("ui-visible-state", "hidden");
+	                $("#" + id).setAttribute("ui-visible-state", "hidden");*/
 	            }); 
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
@@ -1336,22 +1339,22 @@ $.extend($, {
 	UIPopUpIsActive : false,
 	UIPopUpIdentifier : null,
 	UIScreenCoverIdentifier : null,
-	UIShowPopUp : function( popup ) {
+	UIShowPopUp : function( options ) {
+		$.UIPopUp(options);
 		$.UIPopUpIsActive = true;
-		$.UIPopUpIdentifier = popup;
+		$.UIPopUpIdentifier = "#" + options.id;
 		var screenCover = $("screencover");
-		$.UIScreenCoverIdentifier = screenCover;
 		screenCover.bind("touchmove", function(e) {
 			e.preventDefault();
 		});
 		$.UIPositionScreenCover(screenCover); 
-		$.UIPositionPopUp(popup);
+		$.UIPositionPopUp("#" + options.id);
 		screenCover.setAttribute("ui-visible-state", "visible");
-		$(popup).setAttribute("ui-visible-state", "visible");
+		$("#" + options.id).setAttribute("ui-visible-state", "visible");
 		
 	},
 	UIPositionScreenCover : function(screenCover) {
-		screenCover.cssText = "height:" + (window.innerHeight + window.pageYOffset) + "px";
+		$("screencover").css("height:" + (window.innerHeight + window.pageYOffset) + "px");
 	},
 	UIPositionPopUp : function(selector) {
 		$.UIPopUpIsActive = true;
@@ -1380,9 +1383,21 @@ $.extend($, {
 				$.UIPositionPopUp($.UIPopUpIdentifier);
 			}
 		}, false);	
+	},
+	UIClosePopup : function ( selector ) {
+		$(selector + " uibutton[ui-implements=cancel]").UIRemovePopupBtnEvents("click", "cancelClickPopup");
+			$(selector + " uibutton[ui-implements=continue]").UIRemovePopupBtnEvents("click", "cancelTouchPopup");
+		$("screencover").remove();
+		$(selector).remove();
+		$.UIPopUpIdentifier = null;
+		$.UIPopUpIsActive = false;
 	}
 });
-
+$.extend(HTMLElement.prototype, {
+	UIRemovePopupBtnEvents : function(eventType, eventName) {
+		this.removeEventListener(eventType, eventName, false);
+	}
+});
 $.ready(function() {
 	$.UIRepositionPopupOnOrientationChange();
 });
@@ -2404,4 +2419,250 @@ $.ready(function() {
 		}
 	});
 	$.UICheckForSplitView();
+});
+$.extend($, {
+    determineMaxPopoverHeight : function() {
+        var screenHeight = window.innerHeight;
+        if ($("navbar")) {
+            var toolbarHeight = $("navbar").clientHeight;
+        }
+        if ($("toolbar")) {
+            if (!$("toolbar").getAttribute('ui-placement')) {
+                var toolbarHeight = $("toolbar").clientHeight;
+            }
+        }
+            screenHeight = screenHeight - toolbarHeight;
+            return screenHeight; 
+    },
+    determinePopoverWidth : function() {
+        var screenWidth = window.innerWidth;
+    },
+    getPopoverTrigger : function ( triggerElement ) {
+        var trel = null;
+        if (typeof triggerElement === "string") {
+            return $(triggerElement);
+        } else if (triggerElement.nodeType === 1) {
+            return triggerElement;
+        } 
+    },
+    adjustPopoverHeight : function( popover ) {
+        var availableVerticalSpace = $.determineMaxPopoverHeight();
+        $(popover + " > section").css("max-height:" + (availableVerticalSpace - 100) + "px; overflow: hidden;}");
+        //var scroller = new sgwtScroll($(popover + " > section > div"), { desktopCompatibility: true });
+        var popoverID = popover.split("#");
+        popoverID = popoverID[1];
+       // $.UIScroller[popover] = new $.UIScroll($(popover + " > section > div"), { desktopCompatibility: true });
+    },
+    determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation ) {
+        
+        popoverOrientation = popoverOrientation.toLowerCase();
+        pointerOrientation = pointerOrientation.toLowerCase();
+        
+        var trel = this.getPopoverTrigger(triggerElement);
+        var pos = "";
+        var popoverPos = null;
+        switch (popoverOrientation) {
+            case "top" : 
+                if (pointerOrientation === "left") {
+                    popoverPos = trel.offsetLeft;
+                    popoverPos = "left: " + popoverPos;
+                } else if (pointerOrientation === "center") {
+                    popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
+                    popoverPos = "left: " + popoverPos;
+                } else {
+                    popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
+                    popoverPos = "left: " + popoverPos;
+                }
+                pos = trel.offsetTop + trel.offsetHeight;
+                pos += 20;
+                pos =  popoverPos + "px; top: " + pos + "px;"
+                break;
+            case "right" :
+                if (pointerOrientation === "top") {
+                    popoverPos = trel.getTop() + 2;
+                    popoverPos = "top: " + popoverPos + "px;";
+                } else if (pointerOrientation === "center") {
+                    popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
+                    popoverPos = "top: " + popoverPos + "px;";
+                } else {
+                    popoverPos = trel.getTop() - trel.offsetHeight - 20;
+                    popoverPos = "top: " + popoverPos + "px;";
+                }
+                pos = trel.getLeft() - 330;
+                pos -= 20;
+                pos = popoverPos + " left: " + pos + "px";
+                break;
+            case "bottom" :
+                if (pointerOrientation === "left") {
+                    popoverPos = trel.offsetLeft;
+                    popoverPos = "left: " + popoverPos;
+                } else if (pointerOrientation === "center") {
+                    popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
+                    popoverPos = "left: " + popoverPos;
+                } else {
+                    popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
+                    popoverPos = "left: " + popoverPos;
+                }
+                pos = trel.offsetTop + trel.offsetHeight;
+                pos += 20;
+                pos =  popoverPos + "px; bottom: " + pos + "px;"
+                break;
+                break;
+            case "left" :
+                if (pointerOrientation === "top") {
+                    popoverPos = trel.getTop() + 2;
+                    popoverPos = "top: " + popoverPos + "px;";
+                } else if (pointerOrientation === "center") {
+                    popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
+                    popoverPos = "top: " + popoverPos + "px;";
+                } else {
+                    popoverPos = trel.getTop() - trel.offsetHeight - 20;
+                    popoverPos = "top: " + popoverPos + "px;";
+                }
+                pos = trel.offsetLeft + trel.offsetWidth;
+                pos += 20;
+                pos = popoverPos + " left: " + pos + "px";
+                break;
+            default :
+                pos = trel.getTop() + trel.offsetHeight;
+                popoverPos = "left: " + popoverPos;
+                pos += 20;
+                pos = popoverPos + "px; top: " + pos + "px;"
+                break;
+        }
+        return pos;
+    },
+    UIPopover : function( triggerElement, popoverOrientation, pointerOrientation, opts) {
+        if (opts) { 
+            var id = 'id="' + opts.id + '"' || $.UIUuid();
+            var title = '<h3>'+ opts.title + '</h3>' || "";
+        } else {
+            var id = "";
+            var title = "";
+        }
+        var trel = this.getPopoverTrigger(triggerElement);
+        var pos = this.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
+        pos = " style='" + pos + "'";
+        var popoverShell = 
+            '<popover ' + id + ' ui-pointer-position="' + popoverOrientation + '-' + pointerOrientation + '"' 
+            + pos + ' data-popover-trigger="#' + trel.id + '" data-popover-orientation="' + popoverOrientation + '" data-popover-pointer-orientation="' + pointerOrientation + '">\n' + 
+                '<header>'+ title 
+                
+                + '</header>\n'
+                + '<section><scrollpanel class="popover-content"></scrollpanel></section>\n'
+            +'</popover>';
+        var newPopover = $.make(popoverShell);
+        
+        //var popoverAncestor = trel.ancestor("view");
+        $.app.insert(newPopover, "last");
+        // Adjust the left or bottom position of the popover if it is beyond the viewport:
+        if (!!opts.id) {
+        	$.adjustPopoverHeight("#" + opts.id);
+            $("#" + opts.id).adjustPopoverPosition();
+        }
+    },
+    UICancelPopover : function (popover) {
+        $.UIPopover.activePopover = null;
+        $(popover).css("opacity: 0; -webkit-transform: scale(0);");
+        popover.UIUnblock();
+    },
+    UIHidePopover : function (popover) {
+        $.UICancelPopover(popover);
+    },
+    UIEnablePopoverScrollpanels : function ( options ) {
+		try {
+			var count = 0;
+			$$("popover scrollpanel").forEach(function(item) {
+				item.setAttribute("ui-scroller", $.UIUuid());
+				var whichScroller = item.getAttribute("ui-scroller");
+				$.UIScrollers[whichScroller] = new $.UIScroll(item.parentNode, options);
+			});
+		} catch(e) { }
+        //$.UIEnableScrolling({ desktopCompatibility: true });
+    }
+});
+$.extend($.UIPopover, {
+    activePopover : null,
+    show : function ( popover ) {
+        if ($.UIPopover.activePopover === null) {
+        	popover.UIBlock();
+            popover.repositionPopover();
+            popover.css("opacity: 1; -webkit-transform: scale(1);");
+            $.UIPopover.activePopover = popover.id;
+            
+        	$.UIEnableScrolling({ desktopCompatibility: true });
+        } else {
+            return;
+        }
+        $.UIEnablePopoverScrollpanels({ desktopCompatibility: true });
+    },
+    hide : function ( popover ) {
+    	if ($.UIPopover.activePopover) {
+    		popover.css("opacity: 0; -webkit-transform: scale(0);");
+    		$.UIPopover.activePopover = null;
+    	}
+    }
+});
+$.extend(HTMLElement.prototype, {
+    repositionPopover : function() {
+        var triggerElement = this.getAttribute("data-popover-trigger"); 
+        var popoverOrientation = this.getAttribute("data-popover-orientation");
+        var pointerOrientation = this.getAttribute("data-popover-pointer-orientation");
+        var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
+        this.css(popoverPos);
+    },
+    adjustPopoverPosition : function() {
+        var screenHeight = window.innerHeight;
+        var screenWidth = window.innerWidth;
+        var popoverHeight = this.offsetHeight;
+        var popoverWidth = this.offsetWidth;
+        var popoverTop = this.getTop();
+        var popoverLeft = this.getLeft();
+        var bottomLimit = popoverTop + popoverHeight;
+        var rightLimit = popoverLeft + popoverWidth;
+        if (bottomLimit > screenHeight) {
+            this.style.top  = screenHeight - popoverHeight - 10 + "px";
+        }
+        if (rightLimit > screenWidth) {
+            this.style.left = screenWidth - 10 + "px";
+        }
+    },
+    UIBlock : function ( ) {
+    	this.before($.make("<overlay></overlay>"));
+    },
+    UIUnblock : function ( ) {
+    	$("overlay").remove();
+    }
+});
+
+// Hide any visible popovers when orientation changes.
+window.addEventListener("orientationchange", function() {
+    var availableVerticalSpace = $.determineMaxPopoverHeight();
+    $$("popover").forEach(function(popover) {
+        popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
+        //popover.style.cssText = "opacity: 0; -webkit-transform: scale(0);";
+        popover.repositionPopover();
+        $.adjustPopoverHeight("#" + popover.id);
+    });
+}, false);
+
+// Hide any visible popovers when orientation changes.
+window.addEventListener("resize", function() {
+    var availableVerticalSpace = $.determineMaxPopoverHeight();
+    $$("popover").forEach(function(popover) {
+        popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
+        
+        popover.repositionPopover();
+        //$.UIPopover.activePopover = null;
+        //popover.style.cssText = "opacity: 0; -webkit-transform: scale(0);";
+    });
+}, false);
+
+$(function() {
+	$.app.delegate("overlay", "click", function() {
+		$.UIPopover.hide($("#"+$.UIPopover.activePopover));
+		if ($("overlay")) {
+			$("overlay").UIUnblock();
+		}
+	});
 });
