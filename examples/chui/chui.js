@@ -1313,16 +1313,12 @@ $(function() {
 			  	button.bind("click", cancelClickPopup = function(e) {
 	                e.preventDefault();
 					$.UIClosePopup("#" + id);
-	                /*$("screencover").setAttribute("ui-visible-state", "hidden");
-	                $("#" + id).setAttribute("ui-visible-state", "hidden");*/
 	            });
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
 	            button.bind("touchend", cancelTouchPopup = function(e) {
 	                e.preventDefault();
 					$.UIClosePopup("#" + id);
-	                /*$("screencover").setAttribute("ui-visible-state", "hidden");
-	                $("#" + id).setAttribute("ui-visible-state", "hidden");*/
 	            }); 
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
@@ -2452,10 +2448,8 @@ $.extend($, {
     adjustPopoverHeight : function( popover ) {
         var availableVerticalSpace = $.determineMaxPopoverHeight();
         $(popover + " > section").css("max-height:" + (availableVerticalSpace - 100) + "px; overflow: hidden;}");
-        //var scroller = new sgwtScroll($(popover + " > section > div"), { desktopCompatibility: true });
         var popoverID = popover.split("#");
         popoverID = popoverID[1];
-       // $.UIScroller[popover] = new $.UIScroll($(popover + " > section > div"), { desktopCompatibility: true });
     },
     determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation ) {
         
@@ -2557,7 +2551,6 @@ $.extend($, {
             +'</popover>';
         var newPopover = $.make(popoverShell);
         
-        //var popoverAncestor = trel.ancestor("view");
         $.app.insert(newPopover, "last");
         // Adjust the left or bottom position of the popover if it is beyond the viewport:
         if (!!opts.id) {
@@ -2582,7 +2575,6 @@ $.extend($, {
 				$.UIScrollers[whichScroller] = new $.UIScroll(item.parentNode, options);
 			});
 		} catch(e) { }
-        //$.UIEnableScrolling({ desktopCompatibility: true });
     }
 });
 $.extend($.UIPopover, {
@@ -2657,8 +2649,6 @@ window.addEventListener("resize", function() {
         popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
         
         popover.repositionPopover();
-        //$.UIPopover.activePopover = null;
-        //popover.style.cssText = "opacity: 0; -webkit-transform: scale(0);";
     });
 }, false);
 
