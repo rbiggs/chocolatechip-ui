@@ -1305,28 +1305,25 @@ $(function() {
 			$("app").insertAdjacentHTML("beforeEnd", popup);
 			var popupBtn = "#" + id + " uibutton";
 			$$(popupBtn).forEach(function(button) {
-			  	button.bind("click", function(e) {
-	                e.preventDefault();
-	                $("screencover").setAttribute("ui-visible-state", "hidden");
-	                $("#" + id).setAttribute("ui-visible-state", "hidden");
-	            });
 			  	button.bind("click", cancelClickPopup = function(e) {
+			  	    if (button.getAttribute("ui-implements")==="continue") {
+			  	        callback.call(callback, this);
+			  	    }
 	                e.preventDefault();
 					$.UIClosePopup("#" + id);
 	            });
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
-	            button.bind("touchend", cancelTouchPopup = function(e) {
+	            button.bind("touchend", cancelTouchPopup = function(e) {		
+	            if (button.getAttribute("ui-implements")==="continue") {
+			  	        callback.call(callback, this);
+			  	    }
 	                e.preventDefault();
 					$.UIClosePopup("#" + id);
 	            }); 
 	            $.UIPopUpIsActive = false;
 	            $.UIPopUpIdentifier = null;
 	        });
-			var callbackSelector = "#" + id + " uibutton[ui-implements=continue]";
-			$(callbackSelector).bind("click", function() {
-				callback.call(callback, this);
-			});
 		}
 	});
 });
