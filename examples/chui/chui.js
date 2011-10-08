@@ -1360,8 +1360,12 @@ $.extend($, {
 		$.UIPopUpIsActive = true;
 		$.UIPopUpIdentifier = selector;
 		var popup = $(selector);
-		popup.style.top = ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + "px";
-		popup.style.left = (window.innerWidth / 2) - (popup.clientWidth / 2) + "px";
+		var str = "top:";
+		str += ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + "px;";
+		popup.css(str);
+		str = "left:";
+		str += (window.innerWidth / 2) - (popup.clientWidth / 2) + "px";
+		popup.css(str); 
 	},
 	UIRepositionPopupOnOrientationChange : function ( ) {
 		$.body.bind("orientationchange", function() {

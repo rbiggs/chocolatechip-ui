@@ -3449,7 +3449,7 @@ popover  {
     z-index: 10000000;
     opacity: 0;
     -webkit-transform: scale(0);
-    -webkit-transition: opacity: 0.25s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
 }
 
 popover > section {
