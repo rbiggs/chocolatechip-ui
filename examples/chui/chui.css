@@ -2484,6 +2484,7 @@ switchcontrol > thumb:after {
 }
 switchcontrol[ui-kind=traditional] > thumb:after {
 	content: none;
+	display: none;
 }
 switchcontrol[ui-implements=attention]:before {
 	-webkit-box-shadow: inset 0 3px 10px #ea6502, inset 0 7px 15px #ea6502;

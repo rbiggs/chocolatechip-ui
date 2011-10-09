@@ -1557,11 +1557,10 @@ $.extend(HTMLElement.prototype, {
 });
 
 $.extend(HTMLElement.prototype, {
-	UISegmentedControl : function( callback, container ) {
-		var that = this;
-		container = container || null;
-		var val = null;
-		callback = callback || function(){};
+    UISegmentedControl : function( container, callback ) {
+        var that = this;
+        var val = null;
+        var callback = callback || function(){};
 		var buttons = $.collectionToArray(this.children);
 				var cont = $(container);
 		if (!this.hasAttribute('ui-selected-segment')) {

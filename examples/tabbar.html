@@ -74,7 +74,7 @@
 			var seggie = function(item) {
 				console.log("The child position is: " + item.getAttribute("ui-child-position"));
 			}
-			$("segmentedcontrol").UISegmentedControl(seggie, "#stackpanel_01");
+			$("segmentedcontrol").UISegmentedControl("#stackpanel_01", seggie);
 			$("#stackpanel_01").UIIdentifyChildNodes();
 			var opts = {
                 numberOfTabs : 5,
