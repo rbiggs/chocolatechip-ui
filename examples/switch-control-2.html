@@ -17,6 +17,7 @@
 			width: 77px;
 			border:  1px solid #979797;
 			-webkit-border-radius: 20px;
+			-webkit-box-shadow: inset 0 1px 3px #bababa, inset 0 5px 15px #d4d4d4;
 			box-shadow: inset 0 1px 3px #bababa, inset 0 5px 15px #d4d4d4;
 		}
 		switchcontrol:before {
@@ -24,7 +25,7 @@
 			display:  block;
 			height: 26px;
 			-webkit-border-radius: 20px;
-			box-shadow: inset 0 1px 3px #0063b7, inset 0 7px 15px #0071d1;
+			-webkit-box-shadow: inset 0 1px 3px #0063b7, inset 0 7px 15px #0071d1;
 			background-color: #64b1f2;
 			position:  absolute;
 			width:  75px;
@@ -41,17 +42,17 @@
 			-webkit-border-radius: 28px;
 			width:  26px;
 			height:  26px;
-			box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
+			-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
 			background-image: 
-			    -webkit-linear-gradient(top, 
-			        #cecece, 
-			        #fbfbfb);
+			    -webkit-gradient(linear, left top, left bottom, 
+			        from(#cecece), 
+			        to(#fbfbfb));
 		}
 		switchcontrol > thumb:focus {
-		background-image: 
-		    -webkit-linear-gradient(top, 
-		        #fbfbfb, 
-		        #cecece);
+            background-image: 
+                -webkit-gradient(linear, left top, left bottom 
+                    from(#fbfbfb), 
+                    to(#cecece));
 		}
 		switchcontrol.off > thumb {
 		   -webkit-transform: translateX(0px);
@@ -91,22 +92,22 @@
 		 	top: 6px;
 		 }
 		 switchcontrol[ui-implements=attention]:before {
-		 	box-shadow: inset 0 3px 10px #ea6502, inset 0 7px 15px #ea6502;
+		 	-webkit-box-shadow: inset 0 3px 10px #ea6502, inset 0 7px 15px #ea6502;
 		 	background-color: #ff9c12;
 		 }
 		 switchcontrol[ui-kind=generic] {
-		 	box-shadow: inset 0 3px 10px #b7b7b7, inset 0 7px 15px #f4f4f4;
+		 	-webkit-box-shadow: inset 0 3px 10px #b7b7b7, inset 0 7px 15px #f4f4f4;
 		 	background-color: #eaeaea;
 		 }
 		 switchcontrol[ui-kind=generic] > thumb {
-		 	box-shadow: none;
+		 	-webkit-box-shadow: none;
 		 	background-image: 
-		 	    -webkit-linear-gradient(top, 
-		 	        #f4f4f4, 
-		 	        #e3e3e3);
+		 	    -webkit-gradient(linear, left top, left bottom,  
+		 	        from(#f4f4f4), 
+		 	        to(#e3e3e3));
 		 }
 		 switchcontrol[ui-kind=generic]:before {
-		 	box-shadow: inset 0 3px 10px #8e8e8e, inset 0 7px 15px #bfbfbf;
+		 	-webkit-box-shadow: inset 0 3px 10px #8e8e8e, inset 0 7px 15px #bfbfbf;
 		 	background-color: #c4c4c4;
 		 }
 		 switchcontrol[ui-kind=generic] > thumb:before {
@@ -115,6 +116,7 @@
 		 switchcontrol[ui-kind=generic] > thumb:after {
 		 	display: none;
 		 }
+		 
 	</style>
 	<script src="chui/chocolatechip.js"></script>
 	<script src="chui/chui.js"></script>

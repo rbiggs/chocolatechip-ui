@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.8 beta
+Version: 0.8.9 beta
 
 */
 
@@ -1425,7 +1425,7 @@ $.extend(HTMLElement.prototype, {
 	UICreateSwitchControl : function( opts ) {
 		var id = opts.id;
 		var customClass = opts.customClass || "";
-		var status = opts.status || "off";
+		var status = opts.status + " " || "off";
 		var value = opts.value || "";
 		var callback = opts.callback || function() { return false; };
 		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '" ui-value="' + value + '"><label ui-implements="on">ON</label><thumb></thumb><label ui-implements="off">OFF</label></switchcontrol>';
