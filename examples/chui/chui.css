@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.9 beta
+Version: 0.9 beta
 
 */
 html, body {
@@ -2370,32 +2370,88 @@ switchcontrol {
     position: absolute;
     right: 10px;
     top: 7px;
+	height:  28px;
+	width: 77px;
+	-webkit-border-radius: 20px;
+	border:  1px solid #979797;
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-pack:justify;
     -webkit-box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    width: 94px;
     overflow: hidden;
-    -webkit-border-radius: 6px;
     text-align: center;
     line-height: 28px;
     cursor: pointer;
     -webkit-user-select: none;
+	-webkit-box-shadow: inset 0 1px 3px #bababa, inset 0 5px 15px #d4d4d4;
+}
+switchcontrol[ui-kind=traditional] {
+    width: 94px;
+    -webkit-border-radius: 6px;
+    border: none;
 }
 switchcontrol > thumb {
 	display: block;
-    -webkit-border-radius: 7px;
-    position: relative;
+	position:  relative;
     z-index: 3;
+	top: -1px;
     border: solid 1px #919191;
+	-webkit-border-radius: 28px;
+	width:  26px;
+	height:  26px;
+	-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#cecece), 
+			to(#fbfbfb));
     -webkit-transition: all 0.125s  ease-in-out;
     -webkit-transform: translateX(0px);
     -webkit-transform: translate3d(0,0,0);
 }
-switchcontrol > thumb:before {
+switchcontrol[ui-kind=traditional] > thumb {
+    -webkit-border-radius: 7px;
+    width: auto;
+    height: auto;
+}
+switchcontrol:before {
 	content: "";
+	display:  block;
+	height: 26px;
+	-webkit-border-radius: 20px;
+	-webkit-box-shadow: inset 0 1px 3px #0063b7, inset 0 7px 15px #0071d1;
+	background-color: #64b1f2;
+	position:  absolute;
+	width:  75px;
+}
+switchcontrol.off:before {
+	width:  0;
+}
+switchcontrol.on:before {
+	width: 100%;
+}
+switchcontrol[ui-kind=traditional]:before {
+	content: none;
+}
+switchcontrol > thumb:before {
+	content:  "";
     display: block;
+	height: 14px;
+	width: 2px;
+	background:  none;
+	background-color: #fff;
+	box-shadow: 0px -1px 1px #666;
+	border:  none;
+	position: absolute;
+	top: 6px;
+}
+switchcontrol.off > thumb:before {
+	display: none;
+}
+switchcontrol.on > thumb:before {
+	left: -24px;
+}
+switchcontrol[ui-kind=traditional] > thumb:before {
     -webkit-box-sizing: border-box;
     height: 25px;
     width: 38px;
@@ -2407,6 +2463,31 @@ switchcontrol > thumb:before {
             to(#fbfbfb));
     border-top: solid 1px #efefef;
     position:relative;
+	top: 0px;
+}
+switchcontrol[ui-kind=traditional].off > thumb:before {
+	display: block;
+}
+switchcontrol[ui-kind=traditional].on > thumb:before {
+	left: 0;
+}
+switchcontrol > thumb:after {
+	content:  "";
+	display:  block;
+	height: 10px;
+	width: 10px;
+	-webkit-border-radius: 10px;
+	border: solid 2px #777777;
+	position:  absolute;
+	right:  -32px;
+	top: 6px;
+}
+switchcontrol[ui-kind=traditional] > thumb:after {
+	content: none;
+}
+switchcontrol[ui-implements=attention]:before {
+	-webkit-box-shadow: inset 0 3px 10px #ea6502, inset 0 7px 15px #ea6502;
+	background-color: #ff9c12;
 }
 switchcontrol > label[ui-implements=on] {
 	display: block;
@@ -2446,11 +2527,41 @@ switchcontrol > label[ui-implements=off] {
     -webkit-transform: translateX(-54px);
     -webkit-transform: translate3d(-54px,0,0);
 }
+
+switchcontrol[ui-kind=generic] {
+	-webkit-box-shadow: inset 0 3px 10px #b7b7b7, inset 0 7px 15px #f4f4f4;
+	background-color: #eaeaea;
+}
+switchcontrol[ui-kind=generic] > thumb {
+	-webkit-box-shadow: none;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,  
+			from(#f4f4f4), 
+			to(#e3e3e3));
+}
+switchcontrol[ui-kind=generic]:before {
+	-webkit-box-shadow: inset 0 3px 10px #8e8e8e, inset 0 7px 15px #bfbfbf;
+	background-color: #c4c4c4;
+}
+switchcontrol[ui-kind=generic] > thumb:before {
+	display: none;
+}
+switchcontrol[ui-kind=generic] > thumb:after {
+	display: none;
+}
 switchcontrol.off > thumb {
+   -webkit-transform: translateX(0px);
+   -webkit-transform: translate3d(-1px,0,0);
+}
+switchcontrol.on > thumb {
+	-webkit-transform: translateX(0px);
+	-webkit-transform: translate3d(48px,0,0);
+}
+switchcontrol[ui-kind=traditional].off > thumb {
     -webkit-transform: translateX(-54px);
     -webkit-transform: translate3d(-54px,0,0);
 }
-switchcontrol.on > thumb {
+switchcontrol[ui-kind=traditional].on > thumb {
     -webkit-transform: translateX(0);
     -webkit-transform: translate3d(0,0,0);
 }
