@@ -17,11 +17,11 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.9 beta
+Version: 0.9 beta
 
 */
 
-var CHUIVersion = "0.8.9 beta";
+var CHUIVersion = "0.9 beta";
 	
 var UIExpectedChocolateChipJSVersion = "1.1.8"; 
 
@@ -1426,9 +1426,11 @@ $.extend(HTMLElement.prototype, {
 		var id = opts.id;
 		var customClass = opts.customClass || "";
 		var status = opts.status + " " || "off";
+		var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
 		var value = opts.value || "";
 		var callback = opts.callback || function() { return false; };
-		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '" ui-value="' + value + '"><label ui-implements="on">ON</label><thumb></thumb><label ui-implements="off">OFF</label></switchcontrol>';
+		var label = (opts.kind === "traditional") ? '<label ui-implements="on">ON</label><thumb></thumb><label ui-implements="off">OFF</label>' : "<thumb></thumb>";
+		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '" ui-value="' + value + '"' + kind + '>' + label + '</switchcontrol>';
 		if (this.css("position")  !== "absolute") {
 			this.css("position: relative;");
 		}

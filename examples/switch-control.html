@@ -58,6 +58,7 @@
 			var switchOpts = {
 				id : "myBestSwitch",
 				customClass : "customSwitchColor",
+				kind : "traditional",
 				status : "on",
 				value : "sort of working",
 				callback : function(item) {
@@ -88,7 +89,7 @@
 					<tableview id="tableview_01" ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Sleep</celltitle>
-                        <switchcontrol class="on" id="sleepSwitch" ui-value="ZZZZZZZZ!">
+                        <switchcontrol ui-kind="traditional" class="on" id="sleepSwitch" ui-value="ZZZZZZZZ!">
                             <label ui-implements="on">ON</label>
                             <thumb><thumbprop></thumbprop></thumb>
                             <label ui-implements="off">OFF</label>
@@ -98,7 +99,7 @@
                     <tableview ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Vacation</celltitle>
-                        <switchcontrol ui-implements="attention" class="off" id="vacationSwitch" ui-value="Later! :-)">
+                        <switchcontrol ui-kind="traditional" ui-implements="attention" class="off" id="vacationSwitch" ui-value="Later! :-)">
                             <label ui-implements="on">ON</label>
                             <thumb><thumbprop></thumbprop></thumb>
                             <label ui-implements="off">OFF</label>
@@ -108,7 +109,7 @@
                     <tableview ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Breakfast</celltitle>
-                        <switchcontrol class="off green" id="breakfastSwtich" ui-implements="attention"  ui-value="So, what's the first course?">
+                        <switchcontrol ui-kind="traditional" class="off green" id="breakfastSwtich" ui-implements="attention"  ui-value="So, what's the first course?">
                             <label ui-implements="on">ON</label>
                             <thumb><thumbprop></thumbprop></thumb>
                             <label ui-implements="off">OFF</label>
