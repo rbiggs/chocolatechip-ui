@@ -45,7 +45,6 @@
 		p.grouped + p.detailfooter {
 			margin: -10px 10px;
 		}
-		
 		splitview {
 			position: absolute;
 			top: 0; left: 0; bottom: 0; right: 0;
@@ -81,7 +80,11 @@
 			background-color: #dcdee4;
 		}
 		detailview > subview {
+		    display: none;
 			background-color: #d6dadf;
+		}
+		detailview > subview:first-of-type {
+		    display: block;
 		}
 		detailview > div, rootview > div {
 			height: 100%;
@@ -89,7 +92,6 @@
     	rootview ul {
         	background-color: #fff;
     	}
-    	
 		splitview navbar {
 			height: 45px; 
 			border-bottom: 1px solid #838a9a;
@@ -166,13 +168,12 @@
 			color:#fff;
 			text-shadow: none;
 		}
-		splitview scrollpanel, splitview subview { 
+		splitview scrollpanel { 
 			display: block; 
 		}
 		splitview subview {
 			height: 100%;
 		}
-		
 		splitview scrollpanel {
 			padding-bottom: 80px;
 		}
@@ -187,29 +188,14 @@
 		}
 		rootview view[ui-navigation-status=traversed] {
 			-webkit-transform: translate3d(0%, 0%, 0%);
-		}		
-
+		}
 	</style>
 	<script src="chui/chocolatechip.js" type="text/javascript"></script>
 	<script src="chui/chui.js" type="text/javascript"></script>
 
 	<script type="text/javascript">
 		$.ready(function() {
-			
-			var n16 = function(num) {
-			  	var str = (parseInt(num, 10)).toString(16);
-			  	return str.length == 2 ? str : "0" + str;
-			};
-			var randomColor = function() {
-			  	var r = n16(Math.random() * 100 + 127);
-			  	var g = n16(Math.random() * 100 + 127);
-			  	var b = n16(Math.random() * 100 + 127);
-			  	return "#" + r + g + b;
-			}
-			$("#second").delegate("tablecell", "click", function (item) {
-				$("detailview navbar h1").text("This is: " + item.text().trim());
-				$("detailview > subview").css("{background-color: " + randomColor() + "}");
-			});
+			//$.UIToggleDetail("#detailMenuTableView");
 		});
 	</script>
 </head>
@@ -225,101 +211,41 @@
 					<subview id="scroller1">
 						<scrollpanel>
 							<tableview>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 1</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 2</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 3</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 4</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 5</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 6</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 7</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 8</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 9</celltitle>
 								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
+								<tablecell href="#detailMenu" ui-implements="disclosure">
 									<celltitle>Item 10</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 11</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 12</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 13</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 14</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 15</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 16</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 17</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 18</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 19</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 20</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 21</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 22</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 23</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 24</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 25</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 26</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 27</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 28</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 29</celltitle>
-								</tablecell>
-								<tablecell href="#second" ui-implements="disclosure">
-									<celltitle>Item 30</celltitle>
 								</tablecell>
 							</tableview>
 						</scrollpanel>
-				</subview>
-			</view>
-				<view id="second" ui-navigation-status="upcoming">
+				    </subview>
+			    </view>
+				<view id="detailMenu" ui-navigation-status="upcoming">
 					<navbar>
 						<uibutton ui-implements="back" ui-bar-align="left">
 							<label>Back</label>
@@ -328,96 +254,21 @@
 					</navbar>
 					<subview id="scroller2">
 						<scrollpanel>
-							<tableview>
-								<tablecell>
-									<celltitle>Thing 1</celltitle>
+							<tableview ui-implements="detail-menu">
+								<tablecell ui-href="detail_1">
+									<celltitle>Fun Items</celltitle>
 								</tablecell>
-								<tablecell>
-									<celltitle>Thing 2</celltitle>
+								<tablecell ui-href="detail_2">
+									<celltitle>Bad Things</celltitle>
 								</tablecell>
-								<tablecell>
-									<celltitle>Thing 3</celltitle>
+								<tablecell ui-href="detail_3">
+									<celltitle>Really Bad</celltitle>
 								</tablecell>
-								<tablecell>
-									<celltitle>Thing 4</celltitle>
+								<tablecell ui-href="detail_4">
+									<celltitle>Bearable</celltitle>
 								</tablecell>
-								<tablecell>
-									<celltitle>Thing 5</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 6</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 7</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 8</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 9</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 10</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 11</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 12</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 13</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 14</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 15</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 16</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 17</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 18</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 19</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 20</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 21</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 22</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 23</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 24</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 25</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 26</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 27</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 28</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 29</celltitle>
-								</tablecell>
-								<tablecell>
-									<celltitle>Thing 30</celltitle>
+								<tablecell ui-href="detail_5">
+									<celltitle>Avoid</celltitle>
 								</tablecell>
 							</tableview>
 						</scrollpanel>
@@ -427,16 +278,11 @@
 		</rootview>
 		<detailview>
 			<navbar>
-				<h1>Detail View</h1>
+				<h1>Detail 1</h1>
 			</navbar>
-			<subview id="scroller2" class="scrollerWrapper">
+			<subview id="detail_1">
 				<scrollpanel>
-					<p class="detailtitle">Basic Example of Split View</p>
-					<p class="grouped">This is a very basic example of the split view. So, the links in the root view on the left all navigate to the next root view list. In real life each item in the first list would navigate to a different sub list. Similarly, clicking on an item or "Thing" in the second list only changes the background color and navbar title of the detail view. In real life you'd probably make an ajax call or some other operation to pull in data from somewhere to display in the detail view.
-					<br><br>
-					Although this example's root view has two views to support navigation, you don't need to do that. Depending on your needs a root view with a single view of actionable items to manipulate the detail view may be all you require.
-					</p>
-					
+					<p class="detailtitle">Detail View 1</p>
 					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
 					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
 					
@@ -447,6 +293,65 @@
 					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
 					
 					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_2">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 2</p>
+					<p class="grouped">Dignissim ligula. Aspernatur aut odit aut fugit urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_3">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 3</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_4">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 4</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_5">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 5</p>
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					
 				</scrollpanel>
 			</subview>
 		</detailview>

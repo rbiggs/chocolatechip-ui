@@ -2369,13 +2369,14 @@ $.ready(function() {
 				$.rootview.css("display: none; height: " + (window.innerHeight - 100) + "px;");
 				$("#scroller1").css("overflow: hidden; height: " + (window.innerHeight - 155) + "px;");
 			}
+			$("detailview navbar h1").text($("tableview[ui-implements=detail-menu] > tablecell").text().trim());
 		},
 		
 		UISetSplitviewOrientation : function() {
 			if ($.resizeEvt) {
 				if (window.innerWidth > window.innerHeight) {
 					$.body.className = "landscape";
-					$.rootview.css("{display: block; height: 100%; margin-bottom: 1px;}");
+					$.rootview.css("display: block; height: 100%; margin-bottom: 1px;");
 					$("#scroller1").css("overflow: hidden; height: 100%;");
 				} else {
 					$.body.className = "portrait";
@@ -2388,12 +2389,14 @@ $.ready(function() {
 		UIToggleRootView : function() {
 			if ($.rootview.style.display === "none") {
 				$.rootview.css("display: block;");
+				$.rootview.UIBlock(".01");
 				$.UISplitViewScroller1.destroy();
 				$.UISplitViewScroller2.destroy();
 				$.UISplitViewScroller1 = new $.UIScroll('#scroller1 > scrollpanel');
 				$.UISplitViewScroller2 = new $.UIScroll('#scroller2 > scrollpanel');
 			} else {
 				$.rootview.style.display = "none";
+				$.rootview.UIUnblock();
 				$.UISplitViewScroller1.destroy();
 				$.UISplitViewScroller2.destroy();
 				$.UISplitViewScroller1 = new $.UIScroll('#scroller1 > scrollpanel');
@@ -2414,9 +2417,33 @@ $.ready(function() {
 					$.UISetSplitviewOrientation();
 				};
 			}
-		}
+		},
+		UICurrentSplitViewDetail : null,
 	});
 	$.UICheckForSplitView();
+	if ($("detailview > subview")) {
+		$.UICurrentSplitViewDetail = "#";
+		$.UICurrentSplitViewDetail += $("detailview > subview").getAttribute("id");
+		$$("tableview[ui-implements=detail-menu] > tablecell").forEach(function(cell) {
+			cell.bind("click", function() {
+				var rootview = this.ancestor("rootview");
+				if (rootview.css("position") === "absolute") {
+					rootview.css("display: none;");
+					$.app.UIUnblock();
+				}
+				var uiHref = this.getAttribute("ui-href");
+				uiHref = "#" + uiHref;
+				if (uiHref === $.UICurrentSplitViewDetail) {
+					return;
+				} else {
+					$($.UICurrentSplitViewDetail).css("display: none;");
+					$(uiHref).css("display: block;");
+					$.UICurrentSplitViewDetail = uiHref;
+					$("detailview navbar h1").text(cell.text().trim());
+				}
+			});
+		});
+	}
 });
 $.extend($, {
     determineMaxPopoverHeight : function() {
@@ -2579,7 +2606,7 @@ $.extend($.UIPopover, {
     activePopover : null,
     show : function ( popover ) {
         if ($.UIPopover.activePopover === null) {
-        	popover.UIBlock();
+        	popover.UIBlock(".01");
             popover.repositionPopover();
             popover.css("opacity: 1; -webkit-transform: scale(1);");
             $.UIPopover.activePopover = popover.id;
@@ -2621,11 +2648,14 @@ $.extend(HTMLElement.prototype, {
             this.style.left = screenWidth - 10 + "px";
         }
     },
-    UIBlock : function ( ) {
-    	this.before($.make("<overlay></overlay>"));
+    UIBlock : function ( opacity ) {
+    	opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+    	this.before($.make("<overlay" + opacity + "></overlay>"));
     },
     UIUnblock : function ( ) {
-    	$("overlay").remove();
+    	if ($("overlay")) {
+    		$("overlay").remove();
+    	}
     }
 });
 
@@ -2638,6 +2668,7 @@ window.addEventListener("orientationchange", function() {
         popover.repositionPopover();
         $.adjustPopoverHeight("#" + popover.id);
     });
+	$("rootview").UIUnblock();
 }, false);
 
 // Hide any visible popovers when orientation changes.
@@ -2652,9 +2683,15 @@ window.addEventListener("resize", function() {
 
 $(function() {
 	$.app.delegate("overlay", "click", function() {
-		$.UIPopover.hide($("#"+$.UIPopover.activePopover));
-		if ($("overlay")) {
-			$("overlay").UIUnblock();
+		if ($.UIPopover.activePopover) {
+			$.UIPopover.hide($("#"+$.UIPopover.activePopover));
+			if ($("overlay")) {
+				$("overlay").UIUnblock();
+			}
+		}
+		if ($.rootview.css("position") === "absolute") {
+			$.rootview.style.display = "none";
+			$.rootview.UIUnblock();
 		}
 	});
 });

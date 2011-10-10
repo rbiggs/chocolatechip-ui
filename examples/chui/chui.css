@@ -3784,7 +3784,6 @@ popover actionsheet {
 }
 overlay {
 	display: block;
-	opacity: .01;
 	background-color: #000;
 	position: absolute;
 	top: 0;
@@ -3793,4 +3792,5 @@ overlay {
 	right: 0;
 	height: 100%;
 	width: 100%;
+	z-index: 9999;
 }
