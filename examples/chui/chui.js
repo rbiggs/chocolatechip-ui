@@ -1009,11 +1009,15 @@ $.extend($, {
 	UIEnableScrolling : function ( options ) {
 		try {
 			var scrollpanels = $$("scrollpanel");
-			var count = 0;
 			scrollpanels.forEach(function(item) {
-				item.setAttribute("ui-scroller", $.UIUuid());
-				var whichScroller = item.getAttribute("ui-scroller");
-				$.UIScrollers[whichScroller] = new $.UIScroll(item.parentNode, options);
+				if (item.hasAttribute("ui-scroller") {
+					var whichScroller = item.getAttribute("ui-scroller");
+					$.UIScrollers[whichScroller] = new $.UIScroll(item.parentNode, options);
+				} else {
+					item.setAttribute("ui-scroller", $.UIUuid());
+					var whichScroller = item.getAttribute("ui-scroller");
+					$.UIScrollers[whichScroller] = new $.UIScroll(item.parentNode, options);
+				}
 			});
 		} catch(e) { }
 	}
