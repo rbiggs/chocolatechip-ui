@@ -2383,6 +2383,7 @@ $.ready(function() {
 					$.rootview.css("display: none; height: " + (window.innerHeight - 100) + "px;");
 					$("#scroller1").css("overflow: hidden; height:" + (window.innerHeight - 155) + "px;");
 				}
+				$.UIEnableScrolling({desktopCompatibility:true});
 			}
 		},
 		
@@ -2440,6 +2441,7 @@ $.ready(function() {
 					$(uiHref).css("display: block;");
 					$.UICurrentSplitViewDetail = uiHref;
 					$("detailview navbar h1").text(cell.text().trim());
+					$.UIEnableScrolling({desktopCompatibility:true});
 				}
 			});
 		});
