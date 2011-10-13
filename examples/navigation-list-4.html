@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="app-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Title</title>
+	<link rel="stylesheet" href="chui/chui.css">
+	<style>
+		/* Local Styles Here */
+	toolbar h1 {
+        -webkit-box-flex: 0 !important;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -webkit-box-flex: 1;
+        text-align: center;
+        margin: 0 auto;
+        font: bold 20px/32px Helvetica, Sans-serif;
+        letter-spacing: -1px;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+        color: #fff;
+    }
+    toolbar > a {
+        text-decoration: none;
+    }
+    #subview_02 tablecell> celltitle:before {
+        counter-increment: number;
+        content: "- " counter(number);
+        padding: 2px;
+    }
+    
+    #segmented_panels > panel {
+        width: 100%;
+        display: block !important;
+        -webkit-box-pack: stretch;
+        -webkit-box-align: center;
+        position: absolute;
+        opacity: 0px;
+        -webkit-transition: all 0.125s  ease-in-out;
+        z-index: 1;
+    }
+	#segmented_panels > panel h1 {
+		line-height: 20px;
+	}
+	</style>
+	<script src="chui/chocolatechip.js"></script>
+	<script src="chui/chui.js"></script>
+	<script>
+		/* Local JavaScript Here */
+		$.ready(function() {
+		 	$("segmentedcontrol").UISegmentedControl("#segmented_panels");
+		});
+		
+	</script>
+</head>
+<body>
+	<app ui-kind="navigation-with-one-navbar">
+		<navbar>
+			<uibutton ui-implements="back" ui-bar-align="left"><label>Back</label></uibutton>
+			<h1>Inhalt</h1>
+		</navbar>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current" ui-subview-navigation="false">
+			<subview id="subview_01" ui-associations="withNavBar withBottomToolBar">
+				<scrollpanel>
+					<tableview>
+						<tablecell href="#item_01_view" ui-implements="disclosure">
+							<celltitle>Grundlagen der Messtechnik</celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="slanted-right">
+			<subview id="subview_02" ui-associations="withNavBar withBottomToolBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked">
+						<tablecell href="#item_01_detail_view" ui-implements="disclosure">
+							<celltitle>Sicher messen</celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="item_01_detail_view" ui-navigation-status="upcoming" ui-background-style="squared">
+			<subview id="subview_03" ui-associations="withNavBar withBottomToolBar">
+			    <scrollpanel>
+                    <div style="height: 20px;"></div>
+                    <stack>
+                        <segmentedcontrol>
+                            <uibutton class="selected">
+                                <label>Inhalt</label>
+                            </uibutton>
+                            <uibutton>
+                                <label>Produkte</label>
+                           </uibutton>
+                           <uibutton>
+                                <label>Anwenderberichte</label>
+                           </uibutton>
+                       </segmentedcontrol>
+                    </stack>
+                    <div style="height: 20px;"></div>
+                    <stack id="segmented_panels">
+                        <panel>
+                            <tableview>
+                                <tablecell>
+                                    <celldetail>
+                                    <h1>Sicher messen auch in Umgebungen hoher Kurzschlussenergie</h1>
+                                    <h2>Gefahren beim Messen &ndash; Dabei sind drei Hauptgefährdungskreise zu nennen:</h2>
+                                    <p>a) Bei Spannungsmessung: Durchschlag oder Überschlag im Instrument durch Überspannungsimpulse oder Missbrauch (zu hohe Messspannung). Diese kurzen Überspannungsimpulse (sog. Transienten) werden durch betriebliche Schalthandlungen im Mittel- und Niederspannungsnetz, durch Motorschütze sowie durch das Löschen von Kurzschlussströmen im Schutzorgan verursacht. Sie treten häufig auf und erreichen oft Spitzenwerte von mehreren Tausend Volt. In diesem Fall hängt Ihre Sicherheit von der Durchschlagsfestigkeit Ihres Messgerätes ab.</p>
+                                    <p>
+                                    <span class="picbig"><img class="breit" src="files/transienten_vr1710-4c.png">
+                                    </p>
+                                    <p><i>Abb. 1.1 a+b: Transienten, die durch Schalthandlungen aufgetreten sind. Typisch für ­kurze Netzunter­brechungen sind die extremen Spannungsspitzen von über 2000 Volt. Diese führen häufig zu Gerätezerstörungen und können Multi­meter zur Explosion bringen. Links gemessen mit dem Fluke 43 B Netzanalysator, rechts mit dem Störereignisrecorder Fluke VR1710 ­dokumentiert.</i>
+                                    </p>
+                                    <p>b) Bei Strommessung: versehentliches Messen von Spannung bei gestecktem und geschaltetem Strombereich (z.B. nach Ablenkung des Benutzers). In diesem Fall helfen nur Hochenergiesicherungen mit hohem Abschaltvermögen eine Katastrophe zu verhindern. Fluke setzt Sicherungen bis 100 Kiloampere Löschvermögen ein.</p>
+                                    <p>c) Bei Widerstandsmessung (auch Diode/Durchgang/Kapazität/Temperatur): Anlegen einer hohen Spannung und bei Kapazitätsmessung hohe Restspannung des Konden­sators. Dies muss das Multimeter problemlos vertragen können, und zwar bis zur angegebenen Arbeitsspannung (z.B. 1000 V).</p>
+                                    </celldetail>
+                                </tablecell>
+                            </tableview>                      
+                        </panel>
+                        <panel>
+                            <tableview>
+                                <tablecell href="#cat1111" ui-implements="detail-disclosure">
+                                    <img class="listpic" src="files/6px_serie170.png">
+                                    <celltitle>170er Serie</celltitle>
+                                    <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden[…]</p>
+                                </tablecell>
+                                <tablecell href="#cat1112" ui-implements="detail-disclosure">
+                                    <img class="listpic" src="files/6px_serie280.png">
+                                    <celltitle>280er Serie</celltitle>
+                                    <p>Die neuen Echteffektiv-Digitalmultimeter Fluke 287/289 wurden[…]</p>
+                                </tablecell>
+                                <tablecell href="#cat1113" ui-implements="detail-disclosure">
+                                    <img class="listpic" src="files/6px_serie370.png">
+                                    <celltitle>370er Serie</celltitle>
+                                    <p>Vielseitig und schnell messen &ndash; einfach[…]</p>
+                                </tablecell>
+                            </tableview>	                 
+                        </panel>
+                        <panel>
+                            <tableview ui-kind="grouped">
+                                <tableheader>This is a detail page about places.</tableheader>
+                                <tablecell class="ui-no-hover">
+                                    <celltitle>Places, where to go, where not to go</celltitle>
+                                    <celldetail>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    </celldetail>
+                                </tablecell>
+                            </tableview>                        
+                        </panel>
+                    </stack>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="cat1111" ui-background-style="striped" ui-navigation-status="upcoming">
+            <subview ui-associations="withNavBar">
+                <scrollpanel class="bluePanel">
+                    <tableview>
+                        <tablecell>
+                        <h3>170er Serie</h3>
+                        <span class="picbig">
+                            <img class="breit" src="files/serie170.png">
+                            <img class="hoch" src="files/px32_serie170.png">
+                        </span>
+                        <celldetail class="hyphenate">
+                        <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden Leistungsmerkmalen, ihrer Bedienungsfreundlichkeit, Sicherheit und Zuverlässigkeit setzen die drei Modelle der neuen Serie 170 neue Maßstäbe auf dem Gebiet der Universal-Multimeter.</p>
+                        </tablecell>
+                    </tableview>		
+                </scrollpanel>
+            </subview>
+        </view>
+		<view id="cat1112" ui-background-style="striped" ui-navigation-status="upcoming">
+            <subview ui-associations="withNavBar">
+                <scrollpanel class="bluePanel">
+                    <tableview>
+                        <tablecell>
+                        <h3>280er Serie</h3>
+                        <span class="picbig">
+                            <img class="breit" src="files/serie280.png">
+                            <img class="hoch" src="files/px32_serie280.png">
+                        </span>
+                        <celldetail class="hyphenate">
+                        <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden Leistungsmerkmalen, ihrer Bedienungsfreundlichkeit, Sicherheit und Zuverlässigkeit setzen die drei Modelle der neuen Serie 170 neue Maßstäbe auf dem Gebiet der Universal-Multimeter.</p>
+                        </tablecell>
+                    </tableview>		
+                </scrollpanel>
+            </subview>
+        </view>
+		<view id="cat1113" ui-background-style="striped" ui-navigation-status="upcoming">
+            <subview ui-associations="withNavBar">
+                <scrollpanel class="bluePanel">
+                    <tableview>
+                        <tablecell>
+                        <h3>370er Serie</h3>
+                        <span class="picbig">
+                            <img class="breit" src="files/serie370.png">
+                            <img class="hoch" src="files/px32_serie370.png">
+                        </span>
+                        <celldetail class="hyphenate">
+                        <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden Leistungsmerkmalen, ihrer Bedienungsfreundlichkeit, Sicherheit und Zuverlässigkeit setzen die drei Modelle der neuen Serie 170 neue Maßstäbe auf dem Gebiet der Universal-Multimeter.</p>
+                        </tablecell>
+                    </tableview>		
+                </scrollpanel>
+            </subview>
+        </view>
+		<toolbar ui-placement="bottom">
+		    <a href="javascrip:void(null)"><h1>Fluke</h1></a>
+		</toolbar>
+	</app>
+</body>
+</html>

@@ -315,30 +315,23 @@ A method to toggle the "touched" class of table cells. This method queries the $
 
 &nbsp;
 
-<a name="UIScrollControl"></a>
+<a name="iScroll"></a>
 
-##Function: $.UIScrollControl
+##Function: iScroll
 
-A method to implement scrolling of a container. This is based on iScroll by Matteo Spinelli: [cubiq.org](http://cubiq.org). Whereas his version had a lot of loose variables in the global space, ChUI.js encapsulates all variables and methods in the ChocolateChip $ object and uses ChocolateChip features where appropriate. $.UIScrollControl handles scrolling with the following private methods: handleEvent, onDOMModified, refresh, setPosition, setTransitionTime, touchStart, touchMove, touchEnd, transitionEnd, resetPosition, snap, scrollTo, scrollToPage, scrollToElement, momentum, onScrollEnd, destroy. It also uses $.UIScrollBar to create scrollbar during scrolling.
+A method to implement scrolling of a container. This is based on iScroll by Matteo Spinelli: [cubiq.org](http://cubiq.org). This is the latest version (4.1.9) from GitHub with a few minor changes. I've added in the option to turn off mouse gestures and mouse wheel tracking on the desktop.
+
+**Example:**
+
+    var opts = { desktopCompatibility: true };
+    var scroller = new iScroll($("#myNewScrollPanel", opts);
 
 **See Also:**
 
-[$.UIScrollBar](#UIScrollBar)
 
 [$.UIEnableScrolling](#UIEnableScrolling)
 
-
-&nbsp;
- 
-<a name="UIScrollBar"></a>
-
-##Function: $.UIScrollBar
-
-A method that creates scrollbars to indicate scrolling when an element is being scrolled. This is used by $.UIScrollControl.
-
-**See Also:**
-
-[$.UIScrollControl](#UIScrollControl)
+[iScroll Site](http://cubiq.org/iscroll-4)
 
 
 &nbsp;
@@ -347,16 +340,15 @@ A method that creates scrollbars to indicate scrolling when an element is being 
 
 ##Function: $.UIEnableScrolling
 
-A method to implement automatic scrolling for all scroll panels inside of subviews. This does so by executing the $.UIEnableScrolling method on each scroll panel. This is done when the DOMContentLoaded event fires. If you dynamically create a view or subview with a scroll panel and want to implement scrolling on it, you can do so as illustrated in the example below.
+A method to implement automatic scrolling for all scroll panels inside of subviews. This does so by executes iScroll on each scroll panel in the app. By default this executes when the DOMContentLoaded event fires, or when there is a screen resize or orientation change. If you dynamically create a view or subview with a scroll panel and want to implement scrolling on it, you can do so as illustrated in the example below.
 
 **Example:**
 
-    var opts = { desktopCompatibility: true };
-    var scroller = new $.UIScrollControl($("#myNewScrollPanel", opts);
+    $.UIEnableScrolling({ desktopCompatibility: true });
 
 **See Also:**
 
-[$.UIScrollControl](#UIScrollControl)
+[iScroll](#iScroll)
 
 
 
@@ -698,7 +690,7 @@ A method to initialize a list of single choice options, similar to how a group o
 
 ##Function: Element.UICreateSwitchControl
 
-A method to create a SwitchControl in a tableview cell. 
+A method to create a SwitchControl. This widget has been updated to handle the new iOS 5 style switch controls. To get the older version of switches used in iOS 4 and below, you need to pass it a value of *ui-kind=traditional*. The new switches don't use labels requiring localization. Instead they use international standard symbols for state: "ON" is a vertical line, "OFF" is a circle. You can get a version of this switch control but without the symbols by passing it an argument value of *ui-kind=generic*.
 
 **Syntax:**
 
@@ -708,6 +700,7 @@ A method to create a SwitchControl in a tableview cell.
 
 - object literal: an object of possible values for the switch control:
     - id: and id for the switch control. and id must be supplied.
+    - kind: an optional value of "traditional" for the old style switches, or "generic" for a simpler version of the new style.
     - status: either "on" or "off", the default is "off".
     - value: any integer or string value.
     - callback: a function to execute when the switch is flipped to the "on" position.
@@ -723,7 +716,9 @@ A method to create a SwitchControl in a tableview cell.
         }
     }
     
-    $("#myListItem").UIUICreateSwitchControl({
+    $("#specialList > tablecell:first-of-type").UICreateSwitchControl(opts);
+    
+    $("#myListItem").UICreateSwitchControl({
         id : "switch_001",
         status : "on",
         value : 100,
@@ -734,6 +729,16 @@ A method to create a SwitchControl in a tableview cell.
         }
     }
     
+    $("#userListItem2").UICreateSwitchControl({
+		id : "userChoice2",
+        status : "off",
+        kind : "traditional"
+        value : "increase the yumminess",
+        callback : function() {
+            postTheRequest(this.id);
+        }
+    }
+        
 **Note:** When using a switch control make sure that its parent container has positioning set to either relative or absolute. This is because ChocolateChip-UI uses absolute positioning to place the switch control on the right side of its container. If the container does not have some type of positioning, the switch control will appear placed somewhere towards the top right of the document. Of course, if you know the container already has positioning, you don't need to bother setting it. Tablecells already have positioning set. See example below for how to set a container's position before injecting a switch control:
 
     var opts = {/* options for switchcontrol */};
@@ -1850,3 +1855,11 @@ Then you could initialize it with $.UISpinner.
     });
     
 Please examine the examples in spinner.html in the examples folder of the source code.
+
+&nbsp;
+
+<a name="UIPopover"></a>
+
+##Function: $.UIPopover
+
+A method to create the shell of a popover. Popovers are used on tablets to provide a panel for additional user options. This may be in the shape of navigation lists for the displayed content, action lists to toggle through panels of visible content, or action buttons or icon buttons to perform actions or function as tools to interact with the visible content.
