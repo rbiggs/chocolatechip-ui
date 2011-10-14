@@ -2143,11 +2143,16 @@ $.extend($, {
 		var actionSheetID = "";
 		if ($.app.data("ui-action-sheet-id")) {
 			actionSheetID = $.app.data("ui-action-sheet-id");
+			$(actionSheetID).css("right: 0; bottom: 0; left: 0;");
 			if ($.iphone || $.ipod) {
 				if ($.standalone) {
 					$(actionSheetID).css("right: 0; bottom: 0px; left: 0;");
 				} else {
-					$(actionSheetID).css("right: 0; bottom: -90px; left: 0;");
+					if (window.innerWidth > window.innerHeight) {
+					$(actionSheetID).css("right: 0; bottom: 0; left: 0; -webkit-transform: translate3d(0,70px,0);");
+					} else {
+						$(actionSheetID).css("right: 0; bottom: 0; left: 0; -webkit-transform: translate3d(0,0,0);");
+					}
 				}
 			} else {
 				$(actionSheetID).css("right: 0; bottom: 0; left: 0;");
