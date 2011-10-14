@@ -23,7 +23,7 @@ Version: 0.9 beta
 
 var CHUIVersion = "0.9 beta";
 	
-var UIExpectedChocolateChipJSVersion = "1.1.8"; 
+var UIExpectedChocolateChipJSVersion = "1.1.9"; 
 
 var UICheckChocolateChipJSVersion = function() {
 	if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -220,7 +220,7 @@ var m = Math,
 			|| window.mozRequestAnimationFrame
 			|| window.oRequestAnimationFrame
 			|| window.msRequestAnimationFrame
-			|| function(callback) { return setTimeout(callback, 1); }
+			|| function(callback) { return setTimeout(callback, 1); };
 	})(),
 	cancelFrame = (function () {
 	    return window.cancelRequestAnimationFrame
@@ -228,7 +228,7 @@ var m = Math,
 			|| window.mozCancelRequestAnimationFrame
 			|| window.oCancelRequestAnimationFrame
 			|| window.msCancelRequestAnimationFrame
-			|| clearTimeout
+			|| clearTimeout;
 	})(),
 
 	// Events
@@ -607,7 +607,7 @@ iScroll.prototype = {
 
 			that.lastScale = scale / this.scale;
 
-			newX = this.originX - this.originX * that.lastScale + this.x,
+			newX = this.originX - this.originX * that.lastScale + this.x;
 			newY = this.originY - this.originY * that.lastScale + this.y;
 
 			this.scroller.style[vendor + 'Transform'] = trnOpen + newX + 'px,' + newY + 'px' + trnClose + ' scale(' + scale + ')';
@@ -875,7 +875,7 @@ iScroll.prototype = {
 			return;
 		}
 
-		while (t = t.parentNode) if (t == this.wrapper) return;
+		while (t = t.parentNode) {if (t === this.wrapper) {return;}}
 		
 		this._end(e);
 	},
@@ -883,7 +883,7 @@ iScroll.prototype = {
 	_transitionEnd: function (e) {
 		var that = this;
 
-		if (e.target != that.scroller) return;
+		if (e.target !== that.scroller) return;
 
 		that._unbind('webkitTransitionEnd');
 		
@@ -897,11 +897,13 @@ iScroll.prototype = {
 	 *
 	 */
 	_startAni: function () {
-		var that = this,
-			startX = that.x, startY = that.y,
-			startTime = Date.now(),
-			step, easeOut,
-			animate;
+		var that = this;
+		var startX = that.x;
+		var startY = that.y;
+		var startTime = Date.now();
+		var step; 
+		var easeOut;
+		var animate;
 
 		if (that.animating) return;
 		
@@ -1277,15 +1279,16 @@ $.extend($, {
 	UIScrollers : {},
 	
 	UIEnableScrolling : function ( options ) {
+		var whichScroller;
 		try {
 			var scrollpanels = $$("scrollpanel");
 			scrollpanels.forEach(function(item) {
 				if (item.hasAttribute("ui-scroller")) {
-					var whichScroller = item.getAttribute("ui-scroller");
+					whichScroller = item.getAttribute("ui-scroller");
 					$.UIScrollers[whichScroller] = new iScroll(item.parentNode, options);
 				} else {
 					item.setAttribute("ui-scroller", $.UIUuid());
-					var whichScroller = item.getAttribute("ui-scroller");
+					whichScroller = item.getAttribute("ui-scroller");
 					$.UIScrollers[whichScroller] = new iScroll(item.parentNode, options);
 				}
 			});
@@ -1818,7 +1821,7 @@ $.extend(HTMLElement.prototype, {
     UISegmentedControl : function( container, callback ) {
         var that = this;
         var val = null;
-        var callback = callback || function(){};
+        callback = callback || function(){};
 		var buttons = $.collectionToArray(this.children);
 				var cont = $(container);
 		if (!this.hasAttribute('ui-selected-segment')) {
@@ -2687,7 +2690,7 @@ $(function() {
 				};
 			}
 		},
-		UICurrentSplitViewDetail : null,
+		UICurrentSplitViewDetail : null
 	});
 	$.UICheckForSplitView();
 	if ($("detailview > subview")) {
@@ -2718,12 +2721,13 @@ $(function() {
 $.extend($, {
     determineMaxPopoverHeight : function() {
         var screenHeight = window.innerHeight;
+		var toolbarHeight;
         if ($("navbar")) {
-            var toolbarHeight = $("navbar").clientHeight;
+            toolbarHeight = $("navbar").clientHeight;
         }
         if ($("toolbar")) {
             if (!$("toolbar").getAttribute('ui-placement')) {
-                var toolbarHeight = $("toolbar").clientHeight;
+                toolbarHeight = $("toolbar").clientHeight;
             }
         }
             screenHeight = screenHeight - toolbarHeight;
@@ -2768,7 +2772,7 @@ $.extend($, {
                 }
                 pos = trel.offsetTop + trel.offsetHeight;
                 pos += 20;
-                pos =  popoverPos + "px; top: " + pos + "px;"
+                pos =  popoverPos + "px; top: " + pos + "px;";
                 break;
             case "right" :
                 if (pointerOrientation === "top") {
@@ -2798,7 +2802,7 @@ $.extend($, {
                 }
                 pos = trel.offsetTop + trel.offsetHeight;
                 pos += 20;
-                pos =  popoverPos + "px; bottom: " + pos + "px;"
+                pos =  popoverPos + "px; bottom: " + pos + "px;";
                 break;
                 break;
             case "left" :
@@ -2820,24 +2824,26 @@ $.extend($, {
                 pos = trel.getTop() + trel.offsetHeight;
                 popoverPos = "left: " + popoverPos;
                 pos += 20;
-                pos = popoverPos + "px; top: " + pos + "px;"
+                pos = popoverPos + "px; top: " + pos + "px;";
                 break;
         }
         return pos;
     },
     UIPopover : function( triggerElement, popoverOrientation, pointerOrientation, opts) {
+		var title;
+		var popoverID;
         if (opts) { 
-            var id = 'id="' + opts.id + '"' || $.UIUuid();
-            var title = '<h3>'+ opts.title + '</h3>' || "";
+            popoverID = 'id="' + opts.id + '"' || $.UIUuid();
+            title = '<h3>'+ opts.title + '</h3>' || "";
         } else {
-            var id = "";
-            var title = "";
+            popoverID = "";
+            title = "";
         }
         var trel = this.getPopoverTrigger(triggerElement);
         var pos = this.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
         pos = " style='" + pos + "'";
         var popoverShell = 
-            '<popover ' + id + ' ui-pointer-position="' + popoverOrientation + '-' + pointerOrientation + '"' 
+            '<popover ' + popoverID + ' ui-pointer-position="' + popoverOrientation + '-' + pointerOrientation + '"' 
             + pos + ' data-popover-trigger="#' + trel.id + '" data-popover-orientation="' + popoverOrientation + '" data-popover-pointer-orientation="' + pointerOrientation + '">\n' + 
                 '<header>'+ title 
                 
