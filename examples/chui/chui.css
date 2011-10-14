@@ -282,6 +282,42 @@ subview[ui-associations="withToolBar withTabBar"] {
 	-webkit-background-size: 20px 20px;
 	background-size: 10px 10px;
 }
+*[ui-background-style=argyle] {
+	background-image: 
+		-webkit-gradient(linear, right top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, right bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent));
+	-webkit-background-size: 15px 15px;
+	background-size: 12px 12px;
+}
+*[ui-background-style=intersect] {
+	background-image: 
+		-webkit-gradient(linear, left top, right bottom, 
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent)),
+		-webkit-gradient(linear, right top, left bottom,
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent));
+	-webkit-background-size: 20px 20px;
+	background-size: 12px 12px;
+}
 /*  Layout Flexible Box Styles */
 *[ui-box=horizontal] {
 	display: -webkit-box;
