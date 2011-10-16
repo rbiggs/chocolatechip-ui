@@ -21,7 +21,7 @@ Version: 0.9 beta
 
 */
 
-var CHUIVersion = "0.9 beta";
+var CHUIVersion = "0.9.5 beta";
 	
 var UIExpectedChocolateChipJSVersion = "1.1.9"; 
 
@@ -2976,4 +2976,42 @@ $(function() {
 			$.rootview.UIUnblock();
 		}
 	});
+});
+$.extend($, {
+	UIAlphabeticalList : function() {
+		if ($("tableview[ui-kind='titled-list alphabetical']")) {
+			var tableview = $("tableview[ui-kind='titled-list alphabetical']");
+			var titles = [];
+			var uuidSeed = $.UIUuidSeed();
+			var counter = 0;
+			var alphabeticalList = '<stack ui-kind="alphabetical-list">';
+			var alphabeticalListItems = "";
+			tableview.findAll("tableheader").forEach(function(title){
+				titles.push(title.text());
+				counter++;
+				title.setAttribute("id", "alpha_" + title.text() + uuidSeed + counter);
+				alphabeticalListItems += '<span href="#alpha_' + title.text() + uuidSeed + counter + ' ">' + title.text() + '</span>';
+			});
+			alphabeticalList += alphabeticalListItems + '</stack>';
+			tableview.ancestor("scrollpanel").after($.make(alphabeticalList));
+		}
+       	if ("stack[ui-kind='alphabetical-list']") {
+			$("stack[ui-kind='alphabetical-list']").css({height: window.innerHeight-45 + "px"});
+	
+			window.addEventListener("resize", function() {
+				$("stack[ui-kind='alphabetical-list']").css({height: window.innerHeight-45 + "px"});
+			});
+		}
+		var myScrollie = $("tableview[ui-kind='titled-list alphabetical']")
+			.ancestor("scrollpanel").getAttribute("ui-scroller");
+		$.UIScrollers[myScrollie].destroy();
+		$.UIScrollers[myScrollie] = new iScroll("scrollpanel", {snap:true});
+		$.app.delegate("stack[ui-kind='alphabetical-list'] > span", "click", function(alpha) { 
+			$.UIScrollers[myScrollie].scrollToElement(alpha.getAttribute("href"));
+		});
+	}
+});
+
+$(function() {
+	$.UIAlphabeticalList();	
 });

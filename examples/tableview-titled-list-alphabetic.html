@@ -6,68 +6,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Tableviews 1</title>
     <link rel="stylesheet" href="chui/chui.css">
-<style>
-	tableview[ui-kind=titled-list] tableheader {
-		-webkit-box-sizing: border-box;
-		height: 24px;
-		background-image:
-			-webkit-gradient(linear, left top, left bottom,
-				from(#92a1ac),
-				to(#b7bfc6));
-		border-top: solid 1px #717d85;
-		border-bottom: solid 1px #989ea4;
-		font-size: 14px;
-		font-weight: bold;
-		line-height: 12px;
-		color: #fff;
-		text-shadow: 0 1px 1px #666;
-		text-align: left;
-		display: -webkit-box;
-		-webkit-box-align: center;
-	}
-	stack[ui-kind=alphabetical-list] {
-		position: absolute;
-		top: 0;
-		right: 10px;
-		bottom: 0;
-		width: 30px;
-		padding: 8px;
-		-webkit-border-radius: 10px;
-		display: -webkit-box;
-		-webkit-box-align: center;
-		-webkit-box-orient: vertical;
-		-webkit-box-pack: justify;
-		background-color: rgba(0,0,0,0.0);
-	}
-	stack[ui-kind=alphabetical-list] span {
-		text-align: center;
-		display: block;
-		flex:1;
-		width: 12px;
-		height: 10px;
-		font-size: 9px;
-		font-weight: bold;
-		text-align: center;
-		color: #000;
-	}
-	stack[ui-kind=alphabetical-list]:hover {
-		background-color: rgba(0,0,0,0.25);
-	}
-	stack[ui-kind=alphabetical-list]:hover span {
-		color: #fff;
-	}
-</style>
+	<style></style>
     <script src="chui/chocolatechip.js" type="text/javascript"></script>
     <script src="chui/chui.js" type="text/javascript"></script>
     <script type="text/javascript">
         $.ready(function() {
-        	if ("stack[ui-kind=alphabetical-list]") {
-				$("stack[ui-kind=alphabetical-list]").css({height: window.innerHeight-45 + "px"});
-				
-window.addEventListener("resize", function() {
-					$("stack[ui-kind=alphabetical-list]").css({height: window.innerHeight-45 + "px"});
-				});
-			}
+
 		});
     </script>
     
@@ -80,7 +24,7 @@ window.addEventListener("resize", function() {
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
-					<tableview ui-kind="titled-list">
+					<tableview ui-kind="titled-list alphabetical">
 						<tableheader>A</tableheader>
 						<tablecell>
 							<celltitle>Albert</celltitle>
@@ -292,34 +236,6 @@ window.addEventListener("resize", function() {
 						</tablecell>
 					</tableview>
 				</scrollpanel>
-					<stack ui-kind="alphabetical-list">
-						<span>A</span>
-						<span>B</span>
-						<span>C</span>
-						<span>D</span>
-						<span>E</span>
-						<span>F</span>
-						<span>G</span>
-						<span>H</span>
-						<span>I</span>
-						<span>J</span>
-						<span>K</span>
-						<span>L</span>
-						<span>M</span>
-						<span>N</span>
-						<span>O</span>
-						<span>P</span>
-						<span>Q</span>
-						<span>R</span>
-						<span>S</span>
-						<span>T</span>
-						<span>U</span>
-						<span>V</span>
-						<span>W</span>
-						<span>X</span>
-						<span>Y</span>
-						<span>Z</span>
-					</stack>
 			</subview>
 		</view>
 	</app>
