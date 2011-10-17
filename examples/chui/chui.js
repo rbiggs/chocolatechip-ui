@@ -17,11 +17,11 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.9 beta
+Version: 1.0
 
 */
 
-var CHUIVersion = "0.9.5 beta";
+var CHUIVersion = "1.0";
 	
 var UIExpectedChocolateChipJSVersion = "1.1.9"; 
 
@@ -2993,7 +2993,7 @@ $.extend($, {
 				alphabeticalListItems += '<span href="#alpha_' + title.text() + uuidSeed + counter + ' ">' + title.text() + '</span>';
 			});
 			alphabeticalList += alphabeticalListItems + '</stack>';
-			tableview.ancestor("scrollpanel").after($.make(alphabeticalList));
+			tableview.ancestor("scrollpanel").after(alphabeticalList);
 		}
        	if ("stack[ui-kind='alphabetical-list']") {
 			$("stack[ui-kind='alphabetical-list']").css({height: window.innerHeight-45 + "px"});
@@ -3013,5 +3013,7 @@ $.extend($, {
 });
 
 $(function() {
-	$.UIAlphabeticalList();	
+	if ("stack[ui-kind='titled-list alphabetical']") {
+		$.UIAlphabeticalList();	
+	}
 });

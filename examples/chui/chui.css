@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.9 beta
+Version: 1.0
 
 */
 html, body {
@@ -317,6 +317,42 @@ subview[ui-associations="withToolBar withTabBar"] {
 			to(transparent));
 	-webkit-background-size: 20px 20px;
 	background-size: 12px 12px;
+}
+*[ui-background-style=linen] {
+	background-image: 
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.25, rgba(0,0,0,0.1)), 
+			color-stop(0.25, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.15, rgba(0,0,0,0.1)), 
+			color-stop(0.15, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.15, rgba(0,0,0,0.1)), 
+			color-stop(0.15, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.17, rgba(0,0,0,0.1)), 
+			color-stop(0.17, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.15, rgba(0,0,0,0.1)), 
+			color-stop(0.15, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.13, rgba(0,0,0,0.1)), 
+			color-stop(0.13, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 10px 100%,  17px 100%, 21px 100%, 100% 10px, 100% 17px, 100% 21px;
+	background-size: 10px 100%, 17px 100%, 21px 100%, 100% 10px, 100% 17px, 100% 21px;
+	backgroud-position: 0 0, 6px 0, 14px 0, 0 0, 0 6px, 0 16px;
 }
 /*  Layout Flexible Box Styles */
 *[ui-box=horizontal] {
@@ -1557,7 +1593,7 @@ tableview > tablecell {
     background-color: #fff;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
+    cursor: auto;
     padding: 8px;
     border-left:  1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
@@ -1569,12 +1605,13 @@ tableview > tablecell {
     -webkit-box-sizing: border-box;
     min-height: 44px;
 }
-tableview > tablecell:not(href):hover, tableview > tablecell.touched {
+tableview > tablecell[href]:hover, tableview > tablecell[href].touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#4286f5), 
             to(#194fdb));
     color: #fff;
+	cursor: pointer;
 }
 tableview.ui-no-hover > tablecell:hover,
 tableview > tablecell.ui-no-hover:hover,
@@ -1591,7 +1628,7 @@ tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover.touched >cellsubti
 	color: #000 !important;
 	cursor: auto;
 }
-tableview > tablecell:hover > * {
+tableview > tablecell[href]:hover > * {
 	color: #fff !important;
 }
 tableview > tablecell.ui-no-hover > *, tableview.ui-no-hover > tablecell > * {
@@ -1604,7 +1641,7 @@ view tableview.ui-no-hover > tablecell:hover > cellsubtitle {
 view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
 	color: #666 !important;
 }
-tableview > tablecell:hover > span, tableview > tablecell.touched > span {
+tableview > tablecell[href]:hover > span, tableview > tablecell.touched > span {
     color: #fff;
 }
 tablecell[ui-implements=action] > celltitle:after {

@@ -294,6 +294,9 @@ Version 1.1.9
 		},
 		
 		before : function ( content ) {
+			if (typeof content === "string") {
+				content = $.make(content);
+			}
 			if (content.constructor === Array) {
 			   var len = content.length;
 			   var i = 0; 
@@ -309,6 +312,9 @@ Version 1.1.9
 		 
 		after : function ( content ) {
 			var parent = this.parentNode;
+			if (typeof content === "string") {
+				content = $.make(content);
+			}
 			if (content.constructor === Array) {
 				var i = 0, len = content.length;
 				while (i < len) {
@@ -320,11 +326,7 @@ Version 1.1.9
 					i++;
 				}
 			} else {
-				if (content === this.lastChild) {
-					parent.appendChild(content);
-				} else {
-					parent.insertBefore(content, this.next());
-				}
+				parent.appendChild(content);
 			}
 			return this;
 		},
