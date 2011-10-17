@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 0.8.6 beta
+Version: 1.0
 
 */
 html, body {
@@ -26,7 +26,7 @@ html, body {
 	min-height: 100%;
 	font: normal 14px/18px Helvetica, Sans-serif;
 }
-app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, celltitle, cellsubtitle, celldetail, tableheader, tablefooter, popover, popup, picker, screencover, stack, panel, scrollpanel, shim {
+app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, celltitle, cellsubtitle, celldetail, tableheader, tablefooter, popover, popup, picker, overlay, stack, panel, scrollpanel, shim {
 	display: block;
 	padding: 0;
 	margin: 0;
@@ -38,7 +38,7 @@ app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, cell
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
 navbar, toolbar, tabbar {
-    z-index: 100000;
+    z-index: 1000;
 }
 app {
 	overflow-y: auto;
@@ -65,14 +65,17 @@ view {
 	bottom: 0;
 	right: 0;
 }
-view[ui-navigation-status=upcoming] {
-	-webkit-transform: translate3d(100%,0%,0%);
+view[ui-navigation-status="upcoming"] {
+	-webkit-transform: translateX(100%);
+	-webkit-transform: translate3d(100%,0,0);
 }
-view[ui-navigation-status=current] {
-	-webkit-transform: translate3d(0%,0%, 0%);
+view[ui-navigation-status="current"] {
+	-webkit-transform: translateX(0);
+	-webkit-transform: translate3d(0,0,0);
 }
-view[ui-navigation-status=traversed] {
-	-webkit-transform: translate3d(-100%, 0%, 0%);
+view[ui-navigation-status="traversed"] {
+	-webkit-transform: translateX(-100%);
+	-webkit-transform: translate3d(-100%,0,0);
 }
 subview > scrollpanel {
 	height: auto;
@@ -278,6 +281,78 @@ subview[ui-associations="withToolBar withTabBar"] {
 			to(rgba(0,0,0,0)));
 	-webkit-background-size: 20px 20px;
 	background-size: 10px 10px;
+}
+*[ui-background-style=argyle] {
+	background-image: 
+		-webkit-gradient(linear, right top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, right bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.5, rgba(0,0,0,0.1)), 
+			color-stop(0.5, transparent), 
+			to(transparent));
+	-webkit-background-size: 15px 15px;
+	background-size: 12px 12px;
+}
+*[ui-background-style=intersect] {
+	background-image: 
+		-webkit-gradient(linear, left top, right bottom, 
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent)),
+		-webkit-gradient(linear, right top, left bottom,
+			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.25, transparent),
+			color-stop(0.5, transparent), 
+			color-stop(0.5, rgba(0, 0, 0, 0.1)),
+			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
+			color-stop(0.75, transparent),
+			to(transparent));
+	-webkit-background-size: 20px 20px;
+	background-size: 12px 12px;
+}
+*[ui-background-style=linen] {
+	background-image: 
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.25, rgba(0,0,0,0.1)), 
+			color-stop(0.25, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.15, rgba(0,0,0,0.1)), 
+			color-stop(0.15, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, right top, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.15, rgba(0,0,0,0.1)), 
+			color-stop(0.15, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.17, rgba(0,0,0,0.1)), 
+			color-stop(0.17, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.15, rgba(0,0,0,0.1)), 
+			color-stop(0.15, transparent), 
+			to(transparent)),
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(0,0,0,0.1)), 
+			color-stop(0.13, rgba(0,0,0,0.1)), 
+			color-stop(0.13, transparent), 
+			to(transparent)); 
+	-webkit-background-size: 10px 100%,  17px 100%, 21px 100%, 100% 10px, 100% 17px, 100% 21px;
+	background-size: 10px 100%, 17px 100%, 21px 100%, 100% 10px, 100% 17px, 100% 21px;
+	backgroud-position: 0 0, 6px 0, 14px 0, 0 0, 0 6px, 0 16px;
 }
 /*  Layout Flexible Box Styles */
 *[ui-box=horizontal] {
@@ -1518,7 +1593,7 @@ tableview > tablecell {
     background-color: #fff;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
-    cursor: pointer;
+    cursor: auto;
     padding: 8px;
     border-left:  1px solid #d9d9d9;
     border-right: 1px solid #d9d9d9;
@@ -1530,14 +1605,17 @@ tableview > tablecell {
     -webkit-box-sizing: border-box;
     min-height: 44px;
 }
-tableview > tablecell:hover, tableview > tablecell.touched {
+tableview > tablecell[href]:hover, tableview > tablecell[href].touched,
+tableview[ui-implements="detail-menu"] > tablecell:hover,
+tableview[ui-implements="detail-menu"] > tablecell.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#4286f5), 
             to(#194fdb));
     color: #fff;
+	cursor: pointer;
 }
-tableview.ui-no-hover > tablecell:hover,
+/*tableview.ui-no-hover > tablecell:hover,
 tableview > tablecell.ui-no-hover:hover,
 tableview > tablecell.ui-no-hover.touched,
 tableview.ui-no-hover > tablecell.touched,
@@ -1551,21 +1629,24 @@ tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover.touched >cellsubti
 	background-image: none !important;
 	color: #000 !important;
 	cursor: auto;
-}
-tableview > tablecell:hover > * {
+} */
+tableview > tablecell[href]:hover > *,
+tableview[ui-implements="detail-menu"] > tablecell:hover > * {
 	color: #fff !important;
 }
-tableview > tablecell.ui-no-hover > *, tableview.ui-no-hover > tablecell > * {
+/*tableview > tablecell.ui-no-hover > *, tableview.ui-no-hover > tablecell > * {
     color: #000 !important
-}
-view tableview > tablecell.ui-no-hover:hover > cellsubtitle,
+}*/
+/*view tableview > tablecell.ui-no-hover:hover > cellsubtitle,
 view tableview.ui-no-hover > tablecell:hover > cellsubtitle {
 	color: #586B96 !important;
-}
-view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
+}*/
+/*view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
 	color: #666 !important;
-}
-tableview > tablecell:hover > span, tableview > tablecell.touched > span {
+}*/
+tableview > tablecell[href]:hover > span, tableview > tablecell[href].touched > span,
+tableview[ui-implements="detail-menu"] > tablecell:hover > span,
+tableview[ui-implements="detail-menu"] > tablecell.touched > span {
     color: #fff;
 }
 tablecell[ui-implements=action] > celltitle:after {
@@ -1582,7 +1663,7 @@ tablecell[ui-implements=disclosure]:after {
     margin-bottom: -20px;
     margin-left: -10px;
 }
-tablecell[ui-implements=disclosure]:hover:after {
+tablecell[ui-implements=disclosure][href]:hover:after {
     color: #fff;
 }
 tablecell[ui-usage=icon][ui-implements=disclosure]:after, tablecell[ui-implements=disclosure][ui-usage=icon]:after {
@@ -2004,7 +2085,7 @@ tableview > tablecell > uibutton {
 
 deletedisclosure {
 	-webkit-transition: -webkit-transform .25s ease-in-out;
-	-webkit-transform: translate3d(0px, 0, 0);
+	-webkit-transform: translate3d(0,0,0);
     -webkit-box-sizing: border-box;
     padding: 2px 5px 13px 1px;
     height: 24px;
@@ -2044,7 +2125,7 @@ deletedisclosure.checked > span {
 }
 tableview.ui-show-delete-disclosures deletedisclosure {
 	display: block;
-	-webkit-transform: translate3d(40px, 0, 0);
+	-webkit-transform: translate3d(40px,0,0);
 }
 tableview > tablecell > celltitle, tableview > tablecell > cellsubtitle, tableview > tablecell > celldetail {
 	-webkit-transition-property: -webkit-transform, width;
@@ -2187,6 +2268,59 @@ tablefooter {
 	text-align: center;
 	text-shadow: 0px 1px 1px #fff;
 }
+/* Styles for Titled Tableview Lists */
+tableview[ui-kind^=titled-list] tableheader {
+	-webkit-box-sizing: border-box;
+	height: 24px;
+	background-image:
+		-webkit-gradient(linear, left top, left bottom,
+			from(#92a1ac),
+			to(#b7bfc6));
+	border-top: solid 1px #717d85;
+	border-bottom: solid 1px #989ea4;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 12px;
+	color: #fff;
+	text-shadow: 0 1px 1px #666;
+	text-align: left;
+	display: -webkit-box;
+	-webkit-box-align: center;
+}
+/* Styles for Alphabetical Titled Tableview Lists */
+stack[ui-kind=alphabetical-list] {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	bottom: 0;
+	width: 30px;
+	padding: 8px 0;
+	-webkit-border-radius: 10px;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-pack: justify;
+	background-color: rgba(0,0,0,0.0);
+}
+stack[ui-kind=alphabetical-list] span {
+	text-align: center !important;
+	display: block;
+	-webkit-box-flex:1;
+	width: 30px;
+	height: 12px;
+	font-size: 10px;
+	font-weight: bold;
+	color: #000;
+}
+stack[ui-kind=alphabetical-list] span:hover {
+	cursor: pointer;
+}
+stack[ui-kind=alphabetical-list]:hover {
+	background-color: rgba(0,0,0,0.25);
+}
+stack[ui-kind=alphabetical-list]:hover span {
+	color: #fff;
+}
 /* End Tableview Styles */
  
 
@@ -2204,7 +2338,7 @@ popup {
 	-webkit-transform: scale(1);
 	-webkit-transition: all 0.25s  ease-in-out;
 	position: absolute;
-	z-index: 1001;
+	z-index: 10000;
 	margin-left: auto;
 	margin-right: auto;
 	background-image: 
@@ -2330,19 +2464,6 @@ popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action]:hover, popup toolb
 			to(#222839));
 			text-shadow: black 0px 1px 0px;
 }
-screencover {
-	width: 100%;
-	height: 100%;
-	display: block;
-	background-color: rgba(0,0,0,0.5);
-	position: absolute;
-	z-index: 1000;
-	top: 0px;
-	left: 0px;
-}
-screencover[ui-visible-state=hidden] {
-	display: none;
-}
 /* End Modal Popups */
 
 /* Styles for Selection Lists. */
@@ -2367,32 +2488,88 @@ switchcontrol {
     position: absolute;
     right: 10px;
     top: 7px;
+	height:  28px;
+	width: 77px;
+	-webkit-border-radius: 20px;
+	border:  1px solid #979797;
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-pack:justify;
     -webkit-box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
-    width: 94px;
     overflow: hidden;
-    -webkit-border-radius: 6px;
     text-align: center;
     line-height: 28px;
     cursor: pointer;
     -webkit-user-select: none;
+	-webkit-box-shadow: inset 0 1px 3px #bababa, inset 0 12px 12px #d4d4d4;
+}
+switchcontrol[ui-kind=traditional] {
+    width: 94px;
+    -webkit-border-radius: 6px;
+    border: none;
 }
 switchcontrol > thumb {
 	display: block;
-    -webkit-border-radius: 7px;
-    position: relative;
+	position:  relative;
     z-index: 3;
+	top: -1px;
     border: solid 1px #919191;
+	-webkit-border-radius: 28px;
+	width:  26px;
+	height:  26px;
+	-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#cecece), 
+			to(#fbfbfb));
     -webkit-transition: all 0.125s  ease-in-out;
     -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+    -webkit-transform: translate3d(0,0,0);
+}
+switchcontrol[ui-kind=traditional] > thumb {
+    -webkit-border-radius: 7px;
+    width: auto;
+    height: auto;
+}
+switchcontrol:before {
+	content: "";
+	display:  block;
+	height: 26px;
+	-webkit-border-radius: 20px;
+	-webkit-box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 12px #007fea;
+	background-color: #64b1f2;
+	position:  absolute;
+	width:  75px;
+}
+switchcontrol.off:before {
+	width:  0;
+}
+switchcontrol.on:before {
+	width: 100%;
+}
+switchcontrol[ui-kind=traditional]:before {
+	content: none;
 }
 switchcontrol > thumb:before {
-	content: "";
+	content:  "";
     display: block;
+	height: 14px;
+	width: 2px;
+	background:  none;
+	background-color: #fff;
+	box-shadow: 0px -1px 1px #666;
+	border:  none;
+	position: absolute;
+	top: 6px;
+}
+switchcontrol.off > thumb:before {
+	display: none;
+}
+switchcontrol.on > thumb:before {
+	left: -24px;
+}
+switchcontrol[ui-kind=traditional] > thumb:before {
     -webkit-box-sizing: border-box;
     height: 25px;
     width: 38px;
@@ -2404,6 +2581,32 @@ switchcontrol > thumb:before {
             to(#fbfbfb));
     border-top: solid 1px #efefef;
     position:relative;
+	top: 0px;
+}
+switchcontrol[ui-kind=traditional].off > thumb:before {
+	display: block;
+}
+switchcontrol[ui-kind=traditional].on > thumb:before {
+	left: 0;
+}
+switchcontrol > thumb:after {
+	content:  "";
+	display:  block;
+	height: 10px;
+	width: 10px;
+	-webkit-border-radius: 10px;
+	border: solid 2px #777777;
+	position:  absolute;
+	right:  -32px;
+	top: 6px;
+}
+switchcontrol[ui-kind=traditional] > thumb:after {
+	content: none;
+	display: none;
+}
+switchcontrol[ui-implements=attention]:before {
+	-webkit-box-shadow: inset 0 3px 10px #ea6502, inset 0 7px 15px #ea6502;
+	background-color: #ff9c12;
 }
 switchcontrol > label[ui-implements=on] {
 	display: block;
@@ -2422,7 +2625,7 @@ switchcontrol > label[ui-implements=on] {
     -webkit-transition: all 0.125s  ease-in-out;
     position: relative;
     -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+    -webkit-transform: translate3d(0,0,0);
 }
 switchcontrol > label[ui-implements=off] {
 	display: block;
@@ -2441,31 +2644,61 @@ switchcontrol > label[ui-implements=off] {
     -webkit-transition: all 0.125s  ease-in-out;
     position: relative;
     -webkit-transform: translateX(-54px);
-    -webkit-transform: translate3d(-54px,0%,0%);
+    -webkit-transform: translate3d(-54px,0,0);
+}
+
+switchcontrol[ui-kind=generic] {
+	-webkit-box-shadow: inset 0 3px 10px #b7b7b7, inset 0 12px 12px #f4f4f4;
+	background-color: #eaeaea;
+}
+switchcontrol[ui-kind=generic] > thumb {
+	-webkit-box-shadow: none;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom,  
+			from(#f4f4f4), 
+			to(#e3e3e3));
+}
+switchcontrol[ui-kind=generic]:before {
+	-webkit-box-shadow: inset 0 3px 10px #8e8e8e, inset 0 12px 12px #bfbfbf;
+	background-color: #c4c4c4;
+}
+switchcontrol[ui-kind=generic] > thumb:before {
+	display: none;
+}
+switchcontrol[ui-kind=generic] > thumb:after {
+	display: none;
 }
 switchcontrol.off > thumb {
-    -webkit-transform: translateX(-54px);
-    -webkit-transform: translate3d(-54px,0%,0%);
+   -webkit-transform: translateX(0px);
+   -webkit-transform: translate3d(-1px,0,0);
 }
 switchcontrol.on > thumb {
-    -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+	-webkit-transform: translateX(0px);
+	-webkit-transform: translate3d(48px,0,0);
+}
+switchcontrol[ui-kind=traditional].off > thumb {
+    -webkit-transform: translateX(-54px);
+    -webkit-transform: translate3d(-54px,0,0);
+}
+switchcontrol[ui-kind=traditional].on > thumb {
+    -webkit-transform: translateX(0);
+    -webkit-transform: translate3d(0,0,0);
 }
 switchcontrol.off > label[ui-implements=on] {
     -webkit-transform: translateX(-60px);
-    -webkit-transform: translate3d(-60px,0%,0%);
+    -webkit-transform: translate3d(-60px,0,0);
 }
 switchcontrol.on > label[ui-implements=on] {
-    -webkit-transform: translateX(0px);
-    -webkit-transform: translate3d(0px,0%,0%);
+    -webkit-transform: translateX(0);
+    -webkit-transform: translate3d(0,0,0);
 }
 switchcontrol.off > label[ui-implements=off] {
     -webkit-transform: translateX(-54px);
-    -webkit-transform: translate3d(-54px,0%,0%);
+    -webkit-transform: translate3d(-54px,0,0);
 }
 switchcontrol.on > label[ui-implements=off] {
     -webkit-transform: translateX(6px);
-    -webkit-transform: translate3d(6px,0%,0%);
+    -webkit-transform: translate3d(6px,0,0);
 }
 /* For Very Important Changes, use the this class */
 switchcontrol[ui-implements=attention] > label[ui-implements=on] {
@@ -2484,7 +2717,7 @@ actionsheet, actionsheet[ui-action-sheet-color=blue] {
 	-webkit-user-select: none;
 	width: 100%;
 	-webkit-box-sizing: border-box;
-	padding: 30px 0 0px 0;
+	padding: 30px 0 0 0;
 	background-image:
 		-webkit-gradient(linear, left top, left bottom,
 			from(#000),
@@ -2503,7 +2736,7 @@ actionsheet, actionsheet[ui-action-sheet-color=blue] {
 	background-position: top left, top left, top left;
 	position: absolute;
 	bottom: 0px;
-	z-index: 1000;
+	z-index: 10000;
 	-webkit-transition: all 0.5s  ease-in-out;
 	-webkit-transform: translate3d(0,0,0);
 	opacity: 1;
@@ -2528,7 +2761,7 @@ actionsheet.hidden {
 	opacity: 0;
 }
 actionsheet > scrollpanel {
-	padding: 0 0 20px 0;
+	padding: 0 0 0 0;
 }
 actionsheet p {
 	font-size: 12px;
@@ -2536,21 +2769,6 @@ actionsheet p {
 	text-shadow: 0 -1px 1px #000;
 	text-align: center;
 	margin-bottom: 12px;
-}
-screencover {
-	width: 100%;
-	height: 100%;
-	display: block;
-	background-color: rgba(0,0,0,0.5);
-	position: absolute;
-	z-index: 1000;
-	top: 0;
-	right: 0;
-	bottom:0;
-	left: 0;
-}
-screencover.hidden {
-	display: none;
 }
 /* End Action Sheet Styles */
 
@@ -3019,12 +3237,6 @@ spinner > uibutton:hover {
 			to(#273f6d));
 	-webkit-tap-highlight-color: transparent;
 }
-spinner > uibutton.green {
-	background-color: lightgreen;
-}
-spinner > uibutton.green:first-of-type {
-	background-color: red;
-}
 spinner > uibutton > icon {
 	background-color: #fff !important;
 }
@@ -3358,29 +3570,35 @@ subview[ui-paging-orient] {
 	-webkit-transform: translate3d(0,0,0);
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=upcoming] {
-	-webkit-transform: translate3d(100%,0%,0%);
+	-webkit-transform: translateX(100%);
+	-webkit-transform: translate3d(100%,0,0);
 	opacity: 0;
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=current] {
-	-webkit-transform: translate3d(0%,0%, 0%);
+	-webkit-transform: translateX(0%);
+	-webkit-transform: translate3d(0,0,0);
 	opacity: 1;
 }
 subview[ui-paging-orient=horizontal][ui-navigation-status=traversed] {
-	-webkit-transform: translate3d(-100%, 0%, 0%);
+	-webkit-transform: translateX(-100%);
+	-webkit-transform: translate3d(-100%,0,0);
 	opacity: 0;
 }
 
 
 subview[ui-paging-orient=vertical][ui-navigation-status=upcoming] {
-	-webkit-transform: translate3d(0%,100%,0%);
+	-webkit-transform: translateY(100%);
+	-webkit-transform: translate3d(0,100%,0);
 	opacity: 0;
 }
 subview[ui-paging-orient=vertical][ui-navigation-status=current] {
-	-webkit-transform: translate3d(0%,0%, 0%);
+	-webkit-transform: translateY(0%);
+	-webkit-transform: translate3d(0,0,0);
 	opacity: 1;
 }
 subview[ui-paging-orient=vertical][ui-navigation-status=traversed] {
-	-webkit-transform: translate3d(0%, -100%, 0%);
+	-webkit-transform: translateY(-100%);
+	-webkit-transform: translate3d(0,-100%,0);
 	opacity: 0;
 }
 app[ui-kind="navigation-with-one-navbar"] > navbar > uibutton[ui-implements="back"] {
@@ -3431,3 +3649,251 @@ subview[ui-transition=cube][ui-transition-state="final incoming"] {
   -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
 }
 /* End Cube Transition */
+
+        
+/* Popover Styles */
+popover  {
+    width: 320px;
+    background-color: #121a2e;
+    border: solid 2px #4f4f4f;
+    margin: 0px;
+    -webkit-padding-start: 0px;
+    -webkit-border-radius: 10px;
+    -webkit-box-shadow: 2px 2px 10px #000;
+    position: absolute;
+    z-index: 10000000;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    -webkit-transition: all 0.15s ease-in-out;
+}
+
+popover > section {
+    background-color: #fff;
+    margin: 0px 5px 5px 5px !important; 
+    -webkit-border-radius: 5px;
+    sborder: solid 1px transparent;
+    min-height: 50px;
+    position: relative;
+    z-index: 1000;
+}
+popover  > header {
+    -webkit-box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack:justify;
+    -webkit-box-sizing: border-box;
+    height: 45px;
+    padding: 6px 10px;
+    background-image: 
+        -webkit-gradient(linear, 0% 0%, 0% 100%, 
+            from(#7d828c),
+            color-stop(0.5, #303749), 
+            color-stop(0.5, #121a2e), 
+            to(#121a2e));
+    -webkit-border-top-left-radius: 8px;
+    -webkit-border-top-right-radius: 8px;
+    position: relative;
+}
+popover  > header > h3 {
+    margin: 0px;
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 18px;
+    line-height: 34px;
+    display: block;
+    -webkit-box-flex: 1;
+    text-align: center;
+    text-shadow: -1px -1px 1px #000;
+    font-weight: normal;
+}
+popover  > section .actionSheet {
+    height: 100%;
+    margin: -1px;
+    -webkit-border-radius: 5px;
+    padding: 1px;
+    
+}
+popover > section .sgwt-button.action {
+    margin: 10px 4px !important;
+}
+popover header {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: stretch;
+    position: relative;
+    z-index: 2000;
+}
+popover:after {
+    content: "";
+    position: absolute;
+    z-index: 10000;
+    top: -16px;
+    left: 17px;
+    height: 30px !important;
+    width: 30px;
+    border: solid 2px #4f4f4f;
+    border-radius: 5px;
+    border-bottom: none;
+    border-right: none;
+    background-color: #7d828c !important;
+    -webkit-transform: rotate(45deg);
+    -webkit-mask-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#000000), 
+            color-stop(0.5,#000000), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=top-left]:after {
+    top: -16px;
+    left: 17px;
+    right: auto;
+    display: block;
+}
+[ui-pointer-position=top-right]:after {
+    top: -16px;
+    left: auto;
+    right: 17px;
+    display: block;
+}
+[ui-pointer-position=top-center]:after {
+    top: -16px;
+    left: 44.5%;
+    right: auto;
+    display: block;
+}
+[ui-pointer-position=right]:after {
+    -webkit-transform: rotate(135deg);
+    background-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#121a2e), 
+            color-stop(0.5,#121a2e), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=right-top]:after {
+    top: 20px;
+    left: auto;
+    right: -17px;
+    display: block;
+}
+[ui-pointer-position=right-center]:after {
+    top: 44.5%;
+    left: auto;
+    right: -17px;
+    display: block;
+}
+[ui-pointer-position=right-bottom]:after {
+    top: auto;
+    left: auto;
+    right: -17px;
+    bottom: 20px;
+    display: block;
+}
+[ui-pointer-position*=bottom]:after {
+    -webkit-transform: rotate(-135deg);
+    background-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#121a2e), 
+            color-stop(0.5,#121a2e), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=bottom-left]:after {
+    top: auto;
+    bottom: -16px;
+    left: 20px;
+    display: block;
+}
+[ui-pointer-position=bottom-center]:after {
+    top: auto;
+    bottom: -16px;
+    left: 44.5%;
+    display: block;
+}
+[ui-pointer-position=bottom-right]:after {
+    top: auto;
+    bottom: -16px;
+    left: auto;
+    right: 20px;
+    display: block;
+}
+[ui-pointer-position=left]:after {
+    -webkit-transform: rotate(-45deg);
+    background-image: 
+        -webkit-gradient(linear, left top, right bottom, 
+            from(#121a2e), 
+            color-stop(0.5,#121a2e), 
+            color-stop(0.5, transparent), 
+            to(transparent));
+}
+[ui-pointer-position=left-top]:after {
+    top: 20px;
+    left: -17px;
+    display: block;
+}
+[ui-pointer-position=left-center]:after {
+    top: 44.5%;
+    left: -17px;
+    display: block;
+}
+[ui-pointer-position=left-bottom]:after {
+    top: auto;
+    bottom: 20px;
+    left: -17px;
+    display: block;
+}
+.fade-in {
+    -webkit-transform: scale(1) !important;
+    -webkit-animation-duration: .35s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-name: fadeInAnim;
+}
+.fade-out {
+    -webkit-transform: scale(1) !important;
+    -webkit-animation-duration: .25s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-name: fadeOutAnim;
+}
+@-webkit-keyframes fadeInAnim {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-webkit-keyframes fadeOutAnim {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+popover tableview[ui-kind=grouped] {
+    margin: 6px;
+}      
+/* Styles for actionsheet in popover */
+.popover-content {
+	position: relative;
+}
+popover actionsheet {
+	min-height: 20px;
+    width: 310px;
+    -webkit-box-sizing: border-box;
+    padding: 1px 0px 1px;
+    background: none;
+    background-color: rgba(65,72,92,1);
+    display: block;
+    -webkit-border-radius: 0px;
+    position: static;
+    -webkit-border-radius: 5px;
+    box-shadow: 0 0 2px  rgba(65,72,92,1);
+}
+overlay {
+	display: block;
+	background-color: #000;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+}

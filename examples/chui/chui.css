@@ -1605,7 +1605,9 @@ tableview > tablecell {
     -webkit-box-sizing: border-box;
     min-height: 44px;
 }
-tableview > tablecell[href]:hover, tableview > tablecell[href].touched {
+tableview > tablecell[href]:hover, tableview > tablecell[href].touched,
+tableview[ui-implements="detail-menu"] > tablecell:hover,
+tableview[ui-implements="detail-menu"] > tablecell.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#4286f5), 
@@ -1613,7 +1615,7 @@ tableview > tablecell[href]:hover, tableview > tablecell[href].touched {
     color: #fff;
 	cursor: pointer;
 }
-tableview.ui-no-hover > tablecell:hover,
+/*tableview.ui-no-hover > tablecell:hover,
 tableview > tablecell.ui-no-hover:hover,
 tableview > tablecell.ui-no-hover.touched,
 tableview.ui-no-hover > tablecell.touched,
@@ -1627,21 +1629,24 @@ tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover.touched >cellsubti
 	background-image: none !important;
 	color: #000 !important;
 	cursor: auto;
-}
-tableview > tablecell[href]:hover > * {
+} */
+tableview > tablecell[href]:hover > *,
+tableview[ui-implements="detail-menu"] > tablecell:hover > * {
 	color: #fff !important;
 }
-tableview > tablecell.ui-no-hover > *, tableview.ui-no-hover > tablecell > * {
+/*tableview > tablecell.ui-no-hover > *, tableview.ui-no-hover > tablecell > * {
     color: #000 !important
-}
-view tableview > tablecell.ui-no-hover:hover > cellsubtitle,
+}*/
+/*view tableview > tablecell.ui-no-hover:hover > cellsubtitle,
 view tableview.ui-no-hover > tablecell:hover > cellsubtitle {
 	color: #586B96 !important;
-}
-view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
+}*/
+/*view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
 	color: #666 !important;
-}
-tableview > tablecell[href]:hover > span, tableview > tablecell.touched > span {
+}*/
+tableview > tablecell[href]:hover > span, tableview > tablecell[href].touched > span,
+tableview[ui-implements="detail-menu"] > tablecell:hover > span,
+tableview[ui-implements="detail-menu"] > tablecell.touched > span {
     color: #fff;
 }
 tablecell[ui-implements=action] > celltitle:after {
@@ -1658,7 +1663,7 @@ tablecell[ui-implements=disclosure]:after {
     margin-bottom: -20px;
     margin-left: -10px;
 }
-tablecell[ui-implements=disclosure]:hover:after {
+tablecell[ui-implements=disclosure][href]:hover:after {
     color: #fff;
 }
 tablecell[ui-usage=icon][ui-implements=disclosure]:after, tablecell[ui-implements=disclosure][ui-usage=icon]:after {

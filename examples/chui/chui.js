@@ -19,6 +19,10 @@ Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
 Version: 1.0
 
+includes:
+iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
+Released under MIT license, http://cubiq.org/license
+
 */
 
 var CHUIVersion = "1.0";
@@ -128,7 +132,7 @@ $.extend($, {
 	
 	UINavigationEvent : false,
 	
-    UINavigationList : function() {
+	UINavigationList : function() {
 		var navigateList = function(item) {
 			if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar") {
 				$("navbar > uibutton[ui-implements=back]", $.app).css("display: block;");
@@ -141,44 +145,44 @@ $.extend($, {
 			$.UINavigationHistory.push(item.getAttribute("href"));
 			$.UIHideURLbar();  
 		};
-        $.app.delegate("tablecell", "click", function(item) {
-            if (item.hasAttribute("href")) {
-	            if ($.UINavigationEvent) {
-	                return;
-	            } else {
+		$.app.delegate("tablecell", "click", function(item) {
+			if (item.hasAttribute("href")) {
+				if ($.UINavigationEvent) {
+					return;
+				} else {
 					$.UINavigationEvent = false;
-	                navigateList(item);
+					navigateList(item);
 					$.UINavigationEvent = true;
-	            }
-            }
-        });
+				}
+			}
+		});
 	},
-    
-    UITouchedTableCell : null
+	
+	UITouchedTableCell : null
 });
 $(function() {
-    $.UIBackNavigation();
-    $.UINavigationList();
-    $.app.delegate("input", "click", function(input) {
-        input.focus();
-    });
-    $.app.delegate("input", "touchstart", function(input) {
-        input.focus();
-    });
-    $.app.delegate("textarea", "click", function(textarea) {
-        textarea.focus();
-    }); 
-    $.app.delegate("textarea", "touchstart", function(textarea) {
-        textarea.focus();
-    }); 
-    $.app.delegate("view","webkitTransitionEnd", function() {
-        if (!$("view[ui-navigation-status=current]")) {
-            $($.UINavigationHistory[$.UINavigationHistory.length-2])     
-                .setAttribute("ui-navigation-status", "current");
-            $.UINavigationHistory.pop(); 
-        }	
+	$.UIBackNavigation();
+	$.UINavigationList();
+	$.app.delegate("input", "click", function(input) {
+		input.focus();
+	});
+	$.app.delegate("input", "touchstart", function(input) {
+		input.focus();
+	});
+	$.app.delegate("textarea", "click", function(textarea) {
+		textarea.focus();
+	}); 
+	$.app.delegate("textarea", "touchstart", function(textarea) {
+		textarea.focus();
+	}); 
+	$.app.delegate("view","webkitTransitionEnd", function() {
+		if (!$("view[ui-navigation-status=current]")) {
+			$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
+				.setAttribute("ui-navigation-status", "current");
+			$.UINavigationHistory.pop(); 
+		}	
 		$.UINavigationEvent = false;
-    });
+	});
 });
  
 $.extend(HTMLElement.prototype, {
@@ -203,19 +207,19 @@ var m = Math,
 		(/firefox/i).test(navigator.userAgent) ? 'Moz' :
 		'opera' in window ? 'O' : '',
 
-    // Browser capabilities
-    isAndroid = (/android/gi).test(navigator.appVersion),
-    isIDevice = (/iphone|ipad/gi).test(navigator.appVersion),
-    isPlaybook = (/playbook/gi).test(navigator.appVersion),
-    isTouchPad = (/hp-tablet/gi).test(navigator.appVersion),
+	// Browser capabilities
+	isAndroid = (/android/gi).test(navigator.appVersion),
+	isIDevice = (/iphone|ipad/gi).test(navigator.appVersion),
+	isPlaybook = (/playbook/gi).test(navigator.appVersion),
+	isTouchPad = (/hp-tablet/gi).test(navigator.appVersion),
 
-    has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix(),
-    hasTouch = 'ontouchstart' in window && !isTouchPad,
-    hasTransform = vendor + 'Transform' in document.documentElement.style,
-    hasTransitionEnd = isIDevice || isPlaybook,
+	has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix(),
+	hasTouch = 'ontouchstart' in window && !isTouchPad,
+	hasTransform = vendor + 'Transform' in document.documentElement.style,
+	hasTransitionEnd = isIDevice || isPlaybook,
 
 	nextFrame = (function() {
-	    return window.requestAnimationFrame
+		return window.requestAnimationFrame
 			|| window.webkitRequestAnimationFrame
 			|| window.mozRequestAnimationFrame
 			|| window.oRequestAnimationFrame
@@ -223,7 +227,7 @@ var m = Math,
 			|| function(callback) { return setTimeout(callback, 1); };
 	})(),
 	cancelFrame = (function () {
-	    return window.cancelRequestAnimationFrame
+		return window.cancelRequestAnimationFrame
 			|| window.webkitCancelRequestAnimationFrame
 			|| window.mozCancelRequestAnimationFrame
 			|| window.oCancelRequestAnimationFrame
@@ -551,8 +555,8 @@ iScroll.prototype = {
 				x = matrix[4] * 1;
 				y = matrix[5] * 1;
 			} else {
-				x = getComputedStyle(that.scroller, null).left.replace(/[^0-9-]/g, '') * 1;
-				y = getComputedStyle(that.scroller, null).top.replace(/[^0-9-]/g, '') * 1;
+				x = getComputedStyle(that.scroller, null).left.replace(/[^0-9\-]/g, '') * 1;
+				y = getComputedStyle(that.scroller, null).top.replace(/[^0-9\-]/g, '') * 1;
 			}
 			
 			if (x != that.x || y != that.y) {
@@ -662,7 +666,7 @@ iScroll.prototype = {
 	},
 	
 	_end: function (e) {
-		if (hasTouch && e.touches.length != 0) return;
+		if (hasTouch && e.touches.length !== 0) return;
 
 		var that = this,
 			point = hasTouch ? e.changedTouches[0] : e,
@@ -750,8 +754,8 @@ iScroll.prototype = {
 			newPosX = that.x + momentumX.dist;
 			newPosY = that.y + momentumY.dist;
 
- 			if ((that.x > 0 && newPosX > 0) || (that.x < that.maxScrollX && newPosX < that.maxScrollX)) momentumX = { dist:0, time:0 };
- 			if ((that.y > that.minScrollY && newPosY > that.minScrollY) || (that.y < that.maxScrollY && newPosY < that.maxScrollY)) momentumY = { dist:0, time:0 };
+			if ((that.x > 0 && newPosX > 0) || (that.x < that.maxScrollX && newPosX < that.maxScrollX)) momentumX = { dist:0, time:0 };
+			if ((that.y > that.minScrollY && newPosY > that.minScrollY) || (that.y < that.maxScrollY && newPosY < that.maxScrollY)) momentumY = { dist:0, time:0 };
 		}
 
 		if (momentumX.dist || momentumY.dist) {
@@ -874,8 +878,14 @@ iScroll.prototype = {
 			this._end(e);
 			return;
 		}
-
-		while (t = t.parentNode) {if (t === this.wrapper) {return;}}
+		t = t.parentNode;
+		while (t.parentNode) {
+			if (t === this.wrapper) {
+				return;
+			} else {
+				t = t.parentNode;
+			}
+		}
 		
 		this._end(e);
 	},
@@ -986,10 +996,11 @@ iScroll.prototype = {
 	_offset: function (el) {
 		var left = -el.offsetLeft,
 			top = -el.offsetTop;
-			
-		while (el = el.offsetParent) {
+		el = el.offsetParent;
+		while (el.offsetParent) {
 			left -= el.offsetLeft;
 			top -= el.offsetTop;
+			el = el.offsetParent;
 		}
 		
 		if (el != this.wrapper) {
@@ -1575,25 +1586,25 @@ $(function() {
 			$(popupID).UIBlock("0.5");
 			var popupBtn = "#" + id + " uibutton";
 			$$(popupBtn).forEach(function(button) {
-			  	button.bind("click", cancelClickPopup = function(e) {
-			  	    if (button.getAttribute("ui-implements")==="continue") {
-			  	        callback.call(callback, this);
-			  	    }
-	                e.preventDefault();
+				button.bind("click", cancelClickPopup = function(e) {
+					if (button.getAttribute("ui-implements")==="continue") {
+						callback.call(callback, this);
+					}
+					e.preventDefault();
 					$.UIClosePopup("#" + id);
-	            });
-	            $.UIPopUpIsActive = false;
-	            $.UIPopUpIdentifier = null;
-	            button.bind("touchend", cancelTouchPopup = function(e) {		
-	            if (button.getAttribute("ui-implements")==="continue") {
-			  	        callback.call(callback, this);
-			  	    }
-	                e.preventDefault();
+				});
+				$.UIPopUpIsActive = false;
+				$.UIPopUpIdentifier = null;
+				button.bind("touchend", cancelTouchPopup = function(e) {		
+				if (button.getAttribute("ui-implements")==="continue") {
+						callback.call(callback, this);
+					}
+					e.preventDefault();
 					$.UIClosePopup("#" + id);
-	            }); 
-	            $.UIPopUpIsActive = false;
-	            $.UIPopUpIdentifier = null;
-	        });
+				}); 
+				$.UIPopUpIsActive = false;
+				$.UIPopUpIdentifier = null;
+			});
 		}
 	});
 });
@@ -1818,10 +1829,10 @@ $.extend(HTMLElement.prototype, {
 });
 
 $.extend(HTMLElement.prototype, {
-    UISegmentedControl : function( container, callback ) {
-        var that = this;
-        var val = null;
-        callback = callback || function(){};
+	UISegmentedControl : function( container, callback ) {
+		var that = this;
+		var val = null;
+		callback = callback || function(){};
 		var buttons = $.collectionToArray(this.children);
 				var cont = $(container);
 		if (!this.hasAttribute('ui-selected-segment')) {
@@ -1926,7 +1937,7 @@ $.extend(HTMLElement.prototype, {
 	}
 });
 
-$(function() {   
+$(function() {	 
 	$$("segmentedcontrol").forEach(function(segmentedcontrol) {
 		if (segmentedcontrol.getAttribute("ui-implements") !== "segmented-paging") {
 			segmentedcontrol.UISegmentedControl();
@@ -2716,158 +2727,162 @@ $(function() {
 				}
 			});
 		});
+		$.app.delegate("overlay", "click", function() {
+			$.rootview.css("display: none;");
+			$.rootview.UIUnblock();
+		});
 	}
 });
 $.extend($, {
-    determineMaxPopoverHeight : function() {
-        var screenHeight = window.innerHeight;
+	determineMaxPopoverHeight : function() {
+		var screenHeight = window.innerHeight;
 		var toolbarHeight;
-        if ($("navbar")) {
-            toolbarHeight = $("navbar").clientHeight;
-        }
-        if ($("toolbar")) {
-            if (!$("toolbar").getAttribute('ui-placement')) {
-                toolbarHeight = $("toolbar").clientHeight;
-            }
-        }
-            screenHeight = screenHeight - toolbarHeight;
-            return screenHeight; 
-    },
-    determinePopoverWidth : function() {
-        var screenWidth = window.innerWidth;
-    },
-    getPopoverTrigger : function ( triggerElement ) {
-        var trel = null;
-        if (typeof triggerElement === "string") {
-            return $(triggerElement);
-        } else if (triggerElement.nodeType === 1) {
-            return triggerElement;
-        } 
-    },
-    adjustPopoverHeight : function( popover ) {
-        var availableVerticalSpace = $.determineMaxPopoverHeight();
-        $(popover + " > section").css("max-height:" + (availableVerticalSpace - 100) + "px; overflow: hidden;}");
-        var popoverID = popover.split("#");
-        popoverID = popoverID[1];
-    },
-    determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation ) {
-        
-        popoverOrientation = popoverOrientation.toLowerCase();
-        pointerOrientation = pointerOrientation.toLowerCase();
-        
-        var trel = this.getPopoverTrigger(triggerElement);
-        var pos = "";
-        var popoverPos = null;
-        switch (popoverOrientation) {
-            case "top" : 
-                if (pointerOrientation === "left") {
-                    popoverPos = trel.offsetLeft;
-                    popoverPos = "left: " + popoverPos;
-                } else if (pointerOrientation === "center") {
-                    popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
-                    popoverPos = "left: " + popoverPos;
-                } else {
-                    popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
-                    popoverPos = "left: " + popoverPos;
-                }
-                pos = trel.offsetTop + trel.offsetHeight;
-                pos += 20;
-                pos =  popoverPos + "px; top: " + pos + "px;";
-                break;
-            case "right" :
-                if (pointerOrientation === "top") {
-                    popoverPos = trel.getTop() + 2;
-                    popoverPos = "top: " + popoverPos + "px;";
-                } else if (pointerOrientation === "center") {
-                    popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
-                    popoverPos = "top: " + popoverPos + "px;";
-                } else {
-                    popoverPos = trel.getTop() - trel.offsetHeight - 20;
-                    popoverPos = "top: " + popoverPos + "px;";
-                }
-                pos = trel.getLeft() - 330;
-                pos -= 20;
-                pos = popoverPos + " left: " + pos + "px";
-                break;
-            case "bottom" :
-                if (pointerOrientation === "left") {
-                    popoverPos = trel.offsetLeft;
-                    popoverPos = "left: " + popoverPos;
-                } else if (pointerOrientation === "center") {
-                    popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
-                    popoverPos = "left: " + popoverPos;
-                } else {
-                    popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
-                    popoverPos = "left: " + popoverPos;
-                }
-                pos = trel.offsetTop + trel.offsetHeight;
-                pos += 20;
-                pos =  popoverPos + "px; bottom: " + pos + "px;";
-                break;
-                break;
-            case "left" :
-                if (pointerOrientation === "top") {
-                    popoverPos = trel.getTop() + 2;
-                    popoverPos = "top: " + popoverPos + "px;";
-                } else if (pointerOrientation === "center") {
-                    popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
-                    popoverPos = "top: " + popoverPos + "px;";
-                } else {
-                    popoverPos = trel.getTop() - trel.offsetHeight - 20;
-                    popoverPos = "top: " + popoverPos + "px;";
-                }
-                pos = trel.offsetLeft + trel.offsetWidth;
-                pos += 20;
-                pos = popoverPos + " left: " + pos + "px";
-                break;
-            default :
-                pos = trel.getTop() + trel.offsetHeight;
-                popoverPos = "left: " + popoverPos;
-                pos += 20;
-                pos = popoverPos + "px; top: " + pos + "px;";
-                break;
-        }
-        return pos;
-    },
-    UIPopover : function( triggerElement, popoverOrientation, pointerOrientation, opts) {
+		if ($("navbar")) {
+			toolbarHeight = $("navbar").clientHeight;
+		}
+		if ($("toolbar")) {
+			if (!$("toolbar").getAttribute('ui-placement')) {
+				toolbarHeight = $("toolbar").clientHeight;
+			}
+		}
+			screenHeight = screenHeight - toolbarHeight;
+			return screenHeight; 
+	},
+	determinePopoverWidth : function() {
+		var screenWidth = window.innerWidth;
+	},
+	getPopoverTrigger : function ( triggerElement ) {
+		var trel = null;
+		if (typeof triggerElement === "string") {
+			return $(triggerElement);
+		} else if (triggerElement.nodeType === 1) {
+			return triggerElement;
+		} 
+	},
+	adjustPopoverHeight : function( popover ) {
+		var availableVerticalSpace = $.determineMaxPopoverHeight();
+		$(popover + " > section").css("max-height:" + (availableVerticalSpace - 100) + "px; overflow: hidden;}");
+		var popoverID = popover.split("#");
+		popoverID = popoverID[1];
+	},
+	determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation ) {
+		
+		popoverOrientation = popoverOrientation.toLowerCase();
+		pointerOrientation = pointerOrientation.toLowerCase();
+		
+		var trel = this.getPopoverTrigger(triggerElement);
+		var pos = "";
+		var popoverPos = null;
+		switch (popoverOrientation) {
+			case "top" : 
+				if (pointerOrientation === "left") {
+					popoverPos = trel.offsetLeft;
+					popoverPos = "left: " + popoverPos;
+				} else if (pointerOrientation === "center") {
+					popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
+					popoverPos = "left: " + popoverPos;
+				} else {
+					popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
+					popoverPos = "left: " + popoverPos;
+				}
+				pos = trel.offsetTop + trel.offsetHeight;
+				pos += 20;
+				pos =  popoverPos + "px; top: " + pos + "px;";
+				break;
+			case "right" :
+				if (pointerOrientation === "top") {
+					popoverPos = trel.getTop() + 2;
+					popoverPos = "top: " + popoverPos + "px;";
+				} else if (pointerOrientation === "center") {
+					popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
+					popoverPos = "top: " + popoverPos + "px;";
+				} else {
+					popoverPos = trel.getTop() - trel.offsetHeight - 20;
+					popoverPos = "top: " + popoverPos + "px;";
+				}
+				pos = trel.getLeft() - 330;
+				pos -= 20;
+				pos = popoverPos + " left: " + pos + "px";
+				break;
+			case "bottom" :
+				if (pointerOrientation === "left") {
+					popoverPos = trel.offsetLeft;
+					popoverPos = "left: " + popoverPos;
+				} else if (pointerOrientation === "center") {
+					popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
+					popoverPos = "left: " + popoverPos;
+				} else {
+					popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
+					popoverPos = "left: " + popoverPos;
+				}
+				pos = trel.offsetTop + trel.offsetHeight;
+				pos += 20;
+				pos =  popoverPos + "px; bottom: " + pos + "px;";
+				break;
+				break;
+			case "left" :
+				if (pointerOrientation === "top") {
+					popoverPos = trel.getTop() + 2;
+					popoverPos = "top: " + popoverPos + "px;";
+				} else if (pointerOrientation === "center") {
+					popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
+					popoverPos = "top: " + popoverPos + "px;";
+				} else {
+					popoverPos = trel.getTop() - trel.offsetHeight - 20;
+					popoverPos = "top: " + popoverPos + "px;";
+				}
+				pos = trel.offsetLeft + trel.offsetWidth;
+				pos += 20;
+				pos = popoverPos + " left: " + pos + "px";
+				break;
+			default :
+				pos = trel.getTop() + trel.offsetHeight;
+				popoverPos = "left: " + popoverPos;
+				pos += 20;
+				pos = popoverPos + "px; top: " + pos + "px;";
+				break;
+		}
+		return pos;
+	},
+	UIPopover : function( triggerElement, popoverOrientation, pointerOrientation, opts) {
 		var title;
 		var popoverID;
-        if (opts) { 
-            popoverID = 'id="' + opts.id + '"' || $.UIUuid();
-            title = '<h3>'+ opts.title + '</h3>' || "";
-        } else {
-            popoverID = "";
-            title = "";
-        }
-        var trel = this.getPopoverTrigger(triggerElement);
-        var pos = this.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
-        pos = " style='" + pos + "'";
-        var popoverShell = 
-            '<popover ' + popoverID + ' ui-pointer-position="' + popoverOrientation + '-' + pointerOrientation + '"' 
-            + pos + ' data-popover-trigger="#' + trel.id + '" data-popover-orientation="' + popoverOrientation + '" data-popover-pointer-orientation="' + pointerOrientation + '">\n' + 
-                '<header>'+ title 
-                
-                + '</header>\n'
-                + '<section><scrollpanel class="popover-content"></scrollpanel></section>\n'
-            +'</popover>';
-        var newPopover = $.make(popoverShell);
-        
-        $.app.insert(newPopover, "last");
-        // Adjust the left or bottom position of the popover if it is beyond the viewport:
-        if (!!opts.id) {
-        	$.adjustPopoverHeight("#" + opts.id);
-            $("#" + opts.id).adjustPopoverPosition();
-        }
-    },
-    UICancelPopover : function (popover) {
-        $.UIPopover.activePopover = null;
-        $(popover).css("opacity: 0; -webkit-transform: scale(0);");
-        popover.UIUnblock();
-    },
-    UIHidePopover : function (popover) {
-        $.UICancelPopover(popover);
-    },
-    UIEnablePopoverScrollpanels : function ( options ) {
+		if (opts) { 
+			popoverID = 'id="' + opts.id + '"' || $.UIUuid();
+			title = '<h3>'+ opts.title + '</h3>' || "";
+		} else {
+			popoverID = "";
+			title = "";
+		}
+		var trel = this.getPopoverTrigger(triggerElement);
+		var pos = this.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
+		pos = " style='" + pos + "'";
+		var popoverShell = 
+			'<popover ' + popoverID + ' ui-pointer-position="' + popoverOrientation + '-' + pointerOrientation + '"' 
+			+ pos + ' data-popover-trigger="#' + trel.id + '" data-popover-orientation="' + popoverOrientation + '" data-popover-pointer-orientation="' + pointerOrientation + '">\n' + 
+				'<header>'+ title 
+				
+				+ '</header>\n'
+				+ '<section><scrollpanel class="popover-content"></scrollpanel></section>\n'
+			+'</popover>';
+		var newPopover = $.make(popoverShell);
+		
+		$.app.insert(newPopover, "last");
+		// Adjust the left or bottom position of the popover if it is beyond the viewport:
+		if (!!opts.id) {
+			$.adjustPopoverHeight("#" + opts.id);
+			$("#" + opts.id).adjustPopoverPosition();
+		}
+	},
+	UICancelPopover : function (popover) {
+		$.UIPopover.activePopover = null;
+		$(popover).css("opacity: 0; -webkit-transform: scale(0);");
+		popover.UIUnblock();
+	},
+	UIHidePopover : function (popover) {
+		$.UICancelPopover(popover);
+	},
+	UIEnablePopoverScrollpanels : function ( options ) {
 		try {
 			var count = 0;
 			$$("popover scrollpanel").forEach(function(item) {
@@ -2876,91 +2891,91 @@ $.extend($, {
 				$.UIScrollers[whichScroller] = new iScroll(item.parentNode, options);
 			});
 		} catch(e) { }
-    }
+	}
 });
 $.extend($.UIPopover, {
-    activePopover : null,
-    show : function ( popover ) {
-        if ($.UIPopover.activePopover === null) {
-        	popover.UIBlock(".01");
-            popover.repositionPopover();
-            popover.css("opacity: 1; -webkit-transform: scale(1);");
-            $.UIPopover.activePopover = popover.id;
-            
-        	$.UIEnableScrolling({ desktopCompatibility: true });
-        } else {
-            return;
-        }
-        $.UIEnablePopoverScrollpanels({ desktopCompatibility: true });
-    },
-    hide : function ( popover ) {
-    	if ($.UIPopover.activePopover) {
-    		popover.css("opacity: 0; -webkit-transform: scale(0);");
-    		$.UIPopover.activePopover = null;
-    	}
-    }
+	activePopover : null,
+	show : function ( popover ) {
+		if ($.UIPopover.activePopover === null) {
+			popover.UIBlock(".01");
+			popover.repositionPopover();
+			popover.css("opacity: 1; -webkit-transform: scale(1);");
+			$.UIPopover.activePopover = popover.id;
+			
+			$.UIEnableScrolling({ desktopCompatibility: true });
+		} else {
+			return;
+		}
+		$.UIEnablePopoverScrollpanels({ desktopCompatibility: true });
+	},
+	hide : function ( popover ) {
+		if ($.UIPopover.activePopover) {
+			popover.css("opacity: 0; -webkit-transform: scale(0);");
+			$.UIPopover.activePopover = null;
+		}
+	}
 });
 $.extend(HTMLElement.prototype, {
-    repositionPopover : function() {
-        var triggerElement = this.getAttribute("data-popover-trigger"); 
-        var popoverOrientation = this.getAttribute("data-popover-orientation");
-        var pointerOrientation = this.getAttribute("data-popover-pointer-orientation");
-        var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
-        this.css(popoverPos);
-    },
-    adjustPopoverPosition : function() {
-        var screenHeight = window.innerHeight;
-        var screenWidth = window.innerWidth;
-        var popoverHeight = this.offsetHeight;
-        var popoverWidth = this.offsetWidth;
-        var popoverTop = this.getTop();
-        var popoverLeft = this.getLeft();
-        var bottomLimit = popoverTop + popoverHeight;
-        var rightLimit = popoverLeft + popoverWidth;
-        if (bottomLimit > screenHeight) {
-            this.style.top  = screenHeight - popoverHeight - 10 + "px";
-        }
-        if (rightLimit > screenWidth) {
-            this.style.left = screenWidth - 10 + "px";
-        }
-    },
-    UIBlock : function ( opacity ) {
-    	opacity = opacity ? " style='opacity:" + opacity + "'" : "";
-    	this.before($.make("<overlay" + opacity + "></overlay>"));
-    },
-    UIUnblock : function ( ) {
-    	if ($("overlay")) {
-    		$("overlay").remove();
-    	}
-    }
+	repositionPopover : function() {
+		var triggerElement = this.getAttribute("data-popover-trigger"); 
+		var popoverOrientation = this.getAttribute("data-popover-orientation");
+		var pointerOrientation = this.getAttribute("data-popover-pointer-orientation");
+		var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
+		this.css(popoverPos);
+	},
+	adjustPopoverPosition : function() {
+		var screenHeight = window.innerHeight;
+		var screenWidth = window.innerWidth;
+		var popoverHeight = this.offsetHeight;
+		var popoverWidth = this.offsetWidth;
+		var popoverTop = this.getTop();
+		var popoverLeft = this.getLeft();
+		var bottomLimit = popoverTop + popoverHeight;
+		var rightLimit = popoverLeft + popoverWidth;
+		if (bottomLimit > screenHeight) {
+			this.style.top	= screenHeight - popoverHeight - 10 + "px";
+		}
+		if (rightLimit > screenWidth) {
+			this.style.left = screenWidth - 10 + "px";
+		}
+	},
+	UIBlock : function ( opacity ) {
+		opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+		this.before($.make("<overlay" + opacity + "></overlay>"));
+	},
+	UIUnblock : function ( ) {
+		if ($("overlay")) {
+			$("overlay").remove();
+		}
+	}
 });
 $.extend($, {
-    UIPositionOverlay : function() {
-        $("overlay").css("height:" + (window.innerHeight + window.pageYOffset) + "px; width: " + window.innerWidth + "px;");
-    }
+	UIPositionOverlay : function() {
+		$("overlay").css("height:" + (window.innerHeight + window.pageYOffset) + "px; width: " + window.innerWidth + "px;");
+	}
 });
 // Hide any visible popovers when orientation changes.
 window.addEventListener("orientationchange", function() {
-    var availableVerticalSpace = $.determineMaxPopoverHeight();
-    $$("popover").forEach(function(popover) {
-        popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
-        //popover.style.cssText = "opacity: 0; -webkit-transform: scale(0);";
-        popover.repositionPopover();
-        $.adjustPopoverHeight("#" + popover.id);
-    });
-    if ($("rootview")) {
+	var availableVerticalSpace = $.determineMaxPopoverHeight();
+	$$("popover").forEach(function(popover) {
+		popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
+		//popover.style.cssText = "opacity: 0; -webkit-transform: scale(0);";
+		popover.repositionPopover();
+		$.adjustPopoverHeight("#" + popover.id);
+	});
+	if ($("rootview")) {
 		$("rootview").UIUnblock();
 	}
 }, false);
 
 // Hide any visible popovers when orientation changes.
 window.addEventListener("resize", function() {
-    var availableVerticalSpace = $.determineMaxPopoverHeight();
-    $$("popover").forEach(function(popover) {
-        popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
-        
-        popover.repositionPopover();
-    });
+	var availableVerticalSpace = $.determineMaxPopoverHeight();
+	$$("popover").forEach(function(popover) {
+		popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
+		
+		popover.repositionPopover();
+	});
 }, false);
 
 $(function() {
@@ -2994,13 +3009,17 @@ $.extend($, {
 			});
 			alphabeticalList += alphabeticalListItems + '</stack>';
 			tableview.ancestor("scrollpanel").after(alphabeticalList);
+		} else {
+			return;
 		}
-       	if ("stack[ui-kind='alphabetical-list']") {
+		if ("stack[ui-kind='alphabetical-list']") {
 			$("stack[ui-kind='alphabetical-list']").css({height: window.innerHeight-45 + "px"});
 	
 			window.addEventListener("resize", function() {
 				$("stack[ui-kind='alphabetical-list']").css({height: window.innerHeight-45 + "px"});
 			});
+		} else {
+			console.log("no alphabetic list!")
 		}
 		var myScrollie = $("tableview[ui-kind='titled-list alphabetical']")
 			.ancestor("scrollpanel").getAttribute("ui-scroller");
@@ -3014,6 +3033,6 @@ $.extend($, {
 
 $(function() {
 	if ("stack[ui-kind='titled-list alphabetical']") {
-		$.UIAlphabeticalList();	
+		$.UIAlphabeticalList(); 
 	}
 });
