@@ -582,6 +582,10 @@ The tableview tag is a container element. Of all the tags in WAML, the tableview
 
 By default a tableview expands to fill the full width of available screen space. This is called "edge-to-edge" style. If you want, you can change this to the type where the tableview is inset from all sides with a border and rounded corners. This is done by putting a *ui-kind="grouped" on the tableview. Incidentally, you could put this same attribute on any other container, such as an html ordered or unordered list (ol, ul) to give it that same look.
 
+*Notice:* 
+
+A table view is not the same as an HTML table. A tableview corresponds to a database table of data which would result in a list of output. If you need to display tabular data, you should look at using a regular HTML table. If you need to use a tabular table inside of a table view, put it in an empty tablecell tag and style it appropriately. Or you could put it in a celldetail and style it appropriately.
+
 **See Also:**
 
 [tableheader](#tableheader)
@@ -916,9 +920,11 @@ The structure of a popup controls is as follows:
 
 &nbsp;
 
-##Tag: screencover
+##Tag: overlay
 
-This tag is used to cover the screen of the viewport, hiding the content with a translucent cover and preventing any user interaction with it. It serves as the base over which some other type of user notification/interaction artifice will be presented, such as a popup, action sheet or picker.
+This tag is used to cover the screen of the viewport, hiding the content with a translucent cover and preventing any user interaction with it. It serves as the base over which some other type of user notification/interaction artifice will be presented, such as a popup, action sheet or popover. It gets created by Element.UIBlock and destroyed by Element.UIUnblock. You by default it's black with an opacity of 50%. You can control the opacity by passing Element.UIBlock and value. For example, if you wanted it to be translucent and unnoticeable but block the screen, pass Element.UIBlock a value of "0.01":
+
+	$.main.UIBlock(".01");
 
 
 &nbsp;
@@ -1096,3 +1102,7 @@ However, to make a spinner all you need to to is put a basic spinner tag in you 
 	<spinner></spinner>
 
 You would then init the spinner using the $.UISpinner method while passing in the arguments for the spinner. See the documentation on Chui.js and the Tutorial on spinners for more information about how to initialize a spinner.
+
+##Tag: popover
+
+This tag is used to create the typical iPad modal interface widget. You create a popover with $.UIPopover. Then you can fill it with the content you need by using Element.insert. You show and hide it with $.UIPopover.show and $.UIPopover.hide. A popover can contain navigational lists for your iPad app, an action list to toggle the visible contents in a splitview's detail pane, or action buttons or specialized tools to modify or interact with the content in the detail pane. By default, when the user touches anywhere outside the popover, it gets dispelled which doing anything. However, you can also dispel the popover when the user interacts with an action list, action button or other event.

@@ -304,6 +304,11 @@ You can indicate how ChocolateChip-UI treats the order of items in a tablecell b
 
 You can also have ChocolateChip-UI center your celltitles and details from the center of the cells using *ui-tablecell-order="centered"*. In this mode the celltitles will be smaller and bluish while the cellsubtitles will be larger and black. You would use this type of layout where you want to emphasis the cellsubtitles over the celltites.
 
+**Titled tableview**
+
+If you need to create a tableview with titled sections, like playlists or alphabetical lists, you can do so by just giving the tableview a property of *ui-kind="titled-list"*. Then use tableheader tags for the section titles. ChocolateChip-UI will automatically style them to resemble standard titled lists. If you want to change the color scheme, just search for *ui-kind="titled-list"* in chui.css, copy the related styles to your app's local stylesheet and adjust the colors to your liking.
+
+
 &nbsp;
     
 ##Control: switchcontrol
@@ -585,6 +590,16 @@ This defines the background color of the label with the expander is expanded:
 ChocolateChip-UI provides a type of stack that implements horizontal paging with dots below it to indicate how many pages/panels there are and which on is current. 
 
 
+
+$nbsp;
+
+
+##Spinner
+
+
+
+
+
 &nbsp;
 
 <a name="custom_tints"></a>
@@ -666,11 +681,17 @@ ChocolateChip-UI offers the attribute *ui-background-style="striped"* as a way t
 - ui-background-style="horizontal-striped"
 - ui-background-style="slanted-left"
 - ui-background-style="slanted-right"
+- ui-background-style="vertical-striped-equal"
+- ui-background-style="horizontal-striped-equal"
+- ui-background-style="slanted-left-equal"
+- ui-background-style="slanted-right-equal"
 - ui-background-style="squared"
 - ui-background-style="checkered"
 - ui-background-style="chess"
 - ui-background-style="speckled"
-- ui-background-style="spotted"
+- ui-background-style="argyle"
+- ui-background-style="intersect"
+- ui-background-style="linen"
 
 Here is what the gradients look like with a white background color:
 

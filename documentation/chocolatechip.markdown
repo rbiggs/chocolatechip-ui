@@ -13,7 +13,7 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 1.1.5
+    Version 1.1.9
 
 
 
@@ -168,6 +168,55 @@ An array of nodes comprising an element collection.
 [$.collectionToArray #collectionToArray]
 
 
+
+&nbsp;
+
+##Function: Element.find
+
+A method to get a node as the descendant of the element find is executed on. This will return the first match for the selector provided.
+
+**Syntax:**
+
+	var element = Element.find(selector);
+	
+**Returns:** 
+	A single node.
+	
+**Example:**
+
+	var main = $("#main");
+	var menu = main.find(".menu"); // Get the first menu.
+	var menu3 = main.find(".menu:nth-of-typ(3)"); // Get the third menu.
+	var menuLast = main.find(".menu.last-of-type"); // Get the last menu.
+	
+	
+	
+
+&nbsp;
+
+##Function: Element.findAll
+
+A method to get a collection of nodes that are descendants of the element on which findAll is executed and which match the selector provided.
+
+**Syntax:**
+
+	var elements = Element.findAll(selector);
+
+**Returns:**
+
+	An array of nodes.
+	
+**Example:**
+
+	var main = $("#main");
+	var menus = main.find(".menu"); // Get all menus.
+	// Or operate directly on the returned results:
+	main.find(".menu").forEach(function(menu)) { 
+		menu.css("display", "none");
+	});
+
+
+
 &nbsp;
 
 ##Function: Element.previous
@@ -278,49 +327,7 @@ A matched ancestor node.
     // Will return a subview tag if it is an ancestor of "#someID":
     var theAncestor = $("#someID").ancestor("subview");
 
-
- 
-
-&nbsp;
-
-##Function: Element.ancestorByTag
-
-Support for this method has been dropped. Instead use Element.ancestor().
-
-**See Also:**
-
-[Element.ancestor](#elementAncestor)
-
-
-
-<a name="elementAncestor"</a>
-    
-
-&nbsp;
-
-##Function: Element.ancestorByClass
-
-Support for this method has been dropped. Instead use Element.ancestor().
-
-**See Also:**
-
-[Element.ancestor](#elementAncestor)
-
-
- 
-
-&nbsp;
-
-##Function: Element.ancestorByPosition
-
-Support for this method has been dropped. Instead use Element.ancestor().
-
-**See Also:**
-
-[Element.ancestor](#elementAncestor)
-    
-            
-             
+         
 
 &nbsp;
 
@@ -609,7 +616,46 @@ A method to insert content consisting of a node or nodes before the node upon wh
     $.itemNumber = null;
 
 
- 
+
+&nbsp;
+
+##Function: Element.prepend
+
+A method to insert content at the beginning of an element's child nodes. This is different from the result of Element.before, which places the content before the element. Prepend creates a new child node inside its element.
+
+**Syntax:** 
+
+	Element.prepend(node);
+
+**Parameters:**
+
+- node: A valid node to insert as the first child of the parent.
+
+**Example:**
+
+	var mainContent = $("#main .content");
+	mainContent.prepend("<h2>This is important!</h2>");
+
+
+&nbsp;
+
+##Function: Element.append
+
+**Syntax:**
+
+	Elemnt.append(node);
+
+**Parameters:**
+
+- node: A valid node to insert as the last child of the parent.
+
+**Example:**
+
+	var mainContent = $("#main .content");
+ 	mainContent.append("<p class='finalNote'>Before you start downloading this file, make sure you have all the windows in your house open and that you have a quick and secure escape route available.</p>");
+
+
+
 
 &nbsp;
 
@@ -769,14 +815,17 @@ Add a CSS declaration directly to an element. If a boolean value that equates to
 
 **Syntax:**
 
-    Element.css(style declaration, property, value);
+    Element.css(property);
+    Element.css(property, value);
+    Element.css(string of properties/values);
+    Element.css(object literal of properties/values);
 
 **Parameters:**
 
-- style declaration:string A string of valid CSS property/values enclosed in curly braces and quotes.
-- property:string A string defining a CSS property.
-- value:string A string defining a CSS property value to set on an element.
-- A true value will cause any existing inline styles to be replace by the string of CSS styles. This is optional.
+- style declaration: A string of valid CSS property/values enclosed in quotes.
+- property: A string defining a CSS property.
+- value: A string defining a CSS property value to set on an element.
+- an object literal of valid CSS property value pairs. (Hyphenated properties must be quoted, otherwise properties which are single words do not require quotes. Values that are not simple integers must be quoted.)
 
 **Returns:**
 
@@ -786,7 +835,8 @@ CSS property value pairs as inline cssText or the computed value of a CSS proper
 
     $("#item").css("font", "bold 12pt/14pt Arial, Helvetica, Sans-serif");
     console.log($("#item").css("font-size"));
-    $("#item").css("{font-size: 24px; color: blue; background-color: red;}");
+    $("#item").css("font-size: 24px; color: blue; background-color: red;");
+	$("#item").css({"font-size":"24px", color:"blue", "background-color":"red"});
 
 You can use Element.css to get the value of a CSS property by passing the quoted property as an argument. You simply pass in the normal CSS property. If it is a hyphenated property, pass it in like that. 
 

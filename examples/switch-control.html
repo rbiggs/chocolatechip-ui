@@ -36,20 +36,18 @@
 			 // Initialize click events for switch controls.
             $$("tableview switchcontrol").forEach(function(item) {
                 item.bind("click", function () {
-                    if (this.checked === true) {
-                        $("#switchResponse").empty();
-                        $("#switchResponse").fill(this.getAttribute("ui-value"));
+                    if (this.hasClass("on")) {
+                        $("#switchResponse").empty().fill(this.find("input").value);
                     } else {
                         $("#switchResponse").empty();
                     }
                 });
                 
                 item.bind("touchstart", function(e) {
-                    if (this.checked === true) {
-                        $("#switchResponse").empty();
+                    if (this.hasClass("on")) {
+                        $("#switchResponse").empty().fill(this.find("input").value);
                     } else {
                         $("#switchResponse").empty();
-                        $("#switchResponse").fill(this.getAttribute("ui-value"));
                     }
                 });
 			});
@@ -89,30 +87,33 @@
 					<tableview id="tableview_01" ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Sleep</celltitle>
-                        <switchcontrol ui-kind="traditional" class="on" id="sleepSwitch" ui-value="ZZZZZZZZ!">
+                        <switchcontrol ui-kind="traditional" class="on" id="sleepSwitch">
                             <label ui-implements="on">ON</label>
                             <thumb><thumbprop></thumbprop></thumb>
                             <label ui-implements="off">OFF</label>
+							<input type="checkbox" value="ZZZZZZZZ!" name="sleepSwitch">
                         </switchcontrol>
                     	</tablecell>
                     </tableview>
                     <tableview ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Vacation</celltitle>
-                        <switchcontrol ui-kind="traditional" ui-implements="attention" class="off" id="vacationSwitch" ui-value="Later! :-)">
+                        <switchcontrol ui-kind="traditional" ui-implements="attention" class="off" id="vacationSwitch">
                             <label ui-implements="on">ON</label>
                             <thumb><thumbprop></thumbprop></thumb>
                             <label ui-implements="off">OFF</label>
+							<input type="checkbox" value="Later! :-)" name="vacationSwitch">
                         </switchcontrol>
                     	</tablecell>
                     </tableview>
                     <tableview ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Breakfast</celltitle>
-                        <switchcontrol ui-kind="traditional" class="off green" id="breakfastSwtich" ui-implements="attention"  ui-value="So, what's the first course?">
+                        <switchcontrol ui-kind="traditional" class="off green" id="breakfastSwtich" ui-implements="attention">
                             <label ui-implements="on">ON</label>
                             <thumb><thumbprop></thumbprop></thumb>
                             <label ui-implements="off">OFF</label>
+							<input type="checkbox" value="So, what's the first course?" name="breakfastSwtich">
                         </switchcontrol>
                     	</tablecell>
                     </tableview>

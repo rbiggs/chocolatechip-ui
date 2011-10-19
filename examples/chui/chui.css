@@ -1605,9 +1605,12 @@ tableview > tablecell {
     -webkit-box-sizing: border-box;
     min-height: 44px;
 }
-tableview > tablecell[href]:hover, tableview > tablecell[href].touched,
+tableview > tablecell[href]:hover, 
+tableview > tablecell[href].touched,
 tableview[ui-implements="detail-menu"] > tablecell:hover,
-tableview[ui-implements="detail-menu"] > tablecell.touched {
+tableview[ui-implements="detail-menu"] > tablecell.touched,
+tableview[ui-implements="selection-list"] > tablecell:hover,
+tableview[ui-implements="selection-list"] > tablecell.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom, 
             from(#4286f5), 
@@ -1644,7 +1647,8 @@ view tableview.ui-no-hover > tablecell:hover > cellsubtitle {
 /*view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
 	color: #666 !important;
 }*/
-tableview > tablecell[href]:hover > span, tableview > tablecell[href].touched > span,
+tableview > tablecell[href]:hover > span, 
+tableview > tablecell[href].touched > span,
 tableview[ui-implements="detail-menu"] > tablecell:hover > span,
 tableview[ui-implements="detail-menu"] > tablecell.touched > span {
     color: #fff;
@@ -2482,6 +2486,9 @@ tableview[ui-implements=selection-list] tablecell.selected > checkmark {
 tableview[ui-implements=selection-list] tablecell > checkmark, tableview[ui-implements=selection-list] tablecell.selected:hover > checkmark {
 	color: #fff;
 }
+tableview[ui-implements=selection-list] > tablecell input[type=radio] {
+	display: none;
+}
 
 /* switchcontrol Styles */
 switchcontrol {
@@ -2502,7 +2509,7 @@ switchcontrol {
     line-height: 28px;
     cursor: pointer;
     -webkit-user-select: none;
-	-webkit-box-shadow: inset 0 1px 3px #bababa, inset 0 12px 12px #d4d4d4;
+	-webkit-box-shadow: inset 0 1px 3px #bababa, inset 0 12px 3px 2px rgba(232,232,232,0.5);
 }
 switchcontrol[ui-kind=traditional] {
     width: 94px;
@@ -2527,6 +2534,9 @@ switchcontrol > thumb {
     -webkit-transform: translateX(0px);
     -webkit-transform: translate3d(0,0,0);
 }
+switchcontrol > input {
+	display: none;
+}
 switchcontrol[ui-kind=traditional] > thumb {
     -webkit-border-radius: 7px;
     width: auto;
@@ -2537,7 +2547,7 @@ switchcontrol:before {
 	display:  block;
 	height: 26px;
 	-webkit-border-radius: 20px;
-	-webkit-box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 12px #007fea;
+	-webkit-box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 3px 2px rgba(0,127,234,0.5);
 	background-color: #64b1f2;
 	position:  absolute;
 	width:  75px;
@@ -2648,8 +2658,8 @@ switchcontrol > label[ui-implements=off] {
 }
 
 switchcontrol[ui-kind=generic] {
-	-webkit-box-shadow: inset 0 3px 10px #b7b7b7, inset 0 12px 12px #f4f4f4;
-	background-color: #eaeaea;
+	-webkit-box-shadow: inset 0 0px 3px #b7b7b7, inset 0 12px 3px 2px #eaeaea;
+	background-color: #f6f6f6;
 }
 switchcontrol[ui-kind=generic] > thumb {
 	-webkit-box-shadow: none;
@@ -2659,7 +2669,7 @@ switchcontrol[ui-kind=generic] > thumb {
 			to(#e3e3e3));
 }
 switchcontrol[ui-kind=generic]:before {
-	-webkit-box-shadow: inset 0 3px 10px #8e8e8e, inset 0 12px 12px #bfbfbf;
+	-webkit-box-shadow: inset 0 3px 10px #8e8e8e, inset 0 12px 3px 2px #bfbfbf;
 	background-color: #c4c4c4;
 }
 switchcontrol[ui-kind=generic] > thumb:before {

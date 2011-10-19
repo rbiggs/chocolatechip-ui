@@ -7,9 +7,11 @@
     <title>Form To JSON Submission</title>
     <link rel="stylesheet" href="chui/chui.css">
     <style>
-		form > tableview[ui-tablecell-order=centered] tablecell > celltitle {
-			width: 95% !important;
-			margin-top: 6px !important;
+		tableview[ui-tablecell-order="centered"] > tablecell > celltitle {
+			right: 60%;
+		}
+		tableview[ui-tablecell-order="centered"] > tablecell > cellsubtitle {
+			left: 40%;
 		}
 		body.landscape #view1 tableview[ui-tablecell-order="stacked"] > tablecell > cellsubtitle, 
 		body.landscape #view1 tableview[ui-tablecell-order="stacked"] > tablecell > celldetail {
@@ -47,7 +49,8 @@
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
                     <form id="userForm" action="javascript:submitForm()">
-                        <tableview class="ui-no-hover" ui-tablecell-order="centered">
+                        <tableview ui-tablecell-order="centered">
+							<tableheader>Personal Info</tableheader>
                             <tablecell>
                                 <celltitle>First name:</celltitle>
                                 <cellsubtitle>
@@ -63,7 +66,7 @@
                             <tablecell>
                                 <celltitle>Phone:</celltitle>
                                 <cellsubtitle>
-                                    <input type="tel" name="user.phone">
+                                    <input type="text" name="user.phone">
                                 </cellsubtitle>
                             </tablecell>
                             <tablecell>
@@ -93,12 +96,38 @@
                                     <input type="checkbox" name="user.favoriteFood[]" value="chicken">
                                 </cellsubtitle>
                             </tablecell>
-                            	<tablecell>
-                                    <celltitle>Message:</celltitle>
-                                    <cellsubtitle>
-                                        <input type="text" name="user.message">
-                                    </cellsubtitle>
-                                </tablecell>
+						</tableview>
+                        <tableview ui-tablecell-order="centered">
+							<tableheader>Feedback</tableheader>
+                           	<tablecell>
+                            	<celltitle>Message:</celltitle>
+                                <cellsubtitle>
+                                    <input type="text" name="user.message">
+                                </cellsubtitle>
+                            </tablecell>
+						</tableview>
+                        <tableview ui-tablecell-order="centered">
+							<tableheader>Job</tableheader>
+							<tablecell>
+								<celltitle>Web developer</celltitle>
+								<cellsubtitle><input name="user.job" value="Web developer" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Rocket scientist</celltitle>
+								<cellsubtitle><input name="user.job" value="Rocket scientist" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Cook</celltitle>
+								<cellsubtitle><input name="user.job" value="Cook" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Banker</celltitle>
+								<cellsubtitle><input name="user.job" value="Banker" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Janitor</celltitle>
+								<cellsubtitle><input name="user.job" value="Janitor" type="radio"></cellsubtitle>
+							</tablecell>
                         </tableview>
 					</form>
 				</scrollpanel>

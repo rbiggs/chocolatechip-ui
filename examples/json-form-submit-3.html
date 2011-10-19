@@ -11,11 +11,14 @@
     		margin-top: 0 !important;
     	}
     	form > tableview > tablecell  {
-    		display: -webkit-box !important;
+    		display: -webkit-box;
     		-webkit-box-orient: horizontal !important;
     		-webkit-box-pack: start !important;
     		-webkit-box-align: start !important;
     	}
+		form > tableview[ui-implements=selection-list] > tablecell  {
+			display: block;
+		}
     	form tablecell > label {
     		display: block;
     		-webkit-box-sizing: border-box;
@@ -27,11 +30,9 @@
     		line-height: 22px;
     		color: #586B96;
     	}
-    	form tablecell.ui-no-hover:hover > label,
-    	form tablecell.ui-no-hover:hover > input,
-    	form tablecell.ui-no-hover:hover > textarea {
-    		color: #000 !important;
-    	}
+		form tablecell > celltitle {
+			width: auto;
+		}
     	form tablecell > label > span.warning {
     		color: red;
     	}
@@ -46,6 +47,14 @@
     	form button[type=submit] {
     		display: none;
     	}
+switchcontrol {
+    -webkit-user-select: none;
+	s-swebkit-box-shadow: inset 0 1px 3px #bababa, inset 0 12px 3px 2px rgba(232,232,232,0.5);
+}
+switchcontrol:before {
+	ww-swebkit-box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 3px 2px rgba(0,127,234,0.5);
+	background-color: #64b1f2;
+}
     </style>
     <script src="chui/chocolatechip.js"></script>
     <script src="chui/chui.js"></script>
@@ -59,6 +68,7 @@
 		    $("uibutton[ui-implements=done]").bind("click", function() {
 		        $("#userForm").submit();
 		    });
+		$("tableview[ui-implements=selection-list]").UISelectionList();
 		});
     </script>
     
@@ -97,63 +107,59 @@
                             <tablecell>
                                 <celltitle>Email:</celltitle>
                                 <cellsubtitle>
-                                    <input type="email" name="user.email">
+                                    <input type="text" name="user.email">
                                 </cellsubtitle>
                             </tablecell>
                         </tableview>
-                        <tableview ui-kind="grouped" ui-tablecell-order="centered" class="ui-no-hover">
-                            <tableheader>Favorite food</tableheader>
-                        	<tablecell>
-                                <celltitle>Salad:</celltitle>
-                                <cellsubtitle>
-                                    <input type="checkbox" name="user.favoriteFood[]" value="salad">
-                                </cellsubtitle>
-                        	</tablecell>
-                        	<tablecell>
-                                <celltitle>Pizza:</celltitle>
-                                <cellsubtitle>
-                                    <input type="checkbox" name="user.favoriteFood[]" value="pizza">
-                                </cellsubtitle>
-                        	</tablecell>
-                        	<tablecell>
-                                <celltitle>Chicken:</celltitle>
-                                <cellsubtitle>
-                                    <input type="checkbox" name="user.favoriteFood[]" value="chicken">
-                                </cellsubtitle>
-                            </tablecell>
+ 						<tableview ui-kind="grouped">
+	                    	<tablecell>
+		                        <celltitle>Salad:</celltitle>
+		                        <switchcontrol class="on" id="sleepSwitch">
+		                            <thumb></thumb>
+									<input type="checkbox" name="user.favoriteFood[]" value="salad">
+		                        </switchcontrol>
+	                    	</tablecell>
+	                    	<tablecell>
+		                        <celltitle>Pizza:</celltitle>
+		                        <switchcontrol class="off" id="vacationSwitch">
+		                            <thumb></thumb>
+									<input type="checkbox" name="user.favoriteFood[]" value="pizza">
+		                        </switchcontrol>
+	                    	</tablecell>
+	                    	<tablecell>
+		                        <celltitle>Chicken:</celltitle>
+		                        <switchcontrol class="off" id="breakfastSwtich">
+									<input type="checkbox" name="user.favoriteFood[]" value="chicken">
+		                            <thumb></thumb>
+		                        </switchcontrol>
+	                    	</tablecell>
+	                    </tableview>
+						
+						<tableview ui-kind=grouped ui-implements="selection-list">	
+							<tableheader>
+								Choose one of the following:
+							</tableheader>
+							<tablecell>
+								<celltitle>Web developer</celltitle> 
+								<input type="radio" name="user.job" value="Web developer">
+							</tablecell>
+							<tablecell>
+								<celltitle>Rocket scientist</celltitle> 
+								<input type="radio" name="user.job" value="Rocket scientist">
+							</tablecell>
+							<tablecell>
+								<celltitle>Cook</celltitle> 
+								<input type="radio" name="user.job" value="Cook">
+							</tablecell>
+							<tablecell>
+								<celltitle>Banker</celltitle> 
+								<input type="radio" name="user.job" value="Banker">
+							</tablecell>
+							<tablecell>
+								<celltitle>Janitor</celltitle> 
+								<input type="radio" name="user.job" value="Janitor">
+							</tablecell>
 						</tableview>
-                        <tableview ui-kind="grouped" ui-tablecell-order="centered">
-							<tableheader>Feedback</tableheader>
-                           	<tablecell>
-                            	<celltitle>Message:</celltitle>
-                                <cellsubtitle>
-                                    <input type="text" name="user.message">
-                                </cellsubtitle>
-                            </tablecell>
-						</tableview>
-                        <tableview ui-kind="grouped" ui-tablecell-order="centered">
-							<tableheader>Job</tableheader>
-							<tablecell>
-								<celltitle>Web developer</celltitle>
-								<cellsubtitle><input name="user.job" value="Web developer" type="radio"></cellsubtitle>
-							</tablecell>
-							<tablecell>
-								<celltitle>Rocket scientist</celltitle>
-								<cellsubtitle><input name="user.job" value="Rocket scientist" type="radio"></cellsubtitle>
-							</tablecell>
-							<tablecell>
-								<celltitle>Cook</celltitle>
-								<cellsubtitle><input name="user.job" value="Cook" type="radio"></cellsubtitle>
-							</tablecell>
-							<tablecell>
-								<celltitle>Banker</celltitle>
-								<cellsubtitle><input name="user.job" value="Banker" type="radio"></cellsubtitle>
-							</tablecell>
-							<tablecell>
-								<celltitle>Janitor</celltitle>
-								<cellsubtitle><input name="user.job" value="Janitor" type="radio"></cellsubtitle>
-							</tablecell>
-                        </tableview>
 					</form>		
 				</scrollpanel>
 			</subview>
