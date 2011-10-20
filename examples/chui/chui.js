@@ -1310,7 +1310,7 @@ $.extend($, {
 	}
 });
 $(function() {
-	$.UIEnableScrolling({ desktopCompatibility: true });
+	$.UIEnableScrolling();
 });
 $.extend($, {
 	UIPaging : function( selector, opts ) {
@@ -1625,7 +1625,7 @@ $.extend($, {
 		$.UIPopUp(options);
 		$.UIPopUpIsActive = true;
 		$.UIPopUpIdentifier = "#" + options.id;
-		var screenCover = $("overlay");
+		var screenCover = $("mask");
 		screenCover.bind("touchmove", function(e) {
 			e.preventDefault();
 		});
@@ -1717,13 +1717,13 @@ $.extend(HTMLElement.prototype, {
 		var value = opts.value || "";
 		var callback = opts.callback || function() { return false; };
 		var label = (opts.kind === "traditional") ? '<label ui-implements="on">ON</label><thumb></thumb><label ui-implements="off">OFF</label>' : "<thumb></thumb>";
-		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '" ui-value="' + value + '"' + kind + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;"></switchcontrol>';
+		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
 		if (this.css("position")  !== "absolute") {
 			this.css("position: relative;");
 		}
 		this.insert(uiswitch);
 		var newSwitchID = "#" + id;
-		$(newSwitchID).checked = status === "on" ? true : false;
+		$(newSwitchID).find("input").checked = status === "on" ? true : false;
 		$(newSwitchID).bind("click", function() {
 			this.UISwitchControl(callback);
 		});
@@ -2153,7 +2153,7 @@ $.extend($, {
 	UIShowActionSheet : function(actionSheetID) {
 		$.app.data("ui-action-sheet-id", actionSheetID);
 		$(actionSheetID).UIBlock();
-		var screenCover = $("overlay");
+		var screenCover = $("mask");
 		screenCover.css("width: " + window.innerWidth + "px; height: " + window.innerHeight + "px; opacity: .5;");
 		screenCover.setAttribute("ui-visible-state", "visible");
 		$(actionSheetID).removeClass("hidden");
@@ -2188,7 +2188,7 @@ $.extend($, {
 				$(actionSheetID).css("right: 0; bottom: 0; left: 0;");
 			}
 		}
-		$.UIPositionOverlay();
+		$.UIPositionMask();
 	}
 });
 document.addEventListener("orientationchange", function() {
@@ -2743,7 +2743,7 @@ $(function() {
 				}
 			});
 		});
-		$.app.delegate("overlay", "click", function() {
+		$.app.delegate("mask", "click", function() {
 			$.rootview.css("display: none;");
 			$.rootview.UIUnblock();
 		});
@@ -2891,12 +2891,12 @@ $.extend($, {
 		}
 	},
 	UICancelPopover : function (popover) {
+		$.UIHidePopover(popover);
+	},
+	UIHidePopover : function (popover) {
 		$.UIPopover.activePopover = null;
 		$(popover).css("opacity: 0; -webkit-transform: scale(0);");
 		popover.UIUnblock();
-	},
-	UIHidePopover : function (popover) {
-		$.UICancelPopover(popover);
 	},
 	UIEnablePopoverScrollpanels : function ( options ) {
 		try {
@@ -2957,17 +2957,17 @@ $.extend(HTMLElement.prototype, {
 	},
 	UIBlock : function ( opacity ) {
 		opacity = opacity ? " style='opacity:" + opacity + "'" : "";
-		this.before($.make("<overlay" + opacity + "></overlay>"));
+		this.before($.make("<mask" + opacity + "></mask>"));
 	},
 	UIUnblock : function ( ) {
-		if ($("overlay")) {
-			$("overlay").remove();
+		if ($("mask")) {
+			$("mask").remove();
 		}
 	}
 });
 $.extend($, {
-	UIPositionOverlay : function() {
-		$("overlay").css("height:" + (window.innerHeight + window.pageYOffset) + "px; width: " + window.innerWidth + "px;");
+	UIPositionMask : function() {
+		$("mask").css("height:" + (window.innerHeight + window.pageYOffset) + "px; width: " + window.innerWidth + "px;");
 	}
 });
 // Hide any visible popovers when orientation changes.
@@ -2995,11 +2995,11 @@ window.addEventListener("resize", function() {
 }, false);
 
 $(function() {
-	$.app.delegate("overlay", "click", function() {
+	$.app.delegate("mask", "click", function() {
 		if ($.UIPopover.activePopover) {
 			$.UIPopover.hide($("#"+$.UIPopover.activePopover));
-			if ($("overlay")) {
-				$("overlay").UIUnblock();
+			if ($("mask")) {
+				$("mask").UIUnblock();
 			}
 		}
 		if ($.rooview && $.rootview.css("position") === "absolute") {

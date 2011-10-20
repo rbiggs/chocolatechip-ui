@@ -14,29 +14,56 @@
 		p[ui-kind=grouped] { padding: 10px 10px; }
 		 
 	</style>
-	<script src="chui/chocolatechip.js"></script>
-	<script src="chui/chui.js"></script>
+	<script src="chui/chocolatechip-min.js"></script>
+	<script src="chui/chui-min.js"></script>
 	<script>
 		/* Local JavaScript Here */
 	
 		$.ready(function() {
-			 // Initialize click events for switch controls.
-            $$("tableview switchcontrol").forEach(function(item) {
-                item.bind("click", function () {
-                    if (this.hasClass("on")) {
-                        $("#switchResponse").empty().fill(this.find("input").value);
-                    } else {
-                        $("#switchResponse").empty();
-                    }
-                });
-                
-                item.bind("touchstart", function(e) {
-                    if (this.hasClass("on")) {
-                        $("#switchResponse").empty().fill(this.find("input").value);
-                    } else {
-                        $("#switchResponse").empty();
-                    }
-                });
+			var sleepSwitch = {
+				id : "sleepSwitch",
+				status : "on",
+				namePrefix : "customer.choice",
+				value: "ZZZZZZZZZ!"
+			};
+			var vacationSwitch = {
+				id : "vacationSwitch",
+				status : "off",
+				namePrefix : "customer.choice",
+				value : "See you later!"
+			};
+			var breadfastSwitch = {
+				id : "breadfastSwitch",
+				status : "off",
+				namePrefix : "customer.choice",
+				value : "I'm hungry!"
+			};
+			$$("tablecell").forEach(function(cell, idx){
+				switch (idx){
+					case 0:
+						cell.UICreateSwitchControl(sleepSwitch);
+						break;
+					case 1:
+						cell.UICreateSwitchControl(vacationSwitch);
+						break;
+					case 2:
+						cell.UICreateSwitchControl(breadfastSwitch);
+						break;
+				}
+				
+			});
+			$$("switchcontrol").forEach(function(switchedOn) {
+				if (switchedOn.hasClass("on")) {
+					$("#switchResponse").empty().fill(switchedOn.find("input").value);
+				}
+			});
+			
+			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
+				if (switchcontrol.hasClass("on")) {
+					$("#switchResponse").empty().fill(switchcontrol.find("input").value);
+				} else {
+					$("#switchResponse").empty();
+				}
 			});
 		});
 		
@@ -53,32 +80,20 @@
 					<tableview ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Sleep</celltitle>
-                        <switchcontrol class="on" id="sleepSwitch">
-                            <thumb></thumb>
-							<input type="checkbox" value="ZZZZZZZZ!" name="sleepSwitch">
-                        </switchcontrol>
                     	</tablecell>
                     </tableview>
                     <tableview ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Vacation</celltitle>
-                        <switchcontrol ui-kind="generic" class="off" id="vacationSwitch">
-                            <thumb></thumb>
-							<input type="checkbox" value="Later! :-)" name="vacationSwitch">
-                        </switchcontrol>
                     	</tablecell>
                     </tableview>
                     <tableview ui-kind="grouped">
                     	<tablecell>
                         <celltitle>Breakfast</celltitle>
-                        <switchcontrol ui-implements="attention" class="off" id="breakfastSwtich">
-							<input type="checkbox" value="So, what's the first course?" name="breakfastSwtich">
-                            <thumb></thumb>
-                        </switchcontrol>
                     	</tablecell>
                     </tableview>
                     <p ui-kind="grouped">
-                    	<span><strong>Response: </strong></span><span id="switchResponse" class="response">ZZZZZZZZ</span>
+                    	<span><strong>Response: </strong></span><span id="switchResponse" class="response"></span>
                     </p>
 				</scrollpanel>
 			</subview>

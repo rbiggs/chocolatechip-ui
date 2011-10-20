@@ -373,6 +373,9 @@ iScroll.prototype = {
 			case START_EV:
 				if (!hasTouch && e.button !== 0) return;
 				if (!hasTouch && !that.options.mouseGestures) return;
+				if (e.target.tagName == "SELECT") {  return; }
+				if (e.target.tagName == "INPUT") {  return; }
+				if (e.target.tagName == "TEXTAREA") {  return; }
 				that._start(e);
 				break;
 			case MOVE_EV: that._move(e); 
@@ -1307,7 +1310,7 @@ $.extend($, {
 	}
 });
 $(function() {
-	$.UIEnableScrolling({ desktopCompatibility: true });
+	$.UIEnableScrolling();
 });
 $.extend($, {
 	UIPaging : function( selector, opts ) {
@@ -1456,7 +1459,7 @@ $.extend($, {
 		indicator:
 	*/
 	UISpinner : function (opts) {
-		var spinner = opts.selector || null;
+		var spinner = $(opts.selector);
 		var defaultValue = null;
 		var range = null;
 		var step = opts.step;
@@ -1508,6 +1511,12 @@ $.extend($, {
 		
 		$("label[ui-kind=spinner-label]", spinner).text(defaultValue);
 		$("input", spinner).value = defaultValue;
+		if (opts.namePrefix) {
+			var namePrefix = opts.namePrefix + "." + spinner.id;
+			$("input", spinner).setAttribute("name", namePrefix);
+		} else {
+			$("input", spinner).setAttribute("name", spinner.id);
+		}
 		
 		if (defaultValue === opts.range.start) {
 			$("uibutton:first-of-type", spinner).addClass("disabled");
@@ -1616,7 +1625,7 @@ $.extend($, {
 		$.UIPopUp(options);
 		$.UIPopUpIsActive = true;
 		$.UIPopUpIdentifier = "#" + options.id;
-		var screenCover = $("overlay");
+		var screenCover = $("mask");
 		screenCover.bind("touchmove", function(e) {
 			e.preventDefault();
 		});
@@ -1683,9 +1692,9 @@ $.extend(HTMLElement.prototype, {
 						check.removeClass("selected");
 					});
 					this.addClass("selected");
-					this.last().checked = true; 
+					this.find("input").checked = true; 
 					if (callback) {
-						callback.call(callback, this);
+						callback.call(callback, this.find("input"));
 					}
 				});
 			}
@@ -1696,19 +1705,25 @@ $.extend(HTMLElement.prototype, {
 $.extend(HTMLElement.prototype, {
 	UICreateSwitchControl : function( opts ) {
 		var id = opts.id;
-		var customClass = opts.customClass || "";
-		var status = opts.status + " " || "off";
+		var namePrefix = "";
+		if (opts.namePrefix) {
+			namePrefix = "name='" + opts.namePrefix + "." + opts.id + "'";
+		} else {
+			namePrefix = "name='" + id + "'";
+		}
+		var customClass = " " + opts.customClass || "";
+		var status = opts.status || "off";
 		var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
 		var value = opts.value || "";
 		var callback = opts.callback || function() { return false; };
 		var label = (opts.kind === "traditional") ? '<label ui-implements="on">ON</label><thumb></thumb><label ui-implements="off">OFF</label>' : "<thumb></thumb>";
-		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '" ui-value="' + value + '"' + kind + '>' + label + '</switchcontrol>';
+		var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
 		if (this.css("position")  !== "absolute") {
 			this.css("position: relative;");
 		}
 		this.insert(uiswitch);
 		var newSwitchID = "#" + id;
-		this.addClass("ui-no-hover");
+		$(newSwitchID).find("input").checked = status === "on" ? true : false;
 		$(newSwitchID).bind("click", function() {
 			this.UISwitchControl(callback);
 		});
@@ -1721,12 +1736,12 @@ $.extend(HTMLElement.prototype, {
 		if (this.nodeName.toLowerCase()==="switchcontrol") {
 			callback.call(callback, this);
 			if (this.hasClass("off")) {
-				this.toggleClass("on", "off");
-				this.checked = true;
+				this.toggleClass("off", "on");
+				this.find("input").checked = true;
 				this.querySelector("thumb").focus();
 			} else {
 				this.toggleClass("on", "off");
-				this.checked = false;
+				this.find("input").checked = false;
 			}
 		} else {
 			return;
@@ -1737,16 +1752,17 @@ $.extend(HTMLElement.prototype, {
 $.extend(HTMLElement.prototype, {
 	UIInitSwitchToggling : function() {
 		$$("switchcontrol", this).forEach(function(item) {
-			item.parentNode.addClass("ui-no-hover");
 			if (item.hasClass("on")) {
 				item.checked = true;
+				item.find("input[type='checkbox']").checked = true;
 			} else {
 				item.checked = false;
+				item.find("input[type='checkbox']").checked = false;
 			}
 			item.bind("click", function(e) {
 				this.parentNode.style.backgroundImage = "none";
 				e.preventDefault();
-				this.UISwitchControl();
+				item.UISwitchControl();
 			});
 		});
 	}
@@ -2137,7 +2153,7 @@ $.extend($, {
 	UIShowActionSheet : function(actionSheetID) {
 		$.app.data("ui-action-sheet-id", actionSheetID);
 		$(actionSheetID).UIBlock();
-		var screenCover = $("overlay");
+		var screenCover = $("mask");
 		screenCover.css("width: " + window.innerWidth + "px; height: " + window.innerHeight + "px; opacity: .5;");
 		screenCover.setAttribute("ui-visible-state", "visible");
 		$(actionSheetID).removeClass("hidden");
@@ -2172,7 +2188,7 @@ $.extend($, {
 				$(actionSheetID).css("right: 0; bottom: 0; left: 0;");
 			}
 		}
-		$.UIPositionOverlay();
+		$.UIPositionMask();
 	}
 });
 document.addEventListener("orientationchange", function() {
@@ -2727,7 +2743,7 @@ $(function() {
 				}
 			});
 		});
-		$.app.delegate("overlay", "click", function() {
+		$.app.delegate("mask", "click", function() {
 			$.rootview.css("display: none;");
 			$.rootview.UIUnblock();
 		});
@@ -2875,12 +2891,12 @@ $.extend($, {
 		}
 	},
 	UICancelPopover : function (popover) {
+		$.UIHidePopover(popover);
+	},
+	UIHidePopover : function (popover) {
 		$.UIPopover.activePopover = null;
 		$(popover).css("opacity: 0; -webkit-transform: scale(0);");
 		popover.UIUnblock();
-	},
-	UIHidePopover : function (popover) {
-		$.UICancelPopover(popover);
 	},
 	UIEnablePopoverScrollpanels : function ( options ) {
 		try {
@@ -2941,17 +2957,17 @@ $.extend(HTMLElement.prototype, {
 	},
 	UIBlock : function ( opacity ) {
 		opacity = opacity ? " style='opacity:" + opacity + "'" : "";
-		this.before($.make("<overlay" + opacity + "></overlay>"));
+		this.before($.make("<mask" + opacity + "></mask>"));
 	},
 	UIUnblock : function ( ) {
-		if ($("overlay")) {
-			$("overlay").remove();
+		if ($("mask")) {
+			$("mask").remove();
 		}
 	}
 });
 $.extend($, {
-	UIPositionOverlay : function() {
-		$("overlay").css("height:" + (window.innerHeight + window.pageYOffset) + "px; width: " + window.innerWidth + "px;");
+	UIPositionMask : function() {
+		$("mask").css("height:" + (window.innerHeight + window.pageYOffset) + "px; width: " + window.innerWidth + "px;");
 	}
 });
 // Hide any visible popovers when orientation changes.
@@ -2979,11 +2995,11 @@ window.addEventListener("resize", function() {
 }, false);
 
 $(function() {
-	$.app.delegate("overlay", "click", function() {
+	$.app.delegate("mask", "click", function() {
 		if ($.UIPopover.activePopover) {
 			$.UIPopover.hide($("#"+$.UIPopover.activePopover));
-			if ($("overlay")) {
-				$("overlay").UIUnblock();
+			if ($("mask")) {
+				$("mask").UIUnblock();
 			}
 		}
 		if ($.rooview && $.rootview.css("position") === "absolute") {
@@ -3019,7 +3035,7 @@ $.extend($, {
 				$("stack[ui-kind='alphabetical-list']").css({height: window.innerHeight-45 + "px"});
 			});
 		} else {
-			console.log("no alphabetic list!")
+			console.log("no alphabetic list!");
 		}
 		var myScrollie = $("tableview[ui-kind='titled-list alphabetical']")
 			.ancestor("scrollpanel").getAttribute("ui-scroller");

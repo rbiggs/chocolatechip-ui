@@ -213,48 +213,7 @@ A method to toggle the label value of a uibutton. There are cases where when imp
             this.setAttribute("ui-implements", "done");
         }
     });
-
-
-
-
-&nbsp;
-
-<a name="UIButton"></a>
-
-##Function: $.UIButton
-
-A method to implement uibutton states for touch enabled devices. It uses an event delegate on the app tag to listen for a touchstart event on uibuttons. When one occurs, it toggles the "touched" class on the uibuttons. It uses the $.UIButtonTouched variable to know which was the most recently touched uibutton to "untouch" it. As soon as a uibutton is touched, it is cached in the $.UIButtonTouched variable.
-
-**Syntax:**
-
-    $.UIButton();
-
-**See Also:**
-
-[$.UIButtonTouched](#UIButtonTouched)
-
-
-&nbsp;
-
-<a name="UIButtonTouched"></a>
-
-##Variable: $.UIButtonTouched
-
-A variable to track the most recently touched uibutton. If you need to know what was the most recently touched uibutton, you can query this variable. **Note:** UIButtons in a Segmented Control have their own scheme for tracking which uibutton was touched or clicked and do not get registered with this cache.
-
-**Example:**
-
-    if ($.UIButtonTouched.text() == "Purchase") {
-        alert("Are you sure you want to make a purchase?");
-    }
-
-**See Also:**
-
-[$.UIButton](#UIButton)
-
-[Element.UISegmentedControl](#UISegmentedControl)
-
-[Element.UICreateSegmentedControl](#UICreateSegmentedControl)
+    
 
 
 &nbsp;
@@ -297,20 +256,54 @@ A method to navigate back to the previous view from whence the user came. This m
 
 A method for implementing drilldown navigation for table lists. This method uses an event delegate on the app tag and listens for a click or touch on a table cell with a href attribute. When a table cell has a href attribute, this method change's that view's ui-navigation-status from "upcoming" to "current", which cause it to slide into view from the right. At the same time, it changes the current view's ui-navigation-status to "traversed", causing it to transition out of view to the left.
 
+Because a user may touch a navigation list item several times, $.UINavigationList has built in detection for multiples touches. Most of the time this prevents the navigation from executing too many forward moves. However, occasionally the app may attempt to navigate too many steps ahead, resulting in a state where there is no current view. $.NavigationList can detect such a state and will reset itself to the last valid current view while also resetting the navigation history for back navigation.
+
+
 **See Also**
 
 [$.UIBackNavigation](#UIBackNavigation)
 
 
 &nbsp;
-  
-##Variable: $.UITouchedTableCell
 
-A variable to cache the most recently touched table cell. $.UITableview uses this to toggle the touched state of table cells by add or removing the "touched" class.
+##Function: Element.UIToggleButtonLabel
 
-##Function: $.UITableview
+A method to toggle the label of a button between two values.
 
-A method to toggle the "touched" class of table cells. This method queries the $.UITouchedTableCell to see which was the most recently touched table cell. If the cache is empty, it stores the presently touched cell and gives it the "touched" class. If the cache is not empty, it removed the "touched" class from that cell, adds the present cell to the cache and add the "touched" class to that cell.
+**Syntax:** 
+
+	Element.UIToggleButtonLabel(name1, name2);
+	
+**Parameters:**
+
+- String: First button name.
+- String: Second button name.
+
+**Example:**
+
+	$("#editButton").bind("click", function() {
+		this.UIToggleButtonLabel("Edit", "Done");
+	});
+
+	
+
+&nbsp;
+
+<a name="UIScrollers"></a>
+
+##Array: $.UIScrollers
+
+This is an array of all current iScroll objects in the app. You you change the content of a subview or view with an AJAX request or some type of DOM manipulation, you can reset the scroller by getting the scrollpanel's *ui-scroller* property and using that value with $.UIScrollers to call iScroll's *refresh* method. (See example below:)
+
+**Example:**
+
+	var updateScroller = $("#secondView > scrollpanel").getAttribute("ui-scroller");
+	$.UIScrollers[updateScroller].refresh();
+	
+**See Also:**
+
+[$.iScroll](#iScroll)
+
 
 
 &nbsp;
@@ -331,6 +324,8 @@ A method to implement scrolling of a container. This is based on iScroll by Matt
 
 [$.UIEnableScrolling](#UIEnableScrolling)
 
+[$.UIScrollers](#UIScrollers)
+
 [iScroll Site](http://cubiq.org/iscroll-4)
 
 
@@ -350,11 +345,13 @@ A method to implement automatic scrolling for all scroll panels inside of subvie
 
 [iScroll](#iScroll)
 
+[$.UIScrollers](#UIScrollers)
+
 
 
 &nbsp;
  
-<a name="UIDeletableTableCells"></a>
+<a name="UIPaging"></a>
 
 ##Function: $.UIPaging
 
@@ -473,20 +470,21 @@ $.UIDeleteTableCell uses three internal function to handle its functionality: UI
 
 &nbsp;
  
-<a name="UIScreenCover"></a>
+<a name="UIBlock"></a>
 
-##Function: Element.UIScreenCover
+##Function: Element.UIBlock
 
-A method to create a translucent cover over the screen of the browser, desktop or mobile device. It checks to see if there is not already a screen cover at this location. The screen cover is created with a ui-visible-state value of "hidden" and prevents any interaction with the covered interface. This method is used by $.UIPopUp, $.UIActionSheet, $.UIShowActionSheet, $.UIHideActionSheet.
+A method to create a translucent cover/mask over the screen of the browser, desktop or mobile device. It checks to see if there is not already a screen cover at this location. The screen cover is created with a ui-visible-state value of "hidden" and prevents any interaction with the covered interface. This method is used by $.UIPopUp, $.UIShowActionSheet, $.UIPopover.show and $.UICheckForSplitView.
 
-If for some reason you wanted to cover the screen an show a custom control or message on top of it, you could do so as illustrated in the example below.
+If for some reason you wanted to cover the screen and show a custom control or message on top of it, you could do so as illustrated in the example below.
 
 **Example:**
 
-    $("view:first-of-type").UIScreenCover();
-    $("view:first-of-type > screencover).setAttribute("ui-visible-state", "visible");
+    $("view:first-of-type").UIBlock();
 
 **See Also:**
+
+[$.UIUnblock](#UIUnblock)
 
 [$.UIPopUp](#UIPopUp)
 
@@ -496,6 +494,18 @@ If for some reason you wanted to cover the screen an show a custom control or me
 
 [$.UIHideActionSheet](#UIHideActionSheet)
 
+
+&nbsp;
+
+<a name="UIUnblock"></a>
+
+##Function: Element.UIUnblock
+
+A method to remove any mask created by Element.UIBlock(). This gets called by  and $.UIHideActionSheet, $.UIPopover.hide, $.UICheckForSplitView.
+
+**See Also:**
+
+[$.UIBlock](#UIBlock)
 
 &nbsp;
   
@@ -564,15 +574,6 @@ A method for construction a popup. It creates both a screen cover and a popup. T
 
 
 &nbsp;
-  
-<a name="UIScreenCoverIdentifier"></a>
-
-##Variable: $.UIScreenCoverIdentifier
-
-A variable to identify the screen cover. This holds a reference to the screen cover in a particular parent container to distinguish it from other possible screen covers. This gets set by the $.UIShowPopUp and $.UIPositionPopUp methods.
-
-
-&nbsp;
 
 <a name="UIShowPopUp"></a>
 
@@ -598,7 +599,7 @@ A method to show a popup. It first displays the screen cover, disabling interact
 
 [$.UIPopUp](#UIPopUp)
 
-[$.UIPositionScreenCover](#UIPositionScreenCover)
+[$.UIPositionScreenCover](#UIPositionmask)
 
 [$UIPositionPopUp](#UIPositionPopUp)
 
@@ -608,14 +609,12 @@ A method to show a popup. It first displays the screen cover, disabling interact
 
 [$.UIPopUpIdentifier](#UIPopUpIdentifier)
 
-[$.UIScreenCoverIdentifier](#UIScreenCoverIdentifier)
-
 
 &nbsp;
   
-<a name="UIPositionScreenCover"></a>
+<a name="UIPositionmask"></a>
 
-##Function: $.UIPositionScreenCover
+##Function: $.UIPositionmask
 
  A method to make the screen cover extend the entire width of the document, even if it extends beyond the viewport. We do this by getting the window's pageYOffset in case the user has scrolled down a really long document. This method gets invoked by $.UIShowPopUp and $.UIRepositionPopupOnOrientationChange.
  
@@ -652,8 +651,6 @@ A method to handle centering the popup when orientation changes or when there is
 **See Also:**
 
 [$.UIPopUpIsActive](#UIPopUpIsActive)
-
-[$.UIScreenCoverIdentifier](#UIScreenCoverIdentifier)
 
 [$.UIPositionPopUp](#UIPositionPopUp)
 
@@ -1863,3 +1860,145 @@ Please examine the examples in spinner.html in the examples folder of the source
 ##Function: $.UIPopover
 
 A method to create the shell of a popover. Popovers are used on tablets to provide a panel for additional user options. This may be in the shape of navigation lists for the displayed content, action lists to toggle through panels of visible content, or action buttons or icon buttons to perform actions or function as tools to interact with the visible content.
+
+**Parameters:**
+
+- Element trigger: touching this element will open the popover.
+- Popover orientation: a value of top or bottom to position the popover from the top of the screen or the bottom.
+- Popover pointer orientation: a value of left, center or right for indicating where to position the popover. If the popover has an orientation of top, the pointer will be positioned on the left, center or top of the popover. If it has an orientation of bottom, the pointer will be positioned on the left, center or bottom of the popover. In all cases, these positions are used to point at what element the user clciked on to show the popover.
+- Options: an object literal of an id or title for the popover.
+
+**Example:**
+
+	$.UIPopover("#showPopover1", "top", "left", {id: "popover1", title: "Popover One"});
+	$.UIPopover("#showPopover2", "top", "center", {id: "popover2", title: "Popover Two"});
+	$.UIPopover("#showPopover3", "top", "right", {id: "popover3", title: "Popover Three"});
+	$.UIPopover("#showPopover4", "bottom", "left", {id: "popover4", title: "Popover Four"});
+	$.UIPopover("#showPopover5", "bottom", "center", {id: "popover5", title: "Popover Five"});
+	$.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover Six"});
+
+To show the popover, see [Element.UIPopover.show](#UIPopover.show).
+
+There are a number of methods involved in managing the positioning and repositioning of popovers when there is a screen resize or orientation change.
+
+- UIEnablePopoverScrollpanels
+- repositionPopover
+- adjustPopoverPosition
+- determineMaxPopoverHeight
+- determinePopoverWidth
+- getPopoverTrigger
+- adjustPopoverHeight
+- determinePopoverPosition
+
+
+
+**See Also:**
+
+[Element.UIPopover.show](#UIPopover.show)
+
+[Element.UIPopover.show](#UIPopover.hide)
+
+
+
+&nbsp;
+
+<a name="UIPopover.show"></a>
+
+##Function: $.UIPopover.show
+
+A method to show a popover. When a popover is show, a transparent screen mask is also displayed over the app. Touching it will dispel the popover and also remove the mask.
+
+**Syntax:**
+
+	$.UIPopover.show(popover);
+
+**Example:**
+
+	$("#showPopover1").bind("click", function() {
+        $.UIPopover.show($("#popover1"));
+    });
+
+**See Also:**
+
+[Element.UIBlock](#UIBlock)
+
+[Element.UIUnblock](#UIUnblock)
+
+
+
+&nbsp;
+
+<a name="UIPopover.hide"></a>
+
+##Function: $.UIPopover.hide
+
+A method to hide a popover. This get called automatically when the user touches anywhere outside of the popover.
+
+**Syntax:**
+
+	$.UIHide
+
+**Example:**
+
+	$$("popover uibutton[ui-implements=done]").forEach(function(item) { 
+	    item.bind("click", function() {
+	        var popover = item.ancestor("popover");
+	        $.UIHidePopover("#" + popover.id);
+	    });
+	});
+
+
+&nbsp;
+
+<a name="UIHidePopover"></a>
+
+##Function: $.UIHidePopover
+
+A method to hide a popover. 
+
+**Syntax:**
+
+	$.UIHidePopover(popover);
+
+**Parameters:**
+
+- popover: A reference to a currently displayed popover.
+
+**Example:**
+
+	$("#hidePopover").bind("click", function() {
+		$.UIHidePopover($("#popover1"));
+	});
+
+&nbsp;
+
+##Function: $.UISplitView
+
+	A method to initialize a split view layout for iPad. There are a number of other methods involved in making the split view work, managing orientation change, screen resize, hiding and showing the root view when the size or orientation of the screen changes. Here are all the methods:
+	
+- UISetSplitviewOrientation
+- UIToggleRootView
+- UICheckForSplitView
+- UICurrentSplitViewDetail
+
+To implement a split view layout, all you need to do is implement the layout with the correct markup and attributes. ChocolateChip-UI will take care of making it all work for you.
+
+
+
+**See Also:**
+
+[Element.UIBlock](#UIBlock)
+
+[Element.UIUnblock](#UIUnblock)
+
+
+##Function: $.UIPositionMask
+
+A method for repositioning
+
+&nbsp;
+
+
+##Function: UIAlphabeticalList
+
+A method to turn a tableview with the attribute *ui-kind="titled-list alphabetical"*. This method will create a floating menu of the tableview's tableheaders as a clickable index for scrolling to sections of the tableview. All you have to do is provide the tableview with the attribute as displayed above.

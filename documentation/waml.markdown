@@ -920,7 +920,7 @@ The structure of a popup controls is as follows:
 
 &nbsp;
 
-##Tag: overlay
+##Tag: mask
 
 This tag is used to cover the screen of the viewport, hiding the content with a translucent cover and preventing any user interaction with it. It serves as the base over which some other type of user notification/interaction artifice will be presented, such as a popup, action sheet or popover. It gets created by Element.UIBlock and destroyed by Element.UIUnblock. You by default it's black with an opacity of 50%. You can control the opacity by passing Element.UIBlock and value. For example, if you wanted it to be translucent and unnoticeable but block the screen, pass Element.UIBlock a value of "0.01":
 
