@@ -94,6 +94,20 @@ Version: 1.1.2
     console.log("The version is: " + $.version);
 
 
+&nbsp;
+
+##Variable: libraryName
+
+A variable holding the name of this library: "ChocolateChip". 
+
+**Example:**
+
+	if ($.libraryName !== "ChocolateChip") {
+		console.log("You are using some other library than ChocolateChip.");
+		return;
+	}
+
+
 
 <a name="collectionToArray"></a>
 
@@ -1852,3 +1866,33 @@ A boolean true or false.
     if($("tableview:first-of-type").UICheckForOverflow();) {
         // Handle scrolling.
     }
+
+##Library compatibility
+
+ChocolateChip now checks to see if the global $ exists. If it doesn't, it makes its $ and $$ available as objects of the window. But if the $ is already attached to the window, it checks to see if it has the property window.$.libraryName with a value of "ChocolateChip". If it does not, it sets its $ to window.$chocolatechip and its $$ to window.$$chocolatechip. This allows you to use ChocolateChip with other libraries that use $ and/or $$, such as jQuery, Prototype, Mootools, etc.
+
+For this to work, you must load the other library before ChocolateChip. Then, instead of writing your code like:
+	
+	$.ready(function() {
+		// ChocolateChip stuff here.
+	});
+		// or:
+	$(function() {
+		// ChocolateChip stuff here.
+	});
+
+You would need to enclose the ChocolateChip code inside an anonymous function and pass in the $chocolatechip and $$chocolatechip variables:
+
+	// ChocolateChip code:
+	(function($, $$) {
+		$(function() {
+			$("body").css("border: solid 4px red;");
+			$$("p").forEach(function(p) {
+				p.css("font-weight: bold");
+			});
+		});
+	})($chocolatechip, $$chocolatechip);
+	// jQuery code:
+	$(function() {
+		$("a").css({display: "block", "text-decoration": "none"});
+	})

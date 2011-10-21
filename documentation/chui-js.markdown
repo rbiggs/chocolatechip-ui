@@ -15,10 +15,35 @@
     License: BSD
     Version 0.8.5 beta
 
+&nbsp;
+
+##Variable: $.libraryName
+
+If the global variable $ belongs to ChocolateChip, this will have a value of "ChocolateChip", otherwise $ belongs to some other library. In that case, ChocolateChip-UI will assign the variable window.$chocolatechip to its $ and $$chocolatechip to its $$ variables. This allows you to use ChocolateChip and ChocolateChip-UI with other libraries that use $ and/or $$. When ChocolateChip-UI aliases its $ and $$ objects to $chocolatechip and $$chocolatechip, you need to enclose you ChocolateChip specific code in an anonymous function and pass in $chocolatechip and $$chocolatechip as arguments:
+
+**Example:**
+	
+	// In this example, jQuery was loaded before chocolatechip.js,
+	// so we need to sandbox the ChocolateChip-UI code as follows:
+	// ChocolateChip code:
+	(function($, $$) {
+		$(function() {
+			$("body").css("border: solid 4px red;");
+			$$("p").forEach(function(p) {
+				p.css("font-weight: bold");
+			});
+		});
+	})($chocolatechip, $$chocolatechip);
+	
+	// Since jQuery was loaded first, you can write jQuery specific
+	// code as you normally would:
+	$(function() {
+		$("a").css({display: "block", "text-decoration": "none"});
+	})
     
 &nbsp;
 
-##Constant: UIExpectedChocolateChipJSVersion
+##Variable: UIExpectedChocolateChipJSVersion
 
 The version that this version of ChocolateChip-UI requires. Used by UICheckChocolateChipJSVersion to check the currently loaded version of ChocolateChip.js.
 
@@ -1890,7 +1915,20 @@ There are a number of methods involved in managing the positioning and repositio
 - adjustPopoverHeight
 - determinePopoverPosition
 
+After creating a popover, you can populate it with whatever you need to. The content could be a tableview, a navigation list, an actionsheet with action buttons, or a toolset. To populate a popover, you need to insert the content into the popover's scrollpanel:
 
+**Examples:**
+	
+	$("#popover1 scrollpanel").insert('<actionsheet>\
+		<uibutton ui-kind="action">\
+			<label>Set Value</label>\
+		</uibutton>\
+		<uibutton ui-kind="action" ui-implements="cancel">\
+			<label>Cancel</label>\
+		</uibutton>\
+	</actionsheet>');
+	
+	
 
 **See Also:**
 

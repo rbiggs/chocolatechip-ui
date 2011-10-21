@@ -24,35 +24,38 @@
 	<script src="chui/chui.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$.ready(function() {
+			var firstTime = true;
 			var deleteItem = function(item) {
-				$("#selection_list_response > span").insert(item.lastElementChild.text() + " ");
+				var comma = firstTime ? "" : ", ";
+				$("#selection_list_response > span").insert(comma + item.lastElementChild.text());
+				firstTime = false;
 			};
-			$.UIDeleteTableCell("#tableview_01","#toolbar_01", deleteItem);
+			$.UIDeleteTableCell("tableview","navbar", deleteItem);
 		});
 	</script>
 </head>
 <body class="bodyClass" id="bodyID">
 	<app id="appID" class="appClass">
-		<view title="Main" class="mainView" id="main" ui-background-style="striped" ui-navigation-status="current">
-			<navbar id="toolbar_01">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
 				<h1 ui-bar-align="center">Deletion List</h1>
 			</navbar>
-			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
+			<subview ui-associations="withNavBar">
 				<scrollpanel>
-					<tableview id="tableview_01">
-						<tablecell id="item1">
+					<tableview>
+						<tablecell>
 							<celltitle>People</celltitle>
 						</tablecell>
-						<tablecell id="item2">
+						<tablecell>
 							<celltitle>Places</celltitle>
 						</tablecell>
-						<tablecell id="item3">
+						<tablecell>
 							<celltitle>Things</celltitle>
 						</tablecell>
-						<tablecell id="item4" ui-implements="disclosure">
+						<tablecell>
 							<celltitle>Animals</celltitle>
 						</tablecell>
-						<tablecell id="item5" ui-implements="detail-disclosure">
+						<tablecell>
 							<celltitle>Food</celltitle>
 						</tablecell>
 					</tableview>

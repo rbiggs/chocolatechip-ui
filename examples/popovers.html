@@ -27,7 +27,7 @@
             $.UIPopover("#showPopover4", "bottom", "left", {id: "popover4", title: "Popover Four"});
             $.UIPopover("#showPopover5", "bottom", "center", {id: "popover5", title: "Popover Five"});
             $.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover Six"});
-            $("#popover1 .popover-content").insert('<tableview ui-kind="grouped">\
+            $("#popover1 scrollpanel").insert('<tableview ui-kind="grouped">\
             <tablecell><celltitle>item one</celltitle></tablecell>\
             <tablecell><celltitle>item two</celltitle></tablecell>\
             <tablecell><celltitle>item three</celltitle></tablecell>\
@@ -49,9 +49,9 @@
             <tablecell><celltitle>item twenty</celltitle></tablecell>\
             </ul>');
             
-            $("#popover2 .popover-content").insert('<tableview><tablecell><celltitle>item one</celltitle></tablecell><tablecell><celltitle>item two</celltitle></tablecell><tablecell><celltitle>item three</celltitle></tablecell></tableview>');
+            $("#popover2 scrollpanel").insert('<tableview><tablecell><celltitle>item one</celltitle></tablecell><tablecell><celltitle>item two</celltitle></tablecell><tablecell><celltitle>item three</celltitle></tablecell></tableview>');
             
-            $("#popover3 .popover-content").insert('<actionsheet>\
+            $("#popover3 scrollpanel").insert('<actionsheet>\
                 <uibutton ui-kind="action">\
                     <label>Set Value</label>\
                 </uibutton>\
@@ -60,7 +60,7 @@
                 </uibutton>\
             </actionsheet>');
             
-            $("#popover5 .popover-content").insert('<actionsheet>\
+            $("#popover5 scrollpanel").insert('<actionsheet>\
                 <scrollpanel>\
                 <uibutton ui-kind="action">\
                     <label>Set Value</label>\
@@ -74,7 +74,7 @@
                 </scrollpanel>\
             </actionsheet>');
             
-            $("#popover6 .popover-content").insert('<tableview><tablecell><celltitle>item one</celltitle></tablecell><tablecell><celltitle>item two</celltitle></tablecell><tablecell><celltitle>item three</celltitle></tablecell><tableview>');
+            $("#popover6 scrollpanel").insert('<tableview><tablecell><celltitle>item one</celltitle></tablecell><tablecell><celltitle>item two</celltitle></tablecell><tablecell><celltitle>item three</celltitle></tablecell><tableview>');
             
           //  var myScroll = new sgwtScroll('#popover1 > section > div', { desktopCompatibility: true });
             

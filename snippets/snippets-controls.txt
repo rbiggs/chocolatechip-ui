@@ -7,13 +7,39 @@ Controls
 **Switch Controls: On State**
 
 <switchcontrol class="on" id="switch_01" ui-value="Value Here">
+	<thumb><thumbprop></thumbprop></thumb>
+</switchcontrol>
+
+
+<switchcontrol class="on" id="switch_02" ui-implements="attention">
+	<thumb><thumbprop></thumbprop></thumb>
+</switchcontrol>
+
+
+**Switch Controls: Off State**
+
+<switchcontrol class="off" id="switch_03">
+	<thumb><thumbprop></thumbprop></thumb>
+</switchcontrol>
+
+
+<switchcontrol class="off" id="switch_04" ui-implements="attention">
+	<thumb><thumbprop></thumbprop></thumb>
+</switchcontrol>
+
+
+
+
+**Traditional Switch Controls: On State**
+
+<switchcontrol ui-kind="traditional" class="on" id="switch_01">
 	<label ui-implements="on">ON</label>
 	<thumb><thumbprop></thumbprop></thumb>
 	<label ui-implements="off">OFF</label>
 </switchcontrol>
 
 
-<switchcontrol class="on" id="switch_02" ui-value="Value Here!" ui-implements="attention">
+<switchcontrol ui-kind="traditional" class="on" id="switch_02" ui-implements="attention">
 	<label ui-implements="on">ON</label>
 	<thumb><thumbprop></thumbprop></thumb>
 	<label ui-implements="off">OFF</label>
@@ -22,14 +48,14 @@ Controls
 
 **Switch Controls: Off State**
 
-<switchcontrol class="off" id="switch_03" ui-value="Value Here!">
+<switchcontrol ui-kind="traditional" class="off" id="switch_03">
 	<label ui-implements="on">ON</label>
 	<thumb><thumbprop></thumbprop></thumb>
 	<label ui-implements="off">OFF</label>
 </switchcontrol>
 
 
-<switchcontrol class="off" id="switch_04" ui-value="Value Here!" ui-implements="attention">
+<switchcontrol ui-kind="traditional" class="off" id="switch_04" ui-implements="attention">
 	<label ui-implements="on">ON</label>
 	<thumb><thumbprop></thumbprop></thumb>
 	<label ui-implements="off">OFF</label>

@@ -10,10 +10,11 @@
     <script src="chui/chui.js" type="text/javascript"></script>
     <script type="text/javascript">
 		$.ready(function() {
+			$("tableview:first-of-type").UIIdentifyChildNodes();
 			var deleteItem = function(item) {
-				console.log("You've deleted table cell: " + item.id);
+				$("tablefooter").insert("<p>You deleted table cell " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
 			};
-			$.UIDeleteTableCell("#deletable-items1","#toolbar1", deleteItem);
+			$.UIDeleteTableCell("tableview","#toolbar1", deleteItem);
 		});
 	</script>
 </head>
@@ -25,7 +26,7 @@
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
-					<tableview id="deletable-items1" ui-kind="grouped" ui-tablecell-order="stacked">
+					<tableview ui-kind="grouped" ui-tablecell-order="stacked">
 						<tablecell ui-usage="image" ui-implements="detail-disclosure">
 							<img src="images/alternative.png">
 							<celltitle>People</celltitle>
@@ -51,6 +52,7 @@
 							<celltitle>Good Eats</celltitle>
 							<cellsubtitle>Restaurants</cellsubtitle>
 						</tablecell>
+						<tablefooter></tablefooter>
 					</tableview>				
 				</scrollpanel>
 			</subview>
