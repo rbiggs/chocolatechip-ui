@@ -951,8 +951,8 @@ Version 1.2.0
 		}		
 	});
 	if (window.$ === undefined) {
-		window.$ = $;
-		window.$$ = $.$$;
+		window.$chocolatechip = window.$ = $;
+		window.$$chocolatechip = window.$$ = $.$$;
 	} else if (window.$ && window.$.libraryName !== "ChocolateChip"){
 		window.$chocolatechip = $;
 		window.$$chocolatechip = $.$$;

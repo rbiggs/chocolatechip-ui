@@ -17,16 +17,58 @@
         
     </style>
     <script src="chui/chocolatechip.js" type="text/javascript"></script>
-    <script src="chui/chui.js" type="text/javascript"></script>
+    <script src="chui/chui-min.js" type="text/javascript"></script>
 
     <script type="text/javascript">
         $.ready(function(){
-            $.UIPopover("#showPopover1", "top", "left", {id: "popover1", title: "Popover One"});
-            $.UIPopover("#showPopover2", "top", "center", {id: "popover2", title: "Popover Two"});
-            $.UIPopover("#showPopover3", "top", "right", {id: "popover3", title: "Popover Three"});
-            $.UIPopover("#showPopover4", "bottom", "left", {id: "popover4", title: "Popover Four"});
-            $.UIPopover("#showPopover5", "bottom", "center", {id: "popover5", title: "Popover Five"});
-            $.UIPopover("#showPopover6", "bottom", "right", {id: "popover6", title: "Popover Six"});
+			var popover1 = { 
+				triggerElement : "#showPopover1", 
+				popoverOrientation: "top", 
+				pointerOrientation: "left", 
+				id: "popover1", 
+				title: "Popover One"
+			};
+            $.UIPopover(popover1);
+			var popover2 = {
+				triggerElement: "#showPopover2", 
+				popoverOrientation: "top", 
+				pointerOrientation: "center", 
+				id: "popover2", 
+				title: "Popover Two"
+			};
+            $.UIPopover(popover2);
+			var popover3 = {
+				triggerElement: "#showPopover3", 
+				popoverOrientation: "top", 
+				pointerOrientation: "right", 
+				id: "popover3", 
+				title: "Popover Three"
+			};
+            $.UIPopover(popover3);
+			var popover4 = {
+				triggerElement: "#showPopover4", 
+				popoverOrientation: "bottom", 
+				pointerOrientation: "left", 
+				id: "popover4", 
+				title: "Popover Four"
+			};
+            $.UIPopover(popover4);
+			var popover5 = {
+				triggerElement: "#showPopover5", 
+				popoverOrientation: "bottom", 
+				pointerOrientation: "center", 
+				id: "popover5", 
+				title: "Popover Five"
+			};
+            $.UIPopover(popover5);
+			var popover6 = {
+				triggerElement: "#showPopover6", 
+				popoverOrientation: "bottom", 
+				pointerOrientation: "right", 
+				id: "popover6", 
+				title: "Popover Six"
+			};
+            $.UIPopover(popover6);
             $("#popover1 scrollpanel").insert('<tableview ui-kind="grouped">\
             <tablecell><celltitle>item one</celltitle></tablecell>\
             <tablecell><celltitle>item two</celltitle></tablecell>\

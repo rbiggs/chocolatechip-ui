@@ -1,19 +1,19 @@
 #ChocolateChip.js
     
-        pO\     
-       6  /\
-         /OO\
-        /OOOO\
-      /OOOOOOOO\
-     ((OOOOOOOO))
-      \:~=++=~:/  
+       pO\     
+      6  /\
+        /OO\
+       /OOOO\
+     /OOOOOOOO\
+    ((OOOOOOOO))
+     \:~=++=~:/  
            
     ChocolateChip.js: It's tiny but delicious
     A JavaScript library for mobile Web app development.
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 1.1.9
+    Version 1.2.0
 
 
 
@@ -87,7 +87,7 @@ A method to extend the ChocolateChip's $ method. This uses EC5's Object.definePr
 
 ##Variable: $.version
 
-Version: 1.1.2
+Version: 1.2.0
 
 **Example:**
 
@@ -98,7 +98,7 @@ Version: 1.1.2
 
 ##Variable: libraryName
 
-A variable holding the name of this library: "ChocolateChip". 
+A variable holding the name of this library: "ChocolateChip".
 
 **Example:**
 

@@ -13,7 +13,7 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 0.8 beta
+    Version 1.0
 
 
 &nbsp;

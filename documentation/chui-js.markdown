@@ -13,13 +13,18 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 0.8.5 beta
+    Version 1.0
+
+	Includes:
+	iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
+	Released under MIT license, http://cubiq.org/license
 
 &nbsp;
 
 ##Variable: $.libraryName
 
-If the global variable $ belongs to ChocolateChip, this will have a value of "ChocolateChip", otherwise $ belongs to some other library. In that case, ChocolateChip-UI will assign the variable window.$chocolatechip to its $ and $$chocolatechip to its $$ variables. This allows you to use ChocolateChip and ChocolateChip-UI with other libraries that use $ and/or $$. When ChocolateChip-UI aliases its $ and $$ objects to $chocolatechip and $$chocolatechip, you need to enclose you ChocolateChip specific code in an anonymous function and pass in $chocolatechip and $$chocolatechip as arguments:
+By default ChocolateChip.js always assigns its $ and $$ variables to the global variables $chocolatechip and $$chocolatechip respectively. However, if ChocolateChip sees that the global variable $ already exists and it does not have $.libraryName with a value of "ChocolateChip", it does not assign $ and $$ to the global namespace. This would be the case where you loaded jQuery, Prototype, Mootools, Zepto or some other library that uses $ before ChocolateChip.
+If you want to use another library with ChocolateChip, all you have to do is load in that library first, then the ChocolateChip-UI files and then sandbox your ChocolateChip-UI code. You do that by enclosing ChocolateChip specific code in an anonymous function and passing in $chocolatechip and $$chocolatechip as arguments:
 
 **Example:**
 	
@@ -41,6 +46,8 @@ If the global variable $ belongs to ChocolateChip, this will have a value of "Ch
 		$("a").css({display: "block", "text-decoration": "none"});
 	})
     
+If you're not sure if you're going to use another library with ChocolateChip, or you just want to be safe, sandbox you ChUI code. 
+
 &nbsp;
 
 ##Variable: UIExpectedChocolateChipJSVersion
@@ -341,8 +348,12 @@ A method to implement scrolling of a container. This is based on iScroll by Matt
 
 **Example:**
 
-    var opts = { desktopCompatibility: true };
+    var opts = { hScroll: false, disableMouseWheel: true };
     var scroller = new iScroll($("#myNewScrollPanel", opts);
+
+
+	
+The version of iScroll used here has been modified to include the options to disable mouse wheel interaction and mouse gestures, as well as a slight modification to make sure that form elements such as select boxes, check boxes and radio buttons can get focus. By default mouse wheel and mouse gesture interaction is set to true. If you have a lot of vertical carousels you may want to turn off mouse wheel interaction. You can do this by passing iScroll the parameter **disableMouseWheel: false**. Similarly, to turn off mouse gestures for the desktop pass in this parameter: **mouseGestures: false**
 
 **See Also:**
 
@@ -2032,7 +2043,7 @@ To implement a split view layout, all you need to do is implement the layout wit
 
 ##Function: $.UIPositionMask
 
-A method for repositioning
+A method for repositioning a screen mask. This is use by ChocolateChip to keep the mask positioned properly when there is a screen resize or orientation change.
 
 &nbsp;
 
