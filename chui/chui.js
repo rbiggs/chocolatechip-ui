@@ -19,15 +19,11 @@ Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
 Version: 1.0
 
-includes:
+Includes:
 iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
 Released under MIT license, http://cubiq.org/license
 
 */
-if (!$chocolatechip) {
-	var $chocolatechip =  window.$;
-	var $$chocolatechip =  window.$$;
-} 
 (function($, $$) {
 	window.CHUIVersion = "1.0";
 	var UIExpectedChocolateChipJSVersion = "1.2.0"; 
@@ -1703,6 +1699,18 @@ if (!$chocolatechip) {
 
 	$.extend(HTMLElement.prototype, {
 		UICreateSwitchControl : function( opts ) {
+			/*
+				{
+					id : "anID",
+					namePrefix : "customer",
+					customClass : "specials",
+					status : "on",
+					kind : "traditional",
+					labelValue : ["on","off"],
+					value : "$1000",
+					callback : function() {console.log('This is great!');},	
+				}
+			*/
 			var id = opts.id;
 			var namePrefix = "";
 			if (opts.namePrefix) {
@@ -1710,13 +1718,22 @@ if (!$chocolatechip) {
 			} else {
 				namePrefix = "name='" + id + "'";
 			}
-			var customClass = " " + opts.customClass || "";
+			var customClass = " ";
+			customClass += opts.customClass ? opts.customClass : "";
 			var status = opts.status || "off";
 			var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
+			var label1 = "ON";
+			var label2 = "OFF";
+			if (opts.kind === "traditional") {
+				if (!!opts.labelValue) {
+					label1 = opts.labelValue[0];
+					label2 = opts.labelValue[1];
+				}
+			}
 			var value = opts.value || "";
 			var callback = opts.callback || function() { return false; };
-			var label = (opts.kind === "traditional") ? '<label ui-implements="on">ON</label><thumb></thumb><label ui-implements="off">OFF</label>' : "<thumb></thumb>";
-			var uiswitch = '<switchcontrol class="' + status + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
+			var label = (opts.kind === "traditional") ? '<label ui-implements="on">'+ label1 + '</label><thumb></thumb><label ui-implements="off">' + label2 + '</label>' : "<thumb></thumb>";
+			var uiswitch = '<switchcontrol ' + kind + ' class="' + status + " " + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
 			if (this.css("position")  !== "absolute") {
 				this.css("position: relative;");
 			}
@@ -1735,7 +1752,7 @@ if (!$chocolatechip) {
 			if (this.nodeName.toLowerCase()==="switchcontrol") {
 				callback.call(callback, this);
 				if (this.hasClass("off")) {
-					this.toggleClass("off", "on");
+					this.toggleClass("on", "off");
 					this.find("input").checked = true;
 					this.querySelector("thumb").focus();
 				} else {
@@ -2766,14 +2783,6 @@ if (!$chocolatechip) {
 		determinePopoverWidth : function() {
 			var screenWidth = window.innerWidth;
 		},
-		getPopoverTrigger : function ( triggerElement ) {
-			var trel = null;
-			if (typeof triggerElement === "string") {
-				return $(triggerElement);
-			} else if (triggerElement.nodeType === 1) {
-				return triggerElement;
-			} 
-		},
 		adjustPopoverHeight : function( popover ) {
 			var availableVerticalSpace = $.determineMaxPopoverHeight();
 			$(popover + " > section").css("max-height:" + (availableVerticalSpace - 100) + "px; overflow: hidden;}");
@@ -2784,74 +2793,73 @@ if (!$chocolatechip) {
 	
 			popoverOrientation = popoverOrientation.toLowerCase();
 			pointerOrientation = pointerOrientation.toLowerCase();
-	
-			var trel = this.getPopoverTrigger(triggerElement);
+			var trigEl = $(triggerElement);
 			var pos = "";
 			var popoverPos = null;
 			switch (popoverOrientation) {
 				case "top" : 
 					if (pointerOrientation === "left") {
-						popoverPos = trel.offsetLeft;
+						popoverPos = trigEl.offsetLeft;
 						popoverPos = "left: " + popoverPos;
 					} else if (pointerOrientation === "center") {
-						popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
+						popoverPos = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160);
 						popoverPos = "left: " + popoverPos;
 					} else {
-						popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
+						popoverPos = (trigEl.offsetLeft + trigEl.offsetWidth) - 320;
 						popoverPos = "left: " + popoverPos;
 					}
-					pos = trel.offsetTop + trel.offsetHeight;
+					pos = trigEl.offsetTop + trigEl.offsetHeight;
 					pos += 20;
 					pos =  popoverPos + "px; top: " + pos + "px;";
 					break;
 				case "right" :
 					if (pointerOrientation === "top") {
-						popoverPos = trel.getTop() + 2;
+						popoverPos = trigEl.getTop() + 2;
 						popoverPos = "top: " + popoverPos + "px;";
 					} else if (pointerOrientation === "center") {
-						popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
+						popoverPos = (trigEl.getTop() - (trigEl.offsetHeight/2) - 20);
 						popoverPos = "top: " + popoverPos + "px;";
 					} else {
-						popoverPos = trel.getTop() - trel.offsetHeight - 20;
+						popoverPos = trigEl.getTop() - trigEl.offsetHeight - 20;
 						popoverPos = "top: " + popoverPos + "px;";
 					}
-					pos = trel.getLeft() - 330;
+					pos = trigEl.getLeft() - 330;
 					pos -= 20;
 					pos = popoverPos + " left: " + pos + "px";
 					break;
 				case "bottom" :
 					if (pointerOrientation === "left") {
-						popoverPos = trel.offsetLeft;
+						popoverPos = trigEl.offsetLeft;
 						popoverPos = "left: " + popoverPos;
 					} else if (pointerOrientation === "center") {
-						popoverPos = (trel.offsetLeft + (trel.offsetWidth/2) - 160);
+						popoverPos = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160);
 						popoverPos = "left: " + popoverPos;
 					} else {
-						popoverPos = (trel.offsetLeft + trel.offsetWidth) - 320;
+						popoverPos = (trigEl.offsetLeft + trigEl.offsetWidth) - 320;
 						popoverPos = "left: " + popoverPos;
 					}
-					pos = trel.offsetTop + trel.offsetHeight;
+					pos = trigEl.offsetTop + trigEl.offsetHeight;
 					pos += 20;
 					pos =  popoverPos + "px; bottom: " + pos + "px;";
 					break;
 					break;
 				case "left" :
 					if (pointerOrientation === "top") {
-						popoverPos = trel.getTop() + 2;
+						popoverPos = trigEl.getTop() + 2;
 						popoverPos = "top: " + popoverPos + "px;";
 					} else if (pointerOrientation === "center") {
-						popoverPos = (trel.getTop() - (trel.offsetHeight/2) - 20);
+						popoverPos = (trigEl.getTop() - (trigEl.offsetHeight/2) - 20);
 						popoverPos = "top: " + popoverPos + "px;";
 					} else {
-						popoverPos = trel.getTop() - trel.offsetHeight - 20;
+						popoverPos = trigEl.getTop() - trigEl.offsetHeight - 20;
 						popoverPos = "top: " + popoverPos + "px;";
 					}
-					pos = trel.offsetLeft + trel.offsetWidth;
+					pos = trigEl.offsetLeft + trigEl.offsetWidth;
 					pos += 20;
 					pos = popoverPos + " left: " + pos + "px";
 					break;
 				default :
-					pos = trel.getTop() + trel.offsetHeight;
+					pos = trigEl.getTop() + trigEl.offsetHeight;
 					popoverPos = "left: " + popoverPos;
 					pos += 20;
 					pos = popoverPos + "px; top: " + pos + "px;";
@@ -2859,8 +2867,11 @@ if (!$chocolatechip) {
 			}
 			return pos;
 		},
-		UIPopover : function( triggerElement, popoverOrientation, pointerOrientation, opts) {
+		UIPopover : function( opts ) {
 			var title;
+			var triggerElement = opts.triggerElement;
+			var popoverOrientation = opts.popoverOrientation;
+			var pointerOrientation = opts.pointerOrientation;
 			var popoverID;
 			if (opts) { 
 				popoverID = 'id="' + opts.id + '"' || $.UIUuid();
@@ -2869,12 +2880,12 @@ if (!$chocolatechip) {
 				popoverID = "";
 				title = "";
 			}
-			var trel = this.getPopoverTrigger(triggerElement);
+			var trigEl = $(triggerElement);
 			var pos = this.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
 			pos = " style='" + pos + "'";
 			var popoverShell = 
 				'<popover ' + popoverID + ' ui-pointer-position="' + popoverOrientation + '-' + pointerOrientation + '"' 
-				+ pos + ' data-popover-trigger="#' + trel.id + '" data-popover-orientation="' + popoverOrientation + '" data-popover-pointer-orientation="' + pointerOrientation + '">\n' + 
+				+ pos + ' data-popover-trigger="#' + trigEl.id + '" data-popover-orientation="' + popoverOrientation + '" data-popover-pointer-orientation="' + pointerOrientation + '">\n' + 
 					'<header>'+ title 
 			
 					+ '</header>\n'

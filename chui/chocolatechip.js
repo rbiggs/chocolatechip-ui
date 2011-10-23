@@ -531,7 +531,6 @@ Version 1.2.0
 				};
 			}
 			var callback = function () {
-				//var o = eval('(' + this.responseText + ')');
 				var o = JSON.parse(this.responseText);
 				for (var prop in o) {
 					$(options[prop]).fill(c(o[prop]));
@@ -950,12 +949,12 @@ Version 1.2.0
 			return result;
 		}		
 	});
+	
+	window.$chocolatechip = $;
+	window.$$chocolatechip = $.$$;
 	if (window.$ === undefined) {
-		window.$ = $;
-		window.$$ = $.$$;
-	} else if (window.$ && window.$.libraryName !== "ChocolateChip"){
-		window.$chocolatechip = $;
-		window.$$chocolatechip = $.$$;
+		window.$chocolatechip = window.$ = $;
+		window.$$chocolatechip = window.$$ = $.$$;
 	}
 })(); 
 $.ready(function() {
