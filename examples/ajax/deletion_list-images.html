@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Deletion List - Images</title>
+    <link rel="stylesheet" href="../chui/chui.css">
+    <script src="../chui/chocolatechip.js" type="text/javascript"></script>
+    <script src="../chui/chui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+		$.ready(function() {
+			var musicData = {
+				songs : [
+					{
+						image : "../images/alternative.png",
+						title : "Alternative",
+						subtitle : "Latest Hits"
+					},
+					{
+						image : "../images/blues.png",
+						title : "Blues",
+						subtitle : "Most Popular"
+					},
+					{
+						image : "../images/classical.png",
+						title : "Classical",
+						subtitle : "Baroque"
+					},
+					{
+						image : "../images/itunes.png",
+						title : "iTunes",
+						subtitle : "Most Popular"
+					},
+					{
+						image : "../images/rocknroll.png",
+						title : "Rock",
+						subtitle : "Oldies"
+					}
+				]
+			};	
+			$.templates.musicTemplate =
+				"<tableview  ui-kind='grouped' ui-tablecell-order='stacked'>\
+					[[ songs.forEach(function(item) { ]]\
+			     		<tablecell ui-implements='add' ui-usage='image'>\
+		                   	<img src='$[ item.image ]'>\
+		                   	<celltitle>$[ item.title ]</celltitle>\
+							<cellsubtitle>$[ item.subtitle ]</cellsubtitle>\
+		     			</tablecell>\
+					[[ }); ]]\
+					<tablefooter></tablefooter>\
+				</tableview>";	
+			$.main.find("scrollpanel").empty().insert($.template("musicTemplate", musicData));
+			$.UIScrollers[$("#main > subview > scrollpanel").getAttribute("ui-scroller")].refresh();	
+			$("tableview:first-of-type").UIIdentifyChildNodes();
+			var deleteItem = function(item) {
+				$("tablefooter").insert("<p>You deleted table cell " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
+				
+			};
+			$.UIDeleteTableCell("tableview","navbar", deleteItem);
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="toolbar1">
+				<h1>Tableview</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked">
+						<tablecell ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/alternative.png">
+							<celltitle>Alternative</celltitle>
+							<cellsubtitle>Most Popular</cellsubtitle>
+						</tablecell>
+						<tablecell ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/blues.png">
+							<celltitle>Blues</celltitle>
+							<cellsubtitle>Latest Hits</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/classical.png">
+							<celltitle>Classical</celltitle>
+							<cellsubtitle>Baroque</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/itunes.png">
+							<celltitle>iTunes</celltitle>
+							<cellsubtitle>Most Popular</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/rocknroll.png">
+							<celltitle>Rock</celltitle>
+							<cellsubtitle>Oldies</cellsubtitle>
+						</tablecell>
+						<tablefooter></tablefooter>
+					</tableview>				
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

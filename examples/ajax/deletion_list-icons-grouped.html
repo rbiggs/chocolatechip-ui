@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Deletion List - Images</title>
+    <link rel="stylesheet" href="../chui/chui.css">
+    <script src="../chui/chocolatechip.js" type="text/javascript"></script>
+    <script src="../chui/chui.js" type="text/javascript"></script>
+    <script type="text/javascript">
+		$.ready(function() {
+			var tableviewData = {
+				services : [
+					{
+						image : "../images/ipod.png",
+						title : "Music"
+					},
+					{
+						image : "../images/phone.png",
+						title : "Contacts"
+					},
+					{
+						image : "../images/mail.png",
+						title : "Mail"
+					},
+					{
+						image : "../images/safari.png",
+						title : "Web"
+					},
+					{
+						image : "../images/sms.png",
+						title : "Messages"
+					},
+					{
+						image : "../images/store.png",
+						title : "Apps"
+					}
+				]
+			};
+			
+			$.templates.tableviewTmplt =
+				"<tableview  ui-kind='grouped' ui-tablecell-order='stacked'>\
+					[[ services.forEach(function(item) { ]]\
+			     			<tablecell ui-implements='add' ui-usage='icon'>\
+		                   	<img src='$[ item.image ]'>\
+		                   	<celltitle>$[ item.title ]</celltitle>\
+		     			</tablecell>\
+					[[ }); ]]\
+					<tablefooter></tablefooter>\
+				</tableview>";
+			$.main.find("scrollpanel").empty().insert($.template("tableviewTmplt", tableviewData));
+			$.UIScrollers[$("#main > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+			// Mark table cells to make it easier to identify them when deleting:
+			$("tableview:first-of-type").UIIdentifyChildNodes();
+			var deleteItem = function(item) {
+				$("tablefooter").insert("<p>You deleted table cell " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
+			};
+			$.UIDeleteTableCell("tableview","#toolbar1", deleteItem);
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="toolbar1">
+				<h1>Tableview</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+						
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

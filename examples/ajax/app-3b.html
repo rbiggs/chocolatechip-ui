@@ -39,7 +39,7 @@
         $(function() {
 			$.templates.customers =
 			    "{{ customers.forEach(function(customer){ }} \
-			        <tablecell class='ui-no-hover'>\
+			        <tablecell>\
 			            <celltitle>${ customer.firstName } ${ customer.lastName }</celltitle>\
 			            <cellsubtitle>${ customer.address }</cellsubtitle>\
 			            <celldetail>${ customer.description }</celldetail>\
@@ -65,7 +65,7 @@
                 </celldetail>";
 			$.templates.recipes = 
 				"{{ recipes.forEach(function(recipe) { }}\
-					<tablecell class='ui-no-hover'>\
+					<tablecell>\
 						<celltitle>${ recipe.title }</celltitle>\
 						{{ /* A conditional check for recipe ingredients: */ }}\
                         {{ if (!!recipe.ingredients) { }}"
@@ -80,7 +80,7 @@
 			$.templates.songs = 
 				"{{ songs.forEach(function(song) { }}\
 					{{ if (song.genre === 'Latin') { }}\
-                        <tablecell class='ui-no-hover' ui-usage='image'>\
+                        <tablecell ui-usage='image'>\
                             <img src='${ song.image }'>\
                             <celltitle>${ song.title }</celltitle>\
                             <cellsubtitle>${ song.artist }</cellsubtitle>\

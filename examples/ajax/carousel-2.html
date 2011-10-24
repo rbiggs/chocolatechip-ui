@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>iScroll demo: Carousel</title>
+<link rel="stylesheet" href="../chui/chui.css">
+<style type="text/css" media="all">
+	view {
+		background-color: #ffefbf;
+	}
+	stack[ui-implements="paging"] {
+		width: 300px;
+		height: 250px;
+		-webkit-border-top-left-radius: 10px;
+		-webkit-border-top-right-radius: 10px;
+		margin-top: 10px;
+		background-color: rgba(0,0,0,0.5);
+		color: #fff;
+	}
+	stack[ui-implements="paging"] > panel > stack > panel {
+		width: 300px; 
+		height: 250px;
+	}
+	stack[ui-implements="indicators"] {
+		width: 300px;
+		-webkit-border-bottom-left-radius: 10px;
+		-webkit-border-bottom-right-radius: 10px;
+		background-color: rgba(0,0,0,0.5);
+	}
+	stack[ui-implements="indicators"] > indicator {
+		background-color: rgba(255,255,255,0.75);
+	}
+	stack[ui-implements="indicators"] > indicator.active {
+		background-color: #000;
+	}
+</style>
+<script type="application/javascript" src="../chui/chocolatechip.js"></script>
+<script type="application/javascript" src="../chui/chui.js"></script>
+<script type="text/javascript">
+	$.ready(function() {
+			var carouselData = {
+				carousels : [
+					{
+						title : "Panel 1",
+						content : "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod."
+					},
+					{
+						title : "Panel 2",
+						content : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+					},
+					{
+						title : "Panel 3",
+						content : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt."
+					},
+					{
+						title : "Panel 4",
+						content : "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem."
+					},
+					{
+						title : "Panel 5",
+						content : "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae."
+					},
+					{
+						title : "Panel 6",
+						content : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+					},
+					{
+						title : "Panel 7",
+						content : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt."
+					},
+					{
+						title : "Panel 8",
+						content : "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem."
+					},
+					{
+						title : "Panel 9",
+						content : "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae."
+					},
+					{
+						title : "Panel 10",
+						content : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+					},
+					{
+						title : "Panel 11",
+						content : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt."
+					},
+					{
+						title : "Panel 12",
+						content : "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem."
+					},
+					{
+						title : "Panel 13",
+						content : "Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae."
+					},
+					{
+						title : "Panel 14",
+						content : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium."
+					},
+					{
+						title : "Panel 15",
+						content : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt."
+					},
+					{
+						title : "Panel 16",
+						content : "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem."
+					}
+				]
+			};
+			$.templates.pagingPanels =
+				"<stack ui-implements='paging'>\
+					<panel>\
+						<stack>\
+							[[ carousels.forEach(function(item) { ]]\
+							<panel>\
+								<h4>$[ item.title ]</h4>\
+			                   	<p>$[ item.content ]</p>\
+							</panel>\
+							[[ }); ]]\
+						</stack>\
+					</panel>\
+				</stack>";
+			
+			$.main.find("scrollpanel").empty().insert($.template("pagingPanels", carouselData));
+			$.UISetupPaging();
+			$.UIScrollers[$("#main > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+		});
+</script>
+</head>
+<body>
+<app>
+	<view id="main" ui-background-style="slanted-left" ui-navigation-status="current">
+		<navbar class="ui-custom-tint">
+			<h1>$.UIPaging</h1>
+		</navbar>
+		<subview ui-associations="withNavBar">
+			<scrollpanel>
+			</scrollpanel>
+		</subview>
+	</view>
+</app>
+</body>
+</html>
