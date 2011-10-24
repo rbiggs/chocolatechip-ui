@@ -1332,22 +1332,23 @@ Released under MIT license, http://cubiq.org/license
 			indicators += "</stack>";
 			// The maximum number of indicators in portrait view is 17.
 			selector.parentNode.parentNode.insert(indicators);
+		},
+	 	UISetupPaging : function() {
+			if ($("stack[ui-implements=paging]")) {
+				$.UIPaging("stack[ui-implements=paging] > panel", {
+					snap: true,
+					momentum: false,
+					hScrollbar: false,
+					onScrollEnd: function () {
+						document.querySelector('stack[ui-implements="indicators"] > indicator.active').removeClass('active');
+						document.querySelector('stack[ui-implements="indicators"] > indicator:nth-child(' + (this.currPageX+1) + ')').addClass('active');
+					}
+				});
+			}
 		}
 	});
-
 	$(function() {
-		if ($("stack[ui-implements=paging]")) {
-			$.UIPaging("stack[ui-implements=paging] > panel", {
-				snap: true,
-				momentum: false,
-				hScrollbar: false,
-				onScrollEnd: function () {
-					document.querySelector('stack[ui-implements="indicators"] > indicator.active').removeClass('active');
-					document.querySelector('stack[ui-implements="indicators"] > indicator:nth-child(' + (this.currPageX+1) + ')').addClass('active');
-				}
-			});
-
-		}
+		$.UISetupPaging();
 	});
 
 	$.extend($, {
