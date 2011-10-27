@@ -820,10 +820,10 @@ Version 1.2.0
 		kvo : function () {
 			// Register observers of a key for this object:
 			this.registerObserver = function(observer, key) {
-				if (this.observers === null) {
+				if (this.observers === undefined) {
 					this.observers = {};
 				}
-				if (this.observers[key] === null) {
+				if (this.observers[key] === undefined) {
 					this.observers[key] = [observer];
 				} else {
 					this.observers[key].push(observer);
