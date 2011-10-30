@@ -21,18 +21,6 @@
 		/* Styles for Segmented Control's stack of panels: */
 		#stack_01 {
 			margin: 0 20px;
-			overflow: hidden;
-			position: relative;
-		}
-		#stack_01 > panel {
-			width: 100%;
-			display: -webkit-box !important;
-			-webkit-box-pack: stretch;
-			-webkit-box-align: center;
-			position: absolute;
-			opacity: 0px;
-			-webkit-transition: all 0.125s  ease-in-out;
-			z-index: 1;
 		}
 	</style>
 	<script src="chui/chocolatechip.js" type="text/javascript"></script>
@@ -75,7 +63,7 @@
 					   </segmentedcontrol>
 					</stack>
 					<div style="height: 20px;"></div>
-					<stack id="stack_01">
+					<stack id="stack_01" ui-implements="segmented-toggle-stack">
 						<panel>
 							<tableview ui-tablecell-order="stacked">
 								<tablecell ui-usage="image">
