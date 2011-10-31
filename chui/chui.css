@@ -452,9 +452,16 @@ stack {
 stack > panel, 
 stack > segmentedcontrol {
 	-webkit-box-flex: 1;
-	display: -webkit-box !important;
+	display: -webkit-box;
 }
-
+stack[ui-implements=segmented-toggle-stack] {
+	margin: 0 10px;
+}
+stack[ui-implements=segmented-toggle-stack] > panel {display: none;
+	-webkit-box-align: center;
+	-webkit-box-pack: center; 
+}
+stack[ui-implements=segmented-toggle-stack] > panel:first-of-type {display: -webkit-blox;}
 stack[ui-kind=horizontal] {
 	display: -webkit-box;
 	-webkit-box-orient: horizontal;

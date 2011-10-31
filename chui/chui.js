@@ -1902,13 +1902,14 @@ Released under MIT license, http://cubiq.org/license
 				}
 				var containerChildren = $.collectionToArray(container.children);
 				containerChildren.forEach(function(child) {
-					child.css("opacity: 0; z-index: 1;");
+					child.css("display: none;");
 				});
-				containerChildren[val].css("opacity: 1; z-index: " + containerChildren.length);
+				containerChildren[val].css("display","block");
 				that.setAttribute("ui-segmented-container", ("#" + container.id));
 				var selectedIndex = this.getAttribute("ui-selected-index");
-				var containerHeight = container.children[selectedIndex].css("height");
-				container.style.height = containerHeight;
+				var whichScroller = container.ancestor("scrollpanel").getAttribute("ui-scroller");
+				$.UIScrollers[whichScroller].refresh();
+				
 			}
 	
 			buttons.forEach(function(button) {
@@ -1940,8 +1941,8 @@ Released under MIT license, http://cubiq.org/license
 						that.setAttribute("ui-selected-segment", this.getAttribute("id"));
 						this.addClass("selected");
 						childPosition = this.getAttribute("ui-child-position");
-						container.children[val].css("opacity: 0; z-index: 1;");
-						container.children[childPosition].css("opacity: 0; z-index: " + val);
+						container.children[val].css("display: none;");
+						container.children[childPosition].css("display: none;");
 					} 
 					if (selectedSegment) {
 						uisi = this.getAttribute("ui-child-position");
@@ -1953,13 +1954,12 @@ Released under MIT license, http://cubiq.org/license
 						childPosition = this.getAttribute("ui-child-position");
 						if (that.getAttribute("ui-segmented-container")) {
 							container = $(that.getAttribute("ui-segmented-container"));
-							container.children(oldSelection).css("opacity: 0; z-index: 1;");
-							container.children(uisi).css("opacity: 1; z-index: 3;");
-							container.children[oldSelectedSegment.getAttribute("ui-child-position")].css("{z-index: 1;}");
-							container.children[childPosition].css("z-index: " + container.children.length);
-							container.style.height = container.children[childPosition].css("height");
+							container.children(oldSelection).css("display: none;");
+							container.children(uisi).css("display: -webkit-box;");
+							container.children[oldSelectedSegment.getAttribute("ui-child-position")].css("{display","none}");
 							var scrollpanel = container.ancestor("scrollpanel");
-							var scroller = new iScroll(scrollpanel, { desktopCompatibility: true });
+							whichScroller = scrollpanel.getAttribute("ui-scroller");
+							$.UIScrollers[whichScroller].refresh();
 						}
 					}
 					this.addClass("selected");

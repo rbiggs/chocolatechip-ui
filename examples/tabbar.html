@@ -8,7 +8,7 @@
 	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
 	<link rel="shortcut icon" href="favicon.ico">
 	<title>ChocolateChip Mobile</title>
-	<link rel="stylesheet" href="chui/chui-min.css">
+	<link rel="stylesheet" href="chui/chui.css">
 	<style type="text/css">
 		/* Local Styles Here */
 		#main {
@@ -16,21 +16,6 @@
 		}
 		#main navbar {
 			background-color: rgba(63,128,0,0.2);
-		}
-		#stackpanel_01 {
-			margin: 0 20px;
-			overflow: hidden;
-			position: relative;
-		}
-		#stackpanel_01 > panel {
-			width: 100%;
-			display: -webkit-box !important;
-			-webkit-box-pack: stretch;
-			-webkit-box-align: center;
-			position: absolute;
-			opacity: 0px;
-			-webkit-transition: all 0.125s  ease-in-out;
-			z-index: 1;
 		}
 		subview:nth-of-type(1) {
 		    background: rgba(255,0,0,0.2);
@@ -101,7 +86,7 @@
 					<stack>
 					</stack>
 					<shim></shim>
-					<stack id="stackpanel_01">
+					<stack id="stackpanel_01" ui-implements="segmented-toggle-stack">
 						<panel>
 							<tableview ui-tablecell-order="stacked">
 								<tablecell ui-usage="image">
