@@ -1850,13 +1850,6 @@ Released under MIT license, http://cubiq.org/license
 					this.insert(segmentedControl);
 				}
 				$("#" + opts.id).UISegmentedControl();
-				if (opts.container) {
-					if (opts.selectedSegment) {
-						$(opts.container).children[opts.selectedSegment].css("opacity: 1; z-index: " + opts.numberOfSegments);
-					} else {
-						$(opts.container).children[0].css("opacity: 1; z-index: " + opts.numberOfSegments);
-					}
-				}
 			}
 		}
 	});
