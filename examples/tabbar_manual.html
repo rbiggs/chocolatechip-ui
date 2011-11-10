@@ -56,11 +56,11 @@
 				 container : "#stackpanel_01"
 			};
 			$("stack").UICreateSegmentedControl(seg);
-			var seggie = function(item) {
+			var logChildNodes = function(item) {
 				console.log("The child position is: " + item.getAttribute("ui-child-position"));
 			}
-			$("segmentedcontrol").UISegmentedControl("#stackpanel_01", seggie);
-			$("#stackpanel_01").UIIdentifyChildNodes();
+			$("segmentedcontrol").UISegmentedControl("#stackpanel_01", logChildNodes);
+			//$("#stackpanel_01").UIIdentifyChildNodes();
 			
 			$("#main").UITabBar();
 		});

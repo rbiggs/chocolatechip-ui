@@ -247,11 +247,10 @@ Released under MIT license, http://cubiq.org/license
 			var that = this,
 				doc = document,
 				i;
-
+			
 			that.wrapper = typeof el == 'object' ? el : doc.querySelector(el).parentNode;
 			that.wrapper.style.overflow = 'hidden';
 			that.scroller = that.wrapper.children[0];
-
 			// Default options
 			that.options = {
 				hScroll: true,
@@ -368,9 +367,9 @@ Released under MIT license, http://cubiq.org/license
 				case START_EV:
 					if (!hasTouch && e.button !== 0) return;
 					if (!hasTouch && !that.options.mouseGestures) return;
-					if (e.target.tagName == "SELECT") {  return; }
-					if (e.target.tagName == "INPUT") {  return; }
-					if (e.target.tagName == "TEXTAREA") {  return; }
+					if (e.target.tagName === "SELECT") {  return; }
+					if (e.target.tagName === "INPUT") {  return; }
+					if (e.target.tagName === "TEXTAREA") {  return; }
 					that._start(e);
 					break;
 				case MOVE_EV: that._move(e); 
@@ -995,11 +994,13 @@ Released under MIT license, http://cubiq.org/license
 			var left = -el.offsetLeft,
 				top = -el.offsetTop;
 			el = el.offsetParent;
-			while (el.offsetParent) {
-				left -= el.offsetLeft;
-				top -= el.offsetTop;
-				el = el.offsetParent;
-			}
+			try {
+				while (el.offsetParent) {
+					left -= el.offsetLeft;
+					top -= el.offsetTop;
+					el = el.offsetParent;
+				}
+			} catch(err) { }
 	
 			if (el != this.wrapper) {
 				left *= this.scale;
@@ -1187,14 +1188,19 @@ Released under MIT license, http://cubiq.org/license
 		scrollToElement: function (el, time) {
 			var that = this, pos;
 			el = el.nodeType ? el : that.scroller.querySelector(el);
+			console.log("el is: ", el.nodeName);
+			console.log(that._offset(el));
 			if (!el) return;
 
 			pos = that._offset(el);
 			pos.left += that.wrapperOffsetLeft;
 			pos.top += that.wrapperOffsetTop;
+				console.log("pos.top: " + pos.top);
+				console.log("that.minScrollY: " + that.maxScrollY);
 
 			pos.left = pos.left > 0 ? 0 : pos.left < that.maxScrollX ? that.maxScrollX : pos.left;
 			pos.top = pos.top > that.minScrollY ? that.minScrollY : pos.top < that.maxScrollY ? that.maxScrollY : pos.top;
+			console.log(pos.left + " " + pos.top);
 			time = time === undefined ? m.max(m.abs(pos.left)*2, m.abs(pos.top)*2) : time;
 
 			that.scrollTo(pos.left, pos.top, time);
@@ -1807,7 +1813,7 @@ Released under MIT license, http://cubiq.org/license
 				segmentedControl += " ui-segmented-container='#" + opts.container + "'";
 			}
 			var segClass = opts.cssClass || "";
-			segmentedControl += "'>";
+			segmentedControl += ">";
 			if (opts.numberOfSegments) {
 				segments = opts.numberOfSegments;
 				var count = 1;
@@ -2123,12 +2129,17 @@ Released under MIT license, http://cubiq.org/license
 			if (!!opts.color) {
 				actionSheetColor = opts.color;
 			}
+			var title = "";
+			if (opts.title) {
+				title = "<p>" + opts.title + "</p>";
+			}
 			var createActionSheet = function() {
 				var actionSheetStr = "<actionsheet id='" + actionSheetID + "' class='hidden' ui-contains='action-buttons'";
 				if (actionSheetColor) {
 					actionSheetStr += " ui-action-sheet-color='" + actionSheetColor + "'";
 				}
 				actionSheetStr += "><scrollpanel>";
+				actionSheetStr += title;
 				var uiButtons = "", uiButtonObj, uiButtonImplements, uiButtonTitle, uiButtonCallback;
 				if (!!opts.uiButtons) {
 					for (var i = 0, len = opts.uiButtons.length; i < len; i++) {
@@ -2281,7 +2292,7 @@ Released under MIT license, http://cubiq.org/license
 	$.extend($, {
 		UIAdjustToolBarTitle : function() {
 			$$("navbar h1").forEach(function(title) {
-				var availableSpace = window.innerWidth;
+				var availableSpace = window.innerWidth - 20;
 				var siblingLeftWidth = 0;
 				var siblingRightWidth = 0;
 				var subtractableWidth = 0;
@@ -2292,14 +2303,14 @@ Released under MIT license, http://cubiq.org/license
 				} else {
 					subtractableWidth = siblingRightWidth * 2;
 				}
-				if (subtractableWidth > 0) {
-					if((availableSpace - subtractableWidth) < 40) {
-				
-						title.css("display: none;");
-					} else {
-						title.css("display: block; width: " + (availableSpace - subtractableWidth - 20) + "px;");
-					}
+				//if (subtractableWidth > 0) {
+				if((availableSpace - subtractableWidth) < 40) {
+			
+					title.css("display: none;");
+				} else {
+					title.css("display: block; width: " + (availableSpace - subtractableWidth - 20) + "px;");
 				}
+				//}
 			});
 		}
 	});
@@ -2699,17 +2710,13 @@ Released under MIT license, http://cubiq.org/license
 				if ($.rootview.style.display === "none") {
 					$.rootview.css("display: block;");
 					$.rootview.UIBlock(".01");
-					$.UISplitViewScroller1.destroy();
-					$.UISplitViewScroller2.destroy();
-					$.UISplitViewScroller1 = new iScroll('#scroller1 > scrollpanel');
-					$.UISplitViewScroller2 = new iScroll('#scroller2 > scrollpanel');
+					$.UISplitViewScroller1.refresh();
+					$.UISplitViewScroller2.refresh();
 				} else {
 					$.rootview.style.display = "none";
 					$.rootview.UIUnblock();
-					$.UISplitViewScroller1.destroy();
-					$.UISplitViewScroller2.destroy();
-					$.UISplitViewScroller1 = new iScroll('#scroller1 > scrollpanel');
-					$.UISplitViewScroller2 = new iScroll('#scroller2 > scrollpanel');
+					$.UISplitViewScroller1.refresh();
+					$.UISplitViewScroller2.refresh();
 				}
 			},
 	
@@ -2926,7 +2933,7 @@ Released under MIT license, http://cubiq.org/license
 			} else {
 				return;
 			}
-			$.UIEnablePopoverScrollpanels({ desktopCompatibility: true });
+			$.UIEnablePopoverScrollpanels();
 		},
 		hide : function ( popover ) {
 			if ($.UIPopover.activePopover) {
@@ -2976,7 +2983,7 @@ Released under MIT license, http://cubiq.org/license
 			}
 		}
 	});
-	// Hide any visible popovers when orientation changes.
+	// Reposition any visible popovers when orientation changes.
 	window.addEventListener("orientationchange", function() {
 		var availableVerticalSpace = $.determineMaxPopoverHeight();
 		$$("popover").forEach(function(popover) {
@@ -2990,7 +2997,7 @@ Released under MIT license, http://cubiq.org/license
 		}
 	}, false);
 
-	// Hide any visible popovers when orientation changes.
+	// Reposition any visible popovers when window resizes.
 	window.addEventListener("resize", function() {
 		var availableVerticalSpace = $.determineMaxPopoverHeight();
 		$$("popover").forEach(function(popover) {
@@ -3034,7 +3041,7 @@ Released under MIT license, http://cubiq.org/license
 			} else {
 				return;
 			}
-			if ("stack[ui-kind='alphabetical-list']") {
+			if ($("stack[ui-kind='alphabetical-list']")) {
 				$("stack[ui-kind='alphabetical-list']").css({height: window.innerHeight-45 + "px"});
 
 				window.addEventListener("resize", function() {
@@ -3047,6 +3054,7 @@ Released under MIT license, http://cubiq.org/license
 				.ancestor("scrollpanel").getAttribute("ui-scroller");
 			$.UIScrollers[myScrollie].destroy();
 			$.UIScrollers[myScrollie] = new iScroll("scrollpanel", {snap:true});
+		//console.log("ui-scroller: ",$.UIScrollers[myScrollie]);
 			$.app.delegate("stack[ui-kind='alphabetical-list'] > span", "click", function(alpha) { 
 				$.UIScrollers[myScrollie].scrollToElement(alpha.getAttribute("href"));
 			});
