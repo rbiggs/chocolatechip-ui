@@ -2669,22 +2669,25 @@ Released under MIT license, http://cubiq.org/license
 	});
 	$(function() {
 		$.extend($, {
+			UICancelSplitViewToggle : function () {
+				$.body.addClass("SplitViewFixed");
+			},
 			UISplitViewScroller1 : null,
 			UISplitViewScroller2 : null,
-			body : $("body"),
 			rootview : $("rootview"),
 			resizeEvt : ('onorientationchange' in window ? 'orientationchange' : 'resize'),
-			UISplitView : function ( ) {	
+			UISplitView : function ( ) {
+				if ($.body.hasClass("SplitViewFixed")) {
+					return;
+				}	
 				$.UISplitViewScroller1 = new iScroll('#scroller1 > scrollpanel');
 				$.UISplitViewScroller2 = new iScroll('#scroller2 > scrollpanel');		
 				var buttonLabel = $("rootview > panel > view[ui-navigation-status=current] > navbar").text();
 				$("detailview > navbar").insert("<uibutton id ='showRootView'  class='navigation' ui-bar-align='left'>"+buttonLabel+"</uibutton>", "first");
 				if (window.innerWidth > window.innerHeight) {
-					$.body.className = "landscape";
 					$.rootview.css("display: block; height: 100%; margin-bottom: 1px;");
 					$("#scroller1").css("overflow: hidden; height: " + ($.rootview.innerHeight - 45) + "px;");
 				} else {
-					$.body.className = "portrait";
 					$.rootview.css("display: none; height: " + (window.innerHeight - 100) + "px;");
 					$("#scroller1").css("overflow: hidden; height: " + (window.innerHeight - 155) + "px;");
 				}
@@ -2692,13 +2695,14 @@ Released under MIT license, http://cubiq.org/license
 			},
 	
 			UISetSplitviewOrientation : function() {
+				if ($.body.hasClass("SplitViewFixed")) {
+					return;
+				}
 				if ($.resizeEvt) {
 					if (window.innerWidth > window.innerHeight) {
-						$.body.className = "landscape";
 						$.rootview.css("display: block; height: 100%; margin-bottom: 1px;");
 						$("#scroller1").css("overflow: hidden; height: 100%;");
 					} else {
-						$.body.className = "portrait";
 						$.rootview.css("display: none; height: " + (window.innerHeight - 100) + "px;");
 						$("#scroller1").css("overflow: hidden; height:" + (window.innerHeight - 155) + "px;");
 					}
@@ -2707,6 +2711,9 @@ Released under MIT license, http://cubiq.org/license
 			},
 	
 			UIToggleRootView : function() {
+				if ($.body.hasClass("SplitViewFixed")) {
+					return;
+				}
 				if ($.rootview.style.display === "none") {
 					$.rootview.css("display: block;");
 					$.rootview.UIBlock(".01");
@@ -2721,6 +2728,9 @@ Released under MIT license, http://cubiq.org/license
 			},
 	
 			UICheckForSplitView : function ( ) {
+				if ($.body.hasClass("SplitViewFixed")) {
+					return;
+				}
 				if ($("splitview")) {
 					$.UISplitView();
 					$("#showRootView").bind("click", function() {
