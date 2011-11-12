@@ -2727,9 +2727,11 @@ Released under MIT license, http://cubiq.org/license
 				}
 				if ($.resizeEvt) {
 					if (window.innerWidth > window.innerHeight) {
+						$.app.UIUnblock();
 						$.rootview.css("display: block; height: 100%; margin-bottom: 1px;");
 						$("#scroller1").css("overflow: hidden; height: 100%;");
 					} else {
+						$.app.UIUnblock();
 						$.rootview.css("display: none; height: " + (window.innerHeight - 100) + "px;");
 						$("#scroller1").css("overflow: hidden; height:" + (window.innerHeight - 155) + "px;");
 					}

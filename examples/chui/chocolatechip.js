@@ -789,6 +789,15 @@ Version 1.2.0
 		 
 		UIUpdateOrientationChange : function ( ) {
 			var body = $("body");
+			if (window.innerWidth < window.innerHeight) {
+				body.removeClass("landscape");
+				body.addClass("portrait");
+				$.UIHideURLbar();
+			} else {
+				body.removeClass("portrait");
+				body.addClass("landscape");
+				$.UIHideURLbar();
+			}
 			document.addEventListener("orientationchange", function() {
 				if (window.orientation === 0 || window.orientation === 180) {
 					body.removeClass("landscape");

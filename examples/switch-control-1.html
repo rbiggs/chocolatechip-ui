@@ -60,7 +60,7 @@
 				status : "on",
 				value : "sort of working",
 				callback : function(item) {
-					if (item.checked === false) {
+					if (item.find("input").checked === false) {
 						console.log("This is on!");
 					} else {
 						console.log("This is turned off!!!");
@@ -70,7 +70,7 @@
 			
 			// Uncomment this line to see dynamically created
 			// switch control inserted in response paragraph:
-			//$("p:last-of-type").UICreateSwitchControl(switchOpts);
+			$("p:last-of-type").UICreateSwitchControl(switchOpts);
 		});
 		
 	</script>
