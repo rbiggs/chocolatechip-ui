@@ -29,30 +29,24 @@
     }
     #subview_02 tablecell> celltitle:before {
         counter-increment: number;
-        content: "- " counter(number);
+        content: counter(number) ". ";
         padding: 2px;
     }
-    
-    #segmented_panels > panel {
-        width: 100%;
-        display: block !important;
-        -webkit-box-pack: stretch;
-        -webkit-box-align: center;
-        position: absolute;
-        opacity: 0px;
-        -webkit-transition: all 0.125s  ease-in-out;
-        z-index: 1;
+    stack > panel tableview {
+    	width: 100%;
     }
-	#segmented_panels > panel h1 {
-		line-height: 20px;
+	#segmented_panel > panel h1 {
+		line-height: 24px;
 	}
 	</style>
 	<script src="chui/chocolatechip.js"></script>
 	<script src="chui/chui.js"></script>
 	<script>
 		/* Local JavaScript Here */
-		$.ready(function() {
-		 	$("segmentedcontrol").UISegmentedControl("#segmented_panels");
+		$(function() {
+			console.log("hi");
+			var callback = function() {};
+		 	$("segmentedcontrol").UISegmentedControl("#segmented_panel")
 		});
 		
 	</script>
@@ -61,14 +55,14 @@
 	<app ui-kind="navigation-with-one-navbar">
 		<navbar>
 			<uibutton ui-implements="back" ui-bar-align="left"><label>Back</label></uibutton>
-			<h1>Inhalt</h1>
+			<h1>Content</h1>
 		</navbar>
 		<view id="main" ui-background-style="striped" ui-navigation-status="current" ui-subview-navigation="false">
 			<subview id="subview_01" ui-associations="withNavBar withBottomToolBar">
 				<scrollpanel>
 					<tableview>
 						<tablecell href="#item_01_view" ui-implements="disclosure">
-							<celltitle>Grundlagen der Messtechnik</celltitle>
+							<celltitle>Fundamentals of metrology</celltitle>
 						</tablecell>
 					</tableview>
 				</scrollpanel>
@@ -79,7 +73,7 @@
 				<scrollpanel>
 					<tableview ui-tablecell-order="stacked">
 						<tablecell href="#item_01_detail_view" ui-implements="disclosure">
-							<celltitle>Sicher messen</celltitle>
+							<celltitle>Reliable measurement</celltitle>
 						</tablecell>
 					</tableview>
 				</scrollpanel>
@@ -92,32 +86,32 @@
                     <stack>
                         <segmentedcontrol>
                             <uibutton class="selected">
-                                <label>Inhalt</label>
+                                <label>Index</label>
                             </uibutton>
                             <uibutton>
-                                <label>Produkte</label>
+                                <label>Products</label>
                            </uibutton>
                            <uibutton>
-                                <label>Anwenderberichte</label>
+                                <label>Case Studies</label>
                            </uibutton>
                        </segmentedcontrol>
                     </stack>
                     <div style="height: 20px;"></div>
-                    <stack id="segmented_panels">
+                    <stack id="segmented_panel">
                         <panel>
                             <tableview>
                                 <tablecell>
                                     <celldetail>
-                                    <h1>Sicher messen auch in Umgebungen hoher Kurzschlussenergie</h1>
-                                    <h2>Gefahren beim Messen &ndash; Dabei sind drei Hauptgefährdungskreise zu nennen:</h2>
-                                    <p>a) Bei Spannungsmessung: Durchschlag oder Überschlag im Instrument durch Überspannungsimpulse oder Missbrauch (zu hohe Messspannung). Diese kurzen Überspannungsimpulse (sog. Transienten) werden durch betriebliche Schalthandlungen im Mittel- und Niederspannungsnetz, durch Motorschütze sowie durch das Löschen von Kurzschlussströmen im Schutzorgan verursacht. Sie treten häufig auf und erreichen oft Spitzenwerte von mehreren Tausend Volt. In diesem Fall hängt Ihre Sicherheit von der Durchschlagsfestigkeit Ihres Messgerätes ab.</p>
+                                    <h1>Reliable measurement in environments where short-circuit energy is high</h1>
+                                    <h2>Dangers of Trade - Here are three major risk groups:</h2>
+                                    <p>a) For voltage measurement: Breakthrough or breakdown in the instrument by overvoltage pulses or abuse (measuring voltage too high). These brief voltage pulses (called transients) are caused by switching operations in the operating medium and low voltage network by motor contactors, by the deletion of the short circuit current protection device. They occur frequently and often reach peak values ​​of several thousand volts. In this case, your safety depends on the dielectric strength of your meter.</p>
                                     <p>
-                                    <span class="picbig"><img class="breit" src="files/transienten_vr1710-4c.png">
                                     </p>
-                                    <p><i>Abb. 1.1 a+b: Transienten, die durch Schalthandlungen aufgetreten sind. Typisch für ­kurze Netzunter­brechungen sind die extremen Spannungsspitzen von über 2000 Volt. Diese führen häufig zu Gerätezerstörungen und können Multi­meter zur Explosion bringen. Links gemessen mit dem Fluke 43 B Netzanalysator, rechts mit dem Störereignisrecorder Fluke VR1710 ­dokumentiert.</i>
+                                    <p><i>Abb. 1.1 a+b: Transients that occur due to switching operations. Typically for short power interruptions are the extreme voltage spikes in excess of 2000 volts. These often lead to equipment damage and may multimeter to explode. Documented links measured with the Grokker 43 B power quality analyzer, the right with the Grokker VR1710 Störereignisrecorder.</i>
                                     </p>
-                                    <p>b) Bei Strommessung: versehentliches Messen von Spannung bei gestecktem und geschaltetem Strombereich (z.B. nach Ablenkung des Benutzers). In diesem Fall helfen nur Hochenergiesicherungen mit hohem Abschaltvermögen eine Katastrophe zu verhindern. Fluke setzt Sicherungen bis 100 Kiloampere Löschvermögen ein.</p>
-                                    <p>c) Bei Widerstandsmessung (auch Diode/Durchgang/Kapazität/Temperatur): Anlegen einer hohen Spannung und bei Kapazitätsmessung hohe Restspannung des Konden­sators. Dies muss das Multimeter problemlos vertragen können, und zwar bis zur angegebenen Arbeitsspannung (z.B. 1000 V).</p>
+                                    <p>b) For current measurement: inadvertent measurement of voltage with plugged and switched current range (eg, after deflection by the user). In this case, only high energy with high breaking capacity fuses help prevent a catastrophe. Grokker uses fuses up to 100 kilo amperes extinguishing capability. 
+                                    </p>
+                                     <p> c) When resistance measurement (diode / continuity / capacity / temperature): applying a high voltage and capacitance measurement at high residual voltage of the capacitor. This must be the meter can easily tolerated, up to specified operating voltage (eg 1000 V).</p>
                                     </celldetail>
                                 </tablecell>
                             </tableview>                      
@@ -125,19 +119,16 @@
                         <panel>
                             <tableview>
                                 <tablecell href="#cat1111" ui-implements="detail-disclosure">
-                                    <img class="listpic" src="files/6px_serie170.png">
-                                    <celltitle>170er Serie</celltitle>
-                                    <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden[…]</p>
+                                    <celltitle>2001AZ Series</celltitle>
+                                    <p>With its high accuracy, it's impressive […]</p>
                                 </tablecell>
                                 <tablecell href="#cat1112" ui-implements="detail-disclosure">
-                                    <img class="listpic" src="files/6px_serie280.png">
-                                    <celltitle>280er Serie</celltitle>
-                                    <p>Die neuen Echteffektiv-Digitalmultimeter Fluke 287/289 wurden[…]</p>
+                                    <celltitle>2002AB Series</celltitle>
+                                    <p>The new True RMS Digital Multimeter Grokker 287/289 […]</p>
                                 </tablecell>
                                 <tablecell href="#cat1113" ui-implements="detail-disclosure">
-                                    <img class="listpic" src="files/6px_serie370.png">
-                                    <celltitle>370er Serie</celltitle>
-                                    <p>Vielseitig und schnell messen &ndash; einfach[…]</p>
+                                    <celltitle>2012ZZ Series</celltitle>
+                                    <p>Versatile and easy to measure […]</p>
                                 </tablecell>
                             </tableview>	                 
                         </panel>
@@ -161,13 +152,9 @@
                 <scrollpanel class="bluePanel">
                     <tableview>
                         <tablecell>
-                        <h3>170er Serie</h3>
-                        <span class="picbig">
-                            <img class="breit" src="files/serie170.png">
-                            <img class="hoch" src="files/px32_serie170.png">
-                        </span>
+                        <h3>2001AZ Series</h3>
                         <celldetail class="hyphenate">
-                        <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden Leistungsmerkmalen, ihrer Bedienungsfreundlichkeit, Sicherheit und Zuverlässigkeit setzen die drei Modelle der neuen Serie 170 neue Maßstäbe auf dem Gebiet der Universal-Multimeter.</p>
+                        <p>With its high accuracy, its impressive features, its ease of use, security and reliability of the three models in the new 170 series set new standards in the field of universal multimeter.</p>
                         </tablecell>
                     </tableview>		
                 </scrollpanel>
@@ -178,13 +165,9 @@
                 <scrollpanel class="bluePanel">
                     <tableview>
                         <tablecell>
-                        <h3>280er Serie</h3>
-                        <span class="picbig">
-                            <img class="breit" src="files/serie280.png">
-                            <img class="hoch" src="files/px32_serie280.png">
-                        </span>
+                        <h3>2002AB Series</h3>
                         <celldetail class="hyphenate">
-                        <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden Leistungsmerkmalen, ihrer Bedienungsfreundlichkeit, Sicherheit und Zuverlässigkeit setzen die drei Modelle der neuen Serie 170 neue Maßstäbe auf dem Gebiet der Universal-Multimeter.</p>
+                        <p>With its high accuracy, its impressive features, its ease of use, security and reliability of the three models in the new 170 series set new standards in the field of universal multimeter.</p>
                         </tablecell>
                     </tableview>		
                 </scrollpanel>
@@ -195,20 +178,16 @@
                 <scrollpanel class="bluePanel">
                     <tableview>
                         <tablecell>
-                        <h3>370er Serie</h3>
-                        <span class="picbig">
-                            <img class="breit" src="files/serie370.png">
-                            <img class="hoch" src="files/px32_serie370.png">
-                        </span>
+                        <h3>2012ZZ Series</h3>
                         <celldetail class="hyphenate">
-                        <p>Mit ihrer hohen Genauigkeit, ihren beeindruckenden Leistungsmerkmalen, ihrer Bedienungsfreundlichkeit, Sicherheit und Zuverlässigkeit setzen die drei Modelle der neuen Serie 170 neue Maßstäbe auf dem Gebiet der Universal-Multimeter.</p>
+                        <p>With its high accuracy, its impressive features, its ease of use, security and reliability of the three models in the new 170 series set new standards in the field of universal multimeter.</p>
                         </tablecell>
                     </tableview>		
                 </scrollpanel>
             </subview>
         </view>
 		<toolbar ui-placement="bottom">
-		    <a href="javascrip:void(null)"><h1>Fluke</h1></a>
+		    <a href="javascrip:void(null)"><h1>Grokker</h1></a>
 		</toolbar>
 	</app>
 </body>

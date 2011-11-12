@@ -30,7 +30,7 @@
 				$("#selection_list_response > span").insert(comma + item.lastElementChild.text());
 				firstTime = false;
 			};
-			$.UIDeleteTableCell("tableview","navbar", deleteItem);
+			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem});
 		});
 	</script>
 </head>

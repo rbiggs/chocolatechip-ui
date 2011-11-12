@@ -1359,22 +1359,48 @@ Released under MIT license, http://cubiq.org/license
 
 	$.extend($, {
 		UIDeletableTableCells : [],
-		UIDeleteTableCell : function( selector, toolbar, callback ) {
+		UIDeleteTableCell : function( options ) {
+			/* options = {
+				selector: selector,
+				editButton: [label1, label2],
+				toolbar: toolbar,
+				callback: callback
+			} */
+			var label1;
+			if (options.editButton) {
+				label1 = options.editButton[0];
+			} else {
+				label1 = "Edit";
+			}
+			var label2;
+			if (options.editButton) {
+				label2 = options.editButton[1];
+			} else {
+				label2 = "Done";
+			}
+			var label3;
+			if (options.deleteButton) {
+				label3 = options.deleteButton;
+			} else {
+				label3 = "Delete";
+			}
+			var callback = options.callback || function() {};
 			this.deletionList = [];
-			var listEl = $(selector);
-			var toolbarEl = $(toolbar);
-			var deleteButtonTemp = '<uibutton ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>Delete</label></uibutton>';
-			var editButtonTemp = '<uibutton ui-bar-align="right"  ui-implements="edit"><label>Edit</label></uibutton>';
+			var listEl = $(options.selector);
+			var toolbarEl = $(options.toolbar);
+			var deleteButtonTemp = '<uibutton ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>' + label3 + '</label></uibutton>';
+			var editButtonTemp = '<uibutton ui-bar-align="right"  ui-implements="edit" ui-button-labels="' + label1 + ',' + label2 +  '"><label>' + label1 + '</label></uibutton>';
 			toolbarEl.insertAdjacentHTML("afterBegin", deleteButtonTemp);
 			toolbarEl.insertAdjacentHTML("beforeEnd", editButtonTemp);
 			var deleteDisclosure = '<deletedisclosure><span>&#x2713</span></deletedisclosure>';
-			$$(selector + " > tablecell").forEach(function(item) {
+			console.log(options.selector + " > tablecell");
+			$$(options.selector + " > tablecell").forEach(function(item) {
 				item.insertAdjacentHTML("afterBegin", deleteDisclosure);
 			});
 	
 			listEl.setAttribute("data-deletable-items", 0);
 			var UIEditExecution = function() {
-			   $(toolbar + " > uibutton[ui-implements=edit]").bind("click", function() {
+			   $(options.toolbar + " > uibutton[ui-implements=edit]").bind("click", function() {
 				   if ($("label", this).text() === "Edit") {
 					   this.UIToggleButtonLabel("Edit", "Done");
 					   this.setAttribute("ui-implements", "done");
@@ -1440,7 +1466,7 @@ Released under MIT license, http://cubiq.org/license
 					   listEl.setAttribute("data-deletable-items", 0);
 				   });
 				   this.addClass("disabled");
-				$.UIScrollers[$("scrollpanel", $(selector).ancestor("view")).getAttribute("ui-scroller")].refresh();
+				$.UIScrollers[$("scrollpanel", $(options.selector).ancestor("view")).getAttribute("ui-scroller")].refresh();
 			   });
 			};
 			UIEditExecution();
@@ -2329,7 +2355,6 @@ Released under MIT license, http://cubiq.org/license
 			$.UIAdjustToolBarTitle();
 		}
 	}, false);
-
 	$.UIActivityIndicator = function() {};
 	$.extend($.UIActivityIndicator.prototype, {
 		id : null,
@@ -3064,7 +3089,6 @@ Released under MIT license, http://cubiq.org/license
 				.ancestor("scrollpanel").getAttribute("ui-scroller");
 			$.UIScrollers[myScrollie].destroy();
 			$.UIScrollers[myScrollie] = new iScroll("scrollpanel", {snap:true});
-		//console.log("ui-scroller: ",$.UIScrollers[myScrollie]);
 			$.app.delegate("stack[ui-kind='alphabetical-list'] > span", "click", function(alpha) { 
 				$.UIScrollers[myScrollie].scrollToElement(alpha.getAttribute("href"));
 			});
