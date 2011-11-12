@@ -2793,7 +2793,7 @@ actionsheet p {
 	color: #fff;
 	text-shadow: 0 -1px 1px #000;
 	text-align: center;
-	margin-bottom: 12px;
+	margin: 0;
 }
 /* End Action Sheet Styles */
 
