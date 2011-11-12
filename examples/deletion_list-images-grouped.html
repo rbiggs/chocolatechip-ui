@@ -14,7 +14,7 @@
 			var deleteItem = function(item) {
 				$("tablefooter").insert("<p>あなたは、テーブルのセルを削除 " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
 			};
-			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem});
+			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem, editButton: ["編集","既成"], deleteButton: "削除"});
 		});
 	</script>
 </head>
