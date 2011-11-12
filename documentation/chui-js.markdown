@@ -483,12 +483,24 @@ $.UIDeleteTableCell uses three internal function to handle its functionality: UI
 
 **Parameters:**
 
+Originally the delete method used these parameters:
+
 - selector: A valid CSS selector.
 - toolbar: A navbar or toolbar in which to insert the Edit and Delete uibuttons.
 - callback: A method to execute when the delete uibutton is touched.
 
-**Example:**
+As of version 1.0, this method takes an object literal of options:
 
+ - selector: A valid CSS selector.
+ - editButton: An array to two values for the Edit/Done uibutton.
+ - deleteButton: A string value for the delete uibutton.
+ - toolbar: A navbar or toolbar in which to inser the Edit and Delete uibuttons.
+ - callback: A method to execute when the delete uibutton is touched.
+
+
+**Example:**
+	
+	// OLD WAY:
     // Implement deletion without a callback:
     $.UIDeleteTableCell(".deletable-items1","#toolbar1");
     
@@ -498,6 +510,17 @@ $.UIDeleteTableCell uses three internal function to handle its functionality: UI
         $.deleteLocalStorage(item.id);
     };
     $.UIDeleteTableCell(".deletable-items1","#toolbar1", deleteItem);
+    
+    // NEW WAY:
+    // Implement deletion without a callback:
+    $.UIDeleteTableCell(".deletable-items1","#toolbar1");
+    
+    // Cell deletion with a callback:
+    var deleteItem = function(item) {
+        console.log("You've deleted table cell: " + item.id);
+        $.deleteLocalStorage(item.id);
+    };
+    $.UIDeleteTableCell({selector: ".deletable-items1", toolbar: "#toolbar1", editButton: ["Change", "Finished"], deleteButton: "Kill", callback: deleteItem});    
 
 **See Also:**
 
@@ -2031,6 +2054,11 @@ A method to hide a popover.
 - UICurrentSplitViewDetail
 
 To implement a split view layout, all you need to do is implement the layout with the correct markup and attributes. ChocolateChip-UI will take care of making it all work for you.
+
+If you wish to maintain the visibility of the rootview even in portrait mode, all you have to do is put the class "SplitViewFixed" on the body tag:
+
+    <body class="SplitViewFixed">
+        <app>...
 
 
 

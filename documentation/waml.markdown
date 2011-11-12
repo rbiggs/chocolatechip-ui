@@ -1017,6 +1017,13 @@ If you want or need to, you can give your switch control a class that allows you
 
 The splitview is a special layout type for tablets. This type of layout is not for use on mobile devices such as cellphones like the iPhone, Android, Blackberry or devices like the iPod Touch. The layout is optimized for a minimum screen size of 1024 x 768 pixels. It has two child elements: rootview and detailview. The root view is on the left side and provides n area for actionable items or navigation through list to drill down. The detailview show the result of a navigation drill down or the results of an action initiated in the rootview. The splitview layout has automatic readjustment or orientation change. This results in the rootview being hidden in portrait mode with a button in the upper left of the detailview with the same title as the rootview that will toggle the visibility of the rootview. When the device is returned to landscape mode, the rootview will automatically be visible by default.
 
+If you wish the rootview to remain visible even in portrait mode, you can simply put the class "SplitViewFixed" on the body tag. This will prevent the rootview from being hidden when the use rotates the device into portrait mode. Instead the rootview remains visible and the detail view resizes to fit in the remaining space.
+
+    <body class="SplitViewFixed">
+        <app>...
+
+
+
 [rootview](#rootview)
 
 [detailview](#detailview)

@@ -12,7 +12,7 @@
 		$.ready(function() {
 			$("tableview:first-of-type").UIIdentifyChildNodes();
 			var deleteItem = function(item) {
-				$("tablefooter").insert("<p>You deleted table cell " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
+				$("tablefooter").insert("<p>あなたは、テーブルのセルを削除 " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
 			};
 			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem});
 		});
@@ -22,35 +22,30 @@
 	<app>
 		<view id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar id="toolbar1">
-				<h1>Tableview</h1>
+				<h1>日本</h1>
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
 					<tableview ui-kind="grouped" ui-tablecell-order="stacked">
 						<tablecell ui-usage="image" ui-implements="detail-disclosure">
 							<img src="images/alternative.png">
-							<celltitle>People</celltitle>
-							<cellsubtitle>Your Friends</cellsubtitle>
+							<celltitle>重要な人々</celltitle>
+							<cellsubtitle>あなたの友人</cellsubtitle>
 						</tablecell>
 						<tablecell ui-usage="image" ui-implements="detail-disclosure">
 							<img src="images/blues.png">
-							<celltitle>Places</celltitle>
-							<cellsubtitle>Interesting Destinations</cellsubtitle>
+							<celltitle>場所</celltitle>
+							<cellsubtitle>興味深い目的地</cellsubtitle>
 						</tablecell>
 						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
 							<img src="images/classical.png">
-							<celltitle>Funny Animals</celltitle>
-							<cellsubtitle>Critters from Around the Globe</cellsubtitle>
+							<celltitle>面白い動物</celltitle>
+							<cellsubtitle>世界中からクリッター</cellsubtitle>
 						</tablecell>
 						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
 							<img src="images/itunes.png">
-							<celltitle>Food</celltitle>
-							<cellsubtitle>Recipes</cellsubtitle>
-						</tablecell>
-						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
-							<img src="images/killers.png">
-							<celltitle>Good Eats</celltitle>
-							<cellsubtitle>Restaurants</cellsubtitle>
+							<celltitle>良い食品</celltitle>
+							<cellsubtitle>レシピ</cellsubtitle>
 						</tablecell>
 						<tablefooter></tablefooter>
 					</tableview>				

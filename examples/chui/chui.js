@@ -1363,6 +1363,7 @@ Released under MIT license, http://cubiq.org/license
 			/* options = {
 				selector: selector,
 				editButton: [label1, label2],
+				deleteButton: label3,
 				toolbar: toolbar,
 				callback: callback
 			} */
@@ -1401,8 +1402,9 @@ Released under MIT license, http://cubiq.org/license
 			listEl.setAttribute("data-deletable-items", 0);
 			var UIEditExecution = function() {
 			   $(options.toolbar + " > uibutton[ui-implements=edit]").bind("click", function() {
-				   if ($("label", this).text() === "Edit") {
-					   this.UIToggleButtonLabel("Edit", "Done");
+			   	   var buttonLabels = this.getAttribute("ui-button-labels");
+				   if ($("label", this).text() === label1) {
+					   this.UIToggleButtonLabel(label1, label2);
 					   this.setAttribute("ui-implements", "done");
 					   listEl.addClass("ui-show-delete-disclosures");
 					   this.parentNode.firstElementChild.style.display = "-webkit-inline-box";
@@ -1413,7 +1415,7 @@ Released under MIT license, http://cubiq.org/license
 						img.css("-webkit-transform: translate3d(40px, 0, 0)");
 					   });
 				   } else {
-					   this.UIToggleButtonLabel("Edit", "Done");
+					   this.UIToggleButtonLabel(label1, label2);
 					   this.removeAttribute("ui-implements");
 					   this.parentNode.firstElementChild.style.display = "none";
 					   listEl.removeClass("ui-show-delete-disclosures");

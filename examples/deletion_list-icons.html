@@ -12,9 +12,9 @@
 		$.ready(function() {
 			$("tableview:first-of-type").UIIdentifyChildNodes();
 			var deleteItem = function(item) {
-				$("tablefooter").insert("<p>You deleted table cell " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
+				$("tablefooter").insert("<p>Vous avez supprimé la cellule " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
 			};
-			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem});
+			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem, deleteButton: "Supprimer", editButton: ["Modifier","OK"]});
 		});
 	</script>
 </head>
@@ -22,14 +22,14 @@
 	<app>
 		<view id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar id="toolbar1">
-				<h1>Tableview</h1>
+				<h1>Français</h1>
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
 						<tableview  id="deletable-items1" ui-tablecell-order="stacked">
 							<tablecell ui-implements="add" ui-usage="icon">
 								<img src="images/ipod.png">
-								<celltitle>People</celltitle>
+								<celltitle>Les gens</celltitle>
 							</tablecell>
 							<tablecell ui-implements="add" ui-usage="icon">
 								<img src="images/phone.png">
@@ -37,19 +37,19 @@
 							</tablecell>
 							<tablecell ui-implements="add" ui-usage="icon">
 								<img src="images/mail.png">
-								<celltitle>This is an example of a very long item that will be truncated because it does fit.</celltitle>
+								<celltitle>Ceci est un exemple d'un texte très long qui sera tronquée car elle ne forme.</celltitle>
 							</tablecell>
 							<tablecell ui-implements="add" ui-usage="icon">
 								<img src="images/safari.png">
-								<celltitle>Animals</celltitle>
+								<celltitle>Animaux</celltitle>
 							</tablecell>
 							<tablecell ui-implements="add" ui-usage="icon">
 								<img src="images/sms.png">
-								<celltitle>Food</celltitle>
+								<celltitle>Alimentaires</celltitle>
 							</tablecell>
 							<tablecell ui-implements="add" ui-usage="icon">
 								<img src="images/store.png">
-								<celltitle>Stuff</celltitle>
+								<celltitle>Choses</celltitle>
 							</tablecell>
 						<tablefooter></tablefooter>
 						</tableview>			
