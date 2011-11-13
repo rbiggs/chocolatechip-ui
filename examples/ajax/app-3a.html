@@ -104,7 +104,7 @@
 			$.UIScrollers[$("#view2 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
 			$("#view3 tableview").empty().insert($.template("songs", data));
 			$.UIScrollers[$("#view3 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
-			$.UIDeleteTableCell("#view3 tableview", "#view3 navbar");
+			$.UIDeleteTableCell({selector: "#view3 tableview", toolbar: "#view3 navbar"});
 		});
     </script>
     

@@ -57,7 +57,7 @@
 				$("tablefooter").insert("<p>You deleted table cell " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");
 				
 			};
-			$.UIDeleteTableCell("tableview","navbar", deleteItem);
+			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem});
 		});
 	</script>
 </head>
