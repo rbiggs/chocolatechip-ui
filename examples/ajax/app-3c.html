@@ -109,19 +109,21 @@
 				successCallback : function() {
 					data = $.responseText;
 					$.processJSON(data);
+					$("#view1 tableview").empty().insert($.template("customers", data));
+					$.UIScrollers[$("#view1 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+					
+					$("#view2 tableview").empty().insert($.template("recipes", data));
+					$.UIScrollers[$("#view2 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+					
+					$("#view3 tableview").empty().insert($.template("songs", data));
+					$.UIScrollers[$("#view3 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();			
+					
+					setTimeout(function() {
+						$.UIDeleteTableCell({selector:"#view3 tableview", toolbar:"#view3 navbar"});
+					},1000);
 				}
 			});
 			
-			$("#view1 tableview").empty().insert($.template("customers", data));
-			$.UIScrollers[$("#view1 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
-			
-			$("#view2 tableview").empty().insert($.template("recipes", data));
-			$.UIScrollers[$("#view2 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
-			
-			$("#view3 tableview").empty().insert($.template("songs", data));
-			$.UIScrollers[$("#view3 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
-			
-			$.UIDeleteTableCell({selector: "#view3 tableview", toolbar: "#view3 navbar"});
 		});
     </script>
     

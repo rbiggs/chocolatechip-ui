@@ -60,34 +60,28 @@ Version 1.2.0
 		return this;
 	};
 	 
+	$.extend(Array.prototype, {
+		each : Array.prototype.forEach
+	});
+	
 	$.extend($, {
  
 		version : "1.2.0",
 		
 		libraryName : "ChocolateChip",
-		 
-		collectionToArray : function ( collection ) {
-			var array = [];
-			var i = 0, len = collection.length;
-			while ( i < len ) {
-				array[i] = collection[i];
-				i++;
-			}
-			return array;
-		},
-		 
+		
 		$$ : function ( selector, context ) {
 			if (!!context) {
 				if (typeof context === "string") {
-					return $.collectionToArray(document.querySelectorAll(context + " " + selector));
+					return [].slice.apply(document.querySelectorAll(context + " " + selector));
 				} else if (context.nodeType === 1){
-					return $.collectionToArray(context.querySelectorAll(selector));
+					return [].slice.apply(context.querySelectorAll(selector));
 				}
 			} else {
-				return $.collectionToArray(document.querySelectorAll(selector));
+				return [].slice.apply(document.querySelectorAll(selector));
 			}
 		},
-		 
+		
 		make : function ( HTMLString ) {
 			var nodes = [];
 			var temp = document.createElement("div");
@@ -117,7 +111,16 @@ Version 1.2.0
 				$(id).remove();
 			});
 		}
+	});	
+	
+	$.extend(Object.prototype, {
+		each: function(callback) {
+			for (key in this) {
+				if(callback(key, this[key]) === false) { return this; }
+			}
+		}
 	});
+	
 	$.extend(HTMLElement.prototype, {
 	
 		find : function ( selector ) {
@@ -441,7 +444,7 @@ Version 1.2.0
 		delegate : function ( selector, event, callback ) {
 			this.addEventListener(event, function(e) {
 				var target = e.target;
-				$.$$(selector, this).forEach(function(element) {
+				$.$$(selector, this).each(function(element) {
 					if (element.isSameNode(target)) {
 						callback.apply(this, arguments);
 					} else {
@@ -609,7 +612,7 @@ Version 1.2.0
 		capitalizeAll : function ( ) {
 			var str = this.split(" ");
 			var newstr = [];
-			str.forEach(function(item) {
+			str.each(function(item) {
 				newstr.push(item.capitalize());
 			});
 			return newstr.join(" ");
@@ -843,7 +846,7 @@ Version 1.2.0
 			this.set = function(key, value) {
 				if (this.observers !== null && this.observers[key] !== null) {
 					currentValue = this[key];
-					this.observers[key].forEach(function(observer) {
+					this.observers[key].each(function(observer) {
 						observer.keyWillUpdate(this, key, currentValue, value);
 					});
 					this[key] = value;
@@ -900,7 +903,7 @@ Version 1.2.0
 				}
 				if (selectNode.selectedIndex > -1) {
 					var result = [];
-					$$("option", selectNode).forEach(function(item) {
+					$$("option", selectNode).each(function(item) {
 						if (item.selected) {
 							result.push(item.value);
 						}
@@ -908,7 +911,7 @@ Version 1.2.0
 					return result;
 				}
 			}	  
-			formValues.forEach(function(item) {
+			formValues.each(function(item) {
 				var value = item.value;
 				if (value !== '') {
 					var name = item.name;

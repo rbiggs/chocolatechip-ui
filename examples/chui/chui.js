@@ -69,7 +69,7 @@ Released under MIT license, http://cubiq.org/license
 			if (hard === "hard") {
 				window.location.reload(true);
 			} else {
-				$.views.forEach(function(view) {
+				$.views.each(function(view) {
 					view.setAttribute("ui-navigation-status", "upcoming");
 				});
 				$.main.setAttribute("ui-navigation-status", "current");
@@ -1292,7 +1292,7 @@ Released under MIT license, http://cubiq.org/license
 			var whichScroller;
 			try {
 				var scrollpanels = $$("scrollpanel");
-				scrollpanels.forEach(function(item) {
+				scrollpanels.each(function(item) {
 					if (item.hasAttribute("ui-scroller")) {
 						whichScroller = item.getAttribute("ui-scroller");
 						$.UIScrollers[whichScroller] = new iScroll(item.parentNode, options);
@@ -1320,16 +1320,15 @@ Released under MIT license, http://cubiq.org/license
 				selector = $(selector);
 				selector.parentNode.setAttribute("ui-scroller", "myPager");
 			}
-			var panels = stack.children.length;
 			var indicatorsWidth = selector.parentNode.css("width");
 			var indicators = '<stack ui-implements="indicators" style="width:"' + indicatorsWidth + ';">';
-			for (var i = 0; i < panels; i++) {
-				if (i === 0) {
+			stack.children.each(function(kid, idx) {
+				if (idx === 0) {
 					indicators += '<indicator class="active"></indicator>';
 				} else {
 					indicators += "<indicator></indicator>";
 				}
-			}
+			});
 			indicators += "</stack>";
 			// The maximum number of indicators in portrait view is 17.
 			selector.parentNode.parentNode.insert(indicators);
@@ -1384,12 +1383,15 @@ Released under MIT license, http://cubiq.org/license
 			this.deletionList = [];
 			var listEl = $(options.selector);
 			var toolbarEl = $(options.toolbar);
+			if ((toolbarEl.first().nodeName) === "UIBUTTON") {
+				toolbarEl.first().setAttribute("ui-contains","uibutton");
+			}
 			var deleteButtonTemp = '<uibutton ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>' + label3 + '</label></uibutton>';
 			var editButtonTemp = '<uibutton ui-bar-align="right"  ui-implements="edit" ui-button-labels="' + label1 + ',' + label2 +  '"><label>' + label1 + '</label></uibutton>';
 			toolbarEl.insertAdjacentHTML("afterBegin", deleteButtonTemp);
 			toolbarEl.insertAdjacentHTML("beforeEnd", editButtonTemp);
 			var deleteDisclosure = '<deletedisclosure><span>&#x2713</span></deletedisclosure>';
-			$$(options.selector + " > tablecell").forEach(function(item) {
+			$$(options.selector + " > tablecell").each(function(item) {
 				item.insertAdjacentHTML("afterBegin", deleteDisclosure);
 			});
 	
@@ -1405,7 +1407,7 @@ Released under MIT license, http://cubiq.org/license
 					   if (/uibutton/i.test(toolbarEl.children[1].nodeName)) {
 						   toolbarEl.children[1].css("display", "none;");
 					   }
-					   $$("tablecell > img", listEl).forEach(function(img) {
+					   $$("tablecell > img", listEl).each(function(img) {
 						img.css("-webkit-transform: translate3d(40px, 0, 0)");
 					   });
 				   } else {
@@ -1413,7 +1415,7 @@ Released under MIT license, http://cubiq.org/license
 					   this.removeAttribute("ui-implements");
 					   this.parentNode.firstElementChild.style.display = "none";
 					   listEl.removeClass("ui-show-delete-disclosures");
-					   $$("deletedisclosure").forEach(function(disclosure) {
+					   $$("deletedisclosure").each(function(disclosure) {
 						   disclosure.removeClass("checked");
 						   disclosure.ancestor("tablecell").removeClass("deletable");
 					   });
@@ -1422,14 +1424,14 @@ Released under MIT license, http://cubiq.org/license
 					   }
 					   $("uibutton[ui-implements=delete]").addClass("disabled");
 			   
-					   $$("tablecell > img", listEl).forEach(function(img) {
+					   $$("tablecell > img", listEl).each(function(img) {
 						img.css("-webkit-transform: translate3d(0, 0, 0)");
 					   });
 				   }
 			   });
 			};
 			var UIDeleteDisclosureSelection = function() {
-				$$("deletedisclosure").forEach(function(disclosure) {
+				$$("deletedisclosure").each(function(disclosure) {
 					disclosure.bind("click", function() {
 						disclosure.toggleClass("checked");
 						disclosure.ancestor("tablecell").toggleClass("deletable");
@@ -1451,7 +1453,7 @@ Released under MIT license, http://cubiq.org/license
 				   if (this.hasClass("disabled")) {
 					   return;
 				   }
-				   $$(".deletable").forEach(function(item) {
+				   $$(".deletable").each(function(item) {
 					   listEl.data("deletable-items", parseInt(listEl.data("deletable-items"), 10) - 1);
 					   $.UIDeletableTableCells.push(item.id);
 					   if (!!callback) {
@@ -1618,7 +1620,7 @@ Released under MIT license, http://cubiq.org/license
 				var popupID = "#" + id;
 				$(popupID).UIBlock("0.5");
 				var popupBtn = "#" + id + " uibutton";
-				$$(popupBtn).forEach(function(button) {
+				$$(popupBtn).each(function(button) {
 					button.bind("click", cancelClickPopup = function(e) {
 						if (button.getAttribute("ui-implements")==="continue") {
 							callback.call(callback, this);
@@ -1706,13 +1708,13 @@ Released under MIT license, http://cubiq.org/license
 
 	$.extend(HTMLElement.prototype, {
 		UISelectionList : function ( callback ) {
-			var listitems = $.collectionToArray(this.children);
-			listitems.forEach(function(item) {
+			var listitems = [].slice.apply(this.children);
+			listitems.each(function(item) {
 				if (item.nodeName.toLowerCase() === "tablecell") {
 					var checkmark = "<checkmark>&#x2713</checkmark>";
 					item.insert(checkmark);
 					item.bind("click", function() {
-						listitems.forEach(function(check) {
+						listitems.each(function(check) {
 							check.removeClass("selected");
 						});
 						this.addClass("selected");
@@ -1796,7 +1798,7 @@ Released under MIT license, http://cubiq.org/license
 
 	$.extend(HTMLElement.prototype, {
 		UIInitSwitchToggling : function() {
-			$$("switchcontrol", this).forEach(function(item) {
+			$$("switchcontrol", this).each(function(item) {
 				if (item.hasClass("on")) {
 					item.checked = true;
 					item.find("input[type='checkbox']").checked = true;
@@ -1887,7 +1889,7 @@ Released under MIT license, http://cubiq.org/license
 			var that = this;
 			var val = null;
 			callback = callback || function(){};
-			var buttons = $.collectionToArray(this.children);
+			var buttons = [].slice.apply(this.children);
 					var cont = $(container);
 			if (!this.hasAttribute('ui-selected-segment')) {
 				this.setAttribute("ui-selected-segment", "");
@@ -1902,13 +1904,11 @@ Released under MIT license, http://cubiq.org/license
 				} catch(e) {}
 			} else {
 				var checkChildNodesForAttr = -1;
-				for (var i = 0, len = this.children.length; i < len; i++) {
-					if (this.children[i].hasClass("selected")) {
-						this.setAttribute("ui-selected-index", i);
-					} else {
-						checkChildNodesForAttr++;
+				this.children.each(function(segment, idx) {
+					if (segment.hasClass("selected")) {
+						segment.setAttribute("ui-selected-index", idx);
 					}
-				}
+				});
 				if (checkChildNodesForAttr === this.children.length-1) {
 					this.setAttribute("ui-selected-index", 0);
 					this.firstElementChild.addClass("selected");
@@ -1921,8 +1921,8 @@ Released under MIT license, http://cubiq.org/license
 				} else {
 					container.setAttribute("ui-selected-index", 0);
 				}
-				var containerChildren = $.collectionToArray(container.children);
-				containerChildren.forEach(function(child) {
+				var containerChildren = [].slice.apply(container.children);
+				containerChildren.each(function(child) {
 					child.css("display: none;");
 				});
 				containerChildren[val].css("display","block");
@@ -1933,7 +1933,7 @@ Released under MIT license, http://cubiq.org/license
 				
 			}
 	
-			buttons.forEach(function(button) {
+			buttons.each(function(button) {
 				if (!button.hasAttribute("id")) {
 					button.setAttribute("id", $.UIUuid());
 				}
@@ -1992,7 +1992,7 @@ Released under MIT license, http://cubiq.org/license
 	});
 
 	$(function() {	 
-		$$("segmentedcontrol").forEach(function(segmentedcontrol) {
+		$$("segmentedcontrol").each(function(segmentedcontrol) {
 			if (segmentedcontrol.getAttribute("ui-implements") !== "segmented-paging") {
 				segmentedcontrol.UISegmentedControl();
 				var scroller = segmentedcontrol.ancestor("scrollpanel").getAttribute("ui-scroller");
@@ -2011,7 +2011,7 @@ Released under MIT license, http://cubiq.org/license
 			var subviews = $$("subview", this);
 			segmentedPager.setAttribute("ui-pagable-subviews", subviews.length);
 			var childPosition = 0;
-			subviews.forEach(function(item) {
+			subviews.each(function(item) {
 				item.setAttribute("ui-navigation-status", "upcoming");
 				item.setAttribute("ui-child-position", childPosition);
 				childPosition++;
@@ -2093,13 +2093,13 @@ Released under MIT license, http://cubiq.org/license
 			$("tabbar", this).UIIdentifyChildNodes();
 			var tabbar = $("tabbar", this);
 			var subviews = $$("subview", this);
-			subviews.forEach(function(subview) {
+			subviews.each(function(subview) {
 				subview.addClass("unselected");
 			});
 			var selectedTab = tabbar.getAttribute("ui-selected-tab") || 0;
 			subviews[selectedTab].toggleClass("unselected","selected");
 			tabs[selectedTab].addClass("selected");
-			tabs.forEach(function(tab) {
+			tabs.each(function(tab) {
 				tab.bind("click", function() {
 					if (tab.hasClass("disabled") || tab.hasClass("selected")) {
 						return;
@@ -2121,13 +2121,13 @@ Released under MIT license, http://cubiq.org/license
 			$("tabbar", this).UIIdentifyChildNodes();
 			var tabbar = $("tabbar", this);
 			var views = $$("view[ui-implements=tabbar-panel]", this);
-			views.forEach(function(subview) {
+			views.each(function(subview) {
 				subview.setAttribute("ui-navigation-status","upcoming");
 			});
 			var selectedTab = tabbar.getAttribute("ui-selected-tab") || 0;
 			views[selectedTab].setAttribute("ui-navigation-status","current");
 			tabs[selectedTab].addClass("selected");
-			tabs.forEach(function(tab) {
+			tabs.each(function(tab) {
 				tab.bind("click", function() {
 					if (tab.hasClass("disabled") || tab.hasClass("selected")) {
 						return;
@@ -2164,18 +2164,17 @@ Released under MIT license, http://cubiq.org/license
 				actionSheetStr += title;
 				var uiButtons = "", uiButtonObj, uiButtonImplements, uiButtonTitle, uiButtonCallback;
 				if (!!opts.uiButtons) {
-					for (var i = 0, len = opts.uiButtons.length; i < len; i++) {
-						uiButtonObj = opts.uiButtons[i];
+					opts.uiButtons.each(function(button, idx) {
 						uiButtons += "<uibutton ui-kind='action' ";
-						uiButtonTitle = uiButtonObj.title;
-						uiButtonImplements = uiButtonObj.uiButtonImplements || "";
-						uiButtonCallback = uiButtonObj.callback;
+						uiButtonTitle = button.title;
+						uiButtonImplements = button.uiButtonImplements || "";
+						uiButtonCallback = button.callback;
 						actionSheetID.trim();
 						actionSheetID.capitalize();
 						uiButtons += ' ui-implements="' + uiButtonImplements + '" class="stretch" onclick="' + uiButtonCallback + '(\'#' + actionSheetID + '\')"><label>';
 						uiButtons += uiButtonTitle;
 						uiButtons +=	"</label></uibutton>"	;			
-					}
+					});
 				}
 				actionSheetStr += uiButtons + "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#" + actionSheetID + "\")'><label>Cancel</label></uibutton></scrollpanel></actionsheet>";
 				var actionSheet = $.make(actionSheetStr);
@@ -2183,7 +2182,7 @@ Released under MIT license, http://cubiq.org/license
 			};
 			createActionSheet();
 			var actionSheetUIButtons = "#" + actionSheetID + " uibutton";
-			$$(actionSheetUIButtons).forEach(function(button) {
+			$$(actionSheetUIButtons).each(function(button) {
 				button.bind("click", function() {
 					$.UIHideActionSheet();
 				});
@@ -2313,7 +2312,7 @@ Released under MIT license, http://cubiq.org/license
 	});
 	$.extend($, {
 		UIAdjustToolBarTitle : function() {
-			$$("navbar h1").forEach(function(title) {
+			$$("navbar h1").each(function(title) {
 				var availableSpace = window.innerWidth - 20;
 				var siblingLeftWidth = 0;
 				var siblingRightWidth = 0;
@@ -2773,7 +2772,7 @@ Released under MIT license, http://cubiq.org/license
 		if ($("detailview > subview")) {
 			$.UICurrentSplitViewDetail = "#";
 			$.UICurrentSplitViewDetail += $("detailview > subview").getAttribute("id");
-			$$("tableview[ui-implements=detail-menu] > tablecell").forEach(function(cell) {
+			$$("tableview[ui-implements=detail-menu] > tablecell").each(function(cell) {
 				cell.bind("click", function() {
 					var rootview = this.ancestor("rootview");
 					if (rootview.css("position") === "absolute") {
@@ -2945,7 +2944,7 @@ Released under MIT license, http://cubiq.org/license
 		UIEnablePopoverScrollpanels : function ( options ) {
 			try {
 				var count = 0;
-				$$("popover scrollpanel").forEach(function(item) {
+				$$("popover scrollpanel").each(function(item) {
 					item.setAttribute("ui-scroller", $.UIUuid());
 					var whichScroller = item.getAttribute("ui-scroller");
 					$.UIScrollers[whichScroller] = new iScroll(item.parentNode, options);
@@ -3019,7 +3018,7 @@ Released under MIT license, http://cubiq.org/license
 	// Reposition any visible popovers when orientation changes.
 	window.addEventListener("orientationchange", function() {
 		var availableVerticalSpace = $.determineMaxPopoverHeight();
-		$$("popover").forEach(function(popover) {
+		$$("popover").each(function(popover) {
 			popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
 			//popover.style.cssText = "opacity: 0; -webkit-transform: scale(0);";
 			popover.repositionPopover();
@@ -3033,11 +3032,12 @@ Released under MIT license, http://cubiq.org/license
 	// Reposition any visible popovers when window resizes.
 	window.addEventListener("resize", function() {
 		var availableVerticalSpace = $.determineMaxPopoverHeight();
-		$$("popover").forEach(function(popover) {
+		$$("popover").each(function(popover) {
 			popover.find("section").css("max-height:" + (availableVerticalSpace - 100) + "px;");
 	
 			popover.repositionPopover();
 		});
+		$.UIPositionMask();
 	}, false);
 
 	$(function() {
@@ -3063,7 +3063,7 @@ Released under MIT license, http://cubiq.org/license
 				var counter = 0;
 				var alphabeticalList = '<stack ui-kind="alphabetical-list">';
 				var alphabeticalListItems = "";
-				tableview.findAll("tableheader").forEach(function(title){
+				tableview.findAll("tableheader").each(function(title){
 					titles.push(title.text());
 					counter++;
 					title.setAttribute("id", "alpha_" + title.text() + uuidSeed + counter);

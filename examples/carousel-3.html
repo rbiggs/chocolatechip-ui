@@ -42,8 +42,10 @@
 <script type="application/javascript" src="chui/chocolatechip.js"></script>
 <script type="application/javascript" src="chui/chui.js"></script>
 <script type="text/javascript">
-$.ready(function() {
-
+$(function() {
+	$$("panel").each(function(item) {
+		console.log("item.nodeName: ", item.nodeName);
+	});
 });
 </script>
 </head>
