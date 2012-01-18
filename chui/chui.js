@@ -249,7 +249,7 @@ Released under MIT license, http://cubiq.org/license
 				doc = document,
 				i;
 	
-			that.wrapper = typeof el == 'object' ? el : doc.getElementById(el);
+			that.wrapper = typeof el == 'object' ? el : document.querySelector(el);
 			that.wrapper.style.overflow = 'hidden';
 			that.scroller = that.wrapper.children[0];
 	
@@ -1307,7 +1307,7 @@ Released under MIT license, http://cubiq.org/license
 			}
 			var indicatorsWidth = selector.parentNode.css("width");
 			var indicators = '<stack ui-implements="indicators" style="width:"' + indicatorsWidth + ';">';
-			stack.children.each(function(kid, idx) {
+			[].slice.apply(stack.children).each(function(kid, idx) {
 				if (idx === 0) {
 					indicators += '<indicator class="active"></indicator>';
 				} else {
@@ -1316,11 +1316,11 @@ Released under MIT license, http://cubiq.org/license
 			});
 			indicators += "</stack>";
 			// The maximum number of indicators in portrait view is 17.
-			selector.parentNode.parentNode.insert(indicators);
+			selector.parentNode.insert(indicators);
 		},
 	 	UISetupPaging : function() {
 			if ($("stack[ui-implements=paging]")) {
-				$.UIPaging("stack[ui-implements=paging] > panel", {
+				$.UIPaging("stack[ui-implements=paging]", {
 					snap: true,
 					momentum: false,
 					hScrollbar: false,
