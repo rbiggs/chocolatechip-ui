@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Flexible Box Model Layouts</title>
+	<link rel="stylesheet" href="chui/chui.css">
+	<style type="text/css">
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0px;
+			padding: 0px;
+			font: normal 14px/16px Helvetica, Sans-serif;
+		}
+		.grouped {
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			background-color: rgba(255,255,255,0.85);
+			border: solid 1px rgba(0,0,0,0.5);
+			padding: 10px;
+			margin: 10px;
+		}
+		.detailtitle {
+			text-align: center;
+			color: #3b435b;
+			font-size: 14px;
+			font-weight: bold;
+			margin: 10px 10px;
+		}
+		p + .detailtitle {
+			margin-top: 20px;
+		}
+		.detailfooter {
+			font-size: 14px;
+			color: #777;
+			text-align: center;
+			text-shadow: 0px 1px 1px #fff;
+			margin: 0 0 10px 0;
+		}
+		.detailfooter + p {
+			margin-top: 20px;
+		}
+		p.grouped + p.detailfooter {
+			margin: -10px 10px;
+		}
+		splitview {
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			display: -webkit-box;
+			-webkit-box-orient: horizontal;
+			-webkit-box-align: stretch;
+			-webkit-box-sizing: border-box;
+			background:#424242;
+		}
+		detailview, rootview {
+			display: block;
+			position: relative;
+			-webkit-box-sizing: border-box;
+			-webkit-box-flex: 1;
+			height: 100%;
+		}
+		rootview {
+			width: 320px;
+			-webkit-box-flex: 0;
+			margin-right: 1px;
+			position: relative;
+		}
+		rootview > panel {
+			display: block;
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+		rootview > panel > view > subview {
+			background-color: #dcdee4;
+		}
+		detailview > subview {
+		    display: none;
+			background-color: #d6dadf;
+		}
+		detailview > subview:first-of-type {
+		    display: block;
+		}
+		detailview > div, rootview > div {
+			height: 100%;
+		}
+    	rootview ul {
+        	background-color: #fff;
+    	}
+		splitview navbar {
+			height: 45px; 
+			border-bottom: 1px solid #838a9a;
+			background-color: #424242;
+			background-image: 
+				-webkit-gradient(linear, left top, left bottom, 
+					from(#f1f2f5), 
+					color-stop(0.4, #d7dae0), 
+					to(#9498a8)); 
+			-webkit-border-top-left-radius: 4px;
+			-webkit-border-top-right-radius: 4px;
+			position: relative;
+			padding-top: 1px;
+			z-index: 1;
+		}
+		splitview navbar > h1 {
+			line-height: 20px;
+			color: #717880;
+			text-shadow: 0 1px 0 #fff;
+			font-size: 18px; 
+			font-weight: bold;
+			text-align: center;
+		}
+		.landscape splitview navbar uibutton.navigation {
+			display: none;
+		}
+		body:not(.SplitViewFixed).portrait rootview {
+			display: none;
+			position: absolute;
+			top: 44px;
+			left: 10px;
+			z-index: 10000;
+			height: 100%;
+			border-radius: 6px 6px;
+			-webkit-box-shadow: 0 0 10px #000;
+			border: solid 4px #000;
+			background-color: #000;
+		}
+		body:not(.SplitViewFixed).portrait rootview > div {
+			height: auto;
+		}
+		body:not(.SplitViewFixed).portrait rootview:after {
+			content: "";
+			position: absolute;
+			display: block;
+			top: -17px;
+			left: 17px;
+			height: 30px !important;
+			width: 30px;
+			border: solid 4px #000;
+			border-radius: 5px;
+			border-bottom: none;
+			border-right: none;
+			background-color: #9e9e9e !important;
+			-webkit-transform: rotate(45deg);
+			-webkit-mask-image: 
+				-webkit-gradient(linear, left top, right bottom, 
+					from(#000000), 
+					color-stop(0.5,#000000), 
+					color-stop(0.5, transparent), 
+					to(transparent));
+		}
+		body:not(.SplitViewFixed).portrait rootview navbar {
+			margin-top: 0;
+			background-color: none;
+			background-image:
+				-webkit-gradient(linear, left top, left bottom, 
+					from(rgba(255,255,255,.5)), 
+					color-stop(0.5,rgba(30,30,30,.5)), 
+					color-stop(0.5, rgba(0,0,0,.5)), 
+					to(rgba(0,0,0,.45)));
+		}
+		body:not(.SplitViewFixed).portrait rootview navbar h1 {
+			color:#fff;
+			text-shadow: none;
+		}
+		splitview scrollpanel { 
+			display: block; 
+		}
+		splitview subview {
+			height: 100%;
+		}
+		splitview scrollpanel {
+			padding-bottom: 80px;
+		}
+		splitview rootview > panel > view > subview {
+			position: relative;
+		}
+		rootview view[ui-navigation-status=upcoming] {
+			-webkit-transform: translate3d(100%,0%,0%);
+		}
+		rootview view[ui-navigation-status=current] {
+			-webkit-transform: translate3d(0%,0%, 0%);
+		}
+		rootview view[ui-navigation-status=traversed] {
+			-webkit-transform: translate3d(0%, 0%, 0%);
+		}
+	</style>
+	<script src="chui/chocolatechip.js" type="text/javascript"></script>
+	<script src="chui/chui.js" type="text/javascript"></script>
+
+	<script type="text/javascript">
+		$(function() {
+			
+		});
+	</script>
+</head>
+<!-- If you put a class of "SplitViewFixed" on the body tag, the spitview will not hide the left side rootview in portrait mode. -->
+<body class="SplitViewFixed">
+	<app>
+	<splitview>
+		<rootview>
+			<panel>
+				<view id="main" ui-navigation-status="current">
+					<navbar>
+						<h1>Pick One</h1>
+					</navbar>
+					<subview id="scroller2">
+						<scrollpanel>
+							<tableview ui-implements="detail-menu">
+								<tablecell ui-href="detail_1">
+									<celltitle>Fun Items</celltitle>
+								</tablecell>
+								<tablecell ui-href="detail_2">
+									<celltitle>Bad Things</celltitle>
+								</tablecell>
+								<tablecell ui-href="detail_3">
+									<celltitle>Really Bad</celltitle>
+								</tablecell>
+								<tablecell ui-href="detail_4">
+									<celltitle>Bearable</celltitle>
+								</tablecell>
+								<tablecell ui-href="detail_5">
+									<celltitle>Avoid</celltitle>
+								</tablecell>
+							</tableview>
+						</scrollpanel>
+					</subview>
+			    </view>
+			</panel>
+		</rootview>
+		<detailview>
+			<navbar>
+				<h1>Detail 1</h1>
+			</navbar>
+			<subview id="detail_1">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 1</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_2">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 2</p>
+					<p class="grouped">Dignissim ligula. Aspernatur aut odit aut fugit urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_3">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 3</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_4">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 4</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+				</scrollpanel>
+			</subview>
+			<subview id="detail_5">
+				<scrollpanel>
+					<p class="detailtitle">Detail View 5</p>
+					<p class="grouped">Praesent in magna quis elit volutpat interdum et sit amet mi. Vivamus lacinia odio tortor, quis dignissim ligula. Quisque tincidunt urna quis magna gravida accumsan. Donec est nisi, mattis viverra adipiscing a, pretium quis neque. Nam faucibus nibh et nisi aliquam ut consequat urna rhoncus. Phasellus aliquam justo in odio fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna. Sed sed dignissim lacus. Aliquam sem erat, commodo ut accumsan in, placerat id dui. Nam placerat, justo a rutrum laoreet, est lorem dignissim lorem, sed pharetra sapien eros ac nunc.</p>
+					<p class="grouped">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="detailfooter">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est.<p>
+					
+					<p class="detailtitle">Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque</p>
+					<p class="grouped">Nunc mattis iaculis nunc vel condimentum. Morbi lacinia, dolor non viverra consequat, dolor sem tristique massa, eget blandit dolor est ac dui. Donec ante lacus, suscipit id sodales eu, auctor nec purus. Donec eget nulla lacus, sed rhoncus magna. Quisque pretium consectetur nisl, ultrices rhoncus lacus semper in. Suspendisse elementum diam eu elit eleifend at luctus urna commodo. Integer vel est lacus. Nulla turpis nibh, mollis a elementum fermentum, scelerisque sit amet metus. Donec vel velit sed odio feugiat mollis. Donec et nibh ac dui auctor scelerisque. Donec auctor sem nibh. Phasellus facilisis iaculis augue vestibulum consectetur. Praesent et sem quis augue scelerisque eleifend. Quisque metus sem, elementum vitae dignissim sit amet, sodales eu dolor.</p>
+					
+					<p class="detailtitle">Fermentum imperdiet. Pellentesque ac urna lorem, vel luctus magna.</p>
+					<p class="grouped">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat</p>
+					
+				</scrollpanel>
+			</subview>
+		</detailview>
+	</splitview>
+	</app>
+</body>
+</html>

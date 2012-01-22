@@ -1875,7 +1875,8 @@ Released under MIT license, http://cubiq.org/license
 			var val = null;
 			callback = callback || function(){};
 			var buttons = [].slice.apply(this.children);
-					var cont = $(container);
+			var cont = $(container);
+			var kids = [].slice.apply(this.children);
 			if (!this.hasAttribute('ui-selected-segment')) {
 				this.setAttribute("ui-selected-segment", "");
 			}
@@ -1889,11 +1890,13 @@ Released under MIT license, http://cubiq.org/license
 				} catch(e) {}
 			} else {
 				var checkChildNodesForAttr = -1;
-				this.children.each(function(segment, idx) {
-					if (segment.hasClass("selected")) {
-						segment.setAttribute("ui-selected-index", idx);
+				for (var i = 0, len = this.children.length; i < len; i++) {
+					if (this.children[i].hasClass("selected")) {
+						this.setAttribute("ui-selected-index", i);
+					} else {
+						checkChildNodesForAttr++;
 					}
-				});
+				} 
 				if (checkChildNodesForAttr === this.children.length-1) {
 					this.setAttribute("ui-selected-index", 0);
 					this.firstElementChild.addClass("selected");
@@ -1907,7 +1910,7 @@ Released under MIT license, http://cubiq.org/license
 					container.setAttribute("ui-selected-index", 0);
 				}
 				var containerChildren = [].slice.apply(container.children);
-				containerChildren.each(function(child) {
+				containerChildren.forEach(function(child) {
 					child.css("display: none;");
 				});
 				containerChildren[val].css("display","block");
