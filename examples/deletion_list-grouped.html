@@ -22,11 +22,15 @@
 				$("tableview:first-of-type").UIIdentifyChildNodes();
 				var firstTime = true;
 				var deleteItem = function(item) {
-				var comma = firstTime ? "" : ", ";
+					var comma = firstTime ? "" : ", ";
 					$("#selection_list_response > span").insert(comma + item.lastElementChild.text());
 					firstTime = false;
 				};
 				$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem});
+				
+				$("#resetDeleteState").bind("click", function() {
+					$.UIResetDeletionList("tableview", "navbar");
+				});
 			});
 		})($chocolatechip, $$chocolatechip);
 	</script>
@@ -57,6 +61,7 @@
 						</tablecell>
 					</tableview>
 					<p id="selection_list_response" ui-kind="grouped">You just deleted: <span></span></p>
+					<uibutton id="resetDeleteState" ui-kind="action">Reset Delete List</uibutton>
 				</scrollpanel>
 			</subview>
 		</view>

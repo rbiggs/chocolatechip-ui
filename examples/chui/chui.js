@@ -8,13 +8,6 @@
   \:~=++=~:/   
  
 ChocolateChip-UI
-Three yummy ingredients make this something to sink your teeth into:
-ChococlateChip.js: It's tiny but delicious
-ChUI.css: Good looks do impress
-ChUI.js: The magic to make it happen
-Also staring WAML--Web App Markup Language: no more masquerading as a Web page.
-WAML makes coding a Web app logical and straightforward, the way it was meant to be.
-
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
 Version: 1.0
@@ -106,6 +99,16 @@ Released under MIT license, http://cubiq.org/license
 				}
 			});
 		},
+		UINavigateToNextView : function(viewID) {
+			$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				.setAttribute("ui-navigation-status","traversed");
+			$(viewID).setAttribute("ui-navigation-status","current");
+			$.UINavigationHistory.push(viewID);
+			if ($.app.getAttribute("ui-kind") === "navigation-with-one-navbar") {
+				$("navbar uibutton[ui-implements=back]").css({"display":"block"});
+			}
+		},
+		
 		UIDoubleTapDelta : 700,
 		UIDoubleTapTimer : null,
 		UIDoubleTapFunction1 : null,
@@ -158,18 +161,22 @@ Released under MIT license, http://cubiq.org/license
 	$(function() {
 		$.UIBackNavigation();
 		$.UINavigationList();
-		$.app.delegate("input", "click", function(input) {
-			input.focus();
-		});
-		$.app.delegate("input", "touchstart", function(input) {
-			input.focus();
-		});
-		$.app.delegate("textarea", "click", function(textarea) {
-			textarea.focus();
-		}); 
-		$.app.delegate("textarea", "touchstart", function(textarea) {
-			textarea.focus();
-		}); 
+		if ($.ios) {
+			$.app.delegate("input", "touchstart", function(input) {
+				input.focus();
+			});
+			$.app.delegate("textarea", "touchstart", function(textarea) {
+				textarea.focus();
+			});
+		} else {
+			$.app.delegate("input", "click", function(input) {
+				input.focus();
+			});
+			$.app.delegate("textarea", "click", function(textarea) {
+				textarea.focus();
+			}); 
+		}
+		
 		$.app.delegate("view","webkitTransitionEnd", function() {
 			if (!$("view[ui-navigation-status=current]")) {
 				$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
@@ -1371,8 +1378,8 @@ Released under MIT license, http://cubiq.org/license
 			if ((toolbarEl.first().nodeName) === "UIBUTTON") {
 				toolbarEl.first().setAttribute("ui-contains","uibutton");
 			}
-			var deleteButtonTemp = '<uibutton ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>' + label3 + '</label></uibutton>';
-			var editButtonTemp = '<uibutton ui-bar-align="right"  ui-implements="edit" ui-button-labels="' + label1 + ',' + label2 +  '"><label>' + label1 + '</label></uibutton>';
+			var deleteButtonTemp = '<uibutton ui-kind="deletionListDeleteButton" ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>' + label3 + '</label></uibutton>';
+			var editButtonTemp = '<uibutton ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit" ui-button-labels="' + label1 + ',' + label2 +  '"><label>' + label1 + '</label></uibutton>';
 			toolbarEl.insertAdjacentHTML("afterBegin", deleteButtonTemp);
 			toolbarEl.insertAdjacentHTML("beforeEnd", editButtonTemp);
 			var deleteDisclosure = '<deletedisclosure><span>&#x2713</span></deletedisclosure>';
@@ -1388,6 +1395,7 @@ Released under MIT license, http://cubiq.org/license
 					   this.UIToggleButtonLabel(label1, label2);
 					   this.setAttribute("ui-implements", "done");
 					   listEl.addClass("ui-show-delete-disclosures");
+					   
 					   this.parentNode.firstElementChild.style.display = "-webkit-inline-box";
 					   if (/uibutton/i.test(toolbarEl.children[1].nodeName)) {
 						   toolbarEl.children[1].css("display", "none;");
@@ -1455,7 +1463,25 @@ Released under MIT license, http://cubiq.org/license
 			UIEditExecution();
 			UIDeleteDisclosureSelection();
 			UIDeletionExecution();
-		}
+		},
+		
+		UIResetDeletionList : function(node, toolbar) {
+			node = $(node);
+			toolbar = $(toolbar);
+			if (node.hasClass("ui-show-delete-disclosures")) {
+				node.setAttribute("data-deletable-items", 0);
+				[].slice.apply(node.children).forEach(function(item) {
+					item.firstElementChild.removeClass("checked");
+				});
+				node.removeClass("ui-show-delete-disclosures");
+				var resetLabel = toolbar.find("uibutton[ui-kind=deletionListEditButton]").getAttribute("ui-button-labels");
+				resetLabel = resetLabel.split(",");
+				resetLabel = resetLabel[0];
+				toolbar.find("uibutton[ui-kind=deletionListEditButton] > label").text(resetLabel);
+				toolbar.find("uibutton[ui-kind=deletionListEditButton]").setAttribute("ui-implements", "edit");
+				toolbar.find("uibutton[ui-kind=deletionListDeleteButton]").css("display", "none");
+			}
+		}		
 	});
 
 	$.extend($, {

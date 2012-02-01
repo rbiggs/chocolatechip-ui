@@ -20,7 +20,7 @@
 		$.ready(function() {
 			$("#activityChoices").UISelectionList(function(item){
 				$("#selectionResponse.response").fill(item.value);
-				alert("You selected " + item.value);
+				console.log("You selected " + item.value);
 			});
 			
 		});

@@ -19,6 +19,9 @@
 		/* Local JavaScript Here */
 		$.ready(function() {
 		 	
+		 	$("uibutton[ui-kind=action]").bind("click", function() {
+		 		$.UINavigateToNextView("#item_01_detail_view");
+		 	});
 		});
 		
 	</script>
@@ -37,6 +40,7 @@
 						<tablecell href="#item_01_view" ui-implements="disclosure">
 							<celltitle>Item</celltitle>
 						</tablecell>
+						<uibutton ui-kind="action">Straight to Detail View</uibutton>
 					</tableview>
 				</scrollpanel>
 			</subview>

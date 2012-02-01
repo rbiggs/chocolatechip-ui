@@ -83,16 +83,9 @@ Version 1.2.0
 		},
 		
 		make : function ( HTMLString ) {
-			var nodes = [];
 			var temp = document.createElement("div");
 			temp.innerHTML = HTMLString;
-			var i = 0;
-			var len = temp.childNodes.length;
-			while (i < len) {
-				nodes[i] = temp.childNodes[i];
-				i++;
-			}
-			return nodes;
+			return Array.prototype.slice.apply(temp.childNodes);
 		},
 		 
 		replace : function ( newElem, oldElem ) {
@@ -524,24 +517,24 @@ Version 1.2.0
 		},
 		 
 		xhrjson : function ( url, options ) {
-			if (options === "undefined") {
-				return this;
-			}
-			var c = options.callback;
-			if (typeof c != 'function') {
-				c = function (x) {
-					return x;
-				};
-			}
-			var callback = function () {
-				var o = JSON.parse(this.responseText);
-				for (var prop in o) {
-					$(options[prop]).fill(c(o[prop]));
-				}
-			};
-			options.successCallback = callback;
-			this.xhr(url, options);
-			return this;
+            if (options === "undefined") {
+                return this;
+            }
+            var c = options.successCallback;
+            if (typeof c != 'function') {
+                c = function (x) {
+                    return x;
+                };
+            }
+            var callback = function () {
+                var o = eval('(' + this.responseText + ')');
+                for (var prop in o) {
+                    $(options[prop]).fill(c(o[prop]));
+                }
+            };
+            options.successCallback = callback;
+            this.xhr(url, options);
+            return this;
 		},
 
 		data : function ( key, value ) {

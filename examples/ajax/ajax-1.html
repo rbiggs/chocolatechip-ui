@@ -39,18 +39,26 @@
 			/* Example without callback. This just attempts to insert the content
 			directly into the container. If error, an error message will be output. */
 			var content = $("#content_01");
-			content.xhr("data.html", {
+			$.app.xhr("data.html", {
+				successCallback : function() {
+					customers_data = $.responseText;
+					content.insert(customers_data);
+				},
 				errorCallback: function() {
-					content.insert("<h4>There was an error getting the file.</h4>");
+					content.insert("<h4>There was an error while trying to get the file.</h4>");
 				}
 			});
 			
+			/* Here we do a request for a JSON file. If the request is successful, the returned data gets mapped to the object of document elements. This results in the data being inserted into the designated elements of the document. If there is an error, an error message will be displayed. */
 			var content2 = $("#content_02");
-			content2.xhrjson("data.json", { 
+			content2.xhrjson("person.json", { 
 				"firstName": "#firstName",
 				"lastName": "#lastName",
 				"role":"#role",
-				"job": "#job"
+				"job": "#job",
+				errorCallback : function() {
+					content2.insert("<h4>There was a problem processing your request. Try again later.</h4>");
+				}
 			});
 		});
 	</script>
@@ -59,7 +67,7 @@
 <app>
 <app>
 	<view id="main" ui-background-style="slanted-left" ui-navigation-status="current">
-	<navbar class="ui-custom-tint"><h1>$.Template</h1</navbar>
+	<navbar class="ui-custom-tint"><h1>$.Template</h1></navbar>
 		<subview id="subview1" ui-associations="withNavBar">
 			<scrollpanel>
 				<tableview ui-tablecell-order="stacked" ui-kind="grouped">
