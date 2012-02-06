@@ -308,7 +308,6 @@ Version 1.3.0
 			} else {
 				return false;
 			}
-			
 		},
 		
 		not : function ( arg ) {
@@ -1075,7 +1074,7 @@ Version 1.3.0
 				}
 			});
 			return result;
-		}		
+		}	
 	});
 	
 	window.$chocolatechip = $;
