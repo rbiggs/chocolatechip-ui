@@ -1,11 +1,11 @@
 /*
-    pO\     
+    pO\		
    6  /\
      /OO\
     /OOOO\
   /OOOOOOOO\
  ((OOOOOOOO))
-  \:~=++=~:/   
+  \:~=++=~:/    
  
 ChocolateChip-UI
 Three yummy ingredients make this something to sink your teeth into:
@@ -466,6 +466,10 @@ stack[ui-kind=horizontal] {
 	display: -webkit-box;
 	-webkit-box-orient: horizontal;
 }
+stack[ui-kind=horizontal] {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
 stack[ui-kind=vertical] {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
@@ -490,6 +494,9 @@ uibutton {
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     
+}
+uibutton.disabled, uibutton.disabled > label {
+	cursor: default !important;
 }
 navbar > uibutton, 
 toolbar > uibutton {
@@ -1333,8 +1340,8 @@ uibutton[ui-kind=action].gold.touched {
 
 /* Action Important UIButton */
 uibutton[ui-kind=action][ui-implements=done],
-uibutton[ui-kind=action][ui-implements=done].disabled:hover > span, 
-uibutton[ui-kind=action][ui-implements=done].disabled.touched > span  {
+uibutton[ui-kind=action][ui-implements=done].disabled:hover, 
+uibutton[ui-kind=action][ui-implements=done].disabled.touched {
     background-image: 
         -webkit-gradient(linear, left top, left bottom,     
             from(rgba(123,159,235,0.7)), 
@@ -1555,6 +1562,9 @@ segmentedcontrol[ui-bar-align=left] {
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
 }
+toolbar > uibutton[ui-bar-align=left] {
+	margin-left: 10px;
+}
 *[ui-bar-align=right],
 stack[ui-bar-align=right],
 h1[ui-bar-align=right],  
@@ -1625,35 +1635,12 @@ tableview[ui-implements="selection-list"] > tablecell.touched {
     color: #fff;
 	cursor: pointer;
 }
-/*tableview.ui-no-hover > tablecell:hover,
-tableview > tablecell.ui-no-hover:hover,
-tableview > tablecell.ui-no-hover.touched,
-tableview.ui-no-hover > tablecell.touched,
-tableview.ui-no-hover > tablecell:hover > celltitle,
-tableview.ui-no-hover > tablecell.touched > celltitle,
-tableview > tablecell.ui-no-hover:hover > celltitle,
-tableview[ui-tablecell-order=stacked].ui-no-hover > tablecell:hover >cellsubtitle,
-tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover:hover >cellsubtitle,
-tableview[ui-tablecell-order=stacked].ui-no-hover > tablecell.touched >cellsubtitle,
-tableview[ui-tablecell-order=stacked] > tablecell.ui-no-hover.touched >cellsubtitle {
-	background-image: none !important;
-	color: #000 !important;
-	cursor: auto;
-} */
+
 tableview > tablecell[href]:hover > *,
 tableview[ui-implements="detail-menu"] > tablecell:hover > * {
 	color: #fff !important;
 }
-/*tableview > tablecell.ui-no-hover > *, tableview.ui-no-hover > tablecell > * {
-    color: #000 !important
-}*/
-/*view tableview > tablecell.ui-no-hover:hover > cellsubtitle,
-view tableview.ui-no-hover > tablecell:hover > cellsubtitle {
-	color: #586B96 !important;
-}*/
-/*view tableview[ui-tablecell-order="stacked"] > tablecell.ui-no-hover:hover > cellsubtitle {
-	color: #666 !important;
-}*/
+
 tableview > tablecell[href]:hover > span, 
 tableview > tablecell[href].touched > span,
 tableview[ui-implements="detail-menu"] > tablecell:hover > span,
@@ -1867,6 +1854,9 @@ tablecell[ui-implements=add] > cellsubtitle {
 tableview[ui-tablecell-order=centered] > tablecell {
 	position: relative;
 }
+tableview[ui-tablecell-order=centered] > tablecell > celltitle {
+	margin-top: 4px;
+}
 tableview[ui-tablecell-order=centered] > tablecell > celltitle,
 tableview[ui-tablecell-order=centered][ui-kind=grouped] > tablecell > celltitle,
 tableview[ui-kind=grouped][ui-tablecell-order=centered] > tablecell > celltitle  {
@@ -2066,7 +2056,7 @@ tableview > tablecell > button > .content > img {
 	display: none;
 }
 
-celldatetime {
+celldatetime, cellvalue {
 	color: #2671d8;
 	float: right;
 	margin-right: 34px;
@@ -2177,7 +2167,8 @@ tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell:hover >
     color: #4c5f70 !important;
 }
 tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldatetime, 
-tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell:hover > .celldatetime {
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell:hover > .celldatetime, tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > cellvalue, 
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell:hover > .cellvalue  {
 	color: #2671d8 !important;
 }
 tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell > cellsubtitle, 
@@ -2258,7 +2249,9 @@ tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell > cells
 	width: 85%;
 	-webkit-transform: translate3d(0px,0,0);
 }
-tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell > celldatetime {
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell > celldatetime,
+tableview[ui-tablecell-order=stacked].ui-show-move-indicator > tablecell > cellvalue 
+{
 	-webkit-transition: transform .25s ease-in-out;
 	-webkit-transform: translate3d(-10px,0,0);
 }
@@ -3696,10 +3689,10 @@ popover > section {
     background-color: #fff;
     margin: 0px 5px 5px 5px !important; 
     -webkit-border-radius: 5px;
-    sborder: solid 1px transparent;
     min-height: 50px;
     position: relative;
     z-index: 1000;
+    overflow: hidden;
 }
 popover  > header {
     -webkit-box-sizing: border-box;
@@ -3739,9 +3732,6 @@ popover  > section .actionSheet {
     -webkit-border-radius: 5px;
     padding: 1px;
     
-}
-popover > section .sgwt-button.action {
-    margin: 10px 4px !important;
 }
 popover header {
     display: -webkit-box;
@@ -3918,6 +3908,8 @@ mask {
 	bottom: 0;
 	left: 0;
 	right: 0;
+	height: 100%;
+	width: 100%;
 	z-index: 9999;
 	cursor: pointer;
 }

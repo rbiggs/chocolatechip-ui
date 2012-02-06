@@ -1,8 +1,8 @@
 /*
-	pO\		
+    pO\		
    6  /\
-	 /OO\
-	/OOOO\
+     /OO\
+    /OOOO\
   /OOOOOOOO\
  ((OOOOOOOO))
   \:~=++=~:/   
@@ -19,7 +19,7 @@ Released under MIT license, http://cubiq.org/license
 */
 (function($, $$) {
 	window.CHUIVersion = "1.0";
-	var UIExpectedChocolateChipJSVersion = "1.2.0"; 
+	var UIExpectedChocolateChipJSVersion = "1.3.0"; 
 
 	var UICheckChocolateChipJSVersion = function() {
 		if ($.version !== UIExpectedChocolateChipJSVersion) {
