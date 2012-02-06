@@ -298,8 +298,7 @@ Version 1.3.0
 		
 		has : function ( arg ) {
 			if (typeof arg === "string") {
-				var whichNode = [].slice.apply(this.find(arg))[0];
-				if ($.slice.apply(this.children).indexOf(whichNode)) {
+				if (this.find(arg)) {
 					return this;
 				}
 			} else if (arg.nodeType === 1) {
