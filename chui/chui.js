@@ -10,7 +10,7 @@
 ChocolateChip-UI
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.0
+Version: 1.1
 
 Includes:
 iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
@@ -18,8 +18,8 @@ Released under MIT license, http://cubiq.org/license
 
 */
 (function($, $$) {
-	window.CHUIVersion = "1.0";
-	var UIExpectedChocolateChipJSVersion = "1.3.0"; 
+	window.CHUIVersion = "1.1";
+	var UIExpectedChocolateChipJSVersion = "1.3.1"; 
 
 	var UICheckChocolateChipJSVersion = function() {
 		if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -41,7 +41,7 @@ Released under MIT license, http://cubiq.org/license
 	if ( window.innerWidth > 600 ) {
 		$.tablet = true;
 	}
-	$.extend($, {
+	$.extend({
 		UIUuidSeed : function ( seed ) {
 			if (seed) {
 				return (((1 + Math.random()) * 0x10000) | 0).toString(seed).substring(1);
@@ -79,7 +79,7 @@ Released under MIT license, http://cubiq.org/license
 		}
 	});
 	
-	$.extend($, {
+	$.extend({
 		UINavigationHistory : ["#main"],
 		UINavigateBack : function() {
 			 var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
@@ -93,7 +93,7 @@ Released under MIT license, http://cubiq.org/license
 			}
 		},
 		UIBackNavigation : function () {
-			$.app.delegate("uibutton", "click", function(item) {
+			$.app.delegate("uibutton", $.userAction, function(item) {
 				if (item.getAttribute("ui-implements") === "back") {
 				   $.UINavigateBack();
 				}
@@ -143,7 +143,7 @@ Released under MIT license, http://cubiq.org/license
 				$.UINavigationHistory.push(item.getAttribute("href"));
 				$.UIHideURLbar();  
 			};
-			$.app.delegate("tablecell", "click", function(item) {
+			$.app.delegate("tablecell", $.userAction, function(item) {
 				if (item.hasAttribute("href")) {
 					if ($.UINavigationEvent) {
 						return;
@@ -161,21 +161,12 @@ Released under MIT license, http://cubiq.org/license
 	$(function() {
 		$.UIBackNavigation();
 		$.UINavigationList();
-		if ($.ios) {
-			$.app.delegate("input", "touchstart", function(input) {
-				input.focus();
-			});
-			$.app.delegate("textarea", "touchstart", function(textarea) {
-				textarea.focus();
-			});
-		} else {
-			$.app.delegate("input", "click", function(input) {
-				input.focus();
-			});
-			$.app.delegate("textarea", "click", function(textarea) {
-				textarea.focus();
-			}); 
-		}
+		$.app.delegate("input", $.userAction, function(input) {
+			input.focus();
+		});
+		$.app.delegate("textarea", $.userAction, function(textarea) {
+			textarea.focus();
+		}); 
 		
 		$.app.delegate("view","webkitTransitionEnd", function() {
 			if (!$("view[ui-navigation-status=current]")) {
@@ -1277,7 +1268,7 @@ Released under MIT license, http://cubiq.org/license
 	})();
 
 
-	$.extend($, {
+	$.extend({
 		UIScrollers : {},
 
 		UIEnableScrolling : function ( options ) {
@@ -1300,7 +1291,7 @@ Released under MIT license, http://cubiq.org/license
 	$(function() {
 		$.UIEnableScrolling();
 	});
-	$.extend($, {
+	$.extend({
 		UIPaging : function( selector, opts ) {
 			var myPager = new iScroll( selector, opts );
 			var stack = null;
@@ -1343,7 +1334,7 @@ Released under MIT license, http://cubiq.org/license
 		$.UISetupPaging();
 	});
 
-	$.extend($, {
+	$.extend({
 		UIDeletableTableCells : [],
 		UIDeleteTableCell : function( options ) {
 			/* options = {
@@ -1484,7 +1475,7 @@ Released under MIT license, http://cubiq.org/license
 		}		
 	});
 
-	$.extend($, {
+	$.extend({
 		/*
 			option values:
 			selector:
@@ -1655,7 +1646,7 @@ Released under MIT license, http://cubiq.org/license
 		});
 	});
 
-	$.extend($, {
+	$.extend({
 		UIPopUpIsActive : false,
 		UIPopUpIdentifier : null,
 		UIShowPopUp : function( options ) {
@@ -2204,7 +2195,7 @@ Released under MIT license, http://cubiq.org/license
 			var myScroll = new iScroll($("#" + actionSheetID + " > scrollpanel"), { desktopCompatibility: true });
 		}
 	});
-	$.extend($, {
+	$.extend({
 
 		UIShowActionSheet : function(actionSheetID) {
 			$.app.data("ui-action-sheet-id", actionSheetID);
@@ -2324,7 +2315,7 @@ Released under MIT license, http://cubiq.org/license
 			this.css("visibility: visible; position: static;");
 		}
 	});
-	$.extend($, {
+	$.extend({
 		UIAdjustToolBarTitle : function() {
 			$$("navbar h1").each(function(title) {
 				var availableSpace = window.innerWidth - 20;
@@ -2444,7 +2435,7 @@ Released under MIT license, http://cubiq.org/license
 		}
 	});
 
-	$.extend($, {
+	$.extend({
 		UICurX : null,
 		UICurY : null,
 		UISliderThumbWidth : null,
@@ -2603,7 +2594,7 @@ Released under MIT license, http://cubiq.org/license
 		}
 	};	
 
-	$.extend($, {
+	$.extend({
 		UISliderForMouse : function ( selector, opts ) {
 			opts = opts || {};
 			var thumb = $("thumb", selector);
@@ -2812,7 +2803,7 @@ Released under MIT license, http://cubiq.org/license
 			});
 		}
 	});
-	$.extend($, {
+	$.extend({
 		determineMaxPopoverHeight : function() {
 			var screenHeight = window.innerHeight;
 			var toolbarHeight;
@@ -3022,7 +3013,7 @@ Released under MIT license, http://cubiq.org/license
 			}
 		}
 	});
-	$.extend($, {
+	$.extend({
 		UIPositionMask : function() {
 			if ($("mask")) {
 				$("mask").css("height:" + (window.innerHeight + window.pageYOffset) + "px; width: " + window.innerWidth + "px;");
@@ -3068,7 +3059,7 @@ Released under MIT license, http://cubiq.org/license
 			}
 		});
 	});
-	$.extend($, {
+	$.extend({
 		UIAlphabeticalList : function() {
 			if ($("tableview[ui-kind='titled-list alphabetical']")) {
 				var tableview = $("tableview[ui-kind='titled-list alphabetical']");

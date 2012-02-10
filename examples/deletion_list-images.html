@@ -9,7 +9,7 @@
     <script src="../chui/chocolatechip.js" type="text/javascript"></script>
     <script src="../chui/chui.js" type="text/javascript"></script>
     <script type="text/javascript">
-		$.ready(function() {
+		$(function() {
 			$("tableview:first-of-type").UIIdentifyChildNodes();
 			var deleteItem = function(item) {
 				$("tablefooter").insert("<p>你删除表格单元格 " +  (parseInt(item.getAttribute("ui-child-position"),10)+1) + "</p>");

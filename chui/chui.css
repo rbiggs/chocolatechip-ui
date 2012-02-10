@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.0
+Version: 1.0.1
 
 */
 html, body {
@@ -3488,22 +3488,24 @@ view[ui-transition-type=accordion] {
 	0% { -webkit-transform: rotateY(0deg); }
 	100% { -webkit-transform: rotateY(-180deg); }
 }
+
 @-webkit-keyframes anim-flip-top-front-in {
-	0% { -webkit-transform: rotateX(-180deg); }
+	0% { -webkit-transform: rotateX(180deg); }
 	100% { -webkit-transform: rotateX(0deg); }
 }
 @-webkit-keyframes anim-flip-top-front-out {
 	0% { -webkit-transform: rotateX(0deg); }
-	100% { -webkit-transform: rotateX(-180deg); }
+	100% { -webkit-transform: rotateX(180deg); }
 }
 @-webkit-keyframes anim-flip-top-back-in {
 	0% { -webkit-transform: rotateX(0deg); }
-	100% { -webkit-transform: rotateX(180deg); }
+	100% { -webkit-transform: rotateX(-180deg); }
 }
 @-webkit-keyframes anim-flip-top-back-out {
-	0% { -webkit-transform: rotateX(180deg); }
+	0% { -webkit-transform: rotateX(-180deg); }
 	100% { -webkit-transform: rotateX(0deg); }
 }
+
 @-webkit-keyframes anim-flip-bottom-front-in {
 	0% { -webkit-transform: rotateX(-180deg); }
 	100% { -webkit-transform: rotateX(0deg); }
@@ -3518,15 +3520,6 @@ view[ui-transition-type=accordion] {
 }
 @-webkit-keyframes anim-flip-bottom-back-out {
 	0% { -webkit-transform: rotateX(180deg); }
-	100% { -webkit-transform: rotateX(0deg); }
-}
-
-@-webkit-keyframes anim-flip-bottom-back-in {
-	0% { -webkit-transform: rotateX(0deg); }
-	100% { -webkit-transform: rotateX(-180deg); }
-}
-@-webkit-keyframes anim-flip-bottom-back-out {
-	0% { -webkit-transform: rotateX(-180deg); }
 	100% { -webkit-transform: rotateX(0deg); }
 }
 

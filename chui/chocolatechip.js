@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
  
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.3.0
+Version 1.3.1
  
 */
  
@@ -39,20 +39,19 @@ Version 1.3.0
 	};
  
 	$.extend = function(obj, prop) {
+		var O, P;
+		O = prop ? obj : this;
+		P = prop ? prop : obj;
 		if (!Object.keys) {
-			if (!prop) {
-				prop = obj;
-				obj = this;
+			for (var i in P) {
+				O[i] = P[i];
 			}
-			for (var i in prop) {
-				obj[i] = prop[i];
-			}
-			return obj;
+			return O;
 		} else {
-			Object.keys(prop).forEach(function(p) {
-				if (prop.hasOwnProperty(p)) {
-					Object.defineProperty(obj, p, {
-						value: prop[p],
+			Object.keys(P).forEach(function(p) {
+				if (P.hasOwnProperty(p)) {
+					Object.defineProperty(O, p, {
+						value: P[p],
 						writable: true,
 						enumerable: false,
 						configurable: true
@@ -79,6 +78,15 @@ Version 1.3.0
 			else return false;
 		},
 		
+		not : function ( arg ) {
+			var items = [];
+			this.each(function(item) {
+				if (!item.is(arg)) items.push(item);
+			});
+			if (items.length) return items;
+			else return false;
+		},
+		
 		has : function ( arg ) {
 			var items = [];
 			this.each(function(item) {
@@ -88,10 +96,10 @@ Version 1.3.0
 			else return false;
 		},
 		
-		not : function ( arg ) {
+		hasNot : function ( arg ) {
 			var items = [];
 			this.each(function(item) {
-				if (!item.is(arg)) items.push(item);
+				if (item.hasNot(arg)) items.push(item);
 			});
 			if (items.length) return items;
 			else return false;
@@ -112,21 +120,23 @@ Version 1.3.0
 		}
 	});
 	
-	$.extend($, {
+	$.extend({
  
-		version : "1.3.0",
+		version : "1.3.1",
 		
 		libraryName : "ChocolateChip",
+		
+		slice : Array.prototype.slice,
 		
 		$$ : function ( selector, context ) {
 			if (!!context) {
 				if (typeof context === "string") {
-					return [].slice.apply(document.querySelectorAll(context + " " + selector));
+					return $.slice.apply(document.querySelectorAll(context + " " + selector));
 				} else if (context.nodeType === 1){
-					return [].slice.apply(context.querySelectorAll(selector));
+					return $.slice.apply(context.querySelectorAll(selector));
 				}
 			} else {
-				return [].slice.apply(document.querySelectorAll(selector));
+				return $.slice.apply(document.querySelectorAll(selector));
 			}
 		},
 		
@@ -157,6 +167,18 @@ Version 1.3.0
 		
 		concat : function ( args ) {
 			return args instanceof Array ? args.join("") : $.slice.apply(arguments).join("");
+		},
+		
+		isArray : function ( array ) {
+			return Array.isArray( array );
+		},
+		
+		isFunction : function ( fn ) {
+			return Object.prototype.toString.call(fn) === "[object Function]";
+		},
+		
+		isObject : function ( obj ) {
+			return Object.prototype.toString.call(obj) === "[object Object]";
 		}
 	});	
 	
@@ -296,6 +318,11 @@ Version 1.3.0
 			}
 		},
 		
+		not : function ( arg ) {
+			if (!this.is(arg)) return this;
+			else return false;
+		}, 
+		
 		has : function ( arg ) {
 			if (typeof arg === "string") {
 				if (this.find(arg)) {
@@ -310,10 +337,10 @@ Version 1.3.0
 			}
 		},
 		
-		not : function ( arg ) {
-			if (!this.is(arg)) return this;
+		hasNot : function ( arg ) {
+			if (!this.has(arg)) return this;
 			else return false;
-		}, 
+		},
 		 
 		clone : function ( value ) {
 			if (value === true || !value) {
@@ -401,6 +428,10 @@ Version 1.3.0
 				}
 			}
 			return this;
+		},
+		
+		html : function ( content ) {
+			this.empty().insert(content);
 		},
 		
 		prepend : function ( content ) {
@@ -832,6 +863,7 @@ Version 1.3.0
 		ios5 : navigator.userAgent.match(/OS 5/i),
 		safari5 : navigator.userAgent.match(/AppleWebKit\/(\d+)/)[1] < 534,
 		safari5_1 : navigator.userAgent.match(/AppleWebKit\/(\d+)/)[1] >= 534,
+		userAction : ($.touchEnabled ? "touchstart" : "click"),
 		 
 		localItem : function ( key, value ) {
 			try {
@@ -1076,7 +1108,7 @@ Version 1.3.0
 			return result;
 		}	
 	});
-	
+
 	window.$chocolatechip = $;
 	window.$$chocolatechip = $.$$;
 	if (window.$ === undefined) {
