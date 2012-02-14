@@ -61,7 +61,7 @@ Version 1.3.1
 		}
 		return this;
 	};
-	 
+	
 	$.extend(Array.prototype, {
 		each : Array.prototype.forEach,
 		
@@ -106,6 +106,7 @@ Version 1.3.1
 		},
 		
 		prependTo : function ( selector ) {
+			this.reverse();
 			this.each(function(item) {
 				$(selector).prepend(item);
 			});
@@ -144,6 +145,10 @@ Version 1.3.1
 			var temp = document.createElement("div");
 			temp.innerHTML = HTMLString;
 			return Array.prototype.slice.apply(temp.childNodes);
+		},
+		
+		html : function ( HTMLString ) {
+			return this.make(HTMLString);
 		},
 		 
 		replace : function ( newElem, oldElem ) {
@@ -435,6 +440,7 @@ Version 1.3.1
 		},
 		
 		prepend : function ( content ) {
+			if ($.isArray(content)) content.reverse();
 			this.insert(content, "first");
 		},
 		

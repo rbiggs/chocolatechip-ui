@@ -258,14 +258,19 @@ An array to store the ids of views through which the user has navigated. $.UIBac
 
 **See Also:**
 
-[$.UIBackNavigation](#UIBackNavigation)
+[$.UINavigateBack](#UINavigateBack)
+
+[$.UINavigationList](#UINavigationList)
+
+[$.UINavigateToNextView](#UINavigateToNextView)
+
 
 
 &nbsp;
   
-<a name="UIBackNavigation"></a>
+<a name="UINavigateBack"></a>
 
-##Function: $.UIBackNavigation
+##Function: $.UINavigateBack
 
 A method to navigate back to the previous view from whence the user came. This method uses an event delegate on the app tag to listen for clicks on all uibuttons with the attribute 'ui-implements="back"'. The method gets its destination by popping the value out of the $.UINavigationHistory array. This menu also implements page transitions by changing the ui-navigation-status of the views. The current view will always have a ui-navigation-status of "current". When navigating back, the current view's ui-navigation-status is changed to "upcoming", and the previous view's ui-navigation-status is changed to current. These changes cause the current view to transition out of view to the right and the previous view to transition into view from the left.
 
@@ -278,6 +283,8 @@ A method to navigate back to the previous view from whence the user came. This m
 [$.UINavigationHistory](#UINavigationHistory)
 
 [$.UINavigationList](#UINavigationList)
+
+[$.UINavigateToNextView](#UINavigateToNextView)
 
 
 &nbsp;
@@ -293,7 +300,42 @@ Because a user may touch a navigation list item several times, $.UINavigationLis
 
 **See Also**
 
-[$.UIBackNavigation](#UIBackNavigation)
+[$.UINavigateBack](#UINavigateBack)
+
+[$.UINavigationHistory](#UINavigationHistory)
+
+[$.UINavigateToNextView](#UINavigateToNextView)
+
+
+&nbsp;
+
+##Function: $.UINavigateToNextView
+
+A method that allows you to direct the user to a view outside the current navigation scheme. This is especially useful in situations where the user is in a navigation list or any where else and you want to provide a way to go to some other view and return to this view using the "Back" uibutton.
+
+**Syntax:**
+
+    $.UINavigateToNextView(view);
+
+**Parameters:**
+
+- A valid view selector.
+
+**Example:**
+
+    $("#viewSummaryButton").bind("click", function() {
+       $.UINavigateToNextView("#summaryView");
+    }
+
+**See Also**
+
+[$.UINavigateBack](#UINavigateBack)
+
+[$.UINavigationHistory](#UINavigationHistory)
+
+[$.UINavigationList](#UINavigationList)
+
+
 
 
 &nbsp;

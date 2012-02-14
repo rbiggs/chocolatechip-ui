@@ -602,6 +602,8 @@ A table view is not the same as an HTML table. A tableview corresponds to a data
 
 [celldatetime](#celldatetime)
 
+[cellvalue](#cellvalue)
+
 [cellcounter](#cellcounter)
 
 
@@ -692,6 +694,7 @@ The following layouts were derived from Apple's Mobile Human Interface Guideline
 - [tablecell with an icon](#tablecell_with_an_icon)
 - [celltitle with uibutton or switchcontrol](#celltitle_with_uibutton_or_switchcontrol)
 - [tablecell with celldatetime](#tablecell_with_celldatetime)
+- [tablecell with cellvalue](#tablecell_with_cellvalue)
 - [tablecell with cellcounter](#tablecell_with_cellcounter)
 
 <a name="simple_celltitle"></a>
@@ -753,6 +756,13 @@ There is a type of layout with a celltitle and a uibutton or switchcontrol on th
 If you need to output a date or time of any kind, use the celldatetime tag for this. Make sure that the celldatetime is the next tag after the celltitle. This is so that if there is also any type of indicator, such as disclosure, detial-disclosure or add, that the celldatetime tag aligns perfectly with all of them. After the celldatetime tag other tablecell tags can follow. **Please note**, the tableview should have *ui-ui-tablecell-order="stacked"*.
 
 
+<a name="tablecell_with_cellvalue"></a>
+
+**tablecell with cellvalue**
+
+Like the celldatetime tag, there is also a cellvalue tag. This gets rendered exactly like the celldatetime tag, which means that you can't use both in the same table cell. It is for any currency or unit values you want to display. **Please note**, the tableview should have *ui-ui-tablecell-order="stacked"*.
+
+
 <a name="tablecell_with_cellcounter"></a>
 
 **tablecell with cellcounter**
@@ -770,6 +780,8 @@ If you need to indicate some numerical value related to the cell, such as how ma
 [celldetail](#celldetail)
 
 [celldatetime](#celldatetime)
+
+[cellvalue](#cellvalue)
 
 [cellcounter](#cellcounter)
 
@@ -795,6 +807,8 @@ This is normally the largest most noticeable item in a tablecell. A tablecell wi
 
 [celldatetime](#celldatetime)
 
+[cellvalue](#cellvalue)
+
 [cellcounter](#cellcounter)
 
 
@@ -817,6 +831,8 @@ By default all cellsubtitles get are a smaller font size than the celltitle and 
 [celldetail](#celldetail)
 
 [celldatetime](#celldatetime)
+
+[cellvalue](#cellvalue)
 
 [cellcounter](#cellcounter)
 
@@ -842,6 +858,8 @@ This tag serves to hold a detail description, usually a paragraph of text. If ne
 
 [celldatetime](#celldatetime)
 
+[cellvalue](#cellvalue)
+
 [cellcounter](#cellcounter)
 
 
@@ -852,7 +870,33 @@ This tag serves to hold a detail description, usually a paragraph of text. If ne
 
 ##Tag: celldatetime
 
-The celldatetime tag is used for output any date or time data in a tablecell. Use it with *ui-ui-tablecell-order="stacked"* on the tableview. The celldatetime tag should be the tag immediately after the celltitle tag. It will then be positioned on the right side of the tablecell, leaving room for any type of tablecell indicator.
+The celldatetime tag is used for output any date or time data in a tablecell. Use it with *ui-ui-tablecell-order="stacked"* on the tableview. The celldatetime tag should be the tag immediately after the celltitle tag. It will then be positioned on the right side of the tablecell, leaving room for any type of tablecell indicator. Because this tag is render the same as the cellvalue tag, they cannot be used together in the same table cell.
+
+**See Also:**
+
+[tableview](#tableview)
+
+[tablecell](#tablecell)
+
+[celltitle](#celltitle)
+
+[cellsubtitle](#cellsubtitle)
+
+[celldetail](#celldetail)
+
+[cellvalue](#cellvalue)
+
+[cellcounter](#cellcounter)
+
+
+
+&nbsp;
+
+<a name="cellvalue"></a>
+
+##Tag: cellvalue
+
+The cellvalue tag is used for output any currency or unit in a tablecell. Use it with *ui-ui-tablecell-order="stacked"* on the tableview. The cellvalue tag should be the tag immediately after the celltitle tag. It will then be positioned on the right side of the tablecell, leaving room for any type of tablecell indicator. Because this tag is render the same as the celldatetime tag, they cannot be used together in the same table cell.
 
 **See Also:**
 
@@ -867,6 +911,9 @@ The celldatetime tag is used for output any date or time data in a tablecell. Us
 [celldetail](#celldetail)
 
 [cellcounter](#cellcounter)
+
+[celldatetime](#celldatetime)
+
 
 
 
@@ -891,6 +938,8 @@ A cellcounter is used for outputting any kind of numerical data related to the t
 [celldetail](#celldetail)
 
 [celldatetime](#celldatetime)
+
+[cellvalue](#cellvalue)
 
 
 &nbsp;

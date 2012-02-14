@@ -10,7 +10,7 @@
 ChocolateChip-UI
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.1
+Version: 1.1.1
 
 Includes:
 iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
@@ -18,7 +18,7 @@ Released under MIT license, http://cubiq.org/license
 
 */
 (function($, $$) {
-	window.CHUIVersion = "1.1";
+	window.CHUIVersion = "1.1.1";
 	var UIExpectedChocolateChipJSVersion = "1.3.1"; 
 
 	var UICheckChocolateChipJSVersion = function() {
@@ -1471,7 +1471,11 @@ Released under MIT license, http://cubiq.org/license
 				toolbar.find("uibutton[ui-kind=deletionListEditButton] > label").text(resetLabel);
 				toolbar.find("uibutton[ui-kind=deletionListEditButton]").setAttribute("ui-implements", "edit");
 				toolbar.find("uibutton[ui-kind=deletionListDeleteButton]").css("display", "none");
+				toolbar.find("uibutton[ui-kind=deletionListDeleteButton]").toggleClass('disabled');
 			}
+			node.findAll('tablecell').forEach(function(cell) {
+				cell.removeClass('deletable');
+			});
 		}		
 	});
 

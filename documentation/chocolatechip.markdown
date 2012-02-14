@@ -108,42 +108,218 @@ A variable holding the name of this library: "ChocolateChip".
 	}
 
 
+&nbsp;
 
-<a name="collectionToArray"></a>
+##Function: Array.each
+
+**Syntx:**
+
+    Array.each(function(item, index){ //code });
+
+**Parameters:**
+
+- a function to execute. The function takes two arguments, the item at that iteration (equavalent to "this"), and the numerical index of the iteration.
+
+**Example:**
+
+    
+
 
 
 &nbsp;
 
-##Function: $.collectionToArray
+##Function: Array.eq
 
-This is a function to convert an DOM node collection into an array. This is so you can use array extras like, forEach, map, slice, etc.
+This method is used on node collections returned by $$. It allows you to pick out a particular node from the collection based on its index. Counting starts from 0. So Array.eq(0) would be the first node in the collection. If a negative number is provided, it, the counting starts from the end of the collection using 1 as the first. In other words, Array.eq(-1) will return the last node in the collection.  Array.eq(-2) will return the next to the last, etc.
 
-**Syntax:**
+**Syntx:**
 
-    $.collectionToArray(NodeList);
+    Array.eq(0);
 
 **Parameters:**
 
-- The node collection to convert into an array.
+- A valid index number. This may be positive or negative.
 
-**Returns**
+**Returns:**
 
-An array of nodes in an HTMLElement collection. 
+The index of the array. 
 
 **Example:**
 
-    var p = document.getElementsByTagName("p");
-    var pArray = $.collectionToArray(p);
-    
-    var elem = $("#myList");
-    var listitems = $.collectionToArray(elem.children);
-        listitems.forEach(function(item) {
-        // Process code here.
-    }
+   var p = $$("p");
+   p.eq(5).addClass("important");
+   p.eq(-2).addClass("nearTheEnd");
 
-**See Also:**
 
-[$.$$](#$$)
+&nbsp;
+
+##Function: Array.is
+
+**Syntx:**
+
+    Array.is();
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+**Returns:**
+
+Returns an array of all nodes that match the argument.
+
+**Example:**
+
+    // Find all messages that are p tags:
+    var msg = $$('.messages').is('p');
+    // Find all li tags with the class "menu":
+    var menuItems = $$('li').is('.menu');
+    // Find all buttons with the attribute "disabled":
+    var disabled = $$('button').is('[disabled]');
+
+&nbsp;
+
+##Function: Array.not
+
+This method is the opposite of Array.is. It returns an array of all nodes that do not match the argument.
+
+**Syntx:**
+
+    Array.not();
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+**Returns:**
+
+Returns an array of all nodes that do not match the argument.
+
+**Example:**
+
+    // Find all messages that are not p tags:
+    var msg = $$('.messages').not('p');
+    // Find all li tags that do not have the class "menu":
+    var menuItems = $$('li').is('.menu');
+    // Find all buttons that are not disabled:
+    var disabled = $$('button').not('[disabled]');
+
+
+
+
+&nbsp;
+
+##Function: Array.has
+
+This method allows you to filter an array of nodes based on each node's child nodes. You can define the child nodes by tag, class or attribute. The match will return a node if at least one of its child nodes matches the argument.
+
+**Syntx:**
+
+    Array.has();
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+
+**Returns:**
+
+An array of nodes whose child node(s) match the argument.
+
+**Example:**
+
+    // Find all messages that contain a span tag:
+    var msg = $$(".message").has("span");
+    // Find all items with a child node of class "status":
+    var complete = $$("p.tasks").has(".status");
+    // Find all items with a disabled child node:
+    var disabledItems = $$(".widget").has("[disabled]");
+
+
+&nbsp;
+
+##Function: Array.hasNot
+
+This method allows you to filter an array of nodes based on each node's child nodes. You can define the child nodes by tag, class or attribute. The match will return a node if at least one of its child nodes does not match the argument.
+
+**Syntx:**
+
+    Array.hasNot();
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+**Returns:**
+
+An array of nodes whose child node(s) do not match the argument.
+
+**Example:**
+
+    // Find all messages that do not contain a span tag:
+    var msg = $$(".message").hasNot("span");
+    // Find all items without a child node of class "completed":
+    var todo = $$("p.tasks").hasNot(".completed");
+    // Find all items with a disabled child node:
+    var disabledItems = $$(".widget").hasNot("[disabled]");
+
+
+
+
+&nbsp;
+
+##Function: Array.prependTo
+
+This method inserts an array of nodes before the contents of the selector. If the selector has no children, the result is the same as an insertion. When prependTo iterates on an array, the default would normally be for the array's contents to be reverse after inserting. This is probably not what the user would expect, so prependTo automatically reverses an array before prepending so that the inserted nodes are in the same order as in the original array. If this is not the behavior you want, you can simply reverse the array before prepending it. 
+
+**Syntx:**
+
+    Array.prependTo(selector);
+
+
+**Parameters:**
+
+- Any valid selector.
+
+**Example:**
+
+   var arr = $.make('<li>One</li><li>Two</li><li>Three</li>');
+   // Insert before whatever items are already in the list:
+   arr.prependTo('ol');
+   // or simply:
+   $.make('<li>One</li><li>Two</li><li>Three</li>').prependTo('ol');
+
+
+&nbsp;
+
+##Function: Array.appendTo
+
+This method insert an array of nodes after the contents of the selector. If the selector has no children, it is the same as an insertion.
+
+**Syntx:**
+
+    Array.appendTo(selector);
+
+**Parameters:**
+
+- Any valid selector.
+
+**Example:**
+
+   var arr = $.make('<li>Five</li><li>Six</li><li>Seven</li>');
+   // Insert after whatever items are already in the list:
+   arr.appendTo('ol');
+   // or simply:
+   $.make('<li>Five</li><li>Six</li><li>Seven</li>').appendTo('ol');
+
+
 
 
 
@@ -182,6 +358,128 @@ An array of nodes comprising an element collection.
 [$.collectionToArray #collectionToArray]
 
 
+
+
+
+&nbsp;
+
+##Function: $.noop
+
+**Syntx:**
+
+    $.noop();
+
+**Example:**
+
+    // Use where code expects a function:
+    function doSomething(callback) {
+    	console.log("We're doing something here.");
+    	callback();
+    }
+    doSomething($.noop);
+
+
+
+
+&nbsp;
+
+##Function: $.concat
+
+A method to create strings. Generally speaking, string concatenation is terribly inefficient. I'm talking about using the "+" operator with strings. The more pieces you add the more inefficient it becomes. In contrast, In contrast, collapsing an array into a string using Array.join() is very quick and efficient. $.concat uses this array method to concatenate strings efficiently. The method can take as arguments an array, or a comma separated series of strings (see Parameters below). In the case of a list of strings as arguments, it converts the arguments object into an array and joins it.
+
+**Syntx:**
+
+    $.concat(Array);
+    $.concat(String, String, String, String);
+
+**Parameters:**
+
+- An array of strings to concatenate.
+- A comma separated list of strings to concatenate.
+
+**Returns:**
+
+A string.
+
+**Example:**
+
+    var str1 = $.concat(['This',' ','an',' ','example',' ','of',' ','string',' ','concatenation','.']);
+    var str2 = $.concat('This',' ','an',' ','example',' ','of',' ','string',' ','concatenation','.');
+
+
+
+
+&nbsp;
+
+##Function: $.isArray
+
+A method to test if the argument is an array.
+
+**Syntx:**
+
+    $.isArray(Array);
+
+**Parameters:**
+
+- A valid array.
+
+**Returns:**
+
+A boolean true or false.
+
+**Example:**
+
+    // This returns true:
+    var arr = $.isArray([]);
+
+
+
+&nbsp;
+
+##Function: $.isFunction
+
+**Syntx:**
+
+    $.isFunction(Function);
+
+**Parameters:**
+
+- A valid function.
+
+**Returns:**
+
+A boolean true or false.
+
+**Example:**
+
+    // This will return true:
+    var func = $.isFunction($.noop);
+
+
+
+&nbsp;
+
+##Function: $.isObject
+
+**Syntx:**
+
+    $.isObject(Object);
+
+**Parameters:**
+
+- A valid object.
+
+**Returns:**
+
+A boolean true or false.
+
+**Example:**
+
+    // This returns true:
+    var obj = $.isObject({});
+
+
+			
 
 &nbsp;
 
@@ -310,6 +608,83 @@ A method to get the last child of an element, while avoiding empty text nodes. T
 <a name="elementAncestor"></a>
 
 
+
+
+&nbsp;
+
+##Function: Element.childElements
+
+A method to get all of the child nodes of an element. This will not include empty text nodes or comments. If a selector is passed as an argument, the child nodes will be filtered by that selector. 
+
+**Syntx:**
+
+    Element.childElements();
+
+**Parameters:**
+
+- Any valid selector: tag, class or attribute.
+
+**Returns:**
+
+An array of child nodes.
+
+**Example:**
+
+    // Get all child nodes of the element:
+    var descendants = $('#main').childElements();
+    // Get all child nodes that are paragraphs:
+    var descendants = $('#main').childElements('p');
+    // Get all child nodes that has a class 'fun':
+    var descendants = $('#main').childElements('.fun');
+    // Get all child nodes that are disabled:
+    var disabledEls = $('#main').childElements('[disabled=disabled]');
+   
+
+
+&nbsp;
+
+##Function: Element.kids
+
+This is just a shortcut for Element.childElements.
+
+
+
+
+
+
+&nbsp;
+
+##Function: Element.siblings
+
+A method to get the siblings of an element. This will not include empty text node or comments. If a selector is passed as an argument, the siblings will be filtered by that argument.
+
+**Syntx:**
+
+    Element.siblings();
+
+**Parameters:**
+
+- Any valid selector: tag, class or attribute.
+
+**Returns:**
+
+An array of sibling nodes.
+
+**Example:**
+
+    // Get all siblings of the element:
+    var sibs = $('#menu').siblings();
+    // Get all siblings that are paragraphs:
+    var sibs = $('#menu').siblings('p');
+    // Get all siblings that have a class 'fun':
+    var sibs = $('#menu').siblings('.fun');
+    // Get all siblings that do not have the class 'fun':
+    var sibs = $('#menu').siblings().not('.fun');
+
+
+
+
+
 &nbsp;
 
 ##Function: Element.ancestor
@@ -341,6 +716,144 @@ A matched ancestor node.
     // Will return a subview tag if it is an ancestor of "#someID":
     var theAncestor = $("#someID").ancestor("subview");
 
+
+
+
+&nbsp;
+
+##Function: Element.closest
+
+This is a shortcut for ancestor. This is for those used to using the jQuery function of the same name and functionality.
+
+
+
+
+&nbsp;
+
+##Function: Elements.is
+
+A method to test if the element matches the argument passed.
+
+**Syntx:**
+
+    Element.is(selector);
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+**Returns:**
+
+If the element matches the argument, it returns the element, otherwise it returns boolean false.
+
+**Example:**
+
+   // Return the element if its a paragraph:
+   var p = $("#content").is('p');
+   // Return the element if it has the class 'content':
+   var content = $('article').is('.content');
+   // Return the element if it has the atribute 'disabled':
+   var disabled = $('button').is('[disabled]');
+
+
+
+&nbsp;
+
+##Function: Element.not
+
+A method to test is the element does not match the argument passed.
+
+**Syntx:**
+
+    Element.not(selector)
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+**Returns:**
+
+If the element does not match the argument, it returns the element, otherwise it returns boolean false.
+
+**Example:**
+
+   // Return the element if it is not a paragraph:
+   var notParagraph = $("#content").not('p');
+   // Return the element if it does not have the class 'content':
+   var notContent = $('article').not('.content');
+   // Return the element if it has the atribute 'disabled':
+   var enabled = $('button').not('[disabled]');
+
+
+
+
+&nbsp;
+
+##Function: Element.has
+
+A method to test is the element has a child node that matches the argument.
+
+**Syntx:**
+
+    Element.has(selector);
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+**Returns:**
+
+If the element has a child node that matches the argument, it returns the element, otherwise it returns boolean false.
+
+**Example:**
+
+    // Return the element if it has a child node of this tag type:
+    var p = $('#content').has('p');
+    // Return the element if it has a child node with this class:
+    var hasNewContent = $('#content').has('.new');
+    // Return the element if it has a child node with this attribute:
+    var somethingDisabled = $('#content').has('[disabled=disabled]');
+    
+
+
+
+&nbsp;
+
+##Function: Element.hasNot
+
+A method to test if the element does not have a child node that matches the argument.
+
+**Syntx:**
+
+    Element.hasNot(selector);
+
+**Parameters:**
+
+- A valid tag.
+- A valid class name.
+- A valid attribute.
+
+**Returns:**
+
+If the element has a child node that does not match the argument, it returns the element, otherwise it returns boolean false.
+
+**Example:**
+
+    // Return the element if it does not have a child node of this tag type:
+    var p = $('#content').hasNot('p');
+    // Return the element if it has a child node with this class:
+    var doesntHaveNewContent = $('#content').hasNot('.new');
+    // Return the element if it does not have a child node with this attribute:
+    var notDisabled = $('#content').hasNot('[disabled=disabled]');
+
+
+
          
 
 &nbsp;
@@ -365,6 +878,17 @@ A collection of new nodes.
 **Example:**
 
     var paragraph = $.make("<p>This is a paragraph</p>");
+
+
+
+         
+
+&nbsp;
+
+##Function: $.html
+
+This is an alias for $.make to represent what it does better.
+
 
 
  
@@ -565,7 +1089,8 @@ A method to insert a node or nodes at nth position in the child node collection 
 **Parameters:**
 
 - A valid node to insert into the child node collection of another node.
-- A string with a value for first or last position for insertion.
+- A string of markup to insert.
+- A string with a value for 'first' or 'last' for the position to insert.
 - An integer indicating the position in the target element's child node collection at which to insert.
 
 **Example:**
@@ -576,6 +1101,88 @@ A method to insert a node or nodes at nth position in the child node collection 
         ++$.itemNumber;
     });
     $.itemNumber = null;
+    
+
+
+
+
+&nbsp;
+
+##Function: Element.html
+
+This method is basically the same as doing Element.empty().insert(). It performs and Element.empty() on the element before inserting the content.
+
+**Syntx:**
+
+    Element.html(content);
+
+**Parameters:**
+
+- A valid node to insert into the child node collection of another node.
+- A string of markup to insert.
+- A string with a value for 'first' or 'last' for the position to insert.
+- An integer indicating the position in the target element's child node collection at which to insert.
+
+
+**Example:**    
+
+    var arr = '<li>One</li><li>Two</li><li>Three</li>';
+    $('ul').html(arr);
+    // or:
+    $('ul').html('<li>One</li><li>Two</li><li>Three</li>');
+
+
+&nbsp;
+
+##Function: Element.prepend
+
+A method to prepend content to a node. The content can be a string of valid markup, an array of nodes, or a single node.
+
+**Syntx:**
+
+    Element.prepend(content);
+
+**Parameters:**
+
+- A valid node to insert.
+- An array of nodes to insert.
+- A string of markup to insert.
+
+**Example:**    
+
+    var newNode = $.make('<p>A new node!</p>');
+    $('#content').prepend(newNode);
+    // or:
+    $('#content').prepend('<p>A new node!</p>');
+
+
+
+
+&nbsp;
+
+##Function: Element.append
+
+A method to append content to a node. The content can be a string of valid markup, an array of node, or a single node.
+
+**Syntx:**
+
+    Element.append(content);
+
+**Parameters:**
+
+- A valid node to insert.
+- An array of nodes to insert.
+- A string of markup to insert.
+
+**Example:**    
+
+    var newNode = $.make('<p>A new node!</p>');
+    $('#content').append(newNode);
+    // or:
+    $('#content').append('<p>A new node!</p>');
+
+
+
 
 
  
