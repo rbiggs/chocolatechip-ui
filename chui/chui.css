@@ -764,7 +764,7 @@ uibutton.disabled.touched {
 }			
 uibutton[ui-implements=back] {
     padding: 0px 7px 0px 3px;
-    margin-left: 20px;
+    margin-left: 16px;
     position: relative;
     border-left-color: transparent;
 }
@@ -780,21 +780,21 @@ uibutton[ui-implements=back].disabled.touched:before {
     z-index: 0;
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
-            from(#92a1bf), 
+            color-stop(0.1, #92a1bf),
             color-stop(0.3, #798aad),
             color-stop(0.51, #6276a0), 
             color-stop(0.51, #556a97), 
             color-stop(0.75, #566c98),
             to(#546993)); 
-    border-left: solid 1px #484e59;
-    border-bottom: solid 1px #9aa5bb;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
+    border-left: solid 1px #54617D;
+    border-bottom: solid 1px #9AA5BB; 
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-bottom-right-radius: 7px;
     -webkit-border-bottom-left-radius: 4px;
-    height: 23.5px;
-    width: 23.5px;
+    height: 22.2px;
+    width: 22.2px;
     display: inline-block;
-    -webkit-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg) skew(6deg, 6deg);
     -webkit-mask-image: 
         -webkit-gradient(linear, left bottom, right top, 
             from(#000000), 
@@ -802,15 +802,15 @@ uibutton[ui-implements=back].disabled.touched:before {
             color-stop(0.5, transparent), 
             to(transparent));
     position: absolute;
-    left: -9px;
-    top: 2.5px;
+    left: -8px;
+    top: 3px;
     -webkit-background-clip: content;
 }
 uibutton[ui-implements=back]:hover:before, 
 uibutton[ui-implements=back].touched:before {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
-            from(#7d88a5), 
+            color-stop(0.1, #7d88a5), 
             color-stop(0.3, #58698c),
             color-stop(0.51, #3a4e78), 
             color-stop(0.51, #253c6a), 
@@ -824,7 +824,7 @@ uibutton[ui-implements=back].touched:before {
 uibutton[ui-implements=next]:last-of-type {
     padding: 0px 3px 0px 7px;
     margin-right: 0px;
-    right: 20px !important;
+    right: 16px !important;
     position: relative;
     border-right-color: transparent;
 }
@@ -840,23 +840,21 @@ uibutton[ui-implements=next].disabled.touched:before  {
     z-index: 0;
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
-            from(#92a1bf), 
+            color-stop(0.1, #92a1bf),
             color-stop(0.3, #798aad),
             color-stop(0.51, #6276a0), 
             color-stop(0.51, #556a97), 
             color-stop(0.75, #566c98),
             to(#546993)); 
-    border-right: solid 1px #9aa5bb;
+    border-right: solid 1px #484e59;
     border-top: solid 1px #484e59;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-top-left-radius: 7px;
+    -webkit-border-bottom-right-radius: 7px;
     -webkit-border-top-right-radius: 4px;
-    height: 23.5px;
-    width: 23.5px;          
-    height: 23.5px;
-    width: 23.5px;
+    height: 22.2px;
+    width: 22.2px;
     display: inline-block;
-    -webkit-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg) skew(6deg, 6deg);
     -webkit-mask-image: 
         -webkit-gradient(linear, right top, left bottom, 
             from(#000000), 
@@ -864,7 +862,7 @@ uibutton[ui-implements=next].disabled.touched:before  {
             color-stop(0.5, transparent), 
             to(transparent));
     position: absolute;
-    right: -9px;
+    right: -8px;
     top: 2.5px;
     -webkit-background-clip: content;
 }
@@ -872,7 +870,7 @@ uibutton[ui-implements=next]:hover:before,
 uibutton[ui-implements=next].touched:before {
     background-image: 
         -webkit-gradient(linear, left top, right bottom, 
-            from(#7d88a5), 
+            color-stop(0.1, #7d88a5), 
             color-stop(0.3, #58698c),
             color-stop(0.51, #3a4e78), 
             color-stop(0.51, #253c6a), 
@@ -1406,37 +1404,38 @@ uibutton[ui-implements=delete].ui-custom-tint.touched {
 uibutton[ui-implements=back].ui-custom-tint:before {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.05,rgba(255,255,255,.5)), 
+			color-stop(0.1, rgba(255,255,255,.5)), 
 			color-stop(0.5,rgba(30,30,30,.5)),
 			color-stop(0.5, rgba(0,0,0,.5)), 
-			color-stop(0.95,rgba(0,0,0,.5)));
+			color-stop(0.9,rgba(0,0,0,.5)));
+	-webkit-box-shadow: 0 1px 1px #9AA5BB, 0 -1px 1px #8E96A5;
 }
 uibutton[ui-implements=back].ui-custom-tint:hover:before, 
 uibutton[ui-implements=back].ui-custom-tint.touched:before {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.05,rgba(0,0,0,.1)), 
+			color-stop(0.1, rgba(0,0,0,.1)), 
 			color-stop(0.5,rgba(0,0,0,.5)), 
 			color-stop(0.5, rgba(0,0,0,.6)), 
-			color-stop(0.95,rgba(255,255,255,.2)));
+			color-stop(0.9,rgba(255,255,255,.2)));
 }
 
 uibutton[ui-implements=next].ui-custom-tint:before {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.05,rgba(255,255,255,.5)), 
+			color-stop(0.1, rgba(255,255,255,.5)), 
 			color-stop(0.5,rgba(30,30,30,.5)),
 			color-stop(0.5, rgba(0,0,0,.5)), 
-			color-stop(0.95,rgba(0,0,0,.5)));
+			color-stop(0.9,rgba(0,0,0,.5)));
 }
 uibutton[ui-implements=next].ui-custom-tint:hover:before, 
 uibutton[ui-implements=next].ui-custom-tint.touched:before {
 	background-image: 
 		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.05,rgba(0,0,0,.1)), 
+			color-stop(0.1, rgba(0,0,0,.1)), 
 			color-stop(0.5,rgba(0,0,0,.5)), 
 			color-stop(0.5, rgba(0,0,0,.6)), 
-			color-stop(0.95,rgba(255,255,255,.2)));
+			color-stop(0.9,rgba(255,255,255,.2)));
 }
 segmentedcontrol > uibutton.ui-custom-tint,
 segmentedcontrol > uibutton.ui-custom-tint.disabled:hover, 

@@ -92,13 +92,6 @@ Released under MIT license, http://cubiq.org/license
 				$("navbar > uibutton[ui-implements=back]", $.app).css("display","none");
 			}
 		},
-		UIBackNavigation : function () {
-			$.app.delegate("uibutton", $.userAction, function(item) {
-				if (item.getAttribute("ui-implements") === "back") {
-				   $.UINavigateBack();
-				}
-			});
-		},
 		UINavigateToNextView : function(viewID) {
 			$($.UINavigationHistory[$.UINavigationHistory.length-1])
 				.setAttribute("ui-navigation-status","traversed");
@@ -159,7 +152,11 @@ Released under MIT license, http://cubiq.org/license
 		UITouchedTableCell : null
 	});
 	$(function() {
-		$.UIBackNavigation();
+		$.app.delegate("uibutton", $.userAction, function(item) {
+			if (item.getAttribute("ui-implements") === "back") {
+			   $.UINavigateBack();
+			}
+		});
 		$.UINavigationList();
 		$.app.delegate("input", $.userAction, function(input) {
 			input.focus();
@@ -1592,7 +1589,16 @@ Released under MIT license, http://cubiq.org/license
 					this.addClass("disabled");
 				}
 			}
-		}	
+		},
+	
+		resetSpinner : function(selector) {
+			var value = $(selector).data("range-value");
+			value = value.split(',')[0];
+			$(selector).find("label").text(value);
+			$(selector).find("uibutton:first-of-type").addClass("disabled");
+			$(selector).find("uibutton:last-of-type").removeClass("disabled");
+			
+		}
 	});
 	$(function() {
 		$.extend($, {
@@ -2629,8 +2635,8 @@ Released under MIT license, http://cubiq.org/license
 	});
 
 	$.extend(HTMLElement.prototype, {
-		UISetTranstionType : function( transtion ) {
-			this.setAttribute("ui-transition-type", transtion);
+		UISetTranstionType : function( transition ) {
+			this.setAttribute("ui-transition-type", transition);
 		},
 		UIFlipSubview : function ( direction ) {
 			var view = this.ancestor("view");

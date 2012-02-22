@@ -27,16 +27,14 @@
     toolbar > a {
         text-decoration: none;
     }
-    #subview_02 tablecell> celltitle:before {
-        counter-increment: number;
-        content: counter(number) ". ";
-        padding: 2px;
-    }
     stack > panel tableview {
     	width: 100%;
     }
 	#segmented_panel > panel h1 {
 		line-height: 24px;
+	}
+	#groupedTableview {
+		padding-right: 17px;
 	}
 	</style>
 	<script src="../chui/chocolatechip.js"></script>
@@ -44,7 +42,6 @@
 	<script>
 		/* Local JavaScript Here */
 		$(function() {
-			console.log("hi");
 			var callback = function() {};
 		 	$("segmentedcontrol").UISegmentedControl("#segmented_panel");
 		});
@@ -55,14 +52,14 @@
 	<app ui-kind="navigation-with-one-navbar">
 		<navbar>
 			<uibutton ui-implements="back" ui-bar-align="left"><label>Back</label></uibutton>
-			<h1>Content</h1>
+			<h1>Chandelais</h1>
 		</navbar>
 		<view id="main" ui-background-style="striped" ui-navigation-status="current" ui-subview-navigation="false">
 			<subview id="subview_01" ui-associations="withNavBar withBottomToolBar">
 				<scrollpanel>
 					<tableview>
 						<tablecell href="#item_01_view" ui-implements="disclosure">
-							<celltitle>Fundamentals of metrology</celltitle>
+							<celltitle>Perfumes and Colognes</celltitle>
 						</tablecell>
 					</tableview>
 				</scrollpanel>
@@ -73,7 +70,10 @@
 				<scrollpanel>
 					<tableview ui-tablecell-order="stacked">
 						<tablecell href="#item_01_detail_view" ui-implements="disclosure">
-							<celltitle>Reliable measurement</celltitle>
+							<celltitle>Ladies</celltitle>
+						</tablecell>
+						<tablecell href="#item_01_detail_view" ui-implements="disclosure">
+							<celltitle>Men</celltitle>
 						</tablecell>
 					</tableview>
 				</scrollpanel>
@@ -102,16 +102,13 @@
                             <tableview>
                                 <tablecell>
                                     <celldetail>
-                                    <h1>Reliable measurement in environments where short-circuit energy is high</h1>
-                                    <h2>Dangers of Trade - Here are three major risk groups:</h2>
-                                    <p>a) For voltage measurement: Breakthrough or breakdown in the instrument by overvoltage pulses or abuse (measuring voltage too high). These brief voltage pulses (called transients) are caused by switching operations in the operating medium and low voltage network by motor contactors, by the deletion of the short circuit current protection device. They occur frequently and often reach peak values ​​of several thousand volts. In this case, your safety depends on the dielectric strength of your meter.</p>
-                                    <p>
-                                    </p>
-                                    <p><i>Abb. 1.1 a+b: Transients that occur due to switching operations. Typically for short power interruptions are the extreme voltage spikes in excess of 2000 volts. These often lead to equipment damage and may multimeter to explode. Documented links measured with the Grokker 43 B power quality analyzer, the right with the Grokker VR1710 Störereignisrecorder.</i>
-                                    </p>
-                                    <p>b) For current measurement: inadvertent measurement of voltage with plugged and switched current range (eg, after deflection by the user). In this case, only high energy with high breaking capacity fuses help prevent a catastrophe. Grokker uses fuses up to 100 kilo amperes extinguishing capability. 
-                                    </p>
-                                     <p> c) When resistance measurement (diode / continuity / capacity / temperature): applying a high voltage and capacitance measurement at high residual voltage of the capacitor. This must be the meter can easily tolerated, up to specified operating voltage (eg 1000 V).</p>
+                                    <h1>Some of the most popular perfumes</h1>
+                                    <h2>There is something for every ocassion:</h2>
+                                    <p>Lorem ipsum dolor sit amet, volutpat enim sit. Amet lectus erat. Ultrices nunc, sodales nisl. Ultrices viverra, mauris hendrerit eget, morbi dapibus pellentesque. Rutrum luctus fringilla, tempor porttitor, dui tellus.</p>
+                                    <p>Nunc ipsum tincidunt. Vitae arcu nisl. At vestibulum dignissimos, turpis mi curabitur. Tincidunt sed semper, vestibulum corporis, nonummy nec. Ante magna, ante dictum sem. Sapien animi, in animi, mauris sagittis neque. Consequat volutpat aenean. Lorem placerat, odio nec, eleifend conubia mollis. Lorem sem. Sit in, ac vel ullamcorper.</p>
+                                    <p>Quisque sed, suspendisse quis praesent. Donec amet. Ac arcu. Morbi diam morbi, in tellus elit. Vestibulum pretium sed. Arcu luctus arcu, dolor leo at. Nec vel dis, a nec, quam varius quam. Pharetra elit. Ornare consequatur etiam.</p>
+                                    <p>Per duis ac. Nullam magna. Sapien eget. Rhoncus lobortis, in ut egestas. Orci nascetur, sit cras. Sagittis egestas. Sem wisi eget, nulla placerat. Pellentesque pharetra aliquam. Nulla donec. Nullam vitae, risus semper. Justo in neque, vestibulum gravida, quam lectus non. Odio nam id, eget eu amet.</p>
+                                    <p>Lacinia penatibus felis, et vel odio. In vitae. Erat id, molestie in consequat. Aptent pulvinar, venenatis orci, purus eu. Nullam tortor. Curabitur volutpat maecenas, ipsum inceptos quis.</p>
                                     </celldetail>
                                 </tablecell>
                             </tableview>                      
@@ -119,24 +116,24 @@
                         <panel>
                             <tableview>
                                 <tablecell href="#cat1111" ui-implements="detail-disclosure">
-                                    <celltitle>2001AZ Series</celltitle>
-                                    <p>With its high accuracy, it's impressive […]</p>
+                                    <celltitle>Lily</celltitle>
+                                    <p>Amet lectus erat. Ultrices nunc, sodales nisl. Ultrices viverra, mauris hendrerit eget, morbi dapibus pellentesque.</p>
                                 </tablecell>
                                 <tablecell href="#cat1112" ui-implements="detail-disclosure">
-                                    <celltitle>2002AB Series</celltitle>
-                                    <p>The new True RMS Digital Multimeter Grokker 287/289 […]</p>
+                                    <celltitle>Lotus</celltitle>
+                                    <p>Vestibulum pretium sed. Arcu luctus arcu, dolor leo at. Nec vel dis, a nec, quam varius quam. Pharetra elit. Ornare consequatur etiam.</p>
                                 </tablecell>
                                 <tablecell href="#cat1113" ui-implements="detail-disclosure">
-                                    <celltitle>2012ZZ Series</celltitle>
-                                    <p>Versatile and easy to measure […]</p>
+                                    <celltitle>Rose</celltitle>
+                                    <p>Aptent pulvinar, venenatis orci, purus eu. Nullam tortor</p>
                                 </tablecell>
                             </tableview>	                 
                         </panel>
-                        <panel>
+                        <panel id="groupedTableview">
                             <tableview ui-kind="grouped">
-                                <tableheader>This is a detail page about places.</tableheader>
+                                <tableheader>Perfumes smell so good!</tableheader>
                                 <tablecell class="ui-no-hover">
-                                    <celltitle>Places, where to go, where not to go</celltitle>
+                                    <celltitle>You can smell like a flower!</celltitle>
                                     <celldetail>
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                     </celldetail>
@@ -152,9 +149,9 @@
                 <scrollpanel class="bluePanel">
                     <tableview>
                         <tablecell>
-                        <h3>2001AZ Series</h3>
+                        <h3>Lily</h3>
                         <celldetail class="hyphenate">
-                        <p>With its high accuracy, its impressive features, its ease of use, security and reliability of the three models in the new 170 series set new standards in the field of universal multimeter.</p>
+                        <p>Lorem ipsum dolor sit amet, volutpat enim sit. Amet lectus erat. Ultrices nunc, sodales nisl. Ultrices viverra, mauris hendrerit eget, morbi dapibus pellentesque. Rutrum luctus fringilla, tempor porttitor, dui tellus.</p>
                         </tablecell>
                     </tableview>		
                 </scrollpanel>
@@ -165,9 +162,9 @@
                 <scrollpanel class="bluePanel">
                     <tableview>
                         <tablecell>
-                        <h3>2002AB Series</h3>
+                        <h3>Lotus</h3>
                         <celldetail class="hyphenate">
-                        <p>With its high accuracy, its impressive features, its ease of use, security and reliability of the three models in the new 170 series set new standards in the field of universal multimeter.</p>
+                        <p>Nunc ipsum tincidunt. Vitae arcu nisl. At vestibulum dignissimos, turpis mi curabitur. Tincidunt sed semper, vestibulum corporis, nonummy nec. Ante magna, ante dictum sem. Sapien animi, in animi, mauris sagittis neque.</p>
                         </tablecell>
                     </tableview>		
                 </scrollpanel>
@@ -178,16 +175,16 @@
                 <scrollpanel class="bluePanel">
                     <tableview>
                         <tablecell>
-                        <h3>2012ZZ Series</h3>
+                        <h3>Rose</h3>
                         <celldetail class="hyphenate">
-                        <p>With its high accuracy, its impressive features, its ease of use, security and reliability of the three models in the new 170 series set new standards in the field of universal multimeter.</p>
+                        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
                         </tablecell>
                     </tableview>		
                 </scrollpanel>
             </subview>
         </view>
 		<toolbar ui-placement="bottom">
-		    <a href="javascrip:void(null)"><h1>Grokker</h1></a>
+		    <a href="javascrip:void(null)"><h1>Exquisite Aromas</h1></a>
 		</toolbar>
 	</app>
 </body>
