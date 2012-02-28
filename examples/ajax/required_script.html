@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='initial-scale=1.0, maximum-scale=1.0, user-scalable=0;'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <title>Tableviews 1</title>
+    <link rel='stylesheet' href='../../chui/chui.css'>
+    <style>
+    </style>
+    <script src='../../chui/chocolatechip.js'></script>
+    <script src='../../chui/chui.js'></script>
+    <script>
+    	$.templates.guys = 
+    	'<ol>\
+    	    [[ guys.forEach(function(guy) { ]]\
+    	    	<li>$[ guy ]</li>\
+    	    [[ }); ]]\
+    	</ol>';
+    	$(function() {
+    		$.require('required_script.js', function() {
+    			var output = $('#output');
+    			// The following two methods are imported from 'required_script.js'.
+    			outputCellTitle(output.find('celltitle'), title);
+    			outputMessage(output.find('celldetail'), 'A very important message from the sponsors.');
+    			output.append('<celldetail></celldetail>');
+    			outputMessage(output.find('celldetail:last-of-type'), dataObj.content);
+    			output.append('<celldetail></celldetail>');
+    			output.find('celldetail:last-of-type').html($.template('guys', guys));
+    			$.UIScrollers[$('scrollpanel').getAttribute('ui-scroller')].refresh();
+    		});
+    	});
+    </script>
+    </head>
+<body>
+	<app ui-background-style='striped'>
+		<view id='main' ui-background-style='striped' ui-navigation-status='current'>
+			<navbar>
+				<h1>$.Require()</h1>
+			</navbar>
+			<subview ui-associations='withNavBar'>
+				<scrollpanel>
+					<tableview ui-tablecell-order='stacked'>
+						<tablecell>
+							<celltitle>Import External Scripts</celltitle>
+							<cellsubtitle>You can use $.require() to load an external script.</cellsubtitle>
+							<celldetail>
+								$.require can load a script from anywhere. Just pass the url of the script as the first argument. The script can reside on any domain. You can also pass $.require a callback to execute when the script is fully loaded. Once the script is loaded, you can access any of the functions, objects or variables which it exposes.
+							</celldetail>
+							<celldetail>
+								Below you'll find the output of an external script loaded with $.require().
+							</celldetail>
+						</tablecell>
+						<tablecell id='output'>
+							<celltitle></celltitle>
+							<celldetail></celldetail>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>
