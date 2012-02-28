@@ -10,7 +10,7 @@
 ChocolateChip-UI
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.1.1
+Version: 1.1.2
 
 Includes:
 iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
@@ -18,24 +18,24 @@ Released under MIT license, http://cubiq.org/license
 
 */
 (function($, $$) {
-	window.CHUIVersion = "1.1.1";
-	var UIExpectedChocolateChipJSVersion = "1.3.1"; 
+	window.CHUIVersion = '1.1.2';
+	var UIExpectedChocolateChipJSVersion = '1.3.2'; 
 
 	var UICheckChocolateChipJSVersion = function() {
 		if ($.version !== UIExpectedChocolateChipJSVersion) {
-			console.error("This version of ChocolateChip-UI requries ChococlateChip.js version " + UIExpectedChocolateChipJSVersion + "!");
-			console.error("The version of ChocolateChip.js which you are using is: " + $.version);
-			console.error("ChocolateChip.js has been disabled until this problem is resolved.");
+			console.error('This version of ChocolateChip-UI requries ChococlateChip.js version ' + UIExpectedChocolateChipJSVersion + '!');
+			console.error('The version of ChocolateChip.js which you are using is: ' + $.version);
+			console.error('ChocolateChip.js has been disabled until this problem is resolved.');
 			window.$ = null;
 		}
 	};
 	UICheckChocolateChipJSVersion();
 
 	$(function() {
-		$.body = $("body");
-		$.app = $("app");
-		$.main = $("#main");
-		$.views = $$("view");
+		$.body = $('body');
+		$.app = $('app');
+		$.main = $('#main');
+		$.views = $$('view');
 	});
 	$.tablet = false;
 	if ( window.innerWidth > 600 ) {
@@ -50,23 +50,23 @@ Released under MIT license, http://cubiq.org/license
 			}
 		},
 		AlphaSeed : function ( ) {
-			var text = "";
-			var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+			var text = '';
+			var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 			text += chars.charAt(Math.floor(Math.random() * chars.length));
 			return text;
 		},
 		UIUuid : function() {
-			return ($.AlphaSeed() + $.UIUuidSeed(20) + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + "-" + $.UIUuidSeed() + $.UIUuidSeed() + $.UIUuidSeed());
+			return ($.AlphaSeed() + $.UIUuidSeed(20) + $.UIUuidSeed() + '-' + $.UIUuidSeed() + '-' + $.UIUuidSeed() + '-' + $.UIUuidSeed() + '-' + $.UIUuidSeed() + $.UIUuidSeed() + $.UIUuidSeed());
 		},
 		resetApp : function ( hard ) {
-			if (hard === "hard") {
+			if (hard === 'hard') {
 				window.location.reload(true);
 			} else {
 				$.views.each(function(view) {
-					view.setAttribute("ui-navigation-status", "upcoming");
+					view.setAttribute('ui-navigation-status', 'upcoming');
 				});
-				$.main.setAttribute("ui-navigation-status", "current");
-				$.UINavigationHistory = ["#main"];
+				$.main.setAttribute('ui-navigation-status', 'current');
+				$.UINavigationHistory = ['#main'];
 			}
 		}
 	});
@@ -74,31 +74,31 @@ Released under MIT license, http://cubiq.org/license
 		UIIdentifyChildNodes : function ( ) {
 			var kids = this.childElementCount;
 			for (var i = 0; i < kids; i++) {
-				this.children[i].setAttribute("ui-child-position", i);
+				this.children[i].setAttribute('ui-child-position', i);
 			}
 		}
 	});
 	
 	$.extend({
-		UINavigationHistory : ["#main"],
+		UINavigationHistory : ['#main'],
 		UINavigateBack : function() {
 			 var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
 			$.UINavigationHistory.pop();
 			$($.UINavigationHistory[$.UINavigationHistory.length-1])
-			.setAttribute("ui-navigation-status", "current");
-			$(parent).setAttribute("ui-navigation-status", "upcoming");
+			.setAttribute('ui-navigation-status', 'current');
+			$(parent).setAttribute('ui-navigation-status', 'upcoming');
 			$.UIHideURLbar();
-			if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar" && $.UINavigationHistory[$.UINavigationHistory.length-1] === "#main") {
-				$("navbar > uibutton[ui-implements=back]", $.app).css("display","none");
+			if ($.app.getAttribute('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
+				$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
 			}
 		},
 		UINavigateToNextView : function(viewID) {
 			$($.UINavigationHistory[$.UINavigationHistory.length-1])
-				.setAttribute("ui-navigation-status","traversed");
-			$(viewID).setAttribute("ui-navigation-status","current");
+				.setAttribute('ui-navigation-status','traversed');
+			$(viewID).setAttribute('ui-navigation-status','current');
 			$.UINavigationHistory.push(viewID);
-			if ($.app.getAttribute("ui-kind") === "navigation-with-one-navbar") {
-				$("navbar uibutton[ui-implements=back]").css({"display":"block"});
+			if ($.app.getAttribute('ui-kind') === 'navigation-with-one-navbar') {
+				$('navbar uibutton[ui-implements=back]').css({'display':'block'});
 			}
 		},
 		
@@ -125,19 +125,19 @@ Released under MIT license, http://cubiq.org/license
 
 		UINavigationList : function() {
 			var navigateList = function(item) {
-				if ($.app.getAttribute("ui-kind")==="navigation-with-one-navbar") {
-					$("navbar > uibutton[ui-implements=back]", $.app).css("display: block;");
+				if ($.app.getAttribute('ui-kind')==='navigation-with-one-navbar') {
+					$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
 				}
-				$(item.getAttribute("href")).setAttribute("ui-navigation-status", "current");
-				$($.UINavigationHistory[$.UINavigationHistory.length-1]).setAttribute("ui-navigation-status", "traversed");
-				if ($("#main").getAttribute("ui-navigation-status") !== "traversed") {
-					$("#main").setAttribute("ui-navigation-status", "traversed");
+				$(item.getAttribute('href')).setAttribute('ui-navigation-status', 'current');
+				$($.UINavigationHistory[$.UINavigationHistory.length-1]).setAttribute('ui-navigation-status', 'traversed');
+				if ($('#main').getAttribute('ui-navigation-status') !== 'traversed') {
+					$('#main').setAttribute('ui-navigation-status', 'traversed');
 				}
-				$.UINavigationHistory.push(item.getAttribute("href"));
+				$.UINavigationHistory.push(item.getAttribute('href'));
 				$.UIHideURLbar();  
 			};
-			$.app.delegate("tablecell", $.userAction, function(item) {
-				if (item.hasAttribute("href")) {
+			$.app.delegate('tablecell', $.userAction, function(item) {
+				if (item.hasAttribute('href')) {
 					if ($.UINavigationEvent) {
 						return;
 					} else {
@@ -152,23 +152,23 @@ Released under MIT license, http://cubiq.org/license
 		UITouchedTableCell : null
 	});
 	$(function() {
-		$.app.delegate("uibutton", $.userAction, function(item) {
-			if (item.getAttribute("ui-implements") === "back") {
+		$.app.delegate('uibutton', $.userAction, function(item) {
+			if (item.getAttribute('ui-implements') === 'back') {
 			   $.UINavigateBack();
 			}
 		});
 		$.UINavigationList();
-		$.app.delegate("input", $.userAction, function(input) {
+		$.app.delegate('input', $.userAction, function(input) {
 			input.focus();
 		});
-		$.app.delegate("textarea", $.userAction, function(textarea) {
+		$.app.delegate('textarea', $.userAction, function(textarea) {
 			textarea.focus();
 		}); 
 		
-		$.app.delegate("view","webkitTransitionEnd", function() {
-			if (!$("view[ui-navigation-status=current]")) {
+		$.app.delegate('view','webkitTransitionEnd', function() {
+			if (!$('view[ui-navigation-status=current]')) {
 				$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
-					.setAttribute("ui-navigation-status", "current");
+					.setAttribute('ui-navigation-status', 'current');
 				$.UINavigationHistory.pop(); 
 			}	
 			$.UINavigationEvent = false;
@@ -177,10 +177,10 @@ Released under MIT license, http://cubiq.org/license
 
 	$.extend(HTMLElement.prototype, {
 		UIToggleButtonLabel : function ( label1, label2 ) {
-			if ($("label", this).text() === label1) {
-				$("label", this).text(label2);
+			if ($('label', this).text() === label1) {
+				$('label', this).text(label2);
 			} else {
-				$("label", this).text(label1);
+				$('label', this).text(label1);
 			}
 		}
 	});
@@ -1271,14 +1271,14 @@ Released under MIT license, http://cubiq.org/license
 		UIEnableScrolling : function ( options ) {
 			var whichScroller;
 			try {
-				var scrollpanels = $$("scrollpanel");
+				var scrollpanels = $$('scrollpanel');
 				scrollpanels.each(function(item) {
-					if (item.hasAttribute("ui-scroller")) {
-						whichScroller = item.getAttribute("ui-scroller");
+					if (item.hasAttribute('ui-scroller')) {
+						whichScroller = item.getAttribute('ui-scroller');
 						$.UIScrollers[whichScroller] = new iScroll(item.parentNode, options);
 					} else {
-						item.setAttribute("ui-scroller", $.UIUuid());
-						whichScroller = item.getAttribute("ui-scroller");
+						item.setAttribute('ui-scroller', $.UIUuid());
+						whichScroller = item.getAttribute('ui-scroller');
 						$.UIScrollers[whichScroller] = new iScroll(item.parentNode, options);
 					}
 				});
@@ -1293,14 +1293,14 @@ Released under MIT license, http://cubiq.org/license
 			var myPager = new iScroll( selector, opts );
 			var stack = null;
 			if (selector.nodeType === 1) {
-				stack = $("stack", selector);
-				selector.parentNode.setAttribute("ui-scroller", "myPager");
+				stack = $('stack', selector);
+				selector.parentNode.setAttribute('ui-scroller', 'myPager');
 			} else {
-				stack = $("stack", $(selector));
+				stack = $('stack', $(selector));
 				selector = $(selector);
-				selector.parentNode.setAttribute("ui-scroller", "myPager");
+				selector.parentNode.setAttribute('ui-scroller', 'myPager');
 			}
-			var indicatorsWidth = selector.parentNode.css("width");
+			var indicatorsWidth = selector.parentNode.css('width');
 			var indicators = '<stack ui-implements="indicators" style="width:"' + indicatorsWidth + ';">';
 			[].slice.apply(stack.children).each(function(kid, idx) {
 				if (idx === 0) {
@@ -1345,26 +1345,26 @@ Released under MIT license, http://cubiq.org/license
 			if (options.editButton) {
 				label1 = options.editButton[0];
 			} else {
-				label1 = "Edit";
+				label1 = 'Edit';
 			}
 			var label2;
 			if (options.editButton) {
 				label2 = options.editButton[1];
 			} else {
-				label2 = "Done";
+				label2 = 'Done';
 			}
 			var label3;
 			if (options.deleteButton) {
 				label3 = options.deleteButton;
 			} else {
-				label3 = "Delete";
+				label3 = 'Delete';
 			}
 			var callback = options.callback || function() {};
 			this.deletionList = [];
 			var listEl = $(options.selector);
 			var toolbarEl = $(options.toolbar);
-			if ((toolbarEl.first().nodeName) === "UIBUTTON") {
-				toolbarEl.first().setAttribute("ui-contains","uibutton");
+			if ((toolbarEl.first().nodeName) === 'UIBUTTON') {
+				toolbarEl.first().setAttribute('ui-contains','uibutton');
 			}
 			var deleteButtonTemp = '<uibutton ui-kind="deletionListDeleteButton" ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>' + label3 + '</label></uibutton>';
 			var editButtonTemp = '<uibutton ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit" ui-button-labels="' + label1 + ',' + label2 +  '"><label>' + label1 + '</label></uibutton>';
@@ -1375,77 +1375,77 @@ Released under MIT license, http://cubiq.org/license
 				item.insertAdjacentHTML("afterBegin", deleteDisclosure);
 			});
 	
-			listEl.setAttribute("data-deletable-items", 0);
+			listEl.setAttribute('data-deletable-items', 0);
 			var UIEditExecution = function() {
-			   $(options.toolbar + " > uibutton[ui-implements=edit]").bind("click", function() {
-			   	   var buttonLabels = this.getAttribute("ui-button-labels");
-				   if ($("label", this).text() === label1) {
+			   $(options.toolbar + ' > uibutton[ui-implements=edit]').bind('click', function() {
+			   	   var buttonLabels = this.getAttribute('ui-button-labels');
+				   if ($('label', this).text() === label1) {
 					   this.UIToggleButtonLabel(label1, label2);
-					   this.setAttribute("ui-implements", "done");
-					   listEl.addClass("ui-show-delete-disclosures");
+					   this.setAttribute('ui-implements', 'done');
+					   listEl.addClass('ui-show-delete-disclosures');
 					   
-					   this.parentNode.firstElementChild.style.display = "-webkit-inline-box";
+					   this.parentNode.firstElementChild.style.display = '-webkit-inline-box';
 					   if (/uibutton/i.test(toolbarEl.children[1].nodeName)) {
-						   toolbarEl.children[1].css("display", "none;");
+						   toolbarEl.children[1].css('display', 'none;');
 					   }
-					   $$("tablecell > img", listEl).each(function(img) {
-						img.css("-webkit-transform: translate3d(40px, 0, 0)");
+					   $$('tablecell > img', listEl).each(function(img) {
+						img.css('-webkit-transform: translate3d(40px, 0, 0)');
 					   });
 				   } else {
 					   this.UIToggleButtonLabel(label1, label2);
-					   this.removeAttribute("ui-implements");
-					   this.parentNode.firstElementChild.style.display = "none";
-					   listEl.removeClass("ui-show-delete-disclosures");
-					   $$("deletedisclosure").each(function(disclosure) {
-						   disclosure.removeClass("checked");
-						   disclosure.ancestor("tablecell").removeClass("deletable");
+					   this.removeAttribute('ui-implements');
+					   this.parentNode.firstElementChild.style.display = 'none';
+					   listEl.removeClass('ui-show-delete-disclosures');
+					   $$('deletedisclosure').each(function(disclosure) {
+						   disclosure.removeClass('checked');
+						   disclosure.ancestor('tablecell').removeClass('deletable');
 					   });
 					   if (/uibutton/i.test(toolbarEl.children[1].nodeName)) {
-						   toolbarEl.children[1].css("display", "-webkit-inline-box");
+						   toolbarEl.children[1].css('display', '-webkit-inline-box');
 					   }
-					   $("uibutton[ui-implements=delete]").addClass("disabled");
+					   $('uibutton[ui-implements=delete]').addClass('disabled');
 			   
-					   $$("tablecell > img", listEl).each(function(img) {
-						img.css("-webkit-transform: translate3d(0, 0, 0)");
+					   $$('tablecell > img', listEl).each(function(img) {
+						img.css('-webkit-transform: translate3d(0, 0, 0)');
 					   });
 				   }
 			   });
 			};
 			var UIDeleteDisclosureSelection = function() {
-				$$("deletedisclosure").each(function(disclosure) {
-					disclosure.bind("click", function() {
-						disclosure.toggleClass("checked");
-						disclosure.ancestor("tablecell").toggleClass("deletable");
-						$("uibutton[ui-implements=delete]").removeClass("disabled");
-						if (!disclosure.ancestor("tablecell").hasClass("deletable")) {
-							listEl.setAttribute("data-deletable-items", parseInt(listEl.data("deletable-items"), 10) - 1);
-							if (parseInt(listEl.data("deletable-items"), 10) === 0) {
-								toolbarEl.firstElementChild.addClass("disabled");
+				$$('deletedisclosure').each(function(disclosure) {
+					disclosure.bind('click', function() {
+						disclosure.toggleClass('checked');
+						disclosure.ancestor('tablecell').toggleClass('deletable');
+						$('uibutton[ui-implements=delete]').removeClass('disabled');
+						if (!disclosure.ancestor('tablecell').hasClass('deletable')) {
+							listEl.setAttribute('data-deletable-items', parseInt(listEl.data('deletable-items'), 10) - 1);
+							if (parseInt(listEl.data('deletable-items'), 10) === 0) {
+								toolbarEl.firstElementChild.addClass('disabled');
 							}
 						} else {
-							listEl.data("deletable-items", parseInt(listEl.data("deletable-items"), 10) + 1);
+							listEl.data('deletable-items', parseInt(listEl.data('deletable-items'), 10) + 1);
 						}
 					}); 
 				});
 			};
 	
 			var UIDeletionExecution = function() {
-			   $("uibutton[ui-implements=delete]").bind("click", function() {
-				   if (this.hasClass("disabled")) {
+			   $('uibutton[ui-implements=delete]').bind('click', function() {
+				   if (this.hasClass('disabled')) {
 					   return;
 				   }
-				   $$(".deletable").each(function(item) {
-					   listEl.data("deletable-items", parseInt(listEl.data("deletable-items"), 10) - 1);
+				   $$('.deletable').each(function(item) {
+					   listEl.data('deletable-items', parseInt(listEl.data('deletable-items'), 10) - 1);
 					   $.UIDeletableTableCells.push(item.id);
 					   if (!!callback) {
 						   callback.call(this, item);
 					   }
 					   item.remove();
 					   $.UIDeletableTableCells = [];
-					   listEl.setAttribute("data-deletable-items", 0);
+					   listEl.setAttribute('data-deletable-items', 0);
 				   });
-				   this.addClass("disabled");
-				$.UIScrollers[$("scrollpanel", $(options.selector).ancestor("view")).getAttribute("ui-scroller")].refresh();
+				   this.addClass('disabled');
+				$.UIScrollers[$('scrollpanel', $(options.selector).ancestor('view')).getAttribute('ui-scroller')].refresh();
 			   });
 			};
 			UIEditExecution();
@@ -1456,19 +1456,19 @@ Released under MIT license, http://cubiq.org/license
 		UIResetDeletionList : function(node, toolbar) {
 			node = $(node);
 			toolbar = $(toolbar);
-			if (node.hasClass("ui-show-delete-disclosures")) {
-				node.setAttribute("data-deletable-items", 0);
+			if (node.hasClass('ui-show-delete-disclosures')) {
+				node.setAttribute('data-deletable-items', 0);
 				[].slice.apply(node.children).forEach(function(item) {
-					item.firstElementChild.removeClass("checked");
+					item.firstElementChild.removeClass('checked');
 				});
-				node.removeClass("ui-show-delete-disclosures");
-				var resetLabel = toolbar.find("uibutton[ui-kind=deletionListEditButton]").getAttribute("ui-button-labels");
-				resetLabel = resetLabel.split(",");
+				node.removeClass('ui-show-delete-disclosures');
+				var resetLabel = toolbar.find('uibutton[ui-kind=deletionListEditButton]').getAttribute('ui-button-labels');
+				resetLabel = resetLabel.split(',');
 				resetLabel = resetLabel[0];
-				toolbar.find("uibutton[ui-kind=deletionListEditButton] > label").text(resetLabel);
-				toolbar.find("uibutton[ui-kind=deletionListEditButton]").setAttribute("ui-implements", "edit");
-				toolbar.find("uibutton[ui-kind=deletionListDeleteButton]").css("display", "none");
-				toolbar.find("uibutton[ui-kind=deletionListDeleteButton]").toggleClass('disabled');
+				toolbar.find('uibutton[ui-kind=deletionListEditButton] > label').text(resetLabel);
+				toolbar.find('uibutton[ui-kind=deletionListEditButton]').setAttribute('ui-implements', 'edit');
+				toolbar.find('uibutton[ui-kind=deletionListDeleteButton]').css('display', 'none');
+				toolbar.find('uibutton[ui-kind=deletionListDeleteButton]').toggleClass('disabled');
 			}
 			node.findAll('tablecell').forEach(function(cell) {
 				cell.removeClass('deletable');
@@ -1522,81 +1522,81 @@ Released under MIT license, http://cubiq.org/license
 			var spinnerTemp = decreaseButton + "<label ui-kind='spinner-label'></label><input type='text'/>" + increaseButton;
 			spinner.insert(spinnerTemp);
 			if (opts.range.values) {
-				spinner.data("range-value", opts.range.values.join(","));
+				spinner.data('range-value', opts.range.values.join(','));
 			}
 			if (!opts.defaultValue) {
 				if (!!opts.range.start || opts.range.start === 0) {
-					defaultValue = opts.range.start === 0 ? "0": opts.range.start;
+					defaultValue = opts.range.start === 0 ? '0': opts.range.start;
 				} else if (opts.range.values instanceof Array) {
 					defaultValue = opts.range.values[0];
-					$("uibutton:first-of-type", opts.selector).addClass("disabled");
+					$('uibutton:first-of-type', opts.selector).addClass('disabled');
 				}
 			} else {
 				defaultValue = opts.defaultValue;
 			}
 			if (range) {
-				spinner.data("range-value", range.join(","));
+				spinner.data('range-value', range.join(','));
 			}
 	
-			$("label[ui-kind=spinner-label]", spinner).text(defaultValue);
-			$("input", spinner).value = defaultValue;
+			$('label[ui-kind=spinner-label]', spinner).text(defaultValue);
+			$('input', spinner).value = defaultValue;
 			if (opts.namePrefix) {
-				var namePrefix = opts.namePrefix + "." + spinner.id;
-				$("input", spinner).setAttribute("name", namePrefix);
+				var namePrefix = opts.namePrefix + '.' + spinner.id;
+				$('input', spinner).setAttribute('name', namePrefix);
 			} else {
-				$("input", spinner).setAttribute("name", spinner.id);
+				$('input', spinner).setAttribute('name', spinner.id);
 			}
 	
 			if (defaultValue === opts.range.start) {
-				$("uibutton:first-of-type", spinner).addClass("disabled");
+				$('uibutton:first-of-type', spinner).addClass('disabled');
 			}
 			if (defaultValue == opts.range.end) {
-				$("uibutton:last-of-type", spinner).addClass("disabled");
+				$('uibutton:last-of-type', spinner).addClass('disabled');
 			}
-			$("uibutton:first-of-type", opts.selector).bind("click", function(button) {
+			$('uibutton:first-of-type', opts.selector).bind('click', function(button) {
 				$.decreaseSpinnerValue.call(this, opts.selector);
 			});
-			$("uibutton:last-of-type", opts.selector).bind("click", function(button) {
+			$('uibutton:last-of-type', opts.selector).bind('click', function(button) {
 				$.increaseSpinnerValue.call(this, opts.selector);
 			});
 		},
 
 		decreaseSpinnerValue : function(selector) {
-			var values = $(selector).data("range-value");
-			values = values.split(",");
-			var defaultValue = $("label", selector).text().trim();
+			var values = $(selector).data('range-value');
+			values = values.split(',');
+			var defaultValue = $('label', selector).text().trim();
 			var idx = values.indexOf(defaultValue);
 			if (idx !== -1) {
-				$("uibutton:last-of-type", selector).removeClass("disabled");
-				$("[ui-kind=spinner-label]", selector).text(values[idx-1]);
-				$("input", selector).value = values[idx-1];
+				$('uibutton:last-of-type', selector).removeClass('disabled');
+				$('[ui-kind=spinner-label]', selector).text(values[idx-1]);
+				$('input', selector).value = values[idx-1];
 				if (idx === 1) {
-					this.addClass("disabled");
+					this.addClass('disabled');
 				} 
 			}	
 		},
 
 		increaseSpinnerValue : function(selector) {
-			var values = $(selector).data("range-value");
-			values = values.split(",");
-			var defaultValue = $("label", selector).text().trim();
+			var values = $(selector).data('range-value');
+			values = values.split(',');
+			var defaultValue = $('label', selector).text().trim();
 			var idx = values.indexOf(defaultValue);
 			if (idx !== -1) {
-				$("uibutton:first-of-type", selector).removeClass("disabled");
-				$("label[ui-kind=spinner-label]", selector).text(values[idx+1]);
-				$("input", selector).value = values[idx+1];
+				$('uibutton:first-of-type', selector).removeClass('disabled');
+				$('label[ui-kind=spinner-label]', selector).text(values[idx+1]);
+				$('input', selector).value = values[idx+1];
 				if (idx === values.length-2) {
-					this.addClass("disabled");
+					this.addClass('disabled');
 				}
 			}
 		},
 	
 		resetSpinner : function(selector) {
-			var value = $(selector).data("range-value");
+			var value = $(selector).data('range-value');
 			value = value.split(',')[0];
-			$(selector).find("label").text(value);
-			$(selector).find("uibutton:first-of-type").addClass("disabled");
-			$(selector).find("uibutton:last-of-type").removeClass("disabled");
+			$(selector).find('label').text(value);
+			$(selector).find('uibutton:first-of-type').addClass('disabled');
+			$(selector).find('uibutton:last-of-type').removeClass('disabled');
 			
 		}
 	});
@@ -1607,10 +1607,10 @@ Released under MIT license, http://cubiq.org/license
 
 			UIPopUp : function( opts ) {
 				var id = opts.id || $.UIUuid();
-				var title = opts.title || "Alert!";
-				var message = opts.message || "";
-				var cancelUIButton = opts.cancelUIButton || "Cancel";
-				var continueUIButton = opts.continueUIButton || "Continue";
+				var title = opts.title || 'Alert!';
+				var message = opts.message || '';
+				var cancelUIButton = opts.cancelUIButton || 'Cancel';
+				var continueUIButton = opts.continueUIButton || 'Continue';
 				var callback = opts.callback || function() {};
 				var popup = '<popup id=' + id + ' ui-visible-state="hidden">\
 					<panel>\
@@ -1628,26 +1628,26 @@ Released under MIT license, http://cubiq.org/license
 						</toolbar>\
 					</panel>\
 				</popup>';
-				$("app").insertAdjacentHTML("beforeEnd", popup);
-				var popupID = "#" + id;
-				$(popupID).UIBlock("0.5");
-				var popupBtn = "#" + id + " uibutton";
+				$('app').insertAdjacentHTML('beforeEnd', popup);
+				var popupID = '#' + id;
+				$(popupID).UIBlock('0.5');
+				var popupBtn = '#' + id + ' uibutton';
 				$$(popupBtn).each(function(button) {
-					button.bind("click", cancelClickPopup = function(e) {
-						if (button.getAttribute("ui-implements")==="continue") {
+					button.bind('click', cancelClickPopup = function(e) {
+						if (button.getAttribute('ui-implements')==='continue') {
 							callback.call(callback, this);
 						}
 						e.preventDefault();
-						$.UIClosePopup("#" + id);
+						$.UIClosePopup('#' + id);
 					});
 					$.UIPopUpIsActive = false;
 					$.UIPopUpIdentifier = null;
-					button.bind("touchend", cancelTouchPopup = function(e) {		
-					if (button.getAttribute("ui-implements")==="continue") {
+					button.bind('touchend', cancelTouchPopup = function(e) {		
+					if (button.getAttribute('ui-implements')==='continue') {
 							callback.call(callback, this);
 						}
 						e.preventDefault();
-						$.UIClosePopup("#" + id);
+						$.UIClosePopup('#' + id);
 					}); 
 					$.UIPopUpIsActive = false;
 					$.UIPopUpIdentifier = null;
@@ -1662,28 +1662,28 @@ Released under MIT license, http://cubiq.org/license
 		UIShowPopUp : function( options ) {
 			$.UIPopUp(options);
 			$.UIPopUpIsActive = true;
-			$.UIPopUpIdentifier = "#" + options.id;
-			var screenCover = $("mask");
-			screenCover.bind("touchmove", function(e) {
+			$.UIPopUpIdentifier = '#' + options.id;
+			var screenCover = $('mask');
+			screenCover.bind('touchmove', function(e) {
 				e.preventDefault();
 			});
-			$.UIPositionPopUp("#" + options.id);
-			screenCover.setAttribute("ui-visible-state", "visible");
-			$("#" + options.id).setAttribute("ui-visible-state", "visible");
+			$.UIPositionPopUp('#' + options.id);
+			screenCover.setAttribute('ui-visible-state', 'visible');
+			$('#' + options.id).setAttribute('ui-visible-state', 'visible');
 		},
 		UIPositionPopUp : function(selector) {
 			$.UIPopUpIsActive = true;
 			$.UIPopUpIdentifier = selector;
 			var popup = $(selector);
-			var str = "top:";
-			str += ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + "px;";
+			var str = 'top:';
+			str += ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + 'px;';
 			popup.css(str);
-			str = "left:";
-			str += (window.innerWidth / 2) - (popup.clientWidth / 2) + "px";
+			str = 'left:';
+			str += (window.innerWidth / 2) - (popup.clientWidth / 2) + 'px';
 			popup.css(str); 
 		},
 		UIRepositionPopupOnOrientationChange : function ( ) {
-			$.body.bind("orientationchange", function() {
+			$.body.bind('orientationchange', function() {
 				if (window.orientation === 90 || window.orientation === -90) {
 					if ($.UIPopUpIsActive) {
 						$.UIPositionPopUp($.UIPopUpIdentifier);
@@ -1694,15 +1694,15 @@ Released under MIT license, http://cubiq.org/license
 					}
 				}
 			});
-			window.addEventListener("resize", function() {
+			window.addEventListener('resize', function() {
 				if ($.UIPopUpIsActive) {
 					$.UIPositionPopUp($.UIPopUpIdentifier);
 				}
 			}, false);	
 		},
 		UIClosePopup : function ( selector ) {
-			$(selector + " uibutton[ui-implements=cancel]").UIRemovePopupBtnEvents("click", "cancelClickPopup");
-				$(selector + " uibutton[ui-implements=continue]").UIRemovePopupBtnEvents("click", "cancelTouchPopup");
+			$(selector + ' uibutton[ui-implements=cancel]').UIRemovePopupBtnEvents('click', 'cancelClickPopup');
+				$(selector + ' uibutton[ui-implements=continue]').UIRemovePopupBtnEvents('click', 'cancelTouchPopup');
 			$(selector).UIUnblock();
 			$(selector).remove();
 			$.UIPopUpIdentifier = null;
@@ -1722,17 +1722,17 @@ Released under MIT license, http://cubiq.org/license
 		UISelectionList : function ( callback ) {
 			var listitems = [].slice.apply(this.children);
 			listitems.each(function(item) {
-				if (item.nodeName.toLowerCase() === "tablecell") {
-					var checkmark = "<checkmark>&#x2713</checkmark>";
+				if (item.nodeName.toLowerCase() === 'tablecell') {
+					var checkmark = '<checkmark>&#x2713</checkmark>';
 					item.insert(checkmark);
-					item.bind("click", function() {
+					item.bind('click', function() {
 						listitems.each(function(check) {
-							check.removeClass("selected");
+							check.removeClass('selected');
 						});
-						this.addClass("selected");
-						this.find("input").checked = true; 
+						this.addClass('selected');
+						this.find('input').checked = true; 
 						if (callback) {
-							callback.call(callback, this.find("input"));
+							callback.call(callback, this.find('input'));
 						}
 					});
 				}
@@ -1755,7 +1755,7 @@ Released under MIT license, http://cubiq.org/license
 				}
 			*/
 			var id = opts.id;
-			var namePrefix = "";
+			var namePrefix = '';
 			if (opts.namePrefix) {
 				namePrefix = "name='" + opts.namePrefix + "." + opts.id + "'";
 			} else {
@@ -1781,9 +1781,9 @@ Released under MIT license, http://cubiq.org/license
 				this.css("position: relative;");
 			}
 			this.insert(uiswitch);
-			var newSwitchID = "#" + id;
-			$(newSwitchID).find("input").checked = status === "on" ? true : false;
-			$(newSwitchID).bind("click", function() {
+			var newSwitchID = '#' + id;
+			$(newSwitchID).find('input').checked = status === 'on' ? true : false;
+			$(newSwitchID).bind('click', function() {
 				this.UISwitchControl(callback);
 			});
 		}
@@ -1792,15 +1792,15 @@ Released under MIT license, http://cubiq.org/license
 	$.extend(HTMLElement.prototype, {
 		UISwitchControl : function (callback) {
 			callback = callback || function() { return false; };
-			if (this.nodeName.toLowerCase()==="switchcontrol") {
+			if (this.nodeName.toLowerCase()==='switchcontrol') {
 				callback.call(callback, this);
-				if (this.hasClass("off")) {
-					this.toggleClass("on", "off");
-					this.find("input").checked = true;
-					this.querySelector("thumb").focus();
+				if (this.hasClass('off')) {
+					this.toggleClass('on', 'off');
+					this.find('input').checked = true;
+					this.querySelector('thumb').focus();
 				} else {
-					this.toggleClass("on", "off");
-					this.find("input").checked = false;
+					this.toggleClass('on', 'off');
+					this.find('input').checked = false;
 				}
 			} else {
 				return;
@@ -1810,16 +1810,16 @@ Released under MIT license, http://cubiq.org/license
 
 	$.extend(HTMLElement.prototype, {
 		UIInitSwitchToggling : function() {
-			$$("switchcontrol", this).each(function(item) {
-				if (item.hasClass("on")) {
+			$$('switchcontrol', this).each(function(item) {
+				if (item.hasClass('on')) {
 					item.checked = true;
 					item.find("input[type='checkbox']").checked = true;
 				} else {
 					item.checked = false;
 					item.find("input[type='checkbox']").checked = false;
 				}
-				item.bind("click", function(e) {
-					this.parentNode.style.backgroundImage = "none";
+				item.bind('click', function(e) {
+					this.parentNode.style.backgroundImage = 'none';
 					e.preventDefault();
 					item.UISwitchControl();
 				});
@@ -1905,100 +1905,100 @@ Released under MIT license, http://cubiq.org/license
 			var cont = $(container);
 			var kids = [].slice.apply(this.children);
 			if (!this.hasAttribute('ui-selected-segment')) {
-				this.setAttribute("ui-selected-segment", "");
+				this.setAttribute('ui-selected-segment', '');
 			}
-			if (this.getAttribute("ui-selected-index")) {
-				val = this.getAttribute("ui-selected-index");
+			if (this.getAttribute('ui-selected-index')) {
+				val = this.getAttribute('ui-selected-index');
 				var seg = this.children(val);
 				try {
-					seg = seg.getAttribute("id");
-					this.setAttribute("ui-selected-segment", seg);
-					this.childred[val].addClass("selected");
+					seg = seg.getAttribute('id');
+					this.setAttribute('ui-selected-segment', seg);
+					this.childred[val].addClass('selected');
 				} catch(e) {}
 			} else {
 				var checkChildNodesForAttr = -1;
 				for (var i = 0, len = this.children.length; i < len; i++) {
-					if (this.children[i].hasClass("selected")) {
-						this.setAttribute("ui-selected-index", i);
+					if (this.children[i].hasClass('selected')) {
+						this.setAttribute('ui-selected-index', i);
 					} else {
 						checkChildNodesForAttr++;
 					}
 				} 
 				if (checkChildNodesForAttr === this.children.length-1) {
-					this.setAttribute("ui-selected-index", 0);
-					this.firstElementChild.addClass("selected");
+					this.setAttribute('ui-selected-index', 0);
+					this.firstElementChild.addClass('selected');
 				}
 			}
 			if (container) {
 				container = $(container);
 				if (val) { 
-					container.setAttribute("ui-selected-index", val);
+					container.setAttribute('ui-selected-index', val);
 				} else {
-					container.setAttribute("ui-selected-index", 0);
+					container.setAttribute('ui-selected-index', 0);
 				}
 				var containerChildren = [].slice.apply(container.children);
 				containerChildren.forEach(function(child) {
-					child.css("display: none;");
+					child.css('display: none;');
 				});
-				containerChildren[val].css("display","block");
-				that.setAttribute("ui-segmented-container", ("#" + container.id));
-				var selectedIndex = this.getAttribute("ui-selected-index");
-				var whichScroller = container.ancestor("scrollpanel").getAttribute("ui-scroller");
+				containerChildren[val].css('display','block');
+				that.setAttribute('ui-segmented-container', ('#' + container.id));
+				var selectedIndex = this.getAttribute('ui-selected-index');
+				var whichScroller = container.ancestor('scrollpanel').getAttribute('ui-scroller');
 				$.UIScrollers[whichScroller].refresh();
 				
 			}
 	
 			buttons.each(function(button) {
-				if (!button.hasAttribute("id")) {
-					button.setAttribute("id", $.UIUuid());
+				if (!button.hasAttribute('id')) {
+					button.setAttribute('id', $.UIUuid());
 				}
-				if (!that.getAttribute("ui-selected-segment")) {
-					if (button.hasClass("selected")) {
-						that.setAttribute("ui-selected-segment", button.getAttribute("id"));
+				if (!that.getAttribute('ui-selected-segment')) {
+					if (button.hasClass('selected')) {
+						that.setAttribute('ui-selected-segment', button.getAttribute('id'));
 					}
 				}
-				button.bind("click", function() {
-					var selectedSegment = that.getAttribute("ui-selected-segment");
-					var selectedIndex = that.getAttribute("ui-selected-index");
+				button.bind('click', function() {
+					var selectedSegment = that.getAttribute('ui-selected-segment');
+					var selectedIndex = that.getAttribute('ui-selected-index');
 					var childPosition = null;
 					var container = null;
-					var ancestor = this.ancestor("segmentedcontrol");
-					if (ancestor.hasAttribute("ui-segmented-container")) {
-						container = ancestor.getAttribute("ui-segmented-container");
+					var ancestor = this.ancestor('segmentedcontrol');
+					if (ancestor.hasAttribute('ui-segmented-container')) {
+						container = ancestor.getAttribute('ui-segmented-container');
 					}
 					var oldSelection = null;
-					if (ancestor.hasAttribute("ui-selected-index")) {
-						oldSelection = ancestor.getAttribute("ui-selected-index");
+					if (ancestor.hasAttribute('ui-selected-index')) {
+						oldSelection = ancestor.getAttribute('ui-selected-index');
 					}
 					var uisi = null;
 					if (!selectedSegment) {
-						uisi = this.getAttribute("ui-child-position");
-						that.setAttribute("ui-selected-index", uisi);
-						that.setAttribute("ui-selected-segment", this.getAttribute("id"));
-						this.addClass("selected");
-						childPosition = this.getAttribute("ui-child-position");
-						container.children[val].css("display: none;");
-						container.children[childPosition].css("display: none;");
+						uisi = this.getAttribute('ui-child-position');
+						that.setAttribute('ui-selected-index', uisi);
+						that.setAttribute('ui-selected-segment', this.getAttribute('id'));
+						this.addClass('selected');
+						childPosition = this.getAttribute('ui-child-position');
+						container.children[val].css('display: none;');
+						container.children[childPosition].css('display: none;');
 					} 
 					if (selectedSegment) {
-						uisi = this.getAttribute("ui-child-position");
-						that.setAttribute("ui-selected-index", uisi);
-						var oldSelectedSegment = $(("#" + selectedSegment));
-						oldSelectedSegment.removeClass("selected");
-						that.setAttribute("ui-selected-segment", this.getAttribute("id"));
-						this.addClass("selected");
-						childPosition = this.getAttribute("ui-child-position");
-						if (that.getAttribute("ui-segmented-container")) {
-							container = $(that.getAttribute("ui-segmented-container"));
-							container.children(oldSelection).css("display: none;");
-							container.children(uisi).css("display: -webkit-box;");
-							container.children[oldSelectedSegment.getAttribute("ui-child-position")].css("{display","none}");
-							var scrollpanel = container.ancestor("scrollpanel");
-							whichScroller = scrollpanel.getAttribute("ui-scroller");
+						uisi = this.getAttribute('ui-child-position');
+						that.setAttribute('ui-selected-index', uisi);
+						var oldSelectedSegment = $(('#' + selectedSegment));
+						oldSelectedSegment.removeClass('selected');
+						that.setAttribute('ui-selected-segment', this.getAttribute('id'));
+						this.addClass('selected');
+						childPosition = this.getAttribute('ui-child-position');
+						if (that.getAttribute('ui-segmented-container')) {
+							container = $(that.getAttribute('ui-segmented-container'));
+							container.children(oldSelection).css('display: none;');
+							container.children(uisi).css('display: -webkit-box;');
+							container.children[oldSelectedSegment.getAttribute('ui-child-position')].css('{display','none}');
+							var scrollpanel = container.ancestor('scrollpanel');
+							whichScroller = scrollpanel.getAttribute('ui-scroller');
 							$.UIScrollers[whichScroller].refresh();
 						}
 					}
-					this.addClass("selected");
+					this.addClass('selected');
 						callback.call(callback, button);
 				});
 			});
@@ -2007,61 +2007,61 @@ Released under MIT license, http://cubiq.org/license
 	});
 
 	$(function() {	 
-		$$("segmentedcontrol").each(function(segmentedcontrol) {
-			if (segmentedcontrol.getAttribute("ui-implements") !== "segmented-paging") {
+		$$('segmentedcontrol').each(function(segmentedcontrol) {
+			if (segmentedcontrol.getAttribute('ui-implements') !== 'segmented-paging') {
 				segmentedcontrol.UISegmentedControl();
-				var scroller = segmentedcontrol.ancestor("scrollpanel").getAttribute("ui-scroller");
+				var scroller = segmentedcontrol.ancestor('scrollpanel').getAttribute('ui-scroller');
 				$.UIScrollers[scroller].destroy();
-				$.UIScrollers[scroller] = new iScroll(segmentedcontrol.ancestor("scrollpanel").parentNode); 
+				$.UIScrollers[scroller] = new iScroll(segmentedcontrol.ancestor('scrollpanel').parentNode); 
 			}
 		});
 	});
 
 	$.extend(HTMLElement.prototype, {
 		UISegmentedPagingControl : function ( ) {
-			var segmentedPager = $("segmentedcontrol[ui-implements=segmented-paging]");
-			var pagingOrientation = segmentedPager.getAttribute("ui-paging");
-			segmentedPager.setAttribute("ui-paged-subview", 0);
-			segmentedPager.first().addClass("disabled");
-			var subviews = $$("subview", this);
-			segmentedPager.setAttribute("ui-pagable-subviews", subviews.length);
+			var segmentedPager = $('segmentedcontrol[ui-implements=segmented-paging]');
+			var pagingOrientation = segmentedPager.getAttribute('ui-paging');
+			segmentedPager.setAttribute('ui-paged-subview', 0);
+			segmentedPager.first().addClass('disabled');
+			var subviews = $$('subview', this);
+			segmentedPager.setAttribute('ui-pagable-subviews', subviews.length);
 			var childPosition = 0;
 			subviews.each(function(item) {
-				item.setAttribute("ui-navigation-status", "upcoming");
-				item.setAttribute("ui-child-position", childPosition);
+				item.setAttribute('ui-navigation-status', 'upcoming');
+				item.setAttribute('ui-child-position', childPosition);
 				childPosition++;
-				item.setAttribute("ui-paging-orient", pagingOrientation);
+				item.setAttribute('ui-paging-orient', pagingOrientation);
 			});
-			subviews[0].setAttribute("ui-navigation-status", "current");
-			segmentedPager.delegate("uibutton", "click", function(button) {
-				var pager = button.ancestor("segmentedcontrol");
+			subviews[0].setAttribute('ui-navigation-status', 'current');
+			segmentedPager.delegate('uibutton', 'click', function(button) {
+				var pager = button.ancestor('segmentedcontrol');
 				if (button.isSameNode(button.parentNode.firstElementChild)) {
-					if (pager.getAttribute("ui-paged-subview") === 1) {
-						button.addClass("disabled");
-						pager.setAttribute("ui-paged-subview", 0);
-						subviews[0].setAttribute("ui-navigation-status", "current");
-						subviews[1].setAttribute("ui-navigation-status", "upcoming");
+					if (pager.getAttribute('ui-paged-subview') === 1) {
+						button.addClass('disabled');
+						pager.setAttribute('ui-paged-subview', 0);
+						subviews[0].setAttribute('ui-navigation-status', 'current');
+						subviews[1].setAttribute('ui-navigation-status', 'upcoming');
 					} else {
-						subviews[pager.getAttribute("ui-paged-subview") - 1 ].setAttribute( "ui-navigation-status", "current");
-						subviews[pager.getAttribute("ui-paged-subview")].setAttribute("ui-navigation-status", "upcoming");
-						pager.setAttribute("ui-paged-subview", pager.getAttribute("ui-paged-subview")-1);
-						button.next().removeClass("disabled");
-						if (pager.getAttribute("ui-paged-subview") <= 0) {
-							button.addClass("disabled");
+						subviews[pager.getAttribute('ui-paged-subview') - 1 ].setAttribute( 'ui-navigation-status', 'current');
+						subviews[pager.getAttribute('ui-paged-subview')].setAttribute('ui-navigation-status', 'upcoming');
+						pager.setAttribute('ui-paged-subview', pager.getAttribute('ui-paged-subview')-1);
+						button.next().removeClass('disabled');
+						if (pager.getAttribute('ui-paged-subview') <= 0) {
+							button.addClass('disabled');
 						}
 					}
 				} else {
-					var pagableSubviews = pager.getAttribute("ui-pagable-subviews");
-					var pagedSubview = pager.getAttribute("ui-paged-subview");
-					if (pager.getAttribute("ui-paged-subview") == pagableSubviews-1) {
-						button.addClass("disabled");
+					var pagableSubviews = pager.getAttribute('ui-pagable-subviews');
+					var pagedSubview = pager.getAttribute('ui-paged-subview');
+					if (pager.getAttribute('ui-paged-subview') == pagableSubviews-1) {
+						button.addClass('disabled');
 					} else {
-						button.previous().removeClass("disabled");
-						subviews[pagedSubview].setAttribute("ui-navigation-status", "traversed");
-						subviews[++pagedSubview].setAttribute("ui-navigation-status", "current");
-						pager.setAttribute("ui-paged-subview", (pagedSubview));
-						if (pager.getAttribute("ui-paged-subview") == pagableSubviews-1) {
-							button.addClass("disabled");
+						button.previous().removeClass('disabled');
+						subviews[pagedSubview].setAttribute('ui-navigation-status', 'traversed');
+						subviews[++pagedSubview].setAttribute('ui-navigation-status', 'current');
+						pager.setAttribute('ui-paged-subview', (pagedSubview));
+						if (pager.getAttribute('ui-paged-subview') == pagableSubviews-1) {
+							button.addClass('disabled');
 						}
 					}
 				}
@@ -2072,7 +2072,7 @@ Released under MIT license, http://cubiq.org/license
 	$.extend(HTMLElement.prototype, {
 		UICreateTabBar : function ( opts ) {
 			var id = opts.id || $.UIUuid();
-			var imagePath = opts.imagePath || "icons\/";
+			var imagePath = opts.imagePath || 'icons\/';
 			var numberOfTabs = opts.numberOfTabs || 1;
 			var tabLabels = opts.tabLabels;
 			var iconsOfTabs = opts.iconsOfTabs;
@@ -2104,55 +2104,55 @@ Released under MIT license, http://cubiq.org/license
 		},
 
 		UITabBar : function ( ) {
-			var tabs = $$("tabbar > uibutton[ui-implements=tab]", this);
-			$("tabbar", this).UIIdentifyChildNodes();
-			var tabbar = $("tabbar", this);
-			var subviews = $$("subview", this);
+			var tabs = $$('tabbar > uibutton[ui-implements=tab]', this);
+			$('tabbar', this).UIIdentifyChildNodes();
+			var tabbar = $('tabbar', this);
+			var subviews = $$('subview', this);
 			subviews.each(function(subview) {
-				subview.addClass("unselected");
+				subview.addClass('unselected');
 			});
-			var selectedTab = tabbar.getAttribute("ui-selected-tab") || 0;
-			subviews[selectedTab].toggleClass("unselected","selected");
-			tabs[selectedTab].addClass("selected");
+			var selectedTab = tabbar.getAttribute('ui-selected-tab') || 0;
+			subviews[selectedTab].toggleClass('unselected','selected');
+			tabs[selectedTab].addClass('selected');
 			tabs.each(function(tab) {
-				tab.bind("click", function() {
-					if (tab.hasClass("disabled") || tab.hasClass("selected")) {
+				tab.bind('click', function() {
+					if (tab.hasClass('disabled') || tab.hasClass('selected')) {
 						return;
 					}
-					var whichTab = tab.ancestor("tabbar").getAttribute("ui-selected-tab");
-					tabs[whichTab].removeClass("selected");
-					tab.addClass("selected");
-					subviews[whichTab].removeClass("selected");
-					subviews[whichTab].addClass("unselected");
-					subviews[tab.getAttribute("ui-child-position")].addClass("selected");
-					subviews[tab.getAttribute("ui-child-position")].removeClass("unselected");
-					tabbar.setAttribute("ui-selected-tab", tab.getAttribute("ui-child-position"));
+					var whichTab = tab.ancestor('tabbar').getAttribute('ui-selected-tab');
+					tabs[whichTab].removeClass('selected');
+					tab.addClass('selected');
+					subviews[whichTab].removeClass('selected');
+					subviews[whichTab].addClass('unselected');
+					subviews[tab.getAttribute('ui-child-position')].addClass('selected');
+					subviews[tab.getAttribute('ui-child-position')].removeClass('unselected');
+					tabbar.setAttribute('ui-selected-tab', tab.getAttribute('ui-child-position'));
 				});
 			});
 		},
 
 		UITabBarForViews : function ( ) {
-			var tabs = $$("tabbar > uibutton[ui-implements=tab]", this);
-			$("tabbar", this).UIIdentifyChildNodes();
-			var tabbar = $("tabbar", this);
-			var views = $$("view[ui-implements=tabbar-panel]", this);
+			var tabs = $$('tabbar > uibutton[ui-implements=tab]', this);
+			$('tabbar', this).UIIdentifyChildNodes();
+			var tabbar = $('tabbar', this);
+			var views = $$('view[ui-implements=tabbar-panel]', this);
 			views.each(function(subview) {
-				subview.setAttribute("ui-navigation-status","upcoming");
+				subview.setAttribute('ui-navigation-status','upcoming');
 			});
-			var selectedTab = tabbar.getAttribute("ui-selected-tab") || 0;
-			views[selectedTab].setAttribute("ui-navigation-status","current");
-			tabs[selectedTab].addClass("selected");
+			var selectedTab = tabbar.getAttribute('ui-selected-tab') || 0;
+			views[selectedTab].setAttribute('ui-navigation-status','current');
+			tabs[selectedTab].addClass('selected');
 			tabs.each(function(tab) {
-				tab.bind("click", function() {
-					if (tab.hasClass("disabled") || tab.hasClass("selected")) {
+				tab.bind('click', function() {
+					if (tab.hasClass('disabled') || tab.hasClass('selected')) {
 						return;
 					}
-					var whichTab = tab.ancestor("tabbar").getAttribute("ui-selected-tab");
-					tabs[whichTab].removeClass("selected");
-					tab.addClass("selected");
-					views[whichTab].setAttribute("ui-navigation-status", "upcoming");
-					views[tab.getAttribute("ui-child-position")].setAttribute("ui-navigation-status", "current");
-					tabbar.setAttribute("ui-selected-tab", tab.getAttribute("ui-child-position"));
+					var whichTab = tab.ancestor('tabbar').getAttribute('ui-selected-tab');
+					tabs[whichTab].removeClass('selected');
+					tab.addClass('selected');
+					views[whichTab].setAttribute('ui-navigation-status', 'upcoming');
+					views[tab.getAttribute('ui-child-position')].setAttribute('ui-navigation-status', 'current');
+					tabbar.setAttribute('ui-selected-tab', tab.getAttribute('ui-child-position'));
 				});
 			});
 		}
@@ -2162,13 +2162,13 @@ Released under MIT license, http://cubiq.org/license
 		UIActionSheet : function(opts) {
 			var that = this;
 			var actionSheetID = opts.id;
-			var actionSheetColor = "undefined";
+			var actionSheetColor = 'undefined';
 			if (!!opts.color) {
 				actionSheetColor = opts.color;
 			}
-			var title = "";
+			var title = '';
 			if (opts.title) {
-				title = "<p>" + opts.title + "</p>";
+				title = '<p>' + opts.title + '</p>';
 			}
 			var createActionSheet = function() {
 				var actionSheetStr = "<actionsheet id='" + actionSheetID + "' class='hidden' ui-contains='action-buttons'";
@@ -2208,96 +2208,96 @@ Released under MIT license, http://cubiq.org/license
 	$.extend({
 
 		UIShowActionSheet : function(actionSheetID) {
-			$.app.data("ui-action-sheet-id", actionSheetID);
+			$.app.data('ui-action-sheet-id', actionSheetID);
 			$(actionSheetID).UIBlock();
-			var screenCover = $("mask");
-			screenCover.css("width: " + window.innerWidth + "px; height: " + window.innerHeight + "px; opacity: .5;");
-			screenCover.setAttribute("ui-visible-state", "visible");
-			$(actionSheetID).removeClass("hidden");
-			screenCover.addEventListener("touchmove", function(e) {
+			var screenCover = $('mask');
+			screenCover.css('width: ' + window.innerWidth + 'px; height: ' + window.innerHeight + 'px; opacity: .5;');
+			screenCover.setAttribute('ui-visible-state', 'visible');
+			$(actionSheetID).removeClass('hidden');
+			screenCover.addEventListener('touchmove', function(e) {
 				e.preventDefault();
 			}, false );
 		},
 		UIHideActionSheet : function() {
-			var actionSheet = $.app.data("ui-action-sheet-id");
+			var actionSheet = $.app.data('ui-action-sheet-id');
 			try{ 
-				$(actionSheet).addClass("hidden");
+				$(actionSheet).addClass('hidden');
 				$(actionSheet).UIUnblock();
 			 } catch(e) {}
-			$.app.removeData("ui-action-sheet-id");
+			$.app.removeData('ui-action-sheet-id');
 		},
 		UIReadjustActionSheet : function() {
-			var actionSheetID = "";
-			if ($.app.data("ui-action-sheet-id")) {
-				actionSheetID = $.app.data("ui-action-sheet-id");
-				$(actionSheetID).css("right: 0; bottom: 0; left: 0;");
+			var actionSheetID = '';
+			if ($.app.data('ui-action-sheet-id')) {
+				actionSheetID = $.app.data('ui-action-sheet-id');
+				$(actionSheetID).css('right: 0; bottom: 0; left: 0;');
 				if ($.iphone || $.ipod) {
 					if ($.standalone) {
-						$(actionSheetID).css("right: 0; bottom: 0px; left: 0;");
+						$(actionSheetID).css('right: 0; bottom: 0px; left: 0;');
 					} else {
 						if (window.innerWidth > window.innerHeight) {
-						$(actionSheetID).css("right: 0; bottom: 0; left: 0; -webkit-transform: translate3d(0,70px,0);");
+						$(actionSheetID).css('right: 0; bottom: 0; left: 0; -webkit-transform: translate3d(0,70px,0);');
 						} else {
-							$(actionSheetID).css("right: 0; bottom: 0; left: 0; -webkit-transform: translate3d(0,0,0);");
+							$(actionSheetID).css('right: 0; bottom: 0; left: 0; -webkit-transform: translate3d(0,0,0);');
 						}
 					}
 				} else {
-					$(actionSheetID).css("right: 0; bottom: 0; left: 0;");
+					$(actionSheetID).css('right: 0; bottom: 0; left: 0;');
 				}
 			}
 			$.UIPositionMask();
 		}
 	});
-	document.addEventListener("orientationchange", function() {
+	document.addEventListener('orientationchange', function() {
 		$.UIReadjustActionSheet();
 	}, false);
 
 	$.extend(HTMLElement.prototype, {
 		UIExpander : function ( opts ) {
 			opts = opts || {};
-			var status = opts.status || "expanded";
-			var title = opts.title || "Open";
-			var altTitle = opts.altTitle || "Close";
+			var status = opts.status || 'expanded';
+			var title = opts.title || 'Open';
+			var altTitle = opts.altTitle || 'Close';
 			var expander = this;
-			var panel = $("panel", this);
-			var header = "<header><label></label></header>";
-			this.insert(header, "first");
-			panel.setAttribute("ui-height", parseInt(panel.css("height"), 10));
-			if (status === "expanded") {
-				expander.toggleClass("ui-status-expanded", "ui-status-collapsed");
-				$("label", this).text(altTitle);
-				panel.style.height = panel.getAttribute("ui-height") + "px";
-				panel.css("opacity: 1;");
+			var panel = $('panel', this);
+			var header = '<header><label></label></header>';
+			this.insert(header, 'first');
+			panel.setAttribute('ui-height', parseInt(panel.css('height'), 10));
+			if (status === 'expanded') {
+				expander.toggleClass('ui-status-expanded', 'ui-status-collapsed');
+				$('label', this).text(altTitle);
+				panel.style.height = panel.getAttribute('ui-height') + 'px';
+				panel.css('opacity: 1;');
 			} else {
-				$("label", this).text(title);
-				panel.css("height: 0px; opacity: 0;");
-				expander.toggleClass("ui-status-collapsed", "ui-status-expanded");
+				$('label', this).text(title);
+				panel.css('height: 0px; opacity: 0;');
+				expander.toggleClass('ui-status-collapsed', 'ui-status-expanded');
 			}
-			$("header", expander).bind("click", function() {
-				if (panel.style.height === "0px") {
-					panel.style.height = panel.getAttribute("ui-height") + "px";
+			$('header', expander).bind('click', function() {
+				if (panel.style.height === '0px') {
+					panel.style.height = panel.getAttribute('ui-height') + 'px';
 					panel.style.opacity = 1;
-					$("label", this).text(altTitle);
-					expander.toggleClass("ui-status-collapsed", "ui-status-expanded");
+					$('label', this).text(altTitle);
+					expander.toggleClass('ui-status-collapsed', 'ui-status-expanded');
 			
 				} else {
-					panel.css("height: 0px; opacity: 0;");
-					$("label", this).text(title);
-					expander.toggleClass("ui-status-expanded", "ui-status-collapsed");
+					panel.css('height: 0px; opacity: 0;');
+					$('label', this).text(title);
+					expander.toggleClass('ui-status-expanded', 'ui-status-collapsed');
 				}
 			});
 		}
 	});
 	$.extend(HTMLElement.prototype, {
 		UICalculateNumberOfLines : function () {
-			var lineHeight = parseInt(this.css("line-height"), 10);
-			var height = parseInt(this.css("height"), 10);
+			var lineHeight = parseInt(this.css('line-height'), 10);
+			var height = parseInt(this.css('height'), 10);
 			var lineNums = Math.floor(height / lineHeight);
 			return lineNums;
 		},
 		UIParagraphEllipsis : function () {
 			var lines = this.UICalculateNumberOfLines();
-			this.css("-webkit-line-clamp:" + lines);
+			this.css('-webkit-line-clamp:' + lines);
 		}
 	});
 	$.extend(HTMLElement.prototype, {
@@ -2306,9 +2306,9 @@ Released under MIT license, http://cubiq.org/license
 			var className = opts.className || false;
 			var width = opts.width || 100;
 			var speed = opts.speed || 5;
-			var position = opts.position || "after";
-			var margin = opts.margin || "10px auto";
-			var bar = "<progressbar";
+			var position = opts.position || 'after';
+			var margin = opts.margin || '10px auto';
+			var bar = '<progressbar';
 			if (className) {
 				bar += " class='" + className + "'";
 			}
@@ -2319,15 +2319,15 @@ Released under MIT license, http://cubiq.org/license
 			this.insert(bar);
 		},
 		UIHideNavBarHeader : function ( ) {
-			this.css("visibility: hidden; position: absolute;");
+			this.css('visibility: hidden; position: absolute;');
 		},
 		UIShowNavBarHeader : function ( ) {
-			this.css("visibility: visible; position: static;");
+			this.css('visibility: visible; position: static;');
 		}
 	});
 	$.extend({
 		UIAdjustToolBarTitle : function() {
-			$$("navbar h1").each(function(title) {
+			$$('navbar h1').each(function(title) {
 				var availableSpace = window.innerWidth - 20;
 				var siblingLeftWidth = 0;
 				var siblingRightWidth = 0;
@@ -2342,26 +2342,26 @@ Released under MIT license, http://cubiq.org/license
 				//if (subtractableWidth > 0) {
 				if((availableSpace - subtractableWidth) < 40) {
 			
-					title.css("display: none;");
+					title.css('display: none;');
 				} else {
-					title.css("display: block; width: " + (availableSpace - subtractableWidth - 20) + "px;");
+					title.css('display: block; width: ' + (availableSpace - subtractableWidth - 20) + 'px;');
 				}
 				//}
 			});
 		}
 	});
-	document.addEventListener("DOMContentLoaded", function() {
-		if (!$("splitview")) {
+	document.addEventListener('DOMContentLoaded', function() {
+		if (!$('splitview')) {
 			$.UIAdjustToolBarTitle();
 		}
 	}, false);
-	document.addEventListener("orientationchange", function() {
-		if (!$("splitview")) {
+	document.addEventListener('orientationchange', function() {
+		if (!$('splitview')) {
 			$.UIAdjustToolBarTitle();
 		}
 	}, false);
-	window.addEventListener("resize", function() {
-		if (!$("splitview")) {
+	window.addEventListener('resize', function() {
+		if (!$('splitview')) {
 			$.UIAdjustToolBarTitle();
 		}
 	}, false);
@@ -2374,18 +2374,18 @@ Released under MIT license, http://cubiq.org/license
 		size : null,
 		init : function(opts) {
 			if (opts) {
-				this.id = opts.id || "UIActivityIndicator";
-				this.color = opts.color || "gray";
+				this.id = opts.id || 'UIActivityIndicator';
+				this.color = opts.color || 'gray';
 				if (!!opts.shadow) {
 					this.shadow = opts.shadow;
 				}
 				this.container = opts.container;
-				this.size = opts.size || "75%";
+				this.size = opts.size || '75%';
 			}
-			$(this.container).css("background-position: center 70%; background-repeat: no-repeat; background-image: -webkit-canvas(" + this.id + "); background-size: " + this.size + " " + this.size);
-			this.context = document.getCSSCanvasContext("2d", this.id, 37, 37);
+			$(this.container).css('background-position: center 70%; background-repeat: no-repeat; background-image: -webkit-canvas(' + this.id + '); background-size: ' + this.size + ' ' + this.size);
+			this.context = document.getCSSCanvasContext('2d', this.id, 37, 37);
 			this.context.lineWidth = 3;
-			this.context.lineCap = "round";
+			this.context.lineCap = 'round';
 			this.context.strokeStyle = this.color;
 			if (this.shadow) {
 				this.context.shadowOffsetX = 1;
@@ -2458,13 +2458,13 @@ Released under MIT license, http://cubiq.org/license
 			}
 			var sliderLength = $(selector).clientWidth;
 			if (startValue) {
-				$("thumb", selector).css("left: " + startValue + "px;");
-				$(selector).css("background-size: " + (startValue + 2) + "px 9px, 100% 9px;");				
+				$('thumb', selector).css('left: ' + startValue + 'px;');
+				$(selector).css('background-size: ' + (startValue + 2) + 'px 9px, 100% 9px;');				
 			}
-			$(selector).setAttribute("ui-slider-length", sliderLength);
-			if ("createTouch" in document) {
-				 var thumb = $(selector + " > thumb");
-				 thumb.bind("touchmove", function(thumb) {
+			$(selector).setAttribute('ui-slider-length', sliderLength);
+			if ('createTouch' in document) {
+				 var thumb = $(selector + ' > thumb');
+				 thumb.bind('touchmove', function(thumb) {
 					 this.UISliderTouch(event);
 					 this.UIUpdateSliderTouch(callback);
 				 }); 
@@ -2477,10 +2477,10 @@ Released under MIT license, http://cubiq.org/license
 	$.extend(HTMLElement.prototype, {
 		UISliderTouch : function( event ) {
 			event.preventDefault();
-			var sliderLength = this.parentNode.getAttribute("ui-slider-length");
+			var sliderLength = this.parentNode.getAttribute('ui-slider-length');
 			var touch = event.touches[0];
 			$.UICurX = touch.pageX - this.parentNode.offsetLeft - $.UISliderThumbWidth;
-			var sliderThumbWidth = this.css("width");
+			var sliderThumbWidth = this.css('width');
 			sliderThumbWidth = parseInt(sliderThumbWidth, 10);
 			$.UISliderValue = $.UICurX + sliderThumbWidth;
 			if ($.UICurX <= 0 - (sliderThumbWidth/2)) { 
@@ -2495,8 +2495,8 @@ Released under MIT license, http://cubiq.org/license
 			callback = callback || function() {};
 			this.style.left = $.UICurX - $.UISliderThumbWidth + 'px'; 
 			callback();
-			this.parentNode.css("-webkit-background-size:" + ($.UICurX + 1) + "px 9px, 100% 9px;");
-			this.parentNode.css("background-size:" + ($.UICurX + 1) + "px 9px, 100% 9px;");
+			this.parentNode.css('-webkit-background-size:' + ($.UICurX + 1) + 'px 9px, 100% 9px;');
+			this.parentNode.css('background-size:' + ($.UICurX + 1) + 'px 9px, 100% 9px;');
 		}
 	});
 
@@ -2508,16 +2508,16 @@ Released under MIT license, http://cubiq.org/license
 			elem.vmode = bSwapVertRef ? false : true ;
 			elem.root = elemParent && elemParent !== null ? elemParent : elem ;
 			if (elem.hmode && isNaN(parseInt(elem.root.style.left, 10))) {
-			   elem.root.style.left = elem.root.css("left");
+			   elem.root.style.left = elem.root.css('left');
 			}
 			if (elem.vmode && isNaN(parseInt(elem.root.style.top, 10))) {
-			   elem.root.style.top = elem.root.css("top");
+			   elem.root.style.top = elem.root.css('top');
 			}
 			if (!elem.hmode && isNaN(parseInt(elem.root.style.right, 10))) {
-			   elem.root.style.right = elem.root.css("right");
+			   elem.root.style.right = elem.root.css('right');
 			}
 			if (!elem.vmode && isNaN(parseInt(elem.root.style.bottom, 10))) {
-			   elem.root.style.bottom = elem.root.css("bottom");
+			   elem.root.style.bottom = elem.root.css('bottom');
 			}
 			elem.minX = typeof minX !== 'undefined' ? minX : null;
 			elem.minY = typeof minY !== 'undefined' ? minY : null;
@@ -2575,8 +2575,8 @@ Released under MIT license, http://cubiq.org/license
 			$.UICurX = nx;
 			$.UISliderValue = nx + (Math.round($.UISliderThumbWidth));
 			$.UICurY = ny;
-			$.UIDrag.obj.root.style[elem.hmode ? "left" : "right"] = nx + "px";
-			$.UIDrag.obj.root.style[elem.vmode ? "top" : "bottom"] = ny + "px";
+			$.UIDrag.obj.root.style[elem.hmode ? 'left' : 'right'] = nx + 'px';
+			$.UIDrag.obj.root.style[elem.vmode ? 'top' : 'bottom'] = ny + 'px';
 			$.UIDrag.obj.lastMouseX = ex;
 			$.UIDrag.obj.lastMouseY = ey;
 			$.UIDrag.obj.root.onDrag(nx, ny);
@@ -2588,8 +2588,8 @@ Released under MIT license, http://cubiq.org/license
 			document.onmousemove = null;
 			document.onmouseup = null;
 			$.UIDrag.obj.root.onDragEnd( 
-				parseInt($.UIDrag.obj.root.style[$.UIDrag.obj.hmode ? "left" : "right"], 10), 
-				parseInt($.UIDrag.obj.root.style[$.UIDrag.obj.vmode ? "top" : "bottom"], 10));
+				parseInt($.UIDrag.obj.root.style[$.UIDrag.obj.hmode ? 'left' : 'right'], 10), 
+				parseInt($.UIDrag.obj.root.style[$.UIDrag.obj.vmode ? 'top' : 'bottom'], 10));
 			$.UIDrag.obj = null;
 		},
 
@@ -2599,21 +2599,21 @@ Released under MIT license, http://cubiq.org/license
 			return e;
 		}, 
 		updateSliderProgressIndicator : function() {
-			$.UIDrag.obj.parentNode.css("-webkit-background-size:" + ($.UICurX + 1) + "px 9px, 100% 9px;");
-			$.UIDrag.obj.parentNode.css("background-size:" + ($.UICurX + 1) + "px 9px, 100% 9px;");
+			$.UIDrag.obj.parentNode.css('-webkit-background-size:' + ($.UICurX + 1) + 'px 9px, 100% 9px;');
+			$.UIDrag.obj.parentNode.css('background-size:' + ($.UICurX + 1) + 'px 9px, 100% 9px;');
 		}
 	};	
 
 	$.extend({
 		UISliderForMouse : function ( selector, opts ) {
 			opts = opts || {};
-			var thumb = $("thumb", selector);
+			var thumb = $('thumb', selector);
 			var slider = $(selector);
-			var thumbWidth = parseInt(thumb.css("width"),10);
-			var sliderWidth = parseInt(slider.css("width"),10);
-			var sliderHeight = parseInt(slider.css("height"),10);
-			var padding = parseInt(slider.css("padding-right"),10);
-			var border = parseInt(slider.css("border-right-width"),10);
+			var thumbWidth = parseInt(thumb.css('width'),10);
+			var sliderWidth = parseInt(slider.css('width'),10);
+			var sliderHeight = parseInt(slider.css('height'),10);
+			var padding = parseInt(slider.css('padding-right'),10);
+			var border = parseInt(slider.css('border-right-width'),10);
 			sliderWidth -= padding;
 			sliderWidth -= border;
 			sliderWidth -= $.UISliderThumbWidth;
@@ -2629,75 +2629,75 @@ Released under MIT license, http://cubiq.org/license
 					slider.UIUpdateSliderTouch();
 				}
 				// Temporary fix for horizontal slider thumb drag:
-				this.style.top = -sliderHeight + "px";
+				this.style.top = -sliderHeight + 'px';
 			};
 		}
 	});
 
 	$.extend(HTMLElement.prototype, {
 		UISetTranstionType : function( transition ) {
-			this.setAttribute("ui-transition-type", transition);
+			this.setAttribute('ui-transition-type', transition);
 		},
 		UIFlipSubview : function ( direction ) {
-			var view = this.ancestor("view");
-			view.UISetTranstionType("flip-" + direction);
-			this.bind("click", function() {
+			var view = this.ancestor('view');
+			view.UISetTranstionType('flip-' + direction);
+			this.bind('click', function() {
 				switch (direction) {
-					case "right":
-						$("subview:nth-of-type(1)", view).toggleClass("flip-right-front-in","flip-right-front-out");
-						$("subview:nth-of-type(2)", view).toggleClass("flip-right-back-in","flip-right-back-out");
+					case 'right':
+						$('subview:nth-of-type(1)', view).toggleClass('flip-right-front-in','flip-right-front-out');
+						$('subview:nth-of-type(2)', view).toggleClass('flip-right-back-in','flip-right-back-out');
 						break;
-					case "left":
-						$("subview:nth-of-type(1)", view).toggleClass("flip-left-front-in","flip-left-front-out");
-						$("subview:nth-of-type(2)", view).toggleClass("flip-left-back-in","flip-left-back-out");
+					case 'left':
+						$('subview:nth-of-type(1)', view).toggleClass('flip-left-front-in','flip-left-front-out');
+						$('subview:nth-of-type(2)', view).toggleClass('flip-left-back-in','flip-left-back-out');
 						break;
-					case "top":
-						$("subview:nth-of-type(2)", view).toggleClass("flip-top-front-in","flip-top-front-out");
-						$("subview:nth-of-type(1)", view).toggleClass("flip-top-back-in","flip-top-back-out");
+					case 'top':
+						$('subview:nth-of-type(2)', view).toggleClass('flip-top-front-in','flip-top-front-out');
+						$('subview:nth-of-type(1)', view).toggleClass('flip-top-back-in','flip-top-back-out');
 						break;
-					case "bottom":
-						$("subview:nth-of-type(2)", view).toggleClass("flip-bottom-front-in","flip-bottom-front-out");
-						$("subview:nth-of-type(1)", view).toggleClass("flip-bottom-back-in","flip-bottom-back-out");
+					case 'bottom':
+						$('subview:nth-of-type(2)', view).toggleClass('flip-bottom-front-in','flip-bottom-front-out');
+						$('subview:nth-of-type(1)', view).toggleClass('flip-bottom-back-in','flip-bottom-back-out');
 						break;
 					default:
-						$("subview:nth-of-type(1)", view).toggleClass("flip-right-front-in","flip-right-front-out");
-						$("subview:nth-of-type(2)", view).toggleClass("flip-right-back-in","flip-right-back-out");
+						$('subview:nth-of-type(1)', view).toggleClass('flip-right-front-in','flip-right-front-out');
+						$('subview:nth-of-type(2)', view).toggleClass('flip-right-back-in','flip-right-back-out');
 				}
 			});
 		},
 		UIPopSubview : function ( ) {
-			var view = this.ancestor("view");
-			view.UISetTranstionType("pop");
-			this.bind("click", function() {
-				$("subview:nth-of-type(2)", view).toggleClass("pop-in","pop-out");	
+			var view = this.ancestor('view');
+			view.UISetTranstionType('pop');
+			this.bind('click', function() {
+				$('subview:nth-of-type(2)', view).toggleClass('pop-in','pop-out');	
 			});
 		},
 
 		UIFadeSubview : function ( ) {
-			var view = this.ancestor("view");
-			view.UISetTranstionType("fade");
-			view.setAttribute("ui-transition-type", "fade");
-			this.bind("click", function() {
-				$("subview:nth-of-type(2)", view).toggleClass("fade-in", "fade-out");
+			var view = this.ancestor('view');
+			view.UISetTranstionType('fade');
+			view.setAttribute('ui-transition-type', 'fade');
+			this.bind('click', function() {
+				$('subview:nth-of-type(2)', view).toggleClass('fade-in', 'fade-out');
 			});
 		},
 		UISpinSubview : function ( direction ) {
-			var view = this.ancestor("view");
-			view.UISetTranstionType("spin");
-			if (!direction || direction === "left") {
-				this.UISetTranstionType("left");
-				this.bind("click", function() {
-					$("subview:nth-of-type(2)", view).toggleClass("spin-left-in", "spin-left-out");
+			var view = this.ancestor('view');
+			view.UISetTranstionType('spin');
+			if (!direction || direction === 'left') {
+				this.UISetTranstionType('left');
+				this.bind('click', function() {
+					$('subview:nth-of-type(2)', view).toggleClass('spin-left-in', 'spin-left-out');
 				});
-			} else if (direction === "right") {
-				this.UISetTranstionType("right");
-				this.bind("click", function() {
-					$("subview:nth-of-type(2)", view).toggleClass("spin-right-in", "spin-right-out");
+			} else if (direction === 'right') {
+				this.UISetTranstionType('right');
+				this.bind('click', function() {
+					$('subview:nth-of-type(2)', view).toggleClass('spin-right-in', 'spin-right-out');
 				});
 			} else {
-				this.UISetTranstionType("left");
-				this.bind("click", function() {
-					$("subview:nth-of-type(2)", view).toggleClass("spin-left-in", "spin-left-out");
+				this.UISetTranstionType('left');
+				this.bind('click', function() {
+					$('subview:nth-of-type(2)', view).toggleClass('spin-left-in', 'spin-left-out');
 				});
 			}
 		}
@@ -2705,20 +2705,20 @@ Released under MIT license, http://cubiq.org/license
 	$(function() {
 		$.extend($, {
 			UICancelSplitViewToggle : function () {
-				$.body.addClass("SplitViewFixed");
+				$.body.addClass('SplitViewFixed');
 			},
 			UISplitViewScroller1 : null,
 			UISplitViewScroller2 : null,
-			rootview : $("rootview"),
+			rootview : $('rootview'),
 			resizeEvt : ('onorientationchange' in window ? 'orientationchange' : 'resize'),
 			UISplitView : function ( ) {
-				if ($.body.hasClass("SplitViewFixed")) {
+				if ($.body.hasClass('SplitViewFixed')) {
 					return;
 				}	
 				$.UISplitViewScroller1 = new iScroll('#scroller1 > scrollpanel');
 				$.UISplitViewScroller2 = new iScroll('#scroller2 > scrollpanel');		
-				var buttonLabel = $("rootview > panel > view[ui-navigation-status=current] > navbar").text();
-				$("detailview > navbar").insert("<uibutton id ='showRootView'  class='navigation' ui-bar-align='left'>"+buttonLabel+"</uibutton>", "first");
+				var buttonLabel = $('rootview > panel > view[ui-navigation-status=current] > navbar').text();
+				$('detailview > navbar').insert("<uibutton id ='showRootView'  class='navigation' ui-bar-align='left'>"+buttonLabel+"</uibutton>", "first");
 				if (window.innerWidth > window.innerHeight) {
 					$.rootview.css("display: block; height: 100%; margin-bottom: 1px;");
 					$("#scroller1").css("overflow: hidden; height: " + ($.rootview.innerHeight - 45) + "px;");
@@ -2730,34 +2730,34 @@ Released under MIT license, http://cubiq.org/license
 			},
 	
 			UISetSplitviewOrientation : function() {
-				if ($.body.hasClass("SplitViewFixed")) {
+				if ($.body.hasClass('SplitViewFixed')) {
 					return;
 				}
 				if ($.resizeEvt) {
 					if (window.innerWidth > window.innerHeight) {
 						$.app.UIUnblock();
-						$.rootview.css("display: block; height: 100%; margin-bottom: 1px;");
-						$("#scroller1").css("overflow: hidden; height: 100%;");
+						$.rootview.css('display: block; height: 100%; margin-bottom: 1px;');
+						$('#scroller1').css('overflow: hidden; height: 100%;');
 					} else {
 						$.app.UIUnblock();
-						$.rootview.css("display: none; height: " + (window.innerHeight - 100) + "px;");
-						$("#scroller1").css("overflow: hidden; height:" + (window.innerHeight - 155) + "px;");
+						$.rootview.css('display: none; height: ' + (window.innerHeight - 100) + 'px;');
+						$('#scroller1').css('overflow: hidden; height:' + (window.innerHeight - 155) + 'px;');
 					}
 					$.UIEnableScrolling({desktopCompatibility:true});
 				}
 			},
 	
 			UIToggleRootView : function() {
-				if ($.body.hasClass("SplitViewFixed")) {
+				if ($.body.hasClass('SplitViewFixed')) {
 					return;
 				}
-				if ($.rootview.style.display === "none") {
-					$.rootview.css("display: block;");
-					$.rootview.UIBlock(".01");
+				if ($.rootview.style.display === 'none') {
+					$.rootview.css('display: block;');
+					$.rootview.UIBlock('.01');
 					$.UISplitViewScroller1.refresh();
 					$.UISplitViewScroller2.refresh();
 				} else {
-					$.rootview.style.display = "none";
+					$.rootview.style.display = 'none';
 					$.rootview.UIUnblock();
 					$.UISplitViewScroller1.refresh();
 					$.UISplitViewScroller2.refresh();
@@ -2765,12 +2765,12 @@ Released under MIT license, http://cubiq.org/license
 			},
 	
 			UICheckForSplitView : function ( ) {
-				if ($.body.hasClass("SplitViewFixed")) {
+				if ($.body.hasClass('SplitViewFixed')) {
 					return;
 				}
-				if ($("splitview")) {
+				if ($('splitview')) {
 					$.UISplitView();
-					$("#showRootView").bind("click", function() {
+					$('#showRootView').bind('click', function() {
 						$.UIToggleRootView();
 					});
 					$.body.onorientationchange = function(){
@@ -2784,31 +2784,31 @@ Released under MIT license, http://cubiq.org/license
 			UICurrentSplitViewDetail : null
 		});
 		$.UICheckForSplitView();
-		if ($("detailview > subview")) {
-			$.UICurrentSplitViewDetail = "#";
-			$.UICurrentSplitViewDetail += $("detailview > subview").getAttribute("id");
-			$$("tableview[ui-implements=detail-menu] > tablecell").each(function(cell) {
-				cell.bind("click", function() {
-					var rootview = this.ancestor("rootview");
-					if (rootview.css("position") === "absolute") {
-						rootview.css("display: none;");
+		if ($('detailview > subview')) {
+			$.UICurrentSplitViewDetail = '#';
+			$.UICurrentSplitViewDetail += $('detailview > subview').getAttribute('id');
+			$$('tableview[ui-implements=detail-menu] > tablecell').each(function(cell) {
+				cell.bind('click', function() {
+					var rootview = this.ancestor('rootview');
+					if (rootview.css('position') === 'absolute') {
+						rootview.css('display: none;');
 						$.app.UIUnblock();
 					}
-					var uiHref = this.getAttribute("ui-href");
-					uiHref = "#" + uiHref;
+					var uiHref = this.getAttribute('ui-href');
+					uiHref = '#' + uiHref;
 					if (uiHref === $.UICurrentSplitViewDetail) {
 						return;
 					} else {
-						$($.UICurrentSplitViewDetail).css("display: none;");
-						$(uiHref).css("display: block;");
+						$($.UICurrentSplitViewDetail).css('display: none;');
+						$(uiHref).css('display: block;');
 						$.UICurrentSplitViewDetail = uiHref;
-						$("detailview navbar h1").text(cell.text().trim());
+						$('detailview navbar h1').text(cell.text().trim());
 						$.UIEnableScrolling({desktopCompatibility:true});
 					}
 				});
 			});
-			$.app.delegate("mask", "click", function() {
-				$.rootview.css("display: none;");
+			$.app.delegate('mask', 'click', function() {
+				$.rootview.css('display: none;');
 				$.rootview.UIUnblock();
 			});
 		}
@@ -2817,12 +2817,12 @@ Released under MIT license, http://cubiq.org/license
 		determineMaxPopoverHeight : function() {
 			var screenHeight = window.innerHeight;
 			var toolbarHeight;
-			if ($("navbar")) {
-				toolbarHeight = $("navbar").clientHeight;
+			if ($('navbar')) {
+				toolbarHeight = $('navbar').clientHeight;
 			}
-			if ($("toolbar")) {
-				if (!$("toolbar").getAttribute('ui-placement')) {
-					toolbarHeight = $("toolbar").clientHeight;
+			if ($('toolbar')) {
+				if (!$('toolbar').getAttribute('ui-placement')) {
+					toolbarHeight = $('toolbar').clientHeight;
 				}
 			}
 				screenHeight = screenHeight - toolbarHeight;
@@ -2842,75 +2842,75 @@ Released under MIT license, http://cubiq.org/license
 			popoverOrientation = popoverOrientation.toLowerCase();
 			pointerOrientation = pointerOrientation.toLowerCase();
 			var trigEl = $(triggerElement);
-			var pos = "";
+			var pos = '';
 			var popoverPos = null;
 			switch (popoverOrientation) {
-				case "top" : 
-					if (pointerOrientation === "left") {
+				case 'top' : 
+					if (pointerOrientation === 'left') {
 						popoverPos = trigEl.offsetLeft;
-						popoverPos = "left: " + popoverPos;
-					} else if (pointerOrientation === "center") {
+						popoverPos = 'left: ' + popoverPos;
+					} else if (pointerOrientation === 'center') {
 						popoverPos = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160);
-						popoverPos = "left: " + popoverPos;
+						popoverPos = 'left: ' + popoverPos;
 					} else {
 						popoverPos = (trigEl.offsetLeft + trigEl.offsetWidth) - 320;
-						popoverPos = "left: " + popoverPos;
+						popoverPos = 'left: ' + popoverPos;
 					}
 					pos = trigEl.offsetTop + trigEl.offsetHeight;
 					pos += 20;
-					pos =  popoverPos + "px; top: " + pos + "px;";
+					pos =  popoverPos + 'px; top: ' + pos + 'px;';
 					break;
-				case "right" :
-					if (pointerOrientation === "top") {
+				case 'right' :
+					if (pointerOrientation === 'top') {
 						popoverPos = trigEl.getTop() + 2;
-						popoverPos = "top: " + popoverPos + "px;";
-					} else if (pointerOrientation === "center") {
+						popoverPos = 'top: ' + popoverPos + 'px;';
+					} else if (pointerOrientation === 'center') {
 						popoverPos = (trigEl.getTop() - (trigEl.offsetHeight/2) - 20);
-						popoverPos = "top: " + popoverPos + "px;";
+						popoverPos = 'top: ' + popoverPos + 'px;';
 					} else {
 						popoverPos = trigEl.getTop() - trigEl.offsetHeight - 20;
-						popoverPos = "top: " + popoverPos + "px;";
+						popoverPos = 'top: ' + popoverPos + 'px;';
 					}
 					pos = trigEl.getLeft() - 330;
 					pos -= 20;
-					pos = popoverPos + " left: " + pos + "px";
+					pos = popoverPos + ' left: ' + pos + 'px';
 					break;
-				case "bottom" :
-					if (pointerOrientation === "left") {
+				case 'bottom' :
+					if (pointerOrientation === 'left') {
 						popoverPos = trigEl.offsetLeft;
-						popoverPos = "left: " + popoverPos;
-					} else if (pointerOrientation === "center") {
+						popoverPos = 'left: ' + popoverPos;
+					} else if (pointerOrientation === 'center') {
 						popoverPos = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160);
-						popoverPos = "left: " + popoverPos;
+						popoverPos = 'left: ' + popoverPos;
 					} else {
 						popoverPos = (trigEl.offsetLeft + trigEl.offsetWidth) - 320;
-						popoverPos = "left: " + popoverPos;
+						popoverPos = 'left: ' + popoverPos;
 					}
 					pos = trigEl.offsetTop + trigEl.offsetHeight;
 					pos += 20;
-					pos =  popoverPos + "px; bottom: " + pos + "px;";
+					pos =  popoverPos + 'px; bottom: ' + pos + 'px;';
 					break;
 					break;
-				case "left" :
-					if (pointerOrientation === "top") {
+				case 'left' :
+					if (pointerOrientation === 'top') {
 						popoverPos = trigEl.getTop() + 2;
-						popoverPos = "top: " + popoverPos + "px;";
-					} else if (pointerOrientation === "center") {
+						popoverPos = 'top: ' + popoverPos + 'px;';
+					} else if (pointerOrientation === 'center') {
 						popoverPos = (trigEl.getTop() - (trigEl.offsetHeight/2) - 20);
-						popoverPos = "top: " + popoverPos + "px;";
+						popoverPos = 'top: ' + popoverPos + 'px;';
 					} else {
 						popoverPos = trigEl.getTop() - trigEl.offsetHeight - 20;
-						popoverPos = "top: " + popoverPos + "px;";
+						popoverPos = 'top: ' + popoverPos + 'px;';
 					}
 					pos = trigEl.offsetLeft + trigEl.offsetWidth;
 					pos += 20;
-					pos = popoverPos + " left: " + pos + "px";
+					pos = popoverPos + ' left: ' + pos + 'px';
 					break;
 				default :
 					pos = trigEl.getTop() + trigEl.offsetHeight;
-					popoverPos = "left: " + popoverPos;
+					popoverPos = 'left: ' + popoverPos;
 					pos += 20;
-					pos = popoverPos + "px; top: " + pos + "px;";
+					pos = popoverPos + 'px; top: ' + pos + 'px;';
 					break;
 			}
 			return pos;

@@ -56,16 +56,16 @@
         	$("#popbutton").UIPopSubview();
         	$("#spinbutton").UISpinSubview();
         	
-        	$("view:nth-of-type(2) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		this.UIToggleButtonLabel("Flip Over", "Flip Back");
+        	$("#flip > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Flip", "Flip Back");
         	});
-        	$("view:nth-of-type(3) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        	$("#fade > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
         		this.UIToggleButtonLabel("Fade In", "Fade Out");
         	});
-        	$("view:nth-of-type(4) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        	$("#pop > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
         		this.UIToggleButtonLabel("Pop In", "Close");
         	});
-        	$("view:nth-of-type(5) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        	$("#spin  > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
         		this.UIToggleButtonLabel("Spin In", "Spin Out");
         	});
 		});

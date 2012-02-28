@@ -51,22 +51,23 @@
     <script src="../chui/chui.js" type="text/javascript"></script>
     <script type="text/javascript">
         $.ready(function() {
-        	$("view:nth-of-type(2) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		this.UIToggleButtonLabel("Flip", "Flip Back");
-        	});
-        	$("view:nth-of-type(3) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		this.UIToggleButtonLabel("Fade In", "Fade Out");
-        	});
-        	$("view:nth-of-type(4) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		this.UIToggleButtonLabel("Pop In", "Close");
-        	});
-        	$("view:nth-of-type(5) > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		this.UIToggleButtonLabel("Spin In", "Spin Out");
-        	});
         	$("#flipbutton").UIFlipSubview("left");
         	$("#fadebutton").UIFadeSubview();
         	$("#popbutton").UIPopSubview();
         	$("#spinbutton").UISpinSubview("right");
+        	
+        	$("#flip > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Flip", "Flip Back");
+        	});
+        	$("#fade > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Fade In", "Fade Out");
+        	});
+        	$("#pop > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Pop In", "Close");
+        	});
+        	$("#spin > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+        		this.UIToggleButtonLabel("Spin In", "Spin Out");
+        	});
 		});
     </script>
     

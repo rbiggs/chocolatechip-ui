@@ -42,7 +42,7 @@
 			$.templates.musicTemplate =
 				"<tableview  ui-kind='grouped' ui-tablecell-order='stacked'>\
 					[[ songs.forEach(function(item) { ]]\
-			     		<tablecell ui-implements='add' ui-usage='image'>\
+			     		<tablecell ui-usage='image'>\
 		                   	<img src='$[ item.image ]'>\
 		                   	<celltitle>$[ item.title ]</celltitle>\
 							<cellsubtitle>$[ item.subtitle ]</cellsubtitle>\
@@ -70,32 +70,6 @@
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
 					<tableview ui-tablecell-order="stacked">
-						<tablecell ui-usage="image" ui-implements="detail-disclosure">
-							<img src="../images/alternative.png">
-							<celltitle>Alternative</celltitle>
-							<cellsubtitle>Most Popular</cellsubtitle>
-						</tablecell>
-						<tablecell ui-usage="image" ui-implements="detail-disclosure">
-							<img src="../images/blues.png">
-							<celltitle>Blues</celltitle>
-							<cellsubtitle>Latest Hits</cellsubtitle>
-						</tablecell>
-						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
-							<img src="../images/classical.png">
-							<celltitle>Classical</celltitle>
-							<cellsubtitle>Baroque</cellsubtitle>
-						</tablecell>
-						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
-							<img src="../images/itunes.png">
-							<celltitle>iTunes</celltitle>
-							<cellsubtitle>Most Popular</cellsubtitle>
-						</tablecell>
-						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
-							<img src="../images/rocknroll.png">
-							<celltitle>Rock</celltitle>
-							<cellsubtitle>Oldies</cellsubtitle>
-						</tablecell>
-						<tablefooter></tablefooter>
 					</tableview>				
 				</scrollpanel>
 			</subview>
