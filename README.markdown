@@ -1,5 +1,5 @@
 ---
-title: ChocolateChip - A Compact JavaScript Framework for Mobile Webkit
+ChocolateChip - A Compact JavaScript Framework for Mobile Webkit
 ---
 #ChocolateChip-UI
 

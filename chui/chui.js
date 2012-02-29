@@ -195,6 +195,7 @@ Released under MIT license, http://cubiq.org/license
 		mround = function (r) { return r >> 0; },
 		vendor = (/webkit/i).test(navigator.appVersion) ? 'webkit' :
 			(/firefox/i).test(navigator.userAgent) ? 'Moz' :
+			(/trident/i).test(navigator.userAgent) ? 'ms' :
 			'opera' in window ? 'O' : '',
 	
 		// Browser capabilities
@@ -244,7 +245,7 @@ Released under MIT license, http://cubiq.org/license
 				doc = document,
 				i;
 	
-			that.wrapper = typeof el == 'object' ? el : document.querySelector(el);
+			that.wrapper = typeof el == 'object' ? el : doc.querySelector(el);
 			that.wrapper.style.overflow = 'hidden';
 			that.scroller = that.wrapper.children[0];
 	
@@ -362,10 +363,6 @@ Released under MIT license, http://cubiq.org/license
 			switch(e.type) {
 				case START_EV:
 					if (!hasTouch && e.button !== 0) return;
-					if (e.target.getAttribute("type") === "checkbox") return;
-					if (e.target.getAttribute("type") === "radio") return;
-					if (e.target.tagName === "TEXTAREA") return;
-					if (e.target.tagName === "SELECT") return;
 					that._start(e);
 					break;
 				case MOVE_EV: that._move(e); break;
@@ -617,12 +614,12 @@ Released under MIT license, http://cubiq.org/license
 				newY = that.options.bounce ? that.y + (deltaY / 2) : newY >= that.minScrollY || that.maxScrollY >= 0 ? that.minScrollY : that.maxScrollY;
 			}
 	
-			if (that.absDistX < 6 && that.absDistY < 6) {
-				that.distX += deltaX;
-				that.distY += deltaY;
-				that.absDistX = m.abs(that.distX);
-				that.absDistY = m.abs(that.distY);
+			that.distX += deltaX;
+			that.distY += deltaY;
+			that.absDistX = m.abs(that.distX);
+			that.absDistY = m.abs(that.distY);
 	
+			if (that.absDistX < 6 && that.absDistY < 6) {
 				return;
 			}
 	
@@ -819,10 +816,12 @@ Released under MIT license, http://cubiq.org/license
 			if ('wheelDeltaX' in e) {
 				wheelDeltaX = e.wheelDeltaX / 12;
 				wheelDeltaY = e.wheelDeltaY / 12;
+			} else if('wheelDelta' in e) {
+				wheelDeltaX = wheelDeltaY = e.wheelDelta / 12;
 			} else if ('detail' in e) {
 				wheelDeltaX = wheelDeltaY = -e.detail * 3;
 			} else {
-				wheelDeltaX = wheelDeltaY = -e.wheelDelta;
+				return;
 			}
 			
 			if (that.options.wheelAction == 'zoom') {
@@ -1263,6 +1262,7 @@ Released under MIT license, http://cubiq.org/license
 	else window.iScroll = iScroll;
 	
 	})();
+
 
 
 	$.extend({

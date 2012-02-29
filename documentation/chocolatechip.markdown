@@ -913,7 +913,29 @@ A method to clone a node. If a boolean value that evaluates to true is passed as
     var newNode = $.make("<div>A new div</div>");
     $.replace(newNode, $("#menu"));
     
-                
+
+
+$nbsp;
+
+##Function: $.require
+
+Function to import an external script. The script can be on any domain without cross domain access issues.
+
+**Syntax:**
+
+   $.require(src, callback);
+   
+**Parameters:**
+
+- src: A valid uri for a script.
+- callback: an optional callback to execute when the script is fully loaded.
+
+**Example:**
+
+    $.require('scripts/importantScript.js', function() {
+       // Do stuff with the variables, functions and objects 
+       // in importantScripts.js
+    });                
                      
 
 &nbsp;
