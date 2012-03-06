@@ -330,7 +330,7 @@ This method insert an array of nodes after the contents of the selector. If the 
 
 ##Function: $.$$ 
 
-This method uses document.querySelectorAll to return a DOM collection as an array. It employs the method $.collectionToArray to convert the collection of nodes into an array. This will later be passed out as a global object. It also uses the $.collectionToArray method to convert and HTMLCollection into an array. $.$$() gets aliased as window.$$() so that you can uses it as just $$() instead of $.$$(). A second optional argument may be passed as a context for the selector. This is useful where you want to limit where ChococlateChip searches for nodes, such as only as a descendant of a particular document node, avoiding possible matches outside that node.
+This method uses document.querySelectorAll to return a DOM collection as an array. $.$$() gets aliased as window.$$() so that you can uses it as just $$() instead of $.$$(). A second optional argument may be passed as a context for the selector. This is useful where you want to limit where ChococlateChip searches for nodes, such as only as a descendant of a particular document node, avoiding possible matches outside that node.
 
 **Syntax:**
 
@@ -352,10 +352,6 @@ An array of nodes comprising an element collection.
     $$("section > p").forEach(function(p) {
         p.css("color: red; background-color: yellow; padding: 10px;");
     });
-
-**See Also:**
- 
-[$.collectionToArray #collectionToArray]
 
 
 
@@ -479,7 +475,109 @@ A boolean true or false.
     var obj = $.isObject({});
 
 
+&nbsp;
+
+##Function: $.uuidNum
+
+A method to create a random uuid number used by the cache to create a unique id for elements with cached data.
+
+
+
+
+&nbsp;
+		
+##Function: $.makeUuid 
+
+A method to create a unique id for elements that are getting data cached on them.  All it does is concatenate "chch_" to the uuid created by $.uuidNum.
+
+
+
+&nbsp;
+		
+##Variable: $.uuid
+
+This is used by the cache to create a unique id for elements that don't have one. Every time a new cache is stored on a node, the value of $.uuid gets increased.
+
+
+
+&nbsp;
+		
+##Object: $.chch_cache
+
+This object holds the cache and methods used by the cache for storing, retrieving and deleting data. It is used to implement Element.cache() for storing key/data in relation to a node. It has the following members in its data object:
+
+- keys: This is an array of keys used to identify their corresponding data.
+- values: This is an array of data whose index corresponds to its identifying key in the keys array.
+- set: Sets the key and value in the cache.
+- get: Retrieves the value from the cache based on the key.
+- keyExists: Returns a boolean.
+- hasData: Returns a boolean.
+- delete: A method to delete a key and value from their arrays.
+
+You can inspect the keys and values of the cache in this way:
+
+    $.chch_cache.data.keys // returns an array of all keys in the cache.
+    $.chch_cache.data.keys[0] // returns only the first key in the cache.
+    $.chch_cache.data.values // returns an array of all values in the cache.
+    $.chch_cache.data.values[0] // returns the first value in the cache.
+
+
+
+
+$nbsp;
+
+##Function: Element.cache
+
+A method to cache data in relation to a DOM node. The data can be a variable, boolean, string, array, function, object or reference to another node. It uses an id to identify the node in the cache. If the node does not have an id, one is created using a uuid-based technique. This same method also serves to retrieve the data cache for a node when executed on a node without any parameters. A node can have only one cache. So, if there is already a cache stored for a node and you attempt to cache some other data, the previous data will be overridden. **When dealing with dynamic content that can be replaced at any given time, if you cache data on such nodes you'll need to uncache them before replacing them or you'll create a memory leak. The best approach in such a case is to cache the data on the parent node of the dynamic content.**
+
+
+**Syntax:** 
+
+    Element.chache(data);
+    var data = Element.cache();
+
+**Parameters:**
+
+- data: a variable, string, array, object, function or reference to another node.
 			
+**Returns:**
+
+    The node with the cache attached.
+
+**Examples:**
+
+    // Set a chache on a node:
+    $('tableview').cache({item: 'milk', price: '$1.00'});
+    // Retrieve the cache of a node:
+    var data = $('tableview').cache(); // returns {item: 'milk', price: '$1.00'}
+    // You can access the individual members of a cached object as follows:
+    var item = $('tableview').cache().item; // returns 'milk'
+    var price = $('tableview').cache().price // returns '$1.00'
+
+
+
+
+&nbsp;
+
+##Function: Element.uncache
+
+A method to remove the cache from a node. This method gets called automatically when using Element.remove().
+
+**Syntax:**
+
+    Element.uncache();
+    
+
+**Returns:**
+
+    The node without it's cache removed. If the node has no cache, it returns the node as normal.
+    
+**Examples:**
+
+    $('tableview').uncache();
+    
+
+
 
 &nbsp;
 
@@ -1085,7 +1183,7 @@ Remove all child nodes of an element. This method invokes the removeEvents metho
 
 ##Function: Element.remove
 
-Remove an element from the document. This method is attached directly to the Element object.
+Remove an element from the document. This method is attached directly to the Element object. This method automatically calls Element.uncache to first remove any data cached for this node.
 
 **Syntax:**
 

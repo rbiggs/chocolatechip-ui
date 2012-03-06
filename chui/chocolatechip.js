@@ -12,12 +12,18 @@ A JavaScript library for mobile Web app development.
  
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.3.2
+Version 1.3.3
  
 */
  
 (function() {
 	var $ = function ( selector, context ) {
+		if (selector === undefined) {
+			return document;
+		}
+		if (selector === window || selector === document) {
+			return selector;
+		}
 		if (typeof selector === 'object' && selector.nodeType === 1) {
 			return selector;
 		}
@@ -123,7 +129,7 @@ Version 1.3.2
 	
 	$.extend({
  
-		version : '1.3.2',
+		version : '1.3.3',
 		
 		libraryName : 'ChocolateChip',
 		
@@ -133,7 +139,7 @@ Version 1.3.2
 			if (!!context) {
 				if (typeof context === 'string') {
 					return $.slice.apply(document.querySelectorAll(context + ' ' + selector));
-				} else if (context.nodeType === 1){
+				} else if (context.nodeType === 1) {
 					return $.slice.apply(context.querySelectorAll(selector));
 				}
 			} else {
@@ -197,8 +203,63 @@ Version 1.3.2
 		
 		isObject : function ( obj ) {
 			return Object.prototype.toString.call(obj) === '[object Object]';
-		}
+		},
+		
+		uuidNum : function ( ) {
+			return ((1 + Math.random()) * 0x100000000);
+		},
+		
+		makeUuid : function ( ) {
+			return $.concat(["chch_",$.uuid]);
+		},
+		
+		uuid : 0,
+		
+		chch_cache : {},
 	});	
+	
+	$.uuid = $.uuidNum();
+	
+	$.chch_cache.data = {};
+	
+	$.extend($.chch_cache.data, {
+	
+		keys : [],
+		
+		values : [],
+		
+		set : function ( key, data ) {
+			if (this.keys.indexOf(key) >= 0) {
+				this.values[this.keys.indexOf(key)] = data;
+			} else {
+				this.keys.push(key);
+				this.values.push(data);
+			}
+		},
+		
+		get : function ( key ) {
+			return this.values[this.keys.indexOf(key)];
+		},
+		
+		keyExists : function ( key ) {
+			if (this.keys.indexOf(key) >= 0) return true;
+			else return false;
+		},
+		
+		hasData : function ( key ) {
+			var idx = this.keys.indexOf(key);
+			if (this.values[idx]) return true;
+			else return false;
+		},
+		
+		delete : function ( key ) {
+			var idx = this.keys.indexOf(key);
+			this.keys[idx] = null;
+			this.keys.splice(idx, idx + 1);
+			this.values[idx] = null;
+			this.values.splice(idx, idx + 1)
+		}
+	});
 	
 	$.extend(Object.prototype, {
 		each: function(callback) {
@@ -209,6 +270,42 @@ Version 1.3.2
 	});
 	
 	$.extend(HTMLElement.prototype, {
+	
+		cache : function ( data ) {
+		
+			var _cache = function ( id, data ) {
+				var ret;
+				if (!!data) {
+					$.chch_cache.data.set(id, data);
+				} else {
+					ret = $.chch_cache.data.get(id);
+				}
+				return ret;
+			};
+			if (!!data) {
+				if (!!this.id) {
+					_cache(this.id, data);
+					return this;
+				} else {
+					++$.uuid;
+					this.setAttribute("id", $.makeUuid());
+					_cache(this.id, data);
+					return this;
+				}
+				
+			} else {
+				if (this.id) {
+					return _cache(this.id);
+				} else {
+					return false;
+				}
+			}
+		},
+		
+		uncache : function ( ) {
+			var id = this.getAttribute('id');
+			return $.chch_cache.data.delete(id);
+		},
 	
 		find : function ( selector ) {
 			return $(selector, this);
@@ -250,14 +347,14 @@ Version 1.3.2
 			var $this = this;
 			var foundEls = [];
 			if (!!selector) {
-				$.slice.apply(this.parentNode.findAll(selector)).filter(function(el){ 
+				$.slice.apply(this.parentNode.findAll(selector)).filter(function(el) { 
 					if (el !== $this) {
 						foundEls.push(el); 
 					}
 				});
 				return foundEls;
 			} else {
-				$.slice.apply(this.parentNode.children).filter(function(el){ 
+				$.slice.apply(this.parentNode.children).filter(function(el) { 
 					if (el !== $this) {
 						foundEls.push(el); 
 					}
@@ -267,7 +364,7 @@ Version 1.3.2
 		},
 	 
 		ancestor : function( selector ) {
-			if (!selector) {
+			if (selector === undefined) {
 				return false;
 			}
 			var idCheck = new RegExp('^#');
@@ -414,6 +511,7 @@ Version 1.3.2
 		 
 		remove : function ( ) {
 			this.removeEvents();
+			this.uncache();
 			this.parentNode.removeChild(this);
 		},
 		 
