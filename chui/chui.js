@@ -1913,7 +1913,7 @@ Released under MIT license, http://cubiq.org/license
 				try {
 					seg = seg.getAttribute('id');
 					this.setAttribute('ui-selected-segment', seg);
-					this.childred[val].addClass('selected');
+					this.children[val].addClass('selected');
 				} catch(e) {}
 			} else {
 				var checkChildNodesForAttr = -1;
@@ -1990,8 +1990,8 @@ Released under MIT license, http://cubiq.org/license
 						childPosition = this.getAttribute('ui-child-position');
 						if (that.getAttribute('ui-segmented-container')) {
 							container = $(that.getAttribute('ui-segmented-container'));
-							container.children(oldSelection).css('display: none;');
-							container.children(uisi).css('display: -webkit-box;');
+							container.children[oldSelection].css('display: none;');
+							container.children[uisi].css('display: -webkit-box;');
 							container.children[oldSelectedSegment.getAttribute('ui-child-position')].css('{display','none}');
 							var scrollpanel = container.ancestor('scrollpanel');
 							whichScroller = scrollpanel.getAttribute('ui-scroller');

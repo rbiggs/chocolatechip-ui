@@ -13,7 +13,7 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 1.2.0
+    Version 1.3.3
 
 
 
@@ -21,17 +21,19 @@
 
 ##Function: $
 
-This method uses JavaScript's document.querySelector() method to get the designated node. It will always return the first match. To get more a collection of nodes, use the [$$](#$$) method. A selector is required as the main argument. A second optional argument may be passed as a context for the selector. This is useful where you want to limit where ChococlateChip searches for a node, such as only as a descendant of a particular document node, avoiding possible matches outside that node.
+This method uses JavaScript's document.querySelector() method to get the designated node. It will always return the first match. To get more a collection of nodes, use the [$$](#$$) method. A selector is required as the main argument. A second optional argument may be passed as a context for the selector. This is useful where you want to limit where ChococlateChip searches for a node, such as only as a descendant of a particular document node, avoiding possible matches outside that node. Optionally, you may pass the window or document object. Please note that all methods that extend HTMLElement will not work with these objects as they lack the interface for that functionality. If no selector is supplied, $() will return the document root.
 
 **Syntax:**
 
     $(selector);
     $(selector, context);
+    $(function);
 
 **Parameters:**
 
 - selector: A string defining a valid CSS selector.
 - context: A string defining a valid CSS selector or an actual node.
+- function: A function to execute when the document's DOM is fully loaded.
 
 **Returns:** 
 
@@ -43,6 +45,12 @@ A valid document node.
     var menuItems = $(".menu > li"); // Will return the first list item only.
     $("section > p:first-of-type").css("color: red; background-color: yellow; padding: 10px;");
     var list = $("ul", mainList);
+    // Passing an anonymous function is the same as $.read(function() { // do stuff }).
+    $(function() {
+    	console.log("The page is loaded and ready to manipulate.");
+    });
+    // Get the document height:
+    var height = $(document).css('height');
 
 
 
@@ -51,12 +59,16 @@ A valid document node.
 
 ##Function: $.extend
 
-A method to extend the ChocolateChip's $ method. This uses EC5's Object.defineProperty to extend objects without polluting the object's prototype. For older browsers that don't support this feature of ECMAScript5, ChocolateChip uses a simpler method of object prototype chaining for compatibility.
+A method to extend the ChocolateChip's $ method. This uses EC5's Object.defineProperty to extend objects without polluting the object's prototype. For older browsers that don't support this feature of ECMAScript5, ChocolateChip uses a simpler method of object prototype chaining for compatibility. If you simply want to extend $ itself, you can just pass in the object without the target object.
 
 **Syntax:**
 
     $.extend(object, {
         // object literal here.
+    });
+    // Exetend $ itself by passing only the object:
+    $.extend({
+    	// Stuff here.
     });
 
 **Parameters:**
@@ -79,7 +91,13 @@ A method to extend the ChocolateChip's $ method. This uses EC5's Object.definePr
         }
     });
     $("p:first-of-type").sing("Even a paragraph can sing!");
-
+	
+	// Extend $ by only passing in the new properties:
+	$.extend({
+		saySomething : function ( msg ) {
+			console.log("This is what I have to say: " + msg);
+		}
+	});
 
 
 
@@ -87,7 +105,7 @@ A method to extend the ChocolateChip's $ method. This uses EC5's Object.definePr
 
 ##Variable: $.version
 
-Version: 1.2.0
+Version: 1.3.3
 
 **Example:**
 
