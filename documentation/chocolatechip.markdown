@@ -522,24 +522,39 @@ This is used by the cache to create a unique id for elements that don't have one
 		
 ##Object: $.chch_cache
 
-This object holds the cache and methods used by the cache for storing, retrieving and deleting data. It is used to implement Element.cache() for storing key/data in relation to a node. It has the following members in its data object:
+This object holds the cache and methods used by the cache for storing, retrieving and deleting data, and for storing events bound to nodes. Data gets stored on $.chch\_cache.data and events in $.chch_cache.events. You never need to do anything to use the event cache. It gets used internally by Element.bind() and Element.unbind(). Similarly, you access the data cache through Element.cache() and Element.uncache().
+
+The cache's data object has the following members:
 
 - keys: This is an array of keys used to identify their corresponding data.
 - values: This is an array of data whose index corresponds to its identifying key in the keys array.
 - set: Sets the key and value in the cache.
 - get: Retrieves the value from the cache based on the key.
-- keyExists: Returns a boolean.
+- hasKey: Returns a boolean.
 - hasData: Returns a boolean.
 - delete: A method to delete a key and value from their arrays.
 
-You can inspect the keys and values of the cache in this way:
+You can inspect the keys and values of the data cache as follows:
 
-    $.chch_cache.data.keys // returns an array of all keys in the cache.
-    $.chch_cache.data.keys[0] // returns only the first key in the cache.
-    $.chch_cache.data.values // returns an array of all values in the cache.
-    $.chch_cache.data.values[0] // returns the first value in the cache.
+    $.chch_cache.data.keys // returns an array of all keys in the data cache.
+    $.chch_cache.data.keys[0] // returns only the first key in the data cache.
+    $.chch_cache.data.values // returns an array of all values in data the cache.
+    $.chch_cache.data.values[0] // returns the first value in the data cache.
 
+The cache's events object has the following members:
 
+- keys: This is an array of keys used to identify events bound to a node.
+- values: This is an array of events whose index corresponds to its identifying key in the keys array.
+- set: Sets the key and value in the event cache.
+- hasKey: Returns a boolean.
+- delete: A method to delete a key and value from their arrays.
+
+You can inspect the keys and values of the event cache as follows:
+
+	$.chch_cache.events.keys // returns an array of all keys in the events cache.
+	$.chch_cache.events.keys[0] // returns only the first key in the events cache.
+	$.chch_cache.events.values // returns an array of all values in the events cache.
+	$.chch_cache.events.values[0] // returns the first value in the events cache.
 
 
 $nbsp;
