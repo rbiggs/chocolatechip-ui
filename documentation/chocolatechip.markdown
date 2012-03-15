@@ -13,7 +13,7 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 1.3.3
+    Version 1.3.4
 
 
 
@@ -105,7 +105,7 @@ A method to extend the ChocolateChip's $ method. This uses EC5's Object.definePr
 
 ##Variable: $.version
 
-Version: 1.3.3
+Version: 1.3.4
 
 **Example:**
 
