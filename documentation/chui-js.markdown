@@ -13,7 +13,7 @@
     
     Copyright 2011 Robert Biggs: www.choclatechip-ui.com
     License: BSD
-    Version 1.0
+    Version 1.1.3
 
 	Includes:
 	iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org

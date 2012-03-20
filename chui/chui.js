@@ -10,7 +10,7 @@
 ChocolateChip-UI
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.1.2
+Version: 1.1.3
 
 Includes:
 iScroll v4.1.9 ~ Copyright (c) 2011 Matteo Spinelli, http://cubiq.org
@@ -18,7 +18,7 @@ Released under MIT license, http://cubiq.org/license
 
 */
 (function($, $$) {
-	window.CHUIVersion = '1.1.2';
+	window.CHUIVersion = '1.1.3';
 	var UIExpectedChocolateChipJSVersion = '1.3.4'; 
 
 	var UICheckChocolateChipJSVersion = function() {
@@ -363,6 +363,9 @@ Released under MIT license, http://cubiq.org/license
 			switch(e.type) {
 				case START_EV:
 					if (!hasTouch && e.button !== 0) return;
+					if (e.target.tagName === "TEXTAREA") return;
+					if (e.target.tagName === "INPUT") return;
+					if (e.target.tagName === "SELECT") return;
 					that._start(e);
 					break;
 				case MOVE_EV: that._move(e); break;
