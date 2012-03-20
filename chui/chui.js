@@ -3101,13 +3101,14 @@ Released under MIT license, http://cubiq.org/license
 			} else {
 				console.log("no alphabetic list!");
 			}
-			var myScrollie = $("tableview[ui-kind='titled-list alphabetical']")
-				.ancestor("scrollpanel").getAttribute("ui-scroller");
+			var scroller = $("tableview[ui-kind='titled-list alphabetical']")
+				.ancestor("scrollpanel");
+			var myScrollie = scroller.getAttribute("ui-scroller");
 			$.UIScrollers[myScrollie].destroy();
-			$.UIScrollers[myScrollie] = new iScroll("scrollpanel", {snap:true});
+			$.UIScrollers[myScrollie] = new iScroll(scroller.parentNode, {snap:true});
 			$.app.delegate("stack[ui-kind='alphabetical-list'] > span", "click", function(alpha) { 
 				$.UIScrollers[myScrollie].scrollToElement(alpha.getAttribute("href"));
-			});
+			}); 
 		}
 	});
 

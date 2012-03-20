@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.1.2
+Version: 1.1.3
 
 */
 html, body {
@@ -763,7 +763,7 @@ uibutton.disabled.touched {
 			to(#546993));
 }			
 uibutton[ui-implements=back] {
-    padding: 0px 7px 0px 3px;
+    padding: 0px 10px 0px 6px;
     margin-left: 16px;
     position: relative;
     border-left-color: transparent;
@@ -822,7 +822,7 @@ uibutton[ui-implements=back].touched:before {
 
 /* Next Bordered UIButton Styles */
 uibutton[ui-implements=next]:last-of-type {
-    padding: 0px 3px 0px 7px;
+    padding: 0px 6px 0px 10px;
     margin-right: 0px;
     right: 16px !important;
     position: relative;
