@@ -28,6 +28,7 @@ This method uses JavaScript's document.querySelector() method to get the designa
     $(selector);
     $(selector, context);
     $(function);
+    $();
 
 **Parameters:**
 
@@ -37,7 +38,7 @@ This method uses JavaScript's document.querySelector() method to get the designa
 
 **Returns:** 
 
-A valid document node.
+A valid document node. If no argument is supplied it returns the document root. If a function is passed, determines if the document is loaded already. If it is, it returns the executed function, if it is not loaded, it added a listener for DOMContentLoaded
 
 **Example:**
 
@@ -51,6 +52,7 @@ A valid document node.
     });
     // Get the document height:
     var height = $(document).css('height');
+    var d = $() // returns the document object.
 
 
 
@@ -2075,11 +2077,15 @@ A method to executing methods stored in $.DOMReadyList. This method is called by
 
 ##Function: $.ready
 
-Method to determine when the DOM is ready for manipulation and thereupon fire a block of code contained in an anonymous function passed to it as an argument. This method is attached directly to the $ object. If there are mulitple instances of this method, it's arguments will be chained and called sequentially with one registration of the DOMContentLoaded event.
+Method to determine when the DOM is ready for manipulation and thereupon fire a block of code contained in an anonymous function passed to it as an argument. This method is attached directly to the $ object. If there are mulitple instances of this method, it's arguments will be chained and called sequentially with one registration of the DOMContentLoaded event. Before doing this though it checks to see if the document is already loaded. If it is, then no listener is added for the DOMContentLoaded event and instead it immediately executes its function.
 
 **Syntax:**
 
     $.ready(function);
+    
+An alternate sytax is:
+
+    $(function);
 
 **Parameters:**
 
@@ -2089,6 +2095,18 @@ Method to determine when the DOM is ready for manipulation and thereupon fire a 
 
     $.ready(function() { 
         console.log("The document is ready for action!"); 
+    });
+    
+This could be simplified to:
+
+    $(function() {
+        console.log("The document is ready for action!"); 
+    });
+
+You can also wrap the document object in $() as jQuery does for the same functionality:
+
+    $(document).ready(function() {
+    	console.log("The document is ready for action!"); 
     });
 
 **See Also:**
