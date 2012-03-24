@@ -2178,7 +2178,7 @@ Released under MIT license, http://cubiq.org/license
 				if (actionSheetColor) {
 					actionSheetStr += " ui-action-sheet-color='" + actionSheetColor + "'";
 				}
-				actionSheetStr += "><scrollpanel>";
+				actionSheetStr += "><scrollpanel ui-scroller='" + $.UIUuid() + "'><panel>";
 				actionSheetStr += title;
 				var uiButtons = "", uiButtonObj, uiButtonImplements, uiButtonTitle, uiButtonCallback;
 				if (!!opts.uiButtons) {
@@ -2194,7 +2194,7 @@ Released under MIT license, http://cubiq.org/license
 						uiButtons +=	"</label></uibutton>"	;			
 					});
 				}
-				actionSheetStr += uiButtons + "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#" + actionSheetID + "\")'><label>Cancel</label></uibutton></scrollpanel></actionsheet>";
+				actionSheetStr += uiButtons + "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#" + actionSheetID + "\")'><label>Cancel</label></uibutton></panel></scrollpanel></actionsheet>";
 				var actionSheet = $.make(actionSheetStr);
 				that.insert(actionSheet, "last");
 			};
@@ -2205,7 +2205,7 @@ Released under MIT license, http://cubiq.org/license
 					$.UIHideActionSheet();
 				});
 			});
-			var myScroll = new iScroll($("#" + actionSheetID + " > scrollpanel"), { desktopCompatibility: true });
+			var myScroll = new iScroll($("#" + actionSheetID), { desktopCompatibility: true });
 		}
 	});
 	$.extend({
@@ -2220,6 +2220,8 @@ Released under MIT license, http://cubiq.org/license
 			screenCover.addEventListener('touchmove', function(e) {
 				e.preventDefault();
 			}, false );
+			var scroller = $(actionSheetID).find('scrollpanel').getAttribute('ui-scroller');
+			$.UIScrollers[scroller].refresh();
 		},
 		UIHideActionSheet : function() {
 			var actionSheet = $.app.data('ui-action-sheet-id');
