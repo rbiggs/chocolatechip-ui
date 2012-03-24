@@ -30,7 +30,7 @@
 	
 		$.ready(function() {
 			var logChildNodes = function(item) {
-				console.log("The child position is: " + item.getAttribute("ui-child-position"));
+				$('#output').append("<tableheader>The child position is: " + item.getAttribute("ui-child-position") + "</tableheader>");
 			}
 			$("segmentedcontrol").UISegmentedControl("#stack_01", logChildNodes);
 		});
@@ -122,9 +122,9 @@
                         </tablecell>		
                         <tablecell>
                             <celltitle>Item Three</celltitle>
-                        </tablecell>		
-                        <tablecell>
+                        </tablecell>
                     </tableview>
+                    <tableview id='output'></tableview>
 				</scrollpanel>
 			</subview>
 		</view>

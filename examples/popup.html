@@ -18,6 +18,7 @@
 			font-weight: bold;
 			color: red;
 			text-shadow: 0px 1px 2px #666, 0px -1px 1px #fff;
+			padding: 0 20px;
 		}
 		.animatePopupMessage {
 			-webkit-animation-duration: 2s;
@@ -78,6 +79,7 @@
 			</navbar>
 			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
 				<scrollpanel>
+				<p id="popupMessageTarget"></p>
 				<tableview id="tableview_01" class="myTableView">
 					<tableheader>This is a Table View Header</tableheader>
 					<tablecell  id="c1">
@@ -104,7 +106,6 @@
 						<celltitle>Title Three</celltitle>
 						<cellsubtitle>This is different</cellsubtitle>
 						<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat.</celldetail>
-						<p id="popupMessageTarget"></p>
 					</tablecell>
 					<tablefooter>Table footer here for whatever you need it for.</tablefooter>
 				</tableview>

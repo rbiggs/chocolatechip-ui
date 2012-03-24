@@ -19,7 +19,7 @@ Released under MIT license, http://cubiq.org/license
 */
 (function($, $$) {
 	window.CHUIVersion = '1.1.3';
-	var UIExpectedChocolateChipJSVersion = '1.3.5'; 
+	var UIExpectedChocolateChipJSVersion = '1.3.6'; 
 
 	var UICheckChocolateChipJSVersion = function() {
 		if ($.version !== UIExpectedChocolateChipJSVersion) {
@@ -1796,7 +1796,7 @@ Released under MIT license, http://cubiq.org/license
 		UISwitchControl : function (callback) {
 			callback = callback || function() { return false; };
 			if (this.nodeName.toLowerCase()==='switchcontrol') {
-				callback.call(callback, this);
+				callback.call(this);
 				if (this.hasClass('off')) {
 					this.toggleClass('on', 'off');
 					this.find('input').checked = true;
@@ -2205,7 +2205,7 @@ Released under MIT license, http://cubiq.org/license
 					$.UIHideActionSheet();
 				});
 			});
-			var myScroll = new iScroll($("#" + actionSheetID), { desktopCompatibility: true });
+			var myScroll = new iScroll($("#" + actionSheetID).find('scrollpanel'), { desktopCompatibility: true });
 		}
 	});
 	$.extend({
