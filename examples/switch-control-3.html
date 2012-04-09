@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="manifest/switch.manifest">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
@@ -36,17 +36,7 @@
 				id : "breadfastSwitch",
 				status : "off",
 				namePrefix : "customer.choice",
-				value : "I'm hungry!",
-				callback : function(item) { 
-					/* 
-					At the time the user clicks, the button is set to "off",
-					so we know that after clicking it will be set to "on".
-					Therefore we check for the off state and output the value.
-					*/
-					if (item.hasClass("off")) {
-						console.log(item.find("input").value)
-					}
-				}
+				value : "I'm hungry!"
 			};
 			$$("tablecell").forEach(function(cell, idx){
 				switch (idx){
