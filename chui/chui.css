@@ -576,7 +576,7 @@ toolbar uibutton:last-of-type {
 /* Toolbar Plain Icon Styles */
 navbar.ui-box-pack-justify,
 toolbar.ui-box-pack-justify {
-	 -webkit-box-pack: justify;
+	-webkit-box-pack: justify;
 }
 uibutton[ui-kind=icon] {
     height: 43px;
