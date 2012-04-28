@@ -53,12 +53,12 @@ Version 1.3.6
          return O;
       } else {
          Object.keys(P).forEach(function(p) {
-         	var enumberale = iterable || false;
+         	var enumberable = iterable || false;
             if (P.hasOwnProperty(p)) {
                Object.defineProperty(O, p, {
                   value: P[p],
                   writable: true,
-                  enumerable: enumberale,
+                  enumerable: enumberable,
                   configurable: true
                });
             }
