@@ -58,7 +58,7 @@
 				}
 			});
 			
-			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
+			$.app.delegate("switchcontrol", $.userAction, function(switchcontrol) {
 				if (switchcontrol.hasClass("on")) {
 					$("#switchResponse").empty().fill(switchcontrol.find("input").value);
 				} else {

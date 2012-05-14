@@ -15,17 +15,17 @@
 		tableview[ui-tablecell-order="stacked"] > tablecell[ui-usage="image"] > img + celltitle + cellsubtitle {
 			width: 75% !important;
 		}
-		#view2 tablecell> celltitle {
+		#recipes tablecell> celltitle {
 			width: 95% !important;
 		}
-		#view2 tablecell ul > li {
+		#recipes tablecell ul > li {
 			list-style: square;
 		}
-		body.landscape #view1 tableview[ui-tablecell-order="stacked"] > tablecell > cellsubtitle, 
-		body.landscape #view1 tableview[ui-tablecell-order="stacked"] > tablecell > celldetail {
+		body.landscape #customers tableview[ui-tablecell-order="stacked"] > tablecell > cellsubtitle, 
+		body.landscape #customers tableview[ui-tablecell-order="stacked"] > tablecell > celldetail {
 			font-size: 12px !important;
 		}
-		#view2 tablecell > celldetail  {
+		#recipes tablecell > celldetail  {
 			font-size: 16px !important;
 			line-height: 20px;
 		}
@@ -101,16 +101,16 @@
 				}
 			});
 			
-			$("#view1 tableview").empty().insert(customerTemplate(data));
-			$.UIScrollers[$("#view1 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+			$("#customers tableview").empty().insert(customerTemplate(data));
+			$.UIScrollers[$("#customers > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
 			
-			$("#view2 tableview").empty().insert(recipesTemplate(data));
-			$.UIScrollers[$("#view2 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+			$("#recipes tableview").empty().insert(recipesTemplate(data));
+			$.UIScrollers[$("#recipes > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
 			
-			$("#view3 tableview").empty().insert(songsTemplate(data));
-			$.UIScrollers[$("#view3 > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
+			$("#songs tableview").empty().insert(songsTemplate(data));
+			$.UIScrollers[$("#songs > subview > scrollpanel").getAttribute("ui-scroller")].refresh();
 			
-			$.UIDeleteTableCell({selector: "#view3 tableview", toolbar: "#view3 navbar"});
+			$.UIDeleteTableCell({selector: "#songs tableview", toolbar: "#songs navbar"});
 		});
     </script>
     
@@ -124,20 +124,20 @@
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
 					<tableview>
-						<tablecell href="#view1" ui-implements="disclosure">
+						<tablecell href="#customers" ui-implements="disclosure">
 							<celltitle>Customers</celltitle>
 						</tablecell>
-						<tablecell href="#view2" ui-implements="disclosure">
+						<tablecell href="#recipes" ui-implements="disclosure">
 							<celltitle>Recipes</celltitle>
 						</tablecell>
-						<tablecell href="#view3" ui-implements="disclosure">
+						<tablecell href="#songs" ui-implements="disclosure">
 							<celltitle>Songs</celltitle>
 						</tablecell>
 					</tableview>
 				</scrollpanel>
 			</subview>
 		</view>
-		<view id="view1" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
+		<view id="customers" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
 			<navbar>
 				<uibutton ui-implements="back" ui-bar-align="left">Back</uibutton>
 				<h1>First View</h1>
@@ -154,7 +154,7 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view id="view2" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
+		<view id="recipes" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
 			<navbar>
 				<uibutton ui-implements="back" ui-bar-align="left">Back</uibutton>
 				<h1>Second View</h1>
@@ -171,7 +171,7 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view id="view3" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
+		<view id="songs" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
 			<navbar>
 				<uibutton ui-implements="back" ui-bar-align="left">Back</uibutton>
 				<h1>Third View</h1>

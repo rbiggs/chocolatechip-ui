@@ -35,17 +35,9 @@
 		$.ready(function() {
 			 // Initialize click events for switch controls.
             $$("tableview switchcontrol").forEach(function(item) {
-                item.bind("click", function () {
+                item.bind($.userAction, function () {
                     if (this.hasClass("on")) {
-                        $("#switchResponse").empty().fill(this.find("input").value);
-                    } else {
-                        $("#switchResponse").empty();
-                    }
-                });
-                
-                item.bind("touchstart", function(e) {
-                    if (this.hasClass("on")) {
-                        $("#switchResponse").empty().fill(this.find("input").value);
+                        $("#switchResponse").fill(this.find("input").value);
                     } else {
                         $("#switchResponse").empty();
                     }
@@ -54,23 +46,25 @@
 			
 			// This is for a dynamically created switch control:
 			var switchOpts = {
-				id : "myBestSwitch",
+				id : "breakfastSwtich",
 				customClass : "customSwitchColor",
 				kind : "traditional",
 				status : "on",
-				value : "sort of working",
+				value : "So, what's the first course?",
 				callback : function(item) {
-					if (item.find("input").checked === false) {
-						console.log("This is on!");
-					} else {
-						console.log("This is turned off!!!");
-					}
+					item.bind($.userAction, function () {
+						if (this.hasClass("on")) {
+							$("#switchResponse").fill(this.find("input").value);
+						} else {
+							$("#switchResponse").empty();
+						}
+					})
 				}
 			};
 			
-			// Uncomment this line to see dynamically created
-			// switch control inserted in response paragraph:
-			$("p:last-of-type").UICreateSwitchControl(switchOpts);
+			// This line inserts a dynamically created
+			// switch control into the last tablecell:
+			$("#dynamicSwitchcontrol").UICreateSwitchControl(switchOpts);
 		});
 		
 	</script>
@@ -106,14 +100,8 @@
                     	</tablecell>
                     </tableview>
                     <tableview ui-kind="grouped">
-                    	<tablecell>
+                    	<tablecell id='dynamicSwitchcontrol'>
                         <celltitle>Breakfast</celltitle>
-                        <switchcontrol ui-kind="traditional" class="off green" id="breakfastSwtich" ui-implements="attention">
-                            <label ui-implements="on">ON</label>
-                            <thumb><thumbprop></thumbprop></thumb>
-                            <label ui-implements="off">OFF</label>
-							<input type="checkbox" value="So, what's the first course?" name="breakfastSwtich">
-                        </switchcontrol>
                     	</tablecell>
                     </tableview>
                     <p ui-kind="grouped">
