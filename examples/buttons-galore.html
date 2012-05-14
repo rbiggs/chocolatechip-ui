@@ -88,6 +88,7 @@
 			}
     </style>
     <script src="../chui/chocolatechip.js" type="text/javascript"></script>
+    <script src="../chui/chui.js" type="text/javascript"></script>
     
     <script type="text/javascript">
 		$.ready(function() {
@@ -96,33 +97,27 @@
     </script>
 
 </head>
-<body ui-background-style="slanted-right">
+<body>
+	<app ui-background-style="striped">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Buttons</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
     <article>
         <section>
             <toolbar style="height: 100px">
 				<uibutton ui-implements="icon">
 					<icon style="-webkit-mask-image: url(../icons/apple_logo.svg);"></icon>
                 </uibutton>
-                <uibutton ui-kind="icon">
-                    <icon style="-webkit-mask-image: url(../icons/download.svg); background-color: yellow"></icon>
-                </uibutton>
 				<uibutton  ui-implements="icon" class="ui-custom-tint" style="background-color: #ffc000">
 					<icon style="-webkit-mask-image: url(../icons/droid_logo.svg);"></icon>
                 </uibutton>
                 <uibutton ui-kind="icon">
-                    <icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
-                </uibutton>
-				<uibutton ui-kind="icon">
-					<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
-                </uibutton>
-                <uibutton ui-kind="icon">
-					<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
+                    <icon style="-webkit-mask-image: url(../icons/download.svg); background-color: yellow"></icon>
                 </uibutton>
 				<uibutton class="disabled">
-					<label>Add to Favorites</label>
-				</uibutton>
-				<uibutton ui-icon-align="right" class="disabled ui-custom-tint" style="background-color: #6f8000">
-					<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
 					<label>Add to Favorites</label>
 				</uibutton>
             </toolbar>
@@ -151,8 +146,7 @@
 					<icon style="-webkit-mask-image: url(../icons/home.svg);"></icon>
 					<label>Delete</label>
                 </uibutton>
-                <h1>Buttons</h1>
-                <uibutton ui-implements="delete" ui-icon-align="right">
+                <uibutton ui-bar-align="right" ui-implements="delete" ui-icon-align="right">
 					<icon style="-webkit-mask-image: url(../icons/delete.svg);"></icon>
 					<label>Delete</label>
                 </uibutton>
@@ -166,22 +160,13 @@
 					<label>Click1</label>
                 </uibutton>
                 <uibutton ui-kind="icon" class="disabled">
-					<icon style="-webkit-mask-image: url(../icons/film.svg);">
-                </uibutton>
-                <uibutton ui-kind="icon">
-					<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
+					<icon style="-webkit-mask-image: url(../icons/film.svg);"></icon>
                 </uibutton>
             	<uibutton>
 					<label>Click2</label>
                 </uibutton>
-                <uibutton ui-kind="icon">
-					<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: yellow">
-                </uibutton>
             	<uibutton class="ui-custom-tint" style="background-color: #5a3fff">
 					<label>Click3</label>
-                </uibutton>
-                <uibutton ui-kind="icon">
-					<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
                 </uibutton>
             </toolbar>
         </section>
@@ -195,15 +180,9 @@
 					<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
 					<label>Add to Favorites</label>
 				</uibutton>
-				<uibutton>
+				<uibutton ui-bar-align="right">
 					<icon style="-webkit-mask-image: url(../icons/apple_logo.svg);"></icon>
 					<label>Text Message</label>
-				</uibutton>
-				<uibutton class="disabled" ui-bar-align="right">
-					<label>Add to Favorites</label>
-				</uibutton>
-				<uibutton>
-					<icon style="background-image: url(../icons/droid_logo.svg);">
 				</uibutton>
             </navbar>
     		<br><br>
@@ -292,7 +271,7 @@
 					<icon style="-webkit-mask-image: url(../icons/badge.svg);"></icon>
                 </uibutton>
                 <uibutton ui-kind="icon">
-					<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: orange">
+					<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: orange"></icon>
                 </uibutton>
                 <uibutton ui-kind="icon" class="disabled">
 					<icon style="-webkit-mask-image: url(../icons/film.svg);"></icon>
@@ -555,5 +534,9 @@
             </stack>
         </section>
     </article>
+    </scrollpanel>
+    </subview>
+    </view>
+    </app>
 </body>
 </html>

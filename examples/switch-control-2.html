@@ -21,18 +21,10 @@
 	
 		$.ready(function() {
 			 // Initialize click events for switch controls.
-            $$("tableview switchcontrol").forEach(function(item) {
-                item.bind("click", function () {
+                $$("tableview switchcontrol").forEach(function(item) {
+                item.bind($.userAction, function () {
                     if (this.hasClass("on")) {
-                        $("#switchResponse").empty().fill(this.find("input").value);
-                    } else {
-                        $("#switchResponse").empty();
-                    }
-                });
-                
-                item.bind("touchstart", function(e) {
-                    if (this.hasClass("on")) {
-                        $("#switchResponse").empty().fill(this.find("input").value);
+                        $("#switchResponse").fill(this.find("input").value);
                     } else {
                         $("#switchResponse").empty();
                     }
@@ -78,7 +70,7 @@
                     	</tablecell>
                     </tableview>
                     <p ui-kind="grouped">
-                    	<span><strong>Response: </strong></span><span id="switchResponse" class="response">ZZZZZZZZ</span>
+                    	<span><strong>Response: </strong></span><span id="switchResponse" class="response"></span>
                     </p>
 				</scrollpanel>
 			</subview>

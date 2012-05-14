@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
  
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.3.6
+Version 1.3.7
  
 */
  
@@ -128,7 +128,7 @@ Version 1.3.6
    
    $.extend({
  
-      version : '1.3.6',
+      version : '1.3.7',
       
       libraryName : 'ChocolateChip',
       
@@ -513,7 +513,7 @@ Version 1.3.6
       not : function ( arg ) {
          if (!this.is(arg)) return this;
          else return false;
-      }, 
+      },
       
       has : function ( arg ) {
          if (typeof arg === 'string') {
@@ -1056,6 +1056,8 @@ Version 1.3.6
       ios4 : navigator.userAgent.match(/OS 4/i),
       ios5 : navigator.userAgent.match(/OS 5/i),
       userAction : ($.touchEnabled ? 'touchstart' : 'click'),
+      mobile : /mobile/img.test(navigator.userAgent),
+      desktop : !/mobile/img.test(navigator.userAgent),
        
       localItem : function ( key, value ) {
          try {
