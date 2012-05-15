@@ -39,7 +39,6 @@ Released under MIT license, http://cubiq.org/license
 		if (!$.touchEnabled) {
 			var stylesheet = $('head').find('link[rel=stylesheet]').href;
 			var stylesheet1 = stylesheet.replace(/chui\.css/, 'chui.desktop.css');
-			console.log('Desktop: ' + stylesheet1);
 			$('head').append('<link rel="stylesheet" href="' + stylesheet1 + '">');
 		}
 		if ($.touchEnabled) $.userAction = 'touchstart';
@@ -179,7 +178,6 @@ Released under MIT license, http://cubiq.org/license
 						$('#main').setAttribute('ui-navigation-status', 'traversed');
 					}
 					$.UINavigationHistory.push(item.getAttribute('href'));
-					$.UIHideURLbar(); 
 				} catch(err) {} 
 			};
 			$.app.delegate('tablecell', $.userAction, function(item) {
@@ -191,7 +189,6 @@ Released under MIT license, http://cubiq.org/license
 							return;
 						} else {
 							$.UINavigationEnabled = true;
-							
 							$.UINavigationEvent = false;
 							navigateList(item);
 							$.UINavigationEvent = true;

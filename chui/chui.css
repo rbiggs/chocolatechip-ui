@@ -77,6 +77,17 @@ view[ui-navigation-status='traversed'] {
 	-webkit-transform: translateX(-100%);
 	-webkit-transform: translate3d(-100%,0,0);
 }
+view[ui-navigation-status="upcoming"],
+subview[ui-paging-orient=horizontal][ui-navigation-status=upcoming],
+subview[ui-paging-orient=vertical][ui-navigation-status=upcoming] {
+	visibility: hidden;
+}
+
+view[ui-navigation-status="current"],
+subview[ui-paging-orient=horizontal][ui-navigation-status=current],
+subview[ui-paging-orient=vertical][ui-navigation-status=current] {
+	visibility: visible;
+}
 subview > scrollpanel {
 	height: auto;
 	min-height: 100%;
