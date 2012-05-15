@@ -1764,16 +1764,20 @@ $.UIScrollingActive = false;
 					var checkmark = '<checkmark>&#x2713</checkmark>';
 					item.insert(checkmark);
 					item.bind($.userAction, function() {
-						listitems.each(function(check) {
-							check.removeClass('selected');
-							check.removeClass('touched');
-						});
-						this.addClass('selected');
-						this.UIHandleTouchState();
-						this.find('input').checked = true; 
-						if (callback) {
-							callback.call(callback, this.find('input'));
-						}
+						var $this = this;
+						setTimeout(function() {
+							if ($.UIScrollingActive) return;
+							listitems.each(function(check) {
+								check.removeClass('selected');
+								check.removeClass('touched');
+							});
+							$this.addClass('selected');
+							$this.UIHandleTouchState();
+							$this.find('input').checked = true; 
+							if (callback) {
+								callback.call(callback, $this.find('input'));
+							}
+						},100);
 					});
 				}
 			});
