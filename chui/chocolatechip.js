@@ -41,7 +41,42 @@ Version 1.3.7
          return document.querySelector(selector);
       }
    };
- 
+   
+   // Polyfill for Object.keys:
+	if (!Object.keys) {  
+	  Object.keys = (function () {  
+		 var hasOwnProperty = Object.prototype.hasOwnProperty,  
+			  hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),  
+			  dontEnums = [  
+				 'toString',  
+				 'toLocaleString',  
+				 'valueOf',  
+				 'hasOwnProperty',  
+				 'isPrototypeOf',  
+				 'propertyIsEnumerable',  
+				 'constructor'  
+			  ],  
+			  dontEnumsLength = dontEnums.length  
+	  
+		 return function (obj) {  
+			if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null) throw new TypeError('Object.keys called on non-object')  
+	  
+			var result = []  
+	  
+			for (var prop in obj) {  
+			  if (hasOwnProperty.call(obj, prop)) result.push(prop)  
+			}  
+	  
+			if (hasDontEnumBug) {  
+			  for (var i=0; i < dontEnumsLength; i++) {  
+				 if (hasOwnProperty.call(obj, dontEnums[i])) result.push(dontEnums[i])  
+			  }  
+			}  
+			return result  
+		 }  
+	  })()  
+	};
+	 
    $.extend = function(obj, prop, iterable) {
       var O, P;
       O = prop ? obj : this;
@@ -1305,6 +1340,7 @@ Version 1.3.7
    
    $.extend(document, {
    	  ready : function(fn) {
+   	  	  fn = fn || $.noop;
    	  	  if (document.getElementsByTagName('body')[0]) {
    	  	  	fn();
    	  	  } else {

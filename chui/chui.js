@@ -113,7 +113,9 @@ Released under MIT license, http://cubiq.org/license
 			if (button.hasClass('disabled')) {
 				return false;
 			} else {
-				button.UIHandleTouchState();
+				if (!$.UIScrollingActive) {
+					button.UIHandleTouchState();
+				}
 			}
 		});
 	});
@@ -121,17 +123,17 @@ Released under MIT license, http://cubiq.org/license
 	$.extend({
 		UINavigationHistory : ['#main'],
 		UINavigateBack : function() {
-			 var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
+			var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
 			$.UINavigationHistory.pop();
 			$($.UINavigationHistory[$.UINavigationHistory.length-1])
 			.setAttribute('ui-navigation-status', 'current');
 			$(parent).setAttribute('ui-navigation-status', 'upcoming');
-			$.UIHideURLbar();
 			if ($.app.getAttribute('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
 				$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
 			}
 		},
 		UINavigateToNextView : function(viewID) {
+			$.UINavigationListExits = true;
 			$($.UINavigationHistory[$.UINavigationHistory.length-1])
 				.setAttribute('ui-navigation-status','traversed');
 			$(viewID).setAttribute('ui-navigation-status','current');
@@ -184,6 +186,7 @@ Released under MIT license, http://cubiq.org/license
 				if (item.hasAttribute('href')) {
 					$.UINavigationListExits = true;
 					setTimeout(function() {
+						if ($.UIScrollingActive) return;
 						item.UIHandleTouchState();
 						if ($.UINavigationEvent) {
 							return;
@@ -1358,8 +1361,8 @@ $.UIScrollingActive = false;
 					momentum: false,
 					hScrollbar: false,
 					onScrollEnd: function () {
-						document.querySelector('stack[ui-implements="indicators"] > indicator.active').removeClass('active');
-						document.querySelector('stack[ui-implements="indicators"] > indicator:nth-child(' + (this.currPageX+1) + ')').addClass('active');
+						$('stack[ui-implements="indicators"] > indicator.active').removeClass('active');
+						$('stack[ui-implements="indicators"] > indicator:nth-child(' + (this.currPageX+1) + ')').addClass('active');
 					}
 				});
 			}
@@ -1406,8 +1409,8 @@ $.UIScrollingActive = false;
 			}
 			var deleteButtonTemp = '<uibutton ui-kind="deletionListDeleteButton" ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>' + label3 + '</label></uibutton>';
 			var editButtonTemp = '<uibutton ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit" ui-button-labels="' + label1 + ',' + label2 +  '"><label>' + label1 + '</label></uibutton>';
-			toolbarEl.insertAdjacentHTML("afterBegin", deleteButtonTemp);
-			toolbarEl.insertAdjacentHTML("beforeEnd", editButtonTemp);
+			toolbarEl.prepend(deleteButtonTemp);
+			toolbarEl.append(editButtonTemp);
 			var deleteDisclosure = '<deletedisclosure><span>&#x2713</span></deletedisclosure>';
 			$$(options.selector + " > tablecell").each(function(item) {
 				item.insertAdjacentHTML("afterBegin", deleteDisclosure);
@@ -1666,7 +1669,7 @@ $.UIScrollingActive = false;
 						</toolbar>\
 					</panel>\
 				</popup>';
-				$('app').insertAdjacentHTML('beforeEnd', popup);
+				$('app').append(popup);
 				var popupID = '#' + id;
 				$(popupID).UIBlock('0.5');
 				var popupBtn = '#' + id + ' uibutton';
@@ -1948,14 +1951,13 @@ $.UIScrollingActive = false;
 			var val = null;
 			callback = callback || function(){};
 			var buttons = $.slice.apply(this.children);
-			var cont = $(container);
 			var kids = $.slice.apply(this.children);
 			if (!this.hasAttribute('ui-selected-segment')) {
 				this.setAttribute('ui-selected-segment', '');
 			}
 			if (this.getAttribute('ui-selected-index')) {
 				val = this.getAttribute('ui-selected-index');
-				var seg = this.children(val);
+				var seg = this.children[val];
 				try {
 					seg = seg.getAttribute('id');
 					this.setAttribute('ui-selected-segment', seg);
@@ -1984,7 +1986,7 @@ $.UIScrollingActive = false;
 				}
 				var containerChildren = $.slice.apply(container.children);
 				containerChildren.forEach(function(child) {
-					child.css('display: none;');
+					child.css('display','none');
 				});
 				containerChildren[val].css('display','block');
 				that.setAttribute('ui-segmented-container', ('#' + container.id));
@@ -2210,6 +2212,7 @@ $.UIScrollingActive = false;
 			var that = this;
 			var actionSheetID = opts.id;
 			var actionSheetColor = 'undefined';
+			var actionSheetUuid = $.UIUuid();
 			if (!!opts.color) {
 				actionSheetColor = opts.color;
 			}
@@ -2222,7 +2225,7 @@ $.UIScrollingActive = false;
 				if (actionSheetColor) {
 					actionSheetStr += " ui-action-sheet-color='" + actionSheetColor + "'";
 				}
-				actionSheetStr += "><scrollpanel ui-scroller='" + $.UIUuid() + "'><panel>";
+				actionSheetStr += "><scrollpanel ui-scroller='" + actionSheetUuid + "'><panel>";
 				actionSheetStr += title;
 				var uiButtons = "", uiButtonObj, uiButtonImplements, uiButtonTitle, uiButtonCallback;
 				if (!!opts.uiButtons) {
@@ -2241,6 +2244,8 @@ $.UIScrollingActive = false;
 				actionSheetStr += uiButtons + "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#" + actionSheetID + "\")'><label>Cancel</label></uibutton></panel></scrollpanel></actionsheet>";
 				var actionSheet = $.make(actionSheetStr);
 				that.insert(actionSheet, "last");
+				var scrollpanel = $('#'+actionSheetID);
+				$.UIScrollers[actionSheetUuid] = new iScroll(scrollpanel);
 			};
 			createActionSheet();
 			var actionSheetUIButtons = "#" + actionSheetID + " uibutton";
@@ -2249,7 +2254,6 @@ $.UIScrollingActive = false;
 					$.UIHideActionSheet();
 				});
 			});
-			var myScroll = new iScroll($("#" + actionSheetID).find('scrollpanel'), { desktopCompatibility: true });
 		}
 	});
 	$.extend({
@@ -2388,14 +2392,11 @@ $.UIScrollingActive = false;
 				} else {
 					subtractableWidth = siblingRightWidth * 2;
 				}
-				//if (subtractableWidth > 0) {
 				if((availableSpace - subtractableWidth) < 40) {
-			
 					title.css('display: none;');
 				} else {
-					title.css('display: block; width: ' + (availableSpace - subtractableWidth - 20) + 'px;');
+					title.css({display: 'block', width: (availableSpace - subtractableWidth - 20) + 'px'});
 				}
-				//}
 			});
 		}
 	});

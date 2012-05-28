@@ -1,3 +1,11 @@
+/*
+ChocolateChip-UI
+Desktop version of ChUI.css
+
+Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
+License: BSD
+Version: 1.0.1
+*/
 uibutton:hover, 
 uibutton[ui-implements=done]:hover{
 	background-image: 
