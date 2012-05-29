@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.1.4
+Version: 1.0.1
 
 */
 html, body {
@@ -89,10 +89,9 @@ subview[ui-paging-orient=vertical][ui-navigation-status=current] {
 	visibility: visible;
 }
 subview > scrollpanel {
-	height: auto;
 	min-height: 100%;
-	overflow: hidden;
-	padding-bottom: 45px;
+	ooooooverflow: auto;
+	mmpadding-bottom: 45px;
 }
 subview[ui-associations] {
 	display: block;
@@ -492,7 +491,24 @@ shim {
 	height: 10px;
 }
 /* End Layout Flexible Box Styles */
-
+/* HTML5 scrollpanel styles */
+scrollpanel, scrollpanel[ui-scrolling='vertical'] {
+	overflow-y: scroll; 
+	-webkit-overflow-scrolling: touch;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+}
+scrollpanel[ui-scrolling='horizontal'] {
+	overflow-x: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+scrollpanel * {
+	position: relative;
+}
+/* end scrollpanel */
 /* UIButton Styles */
 uibutton, uibutton * {
 	cursor: pointer;
