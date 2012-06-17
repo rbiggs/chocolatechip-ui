@@ -29,7 +29,92 @@ When using Zepto, make sure you have the following modules included in your buil
 		});
 	}
 	$(function() {
-  			
+		$.data = {};
+		$.events = {};
+		$.extend(HTMLElement.prototype, {
+			data : function ( key, value) {
+				if (!value) {
+					if (this.attr('id')) {
+						try {
+							return $.data[this.id][key];
+						} catch(err) {}
+					}
+				} else {
+					if (this.attr('id')) {
+						if ($.data[this.id]) {
+							$.data[this.id][key] = value;
+						} else {
+							$.data[this.id] = {};
+							$.data[this.id][key] = value;
+						}
+						return this;
+					} else {
+						++$.uuid;
+						this.attr('id', $.makeUuid());
+						$.data[this.id] = { key : value };
+						return this;
+					}
+				}
+			},
+			
+			removeData : function ( key ) {
+				if (!this.id) return;
+				if (key) delete $.data[this.id][key];
+			},
+			
+			cacheEvent : function ( event, callback, capturePhase ) {
+				capturePhase = capturePhase || false;
+				console.log('event: ' + event + ', callback: ' + callback + ', capturePhase: ' + capturePhase);
+				if (this.attr('id')) {
+					if ($.events[this.id]) {
+						$.events[this.id].push({event: event, callback: callback, capturePhase: capturePhase});
+					}else {
+						$.events[this.id] = [];
+						$.events[this.id].push({event: event, callback: callback, capturePhase: capturePhase});
+					}
+					return this;
+				} else {
+					++$.uuid;
+					this.attr('id', $.makeUuid());
+					$.events[this.id].push({event: event, callback: callback, capturePhase: capturePhase});
+					return this;
+				}
+			},
+			
+			removeCachedEvent : function ( event, callback, capturePhase ) {
+				var ctx;
+				capturePhase = capturePhase || false;
+				if (!this.id) return;
+				if (!callback) {
+					if ($.events[this.id].length === 1) {
+						delete $.events[this.id];
+					} else {
+						ctx = $.events[this.id];
+						$.events[this.id].forEach(function(item, idx) {
+							if (item['event'] === event) {
+								console.log(item['event']);
+								console.log(ctx);
+								ctx.splice(idx, 1);
+							}
+						});
+					}
+				}
+				if (callback && capturePhase) {
+					if ($.events[this.id].length === 1) {
+						delete $.events[this.id];
+					} else {
+						$.events[this.id].forEach(function(item, idx) {
+							if (item['event'] === event &&
+							item['callback'] === callback &&
+							item['capturePhase'] === capturePhase) {
+								$.events[this.id].splice(idx, 1);
+							}
+						});
+					}
+				}
+			}
+			
+		});  			
 		/* 
 		Function to iterate over node collections. This gets used by ChocolateChip.js.
 		jQuery and Zepto already provide this method. It will always return the a plain DOM node so you can wrap it in $() or use $(this) to use node methods such as css(), etc.
@@ -63,6 +148,15 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 			if (selector.nodeType === 1) {
 				return selector;
+			}
+		};
+		
+		// Normalize get node collections for jQuery, Zepto and Chocolatechip.
+		$.els = function ( selector ) {
+			if (_cc) {
+				return $$(selector);
+			} else {
+				return $(selector);
 			}
 		};
 		
@@ -115,6 +209,67 @@ When using Zepto, make sure you have the following modules included in your buil
 				try {
 					return (item.nodeType !== 1 && typeof item === 'object' && !item.length) ? this : item
 				} catch(err) {}
+			},
+
+			
+			UIEnableScrolling : function ( options ) {
+				var scrollpanels = $.els('scrollpanel');
+				console.log(scrollpanels);
+				$.each(scrollpanels, function(idx, scrollpanel) {
+					console.log(scrollpanel.nodeName);
+					if (!!$(scrollpanel).data('ui-scroller')) {
+						$(scrollpanel).data('ui-scroller').refresh();
+					} else {
+						var scroller = new iScroll(scrollpanel, options);
+						$(scrollpanel).data('ui-scroller', scroller);
+					}
+				});
+				$.each($.els("scrollpanel"), function(idx, ctx) {
+					if ($(ctx).data("ui-scroller")) {
+						$(ctx).data("ui-scroller").refresh();
+					} else {
+						var scroller = new iScroll(ctx, options);
+						$(ctx).data("ui-scroller", scroller);
+					}
+				});
+			}		
+		});
+		
+		$(function() {
+			$.UIEnableScrolling();
+		});
+		
+		$.extend($.fn, {
+			UIHandleTouchState : function(delay) {
+				if ($.UIScrollingActive) return;
+				delay = delay || 200;
+				var $this = $(this);
+				if ($.touchEnabled) {
+					$this.addClass('touched');
+					setTimeout(function() {
+						$this.removeClass('touched');
+					}, delay);
+				}
+			},
+			
+			UIHandleTouchState : function(delay) {
+				if ($.UIScrollingActive) return;
+				delay = delay || 200;
+				var $this = this;
+				if ($.mobile) {
+					this.addClass('touched');
+					setTimeout(function() {
+						$this.removeClass('touched');
+					}, delay);
+				}
+			},
+			
+			UIToggleButtonLabel : function ( label1, label2 ) {
+				if ($('label', this).text() === label1) {
+					$('label', this).text(label2);
+				} else {
+					$('label', this).text(label1);
+				}
 			}
 		});
 	});
