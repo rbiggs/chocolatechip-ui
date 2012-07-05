@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
  
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.3.7
+Version 1.3.8
  
 */
  
@@ -40,67 +40,33 @@ Version 1.3.7
       } else {
          return document.querySelector(selector);
       }
-   };
-   
-   // Polyfill for Object.keys:
-	if (!Object.keys) {  
-	  Object.keys = (function () {  
-		 var hasOwnProperty = Object.prototype.hasOwnProperty,  
-			  hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),  
-			  dontEnums = [  
-				 'toString',  
-				 'toLocaleString',  
-				 'valueOf',  
-				 'hasOwnProperty',  
-				 'isPrototypeOf',  
-				 'propertyIsEnumerable',  
-				 'constructor'  
-			  ],  
-			  dontEnumsLength = dontEnums.length  
-	  
-		 return function (obj) {  
-			if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null) throw new TypeError('Object.keys called on non-object')  
-	  
-			var result = []  
-	  
-			for (var prop in obj) {  
-			  if (hasOwnProperty.call(obj, prop)) result.push(prop)  
-			}  
-	  
-			if (hasDontEnumBug) {  
-			  for (var i=0; i < dontEnumsLength; i++) {  
-				 if (hasOwnProperty.call(obj, dontEnums[i])) result.push(dontEnums[i])  
-			  }  
-			}  
-			return result  
-		 }  
-	  })()  
-	};
-	 
-   $.extend = function(obj, prop, iterable) {
-      var O, P;
-      O = prop ? obj : this;
-      P = prop ? prop : obj;
-      if (!Object.keys) {
-         for (var i in P) {
-            O[i] = P[i];
-         }
-         return O;
-      } else {
-         Object.keys(P).forEach(function(p) {
-         	var enumerable = iterable || false;
-            if (P.hasOwnProperty(p)) {
-               Object.defineProperty(O, p, {
-                  value: P[p],
-                  writable: true,
-                  enumerable: enumerable,
-                  configurable: true
-               });
-            }
-         });
-      }
       return this;
    };
+   
+	$.extend = function(obj, prop) {
+		if (Object.keys in window) {
+			Object.keys(prop).forEach(function(p) {
+				if (prop.hasOwnProperty(p)) {
+					Object.defineProperty(obj, p, {
+						value: prop[p],
+						writable: true,
+						enumerable: false,
+						configurable: true
+					});
+				}
+			});
+		} else {
+			if (!prop) {
+				prop = obj;
+				obj = this;
+			}
+			for (var i in prop) {
+				obj[i] = prop[i];
+			}
+			return obj;
+		}
+		return this;
+	};
    
    $.extend(Array.prototype, {
       each : Array.prototype.forEach,
@@ -163,7 +129,7 @@ Version 1.3.7
    
    $.extend({
  
-      version : '1.3.7',
+      version : '1.3.8',
       
       libraryName : 'ChocolateChip',
       
@@ -385,6 +351,7 @@ Version 1.3.7
          for (key in this) {
             if(callback(key, this[key]) === false) { return this; }
          }
+         return this;
       }
    });
    
@@ -816,9 +783,12 @@ Version 1.3.7
       },
        
       delegate : function ( selector, event, callback, capturePhase ) {
-      	 capturePhase = capturePhase || false;
+      	capturePhase = capturePhase || false;
          this.addEventListener(event, function(e) {
             var target = e.target;
+            if (e.target.nodeType == 3) {
+            	target = e.target.parentNode;
+            }
             $.$$(selector, this).each(function(element) {
                if (element === target) {
                   callback.apply(this, arguments);
@@ -1092,7 +1062,7 @@ Version 1.3.7
       ios5 : navigator.userAgent.match(/OS 5/i),
       userAction : ($.touchEnabled ? 'touchstart' : 'click'),
       mobile : /mobile/img.test(navigator.userAgent),
-      desktop : !/mobile/img.test(navigator.userAgent),
+      desktop : !(/mobile/img.test(navigator.userAgent)),
        
       localItem : function ( key, value ) {
          try {
@@ -1371,7 +1341,7 @@ Version 1.3.7
       window.$$chocolatechip = window.$$ = $.$$;
    }
 })(); 
-$.ready(function() {
+$(function() {
    $.UIUpdateOrientationChange();
    $.UIListenForWindowResize();
 });

@@ -19,7 +19,7 @@ Released under MIT license, http://cubiq.org/license
 */
 (function($, $$) {
 	window.CHUIVersion = '1.1.4';
-	var UIExpectedChocolateChipJSVersion = '1.3.7'; 
+	var UIExpectedChocolateChipJSVersion = '1.3.8'; 
 
 	var UICheckChocolateChipJSVersion = function() {
 		if ($.version !== UIExpectedChocolateChipJSVersion) {
