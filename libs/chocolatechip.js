@@ -42,27 +42,27 @@ Version 1.5.0
       }
    };
  
-   $.extend = function(obj, prop, iterable) {
-      var O, P;
-      O = prop ? obj : this;
-      P = prop ? prop : obj;
-      if (!Object.keys) {
-         for (var i in P) {
-            O[i] = P[i];
-         }
-         return O;
-      } else {
-         Object.keys(P).forEach(function(p) {
-         	var enumerable = iterable || false;
-            if (P.hasOwnProperty(p)) {
-               Object.defineProperty(O, p, {
-                  value: P[p],
+	$.extend = function(obj, prop) {
+		if (Object.keys in window) {
+			Object.keys(prop).forEach(function(p) {
+				if (prop.hasOwnProperty(p)) {
+					Object.defineProperty(obj, p, {
+						value: prop[p],
                   writable: true,
                   enumerable: enumerable,
                   configurable: true
                });
             }
          });
+		} else {
+			if (!prop) {
+				prop = obj;
+				obj = this;
+			}
+			for (var i in prop) {
+				obj[i] = prop[i];
+			}
+			return obj;
       }
       return this;
    };
@@ -128,7 +128,7 @@ Version 1.5.0
    
    $.extend({
  
-      version : '1.3.7',
+      version : '1.5.0',
       
       libraryName : 'ChocolateChip',
       
@@ -354,6 +354,7 @@ Version 1.5.0
          for (key in this) {
             if(callback(key, this[key]) === false) { return this; }
          }
+         return this;
       }
    });
    
@@ -803,6 +804,9 @@ Version 1.5.0
       	 capturePhase = capturePhase || false;
          this.addEventListener(event, function(e) {
             var target = e.target;
+            if (e.target.nodeType == 3) {
+            	target = e.target.parentNode;
+            }
             $.$$(selector, this).each(function(element) {
                if (element === target) {
                   callback.apply(this, arguments);
@@ -1058,7 +1062,7 @@ Version 1.5.0
       ios5 : navigator.userAgent.match(/OS 5/i),
       userAction : ($.touchEnabled ? 'touchstart' : 'click'),
       mobile : /mobile/img.test(navigator.userAgent),
-      desktop : !/mobile/img.test(navigator.userAgent),
+      desktop : !(/mobile/img.test(navigator.userAgent)),
        
       localItem : function ( key, value ) {
          try {
@@ -1337,7 +1341,7 @@ Version 1.5.0
       window.$$chocolatechip = window.$$ = $.$$;
    }
 })(); 
-$.ready(function() {
+$(function() {
    $.UIUpdateOrientationChange();
    $.UIListenForWindowResize();
 });

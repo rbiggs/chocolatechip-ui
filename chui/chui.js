@@ -28,99 +28,13 @@ When using Zepto, make sure you have the following modules included in your buil
          	}
 		});
 	}
-	$(function() {
-		$.data = {};
-		$.events = {};
-		$.extend(HTMLElement.prototype, {
-			data : function ( key, value) {
-				if (!value) {
-					if (this.attr('id')) {
-						try {
-							return $.data[this.id][key];
-						} catch(err) {}
-					}
-				} else {
-					if (this.attr('id')) {
-						if ($.data[this.id]) {
-							$.data[this.id][key] = value;
-						} else {
-							$.data[this.id] = {};
-							$.data[this.id][key] = value;
-						}
-						return this;
-					} else {
-						++$.uuid;
-						this.attr('id', $.makeUuid());
-						$.data[this.id] = { key : value };
-						return this;
-					}
-				}
-			},
-			
-			removeData : function ( key ) {
-				if (!this.id) return;
-				if (key) delete $.data[this.id][key];
-			},
-			
-			cacheEvent : function ( event, callback, capturePhase ) {
-				capturePhase = capturePhase || false;
-				console.log('event: ' + event + ', callback: ' + callback + ', capturePhase: ' + capturePhase);
-				if (this.attr('id')) {
-					if ($.events[this.id]) {
-						$.events[this.id].push({event: event, callback: callback, capturePhase: capturePhase});
-					}else {
-						$.events[this.id] = [];
-						$.events[this.id].push({event: event, callback: callback, capturePhase: capturePhase});
-					}
-					return this;
-				} else {
-					++$.uuid;
-					this.attr('id', $.makeUuid());
-					$.events[this.id].push({event: event, callback: callback, capturePhase: capturePhase});
-					return this;
-				}
-			},
-			
-			removeCachedEvent : function ( event, callback, capturePhase ) {
-				var ctx;
-				capturePhase = capturePhase || false;
-				if (!this.id) return;
-				if (!callback) {
-					if ($.events[this.id].length === 1) {
-						delete $.events[this.id];
-					} else {
-						ctx = $.events[this.id];
-						$.events[this.id].forEach(function(item, idx) {
-							if (item['event'] === event) {
-								console.log(item['event']);
-								console.log(ctx);
-								ctx.splice(idx, 1);
-							}
-						});
-					}
-				}
-				if (callback && capturePhase) {
-					if ($.events[this.id].length === 1) {
-						delete $.events[this.id];
-					} else {
-						$.events[this.id].forEach(function(item, idx) {
-							if (item['event'] === event &&
-							item['callback'] === callback &&
-							item['capturePhase'] === capturePhase) {
-								$.events[this.id].splice(idx, 1);
-							}
-						});
-					}
-				}
-			}
-			
-		});  			
+	$(function() {			
 		/* 
 		Function to iterate over node collections. This gets used by ChocolateChip.js.
 		jQuery and Zepto already provide this method. It will always return the a plain DOM node so you can wrap it in $() or use $(this) to use node methods such as css(), etc.
 		*/
 		if (_cc) {
-			$.each = function ( elements, callback ) {
+			$._each = function ( elements, callback ) {
 				var i, key;
 				if (typeof elements.length === 'number') {
 					for (i = 0; i < elements.length; i++) {
@@ -136,7 +50,9 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}
 		  	}  
-		}	
+		} else {
+			$._each = $.each;
+		}
 		
 		// Normalize the way to get a single node for jQuery, Zepto and ChocolateChip.
 		$.el = function ( selector ) {
@@ -211,26 +127,11 @@ When using Zepto, make sure you have the following modules included in your buil
 				} catch(err) {}
 			},
 
-			
 			UIEnableScrolling : function ( options ) {
-				var scrollpanels = $.els('scrollpanel');
-				console.log(scrollpanels);
-				$.each(scrollpanels, function(idx, scrollpanel) {
-					console.log(scrollpanel.nodeName);
-					if (!!$(scrollpanel).data('ui-scroller')) {
-						$(scrollpanel).data('ui-scroller').refresh();
-					} else {
-						var scroller = new iScroll(scrollpanel, options);
-						$(scrollpanel).data('ui-scroller', scroller);
-					}
-				});
-				$.each($.els("scrollpanel"), function(idx, ctx) {
-					if ($(ctx).data("ui-scroller")) {
-						$(ctx).data("ui-scroller").refresh();
-					} else {
-						var scroller = new iScroll(ctx, options);
-						$(ctx).data("ui-scroller", scroller);
-					}
+				options = options || {};
+				$._each($.els("scrollpanel"), function(idx, ctx) {
+					var scroller = new iScroll(ctx, options);
+					$(ctx).data("ui-scroller", scroller);
 				});
 			}		
 		});
