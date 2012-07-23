@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Form To JSON Submission</title>
     <link rel="stylesheet" href="../chui/chui.css">
@@ -22,8 +22,8 @@
 			line-height: 20px;
 		}
     </style>
-    <script src="../chui/chocolatechip.js"></script>
-    <script src="../chui/chui.js"></script>
+    <script src="../chui/chocolatechip.min.js"></script>
+    <script src="../chui/chui.min.js"></script>
     <script>
         
         function submitForm() {
@@ -42,6 +42,16 @@
 <body>
 	<app ui-background-style="striped">
 		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>New User</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<input type='text'></input>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="next" ui-background-style="striped" ui-navigation-status="upcoming">
 			<navbar>
 				<h1>New User</h1>
 				<uibutton ui-implements="done" ui-bar-align="right">Done</uibutton>
