@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0;">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Navigation</title>
     <link rel="stylesheet" href="../chui/chui.css">
@@ -15,23 +15,24 @@
     <script src="../chui/iscroll.js"></script>
 	<script>
 		$(function() {
-			/*var cells = document.querySelectorAll('tablecell');
+			var cells = document.querySelectorAll('tablecell');
 			$.each(cells, function(idx) {
-				console.log(idx, this);
-				$(this).css({'background-color': 'red'});
-				$(this).css('color','white');
+				//console.log(idx + ' ' + this.nodeName);
+				//$(this).css({'background-color': 'red'});
+				//$(this).css('color','white');
 			});
 			//$($.el('navbar')).css('margin','40px');
 			$($.el('navbar')).on('click', function() {
-				console.log(this.nodeName);
+				//console.log(this.nodeName);
 			});
 			//$.main.css('padding','100px');
-			console.log($.UIUuid());
-			*/
+			//console.log($.UIUuid());
+			
 			$('tableview').on('click', 'uibutton', function(ctx) {
-				ctx = $.ctx.call(this, ctx);
-				alert(ctx.nodeName);
+				var item = $.ctx(this, ctx);
+				item.UIToggleButtonLabel("Dingo","Bozo");
 			});
+			
 		});
 	</script>
     
@@ -46,7 +47,7 @@
 				<scrollpanel id='sc1'>
 					<tableview>
 						<tablecell>
-							<uibutton>Button</uibutton>
+							<uibutton><label>Button</label></uibutton>
 						</tablecell>
 						<tablecell href="#people_view" ui-implements="detail-disclosure">
 							<celltitle>People</celltitle>

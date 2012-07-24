@@ -102,6 +102,11 @@ When using Zepto, make sure you have the following modules included in your buil
 			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
 			$.userAction = 'click';
 		}
+		if ( _jq || _zo) {
+			$.fn.hasAttr = function(property) {
+				return $(this).attr(property);
+			};
+		}
 		
 		$.extend($, {
 			UIUuidSeed : function ( seed ) {
@@ -121,9 +126,9 @@ When using Zepto, make sure you have the following modules included in your buil
 				return $.concat($.AlphaSeed(), $.UIUuidSeed(20), $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), $.UIUuidSeed(), $.UIUuidSeed());
 			},
 			
-			ctx : function(item) {
+			ctx : function(node) {
 				try {
-					return (item.nodeType !== 1 && typeof item === 'object' && !item.length) ? this : item
+					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? this : node
 				} catch(err) {}
 			},
 
@@ -133,38 +138,24 @@ When using Zepto, make sure you have the following modules included in your buil
 					var scroller = new iScroll(ctx, options);
 					$(ctx).data("ui-scroller", scroller);
 				});
-			}		
-		});
-		
-		$(function() {
-			$.UIEnableScrolling();
-		});
-		
-		$.extend($.fn, {
-			UIHandleTouchState : function(delay) {
-				if ($.UIScrollingActive) return;
-				delay = delay || 200;
-				var $this = $(this);
-				if ($.touchEnabled) {
-					$this.addClass('touched');
-					setTimeout(function() {
-						$this.removeClass('touched');
-					}, delay);
-				}
 			},
 			
-			UIHandleTouchState : function(delay) {
-				if ($.UIScrollingActive) return;
-				delay = delay || 200;
-				var $this = this;
-				if ($.mobile) {
-					this.addClass('touched');
-					setTimeout(function() {
-						$this.removeClass('touched');
-					}, delay);
-				}
-			},
+			UINavigationHistory : ['#main'],
 			
+			UINavigateBack : function() {
+				var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
+				console.dir($.UINavigationHistory);
+				$.UINavigationHistory.pop();
+				console.dir($.UINavigationHistory);
+				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				.attr('ui-navigation-status', 'current');
+				$(parent).attr('ui-navigation-status', 'upcoming');
+				// if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
+// 					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
+// 				}
+			}
+		});
+		$.extend(HTMLElement.prototype, {
 			UIToggleButtonLabel : function ( label1, label2 ) {
 				if ($('label', this).text() === label1) {
 					$('label', this).text(label2);
@@ -173,5 +164,91 @@ When using Zepto, make sure you have the following modules included in your buil
 				}
 			}
 		});
+		
+		$.extend($, {
+			UINavigationListExits : false,
+			
+			UINavigationList : function() {
+				var navigateList = function(node) {
+					var currentNavigatingView = '#main';
+					node = $(node);
+					try {
+						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
+							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
+						}
+						$(node.attr('href')).attr('ui-navigation-status', 'current');
+						console.dir($.UINavigationHistory);
+						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
+						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
+							$('#main').attr('ui-navigation-status', 'traversed');
+						}
+						$.UINavigationHistory.push(node.attr('href'));
+						currentNavigatingView = node.closest('view');
+						
+						currentNavigatingView.bind('webkitTransitionEnd', function(event) {
+							if (event.propertyName === '-webkit-transform') {
+								node.removeClass('disabled');
+							}
+						});
+					} catch(err) {} 
+				};
+				
+				if ($.userAction === 'touchstart') {
+					$.app.delegate('tablecell', 'touchend', function(ctx) {
+						var node = $.ctx.call(ctx, this);
+						try {
+							if ($(node).hasAttr('href')) {
+								
+								$.UINavigationListExits = true;				
+								if ($(node).hasClass('disabled')) {
+									return
+								} else {
+									$(node).addClass('disabled');
+									navigateList($(node));
+								}
+							}
+						} catch(err) {}
+					});
+				} else {
+					$.app.delegate('tablecell', 'click', function(ctx) {
+						var node = $.ctx.call(ctx, this);
+						//console.log(node);
+						if ($(node).hasAttr('href')) {
+							$.UINavigationListExits = true;				
+							if ($(node).hasClass('disabled')) {
+								return;
+							} else {
+								$(node).addClass('disabled');
+								navigateList(node);
+							}
+						}
+					});
+				}
+			},
+	
+			UITouchedTableCell : null			
+		});
+		$(function() {
+			$.app.delegate('view','webkitTransitionEnd', function() {
+				if (!$('view[ui-navigation-status=current]')) {
+					$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
+						.attr('ui-navigation-status', 'current');
+					$.UINavigationHistory.pop(); 
+				}	
+				$.UINavigationEvent = false;
+			});
+			$.UINavigationList();
+	
+			$.app.delegate('uibutton', $.userAction, function(ctx) {
+				var node = $.ctx.call(ctx, this);
+				if ($(node).attr('ui-implements') === 'back') {
+					if ($.UINavigationListExits) {
+							$.UINavigateBack();
+					}
+				}
+			});			
+			$.UIEnableScrolling();
+		});
+		
 	});
 })();

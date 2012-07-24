@@ -695,6 +695,10 @@ Version 1.5.0
       removeAttr : function ( property ) {
       	 return this.removeAttribute(property);
       },
+      
+      hasAttr : function ( property ) {
+      	return this.hasAttribute(property);
+      },
        
       hasClass : function ( className ) {
          return new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)').test(this.className);
