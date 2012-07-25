@@ -21,12 +21,15 @@ When using Zepto, make sure you have the following modules included in your buil
 		var $ = window.Zepto;
 		var _zo = true;
 	}
-	if (!$.concat) {
+	if (_jq || _zo) {
 		$.extend($, {
 			concat : function (args ) {
          		return args instanceof Array ? args.join('') : Array.prototype.slice.apply(arguments).join('');
          	}
 		});
+		$.fn.childElements = function() {
+			return this.children();
+		}
 	}
 	$(function() {			
 		/* 
@@ -106,6 +109,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			$.fn.hasAttr = function(property) {
 				return $(this).attr(property);
 			};
+			$.slice = Array.prototype.slice;
 		}
 		
 		$.extend($, {
@@ -219,7 +223,6 @@ When using Zepto, make sure you have the following modules included in your buil
 				} else {
 					$.app.delegate('tablecell', 'click', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-						console.dir(node);
 						if ($(node).hasAttr('href')) {
 							$.UINavigationListExits = true;				
 							if ($(node).hasClass('disabled')) {
@@ -250,48 +253,85 @@ When using Zepto, make sure you have the following modules included in your buil
 	
 			UITouchedTableCell : null			
 		});
-		$(function() {
-			$.app.delegate('view','webkitTransitionEnd', function() {
-				if (!$('view[ui-navigation-status=current]')) {
-					$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
-						.attr('ui-navigation-status', 'current');
-					$.UINavigationHistory.pop(); 
-				}	
-				$.UINavigationEvent = false;
-			});
-			$.UINavigationList();
-			if ($.userAction === 'touchend') {
-				$.app.delegate('uibutton', 'touchstart', function(ctx) {
-					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-					$(node).addClass('touched');
-				});
-				$.app.delegate('uibutton', 'touchend', function(ctx) {
-					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-					$(node).removeClass('touched');
-					if ($(node).attr('ui-implements') === 'back') {
-						if ($.UINavigationListExits) {
-							$.UINavigateBack();
-							$.UINavigationEvent = false;
-						}
-					}
-				});
-				$.app.delegate('uibutton', 'touchcancel', function(ctx) {
-					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-					$(node).removeClass('touched');
-				});
-			} else {
-				$.app.delegate('uibutton', $.userAction, function(ctx) {
-					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-					if ($(node).attr('ui-implements') === 'back') {
-						if ($.UINavigationListExits) {
-							$.UINavigateBack();
-							$.UINavigationEvent = false;
-						}
-					}
-				});	
-			}		
-			$.UIEnableScrolling();
+		$.app.delegate('view','webkitTransitionEnd', function() {
+			if (!$('view[ui-navigation-status=current]')) {
+				$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
+					.attr('ui-navigation-status', 'current');
+				$.UINavigationHistory.pop(); 
+			}	
+			$.UINavigationEvent = false;
 		});
+		$.UINavigationList();
+		if ($.userAction === 'touchend') {
+			$.app.delegate('uibutton', 'touchstart', function(ctx) {
+				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+				$(node).addClass('touched');
+			});
+			$.app.delegate('uibutton', 'touchend', function(ctx) {
+				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+				$(node).removeClass('touched');
+				if ($(node).attr('ui-implements') === 'back') {
+					if ($.UINavigationListExits) {
+						$.UINavigateBack();
+						$.UINavigationEvent = false;
+					}
+				}
+			});
+			$.app.delegate('uibutton', 'touchcancel', function(ctx) {
+				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+				$(node).removeClass('touched');
+			});
+		} else {
+			$.app.delegate('uibutton', $.userAction, function(ctx) {
+				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+				if ($(node).attr('ui-implements') === 'back') {
+					if ($.UINavigationListExits) {
+						$.UINavigateBack();
+						$.UINavigationEvent = false;
+					}
+				}
+			});	
+		}		
+		$.UIEnableScrolling();
 		
+		$.fn.UISelectionList = function ( callback ) {
+			var $this = this;
+			var listitems = this.childElements();
+			if (_jq || _zo) {
+				listitems = $(listitems);
+				console.dir(listitems);
+			} 
+			$._each(listitems, function(idx, node) {
+				console.dir(node);
+				if (node.nodeName.toLowerCase() === 'tablecell') {
+					var checkmark = '<checkmark>&#x2713</checkmark>';
+					$(node).append(checkmark);
+					$(node).on($.userAction, function() {
+						if ($.userAction === 'touchend') {
+							$(node).removeClass('touched');
+						}
+						var $this = this;
+						setTimeout(function() {
+							if ($.UIScrollingActive) return;
+							$._each(listitems, function(idx, check) {
+								$(check).removeClass('selected');
+								$(check).removeClass('touched');
+							});
+							$($this).addClass('selected');
+							$($this).find('input').checked = true; 
+							if (callback) {
+								callback.call(callback, $($this).find('input'));
+							}
+						},100);
+					});
+					$(node).on('touchstart', function() {
+						$(this).addClass('touched');
+					});
+					$(node).on('touchcancel', function() {
+						$(this).removeClass('touched');
+					});
+				}
+			});
+		};
 	});
 })();

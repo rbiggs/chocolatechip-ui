@@ -1339,6 +1339,10 @@ Version 1.5.0
    	     if (ret) return ret;
    	  }
    });
+   
+   $.extend($, {
+   	fn : HTMLElement.prototype
+   });
 
    window.$chocolatechip = $;
    window.$$chocolatechip = $.$$;
