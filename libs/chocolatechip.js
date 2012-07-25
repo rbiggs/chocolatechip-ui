@@ -498,7 +498,9 @@ Version 1.5.0
          }
       }, 
       
-      closest : this.ancestor,
+      closest : function( selector ) {
+      	return this.ancestor(selector);
+      },
       
       is : function ( arg ) {
          $this = this;

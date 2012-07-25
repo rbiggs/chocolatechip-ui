@@ -6,11 +6,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Navigation</title>
     <link rel="stylesheet" href="../chui/chui.css">
-    <style>
-
-    </style>
+    <style></style>
     <script src="../libs/chocolatechip.js"></script>
-    
     <script src="../chui/chui.js"></script>
     <script src="../chui/iscroll.js"></script>
 	<script>
@@ -22,16 +19,16 @@
 				//$(this).css('color','white');
 			});
 			//$($.el('navbar')).css('margin','40px');
-			$($.el('navbar')).on('click', function() {
+			//$($.el('navbar')).on('click', function() {
 				//console.log(this.nodeName);
-			});
+			//});
 			//$.main.css('padding','100px');
 			//console.log($.UIUuid());
 			
 			$('tableview').on('click', 'uibutton', function(ctx) {
-				var item = $.ctx(this, ctx);
-				console.log(item);
-				item.UIToggleButtonLabel("Dingo","Bozo");
+				var item = $.ctx(ctx);
+				//console.log(item);
+				//item.UIToggleButtonLabel("Dingo","Bozo");
 			});
 		});
 	</script>

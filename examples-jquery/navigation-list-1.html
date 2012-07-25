@@ -10,7 +10,6 @@
 
     </style>
     <script src="../libs/jquery-1.7.2.js"></script>
-    
     <script src="../chui/chui.js"></script>
     <script src="../chui/iscroll.js"></script>
 	<script>
@@ -18,8 +17,8 @@
 			var cells = document.querySelectorAll('tablecell');
 			$.each(cells, function(idx) {
 				//console.log(idx + ' ' + this.nodeName);
-				$(this).css({'background-color': 'red'});
-				$(this).css('color','white');
+				//$(this).css({'background-color': 'red'});
+				//$(this).css('color','white');
 			});
 			//$($.el('navbar')).css('margin','40px');
 			$($.el('navbar')).on('click', function() {
@@ -29,8 +28,8 @@
 			//console.log($.UIUuid());
 			
 			$('tableview').on('click', 'uibutton', function(ctx) {
-				ctx = $.ctx.call(this, ctx);
-				alert(ctx.nodeName);
+				var item = $.ctx(ctx);
+				item.UIToggleButtonLabel("Dingo","Bozo");
 			});
 			
 		});

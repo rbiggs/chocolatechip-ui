@@ -95,7 +95,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		$.main = $("#main");
 		$.views = _cc ? $$("view") : $('view');
 		$.touchEnabled = ('ontouchstart' in window);
-		$.userAction = 'touchstart';
+		$.userAction = 'touchend';
 		if (!$.touchEnabled) {
 			var stylesheet = $('head').find('link[rel=stylesheet]').attr('href');
 			var stylesheet1 = stylesheet.replace(/chui\.css/, 'chui.desktop.css');
@@ -128,7 +128,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			
 			ctx : function(node) {
 				try {
-					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? this : node
+					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? node[0] : node
 				} catch(err) {}
 			},
 
@@ -144,15 +144,13 @@ When using Zepto, make sure you have the following modules included in your buil
 			
 			UINavigateBack : function() {
 				var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
-				console.dir($.UINavigationHistory);
 				$.UINavigationHistory.pop();
-				console.dir($.UINavigationHistory);
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
 				.attr('ui-navigation-status', 'current');
 				$(parent).attr('ui-navigation-status', 'upcoming');
-				// if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
-// 					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
-// 				}
+				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
+ 					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
+ 				}
 			}
 		});
 		$.extend(HTMLElement.prototype, {
@@ -167,17 +165,18 @@ When using Zepto, make sure you have the following modules included in your buil
 		
 		$.extend($, {
 			UINavigationListExits : false,
+
+		   UINavigationEvent : false,
 			
 			UINavigationList : function() {
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
-					node = $(node);
+					var node = $(node);
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
 							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
-						console.dir($.UINavigationHistory);
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
 						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
 							$('#main').attr('ui-navigation-status', 'traversed');
@@ -193,13 +192,21 @@ When using Zepto, make sure you have the following modules included in your buil
 					} catch(err) {} 
 				};
 				
-				if ($.userAction === 'touchstart') {
+				if ($.userAction === 'touchend') {
+					$.app.delegate('tablecell', 'touchstart', function(ctx) {
+						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+						$(node).addClass('touched');
+					});
+					$.app.delegate('tablecell', 'touchcancel', function(ctx) {
+						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+						$(node).removeClass('touched');
+					});
 					$.app.delegate('tablecell', 'touchend', function(ctx) {
-						var node = $.ctx.call(ctx, this);
+						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+						$(node).removeClass('touched');
 						try {
 							if ($(node).hasAttr('href')) {
-								
-								$.UINavigationListExits = true;				
+								$.UINavigationListExits = true;			
 								if ($(node).hasClass('disabled')) {
 									return
 								} else {
@@ -211,8 +218,8 @@ When using Zepto, make sure you have the following modules included in your buil
 					});
 				} else {
 					$.app.delegate('tablecell', 'click', function(ctx) {
-						var node = $.ctx.call(ctx, this);
-						//console.log(node);
+						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+						console.dir(node);
 						if ($(node).hasAttr('href')) {
 							$.UINavigationListExits = true;				
 							if ($(node).hasClass('disabled')) {
@@ -224,6 +231,21 @@ When using Zepto, make sure you have the following modules included in your buil
 						}
 					});
 				}
+			},
+			
+			UINavigateToView : function(viewID) {
+				$.UINavigationListExits = true;
+				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+					.attr('ui-navigation-status','traversed');
+				$(viewID).attr('ui-navigation-status','current');
+				$.UINavigationHistory.push(viewID);
+				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
+					$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+				}
+			},
+			
+			UINavigateToNextView : function ( viewID ) {
+				return $.UINavigateToView(viewID);
 			},
 	
 			UITouchedTableCell : null			
@@ -238,15 +260,36 @@ When using Zepto, make sure you have the following modules included in your buil
 				$.UINavigationEvent = false;
 			});
 			$.UINavigationList();
-	
-			$.app.delegate('uibutton', $.userAction, function(ctx) {
-				var node = $.ctx.call(ctx, this);
-				if ($(node).attr('ui-implements') === 'back') {
-					if ($.UINavigationListExits) {
+			if ($.userAction === 'touchend') {
+				$.app.delegate('uibutton', 'touchstart', function(ctx) {
+					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+					$(node).addClass('touched');
+				});
+				$.app.delegate('uibutton', 'touchend', function(ctx) {
+					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+					$(node).removeClass('touched');
+					if ($(node).attr('ui-implements') === 'back') {
+						if ($.UINavigationListExits) {
 							$.UINavigateBack();
+							$.UINavigationEvent = false;
+						}
 					}
-				}
-			});			
+				});
+				$.app.delegate('uibutton', 'touchcancel', function(ctx) {
+					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+					$(node).removeClass('touched');
+				});
+			} else {
+				$.app.delegate('uibutton', $.userAction, function(ctx) {
+					var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+					if ($(node).attr('ui-implements') === 'back') {
+						if ($.UINavigationListExits) {
+							$.UINavigateBack();
+							$.UINavigationEvent = false;
+						}
+					}
+				});	
+			}		
 			$.UIEnableScrolling();
 		});
 		
