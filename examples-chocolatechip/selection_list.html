@@ -14,8 +14,8 @@
 		
 	</style>
    <script src="../libs/chocolatechip.js"></script>
-   <script src="../chui/iscroll.js"></script>
    <script src="../chui/chui.js"></script>
+   <script src="../chui/iscroll.js"></script>
 	<script>
 		$(function() {
 			$("#activityChoices").UISelectionList(function() {
@@ -25,8 +25,8 @@
 		});
 	</script>
 </head>
-<body>
-	<app>
+<body class="bodyClass" id="bodyID">
+	<app id="appID" class="appClass">
 		<view title="Main" class="mainView" id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar id="segmentedToolbar">
 				<h1 ui-bar-align="center">Select List</h1>

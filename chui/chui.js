@@ -29,16 +29,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		});
 		$.fn.childElements = function() {
 			return this.children();
-		};
-		$.fn.toggleClassName = function( firstClassName, secondClassName ) {
-			if (!$(this).hasClass(firstClassName)) {
-				$(this).addClass(firstClassName);
-				$(this).removeClass(secondClassName);
-			} else {
-				$(this).removeClass(firstClassName);
-				$(this).addClass(secondClassName);
-			}
-		};
+		}
 	}
 	$(function() {			
 		/* 
@@ -80,19 +71,11 @@ When using Zepto, make sure you have the following modules included in your buil
 		};
 		
 		// Normalize get node collections for jQuery, Zepto and Chocolatechip.
-		$.els = function ( selector, context ) {
+		$.els = function ( selector ) {
 			if (_cc) {
-				if(context) {
-					return $$(selector, context);
-				} else {
-					return $$(selector);
-				}
+				return $$(selector);
 			} else {
-				if(context) {
-					return $(selector, context);
-				} else {
-					return $(selector);
-				}
+				return $(selector);
 			}
 		};
 		
@@ -350,211 +333,5 @@ When using Zepto, make sure you have the following modules included in your buil
 				}
 			});
 		};
-		$.fn.UISwitchControl = function (callback) {
-			callback = callback || function() { return false; };
-			var item = _cc ? this : this[0]
-			if (item.nodeName.toLowerCase()==="switchcontrol") {
-				callback.call(callback, this);
-				if ($(this).hasClass("off")) {
-					$(this).toggleClassName("on", "off");
-					if (_cc) {
-						$(this).find("input").checked = true;
-					} else {
-						$(this).find("input")[0].checked = true;
-					}
-					$(this).find("thumb").focus();
-				} else {
-					$(this).toggleClassName("on", "off");
-					if (_cc) {
-						$(this).find("input").checked = false;
-					} else {
-						$(this).find("input")[0].checked = false;
-					}
-				}
-			} else {
-				return;
-			}
-		};	
-		$.fn.UICreateSwitchControl = function( opts ) {
-			/*
-				{
-					id : "anID",
-					namePrefix : "customer",
-					customClass : "specials",
-					status : "on",
-					kind : "traditional",
-					labelValue : ["on","off"],
-					value : "$1000",
-					callback : function() {console.log('This is great!');},	
-				}
-			*/
-			var id = opts.id;
-			var namePrefix = '';
-			if (opts.namePrefix) {
-				namePrefix = "name='" + opts.namePrefix + "." + opts.id + "'";
-			} else {
-				namePrefix = "name='" + id + "'";
-			}
-			var customClass = " ";
-			customClass += opts.customClass ? opts.customClass : "";
-			var status = opts.status || "off";
-			var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
-			var label1 = "ON";
-			var label2 = "OFF";
-			if (opts.kind === "traditional") {
-				if (!!opts.labelValue) {
-					label1 = opts.labelValue[0];
-					label2 = opts.labelValue[1];
-				}
-			}
-			var value = opts.value || "";
-			var callback = opts.callback || function() { return false; };
-			var label = (opts.kind === "traditional") ? '<label ui-implements="on">'+ label1 + '</label><thumb></thumb><label ui-implements="off">' + label2 + '</label>' : "<thumb></thumb>";
-			var uiswitch = '<switchcontrol ' + kind + ' class="' + status + " " + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
-			if ($(this).css("position")  !== "absolute") {
-				this.css("position: relative;");
-			}
-			$(this).append(uiswitch);
-			var newSwitchID = "#" + id;
-			if (_zo) {
-				$(newSwitchID).find("input").attr("checked", (status === "on" ? true : false));
-			} else {
-				$(newSwitchID).find("input").prop("checked", (status === "on" ? true : false));
-			}
-			$(newSwitchID).bind("click", function() {
-				$(this).UISwitchControl(callback);
-				//$(this).UIHandleTouchState(400);
-			});
-		};
-		
-		$.fn.UIInitSwitchToggling = function() {
-			var switches = $.els('switchcontrol', this);
-			var $this = this;
-			$._each(switches, function(ctx) {
-				var item = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-				//console.log('Item: ' + item.nodeName);
-				if ($(item).hasClass('on')) {
-					$(item).checked = true;
-					$(item).find("input[type='checkbox']").checked = true;
-				} else {
-					$(item).checked = false;
-					$(item).find("input[type='checkbox']").checked = false;
-				}
-				$(item).on($.userAction, function(e) {
-					e.preventDefault();
-					this.parentNode.style.backgroundImage = 'none';
-					$(item).UISwitchControl();
-				});
-			});
-		};
-		$.app.UIInitSwitchToggling();
-		
-		$.fn.UISegmentedControl = function( options ) {
-			
-			var that = $(this);
-			var val = 0;
-			callback = options.callback || function(){};
-			var container = options.container || null;
-			var selectedSegment = options.selectedSegment || null;
-			var buttons = $(this).children() ? $(this).children() : this.children;
-			if (container) $(this).attr('ui-toggle-stack', container);
-			if ($(this).attr("ui-selected-index")) {
-				val = $(this).attr("ui-selected-index");
-				var seg = this.children() ? this.children().eq(val) : this.children[val];
-				try {
-					if (_cc) {
-						this.children[val].addClass('selected');
-						if (container) $(container).children[val].addClass('selected');
-					} else {
-						$(this).children().eq(val).addClass("selected");
-						if (container) $(container).children().eq(val).addClass('selected');
-					}
-				} catch(e) {}
-			} else {
-				if (_cc) {
-					if (container) $(container).children[val].addClass('selected');
-				} else {
-					if (container) $(container).children().eq(val).addClass('selected');
-				}
-				$(buttons[0]).addClass('selected');
-				$(this).attr('ui-selected-index', '0');
-			}
-			
-			$._each(buttons, function(idx, ctx) {
-				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-				var that = $(node).closest("segmentedcontrol");
-				if (!$(node).attr("id")) {
-					$(node).attr("id", $.UIUuid());
-				}
-				$(ctx).on("click", function() {
-					var val;
-					var panels;
-					var index;
-					$._each(buttons, function(i, ctx) {
-						$(ctx).removeClass('selected');
-						if (this === node) {
-							index = i;
-						}
-						if (index === 0) index = '0';
-					});
-					$(this).closest('segmentedcontrol').attr('ui-selected-index', index);
-					$(this).addClass('selected');
-					var container = $(this).closest('segmentedcontrol').attr('ui-toggle-stack');
-					if (!container) return;
-					if (_cc) {
-						panels = $.slice.apply($(container).children);
-						//console.dir(panels);
-						$._each(panels, function(idx, item) {
-							$(item).removeClass("selected");
-						});
-						$(panels[index]).addClass('selected');
-					} else {
-						panels = $(container).children();
-						panels.removeClass('selected');
-						panels.eq(index).addClass('selected');
-					}
-					callback.call(callback, $(this));
-				});
-			});
-			
-		/*	buttons.each(function() {
-				var that = $(this).closest("segmentedcontrol");
-				if (!$(this).attr("id")) {
-					$(this).attr("id", $.UIUuid());
-				}
-				if (!that.attr("ui-selected-segment")) {
-					if ($(this).hasClass("selected")) {
-						that.attr("ui-selected-segment", $(this).attr("id"));
-					}
-				}
-				$(this).bind("click", function() {
-					var selectedSegment = that.attr("ui-selected-segment");
-					var selectedIndex = that.attr("ui-selected-index");
-					var uicp = $(this).attr("ui-child-position");
-					var container = null;
-					var segmentedcontrol = $(this).closest("segmentedcontrol");
-					if (segmentedcontrol.attr("ui-segmented-container")) {
-						container = $(segmentedcontrol.attr("ui-segmented-container"));
-					}
-					var uisi = null;
-					if (selectedSegment) {
-						uisi = $(this).attr("ui-child-position");
-						that.attr("ui-selected-index", uisi);
-						var oldSelectedSegment = $(("#" + selectedSegment));
-						oldSelectedSegment.removeClass("selected");
-						that.attr("ui-selected-segment", $(this).attr("id"));
-						$(this).addClass("selected");
-						childPosition = $(this).attr("ui-child-position");
-						container.attr("ui-selected-index", uicp);
-						container.children().eq(selectedIndex).css("display", "none");						
-						container.children().eq(uicp).css("display","-webkit-box");
-						container.closest("scrollpanel").data("ui-scroller").refresh();
-					}
-					$(this).addClass("selected");
-					callback.call(callback, $(this));
-				});
-			}); */
-			//$(this).UIIdentifyChildNodes();
-		};		
 	});
 })();
