@@ -423,7 +423,6 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 			$(newSwitchID).bind("click", function() {
 				$(this).UISwitchControl(callback);
-				//$(this).UIHandleTouchState(400);
 			});
 		};
 		
@@ -432,7 +431,6 @@ When using Zepto, make sure you have the following modules included in your buil
 			var $this = this;
 			$._each(switches, function(ctx) {
 				var item = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-				//console.log('Item: ' + item.nodeName);
 				if ($(item).hasClass('on')) {
 					$(item).checked = true;
 					$(item).find("input[type='checkbox']").checked = true;
@@ -503,7 +501,6 @@ When using Zepto, make sure you have the following modules included in your buil
 					if (!container) return;
 					if (_cc) {
 						panels = $.slice.apply($(container).children);
-						//console.dir(panels);
 						$._each(panels, function(idx, item) {
 							$(item).removeClass("selected");
 						});
@@ -516,45 +513,6 @@ When using Zepto, make sure you have the following modules included in your buil
 					callback.call(callback, $(this));
 				});
 			});
-			
-		/*	buttons.each(function() {
-				var that = $(this).closest("segmentedcontrol");
-				if (!$(this).attr("id")) {
-					$(this).attr("id", $.UIUuid());
-				}
-				if (!that.attr("ui-selected-segment")) {
-					if ($(this).hasClass("selected")) {
-						that.attr("ui-selected-segment", $(this).attr("id"));
-					}
-				}
-				$(this).bind("click", function() {
-					var selectedSegment = that.attr("ui-selected-segment");
-					var selectedIndex = that.attr("ui-selected-index");
-					var uicp = $(this).attr("ui-child-position");
-					var container = null;
-					var segmentedcontrol = $(this).closest("segmentedcontrol");
-					if (segmentedcontrol.attr("ui-segmented-container")) {
-						container = $(segmentedcontrol.attr("ui-segmented-container"));
-					}
-					var uisi = null;
-					if (selectedSegment) {
-						uisi = $(this).attr("ui-child-position");
-						that.attr("ui-selected-index", uisi);
-						var oldSelectedSegment = $(("#" + selectedSegment));
-						oldSelectedSegment.removeClass("selected");
-						that.attr("ui-selected-segment", $(this).attr("id"));
-						$(this).addClass("selected");
-						childPosition = $(this).attr("ui-child-position");
-						container.attr("ui-selected-index", uicp);
-						container.children().eq(selectedIndex).css("display", "none");						
-						container.children().eq(uicp).css("display","-webkit-box");
-						container.closest("scrollpanel").data("ui-scroller").refresh();
-					}
-					$(this).addClass("selected");
-					callback.call(callback, $(this));
-				});
-			}); */
-			//$(this).UIIdentifyChildNodes();
 		};		
 	});
 })();
