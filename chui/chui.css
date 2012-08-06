@@ -472,8 +472,8 @@ stack[ui-implements=segmented-toggle-stack] > panel {display: none;
 	-webkit-box-align: center;
 	-webkit-box-pack: center; 
 }
-stack[ui-implements=segmented-toggle-stack] > panel:first-of-type {
-	display: -webkit-blox;
+stack[ui-implements=segmented-toggle-stack] > panel.selected {
+	display: block;
 }
 stack[ui-kind=horizontal] {
 	display: -webkit-box;
