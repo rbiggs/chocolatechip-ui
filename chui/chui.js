@@ -438,7 +438,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					$(item).checked = false;
 					$(item).find("input[type='checkbox']").checked = false;
 				}
-				$(item).on($.userAction, function(e) {
+				$(item).on('click', function(e) {
 					e.preventDefault();
 					this.parentNode.style.backgroundImage = 'none';
 					$(item).UISwitchControl();
