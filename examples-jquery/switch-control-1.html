@@ -22,7 +22,7 @@
 	
 		$(function() {
 			
-			$.app.delegate("switchcontrol", $.userAction, function() {
+			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
 				if ($(this).hasClass("on")) {
 					$("#switchResponse").html($(this).find("input").val());
 				} else {

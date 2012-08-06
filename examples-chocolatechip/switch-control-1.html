@@ -21,9 +21,9 @@
 		/* Local JavaScript Here */
 	
 		$(function() {
-			$.app.delegate("switchcontrol", $.userAction, function(switchcontrol) {
+			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
 				if (switchcontrol.hasClass("on")) {
-					$("#switchResponse").fill(switchcontrol.find("input").value);
+					$("#switchResponse").html(switchcontrol.find("input").value);
 				} else {
 					$("#switchResponse").empty();
 				}

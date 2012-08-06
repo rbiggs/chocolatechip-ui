@@ -64,9 +64,9 @@
 				
 			});
 			
-			$.app.delegate("switchcontrol", "click", function(idx) {
+			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
 				if ($(this).hasClass("on")) {
-					$("#switchResponse").text($(this).find("input").val());
+					$("#switchResponse").html($(this).find("input").val());
 				} else {
 					$("#switchResponse").empty();
 				}
