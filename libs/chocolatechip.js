@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
  
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.5.0
+Version 1.6.0
  
 */
  
@@ -71,7 +71,8 @@ Version 1.5.0
       each : Array.prototype.forEach,
       
       eq : function ( index ) {
-         return index === -1 ? this.slice(index)[0] : this.slice(index, + index + 1)[0];
+      	if (!index)  return;
+         return this[index];
       },
       
       is : function ( arg ) {
@@ -227,45 +228,6 @@ Version 1.5.0
    
    $.chch_cache.events = {};
    
-   $.extend($.chch_cache.data, {
-   
-      keys : [],
-      
-      values : [],
-      
-      set : function ( key, data ) {
-         if (this.keys.indexOf(key) >= 0) {
-            this.values[this.keys.indexOf(key)] = data;
-         } else {
-            this.keys.push(key);
-            this.values.push(data);
-         }
-      },
-      
-      get : function ( key ) {
-         return this.values[this.keys.indexOf(key)];
-      },
-      
-      hasKey : function ( key ) {
-         if (this.keys.indexOf(key) >= 0) return true;
-         else return false;
-      },
-      
-      hasData : function ( key ) {
-         var idx = this.keys.indexOf(key);
-         if (this.values[idx]) return true;
-         else return false;
-      },
-      
-      _delete : function ( key ) {
-         var idx = this.keys.indexOf(key);
-         this.keys[idx] = null;
-         this.keys.splice(idx, idx + 1);
-         this.values[idx] = null;
-         this.values.splice(idx, idx + 1);
-      }
-   });
-   
    $.extend($.chch_cache.events, {
    
       keys : [],
@@ -359,26 +321,32 @@ Version 1.5.0
    });
    
    $.extend(HTMLElement.prototype, {
-   
-      data : function ( data ) {
-         if (!!data) {
-            if (!!this.id) {
-               $.chch_cache.data.set(this.id, data);
-               return this;
-            } else {
-               ++$.uuid;
-               this.setAttribute("id", $.makeUuid());
-               $.chch_cache.data.set(this.id, data);
-               return this;
-            }
-         } else {
-            if (this.id) {
-               if (!$.chch_cache.data.hasKey(this.id)) return false;
-               return $.chch_cache.data.get(this.id);
-            } else {
-               return false;
-            }
-         }
+      
+      data : function( key, value ) {
+      	if (!value) {
+      		var id = this.id;
+				if (id) {
+					return $.chch_cache.data[id][key];
+				} else {
+					return;
+				}
+			} else {
+				if (!this.id) {
+					++$.uuid;
+					var id = $.makeUuid();
+               this.setAttribute("id", id);
+               $.chch_cache.data[id] = {}
+               $.chch_cache.data[id][key] = value;
+				} else {
+					var id = this.id;
+					if (!$.chch_cache.data[id]) {
+               	$.chch_cache.data[id] = {}
+               	$.chch_cache.data[id][key] = value;
+               } else {
+               	$.chch_cache.data[id][key] = value;
+               }
+				}
+			}
       },
       
       removeData : function ( ) {
@@ -694,6 +662,10 @@ Version 1.5.0
       	 }
       },
       
+      prop : function ( property, value ) {
+      	return this.attr(property, value);
+      },
+      
       removeAttr : function ( property ) {
       	 return this.removeAttribute(property);
       },
@@ -751,6 +723,10 @@ Version 1.5.0
             }
          }
          return this;
+      },
+      
+      toggleClassName : function ( firstClassName, secondClassName ) {
+      	return this.toggleClass(firstClassName, secondClassName);
       },
        
       getTop : function() {
