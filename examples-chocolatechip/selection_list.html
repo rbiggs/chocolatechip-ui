@@ -18,9 +18,8 @@
    <script src="../chui/chui.js"></script>
 	<script>
 		$(function() {
-			$("#activityChoices").UISelectionList(function() {
-				
-				console.log("Hi from select list");
+			$("#activityChoices").UISelectionList(function(node) {
+				$("#selectionResponse.response").html(node.value);
 			});
 		});
 	</script>

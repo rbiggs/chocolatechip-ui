@@ -168,7 +168,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				$.UINavigationHistory.pop();
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
 				.attr('ui-navigation-status', 'current');
+				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				.attr('aria-visibility', 'visible');
 				$(parent).attr('ui-navigation-status', 'upcoming');
+				$(parent).attr('aria-visibility', 'visible');
 				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
  					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
  				}
@@ -198,9 +201,12 @@ When using Zepto, make sure you have the following modules included in your buil
 							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
+						$(node.attr('href')).attr('aria-visibility', 'visible');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
+						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-visibility', 'hidden');
 						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
 							$('#main').attr('ui-navigation-status', 'traversed');
+							$('#main').attr('aria-visibility', 'hidden');
 						}
 						$.UINavigationHistory.push(node.attr('href'));
 						currentNavigatingView = node.closest('view');
@@ -211,6 +217,9 @@ When using Zepto, make sure you have the following modules included in your buil
 							}
 						});
 					} catch(err) {} 
+					$$('tablecell[ui-implements=disclosure]:after').forEach(function(item) {
+						item.attr('aria-visibility','hidden');
+					})
 				};
 				
 				if ($.userAction === 'touchend') {
@@ -257,7 +266,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				$.UINavigationListExits = true;
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
 					.attr('ui-navigation-status','traversed');
+				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+					.attr('aria-visibility', 'hidden');
 				$(viewID).attr('ui-navigation-status','current');
+				$(viewID).attr('aria-visibility', 'visible');
 				$.UINavigationHistory.push(viewID);
 				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
 					$('navbar uibutton[ui-implements=back]').css({'display':'block'});
@@ -268,7 +280,19 @@ When using Zepto, make sure you have the following modules included in your buil
 				return $.UINavigateToView(viewID);
 			},
 	
-			UITouchedTableCell : null			
+			UITouchedTableCell : null,
+			
+			setupAriaForViews : function() {
+				var views = $.els('view');
+				$._each(views, function(idx, ctx) {
+					if ($(ctx).attr('ui-navigation-status') !=='current') {
+						$(ctx).attr('aria-visibility', 'hidden');
+					} else {
+						$(ctx).attr('aria-visibility', 'visible');
+					}
+				});
+			}
+						
 		});
 		$.app.delegate('view','webkitTransitionEnd', function() {
 			if (!$('view[ui-navigation-status=current]')) {
@@ -310,22 +334,24 @@ When using Zepto, make sure you have the following modules included in your buil
 			});	
 		}		
 		$.UIEnableScrolling();
+		$.setupAriaForViews();
 		
 		$.fn.UISelectionList = function ( callback ) {
 			var $this = this;
 			var listitems = this.childElements();
 			if (_jq || _zo) {
 				listitems = $(listitems);
-				console.dir(listitems);
 			} 
 			$._each(listitems, function(idx, node) {
-				console.dir(node);
 				if (node.nodeName.toLowerCase() === 'tablecell') {
 					var checkmark = '<checkmark>&#x2713</checkmark>';
+					$(node).attr('role','radio');
+					$(node).attr('aria-checked','false');
 					$(node).append(checkmark);
 					$(node).on($.userAction, function() {
 						if ($.userAction === 'touchend') {
 							$(node).removeClass('touched');
+							$(node).attr('aria-checked','false');
 						}
 						var $this = this;
 						setTimeout(function() {
@@ -333,8 +359,10 @@ When using Zepto, make sure you have the following modules included in your buil
 							$._each(listitems, function(idx, check) {
 								$(check).removeClass('selected');
 								$(check).removeClass('touched');
+								$(check).attr('aria-checked','false');		
 							});
 							$($this).addClass('selected');
+							$($this).attr('aria-checked','true');
 							$($this).find('input').checked = true; 
 							if (callback) {
 								callback.call(callback, $($this).find('input'));
@@ -354,9 +382,11 @@ When using Zepto, make sure you have the following modules included in your buil
 			callback = callback || function() { return false; };
 			var item = _cc ? this : this[0]
 			if (item.nodeName.toLowerCase()==="switchcontrol") {
+			$(item).attr('role','radio');
 				callback.call(callback, this);
 				if ($(this).hasClass("off")) {
 					$(this).toggleClassName("on", "off");
+					$(this).attr('aria-checked','true');
 					if (_cc) {
 						$(this).find("input").checked = true;
 					} else {
@@ -364,6 +394,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 					$(this).find("thumb").focus();
 				} else {
+					$(this).attr('aria-checked','false');
 					$(this).toggleClassName("on", "off");
 					if (_cc) {
 						$(this).find("input").checked = false;
