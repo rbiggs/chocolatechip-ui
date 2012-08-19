@@ -40,6 +40,14 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 		};
 	}
+	
+		$.fn.UIIdentifyChildNodes = function ( ) {
+			var ctx = this.nodeType === 1 ? this : this[0];
+			var kids = ctx.childElementCount;
+			for (var i = 0; i < kids; i++) {
+				ctx.children[i].setAttribute('ui-child-position', i);
+			}
+		};
 	$(function() {			
 		/* 
 		Function to iterate over node collections. This gets used by ChocolateChip.js.
@@ -203,10 +211,10 @@ When using Zepto, make sure you have the following modules included in your buil
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
 						$(node.attr('href')).attr('aria-visibility', 'visible');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-visibility', 'hidden');
+						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-visibility', 'hidden').attr('role','presentation');
 						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
 							$('#main').attr('ui-navigation-status', 'traversed');
-							$('#main').attr('aria-visibility', 'hidden');
+							$('#main').attr('aria-visibility', 'hidden').attr('role','presentation');
 						}
 						$.UINavigationHistory.push(node.attr('href'));
 						currentNavigatingView = node.closest('view');
@@ -479,7 +487,6 @@ When using Zepto, make sure you have the following modules included in your buil
 		$.app.UIInitSwitchToggling();
 		
 		$.fn.UISegmentedControl = function( options ) {
-			
 			var that = $(this);
 			var val = 0;
 			callback = options.callback || function(){};
@@ -545,5 +552,65 @@ When using Zepto, make sure you have the following modules included in your buil
 				});
 			});
 		};		
+		
+		$.extend({
+			UIPaging : function( selector, opts ) {
+				var myPager = new iScroll( selector.firstElementChild, opts );
+				var stack = null;
+				stack = $('stack', selector);
+				var scrollerPanels = stack.childElements();
+				$(selector).parent().attr('ui-scroller', 'myPager');
+				var indicatorsWidth = $(selector).parent().css('width');
+				var guid = $.UIUuid();
+				var indicators = '<stack id="' + guid + '" ui-implements="indicators" style="width:"' + indicatorsWidth + ';">';
+				scrollerPanels.eq(0).addClass('active');
+				$._each([].slice.apply(stack.childElements()), function(idx, ctx) {
+					if (idx === 0) {
+						indicators += '<indicator class="active"></indicator>';
+					} else {
+						indicators += "<indicator></indicator>";
+					}
+				});
+				indicators += "</stack>";
+				// The maximum number of indicators in portrait view is 17.
+				$(selector).parent().append(indicators);
+				var indicatorBase = $('#'+guid);
+				indicatorBase.UIIdentifyChildNodes();
+				var indics = indicatorBase.childElements();
+				$(indicatorBase).on('click', 'indicator', function(ctx) {
+					var item = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+					var whichPanel = $(item).attr('ui-child-position');
+					myPager.scrollToPage(whichPanel,0);
+					$._each(indics, function(idx, ctx) {
+						$(ctx).removeClass('active');
+						scrollerPanels.eq(idx).removeClass('active'); 
+					});
+					$(item).addClass('active');
+					scrollerPanels.eq($(item).attr('ui-child-position')).addClass('active');
+				});
+				
+			},
+			UISetupPaging : function() {
+				if ($("stack[ui-implements=paging]")) {
+					var pagingStacks = $.els("stack[ui-implements=paging]");
+					$._each(pagingStacks, function(idx, stack) {
+						var indicatorStack = stack.nextElementSibling;
+						$.UIPaging(stack, {
+							snap: true,
+							momentum: false,
+							hScrollbar: false,
+							onScrollEnd: function () {
+							var ps = stack.nextElementSibling;
+							$(ps).find('indicator.active').removeClass('active');
+							$(ps).find('indicator:nth-child(' + (Number(this.currPageX)+1) + ')').addClass('active');
+							}
+						});
+					});
+				}
+			}
+		});
+		$(function() {
+			$.UISetupPaging();
+		});
 	});
 })();

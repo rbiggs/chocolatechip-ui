@@ -71,8 +71,11 @@ Version 1.6.0
       each : Array.prototype.forEach,
       
       eq : function ( index ) {
-      	if (!index)  return;
-         return this[index];
+      	if (index === 0 || !!index) {
+      		return this[index];
+      	} else {
+      		return;
+      	}
       },
       
       is : function ( arg ) {
@@ -411,6 +414,10 @@ Version 1.6.0
             });
             return foundEls;
          }
+      },
+      
+      parent: function() {
+      	return this.parentNode;
       },
     
       ancestor : function( selector ) {
@@ -812,7 +819,6 @@ Version 1.6.0
            this.dispatchEvent(evtObj);
          }
       },
-      
       on : function ( event, selector, callback, capturePhase ) {
       	 if (typeof selector === 'function') {
       	 	this.bind(event, selector, callback);
