@@ -2340,9 +2340,9 @@ popup > panel > toolbar[ui-placement=top] {
 	color: #fff;
 	text-shadow: 0px -2px 1px #000;
 }
-popup toolbar > h1 {
+popup h1 {
 	letter-spacing: 1px;
-	font: bold 20px Helvetica, Sans-serif;
+	font: bold 20px/24px Helvetica, Sans-serif;
 	text-align: center;
 	margin: 0px;
 }

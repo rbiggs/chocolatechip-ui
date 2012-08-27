@@ -41,13 +41,42 @@ When using Zepto, make sure you have the following modules included in your buil
 		};
 	}
 	
-		$.fn.UIIdentifyChildNodes = function ( ) {
-			var ctx = this.nodeType === 1 ? this : this[0];
-			var kids = ctx.childElementCount;
-			for (var i = 0; i < kids; i++) {
-				ctx.children[i].setAttribute('ui-child-position', i);
-			}
-		};
+	$.fn.UIIdentifyChildNodes = function ( ) {
+		var ctx = this.nodeType === 1 ? this : this[0];
+		var kids = ctx.childElementCount;
+		for (var i = 0; i < kids; i++) {
+			ctx.children[i].setAttribute('ui-child-position', i);
+		}
+	};
+	$.fn._first = function ( ) {
+		if (_cc) {
+			return this.first();
+		} else {
+			return $(this).children().first();
+		}
+	};
+	$.fn._last = function ( ) {
+		if (_cc) {
+			return this.last();
+		} else {
+			return $(this).children().last();
+		}
+	};
+	
+	$.fn.UIBlock = function ( opacity ) {
+		opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+		$(this).before("<mask" + opacity + "></mask>");
+		return this;
+	};
+	$.fn.UIUnblock = function ( ) {
+		$._each($.els('mask'), function(idx, ctx) {
+			$(ctx).remove();
+		});
+		return this;
+	};
+	$.fn.UIRemovePopupBtnEvents = function(eventType, eventName) {
+		this.removeEventListener(eventType, eventName, false);
+	};
 	$(function() {			
 		/* 
 		Function to iterate over node collections. This gets used by ChocolateChip.js.
@@ -185,20 +214,18 @@ When using Zepto, make sure you have the following modules included in your buil
  				}
 			}
 		});
-		$.extend(HTMLElement.prototype, {
-			UIToggleButtonLabel : function ( label1, label2 ) {
-				if ($('label', this).text() === label1) {
-					$('label', this).text(label2);
-				} else {
-					$('label', this).text(label1);
-				}
+		$.fn.UIToggleButtonLabel = function ( label1, label2 ) {
+			if ($('label', this).text() === label1) {
+				$('label', this).text(label2);
+			} else {
+				$('label', this).text(label1);
 			}
-		});
+		};
 		
 		$.extend($, {
 			UINavigationListExits : false,
 
-		   UINavigationEvent : false,
+		    UINavigationEvent : false,
 			
 			UINavigationList : function() {
 				var navigateList = function(node) {
@@ -553,7 +580,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			});
 		};		
 		
-		$.extend({
+		$.extend($, {
 			UIPaging : function( selector, opts ) {
 				var myPager = new iScroll( selector.firstElementChild, opts );
 				var stack = null;
@@ -612,5 +639,310 @@ When using Zepto, make sure you have the following modules included in your buil
 		$(function() {
 			$.UISetupPaging();
 		});
+		$.fn.UISegmentedPagingControl = function ( ) {
+			var segmentedPager = $('segmentedcontrol[ui-implements="segmented-paging"]', this);
+			var pagingOrientation = segmentedPager.attr('ui-paging');
+			segmentedPager.attr('ui-paged-subview', '0');
+			segmentedPager._first().addClass('disabled');
+			var subviews = $.els('subview', this);
+			segmentedPager.attr('ui-pagable-subviews', subviews.length);
+			var childPosition = 0;
+			$._each(subviews, function(idx, ctx) {
+				$(ctx).attr('ui-navigation-status', 'upcoming');
+				if (_cc && childPosition == 0) {
+					$(ctx).attr('ui-child-position', 0);
+				}
+				$(ctx).attr('ui-child-position', childPosition);
+				childPosition++;
+				$(ctx).attr('ui-paging-orient', pagingOrientation);
+			});
+			var prevButton = $(segmentedPager._first());
+			var nextButton = $(segmentedPager._last());
+			subviews.eq(0).attr('ui-navigation-status', 'current');
+			segmentedPager.delegate('uibutton', 'click', function(ctx) {
+				var button = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+				if ($(button).hasClass('disabled')) return;
+				var pager = segmentedPager; //$(button).closest('segmentedcontrol');
+				// Previous Button:
+				if (button.isSameNode(button.parentNode.firstElementChild)) {
+					if (pager.attr('ui-paged-subview') == 1) {
+						$(button).addClass('disabled');
+						pager.attr('ui-paged-subview', '0');
+						subviews.eq(0).attr('ui-navigation-status', 'current');
+						subviews.eq(1).attr('ui-navigation-status', 'upcoming');
+					} else {
+						$(subviews[pager.attr('ui-paged-subview') - 1 ]).attr( 'ui-navigation-status', 'current');
+						$(subviews[pager.attr('ui-paged-subview')]).attr('ui-navigation-status', 'upcoming');
+						pager.attr('ui-paged-subview', pager.attr('ui-paged-subview')-1);
+						$(button).next().removeClass('disabled');
+						if (pager.attr('ui-paged-subview') <= 0) {
+							$(button).addClass('disabled');
+						}
+					}
+				} else {
+					prevButton.removeClass('disabled');
+					var pagedSubview = Number(pager.attr('ui-paged-subview'));
+					if (pagedSubview === Number(segmentedPager.attr('ui-pagable-subviews'))-2){
+						$(button).addClass('disabled');
+					}
+					$(subviews[pagedSubview]).attr('ui-navigation-status', 'traversed');
+					$(subviews[pagedSubview+1]).attr('ui-navigation-status', 'current');
+					pager.attr('ui-paged-subview', pagedSubview + 1);
+				}
+			});
+		}
+		$.extend($, {
+			
+			UIDeleteTableCell : function( options ) {
+				/* options = {
+					selector: selector,
+					editButton: [label1, label2],
+					deleteButton: label3,
+					toolbar: toolbar,
+					callback: callback
+				} */
+				var label1;
+				if (options.editButton) {
+					label1 = options.editButton[0];
+				} else {
+					label1 = 'Edit';
+				}
+				var label2;
+				if (options.editButton) {
+					label2 = options.editButton[1];
+				} else {
+					label2 = 'Done';
+				}
+				var label3;
+				if (options.deleteButton) {
+					label3 = options.deleteButton;
+				} else {
+					label3 = 'Delete';
+				}
+				var callback = options.callback || function() {};
+				this.deletionList = [];
+				var listEl = $(options.selector);
+				var toolbarEl = $(options.toolbar);
+				if (_cc) {
+					if ((toolbarEl.first().nodeName) === 'UIBUTTON') {
+						toolbarEl.first().setAttribute('ui-contains','uibutton');
+					}
+				} else {
+					if (toolbarEl.children().eq(0)[0].nodeName === 'UIBUTTON') {
+						toolbarEl.children().eq(0).attr('ui-contains', 'uibutton');
+					}
+				}
+				var deleteButtonTmpl = $.concat('<uibutton role="button" ui-kind="deletionListDeleteButton" ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>', label3, '</label></uibutton>');
+				var editButtonTmpl = $.concat('<uibutton role="button" ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit"',' ui-button-labels="',label1,' ',label2,'"><label>', label1, '</label></uibutton>');
+				$(toolbarEl).prepend(deleteButtonTmpl);
+				$(toolbarEl).append(editButtonTmpl);
+				var deleteDisclosure = '<deletedisclosure><span><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="20" height="20" viewBox="0 0 56 56" id="svg4441" xml:space="preserve"><metadata id="metadata8"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs id="defs4443" /><g transform="matrix(3.627675,0,0,4.1708195,-0.38756952,2.0459536)" id="layer1"><path d="m 11.593506,0.85181027 c 0,0 -2.8782812,1.78368203 -4.3315408,3.46282313 C 5.8087055,5.9937746 5.2466215,6.7535798 5.2466215,6.7535798 4.5883903,5.9988655 4.4131283,5.7074764 3.5602554,4.9454794 L 1.6930171,6.6720302 c 0.8705482,0.5389683 1.1118812,0.5228901 1.6820456,0.9472989 0.6284449,0.4677906 1.6685596,1.2039011 2.2759527,2.014857 L 6.65407,7.7313389 C 7.5655527,6.0022084 8.3358445,4.1589192 11.560016,1.9084663 l 0.03349,-1.05665603 z" id="rect5112" style="fill:#ffffff;fill-opacity:1;stroke:none" /></g></svg></span></deletedisclosure>';
+				$._each($.els(options.selector + " > tablecell"), function(idx, ctx) {
+					$(ctx).prepend(deleteDisclosure);
+				});
+				listEl.attr('data-deletable-items', '0');
+				var UIEditExecution = function() {
+					$(options.toolbar + ' > uibutton[ui-implements=edit]').bind('click', 
+						function() { 
+							if ($('label', this).text() === label1) {
+								$(this).UIToggleButtonLabel(label1, label2);
+								$(this).attr('ui-implements', 'done');
+								listEl.addClass('ui-show-delete-disclosures');
+								$(this).parent()._first().css({'display': '-webkit-inline-box'});
+								var toolbarButton = _cc ? toolbarEl.children[1].nodeName : toolbarEl.children().eq(1)[0].nodeName;
+								if (/uibutton/i.test(toolbarButton)) {
+								   toolbarEl.childElements().eq(1).css('display', 'none');
+								}
+								$._each($.els("tablecell > img", listEl), function(idx, ctx) {
+									$(ctx).css('-webkit-transform','translate3d(40px, 0, 0)');
+								});
+							} else {
+								$(this).UIToggleButtonLabel(label1, label2);
+								$(this).removeAttr('ui-implements');
+								$(this).parent()._first().css('display', 'none');
+								listEl.removeClass('ui-show-delete-disclosures');
+								$._each($.els('deletedisclosure'), function(idx, ctx) {
+									$(ctx).removeClass('checked');
+									$(ctx).closest('tablecell').removeClass('deletable');
+								});
+								var toolbarButtons = toolbarEl.childElements();
+								var testButton = _cc ? toolbarButtons[1] : toolbarButtons.eq(1)[0];
+								if (/uibutton/i.test(testButton.nodeName)) {
+								   toolbarButtons.eq(1).css('display', '-webkit-inline-box');
+								}
+								$('uibutton[ui-implements=delete]').addClass('disabled');
+								$._each($.els('tablecell > img', listEl), function(idx, ctx) {
+									$(ctx).css('-webkit-transform','translate3d(0, 0, 0)');
+								});
+							}
+						}
+					);
+				};
+				var UIDeleteDisclosureSelection = function() {
+					$._each($.els('deletedisclosure'), function(idx, disclosure) {
+						$(disclosure).on('click', function() {
+							$(disclosure).toggleClass('checked');
+							$(disclosure).closest('tablecell').toggleClass('deletable');
+							$('uibutton[ui-implements=delete]', toolbarEl).removeClass('disabled');
+							if (!$(disclosure).closest('tablecell').hasClass('deletable')) {
+								if (Number(listEl.attr("data-deletable-items")) < 2) {
+									listEl.attr("data-deletable-items", '0');
+									toolbarEl.find("uibutton[ui-implements=delete]").addClass("disabled");
+								} else {
+									listEl.attr("data-deletable-items", Number(listEl.attr("data-deletable-items")) - 1);
+								}
+							} else {
+								listEl.attr('data-deletable-items', Number(listEl.attr("data-deletable-items")) + 1);
+							}
+						});
+					});
+				};
+				var UIDeletionExecution = function() {
+					$._each($.els('uibutton[ui-implements=delete]'), function(idx, ctx) {
+						$(ctx).on('click', function() {
+							if ($(this).hasClass('disabled')) {
+								return;
+							}
+							$._each($.els('.deletable'), function(idx, ctx) {
+								listEl.attr('data-deletable-items', parseInt(listEl.attr('data-deletable-items'), 10) - 1);
+								if (!!callback) {
+									callback.call(this, ctx);
+								}
+								$(ctx).remove();
+								listEl.attr('data-deletable-items', '0');
+							});
+							$(this).addClass('disabled');
+						});
+						$(this).closest('view').find('scrollpanel').data('ui-scroller').refresh();	
+					});
+				};
+				
+				UIEditExecution();
+				UIDeleteDisclosureSelection();
+				UIDeletionExecution();
+			},
+			UIResetDeletionList : function(node, toolbar) {
+				node = $(node);
+				toolbar = $(toolbar);
+				if (node.hasClass("ui-show-delete-disclosures")) {
+					node.attr("data-deletable-items", 0);
+					$._each(node.childElements(), function(idx, ctx) {
+						try {
+							$(ctx)._first().removeClass('checked');
+						} catch(err) {}
+					});
+					node.find("deletedisclosure").removeClass("checked");
+					node.removeClass("ui-show-delete-disclosures");
+					var resetLabel = toolbar.find("uibutton[ui-kind=deletionListEditButton]").attr("ui-button-labels");
+					resetLabel = resetLabel.split(" ");
+					resetLabel = resetLabel[0];
+					toolbar.find("uibutton[ui-kind=deletionListEditButton] > label").text(resetLabel);
+					toolbar.find("uibutton[ui-kind=deletionListEditButton]").attr("ui-implements", "edit");
+					toolbar.find("uibutton[ui-kind=deletionListDeleteButton]").css("display", "none");
+					toolbar.find("uibutton[ui-kind=deletionListDeleteButton]").toggleClass('disabled');
+					$._each($.els("tablecell > img", node), function(idx, ctx) {
+						$(ctx).css('-webkit-transform','translate3d(0, 0, 0)');
+					});					
+				}
+				$._each($.els('tablecell', node), function(idx, ctx) {
+					$(ctx).removeClass('deletable');
+				});
+			},
+			
+			UIPopUpIsActive : false,
+			UIPopUpIdentifier : null,
+			UIPopUp : function( opts ) {
+				/*
+				opts {
+					id: 'alertID',
+					title: 'Alert',
+					message: 'This is a message from me to you.',
+					cancelUIButton: 'Cancel',
+					continueUIButton: 'Go Ahead',
+					callback: function() { // do nothing }
+				}
+				*/
+				var id = opts.id || $.UIUuid();
+				var title = opts.title || 'Alert!';
+				var message = opts.message || '';
+				var cancelUIButton = opts.cancelUIButton || 'Cancel';
+				var continueUIButton = opts.continueUIButton || 'Continue';
+				var callback = opts.callback || function() {};
+				var popup = $.concat('<popup id=', id, ' ui-visible-state="hidden"><panel><h1>', title, '</h1></toolbar>						<p>', message, '</p><toolbar ui-placement="bottom"><uibutton ui-kind="action" ui-implements="cancel"><label>', cancelUIButton, '</label></uibutton><uibutton ui-kind="action" ui-implements="continue"><label>', continueUIButton, '</label>							</uibutton></toolbar></panel></popup>');
+				$('app').append(popup);
+				var popupID = '#' + id;
+				$(popupID).UIBlock('0.5');
+				var popupBtn = '#' + id + ' uibutton';
+				$._each($.els(popupBtn), function(idx, ctx) {
+					$(ctx).on('click', cancelClickPopup = function(e) {
+						if ($(ctx).attr('ui-implements')==='continue') {
+							callback.call(callback, this);
+						}
+						e.preventDefault();
+						$.UIClosePopup('#' + id); 
+					});
+					$.UIPopUpIsActive = false;
+					$.UIPopUpIdentifier = null;
+					$(ctx).on('touchend', cancelTouchPopup = function(e) {	
+						if (this.attr('ui-implements')==='continue') {
+							callback.call(callback, this);
+						}
+						e.preventDefault();
+						$.UIClosePopup('#' + id);
+					});
+					$.UIPopUpIsActive = false;
+					$.UIPopUpIdentifier = null;
+				});
+			},
+			UIShowPopUp : function( options ) {
+				$.UIPopUp(options);
+				$.UIPopUpIsActive = true;
+				$.UIPopUpIdentifier = '#' + options.id;
+				var screenCover = $('mask');
+				screenCover.on('touchmove', function(e) {
+					e.preventDefault();
+				});
+				$.UIPositionPopUp('#' + options.id);
+				screenCover.attr('ui-visible-state', 'visible');
+				$('#' + options.id).attr('ui-visible-state', 'visible');
+			},
+			UIPositionPopUp : function(selector) {
+				$.UIPopUpIsActive = true;
+				$.UIPopUpIdentifier = selector;
+				var popup = $(selector);
+				var tmpTop = ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + 'px';
+				var tmpLeft = ((window.innerWidth / 2) - (popup.clientWidth / 2) + 'px');
+				popup.css({left: tmpLeft, top: tmpTop}); 
+			},
+			UIClosePopup : function ( selector ) {
+				$(selector + ' uibutton[ui-implements=cancel]').UIRemovePopupBtnEvents('click', 'cancelClickPopup');
+					$(selector + ' uibutton[ui-implements=continue]').UIRemovePopupBtnEvents('click', 'cancelTouchPopup');
+				$(selector).UIUnblock();
+				$(selector).remove();
+				$.UIPopUpIdentifier = null;
+				$.UIPopUpIsActive = false;
+			},
+			UIRepositionPopupOnOrientationChange : function ( ) {
+				$.body.bind('orientationchange', function() {
+					if (window.orientation === 90 || window.orientation === -90) {
+						if ($.UIPopUpIsActive) {
+							$.UIPositionPopUp($.UIPopUpIdentifier);
+						}
+					} else {
+						if ($.UIPopUpIsActive) {
+							$.UIPositionPopUp($.UIPopUpIdentifier);
+						}
+					}
+				});
+				window.addEventListener('resize', function() {
+					if ($.UIPopUpIsActive) {
+						$.UIPositionPopUp($.UIPopUpIdentifier);
+					}
+				}, false);
+			}
+		});
+	});
+	$(function() {
+		$.UIRepositionPopupOnOrientationChange();
 	});
 })();

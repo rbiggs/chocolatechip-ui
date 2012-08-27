@@ -326,12 +326,15 @@ Version 1.6.0
    $.extend(HTMLElement.prototype, {
       
       data : function( key, value ) {
-      	if (!value) {
+      	if (key == 'undefined' || key == null) {
+      		return;
+      	}
+      	if (key && !value) {
       		var id = this.id;
-				if (id) {
-					return $.chch_cache.data[id][key];
-				} else {
+      		if (!id) {
 					return;
+				} else {
+					return $.chch_cache.data[id][key];
 				}
 			} else {
 				if (!this.id) {
@@ -354,10 +357,11 @@ Version 1.6.0
       
       removeData : function ( ) {
          var id = this.getAttribute('id');
-         if (!$.chch_cache.data.hasKey(this.id)) {
+         if (!id) return;
+         if (!$.chch_cache.data[this.id]) {
             return this;
          }
-         return $.chch_cache.data._delete(id);
+         return $.chch_cache.data.splice(this.id, 1);
       },
    
       find : function ( selector ) {
@@ -370,6 +374,10 @@ Version 1.6.0
           
       previous : function ( ) {
          return this.previousElementSibling;
+      },
+      
+      prev : function ( ) {
+      	return this.previousElementSibling;
       },
     
       next : function ( ) {
@@ -575,7 +583,7 @@ Version 1.6.0
        
       remove : function ( ) {
          this.unbind();
-         this.uncache();
+         this.removeData();
          this.parentNode.removeChild(this);
       },
        
@@ -910,16 +918,6 @@ Version 1.6.0
             options.successCallback = callback;
             this.xhr(url, options);
             return this;
-      },
-       
-      removeData : function ( key ) {
-         if (!!document.documentElement.dataset) {
-            key = key.camelize();
-            this.dataset[key] = null;
-         // Fallback for earlier versions of Webkit:
-         } else {
-            this.removeAttribute('data-' + key);
-         }
       },
  
       UICheckForOverflow : function (){
