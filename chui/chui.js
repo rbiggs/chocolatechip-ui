@@ -225,7 +225,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		$.extend($, {
 			UINavigationListExits : false,
 
-		    UINavigationEvent : false,
+		   UINavigationEvent : false,
 			
 			UINavigationList : function() {
 				var navigateList = function(node) {
@@ -513,71 +513,160 @@ When using Zepto, make sure you have the following modules included in your buil
 		};
 		$.app.UIInitSwitchToggling();
 		
-		$.fn.UISegmentedControl = function( options ) {
-			var that = $(this);
-			var val = 0;
-			callback = options.callback || function(){};
-			var container = options.container || null;
-			var selectedSegment = options.selectedSegment || null;
-			var buttons = $(this).children() ? $(this).children() : this.children;
-			if (container) $(this).attr('ui-toggle-stack', container);
-			if ($(this).attr("ui-selected-index")) {
-				val = $(this).attr("ui-selected-index");
-				var seg = this.children() ? this.children().eq(val) : this.children[val];
-				try {
-					if (_cc) {
-						this.children[val].addClass('selected');
-						if (container) $(container).children[val].addClass('selected');
-					} else {
-						$(this).children().eq(val).addClass("selected");
-						if (container) $(container).children().eq(val).addClass('selected');
+		$.fn.UICreateSegmentedControl = function(opts) {
+			position = opts.position || null;
+			var segmentedControl = "<segmentedcontrol";
+			if (opts.id) {
+				segmentedControl += " id='" + opts.id + "'";
+			}
+			if (opts.placement) {
+				segmentedControl += " ui-bar-align='" + opts.placement + "'";
+			}
+			if (opts.selectedSegment || opts.selectedSegment === 0) {
+				segmentedControl += " ui-selected-index='" + opts.selectedSegment + "'";
+			} else {
+				segmentedControl += " ui-selected-index=''";
+			}
+			if (opts.container) {
+				segmentedControl += " ui-segmented-container='#" + opts.container + "'";
+			}
+			var segClass = opts.cssClass || "";
+			segmentedControl += ">";
+			if (opts.numberOfSegments) {
+				segments = opts.numberOfSegments;
+				var count = 1;
+				for (var i = 0; i < segments; i++) {
+					segmentedControl += "<uibutton";
+					segmentedControl += " id='" + $.UIUuid() + "'";
+					segmentedControl += " class='" + segClass[count-1];
+					if (opts.selectedSegment || opts.selectedSegment === 0) {
+						if (opts.selectedSegment === i) {
+							segmentedControl += " selected'";
+						}
 					}
+					if (opts.disabledSegment) {
+						if (opts.disabledSegment === i) {
+							segmentedControl += " disabled'";
+						}
+					}
+					segmentedControl += "'";
+			
+					segmentedControl += " ui-kind='segmented'";
+					if (opts.placementOfIcons) {
+						segmentedControl += " ui-icon-alignment='" + opts.placementOfIcons[count-1] + "'";
+					}
+					segmentedControl += ">";
+					if (opts.iconsOfSegments) {
+						if (!!opts.iconsOfSegments[i]) {
+						segmentedControl += "<icon ui-implements='icon-mask' style='-webkit-mask-box-image: url(icons/" + opts.iconsOfSegments[count-1] +"." + opts.fileExtension[count-1] + ")'  ui-implements='icon-mask'></icon>";
+						}
+					}
+					if (opts.titlesOfSegments) {
+						segmentedControl += "<label>" + opts.titlesOfSegments[count-1] + "</label>";
+					}
+					segmentedControl += "</uibutton>";
+					count++;
+				}
+				segmentedControl += "</segmentedcontrol>";
+				$(this).append(segmentedControl);
+			}
+		};
+		$.fn.UISegmentedControl = function( container, callback ) {
+			var that = $(this);
+			var val = null;
+			callback = callback || $.noop;
+			if (!$(this).attr('ui-selected-segment')) {
+				$(this).attr('ui-selected-segment', '');
+			}
+			if ($(this).attr('ui-selected-index')) {
+				val = $(this).attr('ui-selected-index');
+				var seg = $(this).children(val);
+				try {
+					seg = $(seg).attr('id');
+					$(this).attr('ui-selected-segment', seg);
+					$(this).children(val).addClass('selected');
 				} catch(e) {}
 			} else {
-				if (_cc) {
-					if (container) $(container).children[val].addClass('selected');
-				} else {
-					if (container) $(container).children().eq(val).addClass('selected');
-				}
-				$(buttons[0]).addClass('selected');
-				$(this).attr('ui-selected-index', '0');
-			}
-			
-			$._each(buttons, function(idx, ctx) {
-				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-				var that = $(node).closest("segmentedcontrol");
-				if (!$(node).attr("id")) {
-					$(node).attr("id", $.UIUuid());
-				}
-				$(ctx).on("click", function() {
-					var val;
-					var panels;
-					var index;
-					$._each(buttons, function(i, ctx) {
-						$(ctx).removeClass('selected');
-						if (this === node) {
-							index = i;
+				$._each($(this).childElements(), function(idx, ctx) {
+					if ($(ctx).hasClass('selected')) {
+						if (idx === 0) {
+							$(ctx).attr('ui-selected-index', '0');
+						} else {
+							$(ctx).attr('ui-selected-index', idx);
 						}
-						if (index === 0) index = '0';
-					});
-					$(this).closest('segmentedcontrol').attr('ui-selected-index', index);
-					$(this).addClass('selected');
-					var container = $(this).closest('segmentedcontrol').attr('ui-toggle-stack');
-					if (!container) return;
-					if (_cc) {
-						panels = $.slice.apply($(container).children);
-						$._each(panels, function(idx, item) {
-							$(item).removeClass("selected");
-						});
-						$(panels[index]).addClass('selected');
-					} else {
-						panels = $(container).children();
-						panels.removeClass('selected');
-						panels.eq(index).addClass('selected');
+					} 
+				});
+			}
+			if (container) {
+				$(this).attr('ui-segmented-container', container);
+				container = $(container);
+				if (val || val == 0) { 
+					container.attr('ui-selected-index', val);
+				}
+				var containerChildren = _cc ? [].slice.apply(container.children) : $(container).children();
+				$._each(containerChildren, function(idx, child) {
+					$(child).css('display','none');
+				});
+				containerChildren.eq(val).css('display','block');
+				that.attr('ui-segmented-container', ('#' + container.attr('id')));
+				var selectedIndex = $(this).attr('ui-selected-index');
+				container.closest('scrollpanel').data('ui-scroller').refresh();
+				
+			}
+			$._each($(this).childElements(), function(idx, button) {
+				if (!$(button).attr('id')) {
+					$(button).attr('id', $.UIUuid());
+				}
+				if (!that.attr('ui-selected-segment')) {
+					if ($(button).hasClass('selected')) {
+						that.attr('ui-selected-segment', $(button).attr('id'));
 					}
-					callback.call(callback, $(this));
+				}
+				$(button).on('click', function() {
+					var selectedSegment = that.attr('ui-selected-segment');
+					selectedSegment = $('#'+selectedSegment);
+					var selectedIndex = that.attr('ui-selected-index');
+					var childPosition = null;
+					var container = null;
+					var ancestor = $(this).closest('segmentedcontrol');
+					if (ancestor.attr('ui-segmented-container')) {
+						container = ancestor.attr('ui-segmented-container');
+					}
+					var containerChildren = $(container).childElements();
+					var oldSelection = null;
+					if (ancestor.attr('ui-selected-index')) {
+						oldSelection = ancestor.attr('ui-selected-index');
+					}
+					var uisi = null;
+					if (!selectedSegment) {
+						uisi = $(this).attr('ui-child-position');
+						that.attr('ui-selected-index', uisi);
+						that.attr('ui-selected-segment', $(this).attr('id'));
+						$(this).addClass('selected');
+						childPosition = $(this).attr('ui-child-position');
+						containerChildren.eq(val).css('display','none');
+						containerChildren.eq(childPosition).css('display','none');
+					} 
+					if (selectedSegment) {
+						uisi = $(this).attr('ui-child-position');
+						that.attr('ui-selected-index', uisi);
+						selectedSegment.removeClass('selected');
+						that.attr('ui-selected-segment', $(this).attr('id'));
+						$(this).addClass('selected');
+						childPosition = $(this).attr('ui-child-position');
+						if (that.attr('ui-segmented-container')) {
+							container = $(that.attr('ui-segmented-container'));
+							containerChildren.eq(oldSelection).css('display','none');
+							containerChildren.eq(uisi).css('display','block');
+							containerChildren.eq(selectedSegment.attr('ui-child-position')).css('display','none');
+							container.closest('scrollpanel').data('ui-scroller').refresh();
+						}
+					}
+					$(this).addClass('selected');
+						callback.call(callback, button);
 				});
 			});
+			$(this).UIIdentifyChildNodes();
 		};		
 		
 		$.extend($, {
@@ -639,58 +728,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		$(function() {
 			$.UISetupPaging();
 		});
-		$.fn.UISegmentedPagingControl = function ( ) {
-			var segmentedPager = $('segmentedcontrol[ui-implements="segmented-paging"]', this);
-			var pagingOrientation = segmentedPager.attr('ui-paging');
-			segmentedPager.attr('ui-paged-subview', '0');
-			segmentedPager._first().addClass('disabled');
-			var subviews = $.els('subview', this);
-			segmentedPager.attr('ui-pagable-subviews', subviews.length);
-			var childPosition = 0;
-			$._each(subviews, function(idx, ctx) {
-				$(ctx).attr('ui-navigation-status', 'upcoming');
-				if (_cc && childPosition == 0) {
-					$(ctx).attr('ui-child-position', 0);
-				}
-				$(ctx).attr('ui-child-position', childPosition);
-				childPosition++;
-				$(ctx).attr('ui-paging-orient', pagingOrientation);
-			});
-			var prevButton = $(segmentedPager._first());
-			var nextButton = $(segmentedPager._last());
-			subviews.eq(0).attr('ui-navigation-status', 'current');
-			segmentedPager.delegate('uibutton', 'click', function(ctx) {
-				var button = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-				if ($(button).hasClass('disabled')) return;
-				var pager = segmentedPager; //$(button).closest('segmentedcontrol');
-				// Previous Button:
-				if (button.isSameNode(button.parentNode.firstElementChild)) {
-					if (pager.attr('ui-paged-subview') == 1) {
-						$(button).addClass('disabled');
-						pager.attr('ui-paged-subview', '0');
-						subviews.eq(0).attr('ui-navigation-status', 'current');
-						subviews.eq(1).attr('ui-navigation-status', 'upcoming');
-					} else {
-						$(subviews[pager.attr('ui-paged-subview') - 1 ]).attr( 'ui-navigation-status', 'current');
-						$(subviews[pager.attr('ui-paged-subview')]).attr('ui-navigation-status', 'upcoming');
-						pager.attr('ui-paged-subview', pager.attr('ui-paged-subview')-1);
-						$(button).next().removeClass('disabled');
-						if (pager.attr('ui-paged-subview') <= 0) {
-							$(button).addClass('disabled');
-						}
-					}
-				} else {
-					prevButton.removeClass('disabled');
-					var pagedSubview = Number(pager.attr('ui-paged-subview'));
-					if (pagedSubview === Number(segmentedPager.attr('ui-pagable-subviews'))-2){
-						$(button).addClass('disabled');
-					}
-					$(subviews[pagedSubview]).attr('ui-navigation-status', 'traversed');
-					$(subviews[pagedSubview+1]).attr('ui-navigation-status', 'current');
-					pager.attr('ui-paged-subview', pagedSubview + 1);
-				}
-			});
-		}
+		
 		$.extend($, {
 			
 			UIDeleteTableCell : function( options ) {
@@ -940,8 +978,82 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}, false);
 			}
+			
 		});
 	});
+	$.fn.UICreateTabBar = function ( opts ) {
+		/*
+			id: 'mySpecialTabBar',
+			imagePath: '/images/icons/',
+			numberOfTabs: 4,
+			tabLabels: ["Refresh", "Add", "Info", "Downloads", "Favorite"],
+			iconsOfTabs: ["refresh", "add", "info", "downloads", "top_rated"],
+			selectedTab: 0,
+			disabledTab: 3
+		*/
+		var id = opts.id || $.UIUuid();
+		var imagePath = opts.imagePath || 'icons\/';
+		var numberOfTabs = opts.numberOfTabs || 1;
+		var tabLabels = opts.tabLabels;
+		var iconsOfTabs = opts.iconsOfTabs;
+		var selectedTab = opts.selectedTab || 0;
+		var disabledTab = opts.disabledTab || null;
+		var tabbar = ["<tabbar ui-selected-tab='", selectedTab, "'>"];
+		$(this).attr("ui-tabbar-id", id);
+		for (var i = 0; i < numberOfTabs; i++) {
+			tabbar.push("<uibutton ui-implements='tab' ");
+			if (i === selectedTab || i === disabledTab) {
+				tabbar.push("class='");
+				if (i === selectedTab) {
+					tabbar.push("selected");
+				}
+				if (i === disabledTab) {
+					tabbar.push("disabled");
+				}
+				tabbar.push("'");
+			}
+			tabbar.push("><icon style='-webkit-mask-box-image: url(")
+			tabbar.push(imagePath);
+			tabbar.push(iconsOfTabs[i]);
+			tabbar.push(".svg);'></icon>");
+			tabbar.push("<label>");
+			tabbar.push(tabLabels[i]);
+			tabbar.push("</label></uibutton>");
+		}
+		tabbar.push("</tabbar>");
+		$(this).append(tabbar.join(''));
+		var subviews = $.els("subview", this);
+		subviews.eq(selectedTab).addClass("selected");
+		this.UITabBar();
+	};
+	$.fn.UITabBar = function ( ) {
+		var tabs = $.els('tabbar > uibutton[ui-implements=tab]', this);
+		var tabbar = $('tabbar', this);
+		tabbar.UIIdentifyChildNodes();
+		var subviews = $.els('subview', this);
+		$._each(subviews, function(idx, ctx) {
+			$(ctx).addClass('unselected');
+		});
+		var selectedTab = tabbar.attr('ui-selected-tab') || 0;
+		subviews.eq(selectedTab).toggleClassName('unselected','selected');
+		tabs.eq(selectedTab).addClass('selected');
+		$._each(tabs, function(idx, tab) {
+			$(tab).on('click', function() {
+				if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
+					return;
+				}
+				var whichTab = $(tab).closest('tabbar').attr('ui-selected-tab');
+				tabs.eq(whichTab).removeClass('selected');
+				$(tab).addClass('selected');
+				subviews.eq(whichTab).removeClass('selected');
+				subviews.eq(whichTab).addClass('unselected');
+				subviews.eq($(tab).attr('ui-child-position')).addClass('selected');
+				subviews.eq(tab.getAttribute('ui-child-position')).removeClass('unselected');
+				tabbar.attr('ui-selected-tab', $(tab).attr('ui-child-position'));
+			});
+		});
+	};
+	
 	$(function() {
 		$.UIRepositionPopupOnOrientationChange();
 	});

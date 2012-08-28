@@ -31,10 +31,10 @@
 	
 		$(function() {
 			var logChildNodes = function(item) {
-				var index = item.closest('segmentedcontrol').attr("ui-selected-index");
+				var index = $(item).closest('segmentedcontrol').attr("ui-selected-index");
 				$('#output').append("<tableheader>The child position is: " + index + "</tableheader>");
 			}
-			$("segmentedcontrol").UISegmentedControl({container: "#stack_01", callback: logChildNodes});
+			$("segmentedcontrol").UISegmentedControl("#stack_01", logChildNodes);
 		});
 		
 	</script>
