@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="manifest/segmented.manifest">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
@@ -18,10 +18,6 @@
 			background-color: rgba(63,128,0,0.2);
 		}
 		
-		/* Styles for Segmented Control's stack of panels: */
-		#stack_01 {
-			margin: 0 20px;
-		}
 	</style>
    <script src="../libs/chocolatechip.js"></script>
    <script src="../chui/iscroll.js"></script>
@@ -30,11 +26,21 @@
 		/* Local JavaScript Here */
 	
 		$(function() {
-			var logChildNodes = function(item) {
-				var index = item.closest('segmentedcontrol').attr("ui-selected-index");
-				$('#output').append("<tableheader>The child position is: " + index + "</tableheader>");
+			var seg = {
+				 id : "segmented1",
+				 numberOfSegments : 4,
+				 titlesOfSegments : ["People", "Places", "Animals", "Stuff"],
+				 selectedSegment : 0,
+				 cssClass : ["ui-custom-tint", "ui-custom-tint", "ui-custom-tint", "ui-custom-tint"],
+				 imagePath : "../icons/",
+				 container : "stackpanel1"
+			};
+			$("#segmentedStack").UICreateSegmentedControl(seg);
+			var seggie = function(item) {
+				console.log("The child position is: " + item.getAttribute("ui-child-position"));
 			}
-			$("segmentedcontrol").UISegmentedControl("#stack_01", logChildNodes);
+			$("segmentedcontrol").UISegmentedControl("#stackpanel1", seggie);
+			$("#stackpanel1").UIIdentifyChildNodes();
 		});
 		
 	</script>
@@ -48,31 +54,17 @@
 			<subview id="subview1" ui-associations="withNavBar">
 				<scrollpanel>
 					<shim></shim>
-					<stack>
-						<segmentedcontrol ui-selected-index='0'>
-							<uibutton class="ui-custom-tint">
-								<label>People</label>
-							</uibutton>
-							<uibutton class="ui-custom-tint">
-								<label>Places</label>
-						   </uibutton>
-						   <uibutton class="ui-custom-tint">
-								<label>Funny Animals</label>
-						   </uibutton>
-						   <uibutton class="ui-custom-tint">
-								<label>Food</label>
-						   </uibutton>
-					   </segmentedcontrol>
+					<stack id='segmentedStack'>
 					</stack>
 					<div style="height: 20px;"></div>
-					<stack id="stack_01" ui-implements="segmented-toggle-stack">
+					<stack id="stackpanel1" ui-implements="segmented-toggle-stack">
 						<panel>
 							<tableview ui-tablecell-order="stacked">
 								<tablecell ui-usage="image">
 									<img src="../images/alternative.png">
 									<celltitle>People</celltitle>
 									<cellsubtitle>Your Friends</cellsubtitle>
-									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</celldetail>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
 								</tablecell>
 							</tableview>	
 						</panel>
@@ -82,7 +74,7 @@
 									<img src="../images/blues.png">
 									<celltitle>Places</celltitle>
 									<cellsubtitle>Interesting Destinations</cellsubtitle>
-									<celldetail>Nam omnium facilis volumus at, eam noster reprehendunt mediocritatem at. Enim urbanitas reprimique quo no. Duo dico munere partem cu, tollit bonorum duo cu. Brute senserit cu nec, ea eos nisl dissentiet. Praesent efficiantur in quo. Eam tale iriure quaestio ut, et delicata principes voluptatibus his, tibique complectitur eum an. Pro rebum primis antiopam ei, est brute harum vidisse ne, decore libris ex his. His ludus homero id, suavitate tincidunt delicatissimi vix cu. Eum in adhuc feugait hendrerit, commodo disputationi quo te. Pro ea quis veri.</celldetail>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
 								</tablecell>
 							</tableview>	
 						</panel>
@@ -93,7 +85,7 @@
 									<img src="../images/classical.png">
 									<celltitle>Funny Animals</celltitle>
 									<cellsubtitle>Critters from Around the Globe</cellsubtitle>
-									<celldetail>Vis ad atqui mediocrem iracundia, sanctus quaestio complectitur vel ei. Senserit referrentur mea te. An vocent omnesque eum, erat democritum complectitur vel no. Mel ea ubique torquatos appellantur, at affert mentitum dignissim vix. Ne eos unum assum, hinc nonumy an vim, vim eu timeam utamur. Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Demo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur.</celldetail>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
 								</tablecell>
 							</tableview>	
 						</panel>
@@ -103,13 +95,13 @@
 									<img src="../images/itunes.png">
 									<celltitle>Food</celltitle>
 									<cellsubtitle>Recipes</cellsubtitle>
-									<celldetail>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</celldetail>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
 								</tablecell>
 								<tablecell ui-usage="image">
 									<img src="../images/killers.png">
 									<celltitle>Good Eats</celltitle>
 									<cellsubtitle>Restaurants</cellsubtitle>
-									<celldetail> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</celldetail>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
 								</tablecell>
 							</tableview>	
 						</panel>
@@ -124,7 +116,7 @@
                         </tablecell>		
                         <tablecell>
                             <celltitle>Item Three</celltitle>
-                        </tablecell>
+                        </tablecell>	
                     </tableview>
                     <tableview id='output'></tableview>
 				</scrollpanel>
