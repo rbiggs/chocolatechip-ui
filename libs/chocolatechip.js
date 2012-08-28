@@ -707,6 +707,14 @@ Version 1.6.0
             return this;
          }
       },
+      
+      val : function ( value ) {
+      	if (value) {
+      		return this.value = value;
+      	} else {
+      		return this.value;
+      	}
+      },
        
       disable : function ( ) {
          this.addClass('disabled');

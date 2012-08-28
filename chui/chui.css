@@ -3156,19 +3156,20 @@ stack[ui-implements=paging], stack[ui-implements=indicators] {
 	background-color: #fff;
 }
 /* End Paging Control Styles */
-/* Spinner Styles */
-spinner {
+/* Stepper Styles */
+stepper {
 	display: -webkit-inline-box;
 	-webkit-box-orient: horizontal;
 	-webkit-box-pack: center;
 	-webkit-box-align: center;
+	padding: 1px;
 }
-spinner > input {
+stepper > input {
 	margin: 0;
 	display: none;
 }
-spinner > label {
-	display: inline-block;
+stepper > label {
+	display: block;
 	-webkit-box-sizing: border-box;
 	border: solid 1px #484e59;
 	border-bottom-color: #4c5c7a;
@@ -3177,15 +3178,15 @@ spinner > label {
 	font: bold 16px/30px Helvetica;
 	text-align: center;
 }
-spinner > uibutton {
-	display: -inline-box;
+stepper > uibutton {
+	display: -webkit-inline-box;
 	-webkit-box-sizing: border-box;
 	width: 33px;
 }
-tablecell.touched spinner > uibutton > label {
+tablecell.touched stepper > uibutton > label {
 	color: #000 !important;
 }
-spinner > uibutton.touched {
+stepper > uibutton.touched {
 	background-image: 
 		-webkit-gradient(linear, left top, left bottom, 
 			from(#7d88a5), 
@@ -3196,35 +3197,35 @@ spinner > uibutton.touched {
 			to(#273f6d));
 	-webkit-tap-highlight-color: transparent;
 }
-spinner > uibutton > icon {
+stepper > uibutton > icon {
 	background-color: #fff !important;
 }
-spinner > uibutton:first-of-type {
+stepper > uibutton:first-of-type {
 	-webkit-border-top-right-radius: 0;
 	-webkit-border-bottom-right-radius: 0;
 	margin-right: 0;
 }
-spinner > uibutton:last-of-type {
+stepper > uibutton:last-of-type {
 	-webkit-border-top-left-radius: 0;
 	-webkit-border-bottom-left-radius: 0;
 	margin-left: 0;
 }
-spinner > uibutton:first-of-type > icon {
+stepper > uibutton:first-of-type > icon {
 	-webkit-mask-image: url(../icons/arrow_down.svg);
 }
-spinner > uibutton:last-of-type > icon {
+stepper > uibutton:last-of-type > icon {
 	-webkit-mask-image: url(../icons/arrow_up.svg);
 }
-spinner > uibutton:first-of-type > icon.indicator {
+stepper > uibutton:first-of-type > icon.indicator {
 	-webkit-mask-image: url(../icons/minus.svg);
 }
-spinner > uibutton:last-of-type > icon.indicator {
+stepper > uibutton:last-of-type > icon.indicator {
 	-webkit-mask-image: url(../icons/add.svg);
 }
-spinner > uibutton.disabled > span {
+stepper > uibutton.disabled > span {
 	opacity: 0.5;
 }
-/* End Spinner Styels*/
+/* End Stepper Styels*/
 @-webkit-keyframes progressBarAnim {
 	0% { background-position-x:  0%, 0%, 0%; }
 	100% { background-position-x: 0%,  0%,  100%; }

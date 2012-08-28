@@ -326,8 +326,116 @@ When using Zepto, make sure you have the following modules included in your buil
 						$(ctx).attr('aria-visibility', 'visible');
 					}
 				});
+			},
+			UIStepper : function (opts) {
+				var stepper = $(opts.selector);
+				var defaultValue = null;
+				var range = null;
+				var step = opts.step;
+				if (opts.range.start >= 0) {
+					var rangeStart = opts.range.start || "";
+					var rangeEnd = opts.range.end || "";
+					var tempNum = rangeEnd - rangeStart;
+					tempNum++;
+					range = [];
+					if (step) {
+						var mod = ((rangeEnd-rangeStart)/step);
+						if (opts.range.start === 0) {
+							range.push(0);
+						} else {
+							range.push(rangeStart);
+						}
+						for (var i = 1; i < mod; i++) {
+							range.push(range[i-1] + step);
+						}
+						range.push(range[range.length-1] + step);
+					} else {
+						for (var j = 0; j < tempNum; j++) {
+							range.push(rangeStart + j);				
+						}
+					}
+				}
+				var icon = (opts.indicator === "plus") ? "<icon class='indicator'></icon>" : "<icon></icon>";
+				var buttonClass = opts.buttonClass ? " class='" + opts.buttonClass + "' " : "";
+				var decreaseButton = "<uibutton " + buttonClass + "ui-implements='icon'>" + icon + "</uibutton>";
+				var increaseButton = "<uibutton " + buttonClass + "ui-implements='icon'>" + icon + "</uibutton>";
+				var stepperTemp = decreaseButton + "<label ui-kind='stepper-label'></label><input type='text'/>" + increaseButton;
+				stepper.append(stepperTemp);
+				if (opts.range.values) {
+					stepper.data('range-value', opts.range.values.join(','));
+				}
+				if (!opts.defaultValue) {
+					if (!!opts.range.start || opts.range.start === 0) {
+						defaultValue = opts.range.start === 0 ? '0': opts.range.start;
+					} else if (opts.range.values instanceof Array) {
+						defaultValue = opts.range.values[0];
+						$('uibutton:first-of-type', opts.selector).addClass('disabled');
+					}
+				} else {
+					defaultValue = opts.defaultValue;
+				}
+				if (range) {
+					stepper.data('range-value', range.join(','));
+				}
+				$('label[ui-kind=stepper-label]', stepper).text(defaultValue);
+				$('input', stepper).value = defaultValue;
+				if (opts.namePrefix) {
+					var namePrefix = opts.namePrefix + '.' + stepper.id;
+					$('input', stepper).attr('name', namePrefix);
+				} else {
+					$('input', stepper).attr('name', stepper.id);
+				}
+				if (defaultValue === opts.range.start) {
+					$('uibutton:first-of-type', stepper).addClass('disabled');
+				}
+				if (defaultValue == opts.range.end) {
+					$('uibutton:last-of-type', stepper).addClass('disabled');
+				}
+				$('uibutton:first-of-type', opts.selector).bind('click', function(button) {
+					$.decreaseStepperValue.call(this, opts.selector);
+				});
+				$('uibutton:last-of-type', opts.selector).bind('click', function(button) {
+					$.increaseStepperValue.call(this, opts.selector);
+				});
+			},
+			
+			decreaseStepperValue : function(selector) {
+				var values = $(selector).data('range-value');
+				values = values.split(',');
+				var defaultValue = $('label', selector).text().trim();
+				var idx = values.indexOf(defaultValue);
+				if (idx !== -1) {
+					$('uibutton:last-of-type', selector).removeClass('disabled');
+					$('[ui-kind=stepper-label]', selector).text(values[idx-1]);
+					$('input', selector).val(values[idx-1]);
+					if (idx === 1) {
+						$(this).addClass('disabled');
+					} 
+				}	
+			},	
+			
+			increaseStepperValue : function(selector) {
+				var values = $(selector).data('range-value');
+				values = values.split(',');
+				var defaultValue = $('label', selector).text().trim();
+				var idx = values.indexOf(defaultValue);
+				if (idx !== -1) {
+					$('uibutton:first-of-type', selector).removeClass('disabled');
+					$('label[ui-kind=stepper-label]', selector).text(values[idx+1]);
+					$('input', selector).val(values[idx+1]);
+					if (idx === values.length-2) {
+						$(this).addClass('disabled');
+					}
+				}
+			},
+			
+			resetSpinner : function(selector) {
+				var value = $(selector).data('range-value');
+				value = value.split(',')[0];
+				$(selector).find('label').text(value);
+				$(selector).find('uibutton:first-of-type').addClass('disabled');
+				$(selector).find('uibutton:last-of-type').removeClass('disabled');
 			}
-						
 		});
 		$.app.delegate('view','webkitTransitionEnd', function() {
 			if (!$('view[ui-navigation-status=current]')) {
