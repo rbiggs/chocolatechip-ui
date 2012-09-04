@@ -601,6 +601,41 @@ When using Zepto, make sure you have the following modules included in your buil
 			} else {
 				$(this)[0].style.WebkitLineClamp = lines
 			}
+		},
+		
+		UIProgressBar : function ( opts ) {
+			opts = opts || {};
+			var className = opts.className || false;
+			var width = opts.width || 100;
+			var speed = opts.speed || 5;
+			var position = opts.position || 'after';
+			var margin = opts.margin || '10px auto';
+			var bar = [];
+			bar.push('<progressbar');
+			if (className) {
+				bar.push(" class='");
+				bar.push(className);
+				bar.push("'");
+			}
+			bar.push(" style='width: ");
+			bar.push(width);
+			bar.push("px;");
+			bar.push(" -webkit-animation-duration: ");
+			bar.push(speed);
+			bar.push("s;");
+			bar.push(" margin: ");
+			bar.push(margin)
+			bar.push(";'");
+			bar.push("></progressbar>");
+			this.append(bar.join(''));
+		},
+		
+		UIHideNavBarHeader : function ( ) {
+			$(this).css({'visibility': 'hidden', 'position': 'absolute'});
+		},
+		
+		UIShowNavBarHeader : function ( ) {
+			$(this).css({'visibility': 'visible', 'position': 'static'});
 		}
 	};
 	
