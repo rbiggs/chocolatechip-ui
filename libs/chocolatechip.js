@@ -1327,10 +1327,6 @@ Version 1.6.0
    	     if (ret) return ret;
    	  }
    });
-   
-   $.extend($, {
-   	fn : HTMLElement.prototype
-   });
 
    window.$chocolatechip = $;
    window.$$chocolatechip = $.$$;

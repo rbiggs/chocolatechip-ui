@@ -21,6 +21,20 @@ When using Zepto, make sure you have the following modules included in your buil
 		var $ = window.Zepto;
 		var _zo = true;
 	}
+	UIConvertElementMethods = function(elementMethods) {
+		for (var method in elementMethods) {
+			if (_jq || _zo) {
+				$.fn[method] = elementMethods[method];
+			} else {
+				if (elementMethods.hasOwnProperty(method)) {
+					var obj = {};
+					obj[method] = elementMethods[method];
+					$.extend(HTMLElement.prototype, obj);
+				}
+			}
+		}
+	};	
+	
 	if (_jq || _zo) {
 		$.extend($, {
 			concat : function (args ) {
@@ -40,43 +54,557 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 		};
 	}
+	// Define methods to extend HTML elements:
+	var elementMethods = {
+		UIIdentifyChildNodes : function ( ) {
+			var ctx = this.nodeType === 1 ? this : this[0];
+			var kids = ctx.childElementCount;
+			for (var i = 0; i < kids; i++) {
+				ctx.children[i].setAttribute('ui-child-position', i);
+			}
+		},
+		
+		_first : function ( ) {
+			if (_cc) {
+				return this.first();
+			} else {
+				return $(this).children().first();
+			}
+		},
+		
+		_last : function ( ) {
+			if (_cc) {
+				return this.last();
+			} else {
+				return $(this).children().last();
+			}
+		},
+		
+		UIBlock : function ( opacity ) {
+			opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+			$(this).before("<mask" + opacity + "></mask>");
+			return this;
+		},
+		UIUnblock : function ( ) {
+			$._each($.els('mask'), function(idx, ctx) {
+				$(ctx).remove();
+			});
+			return this;
+		},
+		
+		UIRemovePopupBtnEvents : function(eventType, eventName) {
+			this.removeEventListener(eventType, eventName, false);
+		},
+		
+		UIToggleButtonLabel : function ( label1, label2 ) {
+			if ($('label', this).text() === label1) {
+				$('label', this).text(label2);
+			} else {
+				$('label', this).text(label1);
+			}
+		},
+		
+		UISelectionList : function ( callback ) {
+			var $this = this;
+			var listitems = this.childElements();
+			if (_jq || _zo) {
+				listitems = $(listitems);
+			} 
+			$._each(listitems, function(idx, node) {
+				if (node.nodeName.toLowerCase() === 'tablecell') {
+					var checkmark = '<checkmark>&#x2713</checkmark>';
+					$(node).attr('role','radio');
+					$(node).attr('aria-checked','false');
+					$(node).append(checkmark);
+					$(node).on($.userAction, function() {
+						if ($.userAction === 'touchend') {
+							$(node).removeClass('touched');
+							$(node).attr('aria-checked','false');
+						}
+						var $this = this;
+						setTimeout(function() {
+							if ($.UIScrollingActive) return;
+							$._each(listitems, function(idx, check) {
+								$(check).removeClass('selected');
+								$(check).removeClass('touched');
+								$(check).attr('aria-checked','false');		
+							});
+							$($this).addClass('selected');
+							$($this).attr('aria-checked','true');
+							$($this).find('input').checked = true; 
+							if (callback) {
+								callback.call(callback, $($this).find('input'));
+							}
+						},100);
+					});
+					$(node).on('touchstart', function() {
+						$(this).addClass('touched');
+					});
+					$(node).on('touchcancel', function() {
+						$(this).removeClass('touched');
+					});
+				}
+			});
+		},
+		
+		UISwitchControl : function (callback) {
+			callback = callback || function() { return false; };
+			var item = _cc ? this : this[0]
+			if (item.nodeName.toLowerCase()==="switchcontrol") {
+			$(item).attr('role','radio');
+				callback.call(callback, this);
+				if ($(this).hasClass("off")) {
+					$(this).toggleClassName("on", "off");
+					$(this).attr('aria-checked','true');
+					if (_cc) {
+						$(this).find("input").checked = true;
+					} else {
+						$(this).find("input")[0].checked = true;
+					}
+					$(this).find("thumb").focus();
+				} else {
+					$(this).attr('aria-checked','false');
+					$(this).toggleClassName("on", "off");
+					if (_cc) {
+						$(this).find("input").checked = false;
+					} else {
+						$(this).find("input")[0].checked = false;
+					}
+				}
+			} else {
+				return;
+			}
+		},
+		
+		UICreateSwitchControl : function( opts ) {
+			/*
+				{
+					id : "anID",
+					namePrefix : "customer",
+					customClass : "specials",
+					status : "on",
+					kind : "traditional",
+					labelValue : ["on","off"],
+					value : "$1000",
+					callback : function() {console.log('This is great!');},	
+				}
+			*/
+			var id = opts.id;
+			var namePrefix = '';
+			if (opts.namePrefix) {
+				namePrefix = "name='" + opts.namePrefix + "." + opts.id + "'";
+			} else {
+				namePrefix = "name='" + id + "'";
+			}
+			var customClass = " ";
+			customClass += opts.customClass ? opts.customClass : "";
+			var status = opts.status || "off";
+			var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
+			var label1 = "ON";
+			var label2 = "OFF";
+			if (opts.kind === "traditional") {
+				if (!!opts.labelValue) {
+					label1 = opts.labelValue[0];
+					label2 = opts.labelValue[1];
+				}
+			}
+			var value = opts.value || "";
+			var callback = opts.callback || function() { return false; };
+			var label = (opts.kind === "traditional") ? '<label ui-implements="on">'+ label1 + '</label><thumb></thumb><label ui-implements="off">' + label2 + '</label>' : "<thumb></thumb>";
+			var uiswitch = '<switchcontrol ' + kind + ' class="' + status + " " + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
+			if ($(this).css("position")  !== "absolute") {
+				this.css("position: relative;");
+			}
+			$(this).append(uiswitch);
+			var newSwitchID = "#" + id;
+			if (_zo) {
+				$(newSwitchID).find("input").attr("checked", (status === "on" ? true : false));
+			} else {
+				$(newSwitchID).find("input").prop("checked", (status === "on" ? true : false));
+			}
+			$(newSwitchID).bind("click", function() {
+				$(this).UISwitchControl(callback);
+			});
+		},
+		
+		UIInitSwitchToggling : function() {
+			var switches = $.els('switchcontrol', this);
+			var $this = this;
+			$._each(switches, function(ctx) {
+				var item = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+				if ($(item).hasClass('on')) {
+					$(item).checked = true;
+					$(item).find("input[type='checkbox']").checked = true;
+				} else {
+					$(item).checked = false;
+					$(item).find("input[type='checkbox']").checked = false;
+				}
+				$(item).on('click', function(e) {
+					e.preventDefault();
+					this.parentNode.style.backgroundImage = 'none';
+					$(item).UISwitchControl();
+				});
+			});
+		},
+		
+		UICreateSegmentedControl : function(opts) {
+			position = opts.position || null;
+			var segmentedControl = "<segmentedcontrol";
+			if (opts.id) {
+				segmentedControl += " id='" + opts.id + "'";
+			}
+			if (opts.placement) {
+				segmentedControl += " ui-bar-align='" + opts.placement + "'";
+			}
+			if (opts.selectedSegment || opts.selectedSegment === 0) {
+				segmentedControl += " ui-selected-index='" + opts.selectedSegment + "'";
+			} else {
+				segmentedControl += " ui-selected-index=''";
+			}
+			if (opts.container) {
+				segmentedControl += " ui-segmented-container='#" + opts.container + "'";
+			}
+			var segClass = opts.cssClass || "";
+			segmentedControl += ">";
+			if (opts.numberOfSegments) {
+				segments = opts.numberOfSegments;
+				var count = 1;
+				for (var i = 0; i < segments; i++) {
+					segmentedControl += "<uibutton";
+					segmentedControl += " id='" + $.UIUuid() + "'";
+					segmentedControl += " class='" + segClass[count-1];
+					if (opts.selectedSegment || opts.selectedSegment === 0) {
+						if (opts.selectedSegment === i) {
+							segmentedControl += " selected'";
+						}
+					}
+					if (opts.disabledSegment) {
+						if (opts.disabledSegment === i) {
+							segmentedControl += " disabled'";
+						}
+					}
+					segmentedControl += "'";
+			
+					segmentedControl += " ui-kind='segmented'";
+					if (opts.placementOfIcons) {
+						segmentedControl += " ui-icon-alignment='" + opts.placementOfIcons[count-1] + "'";
+					}
+					segmentedControl += ">";
+					if (opts.iconsOfSegments) {
+						if (!!opts.iconsOfSegments[i]) {
+						segmentedControl += "<icon ui-implements='icon-mask' style='-webkit-mask-box-image: url(icons/" + opts.iconsOfSegments[count-1] +"." + opts.fileExtension[count-1] + ")'  ui-implements='icon-mask'></icon>";
+						}
+					}
+					if (opts.titlesOfSegments) {
+						segmentedControl += "<label>" + opts.titlesOfSegments[count-1] + "</label>";
+					}
+					segmentedControl += "</uibutton>";
+					count++;
+				}
+				segmentedControl += "</segmentedcontrol>";
+				$(this).append(segmentedControl);
+			}
+		},
+		
+		UISegmentedControl : function( container, callback ) {
+			var that = $(this);
+			var val = null;
+			callback = callback || $.noop;
+			if (!$(this).attr('ui-selected-segment')) {
+				$(this).attr('ui-selected-segment', '');
+			}
+			if ($(this).attr('ui-selected-index')) {
+				val = $(this).attr('ui-selected-index');
+				var seg = $(this).children(val);
+				try {
+					seg = $(seg).attr('id');
+					$(this).attr('ui-selected-segment', seg);
+					$(this).children(val).addClass('selected');
+				} catch(e) {}
+			} else {
+				$._each($(this).childElements(), function(idx, ctx) {
+					if ($(ctx).hasClass('selected')) {
+						if (idx === 0) {
+							$(ctx).attr('ui-selected-index', '0');
+						} else {
+							$(ctx).attr('ui-selected-index', idx);
+						}
+					} 
+				});
+			}
+			if (container) {
+				$(this).attr('ui-segmented-container', container);
+				container = $(container);
+				if (val || val == 0) { 
+					container.attr('ui-selected-index', val);
+				}
+				var containerChildren = _cc ? [].slice.apply(container.children) : $(container).children();
+				$._each(containerChildren, function(idx, child) {
+					$(child).css('display','none');
+				});
+				containerChildren.eq(val).css('display','block');
+				that.attr('ui-segmented-container', ('#' + container.attr('id')));
+				var selectedIndex = $(this).attr('ui-selected-index');
+				container.closest('scrollpanel').data('ui-scroller').refresh();
+				
+			}
+			$._each($(this).childElements(), function(idx, button) {
+				if (!$(button).attr('id')) {
+					$(button).attr('id', $.UIUuid());
+				}
+				if (!that.attr('ui-selected-segment')) {
+					if ($(button).hasClass('selected')) {
+						that.attr('ui-selected-segment', $(button).attr('id'));
+					}
+				}
+				$(button).on('click', function() {
+					var selectedSegment = that.attr('ui-selected-segment');
+					selectedSegment = $('#'+selectedSegment);
+					var selectedIndex = that.attr('ui-selected-index');
+					var childPosition = null;
+					var container = null;
+					var ancestor = $(this).closest('segmentedcontrol');
+					if (ancestor.attr('ui-segmented-container')) {
+						container = ancestor.attr('ui-segmented-container');
+					}
+					var containerChildren = $(container).childElements();
+					var oldSelection = null;
+					if (ancestor.attr('ui-selected-index')) {
+						oldSelection = ancestor.attr('ui-selected-index');
+					}
+					var uisi = null;
+					if (!selectedSegment) {
+						uisi = $(this).attr('ui-child-position');
+						that.attr('ui-selected-index', uisi);
+						that.attr('ui-selected-segment', $(this).attr('id'));
+						$(this).addClass('selected');
+						childPosition = $(this).attr('ui-child-position');
+						containerChildren.eq(val).css('display','none');
+						containerChildren.eq(childPosition).css('display','none');
+					} 
+					if (selectedSegment) {
+						uisi = $(this).attr('ui-child-position');
+						that.attr('ui-selected-index', uisi);
+						selectedSegment.removeClass('selected');
+						that.attr('ui-selected-segment', $(this).attr('id'));
+						$(this).addClass('selected');
+						childPosition = $(this).attr('ui-child-position');
+						if (that.attr('ui-segmented-container')) {
+							container = $(that.attr('ui-segmented-container'));
+							containerChildren.eq(oldSelection).css('display','none');
+							containerChildren.eq(uisi).css('display','block');
+							containerChildren.eq(selectedSegment.attr('ui-child-position')).css('display','none');
+							container.closest('scrollpanel').data('ui-scroller').refresh();
+						}
+					}
+					$(this).addClass('selected');
+						callback.call(callback, button);
+				});
+			});
+			$(this).UIIdentifyChildNodes();
+		},
+		
+		UICreateTabBar : function ( opts ) {
+		/*
+			id: 'mySpecialTabBar',
+			imagePath: '/images/icons/',
+			numberOfTabs: 4,
+			tabLabels: ["Refresh", "Add", "Info", "Downloads", "Favorite"],
+			iconsOfTabs: ["refresh", "add", "info", "downloads", "top_rated"],
+			selectedTab: 0,
+			disabledTab: 3
+		*/
+		var id = opts.id || $.UIUuid();
+		var imagePath = opts.imagePath || 'icons\/';
+		var numberOfTabs = opts.numberOfTabs || 1;
+		var tabLabels = opts.tabLabels;
+		var iconsOfTabs = opts.iconsOfTabs;
+		var selectedTab = opts.selectedTab || 0;
+		var disabledTab = opts.disabledTab || null;
+		var tabbar = ["<tabbar ui-selected-tab='", selectedTab, "'>"];
+		$(this).attr("ui-tabbar-id", id);
+			for (var i = 0; i < numberOfTabs; i++) {
+				tabbar.push("<uibutton ui-implements='tab' ");
+				if (i === selectedTab || i === disabledTab) {
+					tabbar.push("class='");
+					if (i === selectedTab) {
+						tabbar.push("selected");
+					}
+					if (i === disabledTab) {
+						tabbar.push("disabled");
+					}
+					tabbar.push("'");
+				}
+				tabbar.push("><icon style='-webkit-mask-box-image: url(")
+				tabbar.push(imagePath);
+				tabbar.push(iconsOfTabs[i]);
+				tabbar.push(".svg);'></icon>");
+				tabbar.push("<label>");
+				tabbar.push(tabLabels[i]);
+				tabbar.push("</label></uibutton>");
+			}
+			tabbar.push("</tabbar>");
+			$(this).append(tabbar.join(''));
+			var subviews = $.els("subview", this);
+			subviews.eq(selectedTab).addClass("selected");
+			this.UITabBar();
+		},
 	
-	$.fn.UIIdentifyChildNodes = function ( ) {
-		var ctx = this.nodeType === 1 ? this : this[0];
-		var kids = ctx.childElementCount;
-		for (var i = 0; i < kids; i++) {
-			ctx.children[i].setAttribute('ui-child-position', i);
-		}
-	};
-	$.fn._first = function ( ) {
-		if (_cc) {
-			return this.first();
-		} else {
-			return $(this).children().first();
-		}
-	};
-	$.fn._last = function ( ) {
-		if (_cc) {
-			return this.last();
-		} else {
-			return $(this).children().last();
+		UITabBar : function ( ) {
+			var tabs = $.els('tabbar > uibutton[ui-implements=tab]', this);
+			var tabbar = $('tabbar', this);
+			tabbar.UIIdentifyChildNodes();
+			var subviews = $.els('subview', this);
+			$._each(subviews, function(idx, ctx) {
+				$(ctx).addClass('unselected');
+			});
+			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
+			subviews.eq(selectedTab).toggleClassName('unselected','selected');
+			tabs.eq(selectedTab).addClass('selected');
+			$._each(tabs, function(idx, tab) {
+				$(tab).on('click', function() {
+					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
+						return;
+					}
+					var whichTab = $(tab).closest('tabbar').attr('ui-selected-tab');
+					tabs.eq(whichTab).removeClass('selected');
+					$(tab).addClass('selected');
+					subviews.eq(whichTab).removeClass('selected');
+					subviews.eq(whichTab).addClass('unselected');
+					subviews.eq($(tab).attr('ui-child-position')).addClass('selected');
+					subviews.eq(tab.getAttribute('ui-child-position')).removeClass('unselected');
+					tabbar.attr('ui-selected-tab', $(tab).attr('ui-child-position'));
+				});
+			});
+		},
+		
+		UITabBarForViews : function ( ) {
+			var tabs = $.els('tabbar > uibutton[ui-implements=tab]', this);
+			$('tabbar', this).UIIdentifyChildNodes();
+			var tabbar = $('tabbar', this);
+			var views = $.els('view', this);
+			$._each(subviews, function(idx, subview) {
+				$(subview).addClass('unselected');
+			});
+			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
+			subviews.eq(selectedTab).toggleClassName('unselected','selected');
+			tabs.eq(selectedTab).addClass('selected');
+			$._each(tabs, function(idx, tab) {
+				tab.on('click', function() {
+					if (tab.hasClass('disabled') || tab.hasClass('selected')) {
+						return;
+					}
+				});
+			});
+		},
+		
+		UISegmentedPagingControl : function ( ) {
+			var segmentedPager = $('segmentedcontrol[ui-implements="segmented-paging"]', this);
+			var pagingOrientation = segmentedPager.attr('ui-paging');
+			segmentedPager.attr('ui-paged-subview', '0');
+			segmentedPager._first().addClass('disabled');
+			var subviews = $.els('subview', this);
+			segmentedPager.attr('ui-pagable-subviews', subviews.length);
+			var childPosition = 0;
+			$._each(subviews, function(idx, ctx) {
+				$(ctx).attr('ui-navigation-status', 'upcoming');
+				if (_cc && childPosition == 0) {
+					$(ctx).attr('ui-child-position', 0);
+				}
+				$(ctx).attr('ui-child-position', childPosition);
+				childPosition++;
+				$(ctx).attr('ui-paging-orient', pagingOrientation);
+			});
+			var prevButton = $(segmentedPager._first());
+			var nextButton = $(segmentedPager._last());
+			subviews.eq(0).attr('ui-navigation-status', 'current');
+			segmentedPager.delegate('uibutton', 'click', function(ctx) {
+				var button = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+				if ($(button).hasClass('disabled')) return;
+				var pager = segmentedPager; //$(button).closest('segmentedcontrol');
+				// Previous Button:
+				if (button.isSameNode(button.parentNode.firstElementChild)) {
+					if (pager.attr('ui-paged-subview') == 1) {
+						$(button).addClass('disabled');
+						pager.attr('ui-paged-subview', '0');
+						subviews.eq(0).attr('ui-navigation-status', 'current');
+						subviews.eq(1).attr('ui-navigation-status', 'upcoming');
+					} else {
+						$(subviews[pager.attr('ui-paged-subview') - 1 ]).attr( 'ui-navigation-status', 'current');
+						$(subviews[pager.attr('ui-paged-subview')]).attr('ui-navigation-status', 'upcoming');
+						pager.attr('ui-paged-subview', pager.attr('ui-paged-subview')-1);
+						$(button).next().removeClass('disabled');
+						if (pager.attr('ui-paged-subview') <= 0) {
+							$(button).addClass('disabled');
+						}
+					}
+				} else {
+					prevButton.removeClass('disabled');
+					var pagedSubview = Number(pager.attr('ui-paged-subview'));
+					if (pagedSubview === Number(segmentedPager.attr('ui-pagable-subviews'))-2){
+						$(button).addClass('disabled');
+					}
+					$(subviews[pagedSubview]).attr('ui-navigation-status', 'traversed');
+					$(subviews[pagedSubview+1]).attr('ui-navigation-status', 'current');
+					pager.attr('ui-paged-subview', pagedSubview + 1);
+				}
+			});
+		},
+		
+		UIExpander : function ( opts ) {
+			opts = opts || {};
+			var status = opts.status || 'expanded';
+			var title = opts.title || 'Open';
+			var altTitle = opts.altTitle || 'Close';
+			var expander = $(this);
+			var panel = $('panel', this);
+			var header = '<header><label></label></header>';
+			panel.attr('ui-height', parseInt(panel.css('height'), 10));
+			$(this).prepend(header);
+			if (status === 'expanded') {
+				expander.toggleClassName('ui-status-expanded', 'ui-status-collapsed');
+				$('label', this).text(altTitle);
+				panel.style.height = panel.getAttribute('ui-height') + 'px';
+				panel.css('opacity: 1;');
+			} else {
+				$('label', this).text(title);
+				panel.css({'height': '0px', 'opacity': 0});
+				expander.toggleClass('ui-status-collapsed', 'ui-status-expanded');
+			}
+			$('header', expander).on('click', function() {
+				var $this = $(this);
+				if (panel.css('height') == '10px' || panel.css('height') == '0px') {
+					panel.css('height', panel.attr('ui-height') + 'px');
+					panel.css('opacity', 1);
+					$('label', $this).text(altTitle);
+					expander.toggleClassName('ui-status-collapsed', 'ui-status-expanded');
+			
+				} else {
+					panel.css({'height': '0px', 'opacity': 0});
+					$('label', $this).text(title);
+					expander.toggleClassName('ui-status-expanded', 'ui-status-collapsed');
+				}
+			});
+		},
+		
+		UICalculateNumberOfLines : function () {
+			var lineHeight = parseInt($(this).css('line-height'), 10);
+			var height = parseInt($(this).css('height'), 10);
+			var lineNums = Math.floor(height / lineHeight);
+			return lineNums;
+		},
+		
+		UIParagraphEllipsis : function () {
+			var lines = $(this).UICalculateNumberOfLines();
+			if (_cc) {
+				$(this).css({'-webkit-line-clamp': lines});
+			} else {
+				$(this)[0].style.WebkitLineClamp = lines
+			}
 		}
 	};
 	
-	$.fn.UIBlock = function ( opacity ) {
-		opacity = opacity ? " style='opacity:" + opacity + "'" : "";
-		$(this).before("<mask" + opacity + "></mask>");
-		return this;
-	};
-	$.fn.UIUnblock = function ( ) {
-		$._each($.els('mask'), function(idx, ctx) {
-			$(ctx).remove();
-		});
-		return this;
-	};
-	$.fn.UIRemovePopupBtnEvents = function(eventType, eventName) {
-		this.removeEventListener(eventType, eventName, false);
-	};
+	UIConvertElementMethods(elementMethods);
 	$(function() {			
 		/* 
 		Function to iterate over node collections. This gets used by ChocolateChip.js.
@@ -174,12 +702,14 @@ When using Zepto, make sure you have the following modules included in your buil
 					return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 				}
 			},
+			
 			AlphaSeed : function ( ) {
 				var text = "";
 				var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 				text += chars.charAt(Math.floor(Math.random() * chars.length));
 				return text;
 			},
+			
 			UIUuid : function() {
 				return $.concat($.AlphaSeed(), $.UIUuidSeed(20), $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), $.UIUuidSeed(), $.UIUuidSeed());
 			},
@@ -205,6 +735,8 @@ When using Zepto, make sure you have the following modules included in your buil
 				$.UINavigationHistory.pop();
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
 				.attr('ui-navigation-status', 'current');
+				
+ 				$($.UINavigationHistory[$.UINavigationHistory.length-1]).removeAttr('role');
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
 				.attr('aria-visibility', 'visible');
 				$(parent).attr('ui-navigation-status', 'upcoming');
@@ -212,17 +744,8 @@ When using Zepto, make sure you have the following modules included in your buil
 				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
  					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
  				}
-			}
-		});
-		$.fn.UIToggleButtonLabel = function ( label1, label2 ) {
-			if ($('label', this).text() === label1) {
-				$('label', this).text(label2);
-			} else {
-				$('label', this).text(label1);
-			}
-		};
-		
-		$.extend($, {
+			},
+			
 			UINavigationListExits : false,
 
 		   UINavigationEvent : false,
@@ -231,6 +754,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
 					var node = $(node);
+					var href = node.attr('href');
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
 							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
@@ -238,23 +762,33 @@ When using Zepto, make sure you have the following modules included in your buil
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
 						$(node.attr('href')).attr('aria-visibility', 'visible');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-visibility', 'hidden').attr('role','presentation');
+						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-visibility', 'hidden');
+						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('role','presentation');
 						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
 							$('#main').attr('ui-navigation-status', 'traversed');
 							$('#main').attr('aria-visibility', 'hidden').attr('role','presentation');
 						}
-						$.UINavigationHistory.push(node.attr('href'));
+						
+						$.UINavigationHistory.push(href);
 						currentNavigatingView = node.closest('view');
 						
 						currentNavigatingView.bind('webkitTransitionEnd', function(event) {
-							if (event.propertyName === '-webkit-transform') {
-								node.removeClass('disabled');
+							if (_jq) {
+								if (event.type === 'webkitTransitionEnd') {
+									node.removeClass('disabled');
+								}
+							} else {
+								if (event.propertyName === '-webkit-transform') {
+									node.removeClass('disabled');
+								}
 							}
 						});
 					} catch(err) {} 
-					$$('tablecell[ui-implements=disclosure]:after').forEach(function(item) {
-						item.attr('aria-visibility','hidden');
-					})
+					
+					var tablecells = _cc ? [].slice.apply($$('tablecell[ui-implements=disclosure]:after')) : $('tablecell[ui-implements=disclosure]:after');
+					$._each(tablecells ,function(idx, ctx) {
+						$(ctx).attr('aria-visiblity', 'hidden');
+					});
 				};
 				
 				if ($.userAction === 'touchend') {
@@ -327,6 +861,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				});
 			},
+			
 			UIStepper : function (opts) {
 				var stepper = $(opts.selector);
 				var defaultValue = null;
@@ -437,6 +972,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
 			}
 		});
+		
 		$.app.delegate('view','webkitTransitionEnd', function() {
 			if (!$('view[ui-navigation-status=current]')) {
 				$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
@@ -445,7 +981,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			}	
 			$.UINavigationEvent = false;
 		});
+		
 		$.UINavigationList();
+		
 		if ($.userAction === 'touchend') {
 			$.app.delegate('uibutton', 'touchstart', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
@@ -475,307 +1013,13 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}
 			});	
-		}		
+		};
+		
 		$.UIEnableScrolling();
+		
 		$.setupAriaForViews();
 		
-		$.fn.UISelectionList = function ( callback ) {
-			var $this = this;
-			var listitems = this.childElements();
-			if (_jq || _zo) {
-				listitems = $(listitems);
-			} 
-			$._each(listitems, function(idx, node) {
-				if (node.nodeName.toLowerCase() === 'tablecell') {
-					var checkmark = '<checkmark>&#x2713</checkmark>';
-					$(node).attr('role','radio');
-					$(node).attr('aria-checked','false');
-					$(node).append(checkmark);
-					$(node).on($.userAction, function() {
-						if ($.userAction === 'touchend') {
-							$(node).removeClass('touched');
-							$(node).attr('aria-checked','false');
-						}
-						var $this = this;
-						setTimeout(function() {
-							if ($.UIScrollingActive) return;
-							$._each(listitems, function(idx, check) {
-								$(check).removeClass('selected');
-								$(check).removeClass('touched');
-								$(check).attr('aria-checked','false');		
-							});
-							$($this).addClass('selected');
-							$($this).attr('aria-checked','true');
-							$($this).find('input').checked = true; 
-							if (callback) {
-								callback.call(callback, $($this).find('input'));
-							}
-						},100);
-					});
-					$(node).on('touchstart', function() {
-						$(this).addClass('touched');
-					});
-					$(node).on('touchcancel', function() {
-						$(this).removeClass('touched');
-					});
-				}
-			});
-		};
-		$.fn.UISwitchControl = function (callback) {
-			callback = callback || function() { return false; };
-			var item = _cc ? this : this[0]
-			if (item.nodeName.toLowerCase()==="switchcontrol") {
-			$(item).attr('role','radio');
-				callback.call(callback, this);
-				if ($(this).hasClass("off")) {
-					$(this).toggleClassName("on", "off");
-					$(this).attr('aria-checked','true');
-					if (_cc) {
-						$(this).find("input").checked = true;
-					} else {
-						$(this).find("input")[0].checked = true;
-					}
-					$(this).find("thumb").focus();
-				} else {
-					$(this).attr('aria-checked','false');
-					$(this).toggleClassName("on", "off");
-					if (_cc) {
-						$(this).find("input").checked = false;
-					} else {
-						$(this).find("input")[0].checked = false;
-					}
-				}
-			} else {
-				return;
-			}
-		};	
-		$.fn.UICreateSwitchControl = function( opts ) {
-			/*
-				{
-					id : "anID",
-					namePrefix : "customer",
-					customClass : "specials",
-					status : "on",
-					kind : "traditional",
-					labelValue : ["on","off"],
-					value : "$1000",
-					callback : function() {console.log('This is great!');},	
-				}
-			*/
-			var id = opts.id;
-			var namePrefix = '';
-			if (opts.namePrefix) {
-				namePrefix = "name='" + opts.namePrefix + "." + opts.id + "'";
-			} else {
-				namePrefix = "name='" + id + "'";
-			}
-			var customClass = " ";
-			customClass += opts.customClass ? opts.customClass : "";
-			var status = opts.status || "off";
-			var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
-			var label1 = "ON";
-			var label2 = "OFF";
-			if (opts.kind === "traditional") {
-				if (!!opts.labelValue) {
-					label1 = opts.labelValue[0];
-					label2 = opts.labelValue[1];
-				}
-			}
-			var value = opts.value || "";
-			var callback = opts.callback || function() { return false; };
-			var label = (opts.kind === "traditional") ? '<label ui-implements="on">'+ label1 + '</label><thumb></thumb><label ui-implements="off">' + label2 + '</label>' : "<thumb></thumb>";
-			var uiswitch = '<switchcontrol ' + kind + ' class="' + status + " " + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
-			if ($(this).css("position")  !== "absolute") {
-				this.css("position: relative;");
-			}
-			$(this).append(uiswitch);
-			var newSwitchID = "#" + id;
-			if (_zo) {
-				$(newSwitchID).find("input").attr("checked", (status === "on" ? true : false));
-			} else {
-				$(newSwitchID).find("input").prop("checked", (status === "on" ? true : false));
-			}
-			$(newSwitchID).bind("click", function() {
-				$(this).UISwitchControl(callback);
-			});
-		};
-		
-		$.fn.UIInitSwitchToggling = function() {
-			var switches = $.els('switchcontrol', this);
-			var $this = this;
-			$._each(switches, function(ctx) {
-				var item = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-				if ($(item).hasClass('on')) {
-					$(item).checked = true;
-					$(item).find("input[type='checkbox']").checked = true;
-				} else {
-					$(item).checked = false;
-					$(item).find("input[type='checkbox']").checked = false;
-				}
-				$(item).on('click', function(e) {
-					e.preventDefault();
-					this.parentNode.style.backgroundImage = 'none';
-					$(item).UISwitchControl();
-				});
-			});
-		};
 		$.app.UIInitSwitchToggling();
-		
-		$.fn.UICreateSegmentedControl = function(opts) {
-			position = opts.position || null;
-			var segmentedControl = "<segmentedcontrol";
-			if (opts.id) {
-				segmentedControl += " id='" + opts.id + "'";
-			}
-			if (opts.placement) {
-				segmentedControl += " ui-bar-align='" + opts.placement + "'";
-			}
-			if (opts.selectedSegment || opts.selectedSegment === 0) {
-				segmentedControl += " ui-selected-index='" + opts.selectedSegment + "'";
-			} else {
-				segmentedControl += " ui-selected-index=''";
-			}
-			if (opts.container) {
-				segmentedControl += " ui-segmented-container='#" + opts.container + "'";
-			}
-			var segClass = opts.cssClass || "";
-			segmentedControl += ">";
-			if (opts.numberOfSegments) {
-				segments = opts.numberOfSegments;
-				var count = 1;
-				for (var i = 0; i < segments; i++) {
-					segmentedControl += "<uibutton";
-					segmentedControl += " id='" + $.UIUuid() + "'";
-					segmentedControl += " class='" + segClass[count-1];
-					if (opts.selectedSegment || opts.selectedSegment === 0) {
-						if (opts.selectedSegment === i) {
-							segmentedControl += " selected'";
-						}
-					}
-					if (opts.disabledSegment) {
-						if (opts.disabledSegment === i) {
-							segmentedControl += " disabled'";
-						}
-					}
-					segmentedControl += "'";
-			
-					segmentedControl += " ui-kind='segmented'";
-					if (opts.placementOfIcons) {
-						segmentedControl += " ui-icon-alignment='" + opts.placementOfIcons[count-1] + "'";
-					}
-					segmentedControl += ">";
-					if (opts.iconsOfSegments) {
-						if (!!opts.iconsOfSegments[i]) {
-						segmentedControl += "<icon ui-implements='icon-mask' style='-webkit-mask-box-image: url(icons/" + opts.iconsOfSegments[count-1] +"." + opts.fileExtension[count-1] + ")'  ui-implements='icon-mask'></icon>";
-						}
-					}
-					if (opts.titlesOfSegments) {
-						segmentedControl += "<label>" + opts.titlesOfSegments[count-1] + "</label>";
-					}
-					segmentedControl += "</uibutton>";
-					count++;
-				}
-				segmentedControl += "</segmentedcontrol>";
-				$(this).append(segmentedControl);
-			}
-		};
-		$.fn.UISegmentedControl = function( container, callback ) {
-			var that = $(this);
-			var val = null;
-			callback = callback || $.noop;
-			if (!$(this).attr('ui-selected-segment')) {
-				$(this).attr('ui-selected-segment', '');
-			}
-			if ($(this).attr('ui-selected-index')) {
-				val = $(this).attr('ui-selected-index');
-				var seg = $(this).children(val);
-				try {
-					seg = $(seg).attr('id');
-					$(this).attr('ui-selected-segment', seg);
-					$(this).children(val).addClass('selected');
-				} catch(e) {}
-			} else {
-				$._each($(this).childElements(), function(idx, ctx) {
-					if ($(ctx).hasClass('selected')) {
-						if (idx === 0) {
-							$(ctx).attr('ui-selected-index', '0');
-						} else {
-							$(ctx).attr('ui-selected-index', idx);
-						}
-					} 
-				});
-			}
-			if (container) {
-				$(this).attr('ui-segmented-container', container);
-				container = $(container);
-				if (val || val == 0) { 
-					container.attr('ui-selected-index', val);
-				}
-				var containerChildren = _cc ? [].slice.apply(container.children) : $(container).children();
-				$._each(containerChildren, function(idx, child) {
-					$(child).css('display','none');
-				});
-				containerChildren.eq(val).css('display','block');
-				that.attr('ui-segmented-container', ('#' + container.attr('id')));
-				var selectedIndex = $(this).attr('ui-selected-index');
-				container.closest('scrollpanel').data('ui-scroller').refresh();
-				
-			}
-			$._each($(this).childElements(), function(idx, button) {
-				if (!$(button).attr('id')) {
-					$(button).attr('id', $.UIUuid());
-				}
-				if (!that.attr('ui-selected-segment')) {
-					if ($(button).hasClass('selected')) {
-						that.attr('ui-selected-segment', $(button).attr('id'));
-					}
-				}
-				$(button).on('click', function() {
-					var selectedSegment = that.attr('ui-selected-segment');
-					selectedSegment = $('#'+selectedSegment);
-					var selectedIndex = that.attr('ui-selected-index');
-					var childPosition = null;
-					var container = null;
-					var ancestor = $(this).closest('segmentedcontrol');
-					if (ancestor.attr('ui-segmented-container')) {
-						container = ancestor.attr('ui-segmented-container');
-					}
-					var containerChildren = $(container).childElements();
-					var oldSelection = null;
-					if (ancestor.attr('ui-selected-index')) {
-						oldSelection = ancestor.attr('ui-selected-index');
-					}
-					var uisi = null;
-					if (!selectedSegment) {
-						uisi = $(this).attr('ui-child-position');
-						that.attr('ui-selected-index', uisi);
-						that.attr('ui-selected-segment', $(this).attr('id'));
-						$(this).addClass('selected');
-						childPosition = $(this).attr('ui-child-position');
-						containerChildren.eq(val).css('display','none');
-						containerChildren.eq(childPosition).css('display','none');
-					} 
-					if (selectedSegment) {
-						uisi = $(this).attr('ui-child-position');
-						that.attr('ui-selected-index', uisi);
-						selectedSegment.removeClass('selected');
-						that.attr('ui-selected-segment', $(this).attr('id'));
-						$(this).addClass('selected');
-						childPosition = $(this).attr('ui-child-position');
-						if (that.attr('ui-segmented-container')) {
-							container = $(that.attr('ui-segmented-container'));
-							containerChildren.eq(oldSelection).css('display','none');
-							containerChildren.eq(uisi).css('display','block');
-							containerChildren.eq(selectedSegment.attr('ui-child-position')).css('display','none');
-							container.closest('scrollpanel').data('ui-scroller').refresh();
-						}
-					}
-					$(this).addClass('selected');
-						callback.call(callback, button);
-				});
-			});
-			$(this).UIIdentifyChildNodes();
-		};		
 		
 		$.extend($, {
 			UIPaging : function( selector, opts ) {
@@ -814,6 +1058,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				});
 				
 			},
+			
 			UISetupPaging : function() {
 				if ($("stack[ui-implements=paging]")) {
 					var pagingStacks = $.els("stack[ui-implements=paging]");
@@ -833,6 +1078,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				}
 			}
 		});
+		
 		$(function() {
 			$.UISetupPaging();
 		});
@@ -967,6 +1213,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				UIDeleteDisclosureSelection();
 				UIDeletionExecution();
 			},
+			
 			UIResetDeletionList : function(node, toolbar) {
 				node = $(node);
 				toolbar = $(toolbar);
@@ -1040,6 +1287,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					$.UIPopUpIdentifier = null;
 				});
 			},
+			
 			UIShowPopUp : function( options ) {
 				$.UIPopUp(options);
 				$.UIPopUpIsActive = true;
@@ -1052,6 +1300,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				screenCover.attr('ui-visible-state', 'visible');
 				$('#' + options.id).attr('ui-visible-state', 'visible');
 			},
+			
 			UIPositionPopUp : function(selector) {
 				$.UIPopUpIsActive = true;
 				$.UIPopUpIdentifier = selector;
@@ -1060,6 +1309,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var tmpLeft = ((window.innerWidth / 2) - (popup.clientWidth / 2) + 'px');
 				popup.css({left: tmpLeft, top: tmpTop}); 
 			},
+			
 			UIClosePopup : function ( selector ) {
 				$(selector + ' uibutton[ui-implements=cancel]').UIRemovePopupBtnEvents('click', 'cancelClickPopup');
 					$(selector + ' uibutton[ui-implements=continue]').UIRemovePopupBtnEvents('click', 'cancelTouchPopup');
@@ -1068,6 +1318,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				$.UIPopUpIdentifier = null;
 				$.UIPopUpIsActive = false;
 			},
+			
 			UIRepositionPopupOnOrientationChange : function ( ) {
 				$.body.bind('orientationchange', function() {
 					if (window.orientation === 90 || window.orientation === -90) {
@@ -1086,81 +1337,8 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}, false);
 			}
-			
 		});
 	});
-	$.fn.UICreateTabBar = function ( opts ) {
-		/*
-			id: 'mySpecialTabBar',
-			imagePath: '/images/icons/',
-			numberOfTabs: 4,
-			tabLabels: ["Refresh", "Add", "Info", "Downloads", "Favorite"],
-			iconsOfTabs: ["refresh", "add", "info", "downloads", "top_rated"],
-			selectedTab: 0,
-			disabledTab: 3
-		*/
-		var id = opts.id || $.UIUuid();
-		var imagePath = opts.imagePath || 'icons\/';
-		var numberOfTabs = opts.numberOfTabs || 1;
-		var tabLabels = opts.tabLabels;
-		var iconsOfTabs = opts.iconsOfTabs;
-		var selectedTab = opts.selectedTab || 0;
-		var disabledTab = opts.disabledTab || null;
-		var tabbar = ["<tabbar ui-selected-tab='", selectedTab, "'>"];
-		$(this).attr("ui-tabbar-id", id);
-		for (var i = 0; i < numberOfTabs; i++) {
-			tabbar.push("<uibutton ui-implements='tab' ");
-			if (i === selectedTab || i === disabledTab) {
-				tabbar.push("class='");
-				if (i === selectedTab) {
-					tabbar.push("selected");
-				}
-				if (i === disabledTab) {
-					tabbar.push("disabled");
-				}
-				tabbar.push("'");
-			}
-			tabbar.push("><icon style='-webkit-mask-box-image: url(")
-			tabbar.push(imagePath);
-			tabbar.push(iconsOfTabs[i]);
-			tabbar.push(".svg);'></icon>");
-			tabbar.push("<label>");
-			tabbar.push(tabLabels[i]);
-			tabbar.push("</label></uibutton>");
-		}
-		tabbar.push("</tabbar>");
-		$(this).append(tabbar.join(''));
-		var subviews = $.els("subview", this);
-		subviews.eq(selectedTab).addClass("selected");
-		this.UITabBar();
-	};
-	$.fn.UITabBar = function ( ) {
-		var tabs = $.els('tabbar > uibutton[ui-implements=tab]', this);
-		var tabbar = $('tabbar', this);
-		tabbar.UIIdentifyChildNodes();
-		var subviews = $.els('subview', this);
-		$._each(subviews, function(idx, ctx) {
-			$(ctx).addClass('unselected');
-		});
-		var selectedTab = tabbar.attr('ui-selected-tab') || 0;
-		subviews.eq(selectedTab).toggleClassName('unselected','selected');
-		tabs.eq(selectedTab).addClass('selected');
-		$._each(tabs, function(idx, tab) {
-			$(tab).on('click', function() {
-				if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
-					return;
-				}
-				var whichTab = $(tab).closest('tabbar').attr('ui-selected-tab');
-				tabs.eq(whichTab).removeClass('selected');
-				$(tab).addClass('selected');
-				subviews.eq(whichTab).removeClass('selected');
-				subviews.eq(whichTab).addClass('unselected');
-				subviews.eq($(tab).attr('ui-child-position')).addClass('selected');
-				subviews.eq(tab.getAttribute('ui-child-position')).removeClass('unselected');
-				tabbar.attr('ui-selected-tab', $(tab).attr('ui-child-position'));
-			});
-		});
-	};
 	
 	$(function() {
 		$.UIRepositionPopupOnOrientationChange();
