@@ -610,24 +610,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			var speed = opts.speed || 5;
 			var position = opts.position || 'after';
 			var margin = opts.margin || '10px auto';
-			var bar = [];
-			bar.push('<progressbar');
-			if (className) {
-				bar.push(" class='");
-				bar.push(className);
-				bar.push("'");
-			}
-			bar.push(" style='width: ");
-			bar.push(width);
-			bar.push("px;");
-			bar.push(" -webkit-animation-duration: ");
-			bar.push(speed);
-			bar.push("s;");
-			bar.push(" margin: ");
-			bar.push(margin)
-			bar.push(";'");
-			bar.push("></progressbar>");
-			this.append(bar.join(''));
+			var class_name = className ? ' class="'+className+'"': '';
+			var bar = $.concat('<progressbar', class_name, " style='width: ", width, "px;", " -webkit-animation-duration: ", speed, "s;", " margin: ", margin, ";'", "></progressbar>");
+			return $(this).append(bar);
 		},
 		
 		UIHideNavBarHeader : function ( ) {
