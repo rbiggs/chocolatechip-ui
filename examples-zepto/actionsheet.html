@@ -10,7 +10,10 @@
    <script src="../chui/chui.js"></script>
 	<link rel="stylesheet" href="../chui/chui.css">
 	<style type="text/css">
-	
+		#output {
+			padding: 10px;
+			text-align: center;
+		}	
 	</style>
 
 	<script type="text/javascript">
@@ -31,17 +34,23 @@
 			$("#displayActionSheet").bind("click", function() {
 				$.UIShowActionSheet("#actionsheet_01");
 			});
+			
 		}); 
 		
-			var actionSheetButtonResponse = function(text) {
-				return console.log("You pressed the " + text + " uibutton.");
-			};
-			var respondToDeleteButton = function(actionSheetID) {
-				actionSheetButtonResponse("Delete");
-			};
-			var respondToSaveButton = function(actionSheetID) {
-				actionSheetButtonResponse("Save");
-			};
+		var actionSheetButtonResponse = function(text) {
+			$('#output').html("You pressed the " + text + " uibutton.");
+		};
+		var respondToDeleteButton = function(actionSheetID) {
+			actionSheetButtonResponse("Delete");
+		};
+		var respondToSaveButton = function(actionSheetID) {
+			actionSheetButtonResponse("Save");
+		};
+		setTimeout(function() {
+			$('#actionsheet_01').find('uibutton[ui-implements=cancel]').on('click', function() {
+				actionSheetButtonResponse("Cancel");
+			});
+		},0);
 	</script>
 </head>
 <body>
@@ -75,6 +84,7 @@
 						<celltitle>Sleep</celltitle>
 					</tablecell>
 				</tableview>
+				<div id='output'></div>
 			</scrollpanel>
 		</subview>
 	</view>
