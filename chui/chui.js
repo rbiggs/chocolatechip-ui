@@ -1454,7 +1454,8 @@ When using Zepto, make sure you have the following modules included in your buil
 			},
 			
 			UIAlphabeticalList : function() {
-				if ($("tableview[ui-kind='titled-list alphabetical']")) {
+				var alphaTable = _cc ? $("tableview[ui-kind='titled-list alphabetical']") : $("tableview[ui-kind='titled-list alphabetical']")[0];
+				if (alphaTable) {
 					var tableview = $("tableview[ui-kind='titled-list alphabetical']");
 					var titles = [];
 					var uuidSeed = $.UIUuidSeed();
