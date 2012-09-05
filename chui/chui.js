@@ -672,7 +672,9 @@ When using Zepto, make sure you have the following modules included in your buil
 		}
 	};
 	
+	// Convert methods into appropriate forms for Element extension in libraries.
 	UIConvertElementMethods(elementMethods);
+	
 	$(function() {			
 		/* 
 		Function to iterate over node collections. This gets used by ChocolateChip.js.
@@ -1449,6 +1451,38 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}
 				$.UIPositionMask();
+			},
+			
+			UIAlphabeticalList : function() {
+				if ($("tableview[ui-kind='titled-list alphabetical']")) {
+					var tableview = $("tableview[ui-kind='titled-list alphabetical']");
+					var titles = [];
+					var uuidSeed = $.UIUuidSeed();
+					var counter = 0;
+					var alphabeticalList = '<stack ui-kind="alphabetical-list">';
+					var alphabeticalListItems = "";
+					var tableheaders = _cc ? tableview.findAll("tableheader") : tableview.find("tableheader");
+					$._each(tableheaders, function(idx, title) {
+						title = $(title);
+						titles.push(title.text());
+						counter++;
+						title.attr("id", $.concat("alpha_", title.text(), uuidSeed, counter));
+						alphabeticalListItems += $.concat('<span href="#alpha_', title.text(), uuidSeed, counter, ' ">', title.text(), '</span>');
+					});
+					alphabeticalList += alphabeticalListItems + '</stack>';
+					tableview.closest("scrollpanel").after(alphabeticalList);
+				} else {
+					return;
+				}
+				var scroller = $("tableview[ui-kind='titled-list alphabetical']").closest("scrollpanel");
+				var sc = _cc ? scroller : scroller[0];
+				scroller.data('ui-scroller').destroy();
+				var newScroller = new iScroll(sc, {snap:true});
+				scroller.data('ui-scroller', newScroller);
+				$.app.on("click","stack[ui-kind='alphabetical-list'] > span",  function(ctx) { 
+					var alpha = $.ctx(ctx) || $(this);
+					scroller.data('ui-scroller').scrollToElement(alpha.attr("href"));
+				});
 			}
 		});
 	});
@@ -1458,6 +1492,9 @@ When using Zepto, make sure you have the following modules included in your buil
 	}, false);
 	
 	$(function() {
+		if ("stack[ui-kind='titled-list alphabetical']") {
+			$.UIAlphabeticalList(); 
+		}
 		$.UIRepositionPopupOnOrientationChange();
 	});
 })();
