@@ -41,8 +41,8 @@ Version 1.6.0
          return document.querySelector(selector);
       }
    };
- 
-	$.extend = function(obj, prop) {
+   
+   $.extend = function(obj, prop) {
 		if (Object.keys in window) {
 			Object.keys(prop).forEach(function(p) {
 				if (prop.hasOwnProperty(p)) {
@@ -67,6 +67,19 @@ Version 1.6.0
       return this;
    };
    
+ 	if (!Object.keys) {
+		 Object.keys = function (obj) {
+			  var keys = [],
+					k;
+			  for (k in obj) {
+					if (Object.prototype.hasOwnProperty.call(obj, k)) {
+						 keys.push(k);
+					}
+			  }
+			  return keys;
+		 };
+	}
+	
    $.extend(Array.prototype, {
       each : Array.prototype.forEach,
       
@@ -355,13 +368,18 @@ Version 1.6.0
 			}
       },
       
-      removeData : function ( ) {
+      removeData : function ( key ) {
          var id = this.getAttribute('id');
          if (!id) return;
          if (!$.chch_cache.data[this.id]) {
             return this;
          }
-         return $.chch_cache.data.splice(this.id, 1);
+         if (Object.keys($.chch_cache.data[id]).length == 0) {
+         	delete $.chch_cache.data[id];
+         } else {
+         	delete $.chch_cache.data[id][key];
+         }
+         return this;
       },
    
       find : function ( selector ) {

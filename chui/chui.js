@@ -39,7 +39,10 @@ When using Zepto, make sure you have the following modules included in your buil
 		$.extend($, {
 			concat : function (args ) {
          		return args instanceof Array ? args.join('') : Array.prototype.slice.apply(arguments).join('');
-         	}
+         	},
+         capitalize : function ( str ) {
+				return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
+			}
 		});
 		$.fn.childElements = function() {
 			return this.children();
@@ -54,6 +57,11 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 		};
 	}
+	$.extend($, {
+		touchEnabled : ('createTouch' in document),
+		standalone : navigator.standalone
+	});
+	
 	// Define methods to extend HTML elements:
 	var elementMethods = {
 		UIIdentifyChildNodes : function ( ) {
@@ -85,11 +93,18 @@ When using Zepto, make sure you have the following modules included in your buil
 			$(this).before("<mask" + opacity + "></mask>");
 			return this;
 		},
+		
 		UIUnblock : function ( ) {
 			$._each($.els('mask'), function(idx, ctx) {
 				$(ctx).remove();
 			});
 			return this;
+		},
+		
+		UIPositionMask : function() {
+			if ($.els("mask").length > 0) {
+				$("mask").css({"height": + (window.innerHeight + window.pageYOffset), width : + window.innerWidth});
+			}
 		},
 		
 		UIRemovePopupBtnEvents : function(eventType, eventName) {
@@ -621,6 +636,39 @@ When using Zepto, make sure you have the following modules included in your buil
 		
 		UIShowNavBarHeader : function ( ) {
 			$(this).css({'visibility': 'visible', 'position': 'static'});
+		},
+		
+		UIActionSheet : function(opts) {
+			var that = this;
+			var actionSheetID = opts.id;
+			var actionSheetColor = opts.color || 'undefined';
+			var title = $.concat('<p>', opts.title, '</p>');
+			var uiButtons = "", uiButtonObj, uiButtonImplements, uiButtonTitle, uiButtonCallback;
+			if (!!opts.uiButtons) {
+				$._each(opts.uiButtons, function(idx, button) {
+					uiButtonTitle = button.title;
+					uiButtonImplements = button.uiButtonImplements || "";
+					uiButtonCallback = button.callback;
+					actionSheetID.trim();
+					uiButtons += $.concat("<uibutton ui-kind='action' ", ' ui-implements="', uiButtonImplements, '" class="stretch" onclick="', uiButtonCallback, '(\'#', actionSheetID, '\')"><label>', uiButtonTitle, "</label></uibutton>");
+				});
+			}
+			var createActionSheet = function() {
+				var color = '';
+				if (actionSheetColor) color = $.concat(" ui-action-sheet-color='", actionSheetColor, "'");
+				var actionSheetStr = $.concat("<actionsheet id='", actionSheetID, "' class='hidden' style='display:none' ui-contains='action-buttons'", color, "><scrollpanel ui-scroller='", $.UIUuid(), "'><panel>", title, uiButtons, "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#", actionSheetID, "\")'><label>Cancel</label></uibutton></panel></scrollpanel></actionsheet>");
+				$(that).append(actionSheetStr);
+			}
+			createActionSheet();
+			var scrollpanel = $("#" + actionSheetID).find('scrollpanel');
+			var scroller = _cc ? scrollpanel : scrollpanel[0];
+			scrollpanel.data('ui-scroller', new iScroll(scroller));
+			var actionSheetUIButtons = $.concat("#", actionSheetID, " uibutton");
+			$._each($.els(actionSheetUIButtons), function(idx, button) {
+				$(button).on("click", function() {
+					$.UIHideActionSheet();
+				});
+			});
 		}
 	};
 	
@@ -1356,9 +1404,58 @@ When using Zepto, make sure you have the following modules included in your buil
 						$.UIPositionPopUp($.UIPopUpIdentifier);
 					}
 				}, false);
+			},
+			
+			UIShowActionSheet : function(actionSheetID) {
+				$.app.data('ui-action-sheet-id', actionSheetID);
+				$(actionSheetID).css('display','block');
+				$(actionSheetID).UIBlock();
+				var screenCover = $('mask');
+				screenCover.css({'opacity': '.5'});
+				screenCover.attr('ui-visible-state', 'visible');
+				setTimeout(function() {
+					$(actionSheetID).removeClass('hidden');
+				}, 1);
+				screenCover.on('touchmove', function(e) {
+					e.preventDefault();
+				});
+				$(actionSheetID).find('scrollpanel').data('ui-scroller').refresh();
+			},
+			
+			UIHideActionSheet : function() {
+				var actionSheet = $.app.data('ui-action-sheet-id');
+				try{ 
+					$(actionSheet).addClass('hidden');
+					$(actionSheet).UIUnblock();
+				 } catch(e) {}
+				$.app.removeData('ui-action-sheet-id');
+			},
+			
+			UIReadjustActionSheet : function() {
+				var actionSheetID = '';
+				if ($.app.data('ui-action-sheet-id')) {
+					actionSheetID = $.app.data('ui-action-sheet-id');
+					$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px'});
+					if (touchEnabled) {
+						if ($.standalone) {
+							$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px'});
+						} else {
+							if (window.innerWidth > window.innerHeight) {
+								$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px', '-webkit-transform': 'translate3d(0,70px,0)'});
+							} else {
+								$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px', '-webkit-transform': 'translate3d(0,0,0)'});
+							}
+						}
+					}
+				}
+				$.UIPositionMask();
 			}
 		});
 	});
+	
+	document.addEventListener('orientationchange', function() {
+		$.UIReadjustActionSheet();
+	}, false);
 	
 	$(function() {
 		$.UIRepositionPopupOnOrientationChange();
