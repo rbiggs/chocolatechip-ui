@@ -845,6 +845,10 @@ Version 1.6.0
             });
          }, capturePhase);
       },
+      
+      undelegate : function ( selector, event, callback, capturePhase ) {
+      	this.unbind(event, callback, capturePhase);
+      },
        
       trigger : function ( event ) {
          if( document.createEvent ) {
@@ -861,7 +865,7 @@ Version 1.6.0
       	 }
       },
       
-      off : function( event, selector, callback ) {
+      off : function( event, selector, callback, capturePhase ) {
       	 if (typeof selector === 'function') {
       	 	this.unbind(event, selector, callback);
       	 } else {

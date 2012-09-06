@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<title>CSS3 Progress Bar</title>
+	<title>Progress Bar</title>
 	<style type="text/css">
 		scrollpanel > section {
 			padding: 20px;
@@ -23,7 +23,7 @@
 		}
 	</style>
 	<link rel="stylesheet" href="../chui/chui.css">
-   <script src="../libs/chocolatechip.js"></script>
+   <script src="../libs/zepto.js"></script>
    <script src="../chui/iscroll.js"></script>
    <script src="../chui/chui.js"></script>
 	<script type="text/javascript">
@@ -35,13 +35,13 @@
 			$("section").UIProgressBar({className : "green", width: 280, speed: 8});
 			$("section").UIProgressBar({className : "gold", width: 160, speed: 2});
 			$(".toggleProgressBar").bind("click", function() {
-				if (this.text().trim() == "Show") {
-					this.UIToggleButtonLabel("Show", "Hide");
+				if ($(this).text().trim() == "Show") {
+					$(this).UIToggleButtonLabel("Show", "Hide");
 					$("navbar > h1").UIHideNavBarHeader();
 					$("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
 					
-				} else if (this.text().trim() == "Hide") {
-					this.UIToggleButtonLabel("Show", "Hide");
+				} else if ($(this).text().trim() == "Hide") {
+					$(this).UIToggleButtonLabel("Show", "Hide");
 					$("navbar > h1").UIShowNavBarHeader();
 					$("navbar > progressbar").remove();
 				}

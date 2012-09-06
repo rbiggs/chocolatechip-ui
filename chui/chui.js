@@ -108,7 +108,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		},
 		
 		UIRemovePopupBtnEvents : function(eventType, eventName) {
-			this.removeEventListener(eventType, eventName, false);
+			$(this).off(eventType, eventName, false);
 		},
 		
 		UIToggleButtonLabel : function ( label1, label2 ) {
@@ -1347,7 +1347,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					$.UIPopUpIsActive = false;
 					$.UIPopUpIdentifier = null;
 					$(ctx).on('touchend', cancelTouchPopup = function(e) {	
-						if (this.attr('ui-implements')==='continue') {
+						if ($(this).attr('ui-implements')==='continue') {
 							callback.call(callback, this);
 						}
 						e.preventDefault();
@@ -1374,10 +1374,10 @@ When using Zepto, make sure you have the following modules included in your buil
 			UIPositionPopUp : function(selector) {
 				$.UIPopUpIsActive = true;
 				$.UIPopUpIdentifier = selector;
-				var popup = $(selector);
+				var popup = _cc ? $(selector) : $(selector)[0];
 				var tmpTop = ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + 'px';
 				var tmpLeft = ((window.innerWidth / 2) - (popup.clientWidth / 2) + 'px');
-				popup.css({left: tmpLeft, top: tmpTop}); 
+				$(popup).css({left: tmpLeft, top: tmpTop}); 
 			},
 			
 			UIClosePopup : function ( selector ) {

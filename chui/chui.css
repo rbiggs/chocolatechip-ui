@@ -2738,79 +2738,50 @@ actionsheet p {
 }
 /* End Action Sheet Styles */
 
-/* Styles for Slider */
-slider {
-    display: inline-block;
-    -webkit-box-sizing: border-box;
-    -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
-    height: 9px;
-    padding: 1px;
-    -webkit-border-radius: 4px;
-    background-image: 
-        -webkit-gradient(linear, left top ,left bottom,
-           from(#0a3a86),
-           color-stop(.5, #4c8de7),
-           color-stop(.95, #6babf5),
-           to(#0a3a86)),
-        -webkit-gradient(linear, left top ,left bottom,
-            from(#bbbbbb),
-            color-stop(.5, #f0f0f0),
-            color-stop(.5, #fff));
-    background-repeat: no-repeat, repeat-x;
-    -webkit-background-size: 0px 9px, 100% 9px;
-}
-slider > thumb {
+/* HTML5 Range Input */
+input[type="range"] {
+	-webkit-appearance: none !important;  
+	outline: none;
 	display: block;
-	-webkit-box-size: border-box;
-    position:relative;
-    -webkit-box-shadow: 1px 1px 2px #666;
-    height:24px;
-    width:25px;
-    left: 0px; 
-    top: -10px;
-    -webkit-border-radius: 12px;
-    background-image: 
-        -webkit-gradient(linear, left top, left bottom,
-            from(#d1d1d1),
-            to(#fdfdfd));
-    cursor: move;
-    -webkit-tap-highlight-color: transparent;
-    overflow: hidden;
-}
-slider > thumb:after {
-	content: '';
-	display: block;
-    width 19px;
-    height: 19px;
-    margin: 3px;
-    border-radius: 10px;
-    -webkit-box-shadow: 0 -2px 3px #fff;
-}
-slider.media-player {
-	background-image:
-        -webkit-gradient(linear, left top ,left bottom,
-           from(#c9d3e7),
-           color-stop(.5, #75a9f5),
-           color-stop(.5, #2d6fc6),
-           to(#3195e7)),
+	margin: 20px auto;
+	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
+	height: 9px;
+	width: auto;
+	-webkit-border-radius: 4px;
+	background-image: 
+		-webkit-gradient(linear, left top ,left bottom,
+			from(#c9d3e7),
+			color-stop(.5, #75a9f5),
+			color-stop(.5, #2d6fc6),
+			to(#3195e7)),
 		-webkit-gradient(linear, left top, left bottom,
 			from(#f0f0f0),
 			color-stop(.2, #9a9a9a),
 			color-stop(.3, #cbcbcb),
 			color-stop(.4, #f0f0f0),
 			to(#f0f0f0));
+	background-repeat: no-repeat, repeat-x;
+	-webkit-background-size: 0px 9px, 100% 9px;
+	box-shadow: 0 1px 2px #000;
 }
-slider.media-player > thumb {
-	background-image: none;
-	border: solid 1px #cbcbcb;
-	margin-top: 2px;
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	display: block;
+	width: 20px;
 	height: 20px;
-	width: 21px;
+	-webkit-border-radius: 20px;   
+	margin: 0;
+	background-image:
+		-webkit-linear-gradient(bottom, #8e8e8e, #fff);
+	box-shadow: inset 0 -2px rgba(0,0,0,0.3), 0 0px 1px rgba(0,0,0,0.5);
+	position: relative;
+	top: 1px;
 }
-slider.media-player > thumb:after{
-    margin: 0;
-    height: 100%;
-    width: 100%;
+input[type="range"]::-webkit-slider-thumb:hover {
+	background-image:
+		-webkit-linear-gradient(bottom, #666, #eee);
+}
+input[type="range"].media-player::-webkit-slider-thumb {
 	background-image:
 		-webkit-gradient(radial, right 130%, 0, right bottom, 36, 
 			from(rgba(0,0,0,0)), 
@@ -2818,12 +2789,15 @@ slider.media-player > thumb:after{
 			color-stop(.45, rgba(0,0,0,.4)), 
 			color-stop(.5, rgba(255,255,255,.8)), 
 			to(#fff)),
-		
 		-webkit-gradient(linear, left top, left bottom,
 			from(#8e8e8e),
 			to(#fff));
+	box-shadow: 1px 1px 1px #666;
+	border: solid 1px #aaa;
+	top: 0;
 }
-/* End Slider Styles */
+/* End HTML5 Range Input */
+
 /* Tab Bar Styles */
 tabbar {
     height: 49px;

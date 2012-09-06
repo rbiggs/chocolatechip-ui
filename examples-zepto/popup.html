@@ -7,7 +7,7 @@
 	<link rel="apple-touch-startup-image" href="startup.png">
 	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
 	<link rel="shortcut icon" href="favicon.ico">
-	<title>ChocolateChip Mobile</title>
+	<title>Popup Control</title>
 	<link rel="stylesheet" href="../chui/chui.css">
 	<style>
 		/* Local Styles Here */
@@ -34,7 +34,7 @@
 		}
 		
 	</style>
-   <script src="../libs/chocolatechip.js"></script>
+   <script src="../libs/zepto.js"></script>
    <script src="../chui/iscroll.js"></script>
    <script src="../chui/chui.js"></script>
 	<script>
@@ -42,13 +42,13 @@
 	
 		$(function() {
 			// This is just an animation for popup callback. Not part of popup functionality.
-			$("#popupMessageTarget").bind("webkitAnimationEnd", function() {
-				this.className = "";
-				this.textContent = "";
+			$("#popupMessageTarget").on("webkitAnimationEnd", function() {
+				$(this).className = "";
+				$(this).textContent = "";
 			});
 			
 			// Bind event to show the popup:
-			$("#openPopup").bind("click", function() {
+			$("#openPopup").on("click", function() {
 				$.UIShowPopUp({
 					selector: "#main",
 					id: "warning",
@@ -69,9 +69,9 @@
 		
 	</script>
 </head>
-<body class="bodyClass" id="bodyID">
-	<app id="appID" class="appClass">
-		<view title="Main" class="mainView" id="main" ui-background-style="striped" ui-navigation-status="current">
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar id="segmentedToolbar">
 				<h1 ui-bar-align="center">Popup Example</h1>
 				<uibutton ui-bar-align="right" id="openPopup" ui-implements="edit">
