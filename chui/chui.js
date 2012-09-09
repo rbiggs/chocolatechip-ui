@@ -57,10 +57,6 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 		};
 	}
-	$.extend($, {
-		touchEnabled : ('createTouch' in document),
-		standalone : navigator.standalone
-	});
 	
 	// Define methods to extend HTML elements:
 	var elementMethods = {
@@ -99,12 +95,6 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(ctx).remove();
 			});
 			return this;
-		},
-		
-		UIPositionMask : function() {
-			if ($.els("mask").length > 0) {
-				$("mask").css({"height": + (window.innerHeight + window.pageYOffset), width : + window.innerWidth});
-			}
 		},
 		
 		UIRemovePopupBtnEvents : function(eventType, eventName) {
@@ -669,10 +659,100 @@ When using Zepto, make sure you have the following modules included in your buil
 					$.UIHideActionSheet();
 				});
 			});
+		},
+		
+		UICenterElementToParent : function ( ) {
+			var $this = $(this);
+			var parent = $this.parent();
+			var position;
+			var parentTopPadding = 0;
+			var parentLeftPadding = 0;
+			if ($this.css('position') !== 'absolute') position = 'relative';
+			else position = 'absolute';
+			
+			var height, width, parentHeight, parentWidth;
+			if (position === 'absolute') {
+				height = $this.clientHeight;
+				width = $this.clientWidth;
+				parentHeight = parent.clientHeight;
+				parentWidth = parent.clientWidth;
+			} else {
+				height = parseInt($this.css('height'),10);
+				width = parseInt($this.css('width'),10);
+				parentHeight = parseInt(parent.css('height'),10);
+				parentWidth = parseInt(parent.css('width'),10);
+			}
+			parentNodeName = _cc ? parent : parent[0];
+			if (_jq) {
+				parentHeight += parseInt(parent.css('padding-top'),10);
+				parentHeight += parseInt(parent.css('padding-bottom'),10);
+				parentWidth += parseInt(parent.css('padding-left'),10);
+				parentWidth += parseInt(parent.css('padding-right'),10);
+			}
+			var tmpTop, tmpLeft;
+			if (parentNodeName.nodeName == 'app') {
+				tmpTop = ((window.innerHeight /2) + window.pageYOffset) - height /2 + 'px';
+				tmpLeft = (((window.innerWidth / 2) - width) / 2 + 'px');
+			} else {
+				parentTopPadding = parseInt(parent.css('padding-top'),10);
+				parentLeftPadding = parseInt(parent.css('padding-left'),10);
+				tmpTop = (parentHeight /2) - (height /2) - parentTopPadding + 'px';
+				tmpLeft = (parentWidth / 2) - (width / 2) - parentLeftPadding + 'px';
+			}
+			
+			$this.css({position: position, left: tmpLeft, top: tmpTop});
+		},
+		
+		UIActivityIndicator : function ( opts ) {
+			opts = opts || {};
+			var panel;
+			var color = opts.color || '#000';
+			var size = opts.size || '80px';
+			var modal = opts.modal || false;
+			var modalMessage = opts.modalMessage ? $.concat('<h5>',opts.modalMessage,'</h5>') : '';
+			var modalPanelID = $.UIUuid();
+			var duration = opts.duration || '1s';
+			var style = $.concat('background-color:', color,'; height:', size, ';  width:',size);
+			if (modal) {
+				panel = document.createElement('panel');
+				$(panel).attr('ui-implements','modal-activity-indicator');
+				$(panel).attr('aria-visiblity','visible');
+				$(panel).attr('id', modalPanelID);
+				$(panel).css({'display':'-webkit-box','-webkit-box-orient':'vertical','-webkit-box-align':'center','-webkit-box-pack':'center', 'background-color':'rgba(0,0,0,0.5)', 'border-radius':'20px', 'height': '120px', 'width':'200px', 'z-index': 11111});
+				var spinner = document.createElement('activityindicator');
+				$(spinner).css({'background-color': '#fff', 'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
+				$(panel).append(spinner);
+				if (modalMessage) {
+					$(panel).append(modalMessage);
+				}
+				$(this).append(panel);
+				$('#'+modalPanelID).UIBlock('0.5');
+				$('#'+modalPanelID).UICenterElementToParent();
+				window.onresize = function(event) {
+					$('#'+modalPanelID).UICenterElementToParent();
+				};
+				$(document.body).on('orientationchange', function() {
+					$('#'+modalPanelID).UICenterElementToParent();
+				}, false);
+			} else {
+				var spinner = document.createElement('activityindicator');
+				$(spinner).css({'background-color': color, 'height': size, 'width': size, '-webkit-animation-duration': duration});
+				return $(this).append(spinner);
+			}
+		},
+		
+		RemoveUIAcitivityIndicator : function ( ) {
+			$(this).UIUnblock();
+			$._each($.els('panel[ui-implements=modal-activity-indicator]'), function() {
+				$(this).remove();
+			});
+			$._each($.els('activityindicator'), function() {
+				$(this).remove();
+			});
 		}
 	};
 	
-	// Convert methods into appropriate forms for Element extension in libraries.
+	// Convert methods into appropriate forms for Element extension in libraries (ChocolateChp, jQuery, Zepto).
 	UIConvertElementMethods(elementMethods);
 	
 	$(function() {			
@@ -765,31 +845,18 @@ When using Zepto, make sure you have the following modules included in your buil
 		}
 		
 		$.extend($, {
-			UIUuidSeed : function ( seed ) {
-				if (seed) {
-					return (((1 + Math.random()) * 0x10000) | 0).toString(seed).substring(1);
-				} else {
-					return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-				}
-			},
-			
-			AlphaSeed : function ( ) {
-				var text = "";
-				var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-				text += chars.charAt(Math.floor(Math.random() * chars.length));
-				return text;
-			},
 			
 			UIUuid : function() {
-				return $.concat($.AlphaSeed(), $.UIUuidSeed(20), $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), '-', $.UIUuidSeed(), $.UIUuidSeed(), $.UIUuidSeed());
+				return Date.now().toString(36);
 			},
+			
 			
 			ctx : function(node) {
 				try {
 					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? node[0] : node
 				} catch(err) {}
 			},
-
+	
 			UIEnableScrolling : function ( options ) {
 				options = options || {};
 				$._each($.els("scrollpanel"), function(idx, ctx) {
@@ -1367,6 +1434,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					e.preventDefault();
 				});
 				$.UIPositionPopUp('#' + options.id);
+				$('#' + options.id).UICenterElementToParent();
 				screenCover.attr('ui-visible-state', 'visible');
 				$('#' + options.id).attr('ui-visible-state', 'visible');
 			},
@@ -1438,15 +1506,11 @@ When using Zepto, make sure you have the following modules included in your buil
 				if ($.app.data('ui-action-sheet-id')) {
 					actionSheetID = $.app.data('ui-action-sheet-id');
 					$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px'});
-					if (touchEnabled) {
+					if ($.touchEnabled) {
 						if ($.standalone) {
 							$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px'});
 						} else {
-							if (window.innerWidth > window.innerHeight) {
-								$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px', '-webkit-transform': 'translate3d(0,70px,0)'});
-							} else {
-								$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px', '-webkit-transform': 'translate3d(0,0,0)'});
-							}
+							$(actionSheetID).css({'right': '0px', 'bottom': '0px', 'left': '0px', '-webkit-transform': 'translate3d(0,0,0)'});
 						}
 					}
 				}
@@ -1484,6 +1548,12 @@ When using Zepto, make sure you have the following modules included in your buil
 					var alpha = $.ctx(ctx) || $(this);
 					scroller.data('ui-scroller').scrollToElement(alpha.attr("href"));
 				});
+			},
+			
+			UIPositionMask : function() {
+				if ($.els("mask").length > 0) {
+					$("mask").css({"height": + (window.innerHeight + window.pageYOffset), width : + window.innerWidth});
+				}
 			}
 		});
 	});
