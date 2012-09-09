@@ -749,7 +749,79 @@ When using Zepto, make sure you have the following modules included in your buil
 			$._each($.els('activityindicator'), function() {
 				$(this).remove();
 			});
+		},
+		
+		UISetTranstionType : function( transition ) {
+			$(this).attr('ui-transition-type', transition);
+		},
+		
+		UIFlipSubview : function ( direction ) {
+			var view = $(this).closest("view");
+			direction = direction || "left";
+			view.UISetTranstionType("flip-" + direction);
+			$(this).on("click", function() {
+				switch (direction) {
+					case "right":
+						view.find("subview:nth-of-type(1)").toggleClassName("flip-right-front-in", "flip-right-front-out");
+						view.find("subview:nth-of-type(2)").toggleClassName("flip-right-back-in", "flip-right-back-out");
+						break;
+					case "left":
+						view.find("subview:nth-of-type(1)").toggleClassName("flip-left-front-in","flip-left-front-out");
+						view.find("subview:nth-of-type(2)").toggleClassName("flip-left-back-in","flip-left-back-out");
+						break;
+					case "top":
+						view.find("subview:nth-of-type(2)").toggleClassName("flip-top-front-in","flip-top-front-out");
+						view.find("subview:nth-of-type(1)").toggleClassName("flip-top-back-in","flip-top-back-out");
+						break;
+					case "bottom":
+						view.find("subview:nth-of-type(2)").toggleClassName("flip-bottom-front-in","flip-bottom-front-out");
+						view.find("subview:nth-of-type(1)").toggleClassName("flip-bottom-back-in","flip-bottom-back-out");
+						break;
+					default:
+						view.find("subview:nth-of-type(1)").toggleClassName("flip-right-front-in","flip-right-front-out");
+						view.find("subview:nth-of-type(2)").toggleClassName("flip-right-back-in","flip-right-back-out");
+				}
+			});
+		},
+		
+		UIPopSubview : function ( ) {
+			var view = $(this).closest("view");
+			view.UISetTranstionType("pop");
+			$(this).on("click", function() {
+				$("subview:nth-of-type(2)", view).toggleClassName("pop-in","pop-out");	
+			});
+		},
+		
+		UIFadeSubview : function ( ) {
+			var view = $(this).closest("view");
+			view.UISetTranstionType("fade");
+			view.attr("ui-transition-type", "fade");
+			$(this).on("click", function() {
+				$("subview:nth-of-type(2)", view).toggleClassName("fade-in", "fade-out");
+			});
+		},
+		
+		UISpinSubview : function ( direction ) {
+			var view = $(this).closest("view");
+			view.UISetTranstionType("spin");
+			if (!direction || direction === "left") {
+				$(this).UISetTranstionType("left");
+				$(this).on("click", function() {
+					$("subview:nth-of-type(2)", view).toggleClassName("spin-left-in", "spin-left-out");
+				});
+			} else if (direction === "right") {
+				$(this).UISetTranstionType("right");
+				$(this).on("click", function() {
+					$("subview:nth-of-type(2)", view).toggleClassName("spin-right-in", "spin-right-out");
+				});
+			} else {
+				$(this).UISetTranstionType("left");
+				$(this).on("click", function() {
+					$("subview:nth-of-type(2)", view).toggleClassName("spin-left-in", "spin-left-out");
+				});
+			}
 		}
+		
 	};
 	
 	// Convert methods into appropriate forms for Element extension in libraries (ChocolateChp, jQuery, Zepto).

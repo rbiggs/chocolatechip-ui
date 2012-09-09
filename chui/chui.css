@@ -3479,20 +3479,20 @@ view[ui-transition-type=accordion] {
 }
 @-webkit-keyframes anim-spin-left-in {
 	0% { opacity: .25; -webkit-transform: scale(0) rotate(0deg); }
-	100% { opacity: 1; -webkit-transform: scale(1) rotate(360deg); }
+	100% { opacity: 1; -webkit-transform: scale(1) rotate(-360deg); }
 }
 
 @-webkit-keyframes anim-spin-left-out {
-	0% { opacity: 1; -webkit-transform: scale(1) rotate(360deg); }
+	0% { opacity: 1; -webkit-transform: scale(1) rotate(-360deg); }
 	100% { opacity: .25; -webkit-transform: scale(0) rotate(0deg); }
 }
 
 @-webkit-keyframes anim-spin-right-in {
 	0% { opacity: .25; -webkit-transform: scale(0) rotate(0deg); }
-	100% { opacity: 1; -webkit-transform: scale(1) rotate(-360deg); }
+	100% { opacity: 1; -webkit-transform: scale(1) rotate(360deg); }
 }
 @-webkit-keyframes anim-spin-right-out {
-	0% { opacity: 1; -webkit-transform: scale(1) rotate(-360deg); }
+	0% { opacity: 1; -webkit-transform: scale(1) rotate(360deg); }
 	100% {  opacity: .25;-webkit-transform: scale(0) rotate(0deg); }
 }
 
