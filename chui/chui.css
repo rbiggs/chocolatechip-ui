@@ -1584,14 +1584,11 @@ tableview > tablecell {
     min-height: 44px;
 }
 tableview > tablecell[href].touched,
-tableview[ui-implements='detail-menu'] > tablecell.selected.touched,
+tableview[ui-implements='detail-menu'] > tablecell.touched,
 tableview[ui-implements='selection-list'] > tablecell.selected.touched {
-    background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#4286f5), 
-            to(#194fdb));
+    background-image: -webkit-linear-gradient(top, #4286f5, #194fdb);
     color: #fff;
-	cursor: pointer;
+	 cursor: pointer;
 }
 tableview > tablecell[href].touched > *,
 tableview[ui-implements='detail-menu'] > tablecell.touched > * {
@@ -3841,4 +3838,149 @@ mask {
 	width: 100%;
 	z-index: 9999;
 	cursor: pointer;
+}
+/* SplitView Styles */
+splitview {
+	display: -webkit-box;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	-webkit-box-orient: horizontal;
+	-webkit-box-align: stretch;
+	-webkit-box-sizing: border-box;
+	background:#424242;
+}
+detailview, rootview {
+	display: block;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	-webkit-box-flex: 1;
+	height: 100%;
+}
+rootview {
+	width: 320px;
+	-webkit-box-flex: 0;
+	margin-right: 1px;
+	position: relative;
+}
+rootview > panel {
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+rootview > panel > view > subview {
+	background-color: #dcdee4;
+}
+detailview > subview {
+	 display: none;
+	background-color: #d6dadf;
+}
+detailview > subview:first-of-type {
+	 display: block;
+}
+detailview > div, rootview > div {
+	height: 100%;
+}
+rootview ul {
+	background-color: #fff;
+}
+splitview navbar {
+	height: 45px; 
+	border-bottom: 1px solid #838a9a;
+	background-color: #424242;
+	background-image: 
+		-webkit-gradient(linear, left top, left bottom, 
+			from(#f1f2f5), 
+			color-stop(0.4, #d7dae0), 
+			to(#9498a8)); 
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	position: relative;
+	padding-top: 1px;
+	z-index: 1;
+}
+splitview navbar > h1 {
+	line-height: 20px;
+	color: #717880;
+	text-shadow: 0 1px 0 #fff;
+	font-size: 18px; 
+	font-weight: bold;
+	text-align: center;
+}
+.landscape splitview navbar uibutton.navigation {
+	display: none;
+}
+body:not(.SplitViewFixed).portrait rootview {
+	display: none;
+	position: absolute;
+	top: 44px;
+	left: 10px;
+	z-index: 10000;
+	height: 100%;
+	border-radius: 6px 6px;
+	-webkit-box-shadow: 0 0 10px #000;
+	border: solid 4px #000;
+	background-color: #000;
+}
+body:not(.SplitViewFixed).portrait rootview > div {
+	height: auto;
+}
+body:not(.SplitViewFixed).portrait rootview:after {
+	content: "";
+	position: absolute;
+	display: block;
+	top: -17px;
+	left: 17px;
+	height: 30px !important;
+	width: 30px;
+	border: solid 4px #000;
+	border-radius: 5px;
+	border-bottom: none;
+	border-right: none;
+	background-color: #9e9e9e !important;
+	-webkit-transform: rotate(45deg);
+	-webkit-mask-image: 
+		-webkit-gradient(linear, left top, right bottom, 
+			from(#000000), 
+			color-stop(0.5,#000000), 
+			color-stop(0.5, transparent), 
+			to(transparent));
+}
+body:not(.SplitViewFixed).portrait rootview navbar {
+	margin-top: 0;
+	background-color: none;
+	background-image:
+		-webkit-gradient(linear, left top, left bottom, 
+			from(rgba(255,255,255,.5)), 
+			color-stop(0.5,rgba(30,30,30,.5)), 
+			color-stop(0.5, rgba(0,0,0,.5)), 
+			to(rgba(0,0,0,.45)));
+}
+body:not(.SplitViewFixed).portrait rootview navbar h1 {
+	color:#fff;
+	text-shadow: none;
+}
+splitview scrollpanel { 
+	display: block; 
+}
+splitview subview {
+	height: 100%;
+}
+splitview scrollpanel {
+	padding-bottom: 80px;
+}
+splitview rootview > panel > view > subview {
+	position: relative;
+}
+rootview view[ui-navigation-status=upcoming] {
+	-webkit-transform: translate3d(100%,0%,0%);
+}
+rootview view[ui-navigation-status=current] {
+	-webkit-transform: translate3d(0%,0%, 0%);
+}
+rootview view[ui-navigation-status=traversed] {
+	-webkit-transform: translate3d(0%, 0%, 0%);
 }

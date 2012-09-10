@@ -1626,7 +1626,108 @@ When using Zepto, make sure you have the following modules included in your buil
 				if ($.els("mask").length > 0) {
 					$("mask").css({"height": + (window.innerHeight + window.pageYOffset), width : + window.innerWidth});
 				}
-			}
+			},
+			
+			UICancelSplitViewToggle : function () {
+				$.body.addClass('SplitViewFixed');
+			},
+			
+			rootview : $('rootview'),
+			resizeEvt : ('onorientationchange' in window ? 'orientationchange' : 'resize'),
+			
+			UISplitView : function ( ) {
+				if ($.body.hasClass('SplitViewFixed')) {
+					return;
+				}
+				var buttonLabel = $("rootview > panel > view[ui-navigation-status=current] > navbar").text();
+				$("detailview > navbar").append("<uibutton id ='showRootView'  class='navigation' ui-bar-align='left'>"
+			+ buttonLabel + "</uibutton>");
+				if (window.innerWidth > window.innerHeight) {
+					$.body.addClass("landscape");
+					$.body.removeClass("portrait");
+					$.rootview.css({display: "block", height: "100%", "margin-bottom": "1px"});
+					$._each($.els('rootview scrollpanel'), function(idx, ctx) {
+						$(ctx).css({overflow: "hidden", height: ($.rootview.innerHeight - 45)+'px'});
+						$(ctx).data('ui-scroller').refresh();
+					});
+				} else {
+					$.body.addClass("portrait");
+					$.body.removeClass("landscape");
+					$.rootview.css({display: 'none','height': (window.innerHeight - 100) + "px"});
+					
+					$._each($.els('rootview scrollpanel'), function(idx, ctx) {
+						$(ctx).css({overflow: "hidden", height:(window.innerHeight - 155)+'px'});
+						$(ctx).data('ui-scroller', new iScroll(ctx));
+					});
+				}
+				$("detailview navbar h1").text($.els("tableview[ui-implements=detail-menu] > tablecell").eq(0).text());
+			},
+			
+			UISetSplitviewOrientation : function() {
+				if ($.body.hasClass("SplitViewFixed")) {
+					return;
+				}
+				if ($.resizeEvt) {
+					if (window.innerWidth > window.innerHeight) {
+						$.body.addClass("landscape");
+						$.body.removeClass("portrait");
+						$.rootview.css({display: "block", height: "100%", "margin-bottom": "1px"});						
+						$._each($.els('rootview scrollpanel'), function(idx, ctx) {
+							$(ctx).css({overflow: "hidden", height: "100%"});
+							$(ctx).data('ui-scroller').refresh();
+						});
+						$.app.UIUnblock();
+					} else {
+						$.app.UIUnblock();
+						$.body.addClass("portrait");
+						$.body.removeClass("landscape");
+						$.rootview.css({display: "none", height: (window.innerHeight - 100)+'px'});
+						$._each($.els('rootview scrollpanel'), function(idx, ctx) {
+							$(ctx).css({overflow: "hidden", height:(window.innerHeight - 155)+'px'});
+							$(ctx).data('ui-scroller').refresh();
+						});
+					}
+					$.UIEnableScrolling();
+				}
+			},
+			
+			UIToggleRootView : function() {
+				if ($.body.hasClass("SplitViewFixed")) {
+					return;
+				}
+				if ($.rootview.css("display") === "none") {
+					$.rootview.css("display", "block");
+					$.app.UIBlock(".01");
+					$._each($.els('rootview scrollpanel'), function(idx, ctx) {
+						$(ctx).data('ui-scroller').refresh();
+					});
+				} else {
+					$.rootview.css("display","none");
+					$.app.UIUnblock();
+					$._each($.els('rootview scrollpanel'), function(idx, ctx) {
+						$(ctx).data('ui-scroller').refresh();
+					});
+				}
+			},			
+			UICheckForSplitView : function ( ) {
+				if ($.body.hasClass("SplitViewFixed")) {
+					return;
+				}
+				if ($("splitview")) {
+					$.UISplitView();
+					$("#showRootView").on("click", function() {
+						$.UIToggleRootView();
+					});
+					$.body.on("orientationchange", function(){
+						$.UISetSplitviewOrientation();
+					});
+					$(window).on("resize", function() {
+						$.UISetSplitviewOrientation();
+					});
+				}
+			},
+			
+			UICurrentSplitViewDetail : null			
 		});
 	});
 	
@@ -1635,9 +1736,17 @@ When using Zepto, make sure you have the following modules included in your buil
 	}, false);
 	
 	$(function() {
+		$.UICheckForSplitView();
+		$('body').on('click', 'mask', function() {
+			$.rootview.css('display', 'none');
+			$.rootview.UIUnblock();
+		});
 		if ("stack[ui-kind='titled-list alphabetical']") {
 			$.UIAlphabeticalList(); 
 		}
 		$.UIRepositionPopupOnOrientationChange();
+		$._each($.els('uibutton'), function(idx, ctx) {
+			$(ctx).attr('role','button');
+		});
 	});
 })();
