@@ -820,8 +820,34 @@ When using Zepto, make sure you have the following modules included in your buil
 					$("subview:nth-of-type(2)", view).toggleClassName("spin-left-in", "spin-left-out");
 				});
 			}
-		}
+		},
 		
+		UIRepositionPopover : function() {
+			var triggerElement = $(this).attr("data-popover-trigger"); 
+			var popoverOrientation = $(this).attr("data-popover-orientation");
+			var pointerOrientation = $(this).attr("data-popover-pointer-orientation");
+			var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
+			$(this).css(popoverPos);
+			
+		},
+		
+		UIAdjustPopoverPosition : function() {
+			var screenHeight = window.innerHeight;
+			var screenWidth = window.innerWidth;
+			var popoverHeight = this.offsetHeight;
+			var popoverWidth = this.offsetWidth;
+			var offset = $(this).offset();
+			var popoverTop = offset.top;
+			var popoverLeft = offset.left;
+			var bottomLimit = popoverTop + popoverHeight;
+			var rightLimit = popoverLeft + popoverWidth;
+			if (bottomLimit > screenHeight) {
+				this.style.top	= screenHeight - popoverHeight - 10 + "px";
+			}
+			if (rightLimit > screenWidth) {
+				this.style.left = screenWidth - 10 + "px";
+			}
+		}
 	};
 	
 	// Convert methods into appropriate forms for Element extension in libraries (ChocolateChp, jQuery, Zepto).
@@ -1727,7 +1753,188 @@ When using Zepto, make sure you have the following modules included in your buil
 				}
 			},
 			
-			UICurrentSplitViewDetail : null			
+			UICurrentSplitViewDetail : null,
+			
+			determineMaxPopoverHeight : function() {
+				var screenHeight = window.innerHeight;
+				var toolbarHeight;
+				try {
+					if ($('navbar')) {
+						toolbarHeight = $('navbar').clientHeight;
+					}
+					var toolbar = _cc ? $('toolbar') : $('toolbar')[0];
+					if (toolbar) {
+						if (!$('toolbar').attr('ui-placement')) {
+							toolbarHeight = toolbar.clientHeight;
+						}
+					}
+				} catch(err) {}
+				screenHeight = screenHeight - toolbarHeight;
+				return screenHeight; 			
+			},
+			
+			determinePopoverWidth : function() {
+				var screenWidth = window.innerWidth
+			},
+			
+			adjustPopoverHeight : function( popover ) {
+				var availableVerticalSpace = $.determineMaxPopoverHeight();
+				$(popover).find("section").css({"max-height":(availableVerticalSpace - 100) + "px"});
+				var popoverID = popover.split("#");
+				popoverID = popoverID[1];
+			},
+			
+			determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation ) {
+				popoverOrientation = popoverOrientation.toLowerCase();
+				pointerOrientation = pointerOrientation.toLowerCase();
+				var trigEl = _cc ? $(triggerElement) : $(triggerElement)[0];
+				var popoverPos = {};
+				switch (popoverOrientation) {
+					case 'top' : 
+						if (pointerOrientation === 'left') {
+							popoverPos.left = trigEl.offsetLeft + 'px';
+						} else if (pointerOrientation === 'center') {
+							popoverPos.left = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160) + 'px';
+						} else {
+							popoverPos.left = ((trigEl.offsetLeft + trigEl.offsetWidth) - 320) +'px';
+						}
+						popoverPos.top = (trigEl.offsetTop + trigEl.offsetHeight + 20) +'px';
+						break;
+					case 'right' :
+						if (pointerOrientation === 'top') {
+							popoverPos.top = (trigEl.getTop() + 2) + 'px';
+						} else if (pointerOrientation === 'center') {
+							popoverPos.top = (trigEl.getTop() - (trigEl.offsetHeight/2) - 20) + 'px';
+						} else {
+							popoverPos.top = (trigEl.getTop() - trigEl.offsetHeight - 20) + 'px';
+						}
+						popoverPos.left = ((trigEl.getLeft() - 330)-2) + 'px';
+						
+						break;
+					case 'bottom' :
+						if (pointerOrientation === 'left') {
+							popoverPos.left = trigEl.offsetLeft + 'px';
+						} else if (pointerOrientation === 'center') {
+							popoverPos.left = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160) + 'px';
+						} else {
+							popoverPos.left = ((trigEl.offsetLeft + trigEl.offsetWidth) - 320) + 'px';
+						}
+						popoverPos.bottom = (trigEl.offsetTop + trigEl.offsetHeight +20)  + 'px';
+						break;
+					case 'left' :
+						if (pointerOrientation === 'top') {
+							popoverPos.top = (trigEl.getTop() + 2) + 'px';
+						} else if (pointerOrientation === 'center') {
+							popoverPos.top = (trigEl.getTop() - (trigEl.offsetHeight/2) - 20) + 'px';
+						} else {
+							popoverPos.top = (trigEl.getTop() - trigEl.offsetHeight - 20) + 'px';
+						}
+						popoverPos.left = (trigEl.offsetLeft + trigEl.offsetWidth + 20) + 'px';
+						break;
+					default :
+						popoverPos.left = (trigEl.getTop() + trigEl.offsetHeight) + 'px';
+						popoverPos.top = (trigEl.offsetTop + trigEl.offsetHeight + 20) + 'px';
+						break;
+				}
+				return popoverPos;			
+			},
+			
+			UIPopover : function( opts ) {
+				var title = '';
+				var popoverID = '';
+				var triggerElement = opts.triggerElement;
+				var popoverOrientation = opts.popoverOrientation;
+				var pointerOrientation = opts.pointerOrientation;
+				if (opts) { 
+					popoverID = opts.id ? opts.id : $.UIUuid();
+					title = opts.title ? $.concat('<h3>', opts.title, '</h3>') : "";
+				}
+				var trigEl = $(triggerElement);
+				var pos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);	
+				var popoverShell = $.concat('<popover ', 'id="', popoverID, '" ui-pointer-position="', popoverOrientation, '-', pointerOrientation, '"', ' data-popover-trigger="#', trigEl.attr("id"), '" data-popover-orientation="', popoverOrientation, '" data-popover-pointer-orientation="', pointerOrientation, '"><header>', title, '</header><section><scrollpanel class="popover-content"></scrollpanel></section></popover>');
+				popoverShell;
+				$.app.append(popoverShell);
+				
+				// Apply positioning to popover:
+				$('#'+popoverID).css(pos);
+				
+				// Adjust the left or bottom position of the popover if it is beyond the viewport:
+				if (!!opts.id) {
+					$.adjustPopoverHeight("#" + opts.id);
+					$("#" + opts.id).UIAdjustPopoverPosition();
+				}
+			},
+			
+			UICancelPopover : function (popover) {
+				$.UIHidePopover(popover);
+			},
+			
+			UIHidePopover : function (popover) {
+				$.UIPopover.activePopover = null;
+				$(popover).css({"opacity": 0, "-webkit-transform": "scale(0)"});
+				popover.UIUnblock();
+			},
+			
+			UIEnablePopoverScrollpanels : function ( options ) {
+				try {
+					var count = 0;
+					$._each($.els("popover scrollpanel"), function(idx, item) {
+						$(item).data('ui-scroller', new iScroll(item.parentNode));
+					});
+				} catch(e) { }			
+			}
+		});
+		
+		$.extend($.UIPopover, {
+			activePopover : null,
+			
+			show : function ( popover ) {
+				if ($.UIPopover.activePopover === null) {
+					popover.UIBlock(".01");
+					popover.UIRepositionPopover();
+					var setPopoverCSS = function() {
+						popover.css({"opacity": 1, "-webkit-transform": "scale(1)", 'overflow':'visible'});
+					};
+					setTimeout(function() {
+						setPopoverCSS()
+					},0);
+					$.UIPopover.activePopover = _cc ? popover.id : popover[0].id;
+			
+					$.UIEnableScrolling();
+				} else {
+					return;
+				}
+				$.UIEnablePopoverScrollpanels();
+			},
+			
+			hide : function ( popover ) {
+				if ($.UIPopover.activePopover) {
+					popover.css({"opacity": 0, "-webkit-transform": "scale(0)"});
+					$.UIPopover.activePopover = null;
+				}				
+			}
+		});
+		// Reposition any visible popovers when window resizes.
+		window.onresize = function() {
+			var availableVerticalSpace = $.determineMaxPopoverHeight();
+			$._each($.els("popover"), function(idx, popover) {
+				$(popover).find("section").css({"max-height": (availableVerticalSpace - 100)+'px'});
+				$(popover).UIRepositionPopover();
+			});
+		};
+		$.app.delegate("mask", "click", function() {
+			var mask = _cc ? $('mask') : $('mask')[0];
+			if ($.UIPopover.activePopover) {
+				$.UIPopover.hide($("#"+$.UIPopover.activePopover));
+				if (mask) {
+					console.log('unmasking');
+					$("mask").UIUnblock();
+				}
+			}
+			if ($.rooview && $.rootview.css("position") === "absolute") {
+				$.rootview.style.display = "none";
+				$.rootview.UIUnblock();
+			}
 		});
 	});
 	
@@ -1738,8 +1945,10 @@ When using Zepto, make sure you have the following modules included in your buil
 	$(function() {
 		$.UICheckForSplitView();
 		$('body').on('click', 'mask', function() {
-			$.rootview.css('display', 'none');
-			$.rootview.UIUnblock();
+			try {
+				$.rootview.css('display', 'none');
+				$.rootview.UIUnblock();
+			} catch(err) {}
 		});
 		if ("stack[ui-kind='titled-list alphabetical']") {
 			$.UIAlphabeticalList(); 

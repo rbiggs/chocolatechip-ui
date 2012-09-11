@@ -791,6 +791,13 @@ Version 1.6.0
          pos = pos + document.body.offsetLeft;
          return pos;
       },
+      
+      offset : function () {
+      	var offset = {};
+      	offset.top = this.getTop();
+      	offset.left = this.getLeft();
+      	return offset;
+      },
        
       css : function ( property, value ) {
          if (property instanceof Object) {
