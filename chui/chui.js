@@ -1739,7 +1739,8 @@ When using Zepto, make sure you have the following modules included in your buil
 				if ($.body.hasClass("SplitViewFixed")) {
 					return;
 				}
-				if ($("splitview")) {
+				var splitview = _cc ? $("splitview") : $("splitview").length;
+				if (splitview) {
 					$.UISplitView();
 					$("#showRootView").on("click", function() {
 						$.UIToggleRootView();
@@ -1747,9 +1748,9 @@ When using Zepto, make sure you have the following modules included in your buil
 					$.body.on("orientationchange", function(){
 						$.UISetSplitviewOrientation();
 					});
-					$(window).on("resize", function() {
+					window.onresize = function() {
 						$.UISetSplitviewOrientation();
-					});
+					};
 				}
 			},
 			
@@ -1922,14 +1923,12 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(popover).UIRepositionPopover();
 			});
 		};
-		$.app.delegate("mask", "click", function() {
-			var mask = _cc ? $('mask') : $('mask')[0];
+		$.app.delegate("mask", "click", function(mask) {
+			var $this = _cc ? mask : $(this);
+			console.log(mask);
 			if ($.UIPopover.activePopover) {
 				$.UIPopover.hide($("#"+$.UIPopover.activePopover));
-				if (mask) {
-					console.log('unmasking');
-					$("mask").UIUnblock();
-				}
+				$this .UIUnblock();
 			}
 			if ($.rooview && $.rootview.css("position") === "absolute") {
 				$.rootview.style.display = "none";
