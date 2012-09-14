@@ -1014,13 +1014,15 @@ When using Zepto, make sure you have the following modules included in your buil
 				var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
 				$.UINavigationHistory.pop();
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				.css('visibility', 'visible');
+				$($.UINavigationHistory[$.UINavigationHistory.length-1])
 				.attr('ui-navigation-status', 'current');
 				
- 				$($.UINavigationHistory[$.UINavigationHistory.length-1]).removeAttr('role');
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-				.attr('aria-visibility', 'visible');
+				.attr('aria-hidden', 'false');
 				$(parent).attr('ui-navigation-status', 'upcoming');
-				$(parent).attr('aria-visibility', 'visible');
+				$(parent).attr('aria-hidden', 'true');
+				$(parent).css('visibility', 'hidden');
 				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
  					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
  				}
@@ -1040,13 +1042,15 @@ When using Zepto, make sure you have the following modules included in your buil
 							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
-						$(node.attr('href')).attr('aria-visibility', 'visible');
+						$(node.attr('href')).attr('aria-hidden', 'false');
+						$(node.attr('href')).css('visibility', 'visible');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-visibility', 'hidden');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('role','presentation');
+						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
+						$($.UINavigationHistory[$.UINavigationHistory.length-1]).css('visibility', 'hidden');
 						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
 							$('#main').attr('ui-navigation-status', 'traversed');
-							$('#main').attr('aria-visibility', 'hidden').attr('role','presentation');
+							$('#main').attr('aria-hidden', 'true');
+							$('#main').css('visibility', 'hidden');
 						}
 						
 						$.UINavigationHistory.push(href);
@@ -1065,10 +1069,10 @@ When using Zepto, make sure you have the following modules included in your buil
 						});
 					} catch(err) {} 
 					
-					var tablecells = _cc ? [].slice.apply($$('tablecell[ui-implements=disclosure]:after')) : $('tablecell[ui-implements=disclosure]:after');
+					/*var tablecells = _cc ? [].slice.apply($$('tablecell[ui-implements=disclosure]:after')) : $('tablecell[ui-implements=disclosure]:after');
 					$._each(tablecells ,function(idx, ctx) {
-						$(ctx).attr('aria-visiblity', 'hidden');
-					});
+						$(ctx).attr('aria-hidden', 'true');
+					});*/
 				};
 				
 				if ($.userAction === 'touchend') {
@@ -1116,9 +1120,12 @@ When using Zepto, make sure you have the following modules included in your buil
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
 					.attr('ui-navigation-status','traversed');
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.attr('aria-visibility', 'hidden');
+					.attr('aria-hidden', 'true');
+				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+					.css('visibility', 'hidden');
 				$(viewID).attr('ui-navigation-status','current');
-				$(viewID).attr('aria-visibility', 'visible');
+				$(viewID).attr('aria-hidden', 'false');
+				$(viewID).css('visibility', 'visible');
 				$.UINavigationHistory.push(viewID);
 				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
 					$('navbar uibutton[ui-implements=back]').css({'display':'block'});
@@ -1135,9 +1142,11 @@ When using Zepto, make sure you have the following modules included in your buil
 				var views = $.els('view');
 				$._each(views, function(idx, ctx) {
 					if ($(ctx).attr('ui-navigation-status') !=='current') {
-						$(ctx).attr('aria-hidden', 'false');
-					} else {
 						$(ctx).attr('aria-hidden', 'true');
+						$(ctx).css('visibility', 'hidden');
+					} else {
+						$(ctx).attr('aria-hidden', 'false');
+						$(ctx).css('visibility', 'visible');
 					}
 				});
 			},

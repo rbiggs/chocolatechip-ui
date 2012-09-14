@@ -6,7 +6,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Navigation List</title>
     <link rel="stylesheet" href="../chui/chui.css">
-    <style></style>
+    <style>
+    uibutton:focus{border: solid 4px red;}</style>
     <script src="../libs/chocolatechip.js"></script>
     <script src="../chui/iscroll.js"></script>
     <script src="../chui/chui.js"></script>
@@ -42,23 +43,23 @@
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel id='sc1'>
-					<tableview>
-						<tablecell>
+					<tableview role='list'>
+						<tablecell role='listitem'>
 							<uibutton id='button'><label>Button<label></uibutton>
 						</tablecell>
-						<tablecell href="#people_view" ui-implements="detail-disclosure">
+						<tablecell role='button' href="#people_view" ui-implements="detail-disclosure">
 							<celltitle>People</celltitle>
 						</tablecell>
-						<tablecell href="#places_view" ui-implements="detail-disclosure">
+						<tablecell role='button' href="#places_view" ui-implements="detail-disclosure">
 							<celltitle>Places</celltitle>
 						</tablecell>
-						<tablecell href="#things_view" ui-implements="detail-disclosure">
+						<tablecell role='button' href="#things_view" ui-implements="detail-disclosure">
 							<celltitle>Things</celltitle>
 						</tablecell>
-						<tablecell href="#animals_view" ui-implements="detail-disclosure">
+						<tablecell role='button' href="#animals_view" ui-implements="detail-disclosure">
 							<celltitle>Animals</celltitle>
 						</tablecell>
-						<tablecell href="#food_view" ui-implements="detail-disclosure">
+						<tablecell role='button' href="#food_view" ui-implements="detail-disclosure">
 							<celltitle>Food</celltitle>
 						</tablecell>
 					</tableview>
