@@ -43,8 +43,8 @@
 		$(function() {
 			// This is just an animation for popup callback. Not part of popup functionality.
 			$("#popupMessageTarget").on("webkitAnimationEnd", function() {
-				$(this).className = "";
-				$(this).textContent = "";
+				$(this).removeClass('animatePopupMessage');
+				$(this).empty();
 			});
 			
 			// Bind event to show the popup:

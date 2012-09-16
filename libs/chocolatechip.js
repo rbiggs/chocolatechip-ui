@@ -387,6 +387,7 @@ Version 1.6.0
       },
       
       findAll : function ( selector ) {
+      	console.dir(this);
          return $$(selector, this);
       },
           

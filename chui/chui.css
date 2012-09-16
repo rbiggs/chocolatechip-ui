@@ -37,6 +37,9 @@ app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, cell
 	box-sizing: border-box;
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
 }
+*:focus {
+	outline: none;
+}
 navbar, toolbar, tabbar {
     z-index: 1000;
 }
