@@ -1605,18 +1605,22 @@ tablecell[ui-implements=action] > celltitle:after {
 	content: '...'
 }
 tablecell[ui-implements=disclosure]:after {
-    content: '›';
+    content: '';
+	 background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g   transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path   d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#808080;fill-opacity:1;stroke:none' /></g></svg>");
+	 background-size: 25px 25px;
+	 background-repeat: none;
+	 background-position: center center;
     font: normal 28px/28px Verdana;
-    color: #808080;
     display: block;
-    height: 48px;
+    height: 25px;
+    width: 25px;
     float: right;
-    margin-top: -4px;
+    margin-top: 0;
     margin-bottom: -20px;
     margin-left: -10px;
 }
 tablecell[ui-implements=disclosure][href].touched:after {
-    color: #fff;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g   transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path   d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#fff;fill-opacity:1;stroke:none' /></g></svg>");
 }
 tablecell[ui-usage=icon][ui-implements=disclosure]:after, tablecell[ui-implements=disclosure][ui-usage=icon]:after {
     margin-bottom: -20px;
@@ -1626,15 +1630,18 @@ tablecell[ui-usage=image][ui-implements=disclosure]:after, tablecell[ui-implemen
     margin-bottom: -20px;
 }
 tablecell[ui-implements=detail-disclosure]:after {
-    content: '›';
+    content: '';
     font: normal 26px/14px Verdana;
     background-color: #6292e6;
     background-image: 
+    		url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g   transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path   d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#fff;fill-opacity:1;stroke:none' /></g></svg>"),
         -webkit-gradient(linear, left top, left bottom,
             color-stop(0, rgba(0,0,0,.05)),
             color-stop(.5, rgba(0,0,0,.05)),
             color-stop(.5, rgba(0,0,0,.2)),
             color-stop(1, rgba(0,0,0,.2)));
+    background-position: 1px center, left top;
+    background-repeat: no-repeat, repeat-x;
     color: #fff;
     display: block;
     padding: 0 6px 13px 4px;
@@ -2723,7 +2730,7 @@ actionsheet[ui-action-sheet-color=black] {
 			to(rgba(0,0,0,0.65))) !important;
 }
 actionsheet.hidden {
-	-webkit-transform: translate3d(0,100%,0);
+	-webkit-transform: translate3d(0,75%,0);
 	opacity: 0;
 }
 actionsheet > scrollpanel {
