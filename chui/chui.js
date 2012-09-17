@@ -695,7 +695,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			var createActionSheet = function() {
 				var color = '';
 				if (actionSheetColor) color = $.concat(" ui-action-sheet-color='", actionSheetColor, "'");
-				var actionSheetStr = $.concat("<actionsheet id='", actionSheetID, "' class='hidden' style='display:none' ui-contains='action-buttons'", color, "><scrollpanel ui-scroller='", $.UIUuid(), "'><panel>", title, uiButtons, "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#", actionSheetID, "\")'><label>Cancel</label></uibutton></panel></scrollpanel></actionsheet>");
+				var actionSheetStr = $.concat("<actionsheet id='", actionSheetID, "' class='hidden' aria-hidden='true' role='dialog' style='display:none' ui-contains='action-buttons'", color, "><scrollpanel ui-scroller='", $.UIUuid(), "'><panel>", title, uiButtons, "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#", actionSheetID, "\")'><label>Cancel</label></uibutton></panel></scrollpanel></actionsheet>");
 				$(that).append(actionSheetStr);
 			}
 			createActionSheet();
@@ -1644,8 +1644,19 @@ When using Zepto, make sure you have the following modules included in your buil
 			
 			UIShowActionSheet : function(actionSheetID) {
 				$.app.data('ui-action-sheet-id', actionSheetID);
-				$(actionSheetID).css('display','block');
-				$(actionSheetID).UIBlock();
+				var actionsheet = $(actionSheetID);
+				actionsheet.css('display','block');
+				actionsheet.UIBlock();
+				actionsheet.attr('aria-hidden','false');
+				var currentView = $('view[ui-navigation-status=current]');
+				currentView.attr('aria-hidden','true');
+				var desc = currentView.findAll('*')
+				actionsheet.ariaFocusChild('p');
+				$._each(desc, function(idx, ctx) {
+					$(ctx).attr('aria-hidden','true');
+				});
+				currentView.css('visibility','hidden');
+				currentView.css('visibility','visible');
 				var screenCover = $('mask');
 				screenCover.css({'opacity': '.5'});
 				screenCover.attr('ui-visible-state', 'visible');
