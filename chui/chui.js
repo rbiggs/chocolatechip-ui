@@ -993,10 +993,14 @@ When using Zepto, make sure you have the following modules included in your buil
 			$.slice = Array.prototype.slice;
 		}
 		
-		var navigationListItems = $.els('tablecell[href]');
+		var navigationListItems = $.els('tablecell');
 		$._each(navigationListItems, function(idx, ctx) {
-			$(ctx).attr('role', 'button');
-			$(ctx).closest('tableview').attr('role','list')
+			if ($(ctx).hasAttr('href')) {
+				$(ctx).attr('role', 'button');
+				$(ctx).closest('tableview').attr('role','list')
+			} else {
+				$(ctx).attr('role', 'listitem');
+			}
 		});
 		
 		$.extend($, {
