@@ -3107,6 +3107,7 @@ stack[ui-implements='indicators'] {
 	-wekit-box-align: center; 
 	-webkit-box-pack: center;
 	margin: 0 auto 10px auto;
+	overflow: hidden;
 }
 stack[ui-implements='indicators'] > indicator {
 	display: block;
@@ -3137,6 +3138,9 @@ stack[ui-implements='paging'] > panel panel > p {
 }
 stack[ui-implements=paging], stack[ui-implements=indicators] {
 	background-color: #fff;
+}
+stack[ui-implements='indicators'] > indicator > input[type="radio"] {
+	opacity: .01;
 }
 /* End Paging Control Styles */
 /* Stepper Styles */

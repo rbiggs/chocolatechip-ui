@@ -1331,13 +1331,15 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(selector).parent().attr('ui-scroller', 'myPager');
 				var indicatorsWidth = $(selector).parent().css('width');
 				var guid = $.UIUuid();
-				var indicators = '<stack id="' + guid + '" ui-implements="indicators" style="width:"' + indicatorsWidth + ';">';
+				var indicators = '<stack id="' + guid + '" ui-implements="indicators" role="radiogroup" style="width:"' + indicatorsWidth + ';">';
 				scrollerPanels.eq(0).addClass('active');
-				$._each([].slice.apply(stack.childElements()), function(idx, ctx) {
+				var panels = stack.childElements()
+				$._each([].slice.apply(panels), function(idx, ctx) {
 					if (idx === 0) {
-						indicators += '<indicator class="active"></indicator>';
+						indicators += '<indicator class="active" title="page 1 of'+panels.length+'"><input type="radio" name="group'+guid+'"></indicator>';
 					} else {
-						indicators += "<indicator></indicator>";
+						$(ctx).attr('aria-hidden','true');
+						indicators += "<indicator title='"+ (idx+1) +" of "+panels.length+"'><input type='radio' name='group"+guid+"'></indicator>";
 					}
 				});
 				indicators += "</stack>";
@@ -1350,12 +1352,19 @@ When using Zepto, make sure you have the following modules included in your buil
 					var item = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 					var whichPanel = $(item).attr('ui-child-position');
 					myPager.scrollToPage(whichPanel,0);
+					var focusPanel = scrollerPanels[whichPanel]._first();
 					$._each(indics, function(idx, ctx) {
 						$(ctx).removeClass('active');
 						scrollerPanels.eq(idx).removeClass('active'); 
+						scrollerPanels.eq(idx).attr('aria-hidden','true');
+						scrollerPanels.eq(idx).attr('visibility','hidden'); 
 					});
 					$(item).addClass('active');
-					scrollerPanels.eq($(item).attr('ui-child-position')).addClass('active');
+					var activePanel = scrollerPanels.eq($(item).attr('ui-child-position'));
+					activePanel.addClass('active');
+					activePanel.removeAttr('aria-hidden');
+					var focusableChild = activePanel._first();
+					focusableChild.attr('tabindex','-1');
 				});
 				
 			},
@@ -1601,12 +1610,15 @@ When using Zepto, make sure you have the following modules included in your buil
 					e.preventDefault();
 				});
 				$.UIPositionPopUp('#' + options.id);
-				$('#' + options.id).UICenterElementToParent();
+				var thePopup = $('#' + options.id);
+				thePopup.UICenterElementToParent();
 				screenCover.attr('ui-visible-state', 'visible');
-				$('#' + options.id).attr('ui-visible-state', 'visible');
-				$('#' + options.id).ariaFocusChild('h1');
+				thePopup.attr('ui-visible-state', 'visible');
+				thePopup.ariaFocusChild('h1');
 				$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
 				$('view[ui-navigation-status=current]').ariaHide();
+				$('view[ui-navigation-status=current]').css('display','none');
+				$('view[ui-navigation-status=current]').css('display','block');
 			},
 			
 			UIPositionPopUp : function(selector) {
@@ -1622,6 +1634,8 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(selector + ' uibutton[ui-implements=cancel]').UIRemovePopupBtnEvents('click', 'cancelClickPopup');
 					$(selector + ' uibutton[ui-implements=continue]').UIRemovePopupBtnEvents('click', 'cancelTouchPopup');
 				$(selector).UIUnblock();
+				$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
+				$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 				$(selector).remove();
 				$.UIPopUpIdentifier = null;
 				$.UIPopUpIsActive = false;
