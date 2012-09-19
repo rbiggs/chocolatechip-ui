@@ -347,7 +347,9 @@ Version 1.6.0
       		if (!id) {
 					return;
 				} else {
-					return $.chch_cache.data[id][key];
+					try {
+						return $.chch_cache.data[id][key];
+					} catch(err) {}
 				}
 			} else {
 				if (!this.id) {
@@ -387,7 +389,6 @@ Version 1.6.0
       },
       
       findAll : function ( selector ) {
-      	console.dir(this);
          return $$(selector, this);
       },
           

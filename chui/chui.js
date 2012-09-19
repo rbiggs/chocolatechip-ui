@@ -681,7 +681,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			var that = this;
 			var actionSheetID = opts.id;
 			var actionSheetColor = opts.color || 'undefined';
-			var title = $.concat('<p>', opts.title, '</p>');
+			var title = $.concat('<h3>', opts.title, '</h3>');
 			var uiButtons = "", uiButtonObj, uiButtonImplements, uiButtonTitle, uiButtonCallback;
 			if (!!opts.uiButtons) {
 				$._each(opts.uiButtons, function(idx, button) {
@@ -699,7 +699,9 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(that).append(actionSheetStr);
 			}
 			createActionSheet();
-			var scrollpanel = $("#" + actionSheetID).find('scrollpanel');
+			var actionsheet = $("#" + actionSheetID);
+			actionsheet.attr('aria-hidden','true');
+			var scrollpanel = actionsheet.find('scrollpanel');
 			var scroller =  scrollpanel.reduceToNode();
 			scrollpanel.data('ui-scroller', new iScroll(scroller));
 			var actionSheetUIButtons = $.concat("#", actionSheetID, " uibutton");
@@ -1416,9 +1418,11 @@ When using Zepto, make sure you have the following modules included in your buil
 				var toolbarEl = $(options.toolbar);
 				var button = toolbarEl._first();
 				button = button.reduceToNode();
-				if (button.nodeName === 'UIBUTTON') {
-					button.setAttirubute('ui-contains','uibutton');
-				}
+				try {
+					if (button && button.nodeName === 'UIBUTTON') {
+						button.attr('ui-contains','uibutton');
+					}
+				} catch(err) {}
 				var deleteButtonTmpl = $.concat('<uibutton role="button" ui-kind="deletionListDeleteButton" ui-bar-align="left" ui-implements="delete" class="disabled" style="display: none;"><label>', label3, '</label></uibutton>');
 				var editButtonTmpl = $.concat('<uibutton role="button" ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit"',' ui-button-labels="',label1,' ',label2,'"><label>', label1, '</label></uibutton>');
 				$(toolbarEl).prepend(deleteButtonTmpl);
@@ -1648,15 +1652,14 @@ When using Zepto, make sure you have the following modules included in your buil
 				actionsheet.css('display','block');
 				actionsheet.UIBlock();
 				actionsheet.attr('aria-hidden','false');
-				var currentView = $('view[ui-navigation-status=current]');
-				currentView.attr('aria-hidden','true');
-				var desc = currentView.findAll('*')
-				actionsheet.ariaFocusChild('p');
-				$._each(desc, function(idx, ctx) {
-					$(ctx).attr('aria-hidden','true');
-				});
-				currentView.css('visibility','hidden');
-				currentView.css('visibility','visible');
+				$('view[ui-navigation-status=current]').css('display','none');
+				setTimeout(function() {
+					$('view[ui-navigation-status=current]').css('display','-webkit-box');
+				},100);
+				setTimeout(function() {
+					actionsheet.ariaFocusChild('h3');
+				},1000);
+				$('view[ui-navigation-status=current]').attr('aria-hidden','true')
 				var screenCover = $('mask');
 				screenCover.css({'opacity': '.5'});
 				screenCover.attr('ui-visible-state', 'visible');
@@ -1670,10 +1673,15 @@ When using Zepto, make sure you have the following modules included in your buil
 			},
 			
 			UIHideActionSheet : function() {
-				var actionSheet = $.app.data('ui-action-sheet-id');
-				try{ 
-					$(actionSheet).addClass('hidden');
-					$(actionSheet).UIUnblock();
+				var actionSheetID = $.app.data('ui-action-sheet-id');
+				actionSheet = $(actionSheetID);
+				try { 
+					actionSheet.addClass('hidden');
+					actionSheet.UIUnblock();
+					actionSheet.attr('aria-hidden','true');
+					$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
+					actionSheet.css('display','none');
+					$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 				 } catch(e) {}
 				$.app.removeData('ui-action-sheet-id');
 			},
