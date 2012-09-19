@@ -203,6 +203,9 @@ iScroll.prototype = {
 		switch(e.type) {
 			case START_EV:
 				if (!hasTouch && e.button !== 0) return;
+				if (e.target.tagName === "TEXTAREA") return;
+				if (e.target.tagName === "INPUT") return;
+				if (e.target.tagName === "SELECT") return;
 				that._start(e);
 				break;
 			case MOVE_EV: that._move(e); break;
