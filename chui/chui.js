@@ -103,6 +103,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			$._each($.els('mask'), function(idx, ctx) {
 				$(ctx).remove();
 			});
+			$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 			return this;
 		},
 		
@@ -714,6 +715,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		
 		UICenterElementToParent : function ( ) {
 			var $this = $(this);
+			if (!$this.reduceToNode()) return;
 			var parent = $this.parent();
 			var position;
 			var parentTopPadding = 0;
@@ -750,7 +752,6 @@ When using Zepto, make sure you have the following modules included in your buil
 				tmpTop = (parentHeight /2) - (height /2) - parentTopPadding + 'px';
 				tmpLeft = (parentWidth / 2) - (width / 2) - parentLeftPadding + 'px';
 			}
-			
 			$this.css({position: position, left: tmpLeft, top: tmpTop});
 		},
 		
@@ -759,8 +760,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			var panel;
 			var color = opts.color || '#000';
 			var size = opts.size || '80px';
+			var position = opts.position || null;
 			var modal = opts.modal || false;
-			var modalMessage = opts.modalMessage ? $.concat('<h5>',opts.modalMessage,'</h5>') : '';
+			var modalMessage = opts.modalMessage ? $.concat('<h5 role="dialog">',opts.modalMessage,'</h5>') : '';
 			var modalPanelID = $.UIUuid();
 			var duration = opts.duration || '1s';
 			var style = $.concat('background-color:', color,'; height:', size, ';  width:',size);
@@ -768,19 +770,28 @@ When using Zepto, make sure you have the following modules included in your buil
 				panel = document.createElement('panel');
 				$(panel).attr('ui-implements','modal-activity-indicator');
 				$(panel).attr('aria-visiblity','visible');
+				$(panel).attr('role','dialog');
 				$(panel).attr('id', modalPanelID);
 				$(panel).css({'display':'-webkit-box','-webkit-box-orient':'vertical','-webkit-box-align':'center','-webkit-box-pack':'center', 'background-color':'rgba(0,0,0,0.5)', 'border-radius':'20px', 'height': '120px', 'width':'200px', 'z-index': 11111});
 				var spinner = document.createElement('activityindicator');
 				$(spinner).css({'background-color': '#fff', 'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
+				$(spinner).attr('role','progressbar');
 				$(panel).append(spinner);
 				if (modalMessage) {
 					$(panel).append(modalMessage);
 				}
 				$(this).append(panel);
+				$('view[ui-navigation-status=current]').css('display','none');
+				$(panel).ariaFocusChild('h5');
+				$('view[ui-navigation-status=current]').css('display','-webkit-box');
+				$(panel).find('h5').focus();
 				$('#'+modalPanelID).UIBlock('0.5');
-				$('#'+modalPanelID).UICenterElementToParent();
+				var mp = $('#'+modalPanelID);
+				mp.UICenterElementToParent();
 				window.onresize = function(event) {
-					$('#'+modalPanelID).UICenterElementToParent();
+					try {
+						mp.UICenterElementToParent();
+					} catch(err) {}
 				};
 				$(document.body).on('orientationchange', function() {
 					$('#'+modalPanelID).UICenterElementToParent();
@@ -788,6 +799,8 @@ When using Zepto, make sure you have the following modules included in your buil
 			} else {
 				var spinner = document.createElement('activityindicator');
 				$(spinner).css({'background-color': color, 'height': size, 'width': size, '-webkit-animation-duration': duration});
+				$(spinner).attr('role','progressbar');
+				if (position) $(spinner).attr('ui-bar-align', position);
 				return $(this).append(spinner);
 			}
 		},
@@ -1440,7 +1453,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var editButtonTmpl = $.concat('<uibutton role="button" ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit"',' ui-button-labels="',label1,' ',label2,'"><label>', label1, '</label></uibutton>');
 				$(toolbarEl).prepend(deleteButtonTmpl);
 				$(toolbarEl).append(editButtonTmpl);
-				var deleteDisclosure = '<deletedisclosure><span><svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="20" height="20" viewBox="0 0 56 56" id="svg4441" xml:space="preserve"><metadata id="metadata8"><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs id="defs4443" /><g transform="matrix(3.627675,0,0,4.1708195,-0.38756952,2.0459536)" id="layer1"><path d="m 11.593506,0.85181027 c 0,0 -2.8782812,1.78368203 -4.3315408,3.46282313 C 5.8087055,5.9937746 5.2466215,6.7535798 5.2466215,6.7535798 4.5883903,5.9988655 4.4131283,5.7074764 3.5602554,4.9454794 L 1.6930171,6.6720302 c 0.8705482,0.5389683 1.1118812,0.5228901 1.6820456,0.9472989 0.6284449,0.4677906 1.6685596,1.2039011 2.2759527,2.014857 L 6.65407,7.7313389 C 7.5655527,6.0022084 8.3358445,4.1589192 11.560016,1.9084663 l 0.03349,-1.05665603 z" id="rect5112" style="fill:#ffffff;fill-opacity:1;stroke:none" /></g></svg></span></deletedisclosure>';
+				var deleteDisclosure = '<deletedisclosure><span><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="20" height="20" viewBox="0 0 56 56" id="svg4441" xml:space="preserve"><g transform="matrix(3.627675,0,0,4.1708195,-0.38756952,2.0459536)" id="layer1"><path d="m 11.593506,0.85181027 c 0,0 -2.8782812,1.78368203 -4.3315408,3.46282313 C 5.8087055,5.9937746 5.2466215,6.7535798 5.2466215,6.7535798 4.5883903,5.9988655 4.4131283,5.7074764 3.5602554,4.9454794 L 1.6930171,6.6720302 c 0.8705482,0.5389683 1.1118812,0.5228901 1.6820456,0.9472989 0.6284449,0.4677906 1.6685596,1.2039011 2.2759527,2.014857 L 6.65407,7.7313389 C 7.5655527,6.0022084 8.3358445,4.1589192 11.560016,1.9084663 l 0.03349,-1.05665603 z" id="rect5112" style="fill:#ffffff;fill-opacity:1;stroke:none" /></g></svg></span></deletedisclosure>';
 				$._each($.els(options.selector + " > tablecell"), function(idx, ctx) {
 					$(ctx).prepend(deleteDisclosure);
 				});

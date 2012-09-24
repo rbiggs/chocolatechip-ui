@@ -1369,13 +1369,15 @@ Version 1.6.0
 $(function() {
    $.UIUpdateOrientationChange();
    $.UIListenForWindowResize();
+   
+	if (!Function.prototype.bind) {
+		$.extend(Function.prototype, {
+			bind : function(func, obj) {
+				var args = $.slice.call(arguments, 2);
+				return function() {
+				return func.apply(obj || {}, args.concat($.slice.call(arguments)));
+				};
+			}
+		});
+	}
 });
- 
-if (!Function.prototype.bind) {
-   Function.prototype.bind = function(func, obj) {
-      var args = $.slice.call(arguments, 2);
-      return function() {
-      return func.apply(obj || {}, args.concat($.slice.call(arguments)));
-      };
-   };
-}
