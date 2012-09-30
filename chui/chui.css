@@ -125,248 +125,234 @@ subview[ui-associations='withToolBar withTabBar'] {
 }
 *[ui-background-style=striped] {
 	background: #cbd2d8;
-	background-image: 
-		-webkit-gradient(linear, left top, right top, 
-			from(#c5ccd4), 
-			color-stop(0.75, #c5ccd4), 
-			color-stop(0.75, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 5px 100%;
+	background-image:
+		-webkit-linear-gradient(0deg, #c5ccd4 75%, transparent 75%); 
 	background-size: 5px 100%;
 }
 *[ui-background-style=vertical-striped] {
 	background-image: 
-		-webkit-gradient(linear, left top, right top, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.75, rgba(0,0,0,0.1)), 
-			color-stop(0.75, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 5px 100%;
+		-webkit-linear-gradient(0deg, rgba(0,0,0,0.1) 75%, transparent 75%); 
 	background-size: 5px 100%;
 }
 *[ui-background-style=horizontal-striped] {
-
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.75, rgba(0,0,0,0.1)), 
-			color-stop(0.75, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 100% 5px;
+		-webkit-linear-gradient(90deg, rgba(0,0,0,0.1) 75%, transparent 75%); 
 	background-size: 100% 5px;
 }
 *[ui-background-style=slanted-left] {
 	background-image: 
-		-webkit-gradient(linear, right top, left bottom, 
-		from(transparent), 
-		color-stop(0.15, transparent),  
-		color-stop(0.15, rgba(0,0,0,0.1)), 
-		color-stop(0.50, rgba(0,0,0,0.1)), 
-		color-stop(0.50, transparent), 
-		color-stop(0.65, transparent),
-		color-stop(0.69, rgba(0,0,0,0.1)),  
-		to(rgba(0,0,0,0.1)));
-	-webkit-background-size: 6px 6px;
+		-webkit-linear-gradient(45deg, 
+			transparent 15%,  
+			rgba(0,0,0,0.1) 15%, 
+			rgba(0,0,0,0.1) 50%, 
+			transparent 50%, 
+			transparent 65%,
+			rgba(0,0,0,0.1) 69%);
 	background-size: 6px 6px;
 }
 *[ui-background-style=slanted-right] {
 	background-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-		from(transparent), 
-		color-stop(0.15, transparent),  
-		color-stop(0.15, rgba(0,0,0,0.1)), 
-		color-stop(0.50, rgba(0,0,0,0.1)), 
-		color-stop(0.50, transparent), 
-		color-stop(0.65, transparent),
-		color-stop(0.69, rgba(0,0,0,0.1)),  
-		to(rgba(0,0,0,0.1)));
-	-webkit-background-size: 6px 6px;
+		-webkit-linear-gradient(-45deg, 
+			transparent 15%,  
+			rgba(0,0,0,0.1) 15%, 
+			rgba(0,0,0,0.1) 50%, 
+			transparent 50%, 
+			transparent 65%,
+			rgba(0,0,0,0.1) 65%);
 	background-size: 6px 6px;
 }
 *[ui-background-style=vertical-striped-equal] {
 	background-image: 
-		-webkit-gradient(linear, left top, right top, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.5, rgba(0,0,0,0.1)), 
-			color-stop(0.5, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 10px 100%;
-	background-size: 10px 100%;
+		-webkit-repeating-linear-gradient(0deg, 
+			rgba(0,0,0,0.1) 0px, 
+			rgba(0,0,0,0.1) 5px, 
+			transparent 5px, 
+			transparent 10px); 
 }
 *[ui-background-style=horizontal-striped-equal] {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.5, rgba(0,0,0,0.1)), 
-			color-stop(0.5, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 100% 10px;
-	background-size: 100% 10px;
+		-webkit-repeating-linear-gradient(90deg, 
+			rgba(0,0,0,0.1) 0px, 
+			rgba(0,0,0,0.1) 5px, 
+			transparent 5px, 
+			transparent 10px);
 }
 *[ui-background-style=slanted-left-equal] {
 	background-image: 
-		-webkit-gradient(linear, right top, left bottom,
-			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.25, transparent),
-			color-stop(0.5, transparent), 
-			color-stop(0.5, rgba(0, 0, 0, 0.1)),
-			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.75, transparent),
-			to(transparent));
-	-webkit-background-size: 15px 15px;
-	background-size: 15px 15px;
+		-webkit-repeating-linear-gradient(45deg,
+			rgba(0,0,0,0.1) 0px, 
+			rgba(0,0,0,0.1) 5px, 
+			transparent 5px, 
+			transparent 10px);
 }
 *[ui-background-style=slanted-right-equal] {
 	background-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.25, transparent),
-			color-stop(0.5, transparent), 
-			color-stop(0.5, rgba(0, 0, 0, 0.1)),
-			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.75, transparent),
-			to(transparent));
-	-webkit-background-size: 15px 15px;
-	background-size: 15px 15px;
+		-webkit-repeating-linear-gradient(-45deg,
+			transparent, 
+			transparent 5px, 
+			rgba(0, 0, 0, 0.1) 5px, 
+			rgba(0, 0, 0, 0.1) 10px);
 }
 *[ui-background-style=squared] {
 	background-image: 
-		-webkit-gradient(linear, left top, right top, 
-			from(rgba(0,0,0,0.05)), 
-			color-stop(0.75, rgba(0,0,0,0.05)), 
-			color-stop(0.75, transparent), 
-			to(transparent)),
-			
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,0.05)), 
-			color-stop(0.75, rgba(0,0,0,0.05)), 
-			color-stop(0.75, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 5px 100%, 100% 5px;
+		-webkit-linear-gradient(180deg, 
+			rgba(0,0,0,0.05) 75%, 
+			transparent 75%),
+		-webkit-linear-gradient(90deg,  
+			rgba(0,0,0,0.05) 75%, 
+			transparent 75%); 
 	background-size: 5px 100%, 100% 5px;
 }
 *[ui-background-style=checkered] {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			color-stop(.5, transparent), 
-			color-stop(.5, rgba(0, 0, 0, .1)), 
-			to(rgba(0, 0, 0, .1))),
-		-webkit-gradient(linear, left bottom, right bottom, 
-			color-stop(.5, transparent), 
-			color-stop(.5, rgba(0, 0, 0, .1)), 
-			to(rgba(0, 0, 0, .1)));
-	-webkit-background-size: 10px 10px;
-	background-size: 10px 10px;
+		-webkit-repeating-linear-gradient(0deg, 
+			transparent 0,
+			transparent 5px, 
+			rgba(0, 0, 0, .1) 5px, 
+			rgba(0, 0, 0, .1) 10px),
+		-webkit-repeating-linear-gradient(90deg, 
+			transparent 0,
+			transparent 5px, 
+			rgba(0, 0, 0, .1) 5px, 
+			rgba(0, 0, 0, .1) 10px);
+}	
+*[ui-background-style=squares] {
+	background-image: 
+		-webkit-linear-gradient(45deg, 
+			rgba(0,0,0,0.1) 4px, 
+			transparent 5px, 
+			transparent 16px, 
+			rgba(0,0,0,0.1) 16px, 
+			rgba(0,0,0,0.1)), 
+		-webkit-linear-gradient(45deg, 
+			rgba(0,0,0,0.1) 4px, 
+			transparent 5px, 
+			transparent 16px, 
+			rgba(0,0,0,0.1) 16px, 
+			rgba(0,0,0,0.1));
+	background-size: 16px 16px;
+	background-position: 0 0, 8px 8px; 
 }
 *[ui-background-style=chess] {
 	background-image: 
-		-webkit-gradient(linear, 0 0, 100% 100%, 
-			color-stop(.25, rgba(0,0,0,0.1)), 
-			color-stop(.25, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, 0 100%, 100% 0, 
-			color-stop(.25, rgba(0,0,0,0.1)), 
-			color-stop(.25, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, 0 0, 100% 100%, 
-			color-stop(.75, transparent), 
-			color-stop(.75, rgba(0,0,0,0.1))),
-		-webkit-gradient(linear, 0 100%, 100% 0, 
-			color-stop(.75, transparent), 
-			color-stop(.75, rgba(0,0,0,0.1)));
-	-webkit-background-size: 10px 10px;
+		-webkit-linear-gradient(45deg, 
+			rgba(0,0,0,0.1) 25%, 
+			transparent 25%),
+		-webkit-linear-gradient(-45deg, 
+			rgba(0,0,0,0.1) 25%, 
+			transparent 25%),
+		-webkit-linear-gradient(45deg, 
+			transparent 75%, 
+			rgba(0,0,0,0.1) 75%),
+		-webkit-linear-gradient(-45deg, 
+			transparent 75%, 
+			rgba(0,0,0,0.1) 75%);
 	background-size: 10px 10px;
 }
 *[ui-background-style=speckled] {
 	background-image:
-		-webkit-gradient(radial, 4 4, 4, 4 4, 2, 
-			from(rgba(0,0,0,0)), 
-			color-stop(.6,rgba(0,0,0,0.1)),
-			to(rgba(0,0,0,0.1)));
-	-webkit-background-size: 8px 8px;
+		-webkit-radial-gradient( 
+			rgba(0,0,0,0.1),
+			rgba(0,0,0,0.1) 45%,
+			rgba(0,0,0,0) 50%,
+			rgba(0,0,0,0) 95%);
 	background-size: 8px 8px;
 
 }
 *[ui-background-style=spotted] {
 	background-image:
-		-webkit-gradient(radial, 6 6, 6, 6 6, 3, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(.6,rgba(0,0,0,0.1)),
-			to(rgba(0,0,0,0)));
-	-webkit-background-size: 20px 20px;
+		-webkit-radial-gradient( 
+			rgba(0,0,0,0),
+			rgba(0,0,0,0) 50%,
+			rgba(0,0,0,0.1) 55%,
+			rgba(0,0,0,0.1) 95%);
 	background-size: 10px 10px;
+}
+*[ui-background-style=circles] {
+	background-image:
+		-webkit-radial-gradient( 
+			rgba(0,0,0,0.1),
+			rgba(0,0,0,0.1) 9px,
+			rgba(0,0,0,0) 9px,
+			rgba(0,0,0,0) 17px);
+	background-size: 18px 18px;
 }
 *[ui-background-style=argyle] {
 	background-image: 
-		-webkit-gradient(linear, right top, left bottom, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.5, rgba(0,0,0,0.1)), 
-			color-stop(0.5, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, left top, right bottom, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.5, rgba(0,0,0,0.1)), 
-			color-stop(0.5, transparent), 
-			to(transparent));
-	-webkit-background-size: 15px 15px;
+		-webkit-linear-gradient(right top, 
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 50%, 
+			transparent 50%, 
+			transparent),
+		-webkit-linear-gradient(left top, 
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 50%, 
+			transparent 50%, 
+			transparent);
 	background-size: 12px 12px;
 }
 *[ui-background-style=intersect] {
 	background-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.25, transparent),
-			color-stop(0.5, transparent), 
-			color-stop(0.5, rgba(0, 0, 0, 0.1)),
-			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.75, transparent),
-			to(transparent)),
-		-webkit-gradient(linear, right top, left bottom,
-			color-stop(0.23, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.25, transparent),
-			color-stop(0.5, transparent), 
-			color-stop(0.5, rgba(0, 0, 0, 0.1)),
-			color-stop(0.73, rgba(0, 0, 0, 0.1)), 
-			color-stop(0.75, transparent),
-			to(transparent));
-	-webkit-background-size: 20px 20px;
-	background-size: 12px 12px;
+		-webkit-repeating-linear-gradient(-45deg,
+			transparent, 
+			transparent 5px, 
+			rgba(0, 0, 0, 0.1) 5px, 
+			rgba(0, 0, 0, 0.1) 10px),
+		-webkit-repeating-linear-gradient(45deg,
+			transparent, 
+			transparent 5px, 
+			rgba(0, 0, 0, 0.1) 5px, 
+			rgba(0, 0, 0, 0.1) 10px);
 }
 *[ui-background-style=linen] {
 	background-image: 
-		-webkit-gradient(linear, left top, right top, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.25, rgba(0,0,0,0.1)), 
-			color-stop(0.25, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, left top, right top, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.15, rgba(0,0,0,0.1)), 
-			color-stop(0.15, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, left top, right top, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.15, rgba(0,0,0,0.1)), 
-			color-stop(0.15, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.17, rgba(0,0,0,0.1)), 
-			color-stop(0.17, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.15, rgba(0,0,0,0.1)), 
-			color-stop(0.15, transparent), 
-			to(transparent)),
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,0.1)), 
-			color-stop(0.13, rgba(0,0,0,0.1)), 
-			color-stop(0.13, transparent), 
-			to(transparent)); 
-	-webkit-background-size: 10px 100%,  17px 100%, 21px 100%, 100% 10px, 100% 17px, 100% 21px;
+		-webkit-linear-gradient(left, 
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 25%, 
+			transparent 25%, 
+			transparent),
+		-webkit-linear-gradient(left, 
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 15%, 
+			transparent 15%, 
+			transparent),
+		-webkit-linear-gradient(left, 
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 15%, 
+			transparent 15%, 
+			transparent),
+		-webkit-linear-gradient(top, 
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 17%, 
+			transparent 17%, 
+			transparent),
+		-webkit-linear-gradient(top,
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 15%, 
+			transparent 15%, 
+			transparent),
+		-webkit-linear-gradient(top,
+			rgba(0,0,0,0.1), 
+			rgba(0,0,0,0.1) 13%, 
+			transparent 13%, 
+			transparent);
 	background-size: 10px 100%, 17px 100%, 21px 100%, 100% 10px, 100% 17px, 100% 21px;
 	backgroud-position: 0 0, 6px 0, 14px 0, 0 0, 0 6px, 0 16px;
+}
+*[ui-background-style="stary"] {
+	background-image:
+		-webkit-radial-gradient( 
+			rgba(255,255,255,0.5),
+			rgba(255,255,255,0.5) 9px,
+			rgba(0,0,0,0) 11px,
+			rgba(0,0,0,0) 15px),
+		-webkit-radial-gradient( 
+			rgba(0,0,0,0),
+			rgba(0,0,0,0) 9px,
+			rgba(255,255,255,.75) 10px,
+			rgba(255,255,255,.75) 15px);
+	background-size: 17px 17px;
+	background-position: 8.5px 8.5px, 0% 0%;
 }
 /*  Layout Flexible Box Styles */
 *[ui-box=horizontal] {
@@ -505,10 +491,10 @@ uibutton {
 	-webkit-box-sizing: border-box;
 	-webkit-box-flex: 1;
 	display: block;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
-    display: -webkit-box;
-    -webkit-box-orient: horizontal;
+   -webkit-box-align: center;
+   -webkit-box-pack: center;
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
     
 }
 uibutton.disabled, uibutton.disabled > label {
@@ -522,11 +508,11 @@ toolbar > uibutton {
 uibutton > label, 
 uibutton > img {
 	display: block;
-    -webkit-box-align: center;
+   -webkit-box-align: center;
 }
 uibutton icon[style*=-webkit-mask-image] {
-    background-color: #fff;
-    -webkit-mask-repeat: no-repeat !important;
+   background-color: #fff;
+   -webkit-mask-repeat: no-repeat !important;
 }
 uibutton {
 	-webkit-box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
@@ -540,34 +526,23 @@ uibutton {
 	-webkit-box-sizing: border-box;
 	-webkit-border-radius: 5px;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#92a1bf), 
-			color-stop(0.25, #798aad),
-			color-stop(0.5, #6276a0), 
-			color-stop(0.5, #556a97), 
-			color-stop(0.75, #566c98),
-			to(#546993)); 
+		-webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993); 
 	color: #fff;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-user-select: none;
 	margin: 0px 10px;
 	position: relative;
-   	cursor: pointer;
-   	display: -webkit-box;
-   	-webkit-box-orient: horizontal;
-   	-webkit-box-align: center;
-   	-webkit-box-direction: normal;
+   cursor: pointer;
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-align: center;
+   -webkit-box-direction: normal;
 } 
 uibutton.touched,
 uibutton[ui-implements=done].touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#7d88a5), 
-			color-stop(0.25, #58698c),
-			color-stop(0.5, #3a4e78), 
-			color-stop(0.5, #253c6a), 
-			color-stop(0.75, #273f6d),
-			to(#273f6d));
+		-webkit-linear-gradient(top,
+			#7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
 	-webkit-tap-highlight-color: transparent;
 }
 /* Begin Toolbar Bordered uibutton Styles */
@@ -593,13 +568,13 @@ toolbar.ui-box-pack-justify {
 	-webkit-box-pack: justify;
 }
 uibutton[ui-kind=icon] {
-    height: 43px;
-    width: 43px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical !important;
-    -webkit-box-align: center;
-    position: relative;
-    -webkit-box-shadow: none; 
+   height: 43px;
+   width: 43px;
+   display: -webkit-box;
+   -webkit-box-orient: vertical !important;
+   -webkit-box-align: center;
+   position: relative;
+   -webkit-box-shadow: none; 
 	border: none; 
 	padding: 0px;
 	-webkit-box-sizing: border-box;
@@ -617,9 +592,9 @@ uibutton[ui-kind=icon].disabled /*> uibuttoncontent*/, uibutton.disabled icon {
 } 
 uibutton[ui-kind=icon].touched {
     background-image:
-        -webkit-gradient(radial,50% 50%,0,50% 50%,20,
-            color-stop(0%,rgba(213,231,247,0.9)),
-            color-stop(100%,rgba(213,231,247,0)));
+      -webkit-gradient(radial,50% 50%,0,50% 50%,20,
+         color-stop(0%,rgba(213,231,247,0.9)),
+         color-stop(100%,rgba(213,231,247,0)));
 }
 icon {
     background-position: center center;
@@ -638,11 +613,11 @@ icon[ui-implements='icon-mask'] {
 	background-color: #fff;
 }
 uibutton[ui-kind=icon] > icon {
-    background-position: center center;
-    -webkit-mask-position: 50% 50%;;
-    -webkit-mask-size: 23px 23px;
-    background-size: 23px 23px;
-    margin: 45% auto 0px auto !important;
+   background-position: center center;
+   -webkit-mask-position: 50% 50%;;
+   -webkit-mask-size: 23px 23px;
+   background-size: 23px 23px;
+   margin: 45% auto 0px auto !important;
 }
 uibutton[ui-implements='icon'] {
 	padding: 0px 4px;
@@ -682,10 +657,10 @@ uibutton[ui-icon-align=top] {
     -webkit-box-orient: vertical !important;
 }
 uibutton[ui-icon-align=bottom] {
-    display: -webkit-box;
-    -webkit-background-clip: padding;
-    -webkit-box-orient: vertical;
-    -webkit-box-align: justify;
+   display: -webkit-box;
+   -webkit-background-clip: padding;
+   -webkit-box-orient: vertical;
+   -webkit-box-align: justify;
 	-webkit-box-direction: reverse;
 }
 uibutton[ui-icon-align=top], 
@@ -711,24 +686,12 @@ uibutton[ui-implements=done].disabled.touched {
     border: solid 1px #2c344b;
     border-color: #2c344b #2d54b9 #1a49b5 #2d54b9; 
     background-image:
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#7a9eec), 
-            color-stop(0.25, #5785e5), 
-            color-stop(0.5, #3470e0), 
-            color-stop(0.5, #2461dd), 
-            color-stop(0.75, #2465dd), 
-            to(#2461de));
+        -webkit-linear-gradient(top, #7a9eec, #5785e5 25%, #3470e0 50%, #2461dd 50%, #2465dd 75%, #2461de);
 }
 uibutton[ui-implements=done].touched {
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#7d88a5), 
-            color-stop(0.25, #58698c),
-            color-stop(0.5, #3a4e78), 
-            color-stop(0.5, #253c6a), 
-            color-stop(0.75, #273f6d),
-            to(#273f6d));
+        -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
 }
 /* End Important Bordered UIButton Styles */
 
@@ -738,24 +701,12 @@ uibutton[ui-implements=delete].disabled.touched {
     border: solid 1px #4b353a;
     border-color: #4b353a #832936 #1a49b5 #832936; 
     background-image:
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#c66572), 
-            color-stop(0.25, #b63849), 
-            color-stop(0.5, #ac1a2e), 
-            color-stop(0.5, #a40018), 
-            color-stop(0.75, #a40018), 
-            to(#7d1022));
+        -webkit-linear-gradient(top, #c66572, #b63849 25%, #ac1a2e 50%, #a40018 50%, #a40018 75%, #7d1022);
 }
 uibutton[ui-implements=delete].touched {
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#7d88a5), 
-            color-stop(0.25, #58698c),
-            color-stop(0.5, #3a4e78), 
-            color-stop(0.5, #253c6a), 
-            color-stop(0.75, #273f6d),
-            to(#273f6d));
+        -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
 }
 uibutton[ui-implements=delete].disabled label {
 	cursor: auto;
@@ -766,13 +717,7 @@ uibutton[ui-implements=delete].disabled label {
 /* Back Bordered UIButton Styles */
 uibutton.disabled.touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#92a1bf), 
-			color-stop(0.25, #798aad),
-			color-stop(0.5, #6276a0), 
-			color-stop(0.5, #556a97), 
-			color-stop(0.75, #566c98),
-			to(#546993));
+		-webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993);
 }			
 uibutton[ui-implements=back] {
     padding: 0px 10px 0px 6px;
@@ -790,13 +735,7 @@ uibutton[ui-implements=back].disabled.touched:before {
     display: block;
     z-index: 0;
     background-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            color-stop(0.1, #92a1bf),
-            color-stop(0.3, #798aad),
-            color-stop(0.51, #6276a0), 
-            color-stop(0.51, #556a97), 
-            color-stop(0.75, #566c98),
-            to(#546993)); 
+        -webkit-linear-gradient(left top, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
     border-left: solid 1px #54617D;
     border-bottom: solid 1px #9AA5BB; 
     -webkit-border-top-left-radius: 7px;
@@ -807,11 +746,7 @@ uibutton[ui-implements=back].disabled.touched:before {
     display: inline-block;
     -webkit-transform: rotate(45deg) skew(6deg, 6deg);
     -webkit-mask-image: 
-        -webkit-gradient(linear, left bottom, right top, 
-            from(#000000), 
-            color-stop(0.5,#000000), 
-            color-stop(0.5, transparent), 
-            to(transparent));
+        -webkit-linear-gradient(left bottom, #000000, #000000 50%, transparent 50%, transparent);
     position: absolute;
     left: -8px;
     top: 3px;
@@ -819,13 +754,7 @@ uibutton[ui-implements=back].disabled.touched:before {
 }
 uibutton[ui-implements=back].touched:before {
     background-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            color-stop(0.1, #7d88a5), 
-            color-stop(0.3, #58698c),
-            color-stop(0.51, #3a4e78), 
-            color-stop(0.51, #253c6a), 
-            color-stop(0.75, #273f6d),
-            to(#273f6d)); 
+        -webkit-linear-gradient(left top, #7d88a5 10%, #58698c 30%, #3a4e78 51%, #253c6a 51%, #273f6d 75%, #273f6d); 
 }
 
 /* End Back Bordered uibutton Styles */
@@ -848,13 +777,7 @@ uibutton[ui-implements=next].disabled.touched:before  {
     display: block;
     z-index: 0;
     background-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            color-stop(0.1, #92a1bf),
-            color-stop(0.3, #798aad),
-            color-stop(0.51, #6276a0), 
-            color-stop(0.51, #556a97), 
-            color-stop(0.75, #566c98),
-            to(#546993)); 
+      -webkit-linear-gradient(-45deg, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
     border-right: solid 1px #484e59;
     border-top: solid 1px #484e59;
     -webkit-border-top-left-radius: 7px;
@@ -865,11 +788,7 @@ uibutton[ui-implements=next].disabled.touched:before  {
     display: inline-block;
     -webkit-transform: rotate(45deg) skew(6deg, 6deg);
     -webkit-mask-image: 
-        -webkit-gradient(linear, right top, left bottom, 
-            from(#000000), 
-            color-stop(0.5,#000000), 
-            color-stop(0.5, transparent), 
-            to(transparent));
+      -webkit-linear-gradient(right top, #000000, #000000 50%, transparent 50%, transparent);
     position: absolute;
     right: -8px;
     top: 2.5px;
@@ -877,13 +796,7 @@ uibutton[ui-implements=next].disabled.touched:before  {
 }
 uibutton[ui-implements=next].touched:before {
     background-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            color-stop(0.1, #7d88a5), 
-            color-stop(0.3, #58698c),
-            color-stop(0.51, #3a4e78), 
-            color-stop(0.51, #253c6a), 
-            color-stop(0.75, #273f6d),
-            to(#273f6d)); 
+      -webkit-linear-gradient(left top, #7d88a5 10%, #58698c 30%, #3a4e78 51%, #253c6a 51%, #273f6d 75%, #273f6d); 
 }
 /* End Next Bordered uibutton Styles */
 
@@ -923,9 +836,7 @@ segmentedcontrol > uibutton {
     -webkit-box-pack: center;
     -webkit-box-flex: 1;
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#fbfbfb), 
-            to(#bdbdbd));
+      -webkit-linear-gradient(top, #fbfbfb, #bdbdbd);
     color: #6b6b6b;
     font-size: 13px;
     -webkit-box-sizing: border-box;
@@ -938,9 +849,7 @@ segmentedcontrol > uibutton.touched,
 segmentedcontrol > uibutton.selected, 
 segmentedcontrol > uibutton.selected.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#2a55b1), 
-            to(#6297f2));
+      -webkit-linear-gradient(top, #2a55b1, #6297f2);
     color: #fff;
     border-color: #193a7f;
 }
@@ -986,13 +895,7 @@ toolbar > segmentedcontrol > uibutton {
     -webkit-box-flex: 1;
     text-align: center;
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#92a1bf), 
-			color-stop(0.25, #798aad),
-			color-stop(0.5, #6276a0), 
-			color-stop(0.5, #556a97), 
-			color-stop(0.75, #566c98),
-			to(#546993));
+      -webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993);
     color: #fff;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
@@ -1000,26 +903,14 @@ toolbar > segmentedcontrol > uibutton {
 navbar > segmentedcontrol > uibutton.selected, 
 navbar > segmentedcontrol > uibutton.selected.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-			from(#7d88a5), 
-			color-stop(0.25, #58698c),
-			color-stop(0.5, #3a4e78), 
-			color-stop(0.5, #253c6a), 
-			color-stop(0.75, #273f6d),
-			to(#273f6d)) !important;
+        -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d) !important;
     color: #fff;
     border-color: #193a7f;
 }
 navbar > segmentedcontrol > uibutton.disabled.touched, 
 toolbar > segmentedcontrol > uibutton.disabled.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#92a1bf), 
-			color-stop(0.25, #798aad),
-			color-stop(0.5, #6276a0), 
-			color-stop(0.5, #556a97), 
-			color-stop(0.75, #566c98),
-			to(#546993)) !important;  
+      -webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993) !important;  
     color: #fff;
     border-color: #484e59 #54617d #4c5c7a #54617d;
 }
@@ -1125,10 +1016,7 @@ uibutton[ui-kind='rounded-rectangle'].touched,
 uibutton[ui-kind='rounded-rectangle'][ui-implements=attention].touched {
     color: #fff;
     background-image:
-        -webkit-gradient(linear, left top, left bottom,
-            from(#2a99f1),
-            color-stop(0.5, #2886eb),
-            to(#2874e5));
+      -webkit-linear-gradient(top, #2a99f1, #2886eb 50%, #2874e5);
 }
 uibutton[ui-kind='rounded-rectangle'][ui-implements=attention], 
 uibutton[ui-implements=attention][ui-kind='rounded-rectangle'] {
@@ -1184,10 +1072,7 @@ uibutton[ui-kind=action].disabled.touched {
     height: 52px;
     -webkit-border-radius: 12px;
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(234,234,234,0.7)), 
-            color-stop(0.5, rgba(195,195,195,0.7)), 
-            color-stop(0.5, rgba(166,166,166,0.7)), to(rgba(167,167,167,0.80))); 
+      -webkit-linear-gradient(top, rgba(234,234,234,0.7), rgba(195,195,195,0.7) 50%, rgba(166,166,166,0.7) 50%, rgba(167,167,167,0.80)); 
     color: #000;
     font: bold 16px/20px Helvetica, sans-serif;
     text-decoration: none;
@@ -1200,11 +1085,7 @@ uibutton[ui-kind=action].disabled.touched {
 }
 uibutton[ui-kind=action].touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(135,148,203,0.7)), 
-            color-stop(0.5, rgba(34,56,159,0.7)), 
-            color-stop(0.5, rgba(0,27,145,0.7)), 
-            to(rgba(2,59,152,0.7))); 
+      -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
@@ -1230,21 +1111,13 @@ uibutton[ui-kind=action][ui-icon-align=bottom] {
 uibutton[ui-kind=action][ui-implements=cancel],
 uibutton[ui-kind=action][ui-implements=cancel].disabled.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(74,74,74,0.7)), 
-            color-stop(0.5, rgba(20,20,20,0.7)), 
-            color-stop(0.5, rgba(2,2,2,0.7)), 
-            to(rgba(14,14,14,0.7))); 
+      -webkit-linear-gradient(top, rgba(74,74,74,0.7), rgba(20,20,20,0.7) 50%, rgba(2,2,2,0.7) 50%, rgba(14,14,14,0.7)); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action][ui-implements=cancel].touched  {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(135,148,203,0.7)), 
-            color-stop(0.5, rgba(34,56,159,0.7)), 
-            color-stop(0.5, rgba(0,27,145,0.7)), 
-            to(rgba(2,59,152,0.7)));  
+      -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7));  
     color: #fff;
     text-shadow: #000 0 1px 0;
 }
@@ -1254,21 +1127,13 @@ uibutton[ui-kind=action][ui-implements=cancel].touched  {
 uibutton[ui-kind=action][ui-implements=delete],
 uibutton[ui-kind=action][ui-implements=delete].disabled.touched  {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(255,124,151,0.7)), 
-            color-stop(0.5, rgba(255,74,89,0.7)), 
-            color-stop(0.5, rgba(255,0,4,0.7)), 
-            to(rgba(255,62,27,0.7))); 
+      -webkit-linear-gradient(top, rgba(255,124,151,0.7), rgba(255,74,89,0.7) 50%, rgba(255,0,4,0.7) 50%, rgba(255,62,27,0.7)); 
     color: #fff;
     text-shadow: #000 0 1px 0;
 }
 uibutton[ui-kind=action][ui-implements=delete].touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(135,148,203,0.7)), 
-            color-stop(0.5, rgba(34,56,159,0.7)), 
-            color-stop(0.5, rgba(0,27,145,0.7)), 
-            to(rgba(2,59,152,0.7))); 
+      -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
     color: #fff;
 }
 /* End Action Delete UIButton */
@@ -1277,21 +1142,13 @@ uibutton[ui-kind=action][ui-implements=delete].touched {
 uibutton[ui-kind=action].green, 
 uibutton[ui-kind=action].green.disabled.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(79,156,74,0.7)), 
-            color-stop(0.5, rgba(54,127,35,0.7)), 
-            color-stop(0.5, rgba(0,113,0,0.7)), 
-            to(rgba(0,150,0,0.7))); 
+        -webkit-linear-gradient(top, rgba(79,156,74,0.7), rgba(54,127,35,0.7) 50%, rgba(0,113,0,0.7) 50%, rgba(0,150,0,0.7)); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action].green.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(135,148,203,0.7)), 
-            color-stop(0.5, rgba(34,56,159,0.7)), 
-            color-stop(0.5, rgba(0,27,145,0.7)), 
-            to(rgba(2,59,152,0.7))); 
+        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
     color: #fff;
 }
 /* End Action Green UIButton */
@@ -1300,21 +1157,13 @@ uibutton[ui-kind=action].green.touched {
 uibutton[ui-kind=action].gold,
 uibutton[ui-kind=action].gold.disabled.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(255,217,0,0.7)), 
-            color-stop(0.5, rgba(255,185,0,0.7)), 
-            color-stop(0.5, rgba(255,138,0,0.7)), 
-            to(rgba(255,165,0,0.7))); 
+      -webkit-linear-gradient(top, rgba(255,217,0,0.7), rgba(255,185,0,0.7) 50%, rgba(255,138,0,0.7) 50%, rgba(255,165,0,0.7)); 
     color: #000;
     text-shadow: 0 1px 0 #ccc;
 }
 uibutton[ui-kind=action].gold.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(135,148,203,0.7)), 
-            color-stop(0.5, rgba(34,56,159,0.7)), 
-            color-stop(0.5, rgba(0,27,145,0.7)), 
-            to(rgba(2,59,152,0.7))); 
+        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
@@ -1324,21 +1173,13 @@ uibutton[ui-kind=action].gold.touched {
 uibutton[ui-kind=action][ui-implements=done],
 uibutton[ui-kind=action][ui-implements=done].disabled.touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom,     
-            from(rgba(123,159,235,0.7)), 
-            color-stop(0.5, rgba(54,111,226,0.7)), 
-            color-stop(0.5, rgba(32,87,225,0.7)), 
-            to(rgba(24,87,224,0.7))); 
+        -webkit-linear-gradient(top, rgba(123,159,235,0.7), rgba(54,111,226,0.7) 50%, rgba(32,87,225,0.7) 50%, rgba(24,87,224,0.7)); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action][ui-implements=done].touched {
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(rgba(135,148,203,0.7)), 
-            color-stop(0.5, rgba(34,56,159,0.7)), 
-            color-stop(0.5, rgba(0,27,145,0.7)), 
-            to(rgba(2,59,152,0.7))); 
+        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
     color: #fff;
 }
 /* End Action Important UIButton */
@@ -1347,11 +1188,7 @@ uibutton[ui-kind=action][ui-implements=done].touched {
 navbar.ui-custom-tint,
 toolbar.ui-custom-tint {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(255,255,255,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)), 
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			to(rgba(0,0,0,.45)));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.45));
 	border-top: 1px solid #878788;
 	border-bottom: 1px solid #2c2c2c; 
 }
@@ -1360,11 +1197,7 @@ uibutton.ui-custom-tint.disabled.touched,
 uibutton[ui-implements=done].ui-custom-tint.disabled.touched, 
 uibutton[ui-implements=delete].ui-custom-tint.disabled.touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(255,255,255,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)),
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			to(rgba(0,0,0,.5)));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5));
     border: solid 1px #808080;
     border-color: #6f6f6f #4d4d4d #676767 #616161;
 }
@@ -1372,45 +1205,25 @@ uibutton.ui-custom-tint.touched,
 uibutton[ui-implements=done].ui-custom-tint.touched, 
 uibutton[ui-implements=delete].ui-custom-tint.touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,.1)), 
-			color-stop(0.5,rgba(0,0,0,.5)), 
-			color-stop(0.5, rgba(0,0,0,.6)), 
-			to(rgba(255,255,255,.2)));
+		-webkit-linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2));
 }
 uibutton[ui-implements=back].ui-custom-tint:before {
 	background-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.1, rgba(255,255,255,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)),
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			color-stop(0.9,rgba(0,0,0,.5)));
+		-webkit-linear-gradient(left top, rgba(255,255,255,.5) 10%, rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5) 90%);
 	-webkit-box-shadow: 0 1px 1px #9AA5BB, 0 -1px 1px #8E96A5;
 }
 uibutton[ui-implements=back].ui-custom-tint.touched:before {
 	background-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.1, rgba(0,0,0,.1)), 
-			color-stop(0.5,rgba(0,0,0,.5)), 
-			color-stop(0.5, rgba(0,0,0,.6)), 
-			color-stop(0.9,rgba(255,255,255,.2)));
+		-webkit-linear-gradient(left top, rgba(0,0,0,.1) 10%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2) 90%);
 }
 
 uibutton[ui-implements=next].ui-custom-tint:before {
 	background-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.1, rgba(255,255,255,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)),
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			color-stop(0.9,rgba(0,0,0,.5)));
+		-webkit-linear-gradient(left top, rgba(255,255,255,.5) 10%, rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5) 90%);
 }
 uibutton[ui-implements=next].ui-custom-tint.touched:before {
 	background-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-			color-stop(0.1, rgba(0,0,0,.1)), 
-			color-stop(0.5,rgba(0,0,0,.5)), 
-			color-stop(0.5, rgba(0,0,0,.6)), 
-			color-stop(0.9,rgba(255,255,255,.2)));
+		-webkit-linear-gradient(left top, rgba(0,0,0,.1) 10%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2) 90%);
 }
 segmentedcontrol > uibutton.ui-custom-tint,
 segmentedcontrol > uibutton.ui-custom-tint.disabled.touched, 
@@ -1422,11 +1235,7 @@ navbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched,
 toolbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched {
 	border: solid 1px #484E59;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(255,255,255,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)),
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			to(rgba(0,0,0,.5))) !important;
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5)) !important;
 	color: #fff;
 }
 segmentedcontrol > uibutton.ui-custom-tint.touched,
@@ -1434,31 +1243,19 @@ segmentedcontrol > uibutton.ui-custom-tint.selected,
 segmentedcontrol > uibutton.ui-custom-tint.selected.touched {
 	border: solid 1px #484E59;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,.35)),
-			color-stop(0.5, rgba(0,0,0,.35)), 
-			color-stop(0.5,rgba(50,50,50,.35)),
-			to(rgba(255,255,255,.35))) !important;
+		-webkit-linear-gradient(top, rgba(0,0,0,.35), rgba(0,0,0,.35) 50%, rgba(50,50,50,.35) 50%, rgba(255,255,255,.35)) !important;
 	color: #fff;
 }
 uibutton[ui-kind=action].ui-custom-tint,
 uibutton[ui-kind=action].ui-custom-tint.disabled.touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(255,255,255,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)), 
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			to(rgba(0,0,0,.45)));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.45));
 	color: #fff;
 	text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action].ui-custom-tint.touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(0,0,0,.45)), 
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)), 
-			to(rgba(255,255,255,.5)));
+		-webkit-linear-gradient(top, rgba(0,0,0,.45), rgba(0,0,0,.5) 50%, rgba(30,30,30,.5) 50%, rgba(255,255,255,.5));
 	color: #fff;
 	text-shadow: 0 1px 1px #000;
 }
@@ -1487,13 +1284,7 @@ navbar, toolbar {
 	height: 45px;
 	padding: 0px;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#b2bbca), 
-			color-stop(0.25, #a7b0c3),
-			color-stop(0.5, #909cb3), 
-			color-stop(0.5, #8593ac), 
-			color-stop(0.75, #7c8ba5),
-			to(#73839f)); 
+		-webkit-linear-gradient(top, #b2bbca, #a7b0c3 25%, #909cb3 50%, #8593ac 50%, #7c8ba5 75%, #73839f); 
 	border-top: 1px solid #cdd5df;
 	border-bottom: 1px solid #2d3642; 
 }
@@ -1503,8 +1294,8 @@ navbar {
 navbar h1 {
 	-webkit-box-flex: 0 !important;
 	overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+   white-space: nowrap;
+   text-overflow: ellipsis;
 	-webkit-box-flex: 1;
 	text-align: center;
 	margin: 0px auto;
@@ -1633,12 +1424,8 @@ tablecell[ui-implements=detail-disclosure]:after {
     content: '';
     background-color: #6292e6;
     background-image: 
-    		url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g   transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path   d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#fff;fill-opacity:1;stroke:none' /></g></svg>"),
-        -webkit-gradient(linear, left top, left bottom,
-            color-stop(0, rgba(0,0,0,.05)),
-            color-stop(.5, rgba(0,0,0,.05)),
-            color-stop(.5, rgba(0,0,0,.2)),
-            color-stop(1, rgba(0,0,0,.2)));
+    	url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g   transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path   d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#fff;fill-opacity:1;stroke:none' /></g></svg>"),
+      -webkit-linear-gradient(top, rgba(0,0,0,.05), rgba(0,0,0,.05) 50%,rgba(0,0,0,.2) 50%, rgba(0,0,0,.2));
     background-position: 1px center, left top;
     background-repeat: no-repeat, repeat-x;
     color: #fff;
@@ -1685,13 +1472,8 @@ tablecell[ui-implements=add]:after {
     content: '';
     background-color: #6292e6;
     background-image: 
-    	  url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg'   xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='Layer_2'   xml:space='preserve'><defs id='defs7' /><path d='M 36.729,21.049 H 32.254 29.609 28.17 c -0.67,0 -1.221,-0.561 -1.221,-1.229 v -1.623 -1.856 -5.07 c 0,-0.668 -0.541,-1.21 -1.211,-1.21 H 22.26 c -0.668,0 -1.21,0.542 -1.21,1.21 v 5.07 2.016 1.464 c 0,0.668 -0.553,1.229 -1.222,1.229 H 18.14 15.744 11.27 c -0.668,0 -1.21,0.542 -1.21,1.211 v 3.479 c 0,0.668 0.542,1.211 1.21,1.211 h 4.474 2.637 1.447 c 0.669,0 1.222,0.531 1.222,1.199 v 1.678 1.801 5.102 c 0,0.668 0.542,1.211 1.21,1.211 h 3.479 c 0.67,0 1.211,-0.543 1.211,-1.211 v -5.102 -1.84 -1.639 c 0,-0.668 0.551,-1.199 1.221,-1.199 h 1.799 2.285 4.475 c 0.668,0 1.211,-0.543 1.211,-1.211 v -3.48 c -0.002,-0.669 -0.545,-1.211 -1.212,-1.211 z' id='path3'   style='fill:#fff;fill-opacity:1' /></svg>"),
-        -webkit-gradient(linear, left top, left bottom,
-            color-stop(0, rgba(0,0,0,.05)),
-            color-stop(.5, rgba(0,0,0,.05)),
-            color-stop(.5, rgba(0,0,0,.2)),
-            color-stop(1, rgba(0,0,0,.2)));
-   
+    	 url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg'   xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='Layer_2'   xml:space='preserve'><defs id='defs7' /><path d='M 36.729,21.049 H 32.254 29.609 28.17 c -0.67,0 -1.221,-0.561 -1.221,-1.229 v -1.623 -1.856 -5.07 c 0,-0.668 -0.541,-1.21 -1.211,-1.21 H 22.26 c -0.668,0 -1.21,0.542 -1.21,1.21 v 5.07 2.016 1.464 c 0,0.668 -0.553,1.229 -1.222,1.229 H 18.14 15.744 11.27 c -0.668,0 -1.21,0.542 -1.21,1.211 v 3.479 c 0,0.668 0.542,1.211 1.21,1.211 h 4.474 2.637 1.447 c 0.669,0 1.222,0.531 1.222,1.199 v 1.678 1.801 5.102 c 0,0.668 0.542,1.211 1.21,1.211 h 3.479 c 0.67,0 1.211,-0.543 1.211,-1.211 v -5.102 -1.84 -1.639 c 0,-0.668 0.551,-1.199 1.221,-1.199 h 1.799 2.285 4.475 c 0.668,0 1.211,-0.543 1.211,-1.211 v -3.48 c -0.002,-0.669 -0.545,-1.211 -1.212,-1.211 z' id='path3'   style='fill:#fff;fill-opacity:1' /></svg>"),
+      -webkit-linear-gradient(top, rgba(0,0,0,.05), rgba(0,0,0,.05) 50%, rgba(0,0,0,.2) 50%, rgba(0,0,0,.2));
     background-position: 0 center, left top;
     background-repeat: no-repeat, repeat-x;
     color: #fff;
@@ -2059,13 +1841,7 @@ deletedisclosure.checked {
     font: bold 26px/14px Verdana;
     background-color: #c66572;
     background-image:
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#c66572), 
-            color-stop(0.25, #b63849), 
-            color-stop(0.5, #ac1a2e), 
-            color-stop(0.5, #a40018), 
-            color-stop(0.75, #a40018), 
-            to(#7d1022));
+      -webkit-linear-gradient(top, #c66572, #b63849 25%, #ac1a2e 50%, #a40018 50%, #a40018 75%, #7d1022);
     color: #fff;
     font-size: 14px;
     font-weight: bold;
@@ -2236,9 +2012,7 @@ tableview[ui-kind^=titled-list] tableheader {
 	-webkit-box-sizing: border-box;
 	height: 24px;
 	background-image:
-		-webkit-gradient(linear, left top, left bottom,
-			from(#92a1ac),
-			to(#b7bfc6));
+		-webkit-linear-gradient(top, #92a1ac, #b7bfc6);
 	border-top: solid 1px #717d85;
 	border-bottom: solid 1px #989ea4;
 	font-size: 14px;
@@ -2302,9 +2076,7 @@ popup {
 	margin-left: auto;
 	margin-right: auto;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom,
-			from(rgba(0,15,70,0.5)),
-			to(rgba(0,0,70,0.5)));
+		-webkit-linear-gradient(top, rgba(0,15,70,0.5), rgba(0,0,70,0.5));
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
 	popup {
@@ -2389,25 +2161,17 @@ popup > panel > toolbar[ui-placement=bottom] > uibutton {
 }
 popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cancel] {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#828ba3), 
-			color-stop(0.5, #4c5a7c), 
-			color-stop(0.5, #27375f), 
-			to(#2e3d64));
-			color: #fff;
-    		font: bold 16px/20px Helvetica, sans-serif;
-    		text-align: center;
-    		text-shadow: 0 1px 1px #000;
-    		-webkit-font-smoothing: antialiased;
-    		padding: 9px;
+		-webkit-linear-gradient(top, #828ba3, #4c5a7c 50%, #27375f 50%, #2e3d64);
+		color: #fff;
+		font: bold 16px/20px Helvetica, sans-serif;
+		text-align: center;
+		text-shadow: 0 1px 1px #000;
+		-webkit-font-smoothing: antialiased;
+		padding: 9px;
 }
 popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=continue] {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#b0b6c4), 
-			color-stop(0.5, #7a839b), 
-			color-stop(0.5, #515d7c), 
-			to(#636e8a));
+		-webkit-linear-gradient(top, #b0b6c4, #7a839b 50%, #515d7c 50%, #636e8a);
 			color: #fff;
 			font: bold 16px/20px Helvetica, sans-serif;
 			text-align: center;
@@ -2417,12 +2181,8 @@ popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cont
 }
 popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action].touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#70747f), 
-			color-stop(0.5, #424857), 
-			color-stop(0.5, #171e30), 
-			to(#222839));
-			text-shadow: black 0px 1px 0px;
+		-webkit-linear-gradient(top, #70747f, #424857 50%, #171e30 50%, #222839);
+	text-shadow: black 0px 1px 0px;
 }
 /* End Modal Popups */
 
@@ -2448,45 +2208,43 @@ tableview[ui-implements=selection-list] > tablecell input[type=radio] {
 
 /* switchcontrol Styles */
 switchcontrol {
-    position: absolute;
-    right: 10px;
-    top: 7px;
+   position: absolute;
+   right: 10px;
+   top: 7px;
 	height:  28px;
 	width: 77px;
 	-webkit-border-radius: 20px;
 	border:  1px solid #979797;
-    display: -webkit-box;
-    -webkit-box-orient: horizontal;
-    -webkit-box-pack:justify;
-    -webkit-box-sizing: border-box;
-    -webkit-tap-highlight-color: transparent;
-    overflow: hidden;
-    text-align: center;
-    line-height: 28px;
-    cursor: pointer;
-    -webkit-user-select: none;
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-pack:justify;
+   -webkit-box-sizing: border-box;
+   -webkit-tap-highlight-color: transparent;
+   overflow: hidden;
+   text-align: center;
+   line-height: 28px;
+   cursor: pointer;
+   -webkit-user-select: none;
 	-webkit-box-shadow: inset 0 1px 3px #bababa, inset 0 12px 3px 2px rgba(232,232,232,0.5);
 }
 switchcontrol[ui-kind=traditional] {
-    width: 94px;
-    -webkit-border-radius: 6px;
-    border: none;
+   width: 94px;
+   -webkit-border-radius: 6px;
+   border: none;
 }
 switchcontrol > thumb {
 	display: block;
 	position:  relative;
-    z-index: 3;
+   z-index: 3;
 	top: -1px;
-    border: solid 1px #919191;
+   border: solid 1px #919191;
 	-webkit-border-radius: 28px;
 	width:  26px;
 	height:  26px;
 	-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
 	background-color: #cecece;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#cecece), 
-			to(#fbfbfb));
+		-webkit-linear-gradient(top, #cecece, #fbfbfb);
     -webkit-transition: all 0.125s  ease-in-out;
     -webkit-transform: translateX(0px);
     -webkit-transform: translate3d(0,0,0);
@@ -2508,13 +2266,13 @@ switchcontrol[ui-kind=traditional] > thumb {
 }
 switchcontrol:before {
 	content: '';
-	display:  block;
+	display: block;
 	height: 26px;
 	-webkit-border-radius: 20px;
 	-webkit-box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 3px 2px rgba(0,127,234,0.5);
 	background-color: #64b1f2;
-	position:  absolute;
-	width:  75px;
+	position: absolute;
+	width: 75px;
 }
 switchcontrol.off:before {
 	width:  0;
@@ -2526,14 +2284,14 @@ switchcontrol[ui-kind=traditional]:before {
 	content: none;
 }
 switchcontrol > thumb:before {
-	content:  '';
-    display: block;
+	content: '';
+   display: block;
 	height: 14px;
 	width: 2px;
-	background:  none;
+	background: none;
 	background-color: #fff;
 	box-shadow: 0px -1px 1px #666;
-	border:  none;
+	border: none;
 	position: absolute;
 	top: 6px;
 }
@@ -2544,17 +2302,15 @@ switchcontrol.on > thumb:before {
 	left: -24px;
 }
 switchcontrol[ui-kind=traditional] > thumb:before {
-    -webkit-box-sizing: border-box;
-    height: 25px;
-    width: 38px;
-    border-top: solid 1px #efefef;
-    -webkit-border-radius: 6px;
-    background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#cecece), 
-            to(#fbfbfb));
-    border-top: solid 1px #efefef;
-    position:relative;
+   -webkit-box-sizing: border-box;
+   height: 25px;
+   width: 38px;
+   border-top: solid 1px #efefef;
+   -webkit-border-radius: 6px;
+   background-image: 
+      -webkit-linear-gradient(top, #cecece, #fbfbfb);
+   border-top: solid 1px #efefef;
+   position:relative;
 	top: 0px;
 }
 switchcontrol[ui-kind=traditional].off > thumb:before {
@@ -2564,14 +2320,14 @@ switchcontrol[ui-kind=traditional].on > thumb:before {
 	left: 0;
 }
 switchcontrol > thumb:after {
-	content:  '';
-	display:  block;
+	content: '';
+	display: block;
 	height: 10px;
 	width: 10px;
 	-webkit-border-radius: 10px;
 	border: solid 2px #777777;
-	position:  absolute;
-	right:  -32px;
+	position: absolute;
+	right: -32px;
 	top: 6px;
 }
 switchcontrol[ui-kind=traditional] > thumb:after {
@@ -2586,9 +2342,7 @@ switchcontrol > label[ui-implements=on] {
 	display: block;
     color: #fff;
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#295ab2), 
-            to(#76adfc));
+      -webkit-linear-gradient(top, #295ab2, #76adfc);
     width: 54px;
     padding-right: 4px;
     border: solid 1px #093889;
@@ -2605,9 +2359,7 @@ switchcontrol > label[ui-implements=off] {
 	display: block;
     color: #666;
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#b5b5b5), 
-            color-stop(0.50, #fff));
+      -webkit-linear-gradient(top, #b5b5b5, #fff 50%);
     width: 54px;
     padding-left: 4px;
     border: solid 1px #a1a1a1;
@@ -2628,9 +2380,7 @@ switchcontrol[ui-kind=generic] {
 switchcontrol[ui-kind=generic] > thumb {
 	-webkit-box-shadow: none;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom,  
-			from(#f4f4f4), 
-			to(#e3e3e3));
+		-webkit-linear-gradient(top, #f4f4f4, #e3e3e3);
 }
 switchcontrol[ui-kind=generic]:before {
 	-webkit-box-shadow: inset 0 3px 10px #8e8e8e, inset 0 12px 3px 2px #bfbfbf;
@@ -2678,9 +2428,7 @@ switchcontrol.on > label[ui-implements=off] {
 switchcontrol[ui-implements=attention] > label[ui-implements=on] {
     border: solid 1px #d87100;
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#e75f00), 
-            color-stop(.5, #ff9c12));
+        -webkit-linear-gradient(top, #e75f00, #ff9c12 50%);
 }
 switchcontrol.disabled {
     display: none;
@@ -2693,18 +2441,9 @@ actionsheet, actionsheet[ui-action-sheet-color=blue] {
 	-webkit-box-sizing: border-box;
 	padding: 30px 0 0 0;
 	background-image:
-		-webkit-gradient(linear, left top, left bottom,
-			from(#000),
-			color-stop(0.5, #000),
-			color-stop(0.5, rgba(255,255,255,.6)),
-			to(rgba(255,255,255,.6))),
-		-webkit-gradient(linear, left top, left bottom,
-			from(rgba(255,255,255,.5)),
-			color-stop(0.9, rgba(255,255,255,.15)),
-			to(rgba(255,255,255,.015))),
-		-webkit-gradient(linear, left top, left bottom,
-			from(rgba(93,102,118,0.85)),
-			to(rgba(75,81,95,0.85)));
+		-webkit-linear-gradient(top, #000, #000 50%, rgba(255,255,255,.6) 50%, rgba(255,255,255,.6)),
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(255,255,255,.15) 90%, rgba(255,255,255,.015)),
+		-webkit-linear-gradient(top, rgba(93,102,118,0.85), rgba(75,81,95,0.85));
 	-webkit-background-size:  100% 2px, 100% 22px, 100% 100%;
 	background-repeat: repeat-x, repeat-x, repeat-x;
 	background-position: top left, top left, top left;
@@ -2717,18 +2456,9 @@ actionsheet, actionsheet[ui-action-sheet-color=blue] {
 }
 actionsheet[ui-action-sheet-color=black] {
 	background-image:
-		-webkit-gradient(linear, left top, left bottom,
-			from(#000),
-			color-stop(0.5, #000),
-			color-stop(0.5, rgba(255,255,255,.6)),
-			to(rgba(255,255,255,.6))),
-		-webkit-gradient(linear, left top, left bottom,
-			from(rgba(255,255,255,.5)),
-			color-stop(0.9, rgba(255,255,255,.15)),
-			to(rgba(255,255,255,.015))),
-		-webkit-gradient(linear, left top, left bottom,
-			from(rgba(0,0,0,0.45)),
-			to(rgba(0,0,0,0.65))) !important;
+		-webkit-linear-gradient(top, #000, #000 50%, rgba(255,255,255,.6) 50%, rgba(255,255,255,.6)),
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(255,255,255,.15) 90%, rgba(255,255,255,.015)),
+		-webkit-linear-gradient(top, rgba(0,0,0,0.45), rgba(0,0,0,0.65)) !important;
 }
 actionsheet.hidden {
 	-webkit-transform: translate3d(0,75%,0);
@@ -2758,17 +2488,8 @@ input[type="range"] {
 	width: auto;
 	-webkit-border-radius: 4px;
 	background-image: 
-		-webkit-gradient(linear, left top ,left bottom,
-			from(#c9d3e7),
-			color-stop(.5, #75a9f5),
-			color-stop(.5, #2d6fc6),
-			to(#3195e7)),
-		-webkit-gradient(linear, left top, left bottom,
-			from(#f0f0f0),
-			color-stop(.2, #9a9a9a),
-			color-stop(.3, #cbcbcb),
-			color-stop(.4, #f0f0f0),
-			to(#f0f0f0));
+		-webkit-linear-gradient(top, #c9d3e7, #75a9f5 50%, #2d6fc6 50%, #3195e7),
+		-webkit-linear-gradient(top, #f0f0f0, #9a9a9a 20%, #cbcbcb 30%, #f0f0f0 40%, #f0f0f0);
 	background-repeat: no-repeat, repeat-x;
 	-webkit-background-size: 0px 9px, 100% 9px;
 	box-shadow: 0 1px 2px #000;
@@ -2798,9 +2519,7 @@ input[type="range"].media-player::-webkit-slider-thumb {
 			color-stop(.45, rgba(0,0,0,.4)), 
 			color-stop(.5, rgba(255,255,255,.8)), 
 			to(#fff)),
-		-webkit-gradient(linear, left top, left bottom,
-			from(#8e8e8e),
-			to(#fff));
+		-webkit-linear-gradient(top, #8e8e8e, #fff);
 	box-shadow: 1px 1px 1px #666;
 	border: solid 1px #aaa;
 	top: 0;
@@ -2816,12 +2535,7 @@ tabbar {
     -webkit-box-pack: justify;
     -webkit-box-sizing: border-box;
     background-image: 
-        -webkit-gradient(linear, left top, left bottom,     
-            from(#000), to(#000), 
-            color-stop(0.02, #545454), 
-            color-stop(0.04, #3b3b3b), 
-            color-stop(0.5, #1d1d1d), 
-            color-stop(0.51, #000));
+      -webkit-linear-gradient(top, #000, #545454 2%, #3b3b3b 4%, #1d1d1d 50%, #000 51%);
     font-size: 10px;
     font-family: 'Helvetica Neue', HelveticaNeue, Helvetica-Neue, Helvetica, sans-serif;
     text-align: center;
@@ -2848,14 +2562,14 @@ tabbar > uibutton {
     margin: 3px 3px 3px 3px;
     padding: 4px 0 0 0;
 }
-tabbar > uibutton.selected,
-tabbar > uibutton.touched {
+tabbar > uibutton[ui-implements=tab].selected,
+tabbar > uibutton[ui-implements=tab].touched {
     background: rgba(255, 255, 255, 0.15) !important;
 }
 tabbar > uibutton[ui-implements=tab].disabled.touched {
     background: none !important;
 }
-tabbar > uibutton > icon,
+tabbar > uibutton[ui-implements=tab] > icon,
 tabbar > uibutton[ui-implements=tab].disabled.touched > icon {
     display: block;
     margin: 0;
@@ -2863,10 +2577,7 @@ tabbar > uibutton[ui-implements=tab].disabled.touched > icon {
     width: 30px;
     margin-bottom: -8px;
     background-image: 
-    	-webkit-gradient(linear, 0% 0%, 0% 100%, 
-    		from(#A6A6A6), 
-    		to(#606060), 
-    		color-stop(.5,#8C8C8C));
+    	-webkit-linear-gradient(top left, #A6A6A6, #8C8C8C 50%, #606060);
     -webkit-box-shadow: #000 0 1px 0px;
     -webkit-mask-size: 30px 30px;
     background-size: 30px 30px;
@@ -2882,14 +2593,10 @@ tabbar > uibutton > icon + label {
     white-space: nowrap;
     -webkit-font-smoothing: subpixel-antialiased !important;
 }
-tabbar > uibutton.selected > icon,
-tabbar > uibutton.touched > icon {
+tabbar > uibutton[ui-implements=tab].selected > icon,
+tabbar > uibutton[ui-implements=tab].touched > icon {
     background: 
-    	-webkit-gradient(linear, 38% 0%, 60% 70%, 
-    	    from(#DDE9F0), 
-    	    color-stop(0.6, #79B2EC), 
-    	    color-stop(0.7, #2E91E5), 
-    	    to(#3FC5F8));
+    	-webkit-linear-gradient(-85deg, #DDE9F0, #79B2EC 60%, #2E91E5 70%, #3FC5F8) !important;
     -webkit-box-shadow: #000 0 1px 0px;
     color:#68B3DA;
 }
@@ -2907,11 +2614,7 @@ expander > header {
 	z-index: 100;
 	padding-left: 40px;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom,
-			from(#92a1bf),
-			color-stop(0.8, #546993),
-			color-stop(0.8, #a7babe),
-			to(#a7babe));
+		-webkit-linear-gradient(top, #92a1bf, #546993 80%, #a7babe 80%, #a7babe);
 	background-size: 100% 8px;
 	background-repeat: repeat-x;
 	padding-bottom: 8px;
@@ -2951,9 +2654,7 @@ expander > header:before {
 		0 3px 4px rgba(0,0,0,0.25),  
 		0 -1px 4px rgba(0,0,0,0.25);
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#ddd), 
-			to(#556a97));
+		-webkit-linear-gradient(top, #ddd, #556a97);
 			
 	
 } 
@@ -2966,11 +2667,11 @@ expander > header:after {
 	top: -13px;
 	left: 10px;
 	border-radius: 30px;
-	-webkit-mask-image: url(../icons/arrow_right.svg);
+	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" xml:space="preserve"><polygon points="35,25 17,11 17,39 "/></svg>');
 	-webkit-mask-repeat: no-repeat;
-	background-position: center center;
+	background-position: 5px 5px;
 	-webkit-mask-position: 50% 50%;
-	-webkit-mask-size: 20px 20px;
+	s-webkit-mask-size: 20px 20px;
 	-webkit-box-sizing: border-box;
 	background-color: #fff;
 	cursor: pointer;
@@ -2989,34 +2690,23 @@ expander > panel {
 } 
 expander.ui-status-expanded > header {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom,
-			from(#92a1bf),
-			color-stop(0.8, #546993),
-			color-stop(0.8, rgba(0,0,0,0.1)),
-			to(rgba(0,0,0,0.15)));
+		-webkit-linear-gradient(top, #92a1bf, #546993 80%, rgba(0,0,0,0.1) 80%, rgba(0,0,0,0.15));
 }
 expander.ui-status-expanded > panel {
 	opacity: 1;
 	background-color: rgba(0,0,0,0.1);
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom,
-			from(#92a1bf),
-			color-stop(0.8, #546993),
-			color-stop(0.8, #a7babe),
-			to(#a7babe));
+		-webkit-linear-gradient(top, #92a1bf, #546993 80%, #a7babe 80%, #a7babe);
 	background-size: 100% 8px;
 	background-position: bottom left;
 	background-repeat: repeat-x;
 } 
 expander.ui-status-expanded > header:after {
 	-webkit-transform: rotate(90deg);
-	-webkit-mask-position: 6px 4px;
 }
 expander.ui-status-expanded > header:before {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#ddd), 
-			to(#182743));
+		-webkit-linear-gradient(top, #ddd, #182743);
 }
 expander.ui-status-expanded > header > label {
 	background-color: #7a89a4;
@@ -3175,13 +2865,7 @@ tablecell.touched stepper > uibutton > label {
 }
 stepper > uibutton.touched {
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#7d88a5), 
-			color-stop(0.25, #58698c),
-			color-stop(0.5, #3a4e78), 
-			color-stop(0.5, #253c6a), 
-			color-stop(0.75, #273f6d),
-			to(#273f6d));
+		-webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
 	-webkit-tap-highlight-color: transparent;
 }
 stepper > uibutton > icon {
@@ -3614,6 +3298,7 @@ subview[ui-transition=cube][ui-transition-state='final incoming'] {
 /* Popover Styles */
 popover  {
     width: 320px;
+    /* Change color of popover background. */
     background-color: #121a2e;
     border: solid 2px #4f4f4f;
     margin: 0px;
@@ -3646,12 +3331,9 @@ popover  > header {
     -webkit-box-sizing: border-box;
     height: 45px;
     padding: 6px 10px;
+    /* Gradient for popover header */
     background-image: 
-        -webkit-gradient(linear, 0% 0%, 0% 100%, 
-            from(#7d828c),
-            color-stop(0.5, #303749), 
-            color-stop(0.5, #121a2e), 
-            to(#121a2e));
+        -webkit-linear-gradient(top, #7d828c, #303749 50%, #121a2e 50%);
     -webkit-border-top-left-radius: 8px;
     -webkit-border-top-right-radius: 8px;
     position: relative;
@@ -3694,14 +3376,11 @@ popover:after {
     border-radius: 5px;
     border-bottom: none;
     border-right: none;
+    /* Change color of top pointer. Should match first color of popover > header gradient. */
     background-color: #7d828c !important;
     -webkit-transform: rotate(45deg);
     -webkit-mask-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            from(#000000), 
-            color-stop(0.5,#000000), 
-            color-stop(0.5, transparent), 
-            to(transparent));
+        -webkit-linear-gradient(left top, #000000, #000000 50%, transparent 50%, transparent);
 }
 [ui-pointer-position=top-left]:after {
     top: -16px;
@@ -3721,42 +3400,10 @@ popover:after {
     right: auto;
     display: block;
 }
-[ui-pointer-position=right]:after {
-    -webkit-transform: rotate(135deg);
-    background-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            from(#121a2e), 
-            color-stop(0.5,#121a2e), 
-            color-stop(0.5, transparent), 
-            to(transparent));
-}
-[ui-pointer-position=right-top]:after {
-    top: 20px;
-    left: auto;
-    right: -17px;
-    display: block;
-}
-[ui-pointer-position=right-center]:after {
-    top: 44.5%;
-    left: auto;
-    right: -17px;
-    display: block;
-}
-[ui-pointer-position=right-bottom]:after {
-    top: auto;
-    left: auto;
-    right: -17px;
-    bottom: 20px;
-    display: block;
-}
 [ui-pointer-position*=bottom]:after {
     -webkit-transform: rotate(-135deg);
-    background-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            from(#121a2e), 
-            color-stop(0.5,#121a2e), 
-            color-stop(0.5, transparent), 
-            to(transparent));
+    /* Change color for bottom pointer. Should match background-color of popover. */
+    background: #121a2e !important;
 }
 [ui-pointer-position=bottom-left]:after {
     top: auto;
@@ -3775,31 +3422,6 @@ popover:after {
     bottom: -16px;
     left: auto;
     right: 20px;
-    display: block;
-}
-[ui-pointer-position=left]:after {
-    -webkit-transform: rotate(-45deg);
-    background-image: 
-        -webkit-gradient(linear, left top, right bottom, 
-            from(#121a2e), 
-            color-stop(0.5,#121a2e), 
-            color-stop(0.5, transparent), 
-            to(transparent));
-}
-[ui-pointer-position=left-top]:after {
-    top: 20px;
-    left: -17px;
-    display: block;
-}
-[ui-pointer-position=left-center]:after {
-    top: 44.5%;
-    left: -17px;
-    display: block;
-}
-[ui-pointer-position=left-bottom]:after {
-    top: auto;
-    bottom: 20px;
-    left: -17px;
     display: block;
 }
 .fade-in {
@@ -3908,10 +3530,7 @@ splitview navbar {
 	border-bottom: 1px solid #838a9a;
 	background-color: #424242;
 	background-image: 
-		-webkit-gradient(linear, left top, left bottom, 
-			from(#f1f2f5), 
-			color-stop(0.4, #d7dae0), 
-			to(#9498a8)); 
+		-webkit-linear-gradient(top, #f1f2f5, #d7dae0 40%, #9498a8); 
 	-webkit-border-top-left-radius: 4px;
 	-webkit-border-top-right-radius: 4px;
 	position: relative;
@@ -3959,21 +3578,13 @@ body:not(.SplitViewFixed).portrait rootview:after {
 	background-color: #9e9e9e !important;
 	-webkit-transform: rotate(45deg);
 	-webkit-mask-image: 
-		-webkit-gradient(linear, left top, right bottom, 
-			from(#000000), 
-			color-stop(0.5,#000000), 
-			color-stop(0.5, transparent), 
-			to(transparent));
+		-webkit-linear-gradient(left top, #000000, #000000 50%, transparent 50%, transparent);
 }
 body:not(.SplitViewFixed).portrait rootview navbar {
 	margin-top: 0;
 	background-color: none;
 	background-image:
-		-webkit-gradient(linear, left top, left bottom, 
-			from(rgba(255,255,255,.5)), 
-			color-stop(0.5,rgba(30,30,30,.5)), 
-			color-stop(0.5, rgba(0,0,0,.5)), 
-			to(rgba(0,0,0,.45)));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.45));
 }
 body:not(.SplitViewFixed).portrait rootview navbar h1 {
 	color:#fff;

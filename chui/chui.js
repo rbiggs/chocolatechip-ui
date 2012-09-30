@@ -376,8 +376,8 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 			if ($(this).attr('ui-selected-index')) {
 				val = $(this).attr('ui-selected-index');
-				var seg = $(this).children(val);
 				try {
+					var seg = $(this).children(val);
 					seg = $(seg).attr('id');
 					$(this).attr('ui-selected-segment', seg);
 					$(this).children(val).addClass('selected');
