@@ -1,6 +1,6 @@
 /*
 ChocolateChip-UI
-Version 2.0.0
+Version 2.0 Beta
 This version works with ChocolateChip.js, jQuery or Zepto. 
 For jQuery, ChocolateChip-UI requires as a minimum version 1.7.1
 When using Zepto, make sure you have the following modules included in your build: zepto, event, detect, fx, fx_methods, ajax, form, data, selector, stack. 
@@ -1244,10 +1244,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				if (defaultValue == opts.range.end) {
 					$('uibutton:last-of-type', stepper).addClass('disabled');
 				}
-				$('uibutton:first-of-type', opts.selector).bind('click', function(button) {
+				$('uibutton:first-of-type', opts.selector).on($.userAction, function(button) {
 					$.decreaseStepperValue.call(this, opts.selector);
 				});
-				$('uibutton:last-of-type', opts.selector).bind('click', function(button) {
+				$('uibutton:last-of-type', opts.selector).on($.userAction, function(button) {
 					$.increaseStepperValue.call(this, opts.selector);
 				});
 			},

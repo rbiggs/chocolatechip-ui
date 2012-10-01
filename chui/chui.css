@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 1.1.4
+Version: 2.0 Beta
 
 */
 html, body {
@@ -3331,7 +3331,7 @@ popover  > header {
     -webkit-box-sizing: border-box;
     height: 45px;
     padding: 6px 10px;
-    /* Gradient for popover header */
+    /* Gradient for popover header. The last color in the gradient should be the same as the background color of the popover. */
     background-image: 
         -webkit-linear-gradient(top, #7d828c, #303749 50%, #121a2e 50%);
     -webkit-border-top-left-radius: 8px;
