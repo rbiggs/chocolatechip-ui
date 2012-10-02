@@ -2726,32 +2726,28 @@ progressbar {
 	border-radius: 7px;
 	background-color: rgb(56,138,213);
 	background-image:
-		-webkit-gradient(linear, 0 0, 0 100%,
-			color-stop(0.20, transparent),
-			color-stop(0.20, rgba(255,255,255,.5)),
-			color-stop(0.32, rgba(255,255,255,.5)),
-			color-stop(0.32, transparent)),
-		-webkit-gradient(linear, 0 0, 0 100%,
-			color-stop(0, rgba(255,255,255,.85)),
-			color-stop(0.45, rgba(255,255,255,.05)),
-			color-stop(0.55, rgba(0,0,0,.05)),
-			color-stop(0.85, rgba(0,0,0,.2)),
-			color-stop(0.98, rgba(0,0,0,.5))),
-		-webkit-gradient(linear, 18 0, 0 10,
-			color-stop(0.23, rgba(255,255,255,0)),
-			color-stop(0.3, rgba(255,255,255,0.8)),
-			color-stop(0.3, rgba(255,255,255,1)),
-			color-stop(0.7, rgba(255,255,255,1)),
-			color-stop(0.7, rgba(255,255,255,0.85)),
-			color-stop(0.77, rgba(255,255,255,0)));
-	background-repeat: repeat-x;
-	-webkit-background-size: 20px 20px;
-	-webkit-background-position-x: 0%;
+		-webkit-linear-gradient(top, 
+			transparent 23%, 
+			rgba(255,255,255,.5) 23%, 
+			rgba(255,255,255,.5) 43%, 
+			transparent 43%),
+		-webkit-linear-gradient(top,
+			rgba(255,255,255,.85), rgba(255,255,255,.05) 45%, rgba(0,0,0,.05) 55%, rgba(0,0,0,.2) 85%, rgba(0,0,0,.5) 98%),
+		-webkit-linear-gradient(35deg, 
+			rgba(255,255,255,0) 20%, 
+			rgba(255,255,255,0.8) 30%, 
+			rgba(255,255,255,1) 30%, 
+			rgba(255,255,255,1) 60%, 
+			rgba(255,255,255,0.85) 60%, 
+			rgba(255,255,255,0) 67%
+		);
 	-webkit-animation-duration: 5s;
 	-webkit-animation-iteration-count: infinite;
 	-webkit-animation-timing-function: linear;
 	-webkit-animation-name: progressBarAnim;
-	background-size: 20px 20px;
+	background-repeat: repeat-x;
+	-webkit-background-position-x: 0%;
+	background-size: 20px 15px;
 	
 }
 /* Paging Control Styles */

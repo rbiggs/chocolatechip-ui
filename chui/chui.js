@@ -797,8 +797,10 @@ When using Zepto, make sure you have the following modules included in your buil
 					$('#'+modalPanelID).UICenterElementToParent();
 				}, false);
 			} else {
+				var webkitAnim = _zo ? null : {'-webkit-animation-duration': duration};
 				var spinner = document.createElement('activityindicator');
-				$(spinner).css({'background-color': color, 'height': size, 'width': size, '-webkit-animation-duration': duration});
+				$(spinner).css({'background-color': color, 'height': size, 'width': size});
+				if (webkitAnim) $(spinner).css(webkitAnim);
 				$(spinner).attr('role','progressbar');
 				if (position) $(spinner).attr('ui-bar-align', position);
 				return $(this).append(spinner);
@@ -1459,8 +1461,8 @@ When using Zepto, make sure you have the following modules included in your buil
 				});
 				listEl.attr('data-deletable-items', '0');
 				var UIEditExecution = function() {
-					$(options.toolbar + ' > uibutton[ui-implements=edit]').bind('click', 
-						function() { 
+					$(options.toolbar + ' > uibutton[ui-implements=edit]').on($.userAction, 
+						function() {
 							if ($('label', this).text() === label1) {
 								$(this).UIToggleButtonLabel(label1, label2);
 								$(this).attr('ui-implements', 'done');
@@ -1497,7 +1499,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				};
 				var UIDeleteDisclosureSelection = function() {
 					$._each($.els('deletedisclosure'), function(idx, disclosure) {
-						$(disclosure).on('click', function() {
+						$(disclosure).on($.userAction, function() {
 							$(disclosure).toggleClass('checked');
 							$(disclosure).closest('tablecell').toggleClass('deletable');
 							$('uibutton[ui-implements=delete]', toolbarEl).removeClass('disabled');
