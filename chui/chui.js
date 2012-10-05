@@ -281,15 +281,15 @@ When using Zepto, make sure you have the following modules included in your buil
 			} else {
 				$(newSwitchID).find("input").prop("checked", (status === "on" ? true : false));
 			}
-			$(newSwitchID).bind("click", function() {
+			$(newSwitchID).on($.userAction, function() {
 				$(this).UISwitchControl(callback);
 			});
 		},
 		
 		UIInitSwitchToggling : function() {
-			var switches = $.els('switchcontrol', this);
+			var switches = $.els('switchcontrol', $.app);
 			var $this = this;
-			$._each(switches, function(ctx) {
+			$._each(switches, function(idx, ctx) {
 				var item = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				var checkbox = $(item).find('input[type="checkbox"]');
 				checkbox = checkbox.reduceToNode();
@@ -300,7 +300,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					$(item).checked = false;
 					checkbox.checked = false;
 				}
-				$(item).on('click', function(e) {
+				$(item).on($.userAction, function(e) {
 					e.preventDefault();
 					this.parentNode.style.backgroundImage = 'none';
 					$(item).UISwitchControl();
@@ -496,7 +496,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 					tabbar.push("'");
 				}
-				tabbar.push("><icon style='-webkit-mask-box-image: url(")
+				tabbar.push("><icon style='-webkit-mask-image: url(")
 				tabbar.push(imagePath);
 				tabbar.push(iconsOfTabs[i]);
 				tabbar.push(".svg);'></icon>");
@@ -544,17 +544,23 @@ When using Zepto, make sure you have the following modules included in your buil
 			$('tabbar', this).UIIdentifyChildNodes();
 			var tabbar = $('tabbar', this);
 			var views = $.els('view', this);
-			$._each(subviews, function(idx, subview) {
-				$(subview).addClass('unselected');
+			$._each(views, function(idx, view) {
+				$(view).attr('ui-navigation-status','upcoming');
 			});
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
-			subviews.eq(selectedTab).toggleClassName('unselected','selected');
+			views.eq(selectedTab).attr('ui-navigation-status','current')
 			tabs.eq(selectedTab).addClass('selected');
 			$._each(tabs, function(idx, tab) {
-				tab.on('click', function() {
-					if (tab.hasClass('disabled') || tab.hasClass('selected')) {
+				$(tab).on('click', function() {
+					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
+					var whichTab = $(tab).closest('tabbar').attr('ui-selected-tab');
+					tabs.eq(whichTab).removeClass('selected');
+					$(tab).addClass('selected');
+					views.eq(whichTab).attr('ui-navigation-status', 'upcoming');
+					views.eq($(tab).attr('ui-child-position')).attr('ui-navigation-status', 'current');
+					tabbar.attr('ui-selected-tab', $(tab).attr('ui-child-position'));
 				});
 			});
 		},

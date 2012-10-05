@@ -68,6 +68,9 @@ view {
 	bottom: 0;
 	right: 0;
 }
+view[ui-implements="tabbar-panel"] {
+	-webkit-transition: all 0s  linear;
+}
 view[ui-navigation-status='upcoming'] {
 	-webkit-transform: translateX(100%);
 	-webkit-transform: translate3d(100%,0,0);
