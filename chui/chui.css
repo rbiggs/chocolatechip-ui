@@ -527,7 +527,7 @@ uibutton {
 	line-height: 28px;
 	height: 30px;
 	-webkit-box-sizing: border-box;
-	-webkit-border-radius: 5px;
+	border-radius: 5px;
 	background-image: 
 		-webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993); 
 	color: #fff;
@@ -581,7 +581,7 @@ uibutton[ui-kind=icon] {
 	border: none; 
 	padding: 0px;
 	-webkit-box-sizing: border-box;
-	-webkit-border-radius: 0px;
+	border-radius: 0px;
 	background: none;
 	-webkit-box-pack: center;
 	-webkit-box-align: center;
@@ -741,9 +741,9 @@ uibutton[ui-implements=back].disabled.touched:before {
         -webkit-linear-gradient(left top, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
     border-left: solid 1px #54617D;
     border-bottom: solid 1px #9AA5BB; 
-    -webkit-border-top-left-radius: 7px;
-    -webkit-border-bottom-right-radius: 7px;
-    -webkit-border-bottom-left-radius: 4px;
+    border-top-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-bottom-left-radius: 4px;
     height: 22.2px;
     width: 22.2px;
     display: inline-block;
@@ -783,9 +783,9 @@ uibutton[ui-implements=next].disabled.touched:before  {
       -webkit-linear-gradient(-45deg, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
     border-right: solid 1px #484e59;
     border-top: solid 1px #484e59;
-    -webkit-border-top-left-radius: 7px;
-    -webkit-border-bottom-right-radius: 7px;
-    -webkit-border-top-right-radius: 4px;
+    border-top-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    border-top-right-radius: 4px;
     height: 22.2px;
     width: 22.2px;
     display: inline-block;
@@ -832,7 +832,6 @@ segmentedcontrol > uibutton {
     box-shadow: none;
     border: solid 1px #9a9a99;
     border-left: none;
-    -webkit-border-radius: 0px;
     border-radius: 0px;
     text-align: center;
     -webkit-box-align: center;
@@ -866,14 +865,14 @@ segmentedcontrol > uibutton.disabled.touched {
     cursor: auto;
 }
 segmentedcontrol > uibutton:first-of-type {
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
     border-left: solid 1px #9a9a99;
     margin-top: 0px;
 }
 segmentedcontrol > uibutton:last-of-type {
-    -webkit-border-top-right-radius: 8px;
-    -webkit-border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
     margin-right: 0;
 }
 navbar > segmentedcontrol > uibutton,
@@ -919,14 +918,14 @@ toolbar > segmentedcontrol > uibutton.disabled.touched {
 }
 navbar segmentedcontrol > uibutton:first-of-type,
 toolbar segmentedcontrol > uibutton:first-of-type {
-    -webkit-border-top-left-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     border-left: solid 1px #424650;
 }
 navbar segmentedcontrol > uibutton:last-of-type,
 toolbar segmentedcontrol > uibutton:last-of-type {
-    -webkit-border-top-right-radius: 6px;
-    -webkit-border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 segmentedcontrol > uibutton[ui-usage=icon] {
 	display: -webkit-box;
@@ -1004,7 +1003,7 @@ uibutton[ui-kind='rounded-rectangle'] {
     -webkit-box-orient: horizontal;
     height: 46px;
     border: solid 1px #a7abae;
-    -webkit-border-radius: 10px;
+    border-radius: 10px;
     background: none;
     background-color: #fff;
     margin: 10px;
@@ -1073,7 +1072,7 @@ uibutton[ui-kind=action].disabled.touched {
     cursor: pointer;
     -webkit-box-sizing: border-box;
     height: 52px;
-    -webkit-border-radius: 12px;
+    border-radius: 12px;
     background-image: 
       -webkit-linear-gradient(top, rgba(234,234,234,0.7), rgba(195,195,195,0.7) 50%, rgba(166,166,166,0.7) 50%, rgba(167,167,167,0.80)); 
     color: #000;
@@ -1436,7 +1435,7 @@ tablecell[ui-implements=detail-disclosure]:after {
     padding: 0 6px 13px 4px;
     height: 24px;
     width: 24px;
-    -webkit-border-radius: 14px;
+    border-radius: 14px;
     border-radius: 14px;
     border: solid 3px #fff;
     -webkit-box-shadow: 0 1px 3px #666;
@@ -1484,7 +1483,7 @@ tablecell[ui-implements=add]:after {
     padding: 0 6px 13px 1px;
     height: 24px;
     width: 24px;
-    -webkit-border-radius: 14px;
+    border-radius: 14px;
     border-radius: 14px;
     border: solid 3px #fff;
     -webkit-box-shadow: 0 1px 3px #666;
@@ -1773,18 +1772,18 @@ tableview[ui-kind=grouped] > tablecell {
 }
 div[ui-kind=grouped], p[ui-kind=grouped], tableview[ui-kind=grouped] > tablecell:first-of-type {
 	border-top: 1px solid #acacac;
-	-webkit-border-top-right-radius: 10px;
-	-webkit-border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 }
 tableview[ui-kind=grouped] > tablecell:last-of-type {
-	-webkit-border-bottom-left-radius: 10px;
-	-webkit-border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
 }
 div[ui-kind=grouped], p[ui-kind=grouped] {
    padding: 8px 10px;
    background-color: #fff;
 	border-top: 1px solid #acacac;
-	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	border-radius: 10px;
 }
 tableview[ui-kind=grouped] > tablecell > celltitle {
@@ -1805,7 +1804,6 @@ celldatetime, cellvalue {
 }
 tableview > tablecell > cellcounter {
 	background-color: #8999b4;
-	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	display: inline-block !important;
 	float: right;
@@ -1830,7 +1828,6 @@ deletedisclosure {
     height: 24px;
     width: 24px;
     border: solid 2px #ddd;
-    -webkit-border-radius: 14px;
     border-radius: 14px;
     position: absolute;
     top: 10px;
@@ -2035,7 +2032,7 @@ stack[ui-kind=alphabetical-list] {
 	bottom: 0;
 	width: 30px;
 	padding: 8px 0;
-	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-orient: vertical;
@@ -2068,7 +2065,6 @@ popup {
 	border: solid 1px #72767b;
 	-webkit-box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
 	box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
-	-webkit-border-radius: 10px;
 	border-radius: 10px;
 	padding: 0px;
 	opacity: 1;
@@ -2096,8 +2092,6 @@ popup[ui-visible-state=hidden] {
 popup > panel {
 	display: block;
 	border: solid 2px #e6e7ed;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
 	border-radius: 10px;
 	padding: 10px;
 	background-image: 
@@ -2113,10 +2107,6 @@ popup > panel {
 popup > panel > toolbar[ui-placement=top] {
 	display: block;
 	background: none;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-topright: 10px;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	border: none;
@@ -2160,7 +2150,7 @@ popup > panel > toolbar[ui-placement=bottom] > uibutton {
 	height: 42px;
 	font-size: 18px;
 	line-height: 32px;
-	-webkit-border-radius: 8px;padding: 4px 10px;
+	border-radius: 8px;padding: 4px 10px;
 }
 popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cancel] {
 	background-image: 
@@ -2216,7 +2206,7 @@ switchcontrol {
    top: 7px;
 	height:  28px;
 	width: 77px;
-	-webkit-border-radius: 20px;
+	border-radius: 20px;
 	border:  1px solid #979797;
    display: -webkit-box;
    -webkit-box-orient: horizontal;
@@ -2232,7 +2222,7 @@ switchcontrol {
 }
 switchcontrol[ui-kind=traditional] {
    width: 94px;
-   -webkit-border-radius: 6px;
+   border-radius: 6px;
    border: none;
 }
 switchcontrol > thumb {
@@ -2241,7 +2231,7 @@ switchcontrol > thumb {
    z-index: 3;
 	top: -1px;
    border: solid 1px #919191;
-	-webkit-border-radius: 28px;
+	border-radius: 28px;
 	width:  26px;
 	height:  26px;
 	-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
@@ -2263,7 +2253,7 @@ switchcontrol > input {
 	display: none;
 }
 switchcontrol[ui-kind=traditional] > thumb {
-    -webkit-border-radius: 7px;
+    border-radius: 7px;
     width: auto;
     height: auto;
 }
@@ -2271,7 +2261,7 @@ switchcontrol:before {
 	content: '';
 	display: block;
 	height: 26px;
-	-webkit-border-radius: 20px;
+	border-radius: 20px;
 	-webkit-box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 3px 2px rgba(0,127,234,0.5);
 	background-color: #64b1f2;
 	position: absolute;
@@ -2309,7 +2299,7 @@ switchcontrol[ui-kind=traditional] > thumb:before {
    height: 25px;
    width: 38px;
    border-top: solid 1px #efefef;
-   -webkit-border-radius: 6px;
+   border-radius: 6px;
    background-image: 
       -webkit-linear-gradient(top, #cecece, #fbfbfb);
    border-top: solid 1px #efefef;
@@ -2327,7 +2317,7 @@ switchcontrol > thumb:after {
 	display: block;
 	height: 10px;
 	width: 10px;
-	-webkit-border-radius: 10px;
+	border-radius: 10px;
 	border: solid 2px #777777;
 	position: absolute;
 	right: -32px;
@@ -2349,8 +2339,8 @@ switchcontrol > label[ui-implements=on] {
     width: 54px;
     padding-right: 4px;
     border: solid 1px #093889;
-    -webkit-border-top-left-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
     margin-right: -6px;
     height: 25px;
     -webkit-transition: all 0.125s  ease-in-out;
@@ -2366,8 +2356,8 @@ switchcontrol > label[ui-implements=off] {
     width: 54px;
     padding-left: 4px;
     border: solid 1px #a1a1a1;
-    -webkit-border-top-right-radius: 6px;
-    -webkit-border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
     margin-left: -6px;
     height: 25px;
     -webkit-transition: all 0.125s  ease-in-out;
@@ -2489,7 +2479,7 @@ input[type="range"] {
 	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
 	height: 9px;
 	width: auto;
-	-webkit-border-radius: 4px;
+	border-radius: 4px;
 	background-image: 
 		-webkit-linear-gradient(top, #c9d3e7, #75a9f5 50%, #2d6fc6 50%, #3195e7),
 		-webkit-linear-gradient(top, #f0f0f0, #9a9a9a 20%, #cbcbcb 30%, #f0f0f0 40%, #f0f0f0);
@@ -2502,7 +2492,7 @@ input[type="range"]::-webkit-slider-thumb {
 	display: block;
 	width: 20px;
 	height: 20px;
-	-webkit-border-radius: 20px;   
+	border-radius: 20px;   
 	margin: 0;
 	background-image:
 		-webkit-linear-gradient(bottom, #8e8e8e, #fff);
@@ -2561,7 +2551,7 @@ tabbar > uibutton {
     background-image: none;
     border: none;
     -webkit-box-shadow: none;
-    -webkit-border-radius: 3px;
+    border-radius: 3px;
     margin: 3px 3px 3px 3px;
     padding: 4px 0 0 0;
 }
@@ -2802,7 +2792,7 @@ stack[ui-implements='indicators'] > indicator {
 	display: block;
 	width: 8px; 
 	height: 8px;
-	-webkit-border-radius:4px;
+	border-radius:4px;
 	background-color: #ddd;
 	overflow: hidden;
 	margin-right: 10px;
@@ -2871,13 +2861,13 @@ stepper > uibutton > icon {
 	background-color: #fff !important;
 }
 stepper > uibutton:first-of-type {
-	-webkit-border-top-right-radius: 0;
-	-webkit-border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 	margin-right: 0;
 }
 stepper > uibutton:last-of-type {
-	-webkit-border-top-left-radius: 0;
-	-webkit-border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 	margin-left: 0;
 }
 stepper > uibutton:first-of-type > icon {
@@ -2913,7 +2903,7 @@ activityindicator {
 	background-color: #000;
 	-webkit-mask-position: 50% 50%;
 	-webkit-mask-size: 100% 100%;
-	-webkit-mask-box-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42 42'><g transform='translate(21,21)'><g stroke-width='4' stroke-linecap='round' stroke='rgb(0, 0, 0)'><line x1='0' y1='11' x2='0' y2='18' transform='rotate(0, 0, 0)' opacity='1'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-36, 0, 0)' opacity='0.9012345679012346'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-72, 0, 0)' opacity='0.8024691358024691'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-108, 0, 0)' opacity='0.7037037037037037'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-144, 0, 0)' opacity='0.6049382716049383'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-180, 0, 0)' opacity='0.5061728395061729'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-216, 0, 0)' opacity='0.40740740740740744'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-252, 0, 0)' opacity='0.308641975308642'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-288, 0, 0)' opacity='0.2098765432098766'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-324, 0, 0)' opacity='0.11111111111111116'></line></g></g></svg>");
+	-webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42 42'><g transform='translate(21,21)'><g stroke-width='4' stroke-linecap='round' stroke='rgb(0, 0, 0)'><line x1='0' y1='11' x2='0' y2='18' transform='rotate(0, 0, 0)' opacity='1'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-36, 0, 0)' opacity='0.9012345679012346'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-72, 0, 0)' opacity='0.8024691358024691'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-108, 0, 0)' opacity='0.7037037037037037'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-144, 0, 0)' opacity='0.6049382716049383'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-180, 0, 0)' opacity='0.5061728395061729'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-216, 0, 0)' opacity='0.40740740740740744'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-252, 0, 0)' opacity='0.308641975308642'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-288, 0, 0)' opacity='0.2098765432098766'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-324, 0, 0)' opacity='0.11111111111111116'></line></g></g></svg>");
 }
 panel[ui-implements="modal-activity-indicator"] {
 	background-color: rgba(0,0,0,0.5);
@@ -3302,19 +3292,20 @@ popover  {
     border: solid 2px #4f4f4f;
     margin: 0px;
     -webkit-padding-start: 0px;
-    -webkit-border-radius: 10px;
+    border-radius: 10px;
     -webkit-box-shadow: 2px 2px 10px #000;
     position: absolute;
     z-index: 10000000;
     opacity: 0;
     -webkit-transform: scale(0);
     -webkit-transition: all 0.15s ease-in-out;
+    border-radius: 10px;
 }
 
 popover > section {
     background-color: #fff;
     margin: 0px 5px 5px 5px !important; 
-    -webkit-border-radius: 5px;
+    border-radius: 5px;
     min-height: 50px;
     position: relative;
     z-index: 1000;
@@ -3333,8 +3324,8 @@ popover  > header {
     /* Gradient for popover header. The last color in the gradient should be the same as the background color of the popover. */
     background-image: 
         -webkit-linear-gradient(top, #7d828c, #303749 50%, #121a2e 50%);
-    -webkit-border-top-left-radius: 8px;
-    -webkit-border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     position: relative;
 }
 popover  > header > h3 {
@@ -3352,7 +3343,7 @@ popover  > header > h3 {
 popover  > section .actionSheet {
     height: 100%;
     margin: -1px;
-    -webkit-border-radius: 5px;
+    border-radius: 5px;
     padding: 1px;
     
 }
@@ -3458,9 +3449,8 @@ popover actionsheet {
     background: none;
     background-color: rgba(65,72,92,1);
     display: block;
-    -webkit-border-radius: 0px;
     position: static;
-    -webkit-border-radius: 5px;
+    border-radius: 5px;
     box-shadow: 0 0 2px  rgba(65,72,92,1);
 }
 mask {
@@ -3530,8 +3520,8 @@ splitview navbar {
 	background-color: #424242;
 	background-image: 
 		-webkit-linear-gradient(top, #f1f2f5, #d7dae0 40%, #9498a8); 
-	-webkit-border-top-left-radius: 4px;
-	-webkit-border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
 	position: relative;
 	padding-top: 1px;
 	z-index: 1;
