@@ -363,6 +363,7 @@ popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action]:hover {
 	background-image: 
 		-webkit-linear-gradient(top, #70747f, #424857 50%, #171e30 50%, #222839);
 	text-shadow: black 0px 1px 0px;
+}
 tableview[ui-implements=selection-list] tablecell.selected:hover > checkmark {
 	color: #fff;
 }

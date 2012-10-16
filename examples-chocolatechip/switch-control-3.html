@@ -25,13 +25,15 @@
 				id : "sleepSwitch",
 				status : "on",
 				namePrefix : "customer.choice",
-				value: "ZZZZZZZZZ!"
+				value: "ZZZZZZZZZ!",
+				implements: 'attention'
 			};
 			var vacationSwitch = {
 				id : "vacationSwitch",
 				status : "off",
 				namePrefix : "customer.choice",
-				value : "See you later!"
+				value : "See you later!",
+				kind: 'generic'
 			};
 			var breakfastSwitch = {
 				id : "breakfastSwitch",
@@ -62,11 +64,6 @@
 						break;
 				}
 				
-			});
-			$$("switchcontrol").forEach(function(switchedOn) {
-				if (switchedOn.hasClass("on")) {
-					$("#switchResponse").html(switchedOn.find("input").value);
-				}
 			});
 			
 			$.app.delegate("switchcontrol", $.userAction, function(switchcontrol) {

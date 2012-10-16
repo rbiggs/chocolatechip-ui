@@ -33,17 +33,17 @@
 	<script>
 		$(function() {
 			$('#rangeValue1').html($('#rangeControl1').val());
-			$('#rangeControl1').bind('change', function() {
+			$('#rangeControl1').on('change', function() {
 				$('#rangeValue1').html($(this).val());
 			});
 			
 			$('#rangeValue2').html($('#rangeControl2').val());
-			$('#rangeControl2').bind('change', function() {
+			$('#rangeControl2').on('change', function() {
 				$('#rangeValue2').html($(this).val());
 			});
 			
 			$('#rangeValue3').html($('#rangeControl3').val());
-			$('#rangeControl3').bind('change', function() {
+			$('#rangeControl3').on('change', function() {
 				$('#rangeValue3').html($(this).val());
 			});
 		});

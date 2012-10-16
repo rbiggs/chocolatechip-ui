@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
  
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 1.6.0
+Version 2.0.0
  
 */
  
@@ -145,7 +145,7 @@ Version 1.6.0
    
    $.extend({
  
-      version : '1.5.0',
+      version : '2.0.0',
       
       libraryName : 'ChocolateChip',
       
@@ -896,13 +896,17 @@ Version 1.6.0
          this.css(value);
       },
       
-      xhr : function ( url, options ) {
+      xhr : function ( options ) {
          var o = options ? options : {};
-         var successCallback = null;
-         var errorCallback = null;
+         var url = null;
+         var success = null;
+         var error = null;
          if (!!options) {
-            if (!!options.successCallback || !!options.success) {
-               successCallback = options.successCallback || options.success;
+         	if (!!options.url) {
+         		url = options.url;
+         	}
+            if (!!options.success) {
+               success = options.success;
             }
          }
          var that = this,
@@ -918,7 +922,7 @@ Version 1.6.0
               request.setRequestHeader(o.headers[i].name, o.headers[i].value);
             }
          }
-         request.handleResp = (successCallback !== null) ? successCallback : function() { 
+         request.handleResp = (success !== null) ? success : function() { 
             that.insert(this.responseText); 
          }; 
          function hdl(){ 
@@ -926,9 +930,9 @@ Version 1.6.0
                $.responseText = request.responseText;
                request.handleResp(); 
             } else {
-               if (!!options.errorCallback || !!options.error) {
-                  var errorCallback = options.errorCallback || options.error;
-                  errorCallback();
+               if (!!options.error) {
+                  var error = options.error || options.error;
+                  error();
                }
             }
          }
@@ -1330,7 +1334,11 @@ Version 1.6.0
             }
          });
          return result;
-      }  
+      },
+      
+      ajax : function(options) {
+      	return $.app.xhr(options);
+      }
    });
    
    $.extend(document, {

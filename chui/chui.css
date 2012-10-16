@@ -518,7 +518,7 @@ uibutton icon[style*=-webkit-mask-image] {
    -webkit-mask-repeat: no-repeat !important;
 }
 uibutton {
-	-webkit-box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
+	box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
 	border: solid 1px #54617d;
 	border-color: #484e59 #54617d #4c5c7a #54617d; 
 	display: block;
@@ -577,7 +577,7 @@ uibutton[ui-kind=icon] {
    -webkit-box-orient: vertical !important;
    -webkit-box-align: center;
    position: relative;
-   -webkit-box-shadow: none; 
+   box-shadow: none; 
 	border: none; 
 	padding: 0px;
 	-webkit-box-sizing: border-box;
@@ -828,7 +828,7 @@ segmentedcontrol > uibutton {
     -webkit-box-pack:center;
     border: none;
     background: none;
-    -webkit-box-shadow: none;
+    box-shadow: none;
     box-shadow: none;
     border: solid 1px #9a9a99;
     border-left: none;
@@ -885,7 +885,7 @@ toolbar > segmentedcontrol > uibutton {
 navbar > segmentedcontrol > uibutton,
 toolbar > segmentedcontrol > uibutton {
 	display: -webkit-inline-box;
-    -webkit-box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
+    box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
     border: solid 1px #54617d;
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     cursor: pointer;
@@ -1052,7 +1052,7 @@ uibuttonn[ui-implements=attention][ui-kind='rounded-rectangle'].touched{
 uibutton[ui-kind=action] {
     border: solid 1px #64676a;
     border-color: #64676a #717375 #717375 #717375;
-    -webkit-box-shadow: 0 1px 1px #fff;
+    box-shadow: 0 1px 1px #fff;
     display: -webkit-box;
     -webkit-box-pack: justify;
     -webkit-box-align: center;
@@ -1212,7 +1212,7 @@ uibutton[ui-implements=delete].ui-custom-tint.touched {
 uibutton[ui-implements=back].ui-custom-tint:before {
 	background-image: 
 		-webkit-linear-gradient(left top, rgba(255,255,255,.5) 10%, rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5) 90%);
-	-webkit-box-shadow: 0 1px 1px #9AA5BB, 0 -1px 1px #8E96A5;
+	box-shadow: 0 1px 1px #9AA5BB, 0 -1px 1px #8E96A5;
 }
 uibutton[ui-implements=back].ui-custom-tint.touched:before {
 	background-image: 
@@ -1438,7 +1438,7 @@ tablecell[ui-implements=detail-disclosure]:after {
     border-radius: 14px;
     border-radius: 14px;
     border: solid 3px #fff;
-    -webkit-box-shadow: 0 1px 3px #666;
+    box-shadow: 0 1px 3px #666;
     float: right;
     margin-top: -1px;
     margin-left: -10px;
@@ -1486,7 +1486,7 @@ tablecell[ui-implements=add]:after {
     border-radius: 14px;
     border-radius: 14px;
     border: solid 3px #fff;
-    -webkit-box-shadow: 0 1px 3px #666;
+    box-shadow: 0 1px 3px #666;
     float: right;
     margin-left: -10px;
     -webkit-box-sizing: border-box;
@@ -1847,7 +1847,7 @@ deletedisclosure.checked {
     font-weight: bold;
     text-align: center;
     border: solid 3px #fff;
-    -webkit-box-shadow: 0 1px 3px #666;
+    box-shadow: 0 1px 3px #666;
 }
 deletedisclosure.checked > span {
 	display: inline;
@@ -2063,7 +2063,7 @@ popup {
 	display: block;
 	width: 320px;
 	border: solid 1px #72767b;
-	-webkit-box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
+	box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
 	box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
 	border-radius: 10px;
 	padding: 0px;
@@ -2145,7 +2145,7 @@ popup > panel > toolbar[ui-placement=bottom] > uibutton {
 	display: -webkit-box;
 	width: 45%;
 	text-align: center;
-	-webkit-box-shadow: none;
+	box-shadow: none;
 	margin: 10px 5px;
 	height: 42px;
 	font-size: 18px;
@@ -2218,7 +2218,7 @@ switchcontrol {
    line-height: 28px;
    cursor: pointer;
    -webkit-user-select: none;
-	-webkit-box-shadow: inset 0 1px 3px #bababa, inset 0 12px 3px 2px rgba(232,232,232,0.5);
+	box-shadow: inset 0 1px 3px #bababa, inset 0 12px 3px 2px rgba(232,232,232,0.5);
 }
 switchcontrol[ui-kind=traditional] {
    width: 94px;
@@ -2234,7 +2234,7 @@ switchcontrol > thumb {
 	border-radius: 28px;
 	width:  26px;
 	height:  26px;
-	-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
+	box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
 	background-color: #cecece;
 	background-image: 
 		-webkit-linear-gradient(top, #cecece, #fbfbfb);
@@ -2246,7 +2246,7 @@ switchcontrol.touched > thumb {
 	background-image: none;
 }
 switchcontrol[ui-kind=generic].touched > thumb {
-	-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
+	box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
 	background-image: none;
 }
 switchcontrol > input {
@@ -2262,7 +2262,7 @@ switchcontrol:before {
 	display: block;
 	height: 26px;
 	border-radius: 20px;
-	-webkit-box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 3px 2px rgba(0,127,234,0.5);
+	box-shadow: inset 0 1px 2px #0063b7, inset 0 12px 3px 2px rgba(0,127,234,0.5);
 	background-color: #64b1f2;
 	position: absolute;
 	width: 75px;
@@ -2328,7 +2328,7 @@ switchcontrol[ui-kind=traditional] > thumb:after {
 	display: none;
 }
 switchcontrol[ui-implements=attention]:before {
-	-webkit-box-shadow: inset 0 3px 10px #ea6502, inset 0 12px 3px 2px rgba(234,101,2,0.4);
+	box-shadow: inset 0 3px 10px #ea6502, inset 0 12px 3px 2px rgba(234,101,2,0.4);
 	background-color: #ff9c12;
 }
 switchcontrol > label[ui-implements=on] {
@@ -2367,16 +2367,16 @@ switchcontrol > label[ui-implements=off] {
 }
 
 switchcontrol[ui-kind=generic] {
-	-webkit-box-shadow: inset 0 0px 3px #b7b7b7, inset 0 12px 3px 2px #eaeaea;
+	box-shadow: inset 0 0px 3px #b7b7b7, inset 0 12px 3px 2px #eaeaea;
 	background-color: #f6f6f6;
 }
 switchcontrol[ui-kind=generic] > thumb {
-	-webkit-box-shadow: none;
+	box-shadow: none;
 	background-image: 
 		-webkit-linear-gradient(top, #f4f4f4, #e3e3e3);
 }
 switchcontrol[ui-kind=generic]:before {
-	-webkit-box-shadow: inset 0 3px 10px #8e8e8e, inset 0 12px 3px 2px #bfbfbf;
+	box-shadow: inset 0 3px 10px #8e8e8e, inset 0 12px 3px 2px #bfbfbf;
 	background-color: #c4c4c4;
 }
 switchcontrol[ui-kind=generic] > thumb:before {
@@ -2417,7 +2417,7 @@ switchcontrol.on > label[ui-implements=off] {
     -webkit-transform: translateX(6px);
     -webkit-transform: translate3d(6px,0,0);
 }
-/* For Very Important Changes, use the this class */
+/* For Very Important Changes, use this class */
 switchcontrol[ui-implements=attention] > label[ui-implements=on] {
     border: solid 1px #d87100;
     background-image: 
@@ -2476,15 +2476,12 @@ input[type="range"] {
 	outline: none;
 	display: block;
 	margin: 20px auto;
-	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.25);
 	height: 9px;
 	width: auto;
 	border-radius: 4px;
 	background-image: 
-		-webkit-linear-gradient(top, #c9d3e7, #75a9f5 50%, #2d6fc6 50%, #3195e7),
 		-webkit-linear-gradient(top, #f0f0f0, #9a9a9a 20%, #cbcbcb 30%, #f0f0f0 40%, #f0f0f0);
-	background-repeat: no-repeat, repeat-x;
-	-webkit-background-size: 0px 9px, 100% 9px;
+	background-repeat:repeat-x;
 	box-shadow: 0 1px 2px #000;
 }
 input[type="range"]::-webkit-slider-thumb {
@@ -2550,7 +2547,7 @@ tabbar > uibutton {
     position: relative;
     background-image: none;
     border: none;
-    -webkit-box-shadow: none;
+    box-shadow: none;
     border-radius: 3px;
     margin: 3px 3px 3px 3px;
     padding: 4px 0 0 0;
@@ -2571,7 +2568,7 @@ tabbar > uibutton[ui-implements=tab].disabled.touched > icon {
     margin-bottom: -8px;
     background-image: 
     	-webkit-linear-gradient(top left, #A6A6A6, #8C8C8C 50%, #606060);
-    -webkit-box-shadow: #000 0 1px 0px;
+    box-shadow: #000 0 1px 0px;
     -webkit-mask-size: 30px 30px;
     background-size: 30px 30px;
 }
@@ -2590,7 +2587,7 @@ tabbar > uibutton[ui-implements=tab].selected > icon,
 tabbar > uibutton[ui-implements=tab].touched > icon {
     background: 
     	-webkit-linear-gradient(-85deg, #DDE9F0, #79B2EC 60%, #2E91E5 70%, #3FC5F8) !important;
-    -webkit-box-shadow: #000 0 1px 0px;
+    box-shadow: #000 0 1px 0px;
     color:#68B3DA;
 }
 /* End Tab Bar Styles */
@@ -2625,7 +2622,7 @@ expander > header > label {
 	padding: 2px 10px;
 	margin-left: 10px;
 	border: solid 2px #fff;
-	-webkit-box-shadow: 0 3px 4px rgba(0,0,0,0.25),  
+	box-shadow: 0 3px 4px rgba(0,0,0,0.25),  
 		0 -1px 4px rgba(0,0,0,0.25);
 	cursor: pointer;
 }
@@ -2643,7 +2640,7 @@ expander > header:before {
 	-webkit-box-sizing: border-box;
 	-webkit-background-clip: padding-box;
 	padding: 2px;
-	-webkit-box-shadow: 
+	box-shadow: 
 		0 3px 4px rgba(0,0,0,0.25),  
 		0 -1px 4px rgba(0,0,0,0.25);
 	background-image: 
@@ -2715,7 +2712,7 @@ progressbar {
 	border-top-color: #999;
 	margin: 10px auto;
 	position: relative;
-	-webkit-box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+	box-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 	border-radius: 7px;
 	background-color: rgb(56,138,213);
 	background-image:
@@ -2827,7 +2824,7 @@ stepper {
 	display: -webkit-inline-box;
 	-webkit-box-orient: horizontal;
 	-webkit-box-pack: center;
-	-webkit-box-align: center;
+	-webkit-box-align: start;
 	padding: 1px;
 }
 stepper > input {
@@ -2840,7 +2837,7 @@ stepper > label {
 	border: solid 1px #484e59;
 	border-bottom-color: #4c5c7a;
 	width: 50px;
-	height: 31px;
+	height: 30px;
 	font: bold 16px/30px Helvetica;
 	text-align: center;
 }
@@ -3293,7 +3290,7 @@ popover  {
     margin: 0px;
     -webkit-padding-start: 0px;
     border-radius: 10px;
-    -webkit-box-shadow: 2px 2px 10px #000;
+    box-shadow: 2px 2px 10px #000;
     position: absolute;
     z-index: 10000000;
     opacity: 0;
@@ -3545,7 +3542,7 @@ body:not(.SplitViewFixed).portrait rootview {
 	z-index: 10000;
 	height: 100%;
 	border-radius: 6px 6px;
-	-webkit-box-shadow: 0 0 10px #000;
+	box-shadow: 0 0 10px #000;
 	border: solid 4px #000;
 	background-color: #000;
 }

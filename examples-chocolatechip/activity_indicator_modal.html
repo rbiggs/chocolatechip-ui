@@ -29,7 +29,7 @@ body {
 </style>		
 	<script>
 		$(function() {
-			$('#showModalActivityIndicator').on('click', function() {
+			$('#showModalActivityIndicator').on($.userAction, function() {
 				$('app').UIActivityIndicator({modal:true, modalMessage:'Loading...'});
 				setTimeout(function() {
 					$('app').RemoveUIAcitivityIndicator();

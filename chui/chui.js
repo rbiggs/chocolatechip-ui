@@ -243,6 +243,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					customClass : "specials",
 					status : "on",
 					kind : "traditional",
+					implements: 'attention',
 					labelValue : ["on","off"],
 					value : "$1000",
 					callback : function() {console.log('This is great!');},	
@@ -259,6 +260,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			customClass += opts.customClass ? opts.customClass : "";
 			var status = opts.status || "off";
 			var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
+			var implements = opts.implements ? " ui-implements='" + opts.implements + "'" : "";
 			var label1 = "ON";
 			var label2 = "OFF";
 			if (opts.kind === "traditional") {
@@ -269,8 +271,8 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 			var value = opts.value || "";
 			var callback = opts.callback || function() { return false; };
-			var label = (opts.kind === "traditional") ? '<label ui-implements="on">'+ label1 + '</label><thumb></thumb><label ui-implements="off">' + label2 + '</label>' : "<thumb></thumb>";
-			var uiswitch = '<switchcontrol ' + kind + ' class="' + status + " " + customClass + '" id="' + id + '"' + '>' + label + '<input type="checkbox" ' + namePrefix + ' style="display: none;" value="' + value + '"></switchcontrol>';
+			var label = (opts.kind === "traditional") ? $.concat('<label ui-implements="on">', label1, '</label><thumb></thumb><label ui-implements="off">', label2, '</label>') : "<thumb></thumb>";
+			var uiswitch = $.concat('<switchcontrol ', kind, ' class="', status, " ", customClass, '" ', implements, 'id="', id, '"', '>', label, '<input type="checkbox" ', namePrefix, ' style="display: none;" value="', value, '"></switchcontrol>');
 			if ($(this).css("position")  !== "absolute") {
 				this.css("position: relative;");
 			}
@@ -377,10 +379,11 @@ When using Zepto, make sure you have the following modules included in your buil
 			if ($(this).attr('ui-selected-index')) {
 				val = $(this).attr('ui-selected-index');
 				try {
-					var seg = $(this).children(val);
+					var kids = $(this).childElements();
+					var seg = kids.eq(val);
 					seg = $(seg).attr('id');
 					$(this).attr('ui-selected-segment', seg);
-					$(this).children(val).addClass('selected');
+					kids.eq(val).addClass('selected');
 				} catch(e) {}
 			} else {
 				$._each($(this).childElements(), function(idx, ctx) {
@@ -418,7 +421,7 @@ When using Zepto, make sure you have the following modules included in your buil
 						that.attr('ui-selected-segment', $(button).attr('id'));
 					}
 				}
-				$(button).on('click', function() {
+				$(button).on($.userAction, function() {
 					var selectedSegment = that.attr('ui-selected-segment');
 					selectedSegment = $('#'+selectedSegment);
 					var selectedIndex = that.attr('ui-selected-index');
@@ -815,12 +818,12 @@ When using Zepto, make sure you have the following modules included in your buil
 		
 		RemoveUIAcitivityIndicator : function ( ) {
 			$(this).UIUnblock();
-			$._each($.els('panel[ui-implements=modal-activity-indicator]'), function() {
-				$(this).remove();
-			});
-			$._each($.els('activityindicator'), function() {
-				$(this).remove();
-			});
+			try {
+				var panel = $(this).find('panel[ui-implements=modal-activity-indicator]');
+				panel.remove();
+			} catch(error) {}
+			var ai = $(this).find('activityindicator');
+			ai.remove();
 		},
 		
 		UISetTranstionType : function( transition ) {
@@ -1098,7 +1101,7 @@ When using Zepto, make sure you have the following modules included in your buil
 						$.UINavigationHistory.push(href);
 						currentNavigatingView = node.closest('view');
 						
-						currentNavigatingView.bind('webkitTransitionEnd', function(event) {
+						currentNavigatingView.on('webkitTransitionEnd', function(event) {
 							if (_jq) {
 								if (event.type === 'webkitTransitionEnd') {
 									node.removeClass('disabled');
@@ -2010,6 +2013,122 @@ When using Zepto, make sure you have the following modules included in your buil
 						$(item).data('ui-scroller', new iScroll(item.parentNode));
 					});
 				} catch(e) { }			
+			},
+			
+			form2JSON : function(rootNode, delimiter) {
+				//rootNode = typeof rootNode == 'string' ? $(rootNode) : rootNode;
+				rootNode = $.el(rootNode);
+				delimiter = delimiter || '.';
+				var formValues = getFormValues(rootNode);
+				var result = {};
+				var arrays = {};
+				
+				function getFormValues(rootNode) {
+					var result = [];
+					var currentNode = rootNode.firstChild;
+					while (currentNode) {
+						if (currentNode.nodeName.match(/INPUT|SELECT|TEXTAREA/i)) {
+							result.push({ name: currentNode.name, value: getFieldValue(currentNode)});
+						} else {
+							var subresult = getFormValues(currentNode);
+							result = result.concat(subresult);
+						}
+						currentNode = currentNode.nextSibling;
+					}
+					return result;
+				}
+				function getFieldValue(fieldNode) {
+					if (fieldNode.nodeName === 'INPUT') {
+						if (fieldNode.type.toLowerCase() === 'radio' || fieldNode.type.toLowerCase() === 'checkbox') {
+							if (fieldNode.checked) {
+								return fieldNode.value;
+							}
+						} else {
+							if (!fieldNode.type.toLowerCase().match(/button|reset|submit|image/i)) {
+								return fieldNode.value;
+							}
+						}
+					} else {
+						if (fieldNode.nodeName === 'TEXTAREA') {
+							return fieldNode.value;
+						} else {
+							if (fieldNode.nodeName === 'SELECT') {
+								return getSelectedOptionValue(fieldNode);
+							}
+						}
+					}
+					return '';
+				}
+				function getSelectedOptionValue(selectNode) {
+					var multiple = selectNode.multiple;
+					if (!multiple) {
+						return selectNode.value;
+					}
+					if (selectNode.selectedIndex > -1) {
+						var result = [];
+						var options = $.els('option', selectNode);
+						$._each(function(idx, ctx) {
+							if (ctx.selected) {
+								result.push(ctx.value);
+							}
+						});
+						/*$$('option', selectNode).each(function(item) {
+							if (item.selected) {
+								result.push(item.value);
+							}
+						});*/
+						return result;
+					}
+				}    
+				$.each(formValues, function(idx, item) {
+				//formValues.each(function(item) {
+					var value = item.value;
+					if (value !== '') {
+						var name = item.name;
+						var nameParts = name.split(delimiter);
+						var currResult = result;
+						for (var j = 0; j < nameParts.length; j++) {
+							var namePart = nameParts[j];
+							var arrName;
+							if (namePart.indexOf('[]') > -1 && j == nameParts.length - 1) {
+								arrName = namePart.substr(0, namePart.indexOf('['));
+								if (!currResult[arrName]) currResult[arrName] = [];
+								currResult[arrName].push(value);
+							} else {
+								if (namePart.indexOf('[') > -1) {
+									arrName = namePart.substr(0, namePart.indexOf('['));
+									var arrIdx = namePart.replace(/^[a-z]+\[|\]$/gi, '');
+									if (!arrays[arrName]) {
+										arrays[arrName] = {};
+									}
+									if (!currResult[arrName]) {
+										currResult[arrName] = [];
+									}
+									if (j == nameParts.length - 1) {
+										currResult[arrName].push(value);
+									} else {
+										if (!arrays[arrName][arrIdx]) {
+											currResult[arrName].push({});
+											arrays[arrName][arrIdx] = 
+											currResult[arrName][currResult[arrName].length - 1];
+										}
+									}
+									currResult = arrays[arrName][arrIdx];
+								} else {
+									if (j < nameParts.length - 1) { 
+										if (!currResult[namePart]) {
+											currResult[namePart] = {};
+										}
+										currResult = currResult[namePart];
+									} else {
+										currResult[namePart] = value;
+									}
+								}
+							}
+						}
+					}
+				});
+				return result;
 			}
 		});
 		

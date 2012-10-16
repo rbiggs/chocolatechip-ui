@@ -25,6 +25,9 @@
 		stepper > uibutton.green:last-of-type {
 			background-color: red;
 		}
+		stepper > uibutton.gold {
+			background-color: gold;
+		}
 	</style>
 	<script src="../libs/chocolatechip.js"></script>
 	<script src="../chui/iscroll.js"></script>
@@ -34,8 +37,7 @@
 		$(function() {
 			
 			$.UIStepper({
-				selector: "#days", 
-				buttonClass: "ui-custom-tint green", 
+				selector: "#days",  
 				range: {values: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']},
 				namePrefix: "cusomers.schedule"
 				//defaultValue: "Mon"
@@ -43,35 +45,32 @@
 			
 			$.UIStepper({
 				selector: "#months", 
-				buttonClass: "ui-custom-tint green", 
 				range: {values: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
 				defaultValue: "Mar"
 			});
 			
 			$.UIStepper({
 				selector: "#date", 
-				buttonClass: "ui-custom-tint green", 
 				range: {start: 0, end: 31},
 				defaultValue: 10,
 			});
 			
 			$.UIStepper({
 				selector: "#year",
-				buttonClass: "ui-custom-tint green",
 				range: {start: 1980, end: 2012},
 				defaultValue: 1999
 			});
 			
 			$.UIStepper({
 				selector: "#range1", 
-				buttonClass: "ui-custom-tint green", 
+				buttonClass: "ui-custom-tint", 
 				range: {start: 0, end: 40},
 				step: 4
 			});
 			
 			$.UIStepper({
 				selector: "#range2", 
-				buttonClass: "ui-custom-tint green", 
+				buttonClass: "ui-custom-tint gold", 
 				range: {start: 3, end: 30},
 				defaultValue: 9,
 				step: 3,

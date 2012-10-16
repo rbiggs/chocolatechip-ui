@@ -46,14 +46,14 @@
 							<celltitle>Sleep</celltitle>
 							<switchcontrol class="on" id="sleepSwitch">
 								 <thumb></thumb>
-						<input type="checkbox" value="ZZZZZZZZ!" name="sleepSwitch">
+								 <input type="checkbox" value="ZZZZZZZZ!" name="sleepSwitch">
 							</switchcontrol>
 						</tablecell>
 				  	</tableview>
 				  	<tableview ui-kind="grouped">
 						<tablecell>
 							<celltitle>Vacation</celltitle>
-							<switchcontrol class="off" id="vacationSwitch">
+							<switchcontrol class="off" id="vacationSwitch" ui-kind='generic'>
 								<thumb></thumb>
 								<input type="checkbox" value="See you later!!" name="vacationSwitch">
 							</switchcontrol>
@@ -62,7 +62,7 @@
 				  	<tableview ui-kind="grouped">
 						<tablecell>
 							<celltitle>Breakfast</celltitle>
-							<switchcontrol class="off" id="breakfastSwitch">
+							<switchcontrol class="off" id="breakfastSwitch" ui-implements="attention">
 							 	<thumb></thumb>
 								<input type="checkbox" value="I'm hungry!" name="breakfastSwitch">
 							</switchcontrol>
