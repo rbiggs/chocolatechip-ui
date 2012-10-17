@@ -1490,6 +1490,7 @@ When using Zepto, make sure you have the following modules included in your buil
 								$(this).UIToggleButtonLabel(label1, label2);
 								$(this).removeAttr('ui-implements');
 								$(this).parent()._first().css('display', 'none');
+								$(this).parent().childElements().eq(1).css('display', 'block');
 								listEl.removeClass('ui-show-delete-disclosures');
 								$._each($.els('deletedisclosure'), function(idx, ctx) {
 									$(ctx).removeClass('checked');
@@ -2080,7 +2081,7 @@ When using Zepto, make sure you have the following modules included in your buil
 						return result;
 					}
 				}    
-				$.each(formValues, function(idx, item) {
+				$._each(formValues, function(idx, item) {
 				//formValues.each(function(item) {
 					var value = item.value;
 					if (value !== '') {
