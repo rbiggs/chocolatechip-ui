@@ -190,16 +190,21 @@ Version 2.0.0
          $('head').insert(script, 'last');
       },
        
-      processJSON : function ( data ) {
+      processJSON : function ( data, name ) {
+      	if (name != null || name != undefined) {
+      		name = 'var ' + name + ' = ';
+      	} else {
+      		name = 'var data = ';
+      	}
          var script = document.createElement('script');
          script.setAttribute('type', 'text/javascript');
          var scriptID = $.UIUuid();
          script.setAttribute('id', scriptID);
-         script.insert(data);
-         $('head').insert(script, 'last');
+         script.html(name + data)
+         $('head').append(script);
          $.defer(function() {
             var id = '#' + scriptID;
-            $(id).remove();
+           // $(id).remove();
          });
       },
       

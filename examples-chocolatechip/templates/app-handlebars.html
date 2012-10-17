@@ -92,21 +92,20 @@
 				</tablecell>\
 			{{/each}}";
 			songsTemplate = Handlebars.compile(songsTemplate);
-			var data;
 			$.ajax({
 				url: "data.json",
 				success : function() {
-					data = JSON.parse($.responseText);
+					return $.processJSON($.responseText, 'collectionData');
 				}
 			});
 			
-			$("#customers tableview").empty().insert(customerTemplate(data));
+			$("#customers tableview").empty().insert(customerTemplate(collectionData));
 			$("#customers > subview > scrollpanel").data("ui-scroller").refresh();
 			
-			$("#recipes tableview").empty().insert(recipesTemplate(data));
+			$("#recipes tableview").empty().insert(recipesTemplate(collectionData));
 			$("#recipes > subview > scrollpanel").data("ui-scroller").refresh();
 			
-			$("#songs tableview").empty().insert(songsTemplate(data));
+			$("#songs tableview").empty().insert(songsTemplate(collectionData));
 			$("#songs > subview > scrollpanel").data("ui-scroller").refresh();
 			
 			$.UIDeleteTableCell({selector: "#songs tableview", toolbar: "#songs navbar"});
