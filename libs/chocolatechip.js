@@ -41,9 +41,13 @@ Version 2.0.0
          return document.querySelector(selector);
       }
    };
-   
-   $.extend = function(obj, prop) {
-		if (Object.keys in window) {
+   $.extend = function(obj, prop, enumerable) {
+   	var enumerable = enumerable || false;
+   	if (!prop) {
+   		prop = obj;
+   		obj = $;
+   	}
+		if (Object.keys) {
 			Object.keys(prop).forEach(function(p) {
 				if (prop.hasOwnProperty(p)) {
 					Object.defineProperty(obj, p, {
@@ -210,9 +214,7 @@ Version 2.0.0
       
       noop : function ( ) { },
       
-      concat : function ( args ) {
-         return args instanceof Array ? args.join('') : $.slice.apply(arguments).join('');
-      },
+      concat : String.prototype.concat,
       
       w : function ( str ) {
       	return str.split(' ');

@@ -34,12 +34,10 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 		}
 	};	
-	
+
 	if (_jq || _zo) {
 		$.extend($, {
-			concat : function ( args ) {
-				return args instanceof Array ? args.join('') : Array.prototype.slice.apply(arguments).join('');
-			},
+			concat : String.prototype.concat,
          capitalize : function ( str ) {
 				return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 			}
