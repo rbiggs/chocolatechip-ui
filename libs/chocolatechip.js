@@ -104,13 +104,17 @@ Version 2.0.0
          else return false;
       },
       
-      not : function ( arg ) {
+      isnt : function ( arg ) {
          var items = [];
          this.each(function(item) {
             if (!item.is(arg)) items.push(item);
          });
          if (items.length) return items;
          else return false;
+      },
+      
+      not : function ( arg ) {
+      	return this.isnt(arg);
       },
       
       has : function ( arg ) {
@@ -122,13 +126,17 @@ Version 2.0.0
          else return false;
       },
       
-      hasNot : function ( arg ) {
+      hasnt : function ( arg ) {
          var items = [];
          this.each(function(item) {
             if (item.hasNot(arg)) items.push(item);
          });
          if (items.length) return items;
          else return false;
+      },
+      
+      hasNot : function ( arg ) {
+      	return this.hasnt(arg);
       },
       
       prependTo : function ( selector ) {
@@ -208,7 +216,7 @@ Version 2.0.0
          $('head').append(script);
          $.defer(function() {
             var id = '#' + scriptID;
-           // $(id).remove();
+            $(id).remove();
          });
       },
       
@@ -340,8 +348,21 @@ Version 2.0.0
             if(callback(key, this[key]) === false) { return this; }
          }
          return this;
-      }
-   });
+      },
+
+	  key : function(idx) {
+		  var ret;
+		  var count = 0;
+		  for (key in this) {
+			if (idx === count) {
+				return ret = key;
+			} else {
+				count++;
+			}
+		  }
+		  if (ret) return ret;
+	  }
+   }, false);
    
    $.extend(HTMLElement.prototype, {
       
@@ -1096,7 +1117,7 @@ Version 2.0.0
       standalone : navigator.standalone,
       ios4 : navigator.userAgent.match(/OS 4/i),
       ios5 : navigator.userAgent.match(/OS 5/i),
-      userAction : ($.touchEnabled ? 'touchstart' : 'click'),
+      userAction : ($.touchEnabled ? 'touchend' : 'click'),
       mobile : /mobile/img.test(navigator.userAgent),
       desktop : !(/mobile/img.test(navigator.userAgent)),
        
@@ -1356,21 +1377,6 @@ Version 2.0.0
    	  	  } else {
    	  	  	$.ready(fn);
    	  	  }
-   	  }
-   });
-   
-   $.extend(Object.prototype, {
-   	  key : function(idx) {
-   	     var ret;
-   	     var count = 0;
-   	     for (key in this) {
-   	     	if (idx === count) {
-   	     		return ret = key;
-   	     	} else {
-   	     		count++;
-   	     	}
-   	     }
-   	     if (ret) return ret;
    	  }
    });
 
