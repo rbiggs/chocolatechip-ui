@@ -222,7 +222,10 @@ Version 2.0.0
       
       noop : function ( ) { },
       
-      concat : String.prototype.concat,
+      concat : function ( args ) {
+			args = $.slice.apply(arguments);
+			return String.prototype.concat.apply(args.join(''));
+		},
       
       w : function ( str ) {
       	return str.split(' ');
@@ -245,7 +248,7 @@ Version 2.0.0
       },
       
       makeUuid : function ( ) {
-         return $.concat(["chch_",$.uuid]);
+         return $.concat("chch_", $.uuid);
       },
       
       uuid : 0,
