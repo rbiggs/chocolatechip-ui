@@ -1083,8 +1083,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
 					var node = $(node);
+					var regex = /^#/;
 					node.attr('role','link');
 					var href = node.attr('href');
+					if (!/^#/.test(href)) return;
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
 							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
