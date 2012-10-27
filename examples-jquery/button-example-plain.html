@@ -7,11 +7,14 @@
     <title>Buttons</title>
     <link rel="stylesheet" href="../chui/chui.css">
     <style type="text/css">
-		stack {
+		stack[ui-box="horizontal"] {
 			min-height: 40px;
 			position: relative;
 			-webkit-box-align: center;
 			-webkit-box-pack: justify;
+		}
+		stack.centered {
+			-webkit-box-pack: center;
 		}
 		stack > uibutton {
 			-webkit-box-flex: 0 !important;
@@ -66,7 +69,7 @@
 			<label>Delete</label>
 		</uibutton>
 	</stack>
-	<stack ui-box="horizontal">
+	<stack ui-box="horizontal" class='centered'>
 		 <uibutton ui-icon-align="right" ui-bar-align="left">
 			 <icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
 			 <label>Add</label>
@@ -93,9 +96,6 @@
 		</uibutton>
 		<uibutton  ui-implements="icon">
 			<icon style="-webkit-mask-image: url(../icons/add.svg); background-color: #fff5b6;"></icon>
-		</uibutton>
-		<uibutton class="disabled">
-			<label>Edit</label>
 		</uibutton>
 		<uibutton ui-icon-align="right">
 			<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>

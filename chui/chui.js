@@ -5,6 +5,7 @@ This version works with ChocolateChip.js, jQuery or Zepto.
 For jQuery, ChocolateChip-UI requires as a minimum version 1.7.1
 When using Zepto, make sure you have the following modules included in your build: zepto, event, detect, fx, fx_methods, ajax, form, data, selector, stack. 
 */
+
 (function() {
 	if (window.$chocolatechip) {
 		var $ = window.$chocolatechip;
@@ -37,7 +38,10 @@ When using Zepto, make sure you have the following modules included in your buil
 
 	if (_jq || _zo) {
 		$.extend($, {
-			concat : String.prototype.concat,
+			concat : function ( args ) {
+				args = [].slice.apply(arguments);
+				return String.prototype.concat.apply(args.join(''));
+			},
          capitalize : function ( str ) {
 				return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
 			}
@@ -1008,6 +1012,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
 			$.userAction = 'click';
 		}
+
 		if ( _jq || _zo) {
 			$.fn.hasAttr = function(property) {
 				return $(this).attr(property);

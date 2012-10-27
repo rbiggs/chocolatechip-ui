@@ -39,6 +39,7 @@
 		
 		var actionSheetButtonResponse = function(text) {
 			$('#output').html("You pressed the " + text + " uibutton.");
+			$('scrollpanel').data('ui-scroller').refresh();
 		};
 		var respondToDeleteButton = function(actionSheetID) {
 			actionSheetButtonResponse("Delete");
