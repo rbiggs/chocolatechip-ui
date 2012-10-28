@@ -94,13 +94,13 @@
 			songsTemplate = Handlebars.compile(songsTemplate);
 				
 			$.getJSON( "data.json", function(data) {	
-					$("#customers tableview").empty().html(customerTemplate(data));
+					$("#customers tableview").html(customerTemplate(data));
 					$("#customers > subview > scrollpanel").data("ui-scroller").refresh();
 					
-					$("#recipes tableview").empty().html(recipesTemplate(data));
+					$("#recipes tableview").html(recipesTemplate(data));
 					$("#recipes > subview > scrollpanel").data("ui-scroller").refresh();
 					
-					$("#songs tableview").empty().html(songsTemplate(data));
+					$("#songs tableview").html(songsTemplate(data));
 					$("#songs > subview > scrollpanel").data("ui-scroller").refresh();
 					
 					$.UIDeleteTableCell({selector: "#songs tableview", toolbar: "#songs navbar"});

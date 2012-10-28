@@ -1194,7 +1194,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					$.UINavigationHistory = ["#main"];
 				}
 			},
-			
+	
 			UITouchedTableCell : null,
 			
 			setupAriaForViews : function() {
@@ -1311,8 +1311,8 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}
 			},
-			
-			resetSpinner : function(selector) {
+							
+			resetStepper : function(selector) {
 				var value = $(selector).data('range-value');
 				value = value.split(',')[0];
 				$(selector).find('label').text(value);
@@ -1529,6 +1529,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var UIDeleteDisclosureSelection = function() {
 					$._each($.els('deletedisclosure'), function(idx, disclosure) {
 						$(disclosure).on($.userAction, function() {
+							alert('hi');
 							$(disclosure).toggleClass('checked');
 							$(disclosure).closest('tablecell').toggleClass('deletable');
 							$('uibutton[ui-implements=delete]', toolbarEl).removeClass('disabled');

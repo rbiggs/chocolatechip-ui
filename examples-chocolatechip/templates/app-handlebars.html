@@ -99,13 +99,13 @@
 				}
 			});
 			
-			$("#customers tableview").empty().insert(customerTemplate(collectionData));
+			$("#customers tableview").html(customerTemplate(collectionData));
 			$("#customers > subview > scrollpanel").data("ui-scroller").refresh();
 			
-			$("#recipes tableview").empty().insert(recipesTemplate(collectionData));
+			$("#recipes tableview").html(recipesTemplate(collectionData));
 			$("#recipes > subview > scrollpanel").data("ui-scroller").refresh();
 			
-			$("#songs tableview").empty().insert(songsTemplate(collectionData));
+			$("#songs tableview").html(songsTemplate(collectionData));
 			$("#songs > subview > scrollpanel").data("ui-scroller").refresh();
 			
 			$.UIDeleteTableCell({selector: "#songs tableview", toolbar: "#songs navbar"});
