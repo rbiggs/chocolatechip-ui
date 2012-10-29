@@ -272,7 +272,7 @@
 				deleteItemFromPurchaseList();
 			};
 			
-			var deleteItem = function(node) {
+			function deleteItem(node) {
 				var itemToDelete = node.getAttribute("ui-child-position");
 				subtractDeletedValues(node);
 				$purchaseItems.forEach(function(item, idx) {
@@ -280,8 +280,7 @@
 					price = parseInt($.centsToDollars(item.price),10);
 					cartTotal.totalCost += price * parseInt(item.quantity,10);
 				});
-				
-				$("#totalItems").text(cartTotal.totalItems);
+				$("#totalItems").html(cartTotal.totalItems);
 				updateTotalCost($.dollarsToCents(cartTotal.totalCost));
 				$purchaseItemsTemplate = '';
 				$purchaseItems.forEach(function(item) {

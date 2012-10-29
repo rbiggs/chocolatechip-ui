@@ -223,8 +223,12 @@ Version 2.0.0
       noop : function ( ) { },
       
       concat : function ( args ) {
-			args = $.slice.apply(arguments);
-			return String.prototype.concat.apply(args.join(''));
+      	if (args instanceof Array) {
+      		return args.join('');
+      	} else {
+				args = $.slice.apply(arguments);
+				return String.prototype.concat.apply(args.join(''));
+			}
 		},
       
       w : function ( str ) {
@@ -608,7 +612,7 @@ Version 2.0.0
       },
        
       text : function ( value ) {
-         if (!!value) {
+         if (!!value || value === 0) {
             this.innerText = value;
             return this;
          } else {
@@ -670,7 +674,7 @@ Version 2.0.0
       },
       
       html : function ( content ) {
-         this.empty().insert(content);
+         this.innerHTML = content;
       },
       
       prepend : function ( content ) {
@@ -926,73 +930,6 @@ Version 2.0.0
          }
          this.css(value);
       },
-      
-      xhr : function ( options ) {
-         var o = options ? options : {};
-         var url = null;
-         var success = null;
-         var error = null;
-         if (!!options) {
-         	if (!!options.url) {
-         		url = options.url;
-         	}
-            if (!!options.success) {
-               success = options.success;
-            }
-         }
-         var that = this,
-            request     = new XMLHttpRequest(),
-            method = o.method || 'get',
-            async  = o.async || false,        
-            params = o.data || null,
-            i = 0;
-         request.queryString = params;
-         request.open(method, url, async);
-         if (o.headers) {
-            for (; i<o.headers.length; i++) {
-              request.setRequestHeader(o.headers[i].name, o.headers[i].value);
-            }
-         }
-         request.handleResp = (success !== null) ? success : function() { 
-            that.insert(this.responseText); 
-         }; 
-         function hdl(){ 
-            if(request.status===0 || request.status==200 && request.readyState==4) {   
-               $.responseText = request.responseText;
-               request.handleResp(); 
-            } else {
-               if (!!options.error) {
-                  var error = options.error || options.error;
-                  error();
-               }
-            }
-         }
-         if(async) request.onreadystatechange = hdl;
-         request.send(params);
-         if(!async) hdl();
-         return this;
-      },
-       
-      xhrjson : function ( url, options ) {
-            if (typeof options === 'undefined') {
-                return this;
-            }
-            var c = options.successCallback;
-            if (typeof c != 'function') {
-                c = function (x) {
-                    return x;
-                };
-            }
-            var callback = function () {
-                var o = eval('(' + this.responseText + ')');
-                for (var prop in o) {
-                    $(options[prop]).fill(c(o[prop]));
-                }
-            };
-            options.successCallback = callback;
-            this.xhr(url, options);
-            return this;
-      },
  
       UICheckForOverflow : function (){
          var origOverflow = this.css('overflow');
@@ -1032,7 +969,72 @@ Version 2.0.0
     
     
    $.extend($, {
-       
+   
+      xhr : function ( options ) {
+         var o = options ? options : {};
+         var successCallback = null;
+         var errorCallback = options.error || $.noop;
+         if (!!options) {
+            if (!!o.successCallback || !!o.success) {
+               successCallback = o.successCallback || o.success;
+            }
+         }
+         var request = new XMLHttpRequest(),
+            method = o.method || 'get',
+            async  = o.async || false,        
+            params = o.data || null,
+            i = 0;
+         request.queryString = params;
+         request.open(method, o.url, async);
+         if (o.headers) {
+            for (; i<o.headers.length; i++) {
+              request.setRequestHeader(o.headers[i].name, o.headers[i].value);
+            }
+         }
+         request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
+         function hdl(){ 
+            if(request.status===0 || request.status==200 && request.readyState==4) {   
+               $.responseText = request.responseText;
+               request.handleResp(request.responseText); 
+            } else {
+               if (!!o.errorCallback || !!o.error) {
+                  var errorCallback = o.errorCallback || o.error;
+                  errorCallback(request);
+               }
+            }
+         }
+         if(async) request.onreadystatechange = hdl;
+         request.send(params);
+         if(!async) hdl();
+         return this;
+      },
+      
+      ajax : function( options ) {
+      	return $.xhr(options);
+      },
+      
+      xhrjson : function ( url, options ) {
+            if (typeof options === 'undefined') {
+                return this;
+            }
+            var c = options.successCallback;
+            if (typeof c != 'function') {
+                c = function (x) {
+                    return x;
+                };
+            }
+            var callback = function () {
+                var o = eval('(' + this.responseText + ')');
+                for (var prop in o) {
+                    $(options[prop]).fill(c(o[prop]));
+                }
+            };
+            options.successCallback = callback;
+            options.url = url;
+            $.xhr(options);
+            return this;
+      },
+             
       delay : function ( fnc, time ) {
          fnc = fnc || $.noop;
          setTimeout(function() { 
@@ -1365,10 +1367,6 @@ Version 2.0.0
             }
          });
          return result;
-      },
-      
-      ajax : function(options) {
-      	return $.app.xhr(options);
       }
    });
    

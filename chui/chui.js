@@ -39,8 +39,12 @@ When using Zepto, make sure you have the following modules included in your buil
 	if (_jq || _zo) {
 		$.extend($, {
 			concat : function ( args ) {
-				args = [].slice.apply(arguments);
-				return String.prototype.concat.apply(args.join(''));
+				if (args instanceof Array) {
+					return args.join('');
+				} else {
+					args = $.slice.apply(arguments);
+					return String.prototype.concat.apply(args.join(''));
+				}
 			},
          capitalize : function ( str ) {
 				return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();

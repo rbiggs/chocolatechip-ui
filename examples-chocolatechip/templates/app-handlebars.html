@@ -94,8 +94,8 @@
 			songsTemplate = Handlebars.compile(songsTemplate);
 			$.ajax({
 				url: "data.json",
-				success : function() {
-					return $.processJSON($.responseText, 'collectionData');
+				success : function(data) {
+					return $.processJSON(data, 'collectionData');
 				}
 			});
 			

@@ -1529,7 +1529,6 @@ When using Zepto, make sure you have the following modules included in your buil
 				var UIDeleteDisclosureSelection = function() {
 					$._each($.els('deletedisclosure'), function(idx, disclosure) {
 						$(disclosure).on($.userAction, function() {
-							alert('hi');
 							$(disclosure).toggleClass('checked');
 							$(disclosure).closest('tablecell').toggleClass('deletable');
 							$('uibutton[ui-implements=delete]', toolbarEl).removeClass('disabled');
