@@ -1,27 +1,28 @@
 /*
 ChocolateChip-UI
-Version 2.0 Beta
+Version 2.0
 This version works with ChocolateChip.js, jQuery or Zepto. 
 For jQuery, ChocolateChip-UI requires as a minimum version 1.7.1
 When using Zepto, make sure you have the following modules included in your build: zepto, event, detect, fx, fx_methods, ajax, form, data, selector, stack. 
 */
 
 (function() {
+	var _$ = null;
 	if (window.$chocolatechip) {
-		var $ = window.$chocolatechip;
+		_$ = window.$chocolatechip;
 		var $$ = window.$$chocolatechip;
 		var _cc = true;
-		
-		$.fn = HTMLElement.prototype;
 	}
 	if (window.jQuery) {
-		var $ = window.jQuery;
+		_$ = window.jQuery;
 		var _jq = true;
 	}
 	if (window.Zepto) {
-		var $ = window.Zepto;
+		_$ = window.Zepto;
 		var _zo = true;
 	}
+	var $ = _$;
+	
 	UIConvertElementMethods = function(elementMethods) {
 		for (var method in elementMethods) {
 			if (_jq || _zo) {
@@ -249,7 +250,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					customClass : "specials",
 					status : "on",
 					kind : "traditional",
-					implements: 'attention',
+					uiImplements: 'attention',
 					labelValue : ["on","off"],
 					value : "$1000",
 					callback : function() {console.log('This is great!');},	
@@ -266,7 +267,10 @@ When using Zepto, make sure you have the following modules included in your buil
 			customClass += opts.customClass ? opts.customClass : "";
 			var status = opts.status || "off";
 			var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
-			var implements = opts.implements ? " ui-implements='" + opts.implements + "'" : "";
+			var uiImplements = '';
+			if (opts.uiImplements) {
+				uiImplements = " ui-implements='" + opts.uiImplements + "'";
+			}
 			var label1 = "ON";
 			var label2 = "OFF";
 			if (opts.kind === "traditional") {
@@ -278,7 +282,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			var value = opts.value || "";
 			var callback = opts.callback || function() { return false; };
 			var label = (opts.kind === "traditional") ? $.concat('<label ui-implements="on">', label1, '</label><thumb></thumb><label ui-implements="off">', label2, '</label>') : "<thumb></thumb>";
-			var uiswitch = $.concat('<switchcontrol ', kind, ' class="', status, " ", customClass, '" ', implements, 'id="', id, '"', '>', label, '<input type="checkbox" ', namePrefix, ' style="display: none;" value="', value, '"></switchcontrol>');
+			var uiswitch = $.concat('<switchcontrol ', kind, ' class="', status, " ", customClass, '" ', uiImplements, 'id="', id, '"', '>', label, '<input type="checkbox" ', namePrefix, ' style="display: none;" value="', value, '"></switchcontrol>');
 			if ($(this).css("position")  !== "absolute") {
 				this.css("position: relative;");
 			}
@@ -505,7 +509,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 					tabbar.push("'");
 				}
-				tabbar.push("><icon style='-webkit-mask-image: url(")
+				tabbar.push("><icon style='-webkit-mask-image: url(");
 				tabbar.push(imagePath);
 				tabbar.push(iconsOfTabs[i]);
 				tabbar.push(".svg);'></icon>");
@@ -557,7 +561,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(view).attr('ui-navigation-status','upcoming');
 			});
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
-			views.eq(selectedTab).attr('ui-navigation-status','current')
+			views.eq(selectedTab).attr('ui-navigation-status','current');
 			tabs.eq(selectedTab).addClass('selected');
 			$._each(tabs, function(idx, tab) {
 				$(tab).on('click', function() {
@@ -670,7 +674,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		UIParagraphEllipsis : function () {
 			var lines = $(this).UICalculateNumberOfLines();
 			var $this = this.reduceToNode();
-			$this.style.WebkitLineClamp = lines
+			$this.style.WebkitLineClamp = lines;
 		},
 		
 		UIProgressBar : function ( opts ) {
@@ -713,7 +717,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				if (actionSheetColor) color = $.concat(" ui-action-sheet-color='", actionSheetColor, "'");
 				var actionSheetStr = $.concat("<actionsheet id='", actionSheetID, "' class='hidden' aria-hidden='true' role='dialog' style='display:none' ui-contains='action-buttons'", color, "><scrollpanel ui-scroller='", $.UIUuid(), "'><panel>", title, uiButtons, "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#", actionSheetID, "\")'><label>Cancel</label></uibutton></panel></scrollpanel></actionsheet>");
 				$(that).append(actionSheetStr);
-			}
+			};
 			createActionSheet();
 			var actionsheet = $("#" + actionSheetID);
 			actionsheet.attr('aria-hidden','true');
@@ -781,6 +785,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			var modalPanelID = $.UIUuid();
 			var duration = opts.duration || '1s';
 			var style = $.concat('background-color:', color,'; height:', size, ';  width:',size);
+			var spinner;
 			if (modal) {
 				panel = document.createElement('panel');
 				$(panel).attr('ui-implements','modal-activity-indicator');
@@ -788,7 +793,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(panel).attr('role','dialog');
 				$(panel).attr('id', modalPanelID);
 				$(panel).css({'display':'-webkit-box','-webkit-box-orient':'vertical','-webkit-box-align':'center','-webkit-box-pack':'center', 'background-color':'rgba(0,0,0,0.5)', 'border-radius':'20px', 'height': '120px', 'width':'200px', 'z-index': 11111});
-				var spinner = document.createElement('activityindicator');
+				spinner = document.createElement('activityindicator');
 				$(spinner).css({'background-color': '#fff', 'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
 				$(spinner).attr('role','progressbar');
 				$(panel).append(spinner);
@@ -813,13 +818,14 @@ When using Zepto, make sure you have the following modules included in your buil
 				}, false);
 			} else {
 				var webkitAnim = _zo ? null : {'-webkit-animation-duration': duration};
-				var spinner = document.createElement('activityindicator');
+				spinner = document.createElement('activityindicator');
 				$(spinner).css({'background-color': color, 'height': size, 'width': size});
 				if (webkitAnim) $(spinner).css(webkitAnim);
 				$(spinner).attr('role','progressbar');
 				if (position) $(spinner).attr('ui-bar-align', position);
 				return $(this).append(spinner);
 			}
+			return this;
 		},
 		
 		RemoveUIAcitivityIndicator : function ( ) {
@@ -955,7 +961,8 @@ When using Zepto, make sure you have the following modules included in your buil
 						}
 					}
 				}
-		  	}  
+				return this;
+		  	};
 		} else {
 			$._each = $.each;
 		}
@@ -1028,7 +1035,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		$._each(navigationListItems, function(idx, ctx) {
 			if ($(ctx).hasAttr('href')) {
 				$(ctx).attr('role', 'button');
-				$(ctx).closest('tableview').attr('role','list')
+				$(ctx).closest('tableview').attr('role','list');
 			} else {
 				$(ctx).attr('role', 'listitem');
 			}
@@ -1047,8 +1054,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			
 			ctx : function(node) {
 				try {
-					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? node[0] : node
-				} catch(err) {}
+					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? node[0] : node;
+				} catch(err) {};
+				return this;
 			},
 	
 			UIEnableScrolling : function ( options ) {
@@ -1086,11 +1094,11 @@ When using Zepto, make sure you have the following modules included in your buil
 			UINavigationList : function() {
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
-					var node = $(node);
+					node = $(node);
 					var regex = /^#/;
 					node.attr('role','link');
 					var href = node.attr('href');
-					if (!/^#/.test(href)) return;
+					if (/^#/.test(href) == false) return;
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
 							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
@@ -1140,7 +1148,7 @@ When using Zepto, make sure you have the following modules included in your buil
 							if ($(node).hasAttr('href')) {
 								$.UINavigationListExits = true;			
 								if ($(node).hasClass('disabled')) {
-									return
+									return;
 								} else {
 									$(node).addClass('disabled');
 									navigateList($(node));
@@ -1384,7 +1392,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var guid = $.UIUuid();
 				var indicators = '<stack id="' + guid + '" ui-implements="indicators" role="radiogroup" style="width:"' + indicatorsWidth + ';">';
 				scrollerPanels.eq(0).addClass('active');
-				var panels = stack.childElements()
+				var panels = stack.childElements();
 				$._each([].slice.apply(panels), function(idx, ctx) {
 					if (idx === 0) {
 						indicators += '<indicator class="active" title="page 1 of'+panels.length+'"><input type="radio" name="group'+guid+'"></indicator>';
@@ -1725,7 +1733,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				setTimeout(function() {
 					actionsheet.ariaFocusChild('h3');
 				},1000);
-				$('view[ui-navigation-status=current]').attr('aria-hidden','true')
+				$('view[ui-navigation-status=current]').attr('aria-hidden','true');
 				var screenCover = $('mask');
 				screenCover.css({'opacity': '.5'});
 				screenCover.attr('ui-visible-state', 'visible');
@@ -1929,7 +1937,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			},
 			
 			determinePopoverWidth : function() {
-				var screenWidth = window.innerWidth
+				var screenWidth = window.innerWidth;
 			},
 			
 			adjustPopoverHeight : function( popover ) {
@@ -2167,7 +2175,7 @@ When using Zepto, make sure you have the following modules included in your buil
 						popover.css({"opacity": 1, "-webkit-transform": "scale(1)", 'overflow':'visible'});
 					};
 					setTimeout(function() {
-						setPopoverCSS()
+						setPopoverCSS();
 					},0);
 					$.UIPopover.activePopover = popover.id || popover[0].id;
 			

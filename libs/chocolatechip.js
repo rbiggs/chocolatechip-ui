@@ -40,9 +40,10 @@ Version 2.0.0
       } else {
          return document.querySelector(selector);
       }
+	  return this;
    };
    $.extend = function(obj, prop, enumerable) {
-   	var enumerable = enumerable || false;
+   	enumerable = enumerable || false;
    	if (!prop) {
    		prop = obj;
    		obj = $;
@@ -212,7 +213,7 @@ Version 2.0.0
          script.setAttribute('type', 'text/javascript');
          var scriptID = $.UIUuid();
          script.setAttribute('id', scriptID);
-         script.html(name + data)
+         script.html(name + data);
          $('head').append(script);
          $.defer(function() {
             var id = '#' + scriptID;
@@ -389,20 +390,21 @@ Version 2.0.0
 			} else {
 				if (!this.id) {
 					++$.uuid;
-					var id = $.makeUuid();
+					id = $.makeUuid();
                this.setAttribute("id", id);
-               $.chch_cache.data[id] = {}
+               $.chch_cache.data[id] = {};
                $.chch_cache.data[id][key] = value;
 				} else {
-					var id = this.id;
+					id = this.id;
 					if (!$.chch_cache.data[id]) {
-               	$.chch_cache.data[id] = {}
+               	$.chch_cache.data[id] = {};
                	$.chch_cache.data[id][key] = value;
                } else {
                	$.chch_cache.data[id][key] = value;
                }
 				}
 			}
+		 return this;
       },
       
       removeData : function ( key ) {
