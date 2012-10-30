@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Selection List</title>
+   <link rel="stylesheet" href="../chui/chui.css">
+	<style type="text/css">
+		/* Local Styles Here */
+		
+	</style>
+   <script src="../libs/chocolatechip.js"></script>
+   <script src="../chui/iscroll.js"></script>
+   <script src="../chui/chui.js"></script>
+	<script>
+		$(function() {
+			$("#activityChoices").UISelectionList(function(node) {
+				$("#selectionResponse.response").html(node.value);
+			});
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="segmentedToolbar">
+				<h1 ui-bar-align="center">Select List</h1>
+			</navbar>
+			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind=grouped id="activityChoices" ui-implements="selection-list">	
+						<tableheader>
+							Choose one of the following:
+						</tableheader>
+						<tablecell>
+							<celltitle>Go eat something</celltitle> 
+							<input type="radio" name="activity" value="Go eat something">
+						</tablecell>
+						<tablecell>
+							<celltitle>Take a nap</celltitle> 
+							<input type="radio" name="activity" value="Take a nap">
+						</tablecell>
+						<tablecell>
+							<celltitle>Get some work done</celltitle> 
+							<input type="radio" name="activity" value="Get some work done">
+						</tablecell>
+						<tablecell>
+							<celltitle>Play a game</celltitle> 
+							<input type="radio" name="activity" value="Play a game">
+						</tablecell>
+					</tableview>
+					<p ui-kind="grouped"><strong>You are going to: </strong><span id="selectionResponse" class="response"></span></p>
+				</scrollpanel>
+			</subview>
+		</view>
+		
+	</app>
+</body>
+</html>

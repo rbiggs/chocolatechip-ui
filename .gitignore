@@ -29,3 +29,11 @@ examples/.DS_Store
 .gitignore
 examples.zip
 chocolatechip-ui.zip
+
+chui/chui-old.js
+
+libs/zepto-old.js
+
+chui/iPhoneAccessibility.pdf
+
+icons/add-2.svg

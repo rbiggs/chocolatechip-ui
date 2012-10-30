@@ -1,0 +1,239 @@
+{
+	"customers" : [
+		{
+			"firstName" : "Ron",
+			"lastName" : "Buddle",
+			"address" : "123 Whatever LN, Sometown, AL 11109",
+			"description" : "A normal guy with normal likes and dislikes that can see to get too excited about anything, unless its the Super Bowl or World Series. He likes drinking beer and is always dreaming of going on spring break someplace exciting and different."
+			
+		},
+		{
+			"firstName": "Joe",
+			"lastName" : "Bodoni",
+			"address" : "9 Silly DR, Bozoville, MO 33393",
+			"description" : "Pretty much a totally looser and coach potato who really plans on being successful some day. But he is really good at watch reruns from the coach in his mother's basement."
+		},
+		{
+			"firstName" : "Sally",
+			"lastName" : "Ambercrumble",
+			"address" : "000 Deadend AVE, Zombie City, NY 00000",
+			"description" : "Rather sassy gal who is a hard worker and knows how to look out for herself. Don't giver her no lip though or she'll throw you for a loop. She's got a black belt in Judo"
+		},
+		{
+			"firstName" : "Bonny",
+			"lastName" : "Beezle",
+			"address" : "222 Twittledee RD, Bongo-bongo, FL 939393",
+			"description" : "Mostly loves to bead and do hand stitching and lace work while gazing lovingly at her cat on the sofa."
+		},
+		{
+			"firstName" : "Bondo",
+			"lastName" : "McKong",
+			"address" : "101 Ducky Highway, Flanders, WY 101010",
+			"description" : "This guy doesn't think the world is going to end in 2012. He thinks it already ended in Y2K and is freaked out about surviving in the post apocalyptic world where alien hybrids from another galaxy have infiltrated human populations."
+		},
+		{
+			"firstName" : "Binkie",
+			"lastName" : "Bongo",
+			"address" : "101 Telegraph AVE, Berkeley, CA 10101",
+			"description" : "A wacky one-eared rabbit that struts the streets in Berkeley spouting non-stop insanity and waiting for his next debut in a comic strip."
+		},
+		{
+			"firstName" : "Bardo",
+			"lastName" : "Rangle",
+			"address" : "Out in a field somewhere, WY, 992992",
+			"description" : "Cow poke riding the range looking out for the boss's cattle. Has no home, no life but the range."
+		}
+	],
+	"recipes" : [
+		{
+			"title" : "Italian Style Meatloaf",
+			"ingredients" : [
+				"1 1/2 pounds ground beef",
+				"2 eggs, beaten",
+				"3/4 cup dry bread crumbs",
+				"1/4 cup ketchup",
+				"1 teaspoon Italian-style seasoning",
+				"1 teaspoon garlic salt",
+				"1 (14.5 ounce) can diced tomatoes, drained"
+			],
+			"directions" : [
+				"Preheat oven to 350 degrees F (175 degrees C).",
+				"In a large bowl, mix together ground beef, eggs, bread crumbs and ketchup. Season with Italian-style seasoning, oregano, basil, garlic salt, diced tomatoes and cheese. Press into a 9x5 inch loaf pan, and cover loosely with foil.",
+				"Bake in the preheated oven approximately 1 hour, or until internal temperature reaches 160 degrees F (70 degrees C)."
+			]
+		},
+		{
+			"title" : "Chicken Marsala",
+			"ingredients" : [
+				"1/4 cup all-purpose flour for coating",
+				"1/2 teaspoon salt",
+				"1/4 teaspoon ground black pepper",
+				"1/2 teaspoon dried oregano",
+				"4 skinless, boneless chicken breast halves - pounded 1/4 inch thick",
+				"4 tablespoons butter",
+				"4 tablespoons olive oil",
+				"1 cup sliced mushrooms",
+				"1/2 cup Marsala wine",
+				"1/4 cup cooking sherry"
+			],
+			"directions" : [
+				"In a shallow dish or bowl, mix together the flour, salt, pepper and oregano. Coat chicken pieces in flour mixture.",
+				"In a large skillet, melt butter in oil over medium heat. Place chicken in the pan, and lightly brown. Turn over chicken pieces, and add mushrooms. Pour in wine and sherry. Cover skillet; simmer chicken 10 minutes, turning once, until no longer pink and juices run clear."
+			]
+		},
+		{
+			"title" : "Chicken Breasts with Lime Sauce",
+			"ingredients" : [
+				"4 skinless, boneless chicken breast halves - pounded to 1/4 inch thickness",
+				"1 egg, beaten",
+				"2/3 cup dry bread crumbs",
+				"2 tablespoons olive oil",
+				"1 lime, juiced",
+				"6 tablespoons butter",
+				"1 teaspoon minced fresh chives",
+				"1/2 teaspoon dried dill weed"
+			],
+			"directions" : [
+				"Coat chicken breasts with egg, and dip in bread crumbs. Place on a wire rack, and allow to dry for about 10 minutes.",
+				"Heat olive oil in a large skillet over medium heat. Place chicken into the skillet, and fry for 3 to 5 minutes on each side. Remove to a platter, and keep warm.",
+				"Drain grease from the skillet, and squeeze in lime juice. Cook over low heat until it boils. Add butter, and stir until melted. Season with chives and dill. Spoon sauce over chicken, and serve immediately."
+			]
+		},
+		{
+			"title" : "Lemon Rosemary Salmon",
+			"ingredients" : [
+				"1 lemon, thinly sliced",
+				"4 sprigs fresh rosemary",
+				"2 salmon fillets, bones and skin removed coarse salt to taste",
+				"1 tablespoon olive oil, or as needed"
+			],
+			"directions" : [
+				"Preheat oven to 400 degrees F (200 degrees C).",
+				"Arrange half the lemon slices in a single layer in a baking dish. Layer with 2 sprigs rosemary, and top with salmon fillets. Sprinkle salmon with salt, layer with remaining rosemary sprigs, and top with remaining lemon slices. Drizzle with olive oil.",
+				"Bake 20 minutes in the preheated oven, or until fish is easily flaked with a fork."
+			]
+		},
+		{
+			"title" : "Strawberry Angel Food Dessert",
+			"ingredients" : [
+				"1 (10 inch) angel food cake",
+				"2 (8 ounce) packages cream cheese, softened",
+				"1 cup white sugar",
+				"1 (8 ounce) container frozen whipped topping, thawed",
+				"1 quart fresh strawberries, sliced",
+				"1 (18 ounce) jar strawberry glaze"
+			],
+			"directions" : [
+				"Crumble the cake into a 9x13 inch dish.",
+				"Beat the cream cheese and sugar in a medium bowl until light and fluffy. Fold in whipped topping. Mash the cake down with your hands and spread the cream cheese mixture over the cake.",
+				"In a bowl, combine strawberries and glaze until strawberries are evenly coated. Spread over cream cheese layer. Chill until serving."
+			]
+		}
+	],
+	"songs" : [
+		{
+			"title" : "Muy Lejos De Ti",
+			"artist" : "Alejandro Fernandez",
+			"album" : "A Corazon Abierto",
+			"year" : "2004",
+			"genre" : "Latin",
+			"image": "song_images/Muy_Lejos_De_Ti.png"
+		},
+		{
+			"title" : "Since You Brought It Up",
+			"artist" : "James Otto",
+			"album" : "Since You Brought It Up",
+			"year" : "2009",
+			"genre" : "Country",
+			"image": "song_images/Since_You_Brought_It_Up.png"
+		},
+		{
+			"title" : "La Locura Del Amor",
+			"artist" : "David Bustamante",
+			"album" : "Al Filo De La Irreadlidad",
+			"year" : "2007",
+			"genre" : "Latin",
+			"image": "song_images/La_Locura_Del_Amor.png"
+		},
+		{
+			"title" : "Como Dos Tontos",
+			"artist" : "Christian Castro",
+			"album" : "El Culpable Soy Yo",
+			"year" : "2009",
+			"genre" : "Latin",
+			"image": "song_images/Como_Dos_Tontos.png"
+		},
+		{
+			"title" : "Se Que Perdi",
+			"artist" : "Yahir",
+			"album" : "Elemental",
+			"year" : "2009",
+			"genre" : "Latin",
+			"image": "song_images/Se_Que_Perdi.png"
+		},
+		{
+			"title" : "A Love Like This",
+			"artist" : "Sawyer Brown",
+			"album" : "Six Days On The Road",
+			"year" : "1997",
+			"genre" : "Country",
+			"image": "song_images/A_Love_Like_This.png"
+		},
+		{
+			"title" : "'Til The Last Shot's Fired",
+			"artist" : "Trace Atkins",
+			"album" : "X (Ten)",
+			"year" : "2008",
+			"genre" : "Country",
+			"image": "song_images/Til_The_Last_Shots_Fired.png"
+		},
+		{
+			"title" : "Amor Prohibido",
+			"artist" : "Thalia",
+			"album" : "El Sexto Sentido",
+			"year" : "2005",
+			"genre" : "Latin",
+			"image": "song_images/Amor_Prohibido.png"
+		},
+		{
+			"title" : "That's Why I'm Here",
+			"artist" : "Kenny Chesney",
+			"album" : "Greatest Hits",
+			"year" : "2000",
+			"genre" : "Country",
+			"image": "song_images/Thats_Why_Im_Here.png"
+		},
+		{
+			"title" : "She Don't Know She's Beautiful",
+			"artist" : "Sammy Kershaw",
+			"album" : "The Hits",
+			"year" : "1995",
+			"genre" : "Country",
+			"image": "song_images/She_Dont_Know_Shes_Beautiful.png"
+		},
+		{
+			"title" : "Todavia",
+			"artist" : "Alexandre Pires",
+			"album" : "Estrella Guia",
+			"year" : "2003",
+			"genre" : "Latin",
+			"image": "song_images/Todavia.png"
+		},
+		{
+			"title" : "Y Tu Te Vas",
+			"artist" : "Cheyenne",
+			"album" : "Cheyenne: Grandes Exitos",
+			"year" : "2002",
+			"genre" : "Latin",
+			"image": "song_images/Y_Tu_Te_Vas.png"
+		},
+		{
+			"title" : "I Wanna Make You Close Your Eyes",
+			"artist" : "Dierks Bentley",
+			"album" : "Feel That Fire",
+			"year" : "2009",
+			"genre" : "Country",
+			"image": "song_images/I_Wanna_Make_You_Close_Your_Eyes.png"
+		}
+	]
+};
