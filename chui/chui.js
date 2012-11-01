@@ -1095,7 +1095,6 @@ When using Zepto, make sure you have the following modules included in your buil
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
 					node = $(node);
-					var regex = /^#/;
 					node.attr('role','link');
 					var href = node.attr('href');
 					if (/^#/.test(href) == false) return;
@@ -1133,31 +1132,32 @@ When using Zepto, make sure you have the following modules included in your buil
 				};
 				
 				if ($.userAction === 'touchend') {
-					$.app.delegate('tablecell', 'touchstart', function(ctx) {
+					$.app.on('touchstart', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).addClass('touched');
+						setTimeout(function() {
+							$(node).removeClass('touched')
+						}, 500);
 					});
-					$.app.delegate('tablecell', 'touchcancel', function(ctx) {
+					$.app.on('touchcancel', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).removeClass('touched');
 					});
-					$.app.delegate('tablecell', 'touchend', function(ctx) {
+					$.app.on('click', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).removeClass('touched');
-						try {
-							if ($(node).hasAttr('href')) {
-								$.UINavigationListExits = true;			
-								if ($(node).hasClass('disabled')) {
-									return;
-								} else {
-									$(node).addClass('disabled');
-									navigateList($(node));
-								}
+						if ($(node).hasAttr('href')) {
+							$.UINavigationListExits = true;				
+							if ($(node).hasClass('disabled')) {
+								return;
+							} else {
+								$(node).addClass('disabled');
+								navigateList(node);
 							}
-						} catch(err) {}
+						}
 					});
 				} else {
-					$.app.delegate('tablecell', 'click', function(ctx) {
+					$.app.on('click', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						if ($(node).hasAttr('href')) {
 							$.UINavigationListExits = true;				
@@ -1345,11 +1345,11 @@ When using Zepto, make sure you have the following modules included in your buil
 		$.UINavigationList();
 		
 		if ($.userAction === 'touchend') {
-			$.app.delegate('uibutton', 'touchstart', function(ctx) {
+			$.app.on('touchstart', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).addClass('touched');
 			});
-			$.app.delegate('uibutton', 'touchend', function(ctx) {
+			$.app.on('touchend', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).removeClass('touched');
 				if ($(node).attr('ui-implements') === 'back') {
@@ -1359,12 +1359,12 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}
 			});
-			$.app.delegate('uibutton', 'touchcancel', function(ctx) {
+			$.app.on('touchcancel', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).removeClass('touched');
 			});
 		} else {
-			$.app.delegate('uibutton', $.userAction, function(ctx) {
+			$.app.on($.userAction, 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				if ($(node).attr('ui-implements') === 'back') {
 					if ($.UINavigationListExits) {
