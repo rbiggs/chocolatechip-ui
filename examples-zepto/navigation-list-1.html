@@ -14,23 +14,6 @@
     <script src="../chui/chui.js"></script>
 	<script>
 		$(function() {
-			var cells = document.querySelectorAll('tablecell');
-			//$.each(cells, function(idx) {
-				//console.log(idx + ' ' + this.nodeName);
-				//$(this).css({'background-color': 'red'});
-				//$(this).css('color','white');
-			//});
-			//$($.el('navbar')).css('margin','40px');
-			$($.el('navbar')).on('click', function() {
-				//console.log(this.nodeName);
-			});
-			//$.main.css('padding','100px');
-			//console.log($.UIUuid());
-			
-			$('tableview').on('click', 'uibutton', function(ctx) {
-				var item = $.ctx(this, ctx);
-				item.UIToggleButtonLabel("Dingo","Bozo");
-			});
 			
 		});
 	</script>
@@ -45,9 +28,6 @@
 			<subview ui-associations="withNavBar">
 				<scrollpanel id='sc1'>
 					<tableview>
-						<tablecell>
-							<uibutton><label>Button</label></uibutton>
-						</tablecell>
 						<tablecell href="#people_view" ui-implements="detail-disclosure">
 							<celltitle>People</celltitle>
 						</tablecell>
