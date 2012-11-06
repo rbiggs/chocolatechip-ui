@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>ChocolateChip Mobile</title>
+	<link rel="stylesheet" href="../../../../chui/chui.css">
+	<style>
+		/* Local Styles Here */
+		view#main {
+			background-color: rgba(192,132,96,0.25);
+		}
+		view#main tableview > tablecell {
+			background-color: rgba(255,255,255,0.75);
+		}	
+	</style>
+   <script src="../../../../libs/chocolatechip.js"></script>
+   <script src="../../../../chui/iscroll.js"></script>
+	<script src="../../../../chui/chui.js"></script>
+	<script>
+		/* Local JavaScript Here */
+		$(function() {
+		    var user_data = window.location.href.slice(window.location.href.indexOf('?') + 1);
+			user_data = unescape(user_data);
+			window.data = JSON.parse(user_data);
+				var firstName;
+				var lastName;
+				if (!!data.user.name) {
+					firstName = data.user.name.first || null;
+					lastName = data.user.name.last || null;
+				} 
+				
+				var email = data.user.email || "";
+				var phone = data.user.phone || "";
+				var message = data.user.message || "";
+				var foods = data.user.favoriteFood || "";
+				var job = data.user.job || "";
+			
+				var userTmpl = "";
+				if (firstName || lastName) {
+					userTmpl += "<tablecell><celltitle>Name: ";
+				}
+			    if (firstName) {
+			        userTmpl += firstName;
+			    }
+			    if (lastName) {
+			        userTmpl += " " + lastName;
+			    }
+			    userTmpl += "</celltitle></tablecell>";
+				if (email) {
+				    userTmpl += "<tablecell><cellsubtitle>Email: " + data.user.email  + "</cellsubtitle></tablecell>";
+				}
+				if (phone) {
+				    userTmpl += "<tablecell><celldetail>Phone: " + data.user.phone + "</celldetail></tablecell>";
+				}
+				if (message) {
+				    userTmpl += "<tablecell><celldetail>Message: " + message + "</celldetail></tablecell>";
+				}
+				if (foods.length) {
+				    userTmpl += "<tablecell><celldetail>Favorite foods:<ol>";
+				    data.user.favoriteFood.forEach(function(food) {
+				        userTmpl += "<li>" + food + "</li>";
+				    });
+				    userTmpl += "</ol></celldetail></tablecell>";
+				}
+				if (job) {
+				    userTmpl += "<tablecell><celldetail>Job: " + job + "</celldetail></tablecell>";
+				}
+				
+			// Insert the results of the parsed template into the tableview."
+			$("#main tableview:first-of-type").html(userTmpl);
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="slanted-left" ui-navigation-status="current">
+		<navbar class="ui-custom-tint"><h1>JSON from URL</h1></navbar>
+			<subview id="subview1" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked" ui-kind="grouped" class="ui-no-hover">
+						<tableheader>
+							This is an example of a JSON object sent through the url. 
+						</tableheader>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

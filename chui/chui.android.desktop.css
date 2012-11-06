@@ -1,0 +1,192 @@
+/*
+ChocolateChip-UI
+Desktop version of chui.android.css
+
+Copyright 2012 Robert Biggs: www.chocolatechip-ui.com
+License: BSD
+Version: 2.0
+Modern Theme for non-iOS devices
+*/
+uibutton:hover {
+	background-color: #2da2cd;
+	-webkit-tap-highlight-color: transparent;
+}
+tabbar uibutton:hover {
+	background: rgba(255, 255, 255, 0.15) !important;
+}
+uibutton[ui-kind=icon].disabled:hover {
+	background: none;
+}
+uibutton.disabled:hover {
+	color: #3c6094;
+   cursor: auto;
+}
+uibutton[ui-implements=back]:hover, uibutton[ui-implements=next]:hover {
+	background-color: #2da2cd !important;
+}
+
+navbar > segmentedcontrol > uibutton:hover, 
+navbar > segmentedcontrol > uibutton.selected:hover {
+    background-color: #2da2cd !important;
+    color: #fff;
+}
+segmentedcontrol[ui-implements="segmented-paging"] > uibutton:hover {
+	border: solid 1px #2da2cd !important;
+}
+uibutton[ui-kind='rounded-rectangle']:hover,
+uibutton[ui-kind='rounded-rectangle'][ui-implements=attention]:hover {
+    color: #fff;
+    
+}
+uibutton[ui-kind='rounded-rectangle'][ui-implements=attention]:hover {
+    color: #fff;
+}
+uibutton[ui-kind='rounded-rectangle'].disabled:hover {
+    color: #3c6094;
+    cursor: auto;
+}
+uibutton[ui-kind='rounded-rectangle'][ui-implements=attention].disabled:hover {
+    color: #000;
+    background-image: none;
+    cursor: auto;
+}
+uibuttonn[ui-kind='rounded-rectangle'][ui-implements=attention]:hover, 
+uibuttonn[ui-implements=attention][ui-kind='rounded-rectangle']:hover {
+    border-color:a7abae !important;
+}
+uibutton[ui-kind=action] {
+    margin: 20px 10px;
+    min-width: 110px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    height: 52px;
+    color: #fff;
+    font: bold 16px/20px Helvetica, sans-serif;
+    text-align: center;
+    padding: 0px 11px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+uibutton[ui-kind=action]:hover {
+	background-color: #2da2cd;
+}
+uibutton[ui-kind=action].disabled:hover {
+    margin: 20px 10px;
+    min-width: 110px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    height: 52px;
+    color: #000;
+    font: bold 16px/20px Helvetica, sans-serif;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    padding: 0px 11px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+*[ui-contains='action-buttons'] button[ui-kind=action].disabled:hover {
+	width: 94%;
+	margin: 20px auto;
+	margin: 20px auto;
+	-webkit-box-flex: 1 !important;
+}
+tableview > tablecell[href]:hover,
+tableview[ui-implements='selection-list'] > tablecell:hover {
+    background-color: #2da2cd;
+    color: #fff;
+	 cursor: pointer;
+}
+tableview > tablecell[href]:hover > *,
+tableview[ui-implements='detail-menu'] > tablecell:hover > * {
+	color: #fff !important;
+}
+tableview.ui-show-delete-disclosures > tablecell:hover celltitle,
+tableview > tablecell.deletable celltitle,
+tableview > tablecell[href]:hover > span,
+tableview[ui-implements='detail-menu'] > tablecell:hover > span {
+    color: #fff;
+}
+tablecell[ui-implements=disclosure][href]:hover:after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#fff;fill-opacity:1;stroke:none' /></g></svg>")
+}
+tableview.ui-show-delete-disclosures > tablecell:hover {
+	background-color: #2da2cd !important;
+}
+tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle{
+    color: #586b96 !important;
+}
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures > tablecell:hover > celltitle {
+    color: #586B96 !important;
+}
+tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
+    color: #000 !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
+	color: #666 !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldetail {
+    color: #4c5f70 !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldatetime, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > cellvalue {
+	color: #2671d8 !important;
+}
+stack[ui-kind=alphabetical-list] span:hover {
+	cursor: pointer;
+}
+stack[ui-kind=alphabetical-list]:hover {
+	background-color: rgba(0,0,0,0.25);
+}
+stack[ui-kind=alphabetical-list]:hover span {
+	color: #fff;
+}
+
+tableview[ui-implements=selection-list] tablecell > checkmark span,
+tableview[ui-implements=selection-list] tablecell.selected > checkmark span,
+tableview[ui-implements=selection-list] tablecell.selected:hover > checkmark span {
+	opacity: 0;
+}
+tableview[ui-implements=selection-list] tablecell.selected > checkmark  {
+	box-shadow: inset 0 0 2px 2px #000, inset 0 2px 3px 3px #77d8ed, inset 0 0 8px 8px #0099cc;
+}
+tableview[ui-implements=selection-list] tablecell:hover > checkmark {
+	border: solid 2px #fff;
+}
+body.android tableview.ui-show-delete-disclosures tablecell:hover celltitle {
+	color: #fff;
+}
+tableview.ui-show-delete-disclosures tablecell:hover deletedisclosure {
+	box-shadow: 0 0 3px 3px #85d3f0;
+	border-color: #fff;
+}
+switchcontrol:hover {
+	box-shadow: 0 0 2px 2px #85d3f0;
+}
+tabbar > uibutton[ui-implements=tab].disabled:hover {
+   box-shadow: 0 0 3px 3px #85d3f0;
+}
+tabbar > uibutton[ui-implements=tab].disabled:hover {
+    cursor: default;
+}
+tabbar > uibutton[ui-implements=tab]:hover {
+    border-bottom: solid 4px #33b5e5;
+    background: #33819e !important;
+}
+tabbar > uibutton[ui-implements=tab]:hover label {
+    background: #33819e;
+}
+uibutton[ui-implements="spinner"]:hover {
+	background-color: #2da2cd;
+}
+uibutton[ui-implements="spinner"]:hover label {
+	color: #fff;
+}
+uibutton[ui-implements=spinner]:hover::after {
+	border-right: solid 6px #fff;
+	border-bottom: solid 6px #fff;
+	border-top: solid 6px transparent;
+	border-left: solid 6px transparent;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Tableview</title>
+    <link rel="stylesheet" href="../../chui/chui.css">
+    <script src="../../libs/zepto.js"></script>
+    <script src="../../chui/iscroll.js"></script>
+    <script src="../../chui/chui.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        
+		});
+    </script>  
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Disclosure</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+						<tablecell ui-usage="icon" ui-implements="disclosure" href='javascript:void(null)'>
+							<img src="../../images/ipod.png" title='iPod'>
+							<celltitle>People</celltitle>
+						</tablecell>
+						<tablecell ui-usage="icon" ui-implements="disclosure" href='javascript:void(null)'>
+							<img src="../../images/phone.png" title='iPhone'>
+							<celltitle>Places</celltitle>
+						</tablecell>
+						<tablecell ui-usage="icon" ui-implements="disclosure" href='javascript:void(null)'>
+							<img src="../../images/mail.png" title='Mail'>
+							<celltitle>This is an example of a very long item that will be truncated because it does not fit.</celltitle>
+						</tablecell>
+						<tablecell ui-usage="icon" ui-implements="disclosure" href='javascript:void(null)'>
+							<img src="../../images/safari.png" title='Safari'>
+							<celltitle>Animals</celltitle>
+						</tablecell>
+						<tablecell ui-usage="icon" ui-implements="disclosure" href='javascript:void(null)'>
+							<img src="../../images/sms.png" title='iMessage'>
+							<celltitle>Food</celltitle>
+						</tablecell>
+						<tablecell ui-usage="icon" ui-implements="disclosure" href='javascript:void(null)'>
+							<img src="../../images/store.png" title='App Store'>
+							<celltitle>Stuff</celltitle>
+						</tablecell>
+					</tableview>				
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

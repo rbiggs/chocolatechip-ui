@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Perfumes App</title>
+    <link rel="stylesheet" href="chui/chui.android.css">
+	<style type="text/css">
+		/* Local Styles Here */
+		tableview.containsSpinners celltitle > label {
+			width: 120px;
+			text-align: right;
+			display: inline-block;
+		}
+		celltitle {
+			width: 95% !important;
+		}
+		toolbar > label {
+			display: block;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+			color: #fff;
+			font-weight: bold;
+		}
+		#orderToolbar {
+			background: none;
+			border: none;
+			margin-top: 20px;
+		}
+		#purchaseSummary > tablecell > celltitle {
+			right: 50%;
+		}
+		#purchaseSummary > tablecell > cellsubtitle {
+		 	left: 50%;
+		}
+		#showCart {
+			margin-left: 20px;
+		}
+		#ladiesPerfumeTableView cellvalue:before,
+		#mensPerfumeTableView cellvalue:before,
+		#kidsPerfumeTableView cellvalue:before {
+			content: '$';
+		}
+	</style>    
+   <script type="text/javascript" src="libs/zepto.js"></script>
+	<script src="chui/iscroll.js"></script>
+	<script src="chui/chui.android.js"></script>
+	<script src="libs/knockout-2.2.0.js" type="text/javascript"></script>
+   <script>
+		$.extend($, {
+			centsToDollars : function( amount ) {
+				amount = amount.substr(0, amount.length-3) + amount.substr(amount.length-2,2);
+				return parseInt(amount, 10);
+			},
+			dollarsToCents : function( amount ) {
+				amount = String(parseInt(amount, 10));
+				return amount.substr(0, amount.length-2) + "." + amount.substr(amount.length-2,2);
+			}
+		});
+		var ladiesPerfume;
+		var mensPerfume;
+		var kidsPerfume;
+    	$(function() {
+			var $totalCost = 0;
+			var $finalCost = 0;
+			var $orderPlaced = false;
+			var $totalItems = 0;
+			var $purchaseItems = [];
+			var $purchaseItemsTemplate = '';
+			
+			$.UIStepper({
+				selector: "#qty", 
+				range: {start: 1, end: 10},
+				defaultValue: 1,
+			});
+		  
+		    	
+		    function createPurchaseTemplate ( item ) {
+				ret = "<tablecell>\
+					<celltitle class='product'>"+ item.product+"</celltitle>\
+					<celltitle>SKU: <span class='sku'>"+ item.sku +"<span></celltitle>\
+					<cellsubtitle class='quantity'>Quantity: <span>"+item.quantity+"</span></cellsubtitle>\
+					<cellsubtitle class='price'>Price per Item: $<span>"+item.price+"</span></cellsubtitle>\
+				</tablecell>";
+				return ret;
+			}
+			
+			$.ajax({
+				url : "data/perfumes.json", 
+				dataType: 'json',
+				success: function(data) {
+					console.dir(data.ladies);
+					ladiesPerfume = ko.observableArray(data.ladies);
+					ko.applyBindings(ladiesPerfume, $('#ladiesPerfumeTableView')[0]);
+					mensPerfume = ko.observableArray(data.men);
+					ko.applyBindings(mensPerfume, $('#mensPerfumeTableView')[0]);
+					kidsPerfume = ko.observableArray(data.kids);
+					ko.applyBindings(kidsPerfume, $('#kidsPerfumeTableView')[0]);
+					// Re-initialize the scrollpanels for new data:
+					$("#ladiesList scrollpanel").data("ui-scroller").refresh();
+					$("#mensList scrollpanel").data("ui-scroller").refresh();
+					$("#kidsList scrollpanel").data("ui-scroller").refresh();
+
+				function handleListInteraction(list, type) {
+					$(list).on($.userAction, "tablecell", function() {
+						var id = $(this).attr("data-id");
+						$("#detail tablecell").data("sku", data[type][id].sku);
+						$("#detail tablecell img").attr("src", data[type][id].img_prev);
+						$("#detail h1").text(data[type][id].product_title);
+						$("#detail celltitle.productTitle").text(data[type][id].product_title);
+						$("#detail cellsubtitle span.sku").text(data[type][id].sku);
+						$("#detail cellsubtitle.longDescription").text(data[type][id].short_description);
+						$("#detail celldetail").text(data[type][id].long_description);
+						$("#detail cellvalue > span").text(data[type][id].wholesale_price);
+						$("#detail scrollpanel").data("ui-scroller").refresh();
+					});
+				}
+				handleListInteraction('#ladiesList', 'ladies');
+				handleListInteraction('#mensList', 'men');
+				handleListInteraction('#kidsList', 'kids');
+				}
+	      });
+			
+			$("uibutton.home").on("click", function() {
+				$.resetApp();
+				$.resetStepper("stepper");
+			});
+			
+			var updateTotalCost = function ( amount) {
+				setTimeout(function() {
+					$("#totalCost").text(amount);
+				}, 0);
+			};
+			
+			$("#add").on("click", function() {
+				$.UIResetDeletionList("#cart #purchaseItems","#cart toolbar")
+				$purchaseItems.push({
+					"sku" : $("#detail tablecell .sku").text(),
+					"product" : $("#detail h1").text(),
+					"quantity" : $("stepper").find("label").text(),
+					"price" : $("#detail cellvalue > span").text()
+				});
+				var itemNum = 0;
+				var itemCost = 0;
+				$totalItems = 0;
+				$totalCost = 0;
+				
+				$purchaseItemsTemplate = '';
+				$purchaseItems.forEach(function(item) {
+					$purchaseItemsTemplate += createPurchaseTemplate(item);
+					itemNum = parseInt(item.quantity, 10);
+					itemCost = $.centsToDollars(item.price);
+					$totalItems += itemNum;
+					$totalCost += parseInt(itemCost, 10) * itemNum;
+					$finalCost = $totalCost;
+				});
+				
+				$("#totalItems").text($totalItems);
+				updateTotalCost($.dollarsToCents($finalCost));
+				
+				$.UINavigateToNextView("#cart");
+				$("#placeOrder").removeClass("disabled");
+				$("#cancelOrder").removeClass("disabled");
+				
+				if (!!$orderPlaced) {
+					$("#viewOrder").removeClass("disabled");
+				} else {
+					$("#viewOrder").addClass("disabled");
+				}
+				$('#cart #purchaseItems')[0].innerHTML='';
+			    $('#cart #purchaseItems').html($purchaseItemsTemplate);
+			    $('#cart #purchaseItems').UIIdentifyChildNodes();
+				$.UIDeleteTableCell({selector: "#purchaseItems", toolbar: "#cart toolbar", callback: deleteItem});
+				$("#cart uibutton[ui-kind=deletionListEditButton]").on("click", function() {
+					
+					if ($(this).text() === "Edit") { 
+						if ($totalItems != 0) {
+							$("#placeOrder").removeClass("disabled");
+							$("#cancelOrder").removeClass("disabled");
+						}
+					} else {
+						$("#placeOrder").addClass("disabled");
+						$("#cancelOrder").addClass("disabled");
+					}
+				});
+				$("#cart scrollpanel").data("ui-scroller").refresh();
+			});
+			
+			var resetCart = function() {
+				$("#placeOrder").addClass("disabled");
+				$("#cancelOrder").addClass("disabled");
+				$("#purchaseItems").empty();
+				$("#totalItems").text("0");
+				$("#totalCost").text("0.00");
+			};
+			
+			var resetOrder = function() {
+				// cancel order code
+				$purchaseItems = [];
+				$totalItems = 0;
+				$totalCost = 0;
+				$finalCost = 0;
+				cartTotal.totalItems = 0;
+				cartTotal.totalCost = 0;
+				$.resetStepper("stepper");
+				$purchaseItemsTemplate = '';
+				$orderPlaced = false;
+				resetCart();
+				$("uibutton[ui-implements=edit]").css("display","none");
+			};
+			var processOrder = function() {
+				var confirmNum = $.UIUuid();
+				$("#confirmationNum").text(confirmNum.toUpperCase());
+				$("#purchasedItemsSummary").html($purchaseItemsTemplate);
+				if (/\.(\d{2})/.test($finalCost)) {
+					$finalCost = $.centsToDollars($finalCost);
+				}
+				if (cartTotal.totalCost > 0) {
+					$finalCost = cartTotal.totalCost;
+				}
+				$("#confirmTotalCost").text($.dollarsToCents($finalCost));
+				$orderPlaced = true;
+				$("#viewOrder").removeClass("disabled");
+				$.UINavigateToNextView("#confirmation");
+				$.resetStepper("stepper");
+				resetOrder();
+				$('#confirmation').find('scrollpanel').data('ui-scroller').refresh();
+			};
+			
+			$("#viewOrder").on("click", function() {
+				$.UINavigateToNextView("#confirmation");
+			});
+			$("#placeOrder").on("click", function() {
+				if ($(this).hasClass("disabled")) return;
+				processOrder();
+			});
+			$("#cancelOrder").on("click", function() {
+				if ($(this).hasClass("disabled")) return;
+				resetOrder();
+				$.resetApp();
+			});
+			$("#showCart").on("click", function() {
+				$.UINavigateToNextView("#cart");
+			});
+			
+			var cartTotal = {
+				totalItems : 0,
+				totalCost : 0
+			};
+			
+			var subtractDeletedValues = function(node) {
+				var quantityToDelete = parseInt(node.children[3].firstElementChild.innerText,10);
+				$totalItems -= quantityToDelete;
+				
+				var deleteItemFromPurchaseList = function() {
+					var newArray;
+					cartTotal.totalItems = 0;
+					cartTotal.totalCost = 0;
+					var price;
+					$purchaseItems.forEach(function(item, idx) {
+						if (item.sku === $(node).find(".sku").text()) {
+							var priceToSubtract = $purchaseItems[idx].price;
+							$purchaseItems.splice(idx, 1);
+						}
+					});
+				}
+				deleteItemFromPurchaseList();
+			};
+			
+			var deleteItem = function(node) {
+				var itemToDelete = node.getAttribute("ui-child-position");
+				subtractDeletedValues(node);
+				$purchaseItems.forEach(function(item, idx) {
+					cartTotal.totalItems += parseInt(item.quantity,10);
+					price = parseInt($.centsToDollars(item.price),10);
+					cartTotal.totalCost += price * parseInt(item.quantity,10);
+				});
+				
+				$("#totalItems").text(cartTotal.totalItems);
+				updateTotalCost($.dollarsToCents(cartTotal.totalCost));
+				$purchaseItemsTemplate = '';
+				$purchaseItems.forEach(function(item) {
+					$purchaseItemsTemplate += createPurchaseTemplate(item);
+				});
+			};
+			
+		});
+    </script>
+</head>
+<body>
+	<app ui-background-style="striped">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Wholesale Perfumes</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview>
+						<tablecell href="#ladiesList" ui-implements="disclosure">
+							<celltitle>Ladies Perfumes</celltitle>
+						</tablecell>
+						<tablecell href="#mensList" ui-implements="disclosure">
+							<celltitle>Mens Colognes</celltitle>
+						</tablecell>  
+						<tablecell href="#kidsList" ui-implements="disclosure">
+							<celltitle>Kids Colognes</celltitle>
+						</tablecell>                                                
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		
+		<view id="ladiesList" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
+			<navbar>
+				<uibutton ui-implements="back" ui-bar-align="left">
+					<label>Back</label>
+				</uibutton>
+				<h1>Ladies Perfumes</h1>
+				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
+					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+                </uibutton>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview  data-bind="foreach: ladiesPerfume" id='ladiesPerfumeTableView' ui-kind="grouped" ui-tablecell-order="stacked">
+						<tablecell ui-usage='image' ui-implements='detail-disclosure' href='#detail' data-bind='attr: { "data-id": $index}'>
+							<img data-bind='attr: {src: img_prev}'>
+							<celltitle class='productTitle' data-bind='text: product_title'></celltitle>
+							<cellvalue data-bind='text: wholesale_price'></cellvalue>
+							<cellsubtitle data-bind='text: short_description'></cellsubtitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		
+		<view id="mensList" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
+			<navbar>
+				<uibutton ui-implements="back" ui-bar-align="left">
+					<label>Back</label>
+				</uibutton>
+				<h1>Mens Perfumes</h1>
+				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
+					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+                </uibutton>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview  data-bind="foreach: mensPerfume" id='mensPerfumeTableView' ui-kind="grouped" ui-tablecell-order="stacked">
+						<tablecell ui-usage='image' ui-implements='detail-disclosure' href='#detail' data-bind='attr: { "data-id": $index}'>
+							<img data-bind='attr: {src: img_prev}'>
+							<celltitle class='productTitle' data-bind='text: product_title'></celltitle>
+							<cellvalue data-bind='text: wholesale_price'></cellvalue>
+							<cellsubtitle data-bind='text: short_description'></cellsubtitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		
+		<view id="kidsList" ui-navigation-status="upcoming" ui-background-style="vertical-striped">
+			<navbar>
+				<uibutton ui-implements="back" ui-bar-align="left">
+					<label>Back</label>
+				</uibutton>
+				<h1>Kids Perfumes</h1>
+				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
+					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+                </uibutton>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview  data-bind="foreach: kidsPerfume" id='kidsPerfumeTableView' ui-kind="grouped" ui-tablecell-order="stacked">
+						<tablecell ui-usage='image' ui-implements='detail-disclosure' href='#detail' data-bind='attr: { "data-id": $index}'>
+							<img data-bind='attr: {src: img_prev}'>
+							<celltitle class='productTitle' data-bind='text: product_title'></celltitle>
+							<cellvalue data-bind='text: wholesale_price'></cellvalue>
+							<cellsubtitle data-bind='text: short_description'></cellsubtitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		
+		<view id="detail" ui-navigation-status="upcoming" ui-background-style="squared">
+			<navbar>
+				<uibutton ui-implements="back" ui-bar-align="left">
+					<label>Back</label>
+				</uibutton>
+				<h1>Detail</h1>
+				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
+					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+                </uibutton>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked">
+						<tablecell>
+                            <img src="">
+							<celltitle class="productTitle"></celltitle>
+							<cellsubtitle><span class="sku"></span></cellsubtitle>
+							<cellvalue>$<span></span></cellvalue>
+							<cellsubtitle class="longDescription"></cellsubtitle>
+							<celldetail></celldetail>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+			<toolbar ui-placement="bottom" ui-box-pack="center">
+				<label>QTY: </label><stepper id="qty"></stepper>
+				<uibutton id="add" ui-implements="done">
+					<icon style="-webkit-mask-image: url(icons/add.svg);"></icon>
+				</uibutton>
+				<uibutton id="showCart" ui-implements="icon">
+					<icon style="-webkit-mask-image: url(icons/shopping_cart.svg);"></icon>
+                </uibutton>                  
+			</toolbar>
+		</view>
+        
+		<view id="cart" ui-navigation-status="upcoming" ui-background-style="squared">
+			<navbar>
+				<uibutton ui-implements="back" ui-bar-align="left">
+					<label>Back</label>
+				</uibutton>
+				<h1>Shopping Cart</h1>
+				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
+					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+                </uibutton>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked" id="purchaseItems"></tableview>
+					<tableview ui-tablecell-order="centered" id="purchaseSummary">
+						<tableheader>Your Purchase:</tableheader>
+						<tablecell>
+							<celltitle>Total Items: </celltitle>
+							<cellsubtitle id="totalItems">0</cellsubtitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Total Cost: </celltitle>
+							<cellsubtitle>$<span id="totalCost">0.00</span></cellsubtitle>
+						</tablecell>
+					</tableview>
+						<uibutton id="placeOrder" ui-kind="action" ui-implements="done" class="disabled">
+							<label>Place Order</label>
+						</uibutton>
+						<uibutton id="cancelOrder" ui-kind="action" ui-implements="cancel" class="disabled">
+							<label>Cancel Order</label>
+						</uibutton>
+				</scrollpanel>
+			</subview>
+				
+			<toolbar ui-placement="bottom">
+				<uibutton ui-bar-align="left" id="viewOrder" class="disabled">
+					<label>View Current Order</label>
+				</uibutton>
+			</toolbar>
+		</view>
+        
+		<view id="confirmation" ui-navigation-status="upcoming" ui-background-style="squared">
+			<navbar>
+				<uibutton ui-implements="back" ui-bar-align="left">
+					<label>Back</label>
+				</uibutton>
+				<h1>Confirmation</h1>
+				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
+					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+                </uibutton>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked">
+						<tablecell>
+							<celltitle>Your Order Was Successfull!</celltitle>
+							<cellsubtitle>Confirmation number: <span id="confirmationNum"></span></cellsubtitle>
+						</tablecell>
+					</tableview>
+					<tableview ui-tablecell-order="stacked">
+						<tableheader>Purchase Details:</tableheader>
+					<tableview ui-tablecell-order="stacked" id="purchasedItemsSummary">
+					</tableview>
+					<tableview ui-tablecell-order="stacked">
+						</tablecell>
+						<tableheader>Total Amount Charged:</tableheader>
+						<tablecell>
+							<celltitle>
+								$<span id="confirmTotalCost">0.00</span>
+							</celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

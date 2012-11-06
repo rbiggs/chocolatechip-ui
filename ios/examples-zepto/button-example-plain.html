@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Buttons</title>
+    <link rel="stylesheet" href="../../chui/chui.css">
+    <style type="text/css">
+		stack {
+			min-height: 40px;
+			position: relative;
+			-webkit-box-align: center;
+			-webkit-box-pack: justify;
+		}
+		stack > uibutton {
+			-webkit-box-flex: 0 !important;
+		}
+		stack > uibutton[ui-kind="rounded-rectangle"] {
+			-webkit-box-flex: 1 !important;
+		}
+    </style>
+	<script src="../../libs/zepto.js"></script>
+	<script src="../../chui/iscroll.js"></script>
+	<script src="../../chui/chui.js"></script>
+   <script type="text/javascript">
+      $(function() {
+        
+		});
+   </script>
+
+</head>
+<body>
+	<app>
+		<view id="main" ui-navigation-status="current"  ui-background-style="slanted-right">
+			<navbar>
+				<h1>Background Patterns</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+	<stack ui-box="horizontal">
+		<uibutton ui-implements="back" ui-bar-align="left">
+			<label>Back</label>
+		</uibutton>
+		<uibutton ui-implements="next" ui-bar-align="right">
+			<label>Next</label>
+		</uibutton>
+	</stack>
+	<stack ui-box="horizontal">
+		<uibutton ui-bar-align="left">
+			<icon style="-webkit-mask-image: url(../../icons/home.svg);"></icon>
+			<label>Save</label>
+		</uibutton>
+		<uibutton ui-implements="delete" ui-icon-align="right" ui-bar-align="right">
+			<icon style="-webkit-mask-image: url(../../icons/delete.svg);"></icon>
+			<label>Delete</label>
+		</uibutton>
+	</stack>
+	<stack ui-box="horizontal">
+		<uibutton ui-implements="done" ui-bar-align="left" class="disabled">
+			<icon style="-webkit-mask-image: url(../../icons/bookmarks.svg);"></icon>
+			<label>Save</label>
+		</uibutton>
+		<uibutton ui-implements="delete" ui-bar-align="right" ui-icon-align="right" class="disabled">
+			<icon style="-webkit-mask-image: url(../../icons/chat.svg);"></icon>
+			<label>Delete</label>
+		</uibutton>
+	</stack>
+	<stack ui-box="horizontal">
+		 <uibutton ui-icon-align="right" ui-bar-align="left">
+			 <icon style="-webkit-mask-image: url(../../icons/cog.svg)"></icon>
+			 <label>Add</label>
+		 </uibutton>
+		 <uibutton>
+			 <label>Message</label>
+		 </uibutton>
+		 <uibutton class="disabled" ui-bar-align="right">
+			 <label>Favorites</label>
+		 </uibutton>
+	 </stack>
+		</stack>
+	
+	<stack ui-box="horizontal">
+		<uibutton ui-implements="icon">
+			<icon style="-webkit-mask-image: url(../../icons/compose.svg);"></icon>
+		</uibutton>
+		<uibutton ui-implements="done"  ui-icon-align="right">
+			<icon style="-webkit-mask-image: url(../../icons/attachement.svg);"></icon>
+			<label>Save</label>
+		</uibutton>
+		<uibutton  ui-implements="icon">
+			<icon style="-webkit-mask-image: url(../../icons/add.svg); background-color: #fff5b6;"></icon>
+		</uibutton>
+		<uibutton ui-icon-align="right">
+			<icon style="-webkit-mask-image: url(../../icons/cog.svg)"></icon>
+			<label>Set</label>
+		</uibutton>
+	</stack>
+	<stack ui-box="horizontal" style="background-color: #666;">
+		<uibutton ui-kind="icon">
+			<icon style="-webkit-mask-image: url(../../icons/film.svg);">
+		</uibutton>
+		<uibutton ui-kind="icon">
+			<icon style="-webkit-mask-image: url(../../icons/files.svg); background-color: #ffe7c9;"></icon>
+		</uibutton>
+		<uibutton ui-kind="icon">
+			<icon style="-webkit-mask-image: url(../../icons/cog.svg);"></icon>
+		</uibutton>
+		<uibutton ui-kind="icon">
+			<icon style="-webkit-mask-image: url(../../icons/download.svg); background-image: -webkit-gradient(linear, 0 0, 30% 100%, from(yellow), color-stop(0.45, orange), to(red));">
+		</uibutton>
+		<uibutton ui-kind="icon">
+			<icon style="-webkit-mask-image: url(../../icons/add.svg);"></icon>
+		</uibutton>
+	</stack>
+
+	<stack ui-box="horizontal">
+	<uibutton ui-kind="rounded-rectangle">
+		<label>Text Message</label>
+	</uibutton>
+	<uibutton ui-kind="rounded-rectangle"  class="disabled">
+		<label>Add to Favorites</label>
+	</uibutton>
+	</stack>
+	<uibutton ui-implements="attention" ui-kind="rounded-rectangle" class="stretch">
+		<label>View Account</label>
+	</uibutton>
+	<uibutton ui-implements="done" ui-kind="rounded-rectangle" ui-icon-align="right" class="stretch disabled">
+		<label>Sign Out</label>
+	</uibutton>
+</stack>
+</scrollpanel>
+</subview>
+</view>
+</app>
+</body>
+</html>
