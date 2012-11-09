@@ -172,7 +172,7 @@ tabbar > uibutton[ui-implements=tab].disabled:hover {
     cursor: default;
 }
 tabbar > uibutton[ui-implements=tab]:hover {
-    border-bottom: solid 4px #33b5e5;
+    border-bottom: solid 4px #424344;
     background: #33819e !important;
 }
 tabbar > uibutton[ui-implements=tab]:hover label {

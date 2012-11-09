@@ -93,13 +93,11 @@ uibutton[ui-kind=action].disabled:hover {
 	margin: 20px auto;
 	-webkit-box-flex: 1 !important;
 }
-tableview > tablecell[href^='#']:hover,
-tableview[ui-implements='detail-menu'] > tablecell:hover,
-tableview[ui-implements='selection-list'] > tablecell.selected:hover {
+tableview > tablecell[href]:hover,
+tableview[ui-implements='selection-list'] > tablecell:hover {
+    background-color: #2da2cd;
     color: #fff;
 	 cursor: pointer;
-	 background-color: #2da2cd;
-	 display: none;
 }
 tableview > tablecell[href]:hover > *,
 tableview[ui-implements='detail-menu'] > tablecell:hover > * {
@@ -174,7 +172,7 @@ tabbar > uibutton[ui-implements=tab].disabled:hover {
     cursor: default;
 }
 tabbar > uibutton[ui-implements=tab]:hover {
-    border-bottom: solid 4px #33b5e5;
+    border-bottom: solid 4px #424344;
     background: #33819e !important;
 }
 tabbar > uibutton[ui-implements=tab]:hover label {

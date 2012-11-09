@@ -21,6 +21,30 @@ Version: 2.0
 Modern Theme for non-iOS devices
 
 */
+@font-face {
+	 font-family: 'Roboto';
+	 src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+	 font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	 font-family: 'RobotoItalic';
+	 src: url('../fonts/Roboto-Italic.ttf') format('truetype');
+	 font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+	 font-family: 'RobotoBold';
+	 src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+	 font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+	 font-family: 'RobotoBoldItalic';
+	 src: url('../fonts/Roboto-BoldItalic.ttf') format('truetype');
+	 font-weight: bold;
+    font-style: italic;
+}
 html, body {
 	margin: 0;
 	padding: 0;
@@ -32,7 +56,7 @@ app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, cell
 	display: block;
 	padding: 0;
 	margin: 0;
-	font: normal 18px Helvetica, Sans-serif;
+	font: normal 18px  Roboto, Helvetica, Arial, Sans-serif;
 	-webkit-user-select: none;
 	user-select: none;
 	-webkit-box-sizing: border-box;
@@ -737,7 +761,7 @@ uibutton[ui-kind=action] {
     -webkit-box-sizing: border-box;
     height: 52px;
     color: #fff;
-    font: bold 16px/20px Helvetica, sans-serif;
+    font: bold 16px/20px Roboto, Helvetica, Arial, Sans-Serif;
     text-align: center;
     padding: 0px 11px;
     -webkit-font-smoothing: antialiased;
@@ -1404,7 +1428,6 @@ stack[ui-kind=alphabetical-list] {
 	bottom: 0;
 	width: 30px;
 	padding: 8px 0;
-	border-radius: 10px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-orient: vertical;
@@ -1718,7 +1741,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 input[type="range"]:focus::-webkit-slider-thumb, input[type="range"]::-webkit-slider-thumb:hover {
 	background-image:
-	-webkit-radial-gradient(#2da2cd 4px,rgba(18,152,205,.5) 4px);#afe6ff;
+	-webkit-radial-gradient(#2da2cd 4px,rgba(18,152,205,.5) 4px);
 }
 
 /* End HTML5 Range Input */
@@ -1755,7 +1778,7 @@ tabbar > uibutton:last-of-type {
 	border-right: none;
 }
 tabbar > uibutton[ui-implements=tab].selected {
-    border-bottom: solid 4px #33b5e5;
+    border-bottom: solid 4px #2da2cd;
     background-color: #424344 !important;
 }
 tabbar > uibutton[ui-implements=tab].touched {
@@ -2038,10 +2061,10 @@ stepper > uibutton:last-of-type {
 	margin-left: 0;
 }
 stepper > uibutton:first-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_down.svg);
+	-webkit-mask-image: url(../icons/arrow_down.svg);
 }
 stepper > uibutton:last-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_up.svg);
+	-webkit-mask-image: url(../icons/arrow_up.svg);
 }
 stepper > uibutton:first-of-type > icon.indicator {
 	-webkit-mask-image: url(../icons/minus.svg);

@@ -1337,6 +1337,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
+			},
+			
+			resetStepper : function(selector) {
+				return this.resetSpinner(selector);
 			}
 		});
 	

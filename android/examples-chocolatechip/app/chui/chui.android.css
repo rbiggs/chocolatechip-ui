@@ -922,7 +922,6 @@ tableview > tablecell {
     -webkit-box-sizing: border-box;
     min-height: 44px;
 }
-tableview > tablecell[href],
 tableview > tablecell[href].touched,
 tableview[ui-implements='detail-menu'] > tablecell.touched,
 tableview[ui-implements='selection-list'] > tablecell.selected.touched {
@@ -1753,11 +1752,11 @@ tabbar > uibutton:last-of-type {
 	border-right: none;
 }
 tabbar > uibutton[ui-implements=tab].selected {
-    border-bottom: solid 4px #33b5e5;
+    border-bottom: solid 4px #2da2cd;
     background-color: #424344 !important;
 }
 tabbar > uibutton[ui-implements=tab].touched {
-    border-bottom: solid 4px #33b5e5;
+    border-bottom: solid 4px #424344;
     background-color: #33819e !important;
 }
 tabbar > uibutton[ui-implements=tab].disabled.touched {
@@ -2036,10 +2035,10 @@ stepper > uibutton:last-of-type {
 	margin-left: 0;
 }
 stepper > uibutton:first-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_down.svg);
+	-webkit-mask-image: url(../icons/arrow_down.svg);
 }
 stepper > uibutton:last-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_up.svg);
+	-webkit-mask-image: url(../icons/arrow_up.svg);
 }
 stepper > uibutton:first-of-type > icon.indicator {
 	-webkit-mask-image: url(../icons/minus.svg);

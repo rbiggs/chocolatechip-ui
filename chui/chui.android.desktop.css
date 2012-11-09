@@ -138,7 +138,7 @@ stack[ui-kind=alphabetical-list] span:hover {
 	cursor: pointer;
 }
 stack[ui-kind=alphabetical-list]:hover {
-	background-color: rgba(0,0,0,0.25);
+	background-color: rgba(225,225,255,0.15);
 }
 stack[ui-kind=alphabetical-list]:hover span {
 	color: #fff;
@@ -172,7 +172,7 @@ tabbar > uibutton[ui-implements=tab].disabled:hover {
     cursor: default;
 }
 tabbar > uibutton[ui-implements=tab]:hover {
-    border-bottom: solid 4px #33b5e5;
+    border-bottom: solid 4px #2da2cd;
     background: #33819e !important;
 }
 tabbar > uibutton[ui-implements=tab]:hover label {

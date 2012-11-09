@@ -1337,6 +1337,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
+			},
+			
+			resetStepper : function(selector) {
+				return this.resetSpinner(selector);
 			}
 		});
 	
@@ -1470,7 +1474,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					toolbar: toolbar,
 					callback: callback
 				} */
-				var defaultCheckboxColor ='#2da2cd';
+				var defaultCheckboxColor ='#44de00';
 				var checkboxHeight = 30;
 				var label1;
 				if (options.editButton) {
@@ -1554,7 +1558,7 @@ When using Zepto, make sure you have the following modules included in your buil
 							var checkmark = $(disclosure).find('path');
 							checkmark.style.fill = '#fff';
 							setTimeout(function() {
-								checkmark.style.fill = '#2da2cd';
+								checkmark.style.fill = '#44de00';
 							}, 500);
 						});						
 						$(disclosure).parent().on('mouseover', function() {

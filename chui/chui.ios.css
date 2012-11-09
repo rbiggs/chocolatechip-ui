@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 2.0 Beta
+Version: 2.0
 
 */
 html, body {
@@ -3146,16 +3146,16 @@ segmentedcontrol[ui-paging] > uibutton > icon {
 	background-color: #fff !important;
 }
 segmentedcontrol[ui-paging=vertical] > uibutton:first-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_down.svg);
+	-webkit-mask-image: url(../icons/arrow_down.svg);
 }
 segmentedcontrol[ui-paging=vertical] > uibutton:last-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_up.svg);
+	-webkit-mask-image: url(../icons/arrow_up.svg);
 }
 segmentedcontrol[ui-paging=horizontal] > uibutton:first-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_left.svg);
+	-webkit-mask-image: url(../icons/arrow_left.svg);
 }
 segmentedcontrol[ui-paging=horizontal] > uibutton:last-of-type > icon {
-	-webkit-mask-image: url(../../icons/arrow_right.svg);
+	-webkit-mask-image: url(../icons/arrow_right.svg);
 }
 subview[ui-paging-orient] {
 	-webkit-transition: all 0.25s  ease-in-out;
