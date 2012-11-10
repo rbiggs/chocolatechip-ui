@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Titled List</title>
+	<link rel="stylesheet" href="../chui/chui.android.css">
+	<style>
+		tableview[ui-kind=titled-list] tableheader {
+			-webkit-box-sizing: border-box;
+			height: 24px;
+			background-image:
+				-webkit-gradient(linear, left top, left bottom,
+					from(#92a1ac),
+					to(#b7bfc6));
+			border-top: solid 1px #717d85;
+			border-bottom: solid 1px #989ea4;
+			font-size: 14px;
+			font-weight: bold;
+			line-height: 12px;
+			color: #fff;
+			text-shadow: 0 1px 1px #666;
+			text-align: left;
+			display: -webkit-box;
+			-webkit-box-align: center;
+		}
+	</style>
+	<script src="../libs/zepto.js"></script>
+	<script src="../chui/iscroll.js"></script>
+	<script src="../chui/chui.android.js"></script>
+	<script type="text/javascript">
+		$(function() {
+	  
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Titled List</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="titled-list">
+						<tableheader>Fruits</tableheader>
+						<tablecell>
+							<celltitle>Apple</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Apricot</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Banana</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Cherry</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Grape</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Lemon</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Peach</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Plum</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Pear</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Orange</celltitle>
+						</tablecell>
+						<tableheader>Vegetables</tableheader>
+						<tablecell>
+							<celltitle>Beet</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Cabbage</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Carrot</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Tomato</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Lettuce</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Peas</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Potato</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Spinach</celltitle>
+						</tablecell>
+						<tableheader>Dairy</tableheader>
+						<tablecell>
+							<celltitle>Cheese</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Cream</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Butter</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Keefer</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Milk</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Yogurt</celltitle>
+						</tablecell>
+						<tableheader>Seafood</tableheader>
+						<tablecell>
+							<celltitle>Clam</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Lobster</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Oyster</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Tuna</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Salmon</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Shrimp</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Tilapia</celltitle>
+						</tablecell>
+						<tableheader>Meat</tableheader>
+						<tablecell>
+							<celltitle>Bacon</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Chicken</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Duck</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Hamburger</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Sausage</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Steak</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Turkey</celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

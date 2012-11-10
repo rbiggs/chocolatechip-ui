@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="app-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Bottom Toolbar</title>
+	<link rel="stylesheet" href="../chui/chui.ios.css">
+	<style>
+		/* Local Styles Here */
+	</style>
+   <script src="../libs/jquery-1.7.2.js"></script>
+   <script src="../chui/iscroll.js"></script>
+   <script src="../chui/chui.ios.js"></script>
+</head>
+<body>
+	<app>
+		<navbar>
+			<h1>Bottom Toolbar</h1>
+		</navbar>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<subview id="subview_01" ui-associations="withNavBar withBottomToolBar">
+				<scrollpanel>
+				</scrollpanel>
+			</subview>
+		</view>
+		<toolbar ui-placement="bottom">
+			<uibutton>Button</uibutton>
+			<uibutton>Button</uibutton>
+			<uibutton>Button</uibutton>
+		</toolbar>
+	</app>
+</body>
+</html>

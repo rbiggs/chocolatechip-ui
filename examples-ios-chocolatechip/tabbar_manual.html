@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>TabBar Control</title>
+	<link rel="stylesheet" href="../chui/chui.ios.css">
+	<style type="text/css">
+		/* Local Styles Here */
+		#main {
+			background-color: rgba(128,96,0,0.5);
+		}
+		#main navbar {
+			background-color: rgba(63,128,0,0.2);
+		}
+		subview:nth-of-type(1) {
+		    background: rgba(255,0,0,0.2);
+		}
+		subview:nth-of-type(2) {
+		    background: rgba(0,255,0,0.2);
+		}
+		subview:nth-of-type(3) {
+		    background: rgba(0,0,255,0.2);
+		}
+		subview:nth-of-type(4) {
+		    background: rgba(255,255,0,0.2);
+		}
+		subview:nth-of-type(5) {
+		    background: rgba(0,0,255,0.2);
+		}
+		subview.selected {
+		    z-index: 100000;
+		    -webkit-transform: translate3d(0,0,0);
+		}
+		subview.unselected {
+			-webkit-transform: translate3d(100%,0,0);
+		}
+	</style>
+   <script src="../libs/chocolatechip.js"></script>
+   <script src="../chui/iscroll.js"></script>
+   <script src="../chui/chui.ios.js"></script>
+	<script type="text/javascript">
+		/* Local JavaScript Here */
+	
+		$(function() {
+			var seg = {
+				 id : "segmented_001",
+				 numberOfSegments : 4,
+				 titlesOfSegments : ["People", "Places", "Animals", "Stuff"],
+				 selectedSegment : 2,
+				 cssClass : ["ui-custom-tint", "ui-custom-tint", "ui-custom-tint", "ui-custom-tint"],
+				 imagePath : "icons/",
+				 container : "#stackpanel_01"
+			};
+			$("stack").UICreateSegmentedControl(seg);
+			var logChildNodes = function(item) {
+				console.log("The child position is: " + item.getAttribute("ui-child-position"));
+			}
+			$("segmentedcontrol").UISegmentedControl("#stackpanel_01", logChildNodes);
+			//$("#stackpanel_01").UIIdentifyChildNodes();
+			
+			$("#main").UITabBar();
+		});
+		
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="slanted-right" ui-navigation-status="current">
+			<navbar class="ui-custom-tint">
+				<h1 ui-bar-alignment="center">Tab Bar</h1>
+			</navbar>
+			<subview ui-associations="withNavBar withTabBar">
+				<scrollpanel>
+					<shim></shim>
+					<stack>
+					</stack>
+					<shim></shim>
+					<stack id="stackpanel_01" ui-implements="segmented-toggle-stack">
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								<tablecell ui-usage="image">
+									<img src="../images/alternative.png">
+									<celltitle>People</celltitle>
+									<cellsubtitle>Your Friends</cellsubtitle>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								<tablecell ui-usage="image">
+									<img src="../images/blues.png">
+									<celltitle>Places</celltitle>
+									<cellsubtitle>Interesting Destinations</cellsubtitle>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								
+								<tablecell ui-usage="image">
+									<img src="../images/classical.png">
+									<celltitle>Funny Animals</celltitle>
+									<cellsubtitle>Critters from Around the Globe</cellsubtitle>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								<tablecell ui-usage="image">
+									<img src="../images/itunes.png">
+									<celltitle>Food</celltitle>
+									<cellsubtitle>Recipes</cellsubtitle>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
+								</tablecell>
+								<tablecell ui-usage="image">
+									<img src="../images/killers.png">
+									<celltitle>Good Eats</celltitle>
+									<cellsubtitle>Restaurants</cellsubtitle>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+					</stack>
+					<shim></shim>
+                    <tableview ui-kind="grouped">				
+                        <tablecell>
+                            <celltitle>Item One</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Item Two</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Item Three</celltitle>
+                        </tablecell>	
+                    </tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar withTabBar">
+				<scrollpanel>
+					<tableview>
+                        <tableheader>
+                            TableView for Second Subview
+                        </tableheader>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item One</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item Two</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item Three</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item Four</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item Five</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item Six</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item Seven</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add" class="green">
+                            <celltitle>Item Eight</celltitle>
+                        </tablecell>
+                    </tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar withTabBar">
+				<scrollpanel>
+                    <tableview ui-kind="grouped">
+                        <tablecell>
+                            <celltitle>Item 1</celltitle>
+                            <cellsubtitle>Item 1 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 2</celltitle>
+                            <cellsubtitle>Item 2 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 3</celltitle>
+                            <cellsubtitle>Item 3 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 4</celltitle>
+                            <cellsubtitle>Item 4 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 5</celltitle>
+                            <cellsubtitle>Item 5 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 6</celltitle>
+                            <cellsubtitle>Item 6 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 7</celltitle>
+                            <cellsubtitle>Item 7 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 8</celltitle>
+                            <cellsubtitle>Item 8 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 9</celltitle>
+                            <cellsubtitle>Item 9 Subtitle</cellsubtitle>
+                        </tablecell>
+                        <tablecell>
+                            <celltitle>Item 10</celltitle>
+                            <cellsubtitle>Item 10 Subtitle</cellsubtitle>
+                        </tablecell>
+                    </tableview>					
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar withTabBar">
+				<scrollpanel>
+                    <tableview>				
+                        <tablecell>
+                            <celltitle>Something Here</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Someting Else</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Another Thing</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Yet Another</celltitle>
+                        </tablecell>	
+                        <tablecell>
+                            <celltitle>Boring!</celltitle>
+                        </tablecell>	
+                        <tablecell>
+                            <celltitle>Doh!</celltitle>
+                        </tablecell>	
+                        <tablecell>
+                            <celltitle>What?</celltitle>
+                        </tablecell>
+                    </tableview>
+				</scrollpanel>
+			</subview>
+			<subview ui-associations="withNavBar withTabBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing One</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Two</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Three</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Four</celltitle>
+                        </tablecell>
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Five</celltitle>
+                        </tablecell>		
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Six</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Seven</celltitle>
+                        </tablecell>	
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Eight</celltitle>
+                        </tablecell>			
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Nine</celltitle>
+                        </tablecell>		
+                        <tablecell ui-implements="add">
+                            <celltitle>Thing Ten</celltitle>
+                        </tablecell>	
+				    </tableview>
+				</scrollpanel>
+			</subview>
+			<tabbar ui-selected-tab="0">
+				<uibutton ui-implements="tab">                
+					<icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+					<label>Refresh</label>         
+				</uibutton>
+				<uibutton ui-implements="tab">                
+					<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
+					<label>Add</label>  
+				</uibutton>
+				<uibutton ui-implements="tab">                
+					<icon style="-webkit-mask-image: url(../icons/info.svg);"></icon>
+					<label>Info</label>   
+				</uibutton>
+				<uibutton ui-implements="tab">                
+					<icon style="-webkit-mask-image: url(../icons/downloads.svg);"></icon>
+					<label>Downloads</label>                
+				</uibutton>
+				<uibutton ui-implements="tab">                
+					<icon style="-webkit-mask-image: url(../icons/top_rated.svg);"></icon>
+					<label>Favorite</label>                
+				</uibutton>
+			</tabbar>
+		</view>
+	</app>
+</body>
+</html>

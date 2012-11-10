@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Registration</title>
+<link rel="stylesheet" href="../../../chui/chui.ios.css">
+<style type="text/css" media="all">
+	view { background-color: rgba(0,0,0,0.65) };
+	uibutton[ui-implements=back]:before,
+	uibutton[ui-implements=back].disabled.touched:before {
+		 border-color: #262626 !important;
+	}	
+	navbar > uibutton[ui-implements=back]::before {
+		background-color: #555;
+	}
+
+	#main input {
+		width: 150px;
+		margin-right: 20px;
+	}
+	tableview[ui-implements=form] > tablecell input {
+		border: none;
+		height: 24px; 
+		width: 85% !important;
+		position: relative;
+		top: -6px;
+		font-size: 14px;
+		float: left;
+		margin-left: 6px;
+	}
+	tableheader {
+		font-weight: bold;
+		color: #fff;
+		text-shadow: 0px 1px 1px #000;
+	}
+	tableview[ui-implements=form][ui-kind=grouped] > tablecell > celltitle {
+		width: 0 !important;
+		right: 90% !important;
+	}
+	tableview[ui-implements=form][ui-kind=grouped] > tablecell > celltitle,   tableview[ui-implements=form][ui-kind=grouped] > tablecell > cellsubtitle {
+		left: 0;
+		width: 90%;
+	}
+	tableview[ui-implements=form] select, input[type=date] {
+		float: right;
+		min-width: 150px;
+		border-radius: 5px;
+	}
+	tableview[ui-implements=form] input[type=date] {
+		width: 170px;
+		position: relative;
+		right: -20px;
+	}
+	tableview[ui-implements=form] select {
+		width: 170px;
+	}
+	@media screen and (orientation:portrait) {
+		tableview[ui-implements=form] > tablecell input[type='date'] {
+			max-width: 150px !important;
+		}
+	}
+	@media screen and (orientation:landscape) {
+		tableview[ui-implements=form]  input[type='date'] {
+			max-width: 65% !important;
+		}
+	}
+	#dateOfBirthTable > tablecell > celltitle {
+		width: 35% !important;
+		right: 75% !important;
+	}
+	tableview[ui-implements=form][ui-kind=grouped] > #dateOfBirthCell  > celltitle,  
+	 tableview[ui-implements=form][ui-kind=grouped] > #stateOfResidencyCell > celltitle {
+		width: 35% !important;
+		left: 10px !important;
+	}
+	tableview[ui-implements=form][ui-kind=grouped] > #agreeToTermsCell > celltitle {
+		width: 50% !important;
+		left: 10px !important;
+	}
+	tableview[ui-implements=form][ui-kind=grouped] > #stateOfResidencyCell > select, tableview[ui-implements=form][ui-kind=grouped].selectBoxRight > tablecell > select {
+		float: right;
+		height: 30px;
+		font-size: 14px;
+	}
+	tableview[ui-implements=form][ui-kind=grouped] > #dateOfBirthCell  > input {
+		position: relative;
+		top: 2px;
+		float: right;
+		border: solid 1px #4c4c4c;
+	}
+	tableview[ui-implements=form][ui-kind=grouped].selectBoxRight > tablecell > input[type=date] {
+		position: relative;
+		top: 2px;
+		float: right;
+		border: solid 1px #4c4c4c;
+		width: 165px !important;
+	}
+	tableview[ui-tablecell-order="centered"] > tablecell input {
+		border: none;
+		height: 24px;
+		width: 85% !important;
+		position: relative;
+		top: -6px;
+		font-size: 14px;
+		margin-left: 6px;
+	}
+	#main tableview[ui-tablecell-order="centered"][ui-kind="grouped"] > tablecell > cellsubtitle {
+		left: 0;
+		width: 90%;
+	}
+	#main tableview[ui-tablecell-order="centered"][ui-kind="grouped"] > #agreeToTermsCell > celltitle {
+		width: 50% !important;
+		left: 10px !important;
+	}
+	#main tableview[ui-tablecell-order="centered"][ui-kind="grouped"] > #stateOfResidencyCell > celltitle, #main tableview[ui-tablecell-order="centered"][ui-kind="grouped"] > #dateOfBirthCell > celltitle {
+		width: 35% !important;
+		left: 10px !important;
+	}
+	@media screen and (orientation:portrait) {
+		tableview > tablecell input {
+			width: 150px !important;
+		}
+	}
+	@media screen and (orientation:landscape) {
+		tableview > tablecell input {
+			width: 67% !important;
+		}
+	}
+	tableview[ui-implements=form] > tablecell > label {
+		display: block;
+		width: 100px;
+		margin-right: 10px;
+		font-size: 14px;
+		position: relative;
+		top: 4px;
+		float: left;
+	}
+	#agreeToTermsLabel {
+		width: 200px;
+	}
+	input:focus:invalid {
+		background-color: rgba(225,0,0,0.05);
+	}
+</style>
+<script src="../../../libs/zepto.js"></script>
+<script src="../../../chui/iscroll.js"></script>
+<script src="../../../chui/chui.ios.js"></script>
+<script type="text/javascript">
+	$.ready(function() {
+	
+	});
+</script>
+</head>
+<body>
+<app>
+	<view id="main" ui-background-style="slanted-left-equal" ui-navigation-status="current">
+		<navbar class="ui-custom-tint">
+			<uibutton class="ui-custom-tint" style="background-color: #555" ui-bar-align="left" ui-implements="back">
+				<label>Back</label>
+			</uibutton>
+			<h1 style="display: block; width: 222px; ">Register</h1>
+		</navbar>
+		<subview ui-associations="withNavBar" style="overflow: hidden; " ui-navigation-status="upcoming" ui-child-position="4">
+			<scrollpanel style="-webkit-transition: -webkit-transform 0ms; -webkit-transform-origin: 0px 0px; -webkit-transform: translate3d(0px, -552px, 0px) scale(1); ">
+				<tableview ui-kind="grouped" ui-implements='form'>
+					<tableheader>Add details to your account</tableheader>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="words" type="text" id="first_name" placeholder="First Name" required>
+						</cellsubtitle>
+					</tablecell>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="words" id="last_name" placeholder="Last Name" required>
+						</cellsubtitle>
+					</tablecell>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="off" type="email" id="email_address" placeholder="Email Address" required>
+						</cellsubtitle>
+					</tablecell>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="off" type="text" id="username" placeholder="User Name" required>
+						</cellsubtitle>
+					</tablecell>
+				</tableview>
+				<tableview ui-kind="grouped" ui-implements='form'>
+					<tablecell id="dateOfBirthCell">
+						<label for='dataofbirth'>Date of Birth:</label>
+						<input id='dataofbirth' autocorrect="off" autocapitalize="off" type="date" id="date_of_birth" required>
+					</tablecell>
+				</tableview>
+				<tableview id="registerAddressTable" ui-kind="grouped" ui-implements='form'>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="words" type="text" id="city" placeholder="City" required>
+						</cellsubtitle>
+					</tablecell>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="off" type="text" id="address1" placeholder="Address 1" required>
+						</cellsubtitle>
+					</tablecell>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="off" type="text" id="address2" placeholder="Address 2" required>
+						</cellsubtitle>
+					</tablecell>
+					<tablecell id="stateOfResidencyCell">
+						<label for='state'>State:</label>
+						<select name="state" size="1" id="state">
+							<option value="AL">Alabama</option>
+							<option value="AK">Alaska</option>
+							<option value="AZ">Arizona</option>
+							<option value="AR">Arkansas</option>
+							<option value="CA">California</option>
+							<option value="CO">Colorado</option>
+							<option value="CT">Connecticut</option>
+							<option value="DE">Delaware</option>
+							<option value="FL">Florida</option>
+							<option value="GA">Georgia</option>
+							<option value="HI">Hawaii</option>
+							<option value="ID">Idaho</option>
+							<option value="IL">Illinois</option>
+							<option value="IN">Indiana</option>
+							<option value="IA">Iowa</option>
+							<option value="KS">Kansas</option>
+							<option value="KY">Kentucky</option>
+							<option value="LA">Louisiana</option>
+							<option value="ME">Maine</option>
+							<option value="MD">Maryland</option>
+							<option value="MA">Massachusetts</option>
+							<option value="MI">Michigan</option>
+							<option value="MN">Minnesota</option>
+							<option value="MS">Mississippi</option>
+							<option value="MO">Missouri</option>
+							<option value="MT">Montana</option>
+							<option value="NE">Nebraska</option>
+							<option value="NV">Nevada</option>
+							<option value="NH">New Hampshire</option>
+							<option value="NJ">New Jersey</option>
+							<option value="NM">New Mexico</option>
+							<option value="NY">New York</option>
+							<option value="NC">North Carolina</option>
+							<option value="ND">North Dakota</option>
+							<option value="OH">Ohio</option>
+							<option value="OK">Oklahoma</option>
+							<option value="OR">Oregon</option>
+							<option value="PA">Pennsylvania</option>
+							<option value="RI">Rhode Island</option>
+							<option value="SC">South Carolina</option>
+							<option value="SD">South Dakota</option>
+							<option value="TN">Tennessee</option>
+							<option value="TX">Texas</option>
+							<option value="UT">Utah</option>
+							<option value="VT">Vermont</option>
+							<option value="VA">Virginia</option>
+							<option value="WA">Washington</option>
+							<option value="WV">West Virginia</option>
+							<option value="WI">Wisconsin</option>
+							<option value="WY">Wyoming</option>
+						</select>						
+					</tablecell>
+					<tablecell>
+						<cellsubtitle>
+							<input autocorrect="off" autocapitalize="off" type="text" id="zip_code" placeholder="Zip Code" required>
+						</cellsubtitle>
+					</tablecell>
+				</tableview>
+				<tableview ui-kind="grouped" ui-implements='form'>
+					<tablecell>
+						<cellsubtitle>
+							<input type="password" id="password" placeholder="Password" required>
+						</cellsubtitle>
+					</tablecell>
+					<tablecell>
+						<cellsubtitle>
+							<input type="password" id="password2" placeholder="Password 2" required>
+						</cellsubtitle>
+					</tablecell>
+				</tableview>
+				<tableview ui-kind="grouped" ui-implements='form'>
+					<tablecell>
+						<celldetail>"Here are all the legal requirements that would put a normal person to sleep but which we expect you to have to suffer through reading if you want to proceed.</celldetail>
+					</tablecell>
+					<tablecell id="agreeToTermsCell">
+						<label id='agreeToTermsLabel' for='agreeToTerms'>I agree to these terms.</label>
+						<switchcontrol id="agreeToTerms" class="off"><thumb></thumb><input type="checkbox" style="display: none;"></switchcontrol>
+					</tablecell>
+				</tableview>
+				<uibutton ui-kind="action" class="gold" id="submitRegistration">Join</uibutton>
+			</scrollpanel>
+		</subview>
+	</view>
+</app>
+</body>
+</html>

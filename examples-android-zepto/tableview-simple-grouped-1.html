@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Tableview</title>
+    <link rel="stylesheet" href="../chui/chui.android.css">
+    <script src="../libs/zepto.js"></script>
+    <script src="../chui/iscroll.js"></script>
+    <script src="../chui/chui.android.js"></script>
+    <script type="text/javascript">
+      $(function() {
+        
+		});
+    </script> 
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Tableview</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-kind="grouped">
+						<tablecell>
+							<celltitle>People</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Places</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Things</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Animals</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>Food</celltitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

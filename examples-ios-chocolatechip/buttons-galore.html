@@ -1,0 +1,546 @@
+<!DOCTYPE HTML>
+<html lang="en" manifest="manifest/buttons.manifest">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Buttons</title>
+    <link rel="stylesheet" href="../chui/chui.ios.css">
+    <style type="text/css">
+        body {
+            background: #cbd2d8;
+            background-image: 
+                -webkit-gradient(linear, left top, right top, 
+                    from(#c5ccd4), 
+                    color-stop(0.75, #c5ccd4), 
+                    color-stop(0.75, transparent), 
+                    to(transparent)); 
+            -webkit-background-size: 5px 100%;
+            background-size: 5px 100%;
+            -webkit-user-select: none;
+        }
+		h1 {
+			-webkit-box-flex: 1;
+			text-align: center;
+			margin: 0px;
+			font: bold 20px/32px Helvetica, Sans-serif;
+			letter-spacing: -1px;
+			text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.5);
+			color: #fff;
+		}
+		
+		h2 {
+			font-size: 16px;
+			line-height: 22px;
+			text-shadow: 0 -1px 1px #fff;
+			color: #666;
+			text-align: center;
+		}
+				
+		navbar[style="background-color: #4f8020"] > uibutton:before {
+			 background-color: #ff5614;
+		}
+		uibutton[style="background-color: #ff5614"]:before {
+			background-color: #ff5614;
+		}
+		/* Styles for actionsheet */
+		.actionsheet {
+			display: block;
+			width: 100%;
+			-webkit-box-sizing: border-box;
+			padding: 10px 0px;
+			background-image:
+				-webkit-gradient(linear, left top, left bottom,
+					from(#000),
+					color-stop(0.5, #000),
+					color-stop(0.5, #fff),
+					to(#fff)),
+				-webkit-gradient(linear, left top, left bottom,
+					from(rgba(160,166,174,0.7)),
+					color-stop(0.05, rgba(131,138,149,0.7)),
+					color-stop(0.10, rgba(107,113,125,0.7)),
+					color-stop(0.10, rgba(65,72,92,0.8)),
+					to(rgba(53,59,76,0.8)));
+			-webkit-background-size: 100% 2px, 100% 100%;
+			background-repeat: repeat-x, repeat-x;
+		}
+		.actionsheet p {
+			font-size: 12px;
+			color: #fff;
+			text-shadow: 0 -1px 1px #000;
+			text-align: center;
+			margin-bottom: 12px;
+		}
+		/* End style for actionsheet */
+			view[ui-background-style=slanted-right] {
+				background-color: #d4e0f3;
+				background-image: 
+				-webkit-gradient(linear, left top, right bottom,
+					color-stop(0.25, rgba(145,127,255,0.3)), 
+					color-stop(.3, transparent),
+					color-stop(0.5, transparent), 
+					color-stop(.5, rgba(145,127,255,0.3)),
+					color-stop(0.75, rgba(145,127,255,0.3)), 
+					color-stop(.8, transparent),
+					to(transparent));
+			-webkit-background-size: 40px 40px;
+			background-size: 15px 15px;				
+			}
+    </style>
+	<script src="../libs/chocolatechip.js"></script>
+	<script src="../chui/iscroll.js"></script>
+	<script src="../chui/chui.ios.js"></script>
+    
+    <script type="text/javascript">
+		$(function() {
+			
+		});
+    </script>
+
+</head>
+<body ui-background-style="slanted-right">
+	<app>
+		<view id="main" ui-background-style="slanted-right" ui-navigation-status="current" class="mySpecialGradient" ui-background-style="slanted-right">
+			<navbar>
+				<h1>Buttons</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+				 <article>
+					  <section>
+							<toolbar style="height: 100px">
+							<uibutton ui-implements="icon">
+								<icon style="-webkit-mask-image: url(../icons/apple_logo.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+									  <icon style="-webkit-mask-image: url(../icons/download.svg); background-color: yellow"></icon>
+								 </uibutton>
+							<uibutton  ui-implements="icon" class="ui-custom-tint" style="background-color: #ffc000">
+								<icon style="-webkit-mask-image: url(../icons/droid_logo.svg);"></icon>
+								 </uibutton>
+							<uibutton ui-icon-align="right" class="disabled ui-custom-tint" style="background-color: #6f8000">
+								<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
+								<label>Favorites</label>
+							</uibutton>
+							</toolbar>
+							
+							<br><br>
+							 <toolbar class="ui-custom-tint" style="height: 120px; background-color: rgba(255,192,0,.5);">
+								 <uibutton  ui-implements="icon" class="ui-custom-tint" style="background-color: #ff0000">
+								<icon style="-webkit-mask-image: url(../icons/add.svg); background-color: #fff;"></icon>
+								 </uibutton>
+								 <uibutton ui-implements="done" class="ui-custom-tint" style="background-color: #008040">
+								<icon style="-webkit-mask-image: url(../icons/attachement.svg);"></icon>
+								<label>Save</label>
+								 </uibutton>
+								 <uibutton ui-implements="done"  ui-icon-align="right">
+								<icon style="-webkit-mask-image: url(../icons/attachement.svg);"></icon>
+								<label>Save</label>
+								 </uibutton>
+								 <uibutton class="ui-custom-tint">
+								<label>Save</label>
+								 </uibutton>
+							</toolbar>
+							
+							<br><br>
+							<toolbar>
+								 <uibutton ui-bar-align="left">
+								<icon style="-webkit-mask-image: url(../icons/home.svg);"></icon>
+								<label>Delete</label>
+								 </uibutton>
+								 <uibutton ui-implements="delete" ui-icon-align="right" ui-bar-align="right">
+								<icon style="-webkit-mask-image: url(../icons/delete.svg);"></icon>
+								<label>Delete</label>
+								 </uibutton>
+							</toolbar>
+							<br><br>
+							<toolbar>
+								<uibutton class="ui-custom-tint" style="background-color: #eb3fff">
+								<label>Click1</label>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: yellow">
+								 </uibutton>
+								<uibutton class="ui-custom-tint" style="background-color: #5a3fff">
+								<label>Click3</label>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
+								 </uibutton>
+							</toolbar>
+					  </section>
+				 </article>
+				 
+				 <br><br>
+				 <article>
+					<section>
+							<navbar>
+							<uibutton ui-icon-align="right" class="disabled ui-custom-tint" style="background-color: #6f8000">
+								<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
+								<label>Favorites</label>
+							</uibutton>
+							<uibutton>
+								<icon style="-webkit-mask-image: url(../icons/apple_logo.svg);"></icon>
+								<label>Message</label>
+							</uibutton>
+							<uibutton class="disabled">
+								<label>Favorites</label>
+							</uibutton>
+							</navbar>
+						<br><br>
+						<navbar>
+								 <uibutton ui-implements="back" ui-bar-align="left">
+								<label>Back</label>
+								 </uibutton>
+								 <h1>Home</h1>
+								 <uibutton ui-implements="next" ui-bar-align="right">
+								<label>Next</label>
+								 </uibutton>
+							</navbar>
+							<br><br>
+							
+						<navbar class="ui-custom-tint" style="background-color: #4f8020">
+								 <uibutton ui-implements="back" class="ui-custom-tint" style="background-color: #ff5614" ui-bar-align="left">
+								<label>Back</label>
+								 </uibutton>
+								 <h1>Home</h1>
+								 <uibutton ui-implements="next" ui-bar-align="right" class="ui-custom-tint" style="background-color: #ff5614">
+								<label>Next</label>
+								 </uibutton>
+							</navbar>
+							
+							<div>
+								 <h2>Disabled States</h2>
+							</div>
+							
+							<navbar>
+								 <uibutton ui-implements="back" ui-bar-align="left" class="disabled">
+								<label>Back</label>
+								 </uibutton>
+								 <h1>Home</h1>
+								 <uibutton ui-implements="next" ui-bar-align="right" class="disabled">
+								<label>Next</label>
+								 </uibutton>
+							</navbar>
+							
+							<br><br>
+							
+							<navbar>
+								 <uibutton ui-implements="done" ui-bar-align="left" class="disabled">
+								<icon style="-webkit-mask-image: url(../icons/bookmarks.svg);"></icon>
+								<label>Save</label>
+								 </uibutton>
+								 <h1>Buttons</h1>
+								 <uibutton ui-implements="delete" ui-bar-align="right" ui-icon-align="right" class="disabled">
+								<icon style="-webkit-mask-image: url(../icons/chat.svg);"></icon>
+								<label>Delete</label>
+								 </uibutton>
+							</navbar>
+					  </section>
+				 </article>
+				 <article>
+					  <section>
+							<div>
+								 <h2>Example of Plain Icon Buttons in Toolbar</h2>
+							</div>
+							<toolbar class="box-pack-justify">
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/envelope.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/history.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/compose.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/downloads.svg); background-color: lightblue"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/head_phones.svg);"></icon>
+								 </uibutton>
+							</toolbar>
+							<br><br>
+							
+							<toolbar class="box-pack-justify ui-custom-tint" style="background-color: #7f9dff; height: 90px;">
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon" class="disabled">
+								<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/badge.svg);"></icon>
+								 </uibutton>
+								 <uibutton ui-kind="icon">
+								<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: orange">
+								 </uibutton>
+								 <uibutton ui-kind="icon" class="disabled">
+								<icon style="-webkit-mask-image: url(../icons/film.svg);"></icon>
+								 </uibutton>
+							</toolbar>
+					  </section>
+				 </article>
+				<br>
+				<br>
+				 <article>
+					  <section>
+							<navbar>
+								 <h1>Rounded Rectangle Buttons</h1>
+							</navbar>
+							
+							<div>
+								 <h2>Example of Default Rounded Rectangle Buttons for Action within a View</h2>
+							</div>
+							<stack ui-box="horizontal" ui-box-pack="center">
+							<uibutton ui-kind="rounded-rectangle">
+							<label>Text Message</label>
+							</uibutton>
+							<uibutton ui-kind="rounded-rectangle"  class="disabled">
+							<label>Add to Favorites</label>
+							</uibutton>
+							</stack>
+							<div>
+								 <h2>Example of Important Rounded Rectangle Buttons for Action within a View</h2>
+							</div>
+							<uibutton ui-implements="done" ui-kind="rounded-rectangle">
+							<label>View Account</label>
+							</uibutton>
+							<uibutton ui-implements="done" ui-kind="rounded-rectangle" ui-icon-align="right" class="disabled">
+							<label>Sign Out</label>
+							</uibutton>
+					  </section>
+				 </article>
+				 
+				 <article>
+					  <section>
+							<div>
+								 <h2>Example of Segmented Buttons in Toolbar</h2>
+							</div>
+							<navbar>
+								 <segmentedcontrol>
+									  <uibutton>
+									<icon style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+									<label>Canada</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right">       
+									<icon style="-webkit-mask-image: url(../icons/settings.svg);"></icon>
+									<label>USA</label>
+									 </uibutton>
+									 <uibutton class="disabled">
+								<icon style="-webkit-mask-image: url(../icons/top_rated.svg);"></icon>
+								<label>Mexico</label>
+									 </uibutton>
+								</segmentedcontrol>
+							</navbar>
+							
+							<br><br>
+							
+				<navbar class="ui-custom-tint" style="background-color: #7fcdff">
+					<segmentedcontrol>
+						<uibutton class="ui-custom-tint" style="background-color: #009cff">
+							<icon style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+							<label>Canada</label>
+						</uibutton>
+						<uibutton ui-icon-align="right" class="ui-custom-tint" style="background-color: #009cff">
+							<icon style="-webkit-mask-image: url(../icons/settings.svg);"></icon>
+							<label>USA</label>
+						</uibutton>
+						<uibutton class="disabled ui-custom-tint" style="background-color: #009cff">
+							<icon style="-webkit-mask-image: url(../icons/top_rated.svg);"></icon>
+							<label>Mexico</label>
+						</uibutton>
+					</segmentedcontrol>
+				</navbar>
+							
+							<br><br>
+							
+							<navbar>
+								 <segmentedcontrol>
+									  <uibutton>
+									<icon class="disabled" style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+									<label>Canada</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right">         
+									<icon style="-webkit-mask-image: url(../icons/settings.svg);"></icon>
+									<label>USA</label>
+									 </uibutton>
+									 <uibutton class="disabled">
+											<icon style="-webkit-mask-image: url(../icons/top_rated.svg);"></icon>
+											<label>Mexico</label>
+									 </uibutton>
+								</segmentedcontrol>
+							</navbar>
+							
+							<br><br>
+							
+							<navbar>
+								 <segmentedcontrol>
+									  <uibutton>
+									<icon style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+									<label>Canada</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right">        
+									<icon style="-webkit-mask-image: url(../icons/settings.svg);"></icon>
+									<label>USA</label>
+									 </uibutton>
+									 <uibutton class="disabled">
+									<icon style="-webkit-mask-image: url(../icons/top_rated.svg);"></icon>
+									<label>Mexico</label>
+									 </uibutton>
+								</segmentedcontrol>
+							</navbar>
+							
+							<div>
+								 <h2>Example of Segmented Buttons in a View</h2>
+							</div>
+							<div>
+								 <segmentedcontrol>
+									  <uibutton ui-icon-implements="mask">
+									<icon style="-webkit-mask-image: url(../icons/chart.svg);"></icon>
+									<label>Canada</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right">
+									<icon style="-webkit-mask-image: url(../icons/add.svg); background-color: #666;"></icon>
+									<label>USA</label>
+									  </uibutton>
+									  <uibutton class="disabled" ui-icon-align="right">
+											<icon style="-webkit-mask-image: url(../icons/chart.svg); background-color: #777;"></icon>
+											<label>Mexico</label>
+									  </uibutton>
+								 </segmentedcontrol>
+							</div>
+							<br><br>
+							<div>
+								 <segmentedcontrol>
+									  <uibutton class="ui-custom-tint" style="background-color: #ffaf7f">
+									<icon style="-webkit-mask-image: url(../icons/chart.svg); background-color: #401800;"></icon>
+									<label>Canada</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right" class="ui-custom-tint" style="background-color: #ffaf7f">
+									<icon style="-webkit-mask-image: url(../icons/chart.svg);  background-color: #401800;"></icon>
+									<label>USA</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right" class="disabled ui-custom-tint" style="background-color: #ffaf7f">
+											<icon style="-webkit-mask-image: url(../icons/cog.svg); background-color: #401800;"></icon>
+											<label>Mexico</label>
+									  </uibutton>
+								 </segmentedcontrol>
+							</div>
+							<br><br>
+							<div>
+								 <segmentedcontrol>
+									  <uibutton style="height: 80px;">
+											<icon style="-webkit-mask-image: url(../icons/chart.svg);"></icon>
+											<label>Canada</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right" style="height: 80px;">
+											<icon style="-webkit-mask-image: url(../icons/id_card.svg); background-color: #666;"></icon>
+											<label>USA</label>
+									  </uibutton>
+									  <uibutton ui-icon-align="right" class="disabled" style="height: 80px;">
+											<icon style="-webkit-mask-image: url(../icons/history.svg);"></icon>
+											<label>Mexico</label>
+									  </uibutton>
+								 </segmentedcontrol>
+							</div>
+					  </section>
+				 </article>
+				 <br><br>
+				 <article>
+					  <section>
+							<navbar>
+								 <h1>Action Buttons in a View</h1>
+							</navbar>
+							<h2>Custom Tint Action Buttons</h2>
+							<div>
+							<uibutton ui-kind="action" ui-implements="default" class="ui-custom-tint" style="background-color: #8fc060">
+								<label>Set Value</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-implements="default" class="ui-custom-tint" style="background-color: #ff6666">
+								<icon style="-webkit-mask-image: url(../icons/location_pin.svg);"></icon>
+								<label>Set Value</label>
+							</uibutton>
+							<h2>Regular Action Buttons</h2>
+							<uibutton ui-kind="action" ui-implements="default">
+								 <icon style="-webkit-mask-image: url(../icons/location_pin.svg);"></icon>
+								 <label>Set Value</label>
+							</uibutton>
+							
+							<uibutton ui-kind="action" ui-implements="cancel" ui-icon-align="left">
+								 <icon style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+								 <label>Cancel</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-implements="cancel" ui-icon-align="right" style="height: 80px;">
+								  <icon style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+								 <label>Cancel</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-implements="delete" ui-icon-align="top" style="height: auto;">
+								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <label>Delete</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-icon-align="bottom" class="green">
+								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <label>Green</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-implements="delete" ui-icon-align="top" class="disabled" style="height: 100px;">
+								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <label>Delete</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-implements="delete" ui-icon-align="bottom" class="disabled" style="height: 100px;">
+								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <label>Delete</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-icon-align="bottom" class="green stretch disabled" style="height: 100px;">
+								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <label>Green</label>
+							</uibutton>
+							<uibutton ui-kind="action" ui-icon-align="bottom" class="green">
+								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <label>Green</label>
+							</uibutton>
+							</div>
+							<h2>Action Buttons for Use in Action Sheets or Modal Popups</h2>
+							
+							<stack class="actionsheet" ui-contains="action-buttons">
+								 <uibutton ui-kind="action">
+									  <label>Set Value</label>
+								 </uibutton>
+								 <uibutton ui-kind="action" ui-implements="cancel">
+									  <label>Cancel</label>
+								 </uibutton>
+								 <uibutton ui-kind="action" ui-implements="delete">
+									  <label>Delete</label>
+								 </uibutton>
+								 <uibutton ui-kind="action" class="green" style="height: 80px;">
+									  <label>Green</label>
+								 </uibutton>
+								 <uibutton ui-kind="action" class="gold" style="height: 100px;">
+									  <label>Gold</label>
+								 </uibutton>
+								 <uibutton ui-kind="action" ui-implements="done">
+									  <label>Save</label>
+								 </uibutton>
+								 </stack>
+								 <h1>Disabled States</h1>
+							<stack class="actionsheet" ui-contains="action-buttons">
+								 <uibutton ui-kind="action" class="disabled">
+									  <label>Set Value</label>
+								 </uibutton>
+								 <uibutton ui-kind="action" ui-implements="cancel" class="disabled">
+									  <label>Cancel</label>
+								 </uibutton>
+								 <uibutton ui-kind="action" ui-implements="delete" class="disabled">
+									  <label>Delete</label>
+								 </uibutton>
+							</stack>
+					  </section>
+				 </article>
+			</scrollpanel>
+		</subview>
+	</view>
+</body>
+</html>

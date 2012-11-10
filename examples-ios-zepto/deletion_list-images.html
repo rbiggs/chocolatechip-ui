@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Deletion List - Images</title>
+    <link rel="stylesheet" href="../chui/chui.ios.css">
+    <script src="../libs/zepto.js"></script>
+    <script src="../chui/iscroll.js"></script>
+    <script src="../chui/chui.ios.js"></script>
+    <script type="text/javascript">
+		$(function() {
+			$("tableview:first-of-type").UIIdentifyChildNodes();
+			var deleteItem = function(item) {
+				$("tablefooter").append("<p>你删除表格单元格 " +  (parseInt($(item).attr("ui-child-position"),10)+1) + "</p>");
+				
+			};
+			$.UIDeleteTableCell({selector: "tableview", toolbar: "navbar", callback: deleteItem, deleteButton: "删除", editButton: ["修改","完成"]});
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar id="toolbar1">
+				<h1>中国</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked">
+						<tablecell ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/alternative.png">
+							<celltitle>人民</celltitle>
+							<cellsubtitle>您的朋友</cellsubtitle>
+						</tablecell>
+						<tablecell ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/blues.png">
+							<celltitle>邻居</celltitle>
+							<cellsubtitle>有趣的目的地</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/classical.png">
+							<celltitle>有趣的动物</celltitle>
+							<cellsubtitle>生物从世界各地</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/itunes.png">
+							<celltitle>烹饪</celltitle>
+							<cellsubtitle>食谱</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-usage="image" ui-implements="detail-disclosure">
+							<img src="../images/killers.png">
+							<celltitle>食品</celltitle>
+							<cellsubtitle>餐厅</cellsubtitle>
+						</tablecell>
+						<tablefooter></tablefooter>
+					</tableview>				
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

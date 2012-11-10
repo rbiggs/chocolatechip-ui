@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Form To JSON Submission</title>
+    <link rel="stylesheet" href="../../../chui/chui.ios.css">
+    <style>
+		tableview[ui-tablecell-order="centered"] > tablecell > celltitle {
+			right: 60%;
+		}
+		tableview[ui-tablecell-order="centered"] > tablecell > cellsubtitle {
+			left: 40%;
+		}
+		body.landscape #view1 tableview[ui-tablecell-order="stacked"] > tablecell > cellsubtitle, 
+		body.landscape #view1 tableview[ui-tablecell-order="stacked"] > tablecell > celldetail {
+			font-size: 12px !important;
+		}
+		#view2 tablecell > celldetail  {
+			font-size: 16px !important;
+			line-height: 20px;
+		}
+    </style>
+   <script src="../../../libs/zepto.js"></script>
+   <script src="../../../chui/iscroll.js"></script>
+	<script src="../../../chui/chui.ios.js"></script>
+   <script>
+      function submitForm() {
+         var formData = $.form2JSON('#userForm');
+         var data = JSON.stringify(formData);
+         window.location = "json_form_target.html?" + data;
+      }
+      $(function() {
+		    $("uibutton[ui-implements=done]").on("click", function() {
+		        $("#userForm").submit();
+		    });
+		    $("tableview[ui-implements=selection-list]").UISelectionList();    
+      });      
+   </script>
+    
+</head>
+<body>
+	<app ui-background-style="striped">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>New User</h1>
+				<uibutton ui-implements="done" ui-bar-align="right">Done</uibutton>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+				  <form id="userForm" action="javascript:submitForm()">
+						<tableview ui-tablecell-order="centered">
+						<tableheader>Personal Info</tableheader>
+						<tablecell>
+							  <celltitle>First name:</celltitle>
+							  <cellsubtitle>
+									<input type="text" name="user.name.first">
+							  </cellsubtitle>
+						 </tablecell>
+						 <tablecell>
+							  <celltitle>Last name:</celltitle>
+							  <cellsubtitle>
+									<input type="text" name="user.name.last">
+							  </cellsubtitle>
+						 </tablecell>
+						 <tablecell>
+							  <celltitle>Phone:</celltitle>
+							  <cellsubtitle>
+									<input type="text" name="user.phone">
+							  </cellsubtitle>
+						 </tablecell>
+						 <tablecell>
+							  <celltitle>Email:</celltitle>
+							  <cellsubtitle>
+									<input type="email" name="user.email">
+							  </cellsubtitle>
+						 </tablecell>
+					</tableview>
+					<tableview ui-tablecell-order="centered" class="ui-no-hover">
+						 <tableheader>Favorite food</tableheader>
+						<tablecell>
+							  <celltitle>Salad:</celltitle>
+							  <cellsubtitle>
+									<input type="checkbox" name="user.favoriteFood[]" value="salad">
+							  </cellsubtitle>
+						</tablecell>
+						<tablecell>
+							  <celltitle>Pizza:</celltitle>
+							  <cellsubtitle>
+									<input type="checkbox" name="user.favoriteFood[]" value="pizza">
+							  </cellsubtitle>
+						</tablecell>
+						<tablecell>
+							  <celltitle>Chicken:</celltitle>
+							  <cellsubtitle>
+									<input type="checkbox" name="user.favoriteFood[]" value="chicken">
+							  </cellsubtitle>
+						 </tablecell>
+						</tableview>
+                  <tableview ui-tablecell-order="centered">
+							<tableheader>Feedback</tableheader>
+							<tablecell>
+							<celltitle>Message:</celltitle>
+							  <cellsubtitle>
+									<input type="text" name="user.message">
+							  </cellsubtitle>
+							</tablecell>
+						</tableview>
+                  <tableview ui-tablecell-order="centered">
+							<tableheader>Job</tableheader>
+							<tablecell>
+								<celltitle>Web developer</celltitle>
+								<cellsubtitle><input name="user.job" value="Web developer" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Rocket scientist</celltitle>
+								<cellsubtitle><input name="user.job" value="Rocket scientist" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Cook</celltitle>
+								<cellsubtitle><input name="user.job" value="Cook" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Banker</celltitle>
+								<cellsubtitle><input name="user.job" value="Banker" type="radio"></cellsubtitle>
+							</tablecell>
+							<tablecell>
+								<celltitle>Janitor</celltitle>
+								<cellsubtitle><input name="user.job" value="Janitor" type="radio"></cellsubtitle>
+							</tablecell>
+                  </tableview>
+					</form>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>
