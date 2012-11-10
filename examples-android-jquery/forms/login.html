@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Login</title>
-<link rel="stylesheet" href="../../../chui/chui.android.css">
+<link rel="stylesheet" href="../../chui/chui.android.css">
 <style type="text/css" media="all">
 	view { background-color: rgba(0,0,0,0.65) };
 	uibutton[ui-implements=back]:before,
@@ -54,9 +54,9 @@
 		background-color: rgba(225,0,0,0.05);
 	}
 </style>
-<script src="../../../libs/jquery-1.7.2.js"></script>
-<script src="../../../chui/iscroll.js"></script>
-<script src="../../../chui/chui.js"></script>
+<script src="../../libs/jquery-1.7.2.js"></script>
+<script src="../../chui/iscroll.js"></script>
+<script src="../../chui/chui.js"></script>
 <script type="text/javascript">
 	$(function() {
 		
@@ -65,15 +65,15 @@
 </head>
 <body>
 <app>
-	<view ui-background-style="slanted-left-equal" id="main" ui-navigation-status="current">
+	<view id="main" ui-navigation-status="current">
 		<navbar class="ui-custom-tint">
-			<uibutton class="ui-custom-tint" style="background-color: #555" ui-bar-align="left" ui-implements="back">
+			<uibutton ui-bar-align="left" ui-implements="back">
 				<label>Back</label>
 			</uibutton>
-			<h1 style="display: block; width: 222px; ">Login</h1>		
+			<h1>Login</h1>		
 		</navbar>
-		<subview ui-associations="withNavBar" style="overflow: hidden; " ui-navigation-status="upcoming" ui-child-position="3">
-			<scrollpanel style="-webkit-transition: -webkit-transform 0ms; -webkit-transform-origin: 0px 0px; -webkit-transform: translate3d(0px, 0px, 0px); ">
+		<subview ui-associations="withNavBar">
+			<scrollpanel>
 				<tableview ui-implements='form' ui-kind="grouped">
 					<tableheader>You must log in to play</tableheader>
 					 <tablecell>
@@ -86,7 +86,7 @@
 					 </tablecell>
 				</tableview> 
 				<uibutton ui-kind="action" id="loginSubmit">Login</uibutton>
-				<uibutton ui-kind="rounded-rectangle" id="goToForgotPassword">Forgot your password?</uibutton>
+				<uibutton ui-kind="action" id="goToForgotPassword">Forgot your password?</uibutton>
 			</scrollpanel>
 		</subview>
 	</view>

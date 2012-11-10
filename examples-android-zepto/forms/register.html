@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Registration</title>
-<link rel="stylesheet" href="../../../chui/chui.android.css">
+<link rel="stylesheet" href="../../chui/chui.android.css">
 <style type="text/css" media="all">
 	view { background-color: rgba(0,0,0,0.65) };
 	uibutton[ui-implements=back]:before,
@@ -145,9 +145,9 @@
 		background-color: rgba(225,0,0,0.05);
 	}
 </style>
-<script src="../../../libs/zepto.js"></script>
-<script src="../../../chui/iscroll.js"></script>
-<script src="../../../chui/chui.js"></script>
+<script src="../../libs/zepto.js"></script>
+<script src="../../chui/iscroll.js"></script>
+<script src="../../chui/chui.android.js"></script>
 <script type="text/javascript">
 	$.ready(function() {
 	
@@ -156,15 +156,15 @@
 </head>
 <body>
 <app>
-	<view id="main" ui-background-style="slanted-left-equal" ui-navigation-status="current">
+	<view id="main" ui-navigation-status="current">
 		<navbar class="ui-custom-tint">
-			<uibutton class="ui-custom-tint" style="background-color: #555" ui-bar-align="left" ui-implements="back">
+			<uibutton ui-bar-align="left" ui-implements="back">
 				<label>Back</label>
 			</uibutton>
-			<h1 style="display: block; width: 222px; ">Register</h1>
+			<h1>Register</h1>
 		</navbar>
-		<subview ui-associations="withNavBar" style="overflow: hidden; " ui-navigation-status="upcoming" ui-child-position="4">
-			<scrollpanel style="-webkit-transition: -webkit-transform 0ms; -webkit-transform-origin: 0px 0px; -webkit-transform: translate3d(0px, -552px, 0px) scale(1); ">
+		<subview ui-associations="withNavBar">
+			<scrollpanel d>
 				<tableview ui-kind="grouped" ui-implements='form'>
 					<tableheader>Add details to your account</tableheader>
 					<tablecell>

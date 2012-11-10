@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Form To JSON Submission</title>
-    <link rel="stylesheet" href="../../../chui/chui.android.css">
+    <link rel="stylesheet" href="../../chui/chui.android.css">
     <style>
 		tableview[ui-tablecell-order="centered"] > tablecell > celltitle {
 			right: 60%;
@@ -22,9 +22,9 @@
 			line-height: 20px;
 		}
     </style>
-   <script src="../../../libs/jquery-1.7.2.js"></script>
-   <script src="../../../chui/iscroll.js"></script>
-	<script src="../../../chui/chui.js"></script>
+   <script src="../../libs/jquery-1.7.2.js"></script>
+   <script src="../../chui/iscroll.js"></script>
+	<script src="../../chui/chui.js"></script>
    <script>
       function submitForm() {
          var formData = $.form2JSON('#userForm');
@@ -41,11 +41,11 @@
     
 </head>
 <body>
-	<app ui-background-style="striped">
-		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+	<app>
+		<view id="main" ui-navigation-status="current">
 			<navbar>
 				<h1>New User</h1>
-				<uibutton ui-implements="done" ui-bar-align="right">Done</uibutton>
+				<uibutton ui-bar-align="right">Done</uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>

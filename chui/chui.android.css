@@ -66,6 +66,9 @@ app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, cell
 input:focus, textarea:focus {
 	background-color: #fff !important;
 }
+*:focus {
+	outline: none !important;
+}
 navbar, toolbar, tabbar {
     z-index: 1000;
 }

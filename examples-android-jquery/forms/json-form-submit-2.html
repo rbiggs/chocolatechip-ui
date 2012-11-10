@@ -5,7 +5,7 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Form</title>
-    <link rel="stylesheet" href="../../../chui/chui.android.css">
+    <link rel="stylesheet" href="../../chui/chui.android.css">
     <style>
     	tableview + tableview {
     		margin-top: 0 !important;
@@ -54,9 +54,9 @@
 			background-color: #64b1f2;
 		}
     </style>
-   <script src="../../../libs/jquery-1.7.2.js"></script>
-   <script src="../../../chui/iscroll.js"></script>
-	<script src="../../../chui/chui.js"></script>
+   <script src="../../libs/jquery-1.7.2.js"></script>
+   <script src="../../chui/iscroll.js"></script>
+	<script src="../../chui/chui.js"></script>
    <script>
       function submitForm() {
          var formData = $.form2JSON('#userForm');
@@ -73,11 +73,11 @@
 </head>
 <body>
 	<app>
-		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+		<view id="main" ui-navigation-status="current">
 			<navbar>
-				<uibutton ui-implements="cancel" ui-bar-align="left">Cancel</uibutton>
+				<uibutton ui-bar-align="left">Cancel</uibutton>
 				<h1>Tableview</h1>
-				<uibutton ui-implements="done" ui-bar-align="right">Done</uibutton>
+				<uibutton ui-bar-align="right">Done</uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
