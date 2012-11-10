@@ -1559,10 +1559,16 @@ When using Zepto, make sure you have the following modules included in your buil
 						});						
 						$(disclosure).parent().on('mouseover', function() {
 							var checkmark = $(disclosure).find('path');
+							if (_jq || _zo) {
+								checkmark = checkmark[0];
+							}
 							checkmark.style.fill = '#fff';
 						});				
 						$(disclosure).parent().on('mouseout', function() {
 							var checkmark = $(disclosure).find('path');
+							if (_jq || _zo) {
+								checkmark = checkmark[0];
+							}
 							checkmark.style.fill = '#2da2cd';
 						});
 						$(disclosure).on($.userAction, function() {
