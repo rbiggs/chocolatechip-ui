@@ -37,7 +37,7 @@
 	<app>
 		<view id="main" ui-navigation-status="current"  ui-background-style="slanted-right">
 			<navbar>
-				<h1>Background Patterns</h1>
+				<h1>Buttons</h1>
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
@@ -54,22 +54,22 @@
 							<icon style="-webkit-mask-image: url(../icons/home.svg);"></icon>
 							<label>Save</label>
 						</uibutton>
-						<uibutton ui-implements="delete" ui-icon-align="right" ui-bar-align="right">
+						<uibutton ui-icon-align="right" ui-bar-align="right">
 							<icon style="-webkit-mask-image: url(../icons/delete.svg);"></icon>
 							<label>Delete</label>
 						</uibutton>
 					</stack>
 					<stack ui-box="horizontal">
-						<uibutton ui-implements="done" ui-bar-align="left" class="disabled">
+						<uibutton ui-bar-align="left" class="disabled">
 							<icon style="-webkit-mask-image: url(../icons/bookmarks.svg);"></icon>
 							<label>Save</label>
 						</uibutton>
-						<uibutton ui-implements="delete" ui-bar-align="right" ui-icon-align="right" class="disabled">
+						<uibutton ui-bar-align="right" ui-icon-align="right" class="disabled">
 							<icon style="-webkit-mask-image: url(../icons/chat.svg);"></icon>
 							<label>Delete</label>
 						</uibutton>
 					</stack>
-					<stack ui-box="horizontal" class='centered'>
+					<stack ui-box="horizontal">
 						 <uibutton ui-icon-align="right" ui-bar-align="left">
 							 <icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
 							 <label>Add</label>
@@ -118,23 +118,23 @@
 					</stack>
 				
 					<stack ui-box="horizontal">
-					<uibutton ui-kind="rounded-rectangle">
-						<label>Text Message</label>
-					</uibutton>
-					<uibutton ui-kind="rounded-rectangle"  class="disabled">
-						<label>Add to Favorites</label>
-					</uibutton>
+						<uibutton>
+							<label>Text Message</label>
+						</uibutton>
+						<uibutton  class="disabled">
+							<label>Add to Favorites</label>
+						</uibutton>
+						</stack>
+						<uibutton ui-kind="action" class="stretch">
+							<label>View Account</label>
+						</uibutton>
+						<uibutton ui-kind="action" ui-icon-align="right" class="disabled">
+							<label>Sign Out</label>
+						</uibutton>
 					</stack>
-					<uibutton ui-implements="attention" ui-kind="rounded-rectangle" class="stretch">
-						<label>View Account</label>
-					</uibutton>
-					<uibutton ui-implements="done" ui-kind="rounded-rectangle" ui-icon-align="right" class="stretch disabled">
-						<label>Sign Out</label>
-					</uibutton>
-				</stack>
-			</scrollpanel>
-		</subview>
-</view>
-</app>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
 </body>
 </html>

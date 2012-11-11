@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2012 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 2.0
+Version: 2.1
 Modern Theme for non-iOS devices
 
 */
@@ -1551,9 +1551,6 @@ popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cont
 			text-align: center;
 			-webkit-font-smoothing: antialiased;
     		padding: 9px;
-}
-popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action].touched {
-	text-shadow: black 0px 1px 0px;
 }
 /* End Modal Popups */
 

@@ -16,9 +16,6 @@
 		stack > uibutton {
 			-webkit-box-flex: 0 !important;
 		}
-		stack > uibutton[ui-kind="rounded-rectangle"] {
-			-webkit-box-flex: 1 !important;
-		}
 		stack * {
 			-webkit-box-flex: 0;
 		}
@@ -27,20 +24,6 @@
 		}
 		stack.transparent {
 			padding: 0 4px;
-		}
-		body[ui-background-style=slanted-left] {
-			background-image: 
-				-webkit-gradient(linear, right top, left bottom, 
-				from(transparent), 
-				color-stop(0.15, transparent),  
-				color-stop(0.15, rgba(192,102,47,0.2)), 
-				color-stop(0.50, rgba(192,102,47,0.2)), 
-				color-stop(0.50, transparent), 
-				color-stop(0.65, transparent),
-				color-stop(0.69, rgba(192,102,47,0.2)),  
-				to(rgba(192,102,47,0.2)));
-			-webkit-background-size: 8px 8px;
-		 background-size: 8px 8px;
 		}
     </style>
 	<script src="../libs/zepto.js"></script>
@@ -55,7 +38,7 @@
 </head>
 <body>
 	<app>
-		<view id="main" style="background-color: rgba(192,145,0,0.25);" ui-background-style="slanted-left" ui-navigation-status="current" class="mySpecialGradient" ui-background-style="slanted-right">
+		<view id="main" ui-navigation-status="current">
 			<navbar>
 				<h1>Icons</h1>
 			</navbar>
@@ -67,7 +50,7 @@
 					<label>add.svg</label>
 					<label>arrow_down.svg</label>
 				</stack>
-				<stack ui-background-style="horizontal-striped"  ui-box="horizontal" style="background-color: #666;">
+				<stack  ui-box="horizontal" style="background-color: #666;">
 					<uibutton ui-kind="icon">
 						<icon style="-webkit-mask-image: url(../icons/action.svg);">
 					</uibutton>

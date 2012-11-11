@@ -4,7 +4,7 @@ Desktop version of chui.android.css
 
 Copyright 2012 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 2.0
+Version: 2.1
 Modern Theme for non-iOS devices
 */
 uibutton:hover {
@@ -115,17 +115,15 @@ tablecell[ui-implements=disclosure][href]:hover:after {
 tableview.ui-show-delete-disclosures > tablecell:hover {
 	background-color: #2da2cd !important;
 }
-tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle{
-    color: #586b96 !important;
+tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle,
+tableview[ui-tablecell-order="stacked"].ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
+    color: #fff !important;
 }
 tableview[ui-tablecell-order=centered].ui-show-delete-disclosures > tablecell:hover > celltitle {
     color: #586B96 !important;
 }
-tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
-    color: #000 !important;
-}
 tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
-	color: #666 !important;
+	color: #fff !important;
 }
 tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldetail {
     color: #4c5f70 !important;
