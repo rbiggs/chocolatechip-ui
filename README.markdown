@@ -1,9 +1,10 @@
----
-ChocolateChip - A Compact JavaScript Framework for Mobile Webkit
----
-#ChocolateChip-UI (Universal)
+#ChocolateChip - A Compact JavaScript Framework for Mobile Webkit
 
-##This version of ChocolateChip-UI has been refactored to work with three different JavaScript libraries: ChocolateChip.js, jQuery or Zepto. It uses an abstraction layer to make switching out a library easy. Please note that although ChocolateChip-UI internally does not care which of the three libraries you use, the code you write for your app needs to conform to the coding standards and feature sets of the library you choose to work with. Also note that if you choose, say jQuery as your library, you would not want to include the assets of the other libraries in your project. Of course that goes for icons as well. Don't include them all, just the ones you actually use.
+##ChocolateChip-UI (Universal)
+
+This version of ChocolateChip-UI has been refactored to work with three different JavaScript libraries: ChocolateChip.js, jQuery or Zepto. It uses an abstraction layer to make switching out a library easy. Please note that although ChocolateChip-UI internally does not care which of the three libraries you use, the code you write for your app needs to conform to the coding standards and feature sets of the library you choose to work with. Also note that if you choose, say jQuery as your library, you would not want to include the assets of the other libraries in your project. Of course that goes for icons as well. Don't include them all, just the ones you actually use.
+
+It also now supports two separate themes: one for iOS and one for Android. Examine the examples for each platform to see how to use them.
 
 ChocolateChip-UI is a mobile Web app framework using HTML5, WAML, CSS and JavaScript. It's based on the ChocolateChip JavaScript library.
 
