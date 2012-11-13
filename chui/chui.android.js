@@ -2003,11 +2003,11 @@ When using Zepto, make sure you have the following modules included in your buil
 				var pointerOrientation = opts.pointerOrientation;
 				if (opts) { 
 					popoverID = opts.id ? opts.id : $.UIUuid();
-					title = opts.title ? $.concat('<h3>', opts.title, '</h3>') : "";
+					title = opts.title ? $.concat('<header><h3>', opts.title, '</h3></header>') : "";
 				}
 				var trigEl = $(triggerElement);
 				var pos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);	
-				var popoverShell = $.concat('<popover ', 'id="', popoverID, '" ui-poppover-position="', pointerOrientation, '"', ' data-popover-trigger="#', trigEl.attr("id"), '" data-popover-orientation="', popoverOrientation, '" data-popover-pointer-orientation="', pointerOrientation, '"><header>', title, '</header><section><scrollpanel class="popover-content"></scrollpanel></section></popover>');
+				var popoverShell = $.concat('<popover ', 'id="', popoverID, '" ui-poppover-position="', pointerOrientation, '"', ' data-popover-trigger="#', trigEl.attr("id"), '" data-popover-orientation="', popoverOrientation, '" data-popover-pointer-orientation="', pointerOrientation, '">', title, '<section><scrollpanel class="popover-content"></scrollpanel></section></popover>');
 				popoverShell;
 				$.app.append(popoverShell);
 				
