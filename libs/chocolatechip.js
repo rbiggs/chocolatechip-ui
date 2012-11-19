@@ -12,7 +12,7 @@ A JavaScript library for mobile Web app development.
  
 Copyright 2011 Robert Biggs: www.choclatechip-ui.com
 License: BSD
-Version 2.0.0
+Version 2.0.1
  
 */
  
@@ -38,7 +38,11 @@ Version 2.0.0
             return selector.call(selector);
          });
       } else {
-         return document.querySelector(selector);
+      	if (document.querySelector(selector)) {
+         	return document.querySelector(selector);
+         } else {
+         	return;
+         }
       }
 	  return this;
    };
@@ -72,21 +76,51 @@ Version 2.0.0
       return this;
    };
    
- 	if (!Object.keys) {
-		 Object.keys = function (obj) {
-			  var keys = [],
-					k;
-			  for (k in obj) {
-					if (Object.prototype.hasOwnProperty.call(obj, k)) {
-						 keys.push(k);
-					}
+	if (!Object.keys) {
+	  Object.keys = (function () {
+		 var hasOwnProperty = Object.prototype.hasOwnProperty,
+			  hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
+			  dontEnums = [
+				 'toString',
+				 'toLocaleString',
+				 'valueOf',
+				 'hasOwnProperty',
+				 'isPrototypeOf',
+				 'propertyIsEnumerable',
+				 'constructor'
+			  ],
+			  dontEnumsLength = dontEnums.length;
+	 
+		 return function (obj) {
+			if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null) throw new TypeError('Object.keys called on non-object');
+	 
+			var result = [];
+	 
+			for (var prop in obj) {
+			  if (hasOwnProperty.call(obj, prop)) result.push(prop);
+			}
+	 
+			if (hasDontEnumBug) {
+			  for (var i=0; i < dontEnumsLength; i++) {
+				 if (hasOwnProperty.call(obj, dontEnums[i])) result.push(dontEnums[i]);
 			  }
-			  return keys;
-		 };
-	}
+			}
+			return result;
+		 }
+	  })()
+	};
 	
    $.extend(Array.prototype, {
-      each : Array.prototype.forEach,
+     each : function(fn, ctx) {
+      	if (typeof fn != "function") return;
+      	var i, l = this.length;
+      	var ctx = arguments[1];
+      	for (i = 0; i < l; i++) {
+      		if (i in this) {
+        			fn.call(ctx, this[i], i, this);
+        		}
+      	}
+      },
       
       eq : function ( index ) {
       	if (index === 0 || !!index) {
@@ -988,10 +1022,12 @@ Version 2.0.0
             i = 0;
          request.queryString = params;
          request.open(method, o.url, async);
-         if (o.headers) {
-            for (; i<o.headers.length; i++) {
-              request.setRequestHeader(o.headers[i].name, o.headers[i].value);
-            }
+  			if (!!o.headers) {  
+             for (var prop in o.headers) { 
+                 if(o.headers.hasOwnProperty(prop)) { 
+                     request.setRequestHeader(prop, o.headers[prop]);
+                 }
+             }
          }
          request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
          function hdl(){ 
