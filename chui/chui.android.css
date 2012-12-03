@@ -132,9 +132,11 @@ subview > scrollpanel {
 	overflow: hidden;
 	padding-bottom: 45px;
 }
-subview[ui-associations] {
+subview {
 	display: block;
 	position: absolute;
+	top: 0;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	overflow-y: auto;
