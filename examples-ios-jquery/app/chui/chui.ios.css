@@ -10,14 +10,14 @@
 ChocolateChip-UI
 Three yummy ingredients make this something to sink your teeth into:
 ChococlateChip.js: It's tiny but delicious
-chui.ios.css: Good looks do impress
-chui.ios.js: The magic to make it happen
+ChUI.css: Good looks do impress
+ChUI.js: The magic to make it happen
 Also staring WAML--Web App Markup Language: no more masquerading as a Web page.
 WAML makes coding a Web app logical and straightforward, the way it was meant to be.
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 2.0 Beta
+Version: 2.1
 
 */
 html, body {
@@ -100,9 +100,11 @@ subview > scrollpanel {
 	overflow: hidden;
 	padding-bottom: 45px;
 }
-subview[ui-associations] {
+subview {
 	display: block;
 	position: absolute;
+	top: 0;
+	bottom: 0;
 	left: 0;
 	right: 0;
 	overflow-y: auto;
@@ -1532,7 +1534,7 @@ tablecell > cellsubtitle {
 tablecell[ui-implements=disclosure] > celltitle:only-child, 
 tablecell[ui-implements=detail-disclosure] > celltitle:only-child, 
 tablecell[ui-implements=add] > celltitle:only-child {
-    width: 90%; 
+    width: 90% !important;
 }
 tablecell[ui-implements=disclosure] > celltitle, 
 tablecell[ui-implements=detail-disclosure] > celltitle, 
@@ -1836,6 +1838,7 @@ deletedisclosure {
 
 deletedisclosure > span {
 	display: none;
+	position: relative;
 }
 deletedisclosure.checked {
     font: bold 26px/14px Verdana;
@@ -1852,6 +1855,8 @@ deletedisclosure.checked {
 deletedisclosure.checked > span {
 	display: inline;
 	padding-left: 0px;
+	top: -2px;
+	left: -2px;
 }
 tableview.ui-show-delete-disclosures deletedisclosure {
 	display: block;

@@ -1534,7 +1534,7 @@ tablecell > cellsubtitle {
 tablecell[ui-implements=disclosure] > celltitle:only-child, 
 tablecell[ui-implements=detail-disclosure] > celltitle:only-child, 
 tablecell[ui-implements=add] > celltitle:only-child {
-    width: 90%; 
+    width: 90% !important;
 }
 tablecell[ui-implements=disclosure] > celltitle, 
 tablecell[ui-implements=detail-disclosure] > celltitle, 
@@ -1838,6 +1838,7 @@ deletedisclosure {
 
 deletedisclosure > span {
 	display: none;
+	position: relative;
 }
 deletedisclosure.checked {
     font: bold 26px/14px Verdana;
@@ -1854,6 +1855,8 @@ deletedisclosure.checked {
 deletedisclosure.checked > span {
 	display: inline;
 	padding-left: 0px;
+	top: -2px;
+	left: -2px;
 }
 tableview.ui-show-delete-disclosures deletedisclosure {
 	display: block;
