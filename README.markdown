@@ -14,3 +14,7 @@ ChocolateChip-UI takes advantage of HTML5, CSS3 and ECMAScript5 to deliver a con
 
 
 Pleases visit [ChocolateChip-UI's Website](http://chocolatechip-ui.com) to access tutorials and documentation on how to best utilize it for your purposes. The download here also provides you with snippets and examples to help you get going right away.
+
+## Building a Custom Version
+
+ChocolateChip-UI now has a Python build script which you can use to create a customized project. It consists of two files: build.py and config.py. You run it in the terminal from the build file's position in the ChocolateChip directory. First open config.py in your text editor and change the configuration to suit your purposes. Then drap and drop the build.py file to the terminal app and hit return. It will parse the config.py file and build you a project based on that. You can configure  a path for the build, a project name, which OS to support, which JavaScript library to use, when to include a images directory and whether to include icons and which ones. Now that ChocolateChip-UI supports so many options, using the build script will simplify creating a target project based on your needs.

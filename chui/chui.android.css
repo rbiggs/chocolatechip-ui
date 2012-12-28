@@ -66,8 +66,49 @@ app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, cell
 input:focus, textarea:focus {
 	background-color: #fff !important;
 }
+input[type=text], input[type=email], input[type=password] {
+	-webkit-appearance: none;
+	background-color: transparent !important;
+	border: none;
+	border-bottom: 2px solid #424344;
+	position:  relative;
+	margin:  0;
+	color: rgb(204, 204, 204);
+}
+input[type=text]::before, input[type=email]::before, input[type=password]::before {
+	content:  '';
+	display: block;
+	height:  4px;
+	width: 0;
+	border-left:  2px solid #424344;
+	position: absolute;
+	bottom:  -2px;
+	left:  1px;
+}
+input[type=text]::after, input[type=email]::after, input[type=password]::after {
+	content:  '';
+	display: block;
+	height:  4px;
+	width: 0;
+	border-right:  2px solid #424344;
+	position: absolute;
+	bottom: -2px;
+	right: 1px;
+}
 *:focus {
 	outline: none !important;
+}
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+	border: none;
+	border-bottom: 1px solid #2da2cd;
+	bottom: -1px;
+	left: 0px;
+}
+input:focus::before, input:focus::after {
+	border-color: #2da2cd;
+}
+input:focus::before, input:focus::after {
+	border-color: #2da2cd;
 }
 navbar, toolbar, tabbar {
     z-index: 1000;
