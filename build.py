@@ -108,4 +108,4 @@ if type(config.opts['icons']) is bool:
 elif type(config.opts['icons']) is list:
 	os.mkdir(path + name + '/icons/')
 	for item in config.opts['icons']:
-		shutil.copyfile('icons/' + item + '.svg', path + name + '/icons/' + item + '.svg')
+		shutil.copyfile(local_path + 'icons/' + item + '.svg', path + name + '/icons/' + item + '.svg')
