@@ -62,7 +62,9 @@ os.mkdir(path + name);
 # Create directory for the chosen library:
 #---------------------------------
 os.mkdir(path + name + '/libs')
-shutil.copyfile('libs/' + lib, path + name + '/libs/' + lib)
+local_path = sys.path[0] + '/'
+shutil.copyfile(local_path + 'libs/' + lib, path + name + '/libs/' + lib)
+
 
 #---------------------------------
 # Create directory for ChUI files:
@@ -72,10 +74,10 @@ os.mkdir(path + name + '/chui')
 #---------------------------------
 # Copy ChUI files to new folder:
 #---------------------------------
-shutil.copyfile('chui/chui.' + OS + '.css', path + name + '/chui/chui.' + OS + '.css')
-shutil.copyfile('chui/chui.' + OS + '.desktop.css', path + name + '/chui/chui.' + OS + '.desktop.css')
-shutil.copyfile('chui/chui.' + OS + '.js', path + name + '/chui/chui.' + OS + '.js')
-shutil.copyfile('chui/iscroll.js', path + name + '/chui/iscroll.js')
+shutil.copyfile(local_path + 'chui/chui.' + OS + '.css', path + name + '/chui/chui.' + OS + '.css')
+shutil.copyfile(local_path + 'chui/chui.' + OS + '.desktop.css', path + name + '/chui/chui.' + OS + '.desktop.css')
+shutil.copyfile(local_path + 'chui/chui.' + OS + '.js', path + name + '/chui/chui.' + OS + '.js')
+shutil.copyfile(local_path + 'chui/iscroll.js', path + name + '/chui/iscroll.js')
 
 #---------------------------------
 # Write base app file to folder:
@@ -97,7 +99,7 @@ if config.opts['images'] != False:
 #---------------------------------
 if type(config.opts['icons']) is bool:
 	if config.opts['icons'] == True:
-		shutil.copytree('icons/', path + name + '/icons/')
+		shutil.copytree(local_path + 'icons/', path + name + '/icons/')
 
 #---------------------------------		
 # If the icons are a list, copy the 
