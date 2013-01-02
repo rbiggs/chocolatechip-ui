@@ -44,7 +44,6 @@ def determineLib(lib):
 		libScript = '\t<script type="text/javascript" src="libs/' + lib + '"></script>\n'
 	elif lib == 'zepto.js':
 		libScript = '\t<script type="text/javascript" src="libs/' + lib + '"></script>\n'
-	print 'The libScript is: ' + libScript
 		
 determineLib(lib)
 
