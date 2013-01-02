@@ -85,20 +85,23 @@ html.write(app);
 html.close()
 
 #---------------------------------
-# If images flag is set to True, create images folder:
+# If images flag is set to True, 
+# create images folder:
 #---------------------------------
 if config.opts['images'] != False:
 	os.mkdir(path + name + '/images')
 
 #---------------------------------
-# If icons flag is set to True, create icons directory and copy icons to it:
+# If icons flag is set to True, create 
+# icons directory and copy icons to it:
 #---------------------------------
 if type(config.opts['icons']) is bool:
 	if config.opts['icons'] == True:
 		shutil.copytree('icons/', path + name + '/icons/')
 
 #---------------------------------		
-# If the icons are a list, copy the list items to the new folder:
+# If the icons are a list, copy the 
+# list items to the new folder:
 #---------------------------------
 elif type(config.opts['icons']) is list:
 	os.mkdir(path + name + '/icons/')
