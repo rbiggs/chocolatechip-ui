@@ -2,12 +2,12 @@
 
 # Please read the instructions below and change this configuration to suit your needs.
 opts = {
-	'path': '/Users/tom/Desktop/', 
-	'name': 'Test', 
-	'os': 'ios',
-	'lib': 'chocolatechip',
+	'path': '/Users/rbiggs/Desktop/', 
+	'name': '_Bingie', 
+	'os': 'android',
+	'lib': 'jquery',
 	'images': True,
-	'icons': False
+	'icons': ['cog','add','flag','refresh']
 }
 
 # README

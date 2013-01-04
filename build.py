@@ -89,7 +89,7 @@ html.close()
 # If images flag is set to True, 
 # create images folder:
 #---------------------------------
-if config.opts['images'] != False:
+if config.opts['images'] == True:
 	os.mkdir(path + name + '/images')
 
 #---------------------------------
