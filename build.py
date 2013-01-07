@@ -78,6 +78,7 @@ shutil.copyfile(local_path + 'chui/chui.' + OS + '.desktop.css', path + name + '
 shutil.copyfile(local_path + 'chui/chui.' + OS + '.js', path + name + '/chui/chui.' + OS + '.js')
 shutil.copyfile(local_path + 'chui/iscroll.js', path + name + '/chui/iscroll.js')
 
+	shutil.copyfile(local_path + 'chui/chui.' + OS + '.desktop.css', path + name + '/chui/chui.' + OS + '.desktop.css')
 #---------------------------------
 # Write base app file to folder:
 #---------------------------------

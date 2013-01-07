@@ -1027,7 +1027,12 @@ When using Zepto, make sure you have the following modules included in your buil
 		$.userAction = 'touchend';
 		if (!$.touchEnabled) {
 			var stylesheet = $('head').find('link[rel=stylesheet]').attr('href');
-			var stylesheet1 = stylesheet.replace(/chui\.android\.css/, 'chui.android.desktop.css');
+			var stylesheet1 = '';
+			if (/min/.test(stylesheet)) {
+				stylesheet1 = stylesheet.replace(/chui\.android\.min\.css/, 'chui.android.desktop.css');
+			} else {
+				stylesheet1 = stylesheet.replace(/chui\.android\.css/, 'chui.android.desktop.css');
+			}
 			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
 			$.userAction = 'click';
 		}

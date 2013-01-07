@@ -19,7 +19,7 @@ uibutton[ui-kind=icon].disabled:hover {
 }
 uibutton.disabled:hover {
 	color: #3c6094;
-   cursor: auto;
+	cursor: auto;
 }
 uibutton[ui-implements=back]:hover, uibutton[ui-implements=next]:hover {
 	background-color: #2da2cd !important;
@@ -97,7 +97,7 @@ tableview > tablecell[href]:hover,
 tableview[ui-implements='selection-list'] > tablecell:hover {
     background-color: #2da2cd;
     color: #fff;
-	 cursor: pointer;
+	cursor: pointer;
 }
 tableview > tablecell[href]:hover > *,
 tableview[ui-implements='detail-menu'] > tablecell:hover > * {

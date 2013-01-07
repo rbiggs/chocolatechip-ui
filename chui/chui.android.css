@@ -22,27 +22,27 @@ Modern Theme for non-iOS devices
 
 */
 @font-face {
-	 font-family: 'Roboto';
-	 src: url('../fonts/Roboto-Regular.ttf') format('truetype');
-	 font-weight: normal;
+	font-family: 'Roboto';
+	src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+	font-weight: normal;
     font-style: normal;
 }
 @font-face {
-	 font-family: 'RobotoItalic';
-	 src: url('../fonts/Roboto-Italic.ttf') format('truetype');
-	 font-weight: normal;
+	font-family: 'RobotoItalic';
+	src: url('../fonts/Roboto-Italic.ttf') format('truetype');
+	font-weight: normal;
     font-style: italic;
 }
 @font-face {
-	 font-family: 'RobotoBold';
-	 src: url('../fonts/Roboto-Bold.ttf') format('truetype');
-	 font-weight: bold;
+	font-family: 'RobotoBold';
+	src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+	font-weight: bold;
     font-style: normal;
 }
 @font-face {
-	 font-family: 'RobotoBoldItalic';
-	 src: url('../fonts/Roboto-BoldItalic.ttf') format('truetype');
-	 font-weight: bold;
+	font-family: 'RobotoBoldItalic';
+	src: url('../fonts/Roboto-BoldItalic.ttf') format('truetype');
+	font-weight: bold;
     font-style: italic;
 }
 html, body {
@@ -217,16 +217,16 @@ subview[ui-associations='withToolBar withTabBar'] {
 	-webkit-box-direction: reverse;
 }
 *[ui-box-pack=start] {
-	 -webkit-box-pack: start;
+	-webkit-box-pack: start;
 }
 *[ui-box-pack=end] {
-	 -webkit-box-pack: end;
+	-webkit-box-pack: end;
 }
 *[ui-box-pack=center] {
-	 -webkit-box-pack: center;
+	-webkit-box-pack: center;
 }
 *[ui-box-pack=justify] {
-	 -webkit-box-pack: justify;
+	-webkit-box-pack: justify;
 }
 *[ui-box-align=stretch] {
 	-webkit-box-align: stretch;
@@ -568,7 +568,7 @@ uibutton[ui-implements=back] {
    margin-left: 10px;
    position: relative;
    border: none;
-   background: transparent url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	 xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' 	 height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#FFFFFF' stroke='#fff' stroke-miterlimit='10' points='27.565,6.665 32.573,6.665 20.434,23.878 32.573,41.336 27.565,41.336 15.427,24 '/> </svg>") no-repeat !important;
+   background: transparent url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' 	height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#FFFFFF' stroke='#fff' stroke-miterlimit='10' points='27.565,6.665 32.573,6.665 20.434,23.878 32.573,41.336 27.565,41.336 15.427,24 '/> </svg>") no-repeat !important;
 	background-size: 10px 25px;
 	background-position: center center !important; 
 }
@@ -576,7 +576,7 @@ uibutton[ui-implements='back'] > label {
     display: none !important;
 }
 uibutton[ui-implements=back].disabled {
-	background: transparent url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	 xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' 	 height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#666' stroke='#666' stroke-miterlimit='10' points='27.565,6.665 32.573,6.665 20.434,23.878 32.573,41.336 27.565,41.336 15.427,24 '/> </svg>") no-repeat !important;
+	background: transparent url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' 	height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#666' stroke='#666' stroke-miterlimit='10' points='27.565,6.665 32.573,6.665 20.434,23.878 32.573,41.336 27.565,41.336 15.427,24 '/> </svg>") no-repeat !important;
    border: none !important;
 }
 uibutton[ui-implements='next'] {
@@ -587,7 +587,7 @@ uibutton[ui-implements='next'] {
    position: relative;
    background-color: transparent !important;
    border: none;
-   background: black url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	 xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#fff' stroke='#fff' stroke-miterlimit='10' points='20.435,6.665 15.427,6.665 27.566,23.878 15.427,41.336 20.435,41.336 32.573,24 '/></svg>") no-repeat center center;
+   background: black url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#fff' stroke='#fff' stroke-miterlimit='10' points='20.435,6.665 15.427,6.665 27.566,23.878 15.427,41.336 20.435,41.336 32.573,24 '/></svg>") no-repeat center center;
 	background-size: 10px 25px;
 	background-position: center center !important; 
 }
@@ -596,7 +596,7 @@ uibutton[ui-implements=next] > label {
 }
 uibutton[ui-implements='next'].disabled {
 	border: none;
-   background: black url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	 xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#666' stroke='#666' stroke-miterlimit='10' points='20.435,6.665 15.427,6.665 27.566,23.878 15.427,41.336 20.435,41.336 32.573,24 '/></svg>") no-repeat center center;
+   background: black url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#666' stroke='#666' stroke-miterlimit='10' points='20.435,6.665 15.427,6.665 27.566,23.878 15.427,41.336 20.435,41.336 32.573,24 '/></svg>") no-repeat center center;
 	border: none !important;
 }
 /* End Next Bordered uibutton Styles */
@@ -963,12 +963,12 @@ navbar uibutton {
 	height: 30px;
 }
 toolbar[ui-placement=bottom] {
-	 margin: 0;
-	 position: absolute;
-	 bottom: 0px;
-	 left: 0;
-	 right: 0;
-	 border-bottom: none;
+	margin: 0;
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	border-bottom: none;
  }
  
 /* Tableview Styles */ 
@@ -997,8 +997,8 @@ tableview > tablecell[href].touched,
 tableview[ui-implements='detail-menu'] > tablecell.touched,
 tableview[ui-implements='selection-list'] > tablecell.selected.touched {
     color: #fff;
-	 cursor: pointer;
-	 background-color: #2da2cd;
+	cursor: pointer;
+	background-color: #2da2cd;
 }
 tableview[ui-implements='selection-list'] > tablecell.selected {
     color: #fff;
@@ -2584,7 +2584,7 @@ popover  > section actionSheet {
     background-color: transparent !important; 
 }
 popover actionsheet {
-	 min-height: 20px;
+	min-height: 20px;
     -webkit-box-sizing: border-box;
     padding: 1px 0px 1px;
     background: none;
@@ -2645,10 +2645,10 @@ rootview > panel > view > subview {
 	padding-bottom: 1px !important;
 }
 detailview > subview {
-	 display: none;
+	display: none;
 }
 detailview > subview:first-of-type {
-	 display: block;
+	display: block;
 }
 
 detailview > div, rootview > div {
