@@ -52,30 +52,7 @@ Version 2.0.1
    		prop = obj;
    		obj = $;
    	}
-		if (Object.keys) {
-			Object.keys(prop).forEach(function(p) {
-				if (prop.hasOwnProperty(p)) {
-					Object.defineProperty(obj, p, {
-						value: prop[p],
-                  writable: true,
-                  enumerable: enumerable,
-                  configurable: true
-               });
-            }
-         });
-		} else {
-			if (!prop) {
-				prop = obj;
-				obj = this;
-			}
-			for (var i in prop) {
-				obj[i] = prop[i];
-			}
-			return obj;
-      }
-      return this;
-   };
-   
+     
 	if (!Object.keys) {
 	  Object.keys = (function () {
 		 var hasOwnProperty = Object.prototype.hasOwnProperty,
@@ -108,7 +85,19 @@ Version 2.0.1
 			return result;
 		 }
 	  })()
-	};
+	}
+	Object.keys(prop).forEach(function(p) {
+		if (prop.hasOwnProperty(p)) {
+			Object.defineProperty(obj, p, {
+				value: prop[p],
+				writable: true,
+				enumerable: enumerable,
+				configurable: true
+			});
+		}
+	});
+   	return this;
+   };
 	
    $.extend(Array.prototype, {
      each : function(fn, ctx) {
