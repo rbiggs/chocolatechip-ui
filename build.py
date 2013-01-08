@@ -121,6 +121,9 @@ if minified == True:
 				for line in infile:
 					output.write(line)
 else:
+	#---------------------------------
+	# Otherwise copy over the uncompressed files:
+	#---------------------------------
 	shutil.copyfile(local_path + 'chui/chui.' + OS + '.css', path + name + '/chui/chui.' + OS + '.css')
 	shutil.copyfile(local_path + 'chui/chui.' + OS + '.desktop.css', path + name + '/chui/chui.' + OS + '.desktop.css')
 	shutil.copyfile(local_path + 'chui/chui.' + OS + '.js', path + name + '/chui/chui.' + OS + '.js')

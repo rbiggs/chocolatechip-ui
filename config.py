@@ -2,12 +2,13 @@
 
 # Please read the instructions below and change this configuration to suit your needs.
 opts = {
-	'path': '/Users/rbiggs/Desktop/', 
-	'name': '_Bingie', 
+	'path': '/Users/tom/Desktop/', 
+	'name': 'Bongo', 
 	'os': 'android',
 	'lib': 'jquery',
-	'images': True,
-	'icons': ['cog','add','flag','refresh']
+	'images': False,
+	'icons': False
+	'minified': False
 }
 
 # README
