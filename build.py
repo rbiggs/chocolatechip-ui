@@ -45,7 +45,8 @@ def determineLib():
 	global libScript
 	global lib
 	#---------------------------------
-	# Check to see if the user chose the minified versions:
+	# Check to see if the user chose the 
+	# minified versions:
 	#---------------------------------
 	if minified == True:
 		libScript = '\t<script type="text/javascript" src="chui/all-scripts.min.js"></script>\n'
@@ -112,7 +113,8 @@ if minified == True:
 	shutil.copyfile(local_path + 'chui/chui.' + OS + '.min.css', path + name + '/chui/chui.' + OS + '.min.css')
 	shutil.copyfile(local_path + 'chui/chui.' + OS + '.desktop.css', path + name + '/chui/chui.' + OS + '.desktop.css')
 	#---------------------------------
-	# Concatenate the library, iScroll and ChUI javascript files into one:
+	# Concatenate the library, iScroll and 
+	# ChUI javascript files into one:
 	#---------------------------------
 	files = [local_path + 'libs/' + lib, 'chui/iscroll.min.js', 'chui/chui.' + OS + '.min.js']
 	with open( path + name + '/chui/all-scripts.min.js', 'w') as output:

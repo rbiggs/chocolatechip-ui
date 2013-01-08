@@ -7,7 +7,7 @@ opts = {
 	'os': 'android',
 	'lib': 'jquery',
 	'images': False,
-	'icons': False
+	'icons': False,
 	'minified': False
 }
 
