@@ -116,7 +116,7 @@ if minified == True:
 	# Concatenate the library, iScroll and 
 	# ChUI javascript files into one:
 	#---------------------------------
-	files = [local_path + 'libs/' + lib, 'chui/iscroll.min.js', 'chui/chui.' + OS + '.min.js']
+	files = [local_path + 'libs/' + lib, local_path + 'chui/iscroll.min.js', local_path + 'chui/chui.' + OS + '.min.js']
 	with open( path + name + '/chui/all-scripts.min.js', 'w') as output:
 		for file in files:
 			with open(file) as infile:

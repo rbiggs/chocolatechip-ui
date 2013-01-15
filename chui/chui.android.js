@@ -1,6 +1,7 @@
 /*
 ChocolateChip-UI
-Version 2.1
+Version 2.1.1
+License: BSD
 This version works with ChocolateChip.js, jQuery or Zepto. 
 For jQuery, ChocolateChip-UI requires as a minimum version 1.7.1
 When using Zepto, make sure you have the following modules included in your build: zepto, event, detect, fx, fx_methods, ajax, form, data, selector, stack. 
@@ -543,8 +544,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
 			subviews.eq(selectedTab).toggleClassName('unselected','selected');
 			tabs.eq(selectedTab).addClass('selected');
+			var tabSelect =  $.userAction === 'click' ? 'click' : 'touchstart';
 			$._each(tabs, function(idx, tab) {
-				$(tab).on('click', function() {
+				$(tab).on(tabSelect, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
@@ -571,8 +573,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
 			views.eq(selectedTab).attr('ui-navigation-status','current');
 			tabs.eq(selectedTab).addClass('selected');
+			var tabSelect =  $.userAction === 'click' ? 'click' : 'touchstart';
 			$._each(tabs, function(idx, tab) {
-				$(tab).on('click', function() {
+				$(tab).on(tabSelect, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}

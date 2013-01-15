@@ -1,6 +1,7 @@
 /*
 ChocolateChip-UI
-Version 2.1
+Version 2.1.1
+License: BSD
 This version works with ChocolateChip.js, jQuery or Zepto. 
 For jQuery, ChocolateChip-UI requires as a minimum version 1.7.1
 When using Zepto, make sure you have the following modules included in your build: zepto, event, detect, fx, fx_methods, ajax, form, data, selector, stack. 
@@ -534,8 +535,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
 			subviews.eq(selectedTab).toggleClassName('unselected','selected');
 			tabs.eq(selectedTab).addClass('selected');
+			var tabSelect =  $.userAction === 'click' ? 'click' : 'touchstart';
 			$._each(tabs, function(idx, tab) {
-				$(tab).on('click', function() {
+				$(tab).on(tabSelect, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
@@ -562,8 +564,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
 			views.eq(selectedTab).attr('ui-navigation-status','current');
 			tabs.eq(selectedTab).addClass('selected');
+			var tabSelect =  $.userAction === 'click' ? 'click' : 'touchstart';
 			$._each(tabs, function(idx, tab) {
-				$(tab).on('click', function() {
+				$(tab).on(tabSelect, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
@@ -1503,7 +1506,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var editButtonTmpl = $.concat('<uibutton role="button" ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit"',' ui-button-labels="',label1,' ',label2,'"><label>', label1, '</label></uibutton>');
 				$(toolbarEl).prepend(deleteButtonTmpl);
 				$(toolbarEl).append(editButtonTmpl);
-				var deleteDisclosure = '<deletedisclosure><span><?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="18" height="18" viewBox="0 0 48 48" id="svg3804" xml:space="preserve"><path d="M 35.465895,6.1655247 43.279492,11.956238 21.764356,40.49005 5.4540477,27.811351 l 5.8969333,-7.344633 8.291376,6.489244 z" id="path3908" style="fill:#ffffff;fill-opacity:1;stroke:none" /></svg></span></deletedisclosure>';
+				var deleteDisclosure = '<deletedisclosure><span><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="18" height="18" viewBox="0 0 48 48" id="svg3804" xml:space="preserve"><path d="M 35.465895,6.1655247 43.279492,11.956238 21.764356,40.49005 5.4540477,27.811351 l 5.8969333,-7.344633 8.291376,6.489244 z" id="path3908" style="fill:#ffffff;fill-opacity:1;stroke:none" /></svg></span></deletedisclosure>';
 				$._each($.els(options.selector + " > tablecell"), function(idx, ctx) {
 					$(ctx).prepend(deleteDisclosure);
 				});
