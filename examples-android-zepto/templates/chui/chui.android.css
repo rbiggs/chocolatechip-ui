@@ -1,0 +1,2703 @@
+/*
+    pO\		
+   6  /\
+     /OO\
+    /OOOO\
+  /OOOOOOOO\
+ ((OOOOOOOO))
+  \:~=++=~:/    
+ 
+ChocolateChip-UI
+Three yummy ingredients make this something to sink your teeth into:
+ChococlateChip.js: It's tiny but delicious
+ChUI.android.css: Good looks do impress
+ChUI.js: The magic to make it happen
+Also staring WAML--Web App Markup Language: no more masquerading as a Web page.
+WAML makes coding a Web app logical and straightforward, the way it was meant to be.
+
+Copyright 2012 Robert Biggs: www.chocolatechip-ui.com
+License: BSD
+Version: 2.1.1
+Modern Theme for non-iOS devices
+
+*/
+@font-face {
+	font-family: 'Roboto';
+	src: url('../fonts/Roboto-Regular.ttf') format('truetype');
+	font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'RobotoItalic';
+	src: url('../fonts/Roboto-Italic.ttf') format('truetype');
+	font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+	font-family: 'RobotoBold';
+	src: url('../fonts/Roboto-Bold.ttf') format('truetype');
+	font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'RobotoBoldItalic';
+	src: url('../fonts/Roboto-BoldItalic.ttf') format('truetype');
+	font-weight: bold;
+    font-style: italic;
+}
+html, body {
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
+	background-color: #000; color: #ccc;
+	font: normal 14px/18px Roboto, Helvetica, Arial, Sans-Serif;
+}
+app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, celltitle, cellsubtitle, celldetail, tableheader, tablefooter, popover, popup, picker, mask, stack, panel, scrollpanel, shim {
+	display: block;
+	padding: 0;
+	margin: 0;
+	font: normal 18px  Roboto, Helvetica, Arial, Sans-serif;
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+input:focus, textarea:focus {
+	background-color: #fff !important;
+}
+input[type=text], input[type=email], input[type=password] {
+	-webkit-appearance: none;
+	background-color: transparent !important;
+	border: none;
+	border-bottom: 2px solid #424344;
+	position:  relative;
+	margin:  0;
+	color: rgb(204, 204, 204);
+}
+input[type=text]::before, input[type=email]::before, input[type=password]::before {
+	content:  '';
+	display: block;
+	height:  4px;
+	width: 0;
+	border-left:  2px solid #424344;
+	position: absolute;
+	bottom:  -2px;
+	left:  1px;
+}
+input[type=text]::after, input[type=email]::after, input[type=password]::after {
+	content:  '';
+	display: block;
+	height:  4px;
+	width: 0;
+	border-right:  2px solid #424344;
+	position: absolute;
+	bottom: -2px;
+	right: 1px;
+}
+*:focus {
+	outline: none !important;
+}
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+	border: none;
+	border-bottom: 1px solid #2da2cd;
+	bottom: -1px;
+	left: 0px;
+}
+input:focus::before, input:focus::after {
+	border-color: #2da2cd;
+}
+input:focus::before, input:focus::after {
+	border-color: #2da2cd;
+}
+navbar, toolbar, tabbar {
+    z-index: 1000;
+}
+app {
+	overflow-y: auto;
+	overflow-x: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+view {
+	width: 100%;
+	display: -webkit-box;
+	margin: 0 0 -10px 0;
+	height: 100%;
+	-webkit-box-orient: vertical;
+	-webkit-box-align: stretch;
+	-webkit-box-sizing: border-box;
+	-webkit-transition: all 0.25s  ease-in-out;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+*[background-style] {
+	background-color: #000 !important;
+}
+view[ui-implements="tabbar-panel"] {
+	-webkit-transition: all 0s  linear;
+}
+view[ui-navigation-status='upcoming'] {
+	-webkit-transform: translateX(100%);
+	-webkit-transform: translate3d(100%,0,0);
+}
+view[ui-navigation-status='current'] {
+	-webkit-transform: translateX(0);
+	-webkit-transform: translate3d(0,0,0);
+}
+view[ui-navigation-status='traversed'] {
+	-webkit-transform: translateX(-100%);
+	-webkit-transform: translate3d(-100%,0,0);
+}
+view[ui-navigation-status="upcoming"],
+subview[ui-paging-orient=horizontal][ui-navigation-status=upcoming],
+subview[ui-paging-orient=vertical][ui-navigation-status=upcoming] {
+	visibility: hidden;
+}
+
+view[ui-navigation-status="current"],
+subview[ui-paging-orient=horizontal][ui-navigation-status=current],
+subview[ui-paging-orient=vertical][ui-navigation-status=current] {
+	visibility: visible;
+}
+subview > scrollpanel {
+	height: auto;
+	min-height: 100%;
+	overflow: hidden;
+	padding-bottom: 45px;
+}
+subview {
+	display: block;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow-y: auto;
+}
+subview[ui-associations=withNavBar], 
+subview[ui-associations=withTopToolBar] {
+	top: 60px;
+	bottom: 0px;
+}
+subview[ui-associations='withNavBar withBottomToolBar'],  
+subview[ui-associations='withTopToolBar withBottomToolBar'] {
+	top: 45px;
+	bottom: 45px;
+}
+subview[ui-associations=withTabBar] {
+    top: 0;
+    bottom: 49px;
+}
+subview[ui-associations='withNavBar withTabBar'],
+subview[ui-associations='withToolBar withTabBar'] {
+    top: 110px;
+    bottom: 0;
+}
+/*  Layout Flexible Box Styles */
+*[ui-box=horizontal] {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+*[ui-box=vertical] {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+*[ui-box-direction=normal] {
+	-webkit-box-direction: normal;
+}
+*[ui-box-direction=reverse] {
+	-webkit-box-direction: reverse;
+}
+*[ui-box-pack=start] {
+	-webkit-box-pack: start;
+}
+*[ui-box-pack=end] {
+	-webkit-box-pack: end;
+}
+*[ui-box-pack=center] {
+	-webkit-box-pack: center;
+}
+*[ui-box-pack=justify] {
+	-webkit-box-pack: justify;
+}
+*[ui-box-align=stretch] {
+	-webkit-box-align: stretch;
+}
+*[ui-box-align=center] {
+	-webkit-box-align: center;
+}
+*[ui-box-align=start] {
+	-webkit-box-align: start;
+}
+*[ui-box-align=end] {
+	-webkit-box-align: end;
+}
+*[ui-box-flex=0] {
+	-webkit-box-flex: 0;
+}
+*[ui-box-flex=1] {
+	display: block;
+	-webkit-box-flex: 1;
+}
+*[ui-box-flex=2] {
+	display: block;
+	-webkit-box-flex: 2;
+}
+*[ui-box-flex=3] {
+	display: block;
+	-webkit-box-flex: 3;
+}
+*[ui-box-flex=4] {
+	display: block;
+	-webkit-box-flex: 4;
+}
+*[ui-box-flex=5] {
+	display: block;
+	-webkit-box-flex: 5;
+}
+*[ui-box-flex=6] {
+	display: block;
+	-webkit-box-flex: 6;
+}
+*[ui-box-flex=7] {
+	display: block;
+	-webkit-box-flex: 7;
+}
+*[ui-box-flex=8] {
+	display: block;
+	-webkit-box-flex: 8;
+}
+*[ui-box-flex=9] {
+	display: block;
+	-webkit-box-flex: 9;
+}
+*[ui-box-flex=10] {
+	display: block;
+	-webkit-box-flex: 10;
+}
+.ui-box-sizing-content {
+	-webkit-box-sizing: content-box;
+}
+*[ui-box-sizing=content] {
+	-webkit-box-sizing: content-box;
+}
+*[ui-box-sizing=border] {
+	-webkit-box-sizing: border-box;
+}
+stack {
+	display: -webkit-box;
+	-webkit-box-align: center;
+}
+stack > panel, 
+stack > segmentedcontrol {
+	-webkit-box-flex: 1;
+	display: -webkit-box;
+}
+stack[ui-implements=segmented-toggle-stack] {
+	margin: 0 10px;
+}
+stack[ui-implements=segmented-toggle-stack] > panel {display: none;
+	-webkit-box-align: center;
+	-webkit-box-pack: center; 
+}
+stack[ui-implements=segmented-toggle-stack] > panel.selected {
+	display: block;
+}
+stack[ui-kind=horizontal] {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+stack[ui-kind=horizontal] {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+}
+stack[ui-kind=vertical] {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+shim {
+	display: block;
+	height: 10px;
+}
+/* End Layout Flexible Box Styles */
+
+/* UIButton Styles */
+uibutton, uibutton * {
+	cursor: pointer;
+}
+/* Basic UIButton Styles */
+uibutton {
+	-webkit-box-sizing: border-box;
+	-webkit-box-flex: 1;
+	display: block;
+   -webkit-box-align: center;
+   -webkit-box-pack: center;
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+    
+}
+uibutton.disabled, uibutton.disabled > label {
+	cursor: default !important;
+	pointer-events: none;
+}
+navbar > uibutton, 
+toolbar > uibutton {
+	-webkit-box-flex: 0 !important;
+	display: inline-box;
+}
+uibutton > label, 
+uibutton > img {
+	display: block;
+   -webkit-box-align: center;
+}
+uibutton icon[style*=-webkit-mask-image] {
+   background-color: #fff;
+   -webkit-mask-repeat: no-repeat !important;
+}
+uibutton {
+	box-shadow: none; 
+	border: none;
+	border-top: solid 1px #828283; 
+	background-color: #424344;
+	display: block;
+	padding: 0px 10px;
+	font-size: 12px;
+	line-height: 28px;
+	height: 30px;
+	-webkit-box-sizing: border-box;
+	border-radius: 0px;
+	color: #fff;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-user-select: none;
+	margin: 0px 10px;
+	position: relative;
+   cursor: pointer;
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-align: center;
+   -webkit-box-direction: normal;
+   text-align: center;
+} 
+uibutton.touched, uibutton.selected {
+	background-color: #2da2cd !important;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Spinner button for Android */
+uibutton[ui-implements="spinner"] {
+	position: relative;
+	background-color: transparent;
+	border: none;
+	padding: 0 22px 0 10px;
+	height: 24px;
+}
+uibutton[ui-implements="spinner"] label {
+	color: #ccc;
+}
+uibutton[ui-implements=spinner]::after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
+	height: 0px;
+	width: 0px;
+	border-right: solid 6px #ccc;
+	border-bottom: solid 6px #ccc;
+	border-top: solid 6px transparent;
+	border-left: solid 6px transparent;
+}
+/* End Spinner button for Android */
+/* Begin Toolbar Bordered uibutton Styles */
+navbar uibutton, toolbar uibutton {
+	margin: 0px 3px 0px 10px;
+	-webkit-margin-collapse: discard;
+}
+navbar uibutton:first-of-type, 
+toolbar uibutton:first-of-type  {
+	margin-top: -.25px;
+}
+navbar uibutton + uibutton, 
+toolbar uibutton + uibutton {
+	margin: 0px 3px;
+}
+navbar uibutton:last-of-type, 
+toolbar uibutton:last-of-type {
+	margin-right: 10px;
+}
+/* Toolbar Plain Icon Styles */
+navbar.ui-box-pack-justify,
+toolbar.ui-box-pack-justify {
+	-webkit-box-pack: justify;
+}
+uibutton[ui-kind=icon] {
+   height: 43px;
+   width: 43px;
+   display: -webkit-box;
+   -webkit-box-orient: vertical !important;
+   -webkit-box-align: center;
+   position: relative;
+   box-shadow: none; 
+	border: none; 
+	padding: 0px;
+	-webkit-box-sizing: border-box;
+	border-radius: 0px;
+	background: none;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+}
+uibutton[ui-kind=icon].disabled, 
+uibutton[ui-kind=icon].disabled.touched {
+	background-color: #ccc !important;
+	border: none !important;
+}
+uibutton.disabled > icon,
+uibutton[ui-kind=icon].disabled icon, 
+uibutton[ui-kind=icon].disabled.touched icon {
+	background-color: #999 !important;
+}
+uibutton[ui-kind=icon].disabled {
+	background: none !important;
+} 
+uibutton[ui-kind=icon].touched {
+    background-color:  !important;
+}
+icon {
+    background-position: center center;
+    -webkit-mask-position: 50% 50%;
+    -webkit-mask-size: 22px 22px;
+    background-size: 23px 23px;
+    margin: 2px auto 0px auto;
+    height: 23px;
+    width: 23px;
+    display: inline-block;
+}
+uibutton[ui-kind=icon] icon[style*='webkit-mask-image'], 
+uibutton[ui-kind=icon] icon[style*='webkit-mask-image'],
+icon[ui-implements='icon-mask'] {
+	margin: 0;
+	background-color: #fff;
+}
+uibutton[ui-kind=icon] > icon {
+   background-position: center center;
+   -webkit-mask-position: 50% 50%;;
+   -webkit-mask-size: 23px 23px;
+   background-size: 23px 23px;
+   margin: 45% auto 0px auto !important;
+}
+uibutton[ui-implements='icon'] {
+	padding: 0px 4px;
+}
+
+/* End Toolbar Plain Icon Styles */
+
+uibutton.disabled label {
+	color: #616163;
+}
+ 
+uibutton.disabled icon {
+    opacity: 0.5;
+}
+/* End Basic UIButton Styles */
+
+/* Icon Alignment */
+uibutton icon + label {
+	margin-left: 4px;
+}
+uibutton[ui-icon-align='right'] icon + label {
+	margin-left: 0;
+	margin-right: 4px;
+}
+uibutton[ui-icon-align='top'] icon + label {
+	margin-left: 0;
+}
+uibutton[ui-icon-align='bottom'] icon + label {
+	margin-left: 0;
+}
+uibutton[ui-icon-align='right'],
+uibutton[ui-kind=action][ui-icon-align='right']{
+    -webkit-box-direction: reverse !important;
+    -webkit-box-orient: horizontal !important;
+}
+uibutton[ui-icon-align=top] {
+    display: -webkit-box;
+    -webkit-background-clip: padding;
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical !important;
+}
+uibutton[ui-icon-align=bottom] {
+   display: -webkit-box;
+   -webkit-background-clip: padding;
+   -webkit-box-orient: vertical;
+   -webkit-box-align: justify;
+	-webkit-box-direction: reverse;
+}
+uibutton[ui-icon-align=top], 
+uibutton[ui-icon-align=bottom],
+uibutton[ui-kind=action][ui-icon-align=top], 
+uibutton[ui-kind=action][ui-icon-align=bottom] {
+	-webkit-box-pack: center !important;
+	-webkit-box-align: center !important;
+}
+uibutton[ui-kind=action][ui-icon-align=top],
+uibutton[ui-kind=action][ui-icon-align=bottom] {
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+}
+uibutton[ui-usage=icon] {
+    padding: 0px 5px !important;
+}
+/* End Icon Alignment Styles */
+/* Back Bordered UIButton Styles */
+uibutton.disabled, uibutton.disabled.touched {
+	background-color: #212121 !important;
+	color: #666666 !important;
+	border: solid 1px #3f4041 !important;
+}			
+uibutton[ui-implements=back] {
+	width: 25px;
+   padding: 0px 20px 0px 10px !important;
+   margin-left: 10px;
+   position: relative;
+   border: none;
+   background: transparent url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' 	height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#FFFFFF' stroke='#fff' stroke-miterlimit='10' points='27.565,6.665 32.573,6.665 20.434,23.878 32.573,41.336 27.565,41.336 15.427,24 '/> </svg>") no-repeat !important;
+	background-size: 10px 25px;
+	background-position: center center !important; 
+}
+uibutton[ui-implements='back'] > label {
+    display: none !important;
+}
+uibutton[ui-implements=back].disabled {
+	background: transparent url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' 	height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#666' stroke='#666' stroke-miterlimit='10' points='27.565,6.665 32.573,6.665 20.434,23.878 32.573,41.336 27.565,41.336 15.427,24 '/> </svg>") no-repeat !important;
+   border: none !important;
+}
+uibutton[ui-implements='next'] {
+	width: 25px;
+   padding: 0px 20px 0px 10px !important;
+   margin: 0;
+   margin-left: 16px;
+   position: relative;
+   background-color: transparent !important;
+   border: none;
+   background: black url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#fff' stroke='#fff' stroke-miterlimit='10' points='20.435,6.665 15.427,6.665 27.566,23.878 15.427,41.336 20.435,41.336 32.573,24 '/></svg>") no-repeat center center;
+	background-size: 10px 25px;
+	background-position: center center !important; 
+}
+uibutton[ui-implements=next] > label {
+    display: none;
+}
+uibutton[ui-implements='next'].disabled {
+	border: none;
+   background: black url("data:image/svg+xml;utf8,<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' 	xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18.721px' height='35.671px' viewBox='14.816 6.165 18.721 35.671' enable-background='new 14.816 6.165 18.721 35.671' xml:space='preserve'> <polygon fill='#666' stroke='#666' stroke-miterlimit='10' points='20.435,6.665 15.427,6.665 27.566,23.878 15.427,41.336 20.435,41.336 32.573,24 '/></svg>") no-repeat center center;
+	border: none !important;
+}
+/* End Next Bordered uibutton Styles */
+
+/* Segmented UIButton Styles */
+segmentedcontrol {
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack:justify;
+    -webkit-box-sizing: border-box;
+    margin: 0px 10px;
+    display: -webkit-inline-box;
+    -webkit-box-flex: 1;
+}
+segmentedcontrol.stretch, 
+segmentedcontrol[ui-full-width=true] {
+	display: -webkit-box;
+}
+navbar > segmentedcontrol,
+toolbar > segmentedcontrol  {
+    margin: 0px 10px;
+}
+segmentedcontrol > uibutton {
+    display: -webkit-box;
+    -webkit-box-orient: vertical !important;
+    -webkit-box-align: center;
+    -webkit-box-flex: 1;
+    -webkit-box-pack:center;
+    border: solid 1px #828283;
+    border-bottom: none;
+    text-align: center;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    -webkit-box-flex: 1;
+    font-size: 13px;
+    -webkit-box-sizing: border-box;
+    height: 30px;
+    cursor: pointer;
+    margin: 0px !important;
+    padding: 0px 10px;
+}
+segmentedcontrol > uibutton.touched, 
+segmentedcontrol > uibutton.selected, 
+segmentedcontrol > uibutton.selected.touched, {
+    color: #fff;
+    background-color: #2da2cd;
+}
+segmentedcontrol > uibutton.disabled.touched, {
+    color: #6b6b6b;
+    border-color: #828283;
+    cursor: auto;
+}
+
+uibutton[ui-implements=back].touched, uibutton[ui-implements=next].touched {
+	background-color: #2da2cd !important;
+}
+uibutton[ui-implements=back].disabled.touched, uibutton[ui-implements=next].disabled.touched {
+	background-color: #212121 !important;
+}
+segmentedcontrol > uibutton:first-of-type {
+    border-left: none;
+    margin-top: 0px;
+}
+segmentedcontrol > uibutton:last-of-type {
+    margin-right: 0;
+    border: none;
+}
+navbar > segmentedcontrol > uibutton,
+toolbar > segmentedcontrol > uibutton {
+	display: -webkit-box !important;
+}
+/* End Segmented UIButton Styles */
+
+/* Segmented UIButton in Toolbar */
+navbar > segmentedcontrol > uibutton,
+toolbar > segmentedcontrol > uibutton {
+	display: -webkit-inline-box;
+    border: solid 1px #3F4041 !important;
+    cursor: pointer;
+    margin: 0 !important;
+    padding: 0px 10px;
+    background-color: #424344;
+    font-size: 12px;
+    line-height: 28px;
+    -webkit-box-sizing: border-box;
+    -webkit-box-flex: 1;
+    text-align: center;
+    color: #fff;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+}
+segmentedcontrol[ui-implements="segmented-paging"] uibutton:first-of-type {
+	margin-right: 1px !important;
+}
+navbar > segmentedcontrol > uibutton.selected, 
+navbar > segmentedcontrol > uibutton.selected.touched {
+    color: #fff;
+    border: solid 1px #2da2cd;
+    background-color: #2da2cd;
+}
+navbar > segmentedcontrol > uibutton.disabled.touched, 
+toolbar > segmentedcontrol > uibutton.disabled.touched { 
+    color: #fff;
+}
+
+segmentedcontrol > uibutton[ui-usage=icon] {
+	display: -webkit-box;
+	-webkit-box-pack: center;
+	-webkit-box-align: cetner;
+}
+segmentedcontrol > uibutton > icon {
+	display: -webkit-inline-box;
+	margin: 0;
+	height: 28px;
+	width: 28px;
+	background-color: #ccc;
+}
+segmentedcontrol > uibutton > label {
+	display: -webkit-inline-box;
+	position: relative;
+}
+segmentedcontrol > uibutton > icon + label {
+	position: relative;
+	top: -9px;
+}
+segmentedcontrol > uibutton:first-of-type > icon {
+	margin-bottom: 0px !important;
+}
+segmentedcontrol > uibutton:last-of-type > icon {
+	margin-bottom: 0px !important;
+}
+navbar > segmentedcontrol > uibutton:first-of-type > icon,
+navbar > segmentedcontrol > uibutton:last-of-type > icon {
+	margin-bottom: -6px !important;
+}
+segmentedcontrol > uibutton[ui-icon-align=right] {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: reverse;
+}
+segmentedcontrol > uibutton[ui-icon-align=right] icon,
+segmentedcontrol > uibutton[ui-icon-align=right] label {
+	display: block;
+}
+segmentedcontrol > uibutton[ui-icon-align=right] label {
+	margin-bottom: -9px;
+}
+segmentedcontrol > uibutton[ui-icon-align=right] icon + label {
+	margin-top: 10px;
+}
+segmentedcontrol > uibutton[ui-icon-align=top] {
+	-webkit-box-orient: vertical !important;
+	-webkit-box-pack: center;
+}
+segmentedcontrol > uibutton[ui-icon-align=bottom] {
+	-webkit-box-orient: vertical !important;
+	-webkit-box-direction: reverse !important;
+	-webkit-box-pack: center;
+}
+segmentedcontrol > uibutton[ui-icon-align=top] > icon + label,
+segmentedcontrol > uibutton[ui-icon-align=bottom] > icon + label{
+	position: static !important;
+}
+segmentedcontrol > uibutton[ui-icon-align=top] > label,
+segmentedcontrol > uibutton[ui-icon-align=top] > icon,
+segmentedcontrol > uibutton[ui-icon-align=bottom] > label,
+segmentedcontrol > uibutton[ui-icon-align=bottom] > icon {
+	display: block;
+}
+
+navbar > segmentedcontrol > uibutton:first-of-type > icon + label,
+navbar > segmentedcontrol > uibutton:last-of-type > icon + label {
+	position: relative;
+	top: -4px;
+}
+/* Rounded Rectangle UIButton Styles */
+uibutton[ui-kind='rounded-rectangle'] {
+	display: -webkit-box !important;
+    -webkit-box-sizing: border-box;
+    -webkit-box-orient: horizontal;
+    height: 46px;
+    margin: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0 8px;
+}
+uibutton[ui-kind='rounded-rectangle'].disabled span:last-of-type {
+    opacity: 0.5;
+}
+uibutton[ui-kind='rounded-rectangle'].disabled.touched {
+    color: #3c6094;
+    cursor: auto;
+}
+
+uibuttonn[ui-kind='rounded-rectangle'][ui-implements=attention].touched,
+uibuttonn[ui-implements=attention][ui-kind='rounded-rectangle'].touched{
+    border-color:a7abae !important;
+}
+
+/* End Rounded Rectangle UIButton Styles */
+
+/* Default White Action uibutton Styles */
+uibutton[ui-kind=action] {
+    margin: 20px 10px;
+    min-width: 110px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    height: 52px;
+    color: #fff;
+    font: bold 16px/20px Roboto, Helvetica, Arial, Sans-Serif;
+    text-align: center;
+    padding: 0px 11px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+uibutton[ui-kind=action].touched, uibutton[ui-kind=action]:hover {
+	background-color: #2da2cd;
+}
+uibutton[ui-kind=action].disabled:hover {
+    margin: 20px 10px;
+    min-width: 110px;
+    cursor: pointer;
+    -webkit-box-sizing: border-box;
+    height: 52px;
+    color: #000;
+    font: bold 16px/20px Helvetica, sans-serif;
+    text-decoration: none;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    padding: 0px 11px;
+    -webkit-font-smoothing: antialiased;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+actionsheet > uibutton[ui-kind=action], 
+actionsheet > uibutton[ui-kind=action].disabled, 
+actionsheet > uibutton[ui-kind=action].disabled {
+    webkit-box-shadow: none;
+}
+
+uibutton[ui-kind=action].touched {
+
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+}
+uibutton[ui-kind=action] > label {
+    line-height: 23px;
+}
+uibutton[ui-kind=action].disabled, 
+uibutton[ui-usage=icon].disabled  {
+    cursor: auto !important;
+}
+uibutton[ui-kind=action].disabled > label {
+    opacity: 0.5;
+    cursor: auto;
+}
+
+uibutton[ui-kind=action][ui-icon-align=top], 
+uibutton[ui-kind=action][ui-icon-align=bottom] {
+	-webkit-box-orient: vertical !important;
+}
+/* End Default White Action uibutton Style */
+
+/* Custom Tint Styles */
+navbar.ui-custom-tint,
+toolbar.ui-custom-tint {
+	border-top: 1px solid #878788;
+	border-bottom: 1px solid #2c2c2c; 
+}
+
+segmentedcontrol > uibutton.ui-custom-tint,
+segmentedcontrol > uibutton.ui-custom-tint.disabled.touched, 
+
+navbar > segmentedcontrol > uibutton.ui-custom-tint.disabled.touched, 
+toolbar > segmentedcontrol > uibutton.ui-custom-tint.disabled.touched, 
+
+navbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched, 
+toolbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched {
+	border: solid 1px rgba(0,0,0,.5);
+	color: #fff;
+}
+/* End Sgwt Custom Tint Styles */
+
+*[ui-contains='action-uibuttons'] {
+	-webkit-box-orient: vertical;
+}
+*[ui-contains='action-buttons'] button[ui-kind=action] {
+	width: 94%;
+	margin: 20px auto;
+	margin: 20px auto;
+	-webkit-box-flex: 1 !important;
+}
+/* End UIButton Styles */
+
+/* Navbar & Toolbar Styles */
+navbar, toolbar {
+	position: relative;
+	width: 100%;
+	display: -webkit-box;
+	-webkit-box-pack: justify;
+	-webkit-box-align: center;
+	-webkit-box-orient: horizontal;
+	-webkit-box-sizing: border-box;
+	height: 60px;
+	-webkit-box-sizing: border-box;
+	padding: 10px 20px; 
+	background-color: #222222; 
+}
+navbar {
+	-webkit-box-pack: center;
+}
+navbar h1 {
+	-webkit-box-flex: 0 !important;
+	overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+	-webkit-box-flex: 1;
+	text-align: center;
+	font-size: 24px;
+	margin: 0px auto;
+	text-align: center; color: #fff; margin: 0; font-weight: normal;
+}
+/* Navbar and toolbar alignment for uibuttons, etc. */
+*[ui-bar-align=left],
+uibutton[ui-bar-align=left], 
+uibutton[ui-implements=back][ui-bar-align=left], 
+segmentedcontrol[ui-bar-align=left] {
+	position: absolute;
+	left: 0px;
+	top: 7px;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-orient: horizontal;
+	-webkit-box-sizing: border-box;
+}
+toolbar > uibutton[ui-bar-align=left] {
+	margin-left: 10px;
+}
+*[ui-bar-align=right],
+stack[ui-bar-align=right],
+h1[ui-bar-align=right],  
+uibutton[ui-bar-align=right], 
+uibutton[ui-implements=next][ui-bar-align=right], 
+segmentedcontrol[ui-bar-align=right] {
+	position: absolute;
+	right: 10px !important;
+	margin-right: 0px;
+	top: 6px;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-orient: horizontal;
+	-webkit-box-sizing: border-box;
+	-webkit-box-pack: end;
+}
+uibutton[ui-bar-align=right], 
+stack[ui-bar-align=right] > uibutton:last-of-type,
+segmentedcontrol[ui-bar-align=right] {
+	margin-right: 0 !important;
+}
+uibutton[ui-bar-align=left], 
+navbar uibutton {
+	height: 30px;
+}
+toolbar[ui-placement=bottom] {
+	margin: 0;
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	border-bottom: none;
+ }
+ 
+/* Tableview Styles */ 
+tableview, tablecell {
+	display: block;
+}
+tableview > tablecell > celldetail + celldetail {
+	margin-top: 6px;
+}
+tableview > tablecell {
+    background: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: auto;
+    padding: 8px;
+    border-bottom: solid 1px #232425;
+    -webkit-box-sizing: border-box;
+    min-height: 44px;
+    overflow: hidden;
+    position: relative;-webkit-margin-collapse: separate;
+    -webkit-box-sizing: border-box;
+    min-height: 44px;
+}
+tableview > tablecell[href],
+tableview > tablecell[href].touched,
+tableview[ui-implements='detail-menu'] > tablecell.touched,
+tableview[ui-implements='selection-list'] > tablecell.selected.touched {
+    color: #fff;
+	cursor: pointer;
+	background-color: #2da2cd;
+}
+tableview[ui-implements='selection-list'] > tablecell.selected {
+    color: #fff;
+}
+tableview > tablecell[href] {
+	background-color: transparent;
+}
+tableview > tablecell[href].touched > *,
+tableview[ui-implements='detail-menu'] > tablecell.touched > * {
+	color: #fff !important;
+}
+tableview > tablecell[href].touched > span,
+tableview[ui-implements='detail-menu'] > tablecell.touched > span {
+    color: #fff;
+}
+tablecell[ui-implements=action] > celltitle:after {
+	content: '...'
+} tablecell[ui-implements=disclosure][ui-usage=icon]:after {
+    margin-bottom: -20px;
+}
+tableview > tablecell > celltitle:only-child {
+    line-height: 24px;
+}
+/* Default celltitle and cellsubtitle styles */
+tablecell > celltitle {
+    font-size: 20px;
+    font-weight: bold;
+    overflow: hidden;
+    width: 80%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+    margin-top: 2px;
+}
+tablecell > celltitle:not(celltitle + subtitle) {
+	width: 80%;
+}
+tablecell > cellsubtitle {
+    color: #2da2cd;
+    position: absolute;
+    right: 10px;
+    margin-top: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+tablecell > cellsubtitle {
+    width: 54%;
+    text-align: right;
+    margin-right: 0px;
+    float: right;
+}
+/* End default celltitle and cellsubtitle styles */
+
+tablecell[ui-implements=disclosure] > celltitle:only-child, 
+tablecell[ui-implements=detail-disclosure] > celltitle:only-child, 
+tablecell[ui-implements=add] > celltitle:only-child {
+    width: 90%; 
+}
+tablecell[ui-implements=disclosure] > celltitle, 
+tablecell[ui-implements=detail-disclosure] > celltitle, 
+tablecell[ui-implements=add] > celltitle {
+    width: 45%;
+}
+tablecell[ui-usage=icon] > celltitle {
+    width: 70%;
+}
+tablecell[ui-usage=icon] > img, tablecell[ui-usage=image] > img {
+    display: inline-block;
+    margin-right: 6px;
+	-webkit-transition: -webkit-transform .25s ease-in-out;
+}
+tableview > tablecell[ui-usage=image] {
+    padding: 0 6px 0 0;
+}
+tablecell[ui-usage=icon] > img {
+	margin-bottom: -10px;
+}
+tablecell[ui-usage=image] > img {
+    float: left !important;
+    height: 55px;
+    width: 55px;
+}
+tableview > tablecell[ui-usage=icon] > celltitle,
+tableview[ui-tablecell-order=stacked][ui-usage=icon] > celltitle,
+tableview[ui-usage=icon][ui-tablecell-order=stacked] > celltitle {
+    position: relative;
+    top: 2px;
+    width: 70% !important;
+    display: inline-block !important;
+}
+tableview > tablecell[ui-usage=icon] > cellsubtitle,
+tableview[ui-tablecell-order=stacked][ui-usage=icon] > img + cellsubtitle,
+tableview[ui-usage=icon][ui-tablecell-order=stacked] > img + cellsubtitle {
+    position: relative;
+    top: 2px;
+    width: 70% !important;
+    display: inline-block !important;
+    margin-left: 40px !important;
+}
+tablecell[ui-usage=image] > img + celltitle {
+    position: relative;
+    top: 14px;
+    width: 70%;
+}
+
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle, 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle, {
+    width: 75%;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > img + celltitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > img ~ cellsubtitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > img + celltitle,
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > img ~ cellsubtitle {
+	width: 63% !important;
+}
+tablecell[ui-implements=disclosure] > cellsubtitle, 
+tablecell[ui-implements=detail-disclosure] > cellsubtitle, 
+tablecell[ui-implements=add] > cellsubtitle {
+    width: 46%;
+    margin-right: 26px;
+}
+tableview[ui-tablecell-order=centered] > tablecell {
+	position: relative;
+}
+tableview[ui-tablecell-order=centered] > tablecell > celltitle {
+	margin-top: 4px;
+}
+tableview[ui-tablecell-order=centered] > tablecell > celltitle,
+tableview[ui-tablecell-order=centered][ui-kind=grouped] > tablecell > celltitle,
+tableview[ui-kind=grouped][ui-tablecell-order=centered] > tablecell > celltitle  {
+    color: #ccc;
+    text-align: right;
+    font-size: 14px;
+    width: 30%;
+    position: absolute;
+    right: 65%;
+    padding-right: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+tableview[ui-tablecell-order=centered] > tablecell > cellsubtitle {
+    color: #2da2cd;
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    width: 60%;
+    position: absolute;
+    left: 35%;
+    padding-left: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: none;
+    text-align: left;
+}
+tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
+	float: none;
+	position: relative;
+	margin-left: 0px;
+}
+tableview[ui-tablecell-order=stacked] > tablecell > span, 
+tableview[ui-tablecell-order=stacked]> tablecell > celltitle, 
+tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
+    display: block;
+    position: static;
+    text-align: left;
+}
+tableview[ui-tablecell-order=stacked] > tablecell > celltitle {
+	width: 65%
+}
+tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
+	color: #aaa;
+	width: 90%;
+}
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell > cellsubtitle {
+	width: 85% !important;
+}
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > cellsubtitle, 
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+	width: 60% !important;
+}
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > cellsubtitle {
+	width: 70% !important;
+}
+tableview[ui-tablecell-order=stacked] > 
+tableview[ui-tablecell-order=stacked] > 
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=add]:after {
+    position: absolute;
+    right: 10px;
+}
+tableview[ui-kind=grouped][ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-usage=image][ui-implements=detail-disclosure]:after, 
+tableview[ui-kind=grouped][ui-tablecell-order=stacked] > tablecell[ui-subtitle-alignment=right][ui-implements=detail-disclosure][ui-usage=image]:after {
+	top: 10px !important;
+	position: absolute;
+	right: 10px;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=disclosure] > celldetail, 
+tableview[ui-tablecell-order=stacked] >  
+tableview[ui-tablecell-order=stacked] > tablecell[ui-implements=add] > celldetail {
+    padding-right: 30px;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celldetail {
+    margin-left: 68px;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle {
+    margin-top: 6px;
+    margin-left: 66px;
+
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+	display: inline-block;
+	margin-top: 0;
+	margin-left: 6px;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celldetail {
+	display: block;
+	margin-top: 0;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image]:after {
+    float: none;
+    position: absolute !important;
+    right: 10px;
+    top: 10px !important;
+}
+tablecell[ui-usage=icon][ui-implements=disclosure] > img + celltitle + cellcounter + cellsubtitle {
+	width: 60%;	
+}
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle, 
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+	width: 20%;
+}
+body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle, body.portrait tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
+    width: 65% !important;
+}
+
+tablecell > celldetail {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 16px;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > span:first-of-type {
+    float: left;
+    width: auto;
+    margin-top: 6px;
+}
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > .subtitle {
+	width: 75% !important;
+}
+tableview > tablecell[ui-implements=celltitle-with-button] > uibutton {
+    display: -webkit-inline-box;
+    float: right;
+}
+div[ui-kind=grouped], p[ui-kind=grouped], tableview[ui-kind=grouped] {
+	-webkit-margin-bottom-collapse: separate;
+	-webkit-margin-top-collapse: separate;
+	-webkit-user-select: none;
+	margin: 17px 9px;
+	overflow: hidden;
+}
+tableview[ui-kind=grouped] > tablecell {
+   cursor: pointer;
+   padding: 8px;
+   font-weight: bold;
+   -webkit-tap-highlight-color: transparent;
+}
+div[ui-kind=grouped], p[ui-kind=grouped], tableview[ui-kind=grouped] > tablecell:first-of-type {
+}
+div[ui-kind=grouped], p[ui-kind=grouped] {
+   padding: 8px 10px;
+}
+tableview[ui-kind=grouped] > tablecell > celltitle {
+	font-size: 17px;
+}
+tableview > tablecell > button > .content > img {
+	display: none;
+}
+
+celldatetime, cellvalue {
+	color: #ccc;
+	float: right;
+	margin-right: 34px;
+	margin-top: -20px;
+	font-size: 14px;
+	text-align: right;
+	-webkit-transform: translate3d(0,0,0);
+}
+tableview > tablecell > cellcounter {
+	display: inline-block !important;
+	float: right;
+	margin-right: 32px;
+	margin-top: 8px;
+	margin-top: 4px;
+	margin-bottom: -20px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ccc;
+	line-height: 20px;
+}
+tableview > tablecell > uibutton {
+	display: inline-box !important;
+}
+
+deletedisclosure {
+	-webkit-transition: -webkit-transform .25s ease-in-out;
+	-webkit-transform: translate3d(0,0,0) scale(.75);
+    -webkit-box-sizing: border-box;
+    padding: 2px 5px 13px 1px;
+    height: 24px;
+    width: 24px;
+    border: solid 2px #525252;
+    position: absolute;
+    top: 10px;
+    left: -30px;
+}
+
+deletedisclosure > span {
+	display: none;
+}
+deletedisclosure > span > svg {
+	margin-left: -3px;
+	margin-top: -9px;
+}
+deletedisclosure.checked {
+    font: bold 26px/14px Verdana;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border: solid 2px #545455;
+    box-shadow: 0 1px 3px #666;
+}
+deletedisclosure.checked > span {
+	display: inline;
+	padding-left: 0px;
+}
+checkmark > deletedisclosure {
+	-webkit-transition: none;
+	-webkit-transform: none;
+    position: static;
+    padding: 2px 5px 13px 1px;
+    height: 24px;
+    width: 24px;
+    display: block;
+    float: none;
+}
+checkmark > deletedisclosure > span {
+	display: block;
+}
+tableview.ui-show-delete-disclosures deletedisclosure {
+	display: block;
+	-webkit-transform: translate3d(40px,0,0) scale(.75);
+}
+tableview > tablecell > celltitle, tableview > tablecell > cellsubtitle, tableview > tablecell > celldetail {
+	-webkit-transition-property: -webkit-transform, width;
+	-webkit-transition-duration: .25s;
+	-webkit-transition-timing-function: ease-in-out;
+}
+tableview.ui-show-delete-disclosures celltitle {
+	-webkit-transform: translate3d(40px,0,0);
+}
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures celltitle {
+	-webkit-transform: none;
+	width: 35%;
+}
+tableview.ui-show-delete-disclosures > tablecell.touched {
+	background: #586B96 !important;
+}
+tableview.ui-show-delete-disclosures > tablecell.touched celltitle {
+	color: #fff !important;
+}
+tableview.ui-show-delete-disclosures tablecell:after, tableview.ui-show-delete-disclosures > tablecell >  cellcounter  {
+	display: none !important;
+}
+tableview.ui-show-delete-disclosures > tablecell.touched > cellsubtitle {
+    color: #fff !important;
+}
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures > tablecell.touched > celltitle {
+    color: #fff !important;
+}
+tableview.ui-show-delete-disclosures > tablecell.touched > cellsubtitle {
+    color: #fff !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell.touched > cellsubtitle {
+	color: #fff !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell.touched > celldetail {
+    color: #fff !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell.touched > celldatetime
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell.touched > cellvalue  {
+	color: #2671d8 !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell > cellsubtitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell > celldetail {
+	-webkit-transform: translate3d(40px,0,0);
+}
+tableview.ui-show-delete-disclosures > tablecell[ui-usage=icon] span:nth-child(2), 
+tableview.ui-show-delete-disclosures > tablecell[ui-usage=image] span:nth-child(2) {
+	-webkit-transform: translate3d(40px,0,0);
+}
+
+/* Adjust widths for delete-disclosure */
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=disclosure] > celltitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[imlements=detail-disclosure] > celltitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=add] > celltitle {
+    width: 80%;
+}
+tableview.ui-show-delete-disclosures > tablecell.subtitle > celltitle {
+	width: 30%;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
+    width: 60%;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
+    width: 72%;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=icon] > celltitle {
+    width: 65% !important;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-usage=image] > span + celltitle {
+    width: 60%;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=disclosure] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=detail-disclosure] > cellsubtitle, 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-implements=add] > cellsubtitle {
+    width: 36%;
+}
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures  > tablecell > celltitle {
+    width: 22%;
+}
+tableview[ui-tablecell-order=centered].ui-show-delete-disclosures  > tablecell > cellsubtitle {
+    width: 60%;
+}
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures  > tablecell > celltitle {
+	width: 40%
+} 
+tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures  > tablecell > cellsubtitle {
+	width: 80%;
+}
+
+/* Table Headers and Footers */
+tableheader {
+	padding: 6px 10px;
+	text-align: center;
+	font-size: 16px;
+	color: #ccc;
+}
+tablefooter {
+	padding: 6px 10px;
+	font-size: 14px;
+	color: #ccc;
+	text-align: center;
+}
+/* Styles for Titled Tableview Lists */
+tableview[ui-kind^=titled-list] tableheader {
+	-webkit-box-sizing: border-box;
+	border-bottom: solid 2px #585858;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ccc;
+	text-align: left;
+	padding: 20px 10px 2px 10px
+}
+/* Styles for Alphabetical Titled Tableview Lists */
+stack[ui-kind=alphabetical-list] {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	bottom: 0;
+	width: 30px;
+	padding: 8px 0;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-pack: justify;
+	background-color: rgba(0,0,0,0.0);
+}
+stack[ui-kind=alphabetical-list] span {
+	text-align: center !important;
+	display: block;
+	-webkit-box-flex:1;
+	width: 30px;
+	height: 12px;
+	font-size: 10px;
+	font-weight: bold;
+	color: #ccc;
+}
+stack[ui-kind=alphabetical-list].touched {
+	background-color: rgba(0,0,0,0.25);
+}
+stack[ui-kind=alphabetical-list].touched span {
+	color: #fff;
+}
+/* End Tableview Styles */
+ 
+
+/* Modal Popup Styles */
+popup {
+	display: block;
+	width: 320px;
+	background-color: #282828;
+	padding: 0px;
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-webkit-transition: all 0.25s  ease-in-out;
+	position: absolute;
+	z-index: 10000;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0 0 6px 4px #85d3f0;
+}
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+	popup {
+		width: 300px;
+	}
+}
+popup[ui-visible-state=hidden] {
+	opacity: 0;
+	-webkit-transform: scale(0);
+	top: 50%;
+	left: 50%;
+	margin: 0px auto;
+}
+popup > panel {
+	display: block;
+	color: #fff;
+	font: normal 16px/22px Helvetica, Arial, Sans-serif;
+	padding: 0 0 10px 0;
+}
+popup > panel > toolbar[ui-placement=top] {
+	display: block;
+	padding: 0;
+}
+popup h1 {
+	letter-spacing: 1px;
+	font: bold 20px/24px Helvetica, Sans-serif;
+	text-align: center;
+	margin: 0px;
+}
+popup > panel > p, popup > panel > message {
+	margin-top: 0;
+}
+popup > panel > p {
+	margin: 10px;
+}
+popup > panel > uibutton {
+
+	text-align: center;
+	display: -webkit-box;
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+}
+popup > panel > toolbar[ui-placement=bottom] {
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-sizing: border-box;
+	-webkit-box-pack: none;
+	-webkit-box-align: center;
+	height: auto;
+	position: relative;
+	padding: 0;
+	background: none;
+	height: 42px;
+}
+popup > panel > toolbar[ui-placement=bottom] > uibutton {
+	-webkit-box-flex: 2;
+	display: block;
+	width: 50%;
+	text-align: center;
+	box-shadow: none;
+	margin: 10px 0px;
+	height: 42px;
+	font-size: 18px;
+	line-height: 32px;
+	padding: 4px 20px;
+	background-color: #282828;
+}
+popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cancel] {
+		color: #fff;
+		font: bold 16px/20px Helvetica, sans-serif;
+		text-align: center;
+		-webkit-font-smoothing: antialiased;
+		padding: 9px;
+		border-right: solid 1px #828283;
+}
+popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=continue] {
+			color: #fff;
+			font: bold 16px/20px Helvetica, sans-serif;
+			text-align: center;
+			-webkit-font-smoothing: antialiased;
+    		padding: 9px;
+}
+/* End Modal Popups */
+
+/* Styles for Selection Lists. */
+tableview[ui-implements=selection-list] > tablecell > celltitle {
+	width: auto;
+}
+tableview[ui-implements=selection-list] tablecell > checkmark {
+	float: right;
+	-webkit-transition: all 0.125s  ease-in-out;
+	opacity: 1;
+	border: solid 2px #525252;;
+	height: 20px;
+	width: 20px;
+	border-radius: 15px;
+}
+tableview[ui-implements=selection-list] tablecell > checkmark span,
+tableview[ui-implements=selection-list] tablecell.selected > checkmark span,
+tableview[ui-implements=selection-list] tablecell.selected.touched > checkmark span {
+	opacity: 0;
+}
+tableview[ui-implements=selection-list] tablecell.selected > checkmark  {
+	box-shadow: inset 0 0 2px 2px #000, inset 0 2px 3px 3px #77d8ed, inset 0 0 8px 8px #0099cc;
+}
+tableview[ui-implements=selection-list] tablecell.touched > checkmark {
+	border: solid 2px #fff;
+}
+tableview[ui-implements=selection-list] tablecell.touched {
+	background-color: #2da2cd;
+	color: #fff;
+}
+tableview[ui-implements=selection-list] > tablecell input[type=radio] {
+	display: none;
+}
+body.android tableview.ui-show-delete-disclosures tablecell.touched celltitle {
+	color: #fff;
+}
+tableview.ui-show-delete-disclosures tablecell.touched deletedisclosure,
+tableview.ui-show-delete-disclosures tablecell.selected.touched deletedisclosure {
+	box-shadow: 0 0 3px 3px #85d3f0;
+	border-color: #fff !important;
+}
+
+/* switchcontrol Styles */
+switchcontrol {
+   position: absolute;
+   right: 10px;
+   top: 7px;
+	height:  28px;
+	width: 70px;
+	border:  1px solid #979797;
+	background-color: #414141;
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-pack:justify;
+   -webkit-box-sizing: border-box;
+   -webkit-tap-highlight-color: transparent;
+   overflow: hidden;
+   text-align: center;
+   line-height: 28px;
+   cursor: pointer;
+   -webkit-user-select: none;
+}
+switchcontrol > thumb {
+	display: block;
+	position:  relative;
+   z-index: 3;
+	top: -1px;
+   border: solid 1px #919191;
+	width:  35px;
+	height:  26px;
+	background-color: #cecece;
+}
+switchcontrol > input {
+	display: none;
+}
+switchcontrol.off:before {
+	width:  0;
+}
+switchcontrol.on:before {
+	width: 100%;
+}
+switchcontrol > thumb:before {
+	content: '';
+   display: block;
+	height: 14px;
+	width: 2px;
+	background: none;
+	background-color: #2da2cd;
+	box-shadow: 0px -1px 1px #666;
+	border: none;
+	position: absolute;
+	top: 6px;
+}
+switchcontrol.off > thumb:before {
+	display: none;
+}
+switchcontrol.on > thumb:before {
+	left: -20px;
+}
+switchcontrol.on {
+	border-color: #2da2cd;
+}
+switchcontrol.on > thumb {
+	background-color: #2da2cd;
+	border: solid 1px #2da2cd;
+}
+switchcontrol > thumb:after {
+	content: '';
+	display: block;
+	height: 10px;
+	width: 10px;
+	border-radius: 10px;
+	border: solid 2px #ccc;
+	position: absolute;
+	right: -24px;
+	top: 6px;
+}
+switchcontrol.off > thumb {
+   -webkit-transform: translateX(0px);
+   -webkit-transform: translate3d(-1px,0,0);
+}
+switchcontrol.on > thumb {
+	-webkit-transform: translateX(0px);
+	-webkit-transform: translate3d(36px,0,0);
+}
+switchcontrol.disabled {
+    display: none;
+}
+switchcontrol.touched {
+	box-shadow: 0 0 2px 2px #85d3f0;
+}
+/* End switchcontrol */
+/* Styles for actionsheet */
+actionsheet {
+	-webkit-user-select: none;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	padding: 30px 0 0 0;
+	position: absolute;
+	top: 0px;
+	z-index: 10000;
+	-webkit-transition: all 0.5s  ease-in-out;
+	-webkit-transform: translate3d(0,0,0);
+	opacity: 1;
+	background-color: #282828;
+}
+actionsheet.hidden {
+	-webkit-transform: translate3d(0,-100%,0);
+	opacity: 0;
+}
+actionsheet > scrollpanel {
+	padding: 0 0 0 0;
+}
+actionsheet h3 {
+	font-weight: normal;
+	font-size: 12px;
+	color: #fff;
+	text-shadow: 0 -1px 1px #000;
+	text-align: center;
+	margin: 0;
+}
+/* End Action Sheet Styles */
+
+/* HTML5 Range Input */
+input[type="range"] {
+	-webkit-appearance: none !important;  
+	outline: none;
+	display: block;
+	margin: 20px auto;
+	height: 2px;
+	width: auto;
+	border-radius: 2px;
+	background: #525252;
+	padding: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 20px;   
+	margin: 0;
+	background-color: transparent;
+	background-image: 
+		-webkit-radial-gradient(#2da2cd 4px,rgba(18,152,205,.9) 4px);
+	border: solid 1px #2da2cd;
+}
+input[type="range"]:focus::-webkit-slider-thumb, input[type="range"]::-webkit-slider-thumb:hover {
+	background-image:
+	-webkit-radial-gradient(#2da2cd 4px,rgba(18,152,205,.5) 4px);
+}
+
+/* End HTML5 Range Input */
+
+/* Tab Bar Styles */
+tabbar {
+    height: 49px;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-sizing: border-box;
+    font-size: 10px;
+    font-family: 'Helvetica Neue', HelveticaNeue, Helvetica-Neue, Helvetica, sans-serif;
+    text-align: center;
+    position: absolute;
+    top: 51px;
+    left: 0px;
+    right: 0px;
+}
+tabbar > uibutton {
+    position: relative;
+    display: -webkit-box !important;
+    -webkit-box-flex: 1;
+    margin: 0;
+    height: 30px;
+    text-align: center;
+    color: #fff;
+    padding: 4px 10px;
+    border: none;
+    border-bottom: solid 4px #424344;
+    border-right: solid 1px #666;
+}
+tabbar > uibutton:last-of-type {
+	border-right: none;
+}
+tabbar > uibutton[ui-implements=tab].selected {
+    border-bottom: solid 4px #2da2cd;
+    background-color: #424344 !important;
+}
+tabbar > uibutton[ui-implements=tab].touched {
+    border-bottom: solid 4px #33b5e5;
+    background-color: #33819e !important;
+}
+tabbar > uibutton[ui-implements=tab].disabled.touched {
+    background: #33819e;
+}
+tabbar > uibutton[ui-implements=tab] > icon {
+    display: none;
+}
+tabbar > uibutton > label {
+    display: inline-block;
+    font-size: 10px !important;
+    font-weight: bold;
+    line-height: 11px;
+    margin: 0;
+    position: relative;
+    top: -4px;
+    color: rgba(255,255,255,0.9);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+    text-transform: uppercase;
+}
+tabbar > uibutton[ui-implements=tab].selected > icon,
+tabbar > uibutton[ui-implements=tab].touched > icon {
+    box-shadow: #000 0 1px 0px;
+    color:#68B3DA;
+}
+/* End Tab Bar Styles */
+
+/* Expander Styles */
+expander {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	height: auto;
+	position: relative;
+}
+expander > header {
+	position: relative;
+	z-index: 100;
+	padding-left: 40px;
+	background-size: 100% 8px;
+	background-repeat: repeat-x;
+	padding-bottom: 8px;
+	cursor: pointer;
+	margin-top: 10px;
+} 
+expander > header > label {
+	display: inline-block;
+	border-top: solid 1px #828283; 
+	background-color: #424344;
+	color: #fff;
+	position: absolute;
+	top: -14px;
+	padding: 2px 10px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+expander > header:before {
+	content: '';
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -12px;
+	left: 10px;
+	border-radius: 20px;
+	-webkit-box-sizing: border-box;
+	-webkit-background-clip: padding-box;
+	padding: 2px;
+	box-shadow: 
+		0 3px 4px rgba(0,0,0,0.25),  
+		0 -1px 4px rgba(0,0,0,0.25);
+} 
+expander > header:after {
+	content: '';
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: -13px;
+	left: 10px;
+	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" xml:space="preserve"><polygon points="35,25 17,11 17,39 "/></svg>');
+	-webkit-mask-repeat: no-repeat;
+	background-position: 5px 5px;
+	-webkit-mask-position: 50% 50%;
+	-webkit-box-sizing: border-box;
+	background-color: #fff;
+	cursor: pointer;
+	-webkit-transition: all 0.5s  ease-in-out;
+	-webkit-transform: rotate(0deg);
+	-webkit-mask-clip: border-box;
+} 
+expander > panel {
+	position: relative;
+	z-index: 1;
+	-webkit-transition: all 0.25s  ease-in-out;
+	opacity: 1;
+	-webkit-transform-origin-y: 0px;
+	overflow: hidden;
+	padding-bottom: 10px;
+} 
+expander.ui-status-expanded > header {
+}
+expander.ui-status-expanded > panel {
+	opacity: 1;
+	background-color: rgba(0,0,0,0.1);
+	background-size: 100% 8px;
+	background-position: bottom left;
+	background-repeat: repeat-x;
+} 
+expander.ui-status-expanded > header:after {
+	-webkit-transform: rotate(90deg);
+}
+expander.ui-status-expanded > header:before {
+}
+expander.ui-status-expanded > header > label {
+	background-color: #2da2cd;
+}
+/* End Expander Styles */
+/* Progress Bar Styles */
+progressbar {
+	display: block;
+	width: 100px;
+	height: 15px;
+	border: 1px solid #666;
+	border-bottom-color: #666;
+	border-top-color: #999;
+	margin: 10px auto;
+	position: relative;
+	background-color: rgb(56,138,213);
+	background-image:
+		-webkit-linear-gradient(top, 
+			transparent 23%, 
+			rgba(255,255,255,.5) 23%, 
+			rgba(255,255,255,.5) 43%, 
+			transparent 43%),
+		-webkit-linear-gradient(top,
+			rgba(255,255,255,.85), rgba(255,255,255,.05) 45%, rgba(0,0,0,.05) 55%, rgba(0,0,0,.2) 85%, rgba(0,0,0,.5) 98%),
+		-webkit-linear-gradient(35deg, 
+			rgba(255,255,255,0) 20%, 
+			rgba(255,255,255,0.8) 30%, 
+			rgba(255,255,255,1) 30%, 
+			rgba(255,255,255,1) 60%, 
+			rgba(255,255,255,0.85) 60%, 
+			rgba(255,255,255,0) 67%
+		);
+	-webkit-animation-duration: 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-name: progressBarAnim;
+	background-repeat: repeat-x;
+	-webkit-background-position-x: 0%;
+	background-size: 20px 15px;
+	
+}
+/* Paging Control Styles */
+stack[ui-implements='paging'] {
+	margin: 0 auto;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-packing: start;
+	-webkit-box-align: center;
+	width: 320px;
+	height: 280px;
+	position: relative;
+	z-index: 1;
+	overflow: hidden;
+}
+stack[ui-implements='paging'] > panel {
+	display: block !important;
+	-webkit-box-flex: 0;
+}
+stack[ui-implements='paging'] > panel > stack {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	text-align: left;
+}
+stack[ui-implements='paging'] > panel > stack > panel {
+	-webkit-box-sizing: border-box;
+	display: block !important; 
+	width: 320px; 
+	height: 280px;
+	text-align: center;
+	font-size: 18px;
+	line-height: 140%;
+	padding: 10px;
+}
+stack[ui-implements='indicators'] {
+	display: -webkit-box; 
+	width: 320px;
+	padding: 10px 10px 10px 10px;
+	-webkit-box-sizing: border-box;
+	-webkit-box-orient: horizontal; 
+	-wekit-box-align: center; 
+	-webkit-box-pack: center;
+	margin: 0 auto 10px auto;
+	overflow: hidden;
+}
+stack[ui-implements='indicators'] > indicator {
+	display: block;
+	width: 12px; 
+	height: 12px;
+	background-color: #ddd;
+	overflow: hidden;
+	margin-right: 5px;
+}
+stack[ui-implements='indicators'] > indicator.active {
+	background-color: #2da2cd;
+}
+stack[ui-implements='indicators'] > indicator:first-child {
+	margin-left: 0;
+}
+stack[ui-implements='indicators'] > indicator:last-child {
+	margin: 0;
+}
+stack[ui-implements='paging'] > panel panel > h4 {
+	text-align: center;
+	margin: 0 auto;
+	width: 100%;
+}
+stack[ui-implements='paging'] > panel panel > p {
+	text-align: left;
+	margin: 0;
+}
+stack[ui-implements='indicators'] > indicator > input[type="radio"] {
+	opacity: .01;
+}
+/* End Paging Control Styles */
+/* Stepper Styles */
+stepper {
+	display: -webkit-inline-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-pack: center;
+	-webkit-box-align: start;
+	padding: 1px;
+}
+stepper > input {
+	margin: 0;
+	display: none;
+}
+stepper > label {
+	display: block;
+	-webkit-box-sizing: border-box;
+	border: solid 1px #484e59;
+	border-bottom-color: #4c5c7a;
+	width: 50px;
+	height: 30px;
+	font: bold 16px/30px Helvetica;
+	text-align: center;
+}
+stepper > uibutton {
+	display: -webkit-inline-box;
+	-webkit-box-sizing: border-box;
+	width: 33px;
+}
+tablecell.touched stepper > uibutton > label {
+	color: #000 !important;
+}
+stepper > uibutton.touched {
+	background-image: 
+	-webkit-tap-highlight-color: transparent;
+}
+stepper > uibutton > icon {
+	background-color: #fff !important;
+}
+stepper > uibutton:first-of-type {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	margin-right: 0;
+}
+stepper > uibutton:last-of-type {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	margin-left: 0;
+}
+stepper > uibutton:first-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_down.svg);
+}
+stepper > uibutton:last-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_up.svg);
+}
+stepper > uibutton:first-of-type > icon.indicator {
+	-webkit-mask-image: url(../icons/minus.svg);
+}
+stepper > uibutton:last-of-type > icon.indicator {
+	-webkit-mask-image: url(../icons/add.svg);
+}
+stepper > uibutton.disabled > span {
+	opacity: 0.5;
+}
+/* End Stepper Styels*/
+@-webkit-keyframes progressBarAnim {
+	0% { background-position-x:  0%, 0%, 0%; }
+	100% { background-position-x: 0%,  0%,  100%; }
+}
+/*  End Progress Bar Styles */
+@-webkit-keyframes activityIndicatorAnim {
+	0% { -webkit-transform:  rotate(0deg); }
+	100% { -webkit-transform:  rotate(360deg); }
+}
+activityindicator {
+	-webkit-animation: activityIndicatorAnim 1s infinite linear;
+	display: block;
+	height: 20px;
+	width: 20px;
+	background-color: #000;
+	-webkit-mask-position: 50% 50%;
+	-webkit-mask-size: 100% 100%;
+	-webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42 42'><g transform='translate(21,21)'><g stroke-width='4' stroke-linecap='round' stroke='rgb(0, 0, 0)'><line x1='0' y1='11' x2='0' y2='18' transform='rotate(0, 0, 0)' opacity='1'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-36, 0, 0)' opacity='0.9012345679012346'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-72, 0, 0)' opacity='0.8024691358024691'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-108, 0, 0)' opacity='0.7037037037037037'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-144, 0, 0)' opacity='0.6049382716049383'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-180, 0, 0)' opacity='0.5061728395061729'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-216, 0, 0)' opacity='0.40740740740740744'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-252, 0, 0)' opacity='0.308641975308642'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-288, 0, 0)' opacity='0.2098765432098766'></line><line x1='0' y1='11' x2='0' y2='18' transform='rotate(-324, 0, 0)' opacity='0.11111111111111116'></line></g></g></svg>");
+}
+panel[ui-implements="modal-activity-indicator"] {
+	background-color: #282828;
+	height: 90px;
+	width: 120px;
+}
+panel[ui-implements="modal-activity-indicator"] activityindicator {
+	margin-top: 20px;
+	margin-bottom: -10px;
+}
+/* Transitions for Subviews, Paging, etc. */
+
+view[ui-transition-type] {
+	-webkit-transform-style: preserve-3d;
+	-webkit-perspective: 1000;
+}
+view[ui-transition-type] > subview {
+	position: absolute;
+	-webkit-transition: all .2s ease-in-out;
+	-webkit-backface-visibility: hidden;
+}
+
+view[ui-transition-type=flip-left] > subview:not(:first-of-type) {
+	-webkit-transform: rotateY(-180deg); 
+}
+view[ui-transition-type=flip-right] > subview:not(:first-of-type) {
+	-webkit-transform: rotateY(180deg); 
+}
+view[ui-transition-type=flip-top] > subview:not(:first-of-type) {
+	-webkit-transform: rotateX(180deg);
+}
+view[ui-transition-type=flip-bottom] > subview:not(:first-of-type) {
+	-webkit-transform: rotateX(-180deg);
+}
+
+view[ui-transition-type=turn] {
+	
+}	
+view[ui-transition-type=fade] > subview {
+	opacity: 0;
+}
+view[ui-transition-type=fade] > subview:first-of-type {
+	opacity: 1;
+}
+view[ui-transition-type=pop] > subview  {
+	opacity: 0;
+	-webkit-transform: scale(0);
+}
+view[ui-transition-type=pop] > subview:first-of-type  {
+	opacity: 1;
+	-webkit-transform: scale(1);
+}
+view[ui-transition-type=spin] > subview {
+	opacity: 0;
+	-webkit-transform: scale(0);
+}
+view[ui-transition-type=spin] > subview:first-of-type {
+	opacity: 1;
+	-webkit-transform: scale(1);
+}
+view[ui-transition-type=slide] {
+	
+}
+view[ui-transition-type=shuffle] {
+	
+}
+view[ui-transition-type=accordion] {
+	
+}
+.fade-in, .fade-out {
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: anim-fade-in;
+}
+.fade-out {
+	-webkit-animation-name: anim-fade-out;
+}
+@-webkit-keyframes anim-fade-in {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+@-webkit-keyframes anim-fade-out {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+.pop-in, .pop-out {
+	-webkit-animation-duration: .75s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: anim-pop-in;
+}
+.pop-out {
+	-webkit-animation-name: anim-pop-out;
+}
+@-webkit-keyframes anim-pop-in {
+	0% { opacity: 0; -webkit-transform: scale(0); }
+	60% { opacity: .8; -webkit-transform: scale(1); }
+	80% { opacity: .95; -webkit-transform: scale(.95); }
+	100% { opacity: 1; -webkit-transform: scale(1); }
+}
+@-webkit-keyframes anim-pop-out {
+	0% { opacity: 1; -webkit-transform: scale(1); }
+	100% { opacity: 0; -webkit-transform: scale(0); }
+}
+.flip-right-front-in,
+.flip-right-front-out,
+.flip-right-back-in,
+.flip-right-back-out,
+.flip-left-front-in,
+.flip-left-front-out,
+.flip-left-back-in,
+.flip-left-back-out,
+.flip-top-front-in,
+.flip-top-front-out,
+.flip-top-back-in,
+.flip-top-back-out,
+.flip-bottom-front-in,
+.flip-bottom-front-out,
+.flip-bottom-back-in,
+.flip-bottom-back-out {
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-backface-visibility: hidden;
+	-webkit-animation-name: anim-flip-right-front-in;
+}
+.flip-right-front-out {
+	-webkit-animation-name: anim-flip-right-front-out;
+}
+.flip-right-back-in {
+	-webkit-animation-name: anim-flip-right-back-in;
+}
+.flip-right-back-out {
+	-webkit-animation-name: anim-flip-right-back-out;
+}
+.flip-left-front-in {
+	-webkit-animation-name: anim-flip-left-front-in;
+}
+.flip-left-front-out {
+	-webkit-animation-name: anim-flip-left-front-out;
+}
+.flip-left-back-in {
+	-webkit-animation-name: anim-flip-left-back-in;
+}
+.flip-left-back-out {
+	-webkit-animation-name: anim-flip-left-back-out;
+}
+.flip-top-front-in {
+	-webkit-animation-name: anim-flip-top-front-in;
+}
+.flip-top-front-out {
+	-webkit-animation-name: anim-flip-top-front-out;
+}
+.flip-top-back-in {
+	-webkit-animation-name: anim-flip-top-back-in;
+}
+.flip-top-back-out {
+	-webkit-animation-name: anim-flip-top-back-out;
+}
+.flip-bottom-front-in {
+	-webkit-animation-name: anim-flip-bottom-front-in;
+}
+.flip-bottom-front-out {
+	-webkit-animation-name: anim-flip-bottom-front-out;
+}
+.flip-bottom-back-in {
+	-webkit-animation-name: anim-flip-bottom-back-in;
+}
+.flip-bottom-back-out {
+	-webkit-animation-name: anim-flip-bottom-back-out;
+}
+@-webkit-keyframes anim-flip-right-front-in {
+	0% { -webkit-transform: rotateY(0deg); }
+	100% { -webkit-transform: rotateY(-180deg); }
+}
+@-webkit-keyframes anim-flip-right-front-out {
+	0% { -webkit-transform: rotateY(-180deg); }
+	100% { -webkit-transform: rotateY(0deg); }
+}
+@-webkit-keyframes anim-flip-right-back-in {
+	0% { -webkit-transform: rotateY(180deg); }
+	100% { -webkit-transform: rotateY(0deg); }
+}
+@-webkit-keyframes anim-flip-right-back-out {
+	0% { -webkit-transform: rotateY(0deg); }
+	100% { -webkit-transform: rotateY(180deg); }
+}
+@-webkit-keyframes anim-flip-left-front-in {
+	0% { -webkit-transform: rotateY(0deg); }
+	100% { -webkit-transform: rotateY(180deg); }
+}
+@-webkit-keyframes anim-flip-left-front-out {
+	0% { -webkit-transform: rotateY(180deg); }
+	100% { -webkit-transform: rotateY(0deg); }
+}
+@-webkit-keyframes anim-flip-left-back-in {
+	0% { -webkit-transform: rotateY(-180deg); }
+	100% { -webkit-transform: rotateY(0deg); }
+}
+@-webkit-keyframes anim-flip-left-back-out {
+	0% { -webkit-transform: rotateY(0deg); }
+	100% { -webkit-transform: rotateY(-180deg); }
+}
+
+@-webkit-keyframes anim-flip-top-front-in {
+	0% { -webkit-transform: rotateX(180deg); }
+	100% { -webkit-transform: rotateX(0deg); }
+}
+@-webkit-keyframes anim-flip-top-front-out {
+	0% { -webkit-transform: rotateX(0deg); }
+	100% { -webkit-transform: rotateX(180deg); }
+}
+@-webkit-keyframes anim-flip-top-back-in {
+	0% { -webkit-transform: rotateX(0deg); }
+	100% { -webkit-transform: rotateX(-180deg); }
+}
+@-webkit-keyframes anim-flip-top-back-out {
+	0% { -webkit-transform: rotateX(-180deg); }
+	100% { -webkit-transform: rotateX(0deg); }
+}
+
+@-webkit-keyframes anim-flip-bottom-front-in {
+	0% { -webkit-transform: rotateX(-180deg); }
+	100% { -webkit-transform: rotateX(0deg); }
+}
+@-webkit-keyframes anim-flip-bottom-front-out {
+	0% { -webkit-transform: rotateX(0deg); }
+	100% { -webkit-transform: rotateX(-180deg); }
+}
+@-webkit-keyframes anim-flip-bottom-back-in {
+	0% { -webkit-transform: rotateX(0deg); }
+	100% { -webkit-transform: rotateX(180deg); }
+}
+@-webkit-keyframes anim-flip-bottom-back-out {
+	0% { -webkit-transform: rotateX(180deg); }
+	100% { -webkit-transform: rotateX(0deg); }
+}
+
+.spin-left-in,
+.spin-left-out,
+.spin-right-in,
+.spin-right-out {
+	-webkit-animation-duration: .5s;
+	-webkit-animation-timing-function: ease-in;
+	-webkit-animation-fill-mode: forwards;
+	-webkit-animation-name: anim-spin-left-in;
+}
+.spin-left-out {
+	-webkit-animation-name: anim-spin-left-out;
+}
+.spin-right-in {
+	-webkit-animation-name: anim-spin-right-in;
+}
+.spin-right-out {
+	-webkit-animation-name: anim-spin-right-out;
+}
+@-webkit-keyframes anim-spin-left-in {
+	0% { opacity: .25; -webkit-transform: scale(0) rotate(0deg); }
+	100% { opacity: 1; -webkit-transform: scale(1) rotate(-360deg); }
+}
+
+@-webkit-keyframes anim-spin-left-out {
+	0% { opacity: 1; -webkit-transform: scale(1) rotate(-360deg); }
+	100% { opacity: .25; -webkit-transform: scale(0) rotate(0deg); }
+}
+
+@-webkit-keyframes anim-spin-right-in {
+	0% { opacity: .25; -webkit-transform: scale(0) rotate(0deg); }
+	100% { opacity: 1; -webkit-transform: scale(1) rotate(360deg); }
+}
+@-webkit-keyframes anim-spin-right-out {
+	0% { opacity: 1; -webkit-transform: scale(1) rotate(360deg); }
+	100% {  opacity: .25;-webkit-transform: scale(0) rotate(0deg); }
+}
+
+/* Segmented Paging Styles */
+segmentedcontrol[ui-paging] > uibutton > icon {
+	background-color: #fff !important;
+}
+segmentedcontrol[ui-paging=vertical] > uibutton:first-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_down.svg);
+}
+segmentedcontrol[ui-paging=vertical] > uibutton:last-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_up.svg);
+}
+segmentedcontrol[ui-paging=horizontal] > uibutton:first-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_left.svg);
+}
+segmentedcontrol[ui-paging=horizontal] > uibutton:last-of-type > icon {
+	-webkit-mask-image: url(../icons/arrow_right.svg);
+}
+subview[ui-paging-orient] {
+	-webkit-transition: all 0.25s  ease-in-out;
+	-webkit-transform: translate3d(0,0,0);
+}
+subview[ui-paging-orient=horizontal][ui-navigation-status=upcoming] {
+	-webkit-transform: translateX(100%);
+	-webkit-transform: translate3d(100%,0,0);
+	opacity: 0;
+}
+subview[ui-paging-orient=horizontal][ui-navigation-status=current] {
+	-webkit-transform: translateX(0%);
+	-webkit-transform: translate3d(0,0,0);
+	opacity: 1;
+}
+subview[ui-paging-orient=horizontal][ui-navigation-status=traversed] {
+	-webkit-transform: translateX(-100%);
+	-webkit-transform: translate3d(-100%,0,0);
+	opacity: 0;
+}
+
+
+subview[ui-paging-orient=vertical][ui-navigation-status=upcoming] {
+	-webkit-transform: translateY(100%);
+	-webkit-transform: translate3d(0,100%,0);
+	opacity: 0;
+}
+subview[ui-paging-orient=vertical][ui-navigation-status=current] {
+	-webkit-transform: translateY(0%);
+	-webkit-transform: translate3d(0,0,0);
+	opacity: 1;
+}
+subview[ui-paging-orient=vertical][ui-navigation-status=traversed] {
+	-webkit-transform: translateY(-100%);
+	-webkit-transform: translate3d(0,-100%,0);
+	opacity: 0;
+}
+app[ui-kind='navigation-with-one-navbar'] > navbar > uibutton[ui-implements='back'] {
+	display: none;
+}
+
+/* Cube Transtion */
+view[ui-transition=cube] > *,
+subview[ui-transition=cube] > * {
+  -webkit-transition-property: -webkit-transform, opacity;
+}
+,
+view[ui-transition=cube][ui-transition-state=initial] > *,
+subview[ui-transition=cube][ui-transition-state=initial] > * {
+  -webkit-transition-duration: 0;
+}
+
+view[ui-transition=cube][ui-transition-state=final] > *,
+subview[ui-transition=cube][ui-transition-state=final] > * {
+  -webkit-transition-duration: 1000ms;
+}
+
+view[ui-transition=cube][ui-transition-state='slowmode final' > *,
+subview[ui-transition=cube][ui-transition-state='slowmode final' > * {
+  -webkit-transition-duration: 5000ms;
+}
+
+/* initial state */
+view[ui-transition=cube][ui-transition-state='initial outgoing'],
+subview[ui-transition=cube][ui-transition-state='initial outgoing'] {
+  /* The z translate is half the width */
+  -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
+}
+
+view[ui-transition=cube][ui-transition-state='initial incoming'],
+subview[ui-transition=cube][ui-transition-state='initial incoming'] {
+  -webkit-transform: translateZ(-512px) rotateY(90deg) translateZ(512px);
+}
+
+/* final state */
+view[ui-transition=cube][ui-transition-state='final outgoing'] ,
+subview[ui-transition=cube][ui-transition-state='final outgoing'] {
+  -webkit-transform: translateZ(-512px) rotateY(-90deg) translateZ(512px);
+}
+
+view[ui-transition=cube][ui-transition-state='final incoming'],
+subview[ui-transition=cube][ui-transition-state='final incoming'] {
+  -webkit-transform: translateZ(-512px) rotateY(0deg) translateZ(512px);
+}
+/* End Cube Transition */
+
+        
+/* Popover Styles */
+popover  {
+    width: 280px;
+    /* Change color of popover background. */
+    background-color: #282828;
+    margin: 0px;
+    -webkit-padding-start: 0px;
+    position: absolute;
+    z-index: 10000000;
+    opacity: 0;
+    -webkit-transform: scaleY(0);
+    -webkit-transition: all 0.15s ease-in-out;
+    -webkit-transform-origin: 50% 0%;
+    box-shadow: 0 0 5px 1px #666;
+}
+
+popover > section {
+    min-height: 50px;
+    position: relative;
+    z-index: 1000;
+    overflow: hidden;
+}
+popover  > header {
+    display: none !important;
+}
+popover header {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: stretch;
+    position: relative;
+    z-index: 2000;
+}
+popover tablecell {
+	background-color: #424344;
+}
+.fade-in {
+    -webkit-transform: scale(1) !important;
+    -webkit-animation-duration: .35s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-name: fadeInAnim;
+}
+.fade-out {
+    -webkit-transform: scale(1) !important;
+    -webkit-animation-duration: .25s;
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-name: fadeOutAnim;
+}
+@-webkit-keyframes fadeInAnim {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-webkit-keyframes fadeOutAnim {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+popover tableview[ui-kind=grouped] {
+    margin: 6px;
+}      
+/* Styles for actionsheet in popover */
+.popover-content {
+	position: relative;
+}
+popover  > section actionSheet {
+    height: 100%;
+    margin: -1px;
+    background-color: transparent !important; 
+}
+popover actionsheet {
+	min-height: 20px;
+    -webkit-box-sizing: border-box;
+    padding: 1px 0px 1px;
+    background: none;
+    background-color: rgba(65,72,92,1);
+    display: block;
+    position: static;
+    box-shadow: 0 0 2px  rgba(65,72,92,1);
+}
+mask {
+	display: block;
+	background-color: #000;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 9999;
+	cursor: pointer;
+}
+/* SplitView Styles */
+splitview {
+	display: -webkit-box;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	-webkit-box-orient: horizontal;
+	-webkit-box-align: stretch;
+	-webkit-box-sizing: border-box;
+	background:#282828;
+}
+detailview, rootview {
+	display: block;
+	position: relative;
+	-webkit-box-sizing: border-box;
+	-webkit-box-flex: 1;
+	height: 100%;
+}
+detailview {
+	border-left: solid 1px #666;
+}
+rootview {
+	width: 320px;
+	-webkit-box-flex: 0;
+	margin-right: 1px;
+	position: relative;
+}
+rootview > panel {
+	display: block;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+rootview > panel > view > subview {
+	padding-bottom: 1px !important;
+}
+detailview > subview {
+	display: none;
+}
+detailview > subview:first-of-type {
+	display: block;
+}
+
+detailview > div, rootview > div {
+	height: 100%;
+}
+
+.landscape splitview navbar uibutton.navigation {
+	display: none;
+}
+body:not(.SplitViewFixed).portrait rootview {
+	display: none;
+	position: absolute;
+	top: 44px;
+	left: 10px;
+	z-index: 10000;
+	height: 100%;
+	box-shadow: 0 0 10px #000;
+	border: solid 4px #000;
+	background-color: #000;
+}
+body:not(.SplitViewFixed).portrait rootview > div {
+	height: auto;
+}
+
+body:not(.SplitViewFixed).portrait rootview navbar {
+	margin-top: 0;
+}
+body:not(.SplitViewFixed).portrait rootview navbar h1 {
+	color:#fff;
+	text-shadow: none;
+}
+splitview scrollpanel { 
+	display: block; 
+}
+splitview subview {
+	height: 100%;
+}
+splitview scrollpanel {
+	padding-bottom: 80px;
+}
+splitview rootview > panel > view > subview {
+	position: relative;
+}
+rootview view[ui-navigation-status=upcoming] {
+	-webkit-transform: translate3d(100%,0%,0%);
+}
+rootview view[ui-navigation-status=current] {
+	-webkit-transform: translate3d(0%,0%, 0%);
+}
+rootview view[ui-navigation-status=traversed] {
+	-webkit-transform: translate3d(0%, 0%, 0%);
+}
