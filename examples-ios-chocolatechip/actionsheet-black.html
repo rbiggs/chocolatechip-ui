@@ -2,8 +2,8 @@
 <html lang="en" manifest="manifest/actionsheet.manifest">
 <head>
 	<meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <meta name="apple-mobile-web-app-capable" content="yes">
 	<title>Actionsheet Control</title>
 	<script src="../libs/chocolatechip.js"></script>
 	<script src="../chui/iscroll.js"></script>
@@ -44,10 +44,10 @@
 			$('#output').html("You pressed the " + text + " button.");
 			$('scrollpanel').data('ui-scroller').refresh();
 		};
-		var respondToDeleteButton = function(actionSheetID) {
+		var respondToDeleteButton = function() {
 			actionSheetButtonResponse("Delete");
 		};
-		var respondToSaveButton = function(actionSheetID) {
+		var respondToSaveButton = function() {
 			actionSheetButtonResponse("Save");
 		};
 		setTimeout(function() {

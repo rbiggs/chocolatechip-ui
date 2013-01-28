@@ -43,3 +43,5 @@ chui/iscroll-2.js
 config.pyc
 
 examples-ios-chocolatechip/listTest.html
+
+libs/zepto.min-old.js

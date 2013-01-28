@@ -131,8 +131,8 @@ subview[ui-associations='withToolBar withTabBar'] {
 *[ui-background-style=striped] {
 	background: #cbd2d8;
 	background-image:
-		-webkit-linear-gradient(0deg, #c5ccd4 75%, transparent 75%); 
-	background-size: 5px 100%;
+		-webkit-linear-gradient(0deg, #cbd2d8 60%, #c9cdd8 60%); 
+	background-size: 8px 100%;
 }
 *[ui-background-style=vertical-striped] {
 	background-image: 
@@ -1294,6 +1294,7 @@ navbar, toolbar {
 }
 navbar {
 	-webkit-box-pack: center;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 navbar h1 {
 	-webkit-box-flex: 0 !important;

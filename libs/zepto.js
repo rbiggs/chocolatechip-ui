@@ -1,36 +1,4 @@
-/* Zepto 1.0rc1 - polyfill zepto event detect fx ajax form fx_methods data selector touch gesture - zeptojs.com/license */
-;(function(undefined){
-  if (String.prototype.trim === undefined) // fix for iOS 3.2
-    String.prototype.trim = function(){ return this.replace(/^\s+/, '').replace(/\s+$/, '') }
-
-  // For iOS 3.x
-  // from https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/reduce
-  if (Array.prototype.reduce === undefined)
-    Array.prototype.reduce = function(fun){
-      if(this === void 0 || this === null) throw new TypeError()
-      var t = Object(this), len = t.length >>> 0, k = 0, accumulator
-      if(typeof fun != 'function') throw new TypeError()
-      if(len == 0 && arguments.length == 1) throw new TypeError()
-
-      if(arguments.length >= 2)
-       accumulator = arguments[1]
-      else
-        do{
-          if(k in t){
-            accumulator = t[k++]
-            break
-          }
-          if(++k >= len) throw new TypeError()
-        } while (true)
-
-      while (k < len){
-        if(k in t) accumulator = fun.call(undefined, accumulator, t[k], k, t)
-        k++
-      }
-      return accumulator
-    }
-
-})()
+/* Zepto v1.0rc1-146-g4364a33 - polyfill zepto event detect fx ajax form data selector touch gesture - zeptojs.com/license */
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
     document = window.document,
@@ -754,7 +722,8 @@ var Zepto = (function() {
       // arguments can be nodes, arrays of nodes, Zepto objects and HTML strings
       var argType, nodes = $.map(arguments, function(arg) {
             argType = type(arg)
-            return argType == "object" || argType == "array" ? arg : zepto.fragment(arg)
+            return argType == "object" || argType == "array" || arg == null ?
+              arg : zepto.fragment(arg)
           }),
           parent, copyByClone = this.length > 1
       if (nodes.length < 1) return this
@@ -1060,6 +1029,7 @@ window.Zepto = Zepto
       kindle = ua.match(/Kindle\/([\d.]+)/),
       silk = ua.match(/Silk\/([\d._]+)/),
       blackberry = ua.match(/(BlackBerry).*Version\/([\d.]+)/),
+      bb10 = ua.match(/(BB10).*Version\/([\d.]+)/),
       rimtabletos = ua.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
       playbook = ua.match(/PlayBook/),
       chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
@@ -1079,6 +1049,7 @@ window.Zepto = Zepto
     if (webos) os.webos = true, os.version = webos[2]
     if (touchpad) os.touchpad = true
     if (blackberry) os.blackberry = true, os.version = blackberry[2]
+    if (bb10) os.bb10 = true, os.version = bb10[2]
     if (rimtabletos) os.rimtabletos = true, os.version = rimtabletos[2]
     if (playbook) browser.playbook = true
     if (kindle) os.kindle = true, os.version = kindle[1]
@@ -1088,7 +1059,7 @@ window.Zepto = Zepto
     if (firefox) browser.firefox = true, browser.version = firefox[1]
 
     os.tablet = !!(ipad || playbook || (android && !ua.match(/Mobile/)) || (firefox && ua.match(/Tablet/)))
-    os.phone  = !!(!os.tablet && (android || iphone || webos || blackberry || chrome || firefox))
+    os.phone  = !!(!os.tablet && (android || iphone || webos || blackberry || bb10 || chrome || firefox))
   }
 
   detect.call($, navigator.userAgent)
@@ -1458,7 +1429,9 @@ window.Zepto = Zepto
   }
 
   $.getJSON = function(url, data, success){
-    return $.ajax(parseArguments(url, data, success, 'json'))
+    var options = parseArguments.apply(null, arguments)
+    options.dataType = 'json'
+    return $.ajax(options)
   }
 
   $.fn.load = function(url, data, success){
@@ -1533,73 +1506,6 @@ window.Zepto = Zepto
       if (!event.defaultPrevented) this.get(0).submit()
     }
     return this
-  }
-
-})(Zepto)
-;(function($, undefined){
-  var document = window.document, docElem = document.documentElement,
-    origShow = $.fn.show, origHide = $.fn.hide, origToggle = $.fn.toggle
-
-  function anim(el, speed, opacity, scale, callback) {
-    if (typeof speed == 'function' && !callback) callback = speed, speed = undefined
-    var props = { opacity: opacity }
-    if (scale) {
-      props.scale = scale
-      el.css($.fx.cssPrefix + 'transform-origin', '0 0')
-    }
-    return el.animate(props, speed, null, callback)
-  }
-
-  function hide(el, speed, scale, callback) {
-    return anim(el, speed, 0, scale, function(){
-      origHide.call($(this))
-      callback && callback.call(this)
-    })
-  }
-
-  $.fn.show = function(speed, callback) {
-    origShow.call(this)
-    if (speed === undefined) speed = 0
-    else this.css('opacity', 0)
-    return anim(this, speed, 1, '1,1', callback)
-  }
-
-  $.fn.hide = function(speed, callback) {
-    if (speed === undefined) return origHide.call(this)
-    else return hide(this, speed, '0,0', callback)
-  }
-
-  $.fn.toggle = function(speed, callback) {
-    if (speed === undefined || typeof speed == 'boolean')
-      return origToggle.call(this, speed)
-    else return this.each(function(){
-      var el = $(this)
-      el[el.css('display') == 'none' ? 'show' : 'hide'](speed, callback)
-    })
-  }
-
-  $.fn.fadeTo = function(speed, opacity, callback) {
-    return anim(this, speed, opacity, null, callback)
-  }
-
-  $.fn.fadeIn = function(speed, callback) {
-    var target = this.css('opacity')
-    if (target > 0) this.css('opacity', 0)
-    else target = 1
-    return origShow.call(this).fadeTo(speed, target, callback)
-  }
-
-  $.fn.fadeOut = function(speed, callback) {
-    return hide(this, speed, null, callback)
-  }
-
-  $.fn.fadeToggle = function(speed, callback) {
-    return this.each(function(){
-      var el = $(this)
-      el[
-        (el.css('opacity') == 0 || el.css('display') == 'none') ? 'fadeIn' : 'fadeOut'
-      ](speed, callback)
-    })
   }
 
 })(Zepto)
