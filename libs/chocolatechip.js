@@ -7,13 +7,10 @@
  ((OOOOOOOO))
   \:~=++=~:/ 
       
-ChocolateChip.js: It's tiny but delicious
-A JavaScript library for mobile Web app development.
- 
-Copyright 2011 Robert Biggs: www.choclatechip-ui.com
+ChocolateChip.js: It's tiny but delicious.
+Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version 2.0.1
- 
+Version: 2.1.1
 */
  
 (function() {

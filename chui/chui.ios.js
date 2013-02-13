@@ -1,10 +1,17 @@
 /*
+    pO\		
+   6  /\
+     /OO\
+    /OOOO\
+  /OOOOOOOO\
+ ((OOOOOOOO))
+  \:~=++=~:/    
+ 
 ChocolateChip-UI
-Version 2.1.1
+Chui.ios.js
+Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-This version works with ChocolateChip.js, jQuery or Zepto. 
-For jQuery, ChocolateChip-UI requires as a minimum version 1.7.1
-When using Zepto, make sure you have the following modules included in your build: zepto, event, detect, fx, fx_methods, ajax, form, data, selector, stack. 
+Version: 2.1.1
 */
 (function() {
 	var _$ = null;
