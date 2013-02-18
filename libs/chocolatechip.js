@@ -10,7 +10,7 @@
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 2.1.1
+Version: 2.1.2
 */
  
 (function() {
@@ -134,10 +134,6 @@ Version: 2.1.1
          else return false;
       },
       
-      not : function ( arg ) {
-      	return this.isnt(arg);
-      },
-      
       has : function ( arg ) {
          var items = [];
          this.each(function(item) {
@@ -154,10 +150,6 @@ Version: 2.1.1
          });
          if (items.length) return items;
          else return false;
-      },
-      
-      hasNot : function ( arg ) {
-      	return this.hasnt(arg);
       },
       
       prependTo : function ( selector ) {
@@ -178,7 +170,7 @@ Version: 2.1.1
    
    $.extend({
  
-      version : '2.0.0',
+      version : '2.1.2',
       
       libraryName : 'ChocolateChip',
       
@@ -470,10 +462,22 @@ Version: 2.1.1
       },
       
       childElements : function ( selector ) {
+      	var $this = this;
          if (typeof selector === 'string') {
-            return $.slice.apply(this.findAll(selector));
-         } else {
-            return $.slice.apply(this.children);
+         	var ret = [];
+            var arr = $.slice.apply(this.findAll(selector));
+            console.dir(ctx);
+            arr.forEach(function(ctx, idx) {
+            	if ($this === ctx.parentNode) {
+            		ret.push(ctx);
+            	}
+            });
+            if(ret.length) return ret;
+            else return [];
+         } else if (!selector){
+            var ret = $.slice.apply(this.children);
+            if (ret.length) return ret;
+            else return [];
          }
       },
       
@@ -582,8 +586,6 @@ Version: 2.1.1
          else return false;
       },
       
-      not : this.isnt,
-      
       has : function ( arg ) {
          if (typeof arg === 'string') {
             if (this.find(arg)) {
@@ -603,9 +605,6 @@ Version: 2.1.1
          else return false;
       },
       
-      hasNot : this.hasnt,
-      
-       
       clone : function ( value ) {
          if (value === true || !value) {
             return this.cloneNode(true);
@@ -1017,7 +1016,7 @@ Version: 2.1.1
          }
          request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
          function hdl(){ 
-            if(request.status===0 || request.status==200 && request.readyState==4) {   
+            if(request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
                $.responseText = request.responseText;
                request.handleResp(request.responseText); 
             } else {

@@ -7,13 +7,10 @@
  ((OOOOOOOO))
   \:~=++=~:/ 
       
-ChocolateChip.js: It's tiny but delicious
-A JavaScript library for mobile Web app development.
- 
-Copyright 2011 Robert Biggs: www.choclatechip-ui.com
+ChocolateChip.js: It's tiny but delicious.
+Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version 2.0.0
- 
+Version: 2.1.2
 */
  
 (function() {
@@ -38,54 +35,78 @@ Version 2.0.0
             return selector.call(selector);
          });
       } else {
-         return document.querySelector(selector);
+      	if (document.querySelector(selector)) {
+         	return document.querySelector(selector);
+         } else {
+         	return;
+         }
       }
+	  return this;
    };
    $.extend = function(obj, prop, enumerable) {
-   	var enumerable = enumerable || false;
+   	enumerable = enumerable || false;
    	if (!prop) {
    		prop = obj;
    		obj = $;
    	}
-		if (Object.keys) {
-			Object.keys(prop).forEach(function(p) {
-				if (prop.hasOwnProperty(p)) {
-					Object.defineProperty(obj, p, {
-						value: prop[p],
-                  writable: true,
-                  enumerable: enumerable,
-                  configurable: true
-               });
-            }
-         });
-		} else {
-			if (!prop) {
-				prop = obj;
-				obj = this;
+     
+	if (!Object.keys) {
+	  Object.keys = (function () {
+		 var hasOwnProperty = Object.prototype.hasOwnProperty,
+			  hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
+			  dontEnums = [
+				 'toString',
+				 'toLocaleString',
+				 'valueOf',
+				 'hasOwnProperty',
+				 'isPrototypeOf',
+				 'propertyIsEnumerable',
+				 'constructor'
+			  ],
+			  dontEnumsLength = dontEnums.length;
+	 
+		 return function (obj) {
+			if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null) throw new TypeError('Object.keys called on non-object');
+	 
+			var result = [];
+	 
+			for (var prop in obj) {
+			  if (hasOwnProperty.call(obj, prop)) result.push(prop);
 			}
-			for (var i in prop) {
-				obj[i] = prop[i];
-			}
-			return obj;
-      }
-      return this;
-   };
-   
- 	if (!Object.keys) {
-		 Object.keys = function (obj) {
-			  var keys = [],
-					k;
-			  for (k in obj) {
-					if (Object.prototype.hasOwnProperty.call(obj, k)) {
-						 keys.push(k);
-					}
+	 
+			if (hasDontEnumBug) {
+			  for (var i=0; i < dontEnumsLength; i++) {
+				 if (hasOwnProperty.call(obj, dontEnums[i])) result.push(dontEnums[i]);
 			  }
-			  return keys;
-		 };
+			}
+			return result;
+		 }
+	  })()
 	}
+	Object.keys(prop).forEach(function(p) {
+		if (prop.hasOwnProperty(p)) {
+			Object.defineProperty(obj, p, {
+				value: prop[p],
+				writable: true,
+				enumerable: enumerable,
+				configurable: true
+			});
+		}
+	});
+   	return this;
+   };
 	
    $.extend(Array.prototype, {
-      each : Array.prototype.forEach,
+     each : function(fn, ctx) {
+      	if (typeof fn != "function") return;
+      	var i, l = this.length;
+      	var ctx = arguments[1];
+      	for (i = 0; i < l; i++) {
+      		if (i in this) {
+        			fn.call(ctx, this[i], i, this);
+        		}
+      	}
+      },
       
       eq : function ( index ) {
       	if (index === 0 || !!index) {
@@ -113,10 +134,6 @@ Version 2.0.0
          else return false;
       },
       
-      not : function ( arg ) {
-      	return this.isnt(arg);
-      },
-      
       has : function ( arg ) {
          var items = [];
          this.each(function(item) {
@@ -133,10 +150,6 @@ Version 2.0.0
          });
          if (items.length) return items;
          else return false;
-      },
-      
-      hasNot : function ( arg ) {
-      	return this.hasnt(arg);
       },
       
       prependTo : function ( selector ) {
@@ -157,7 +170,7 @@ Version 2.0.0
    
    $.extend({
  
-      version : '2.0.0',
+      version : '2.1.2',
       
       libraryName : 'ChocolateChip',
       
@@ -212,7 +225,7 @@ Version 2.0.0
          script.setAttribute('type', 'text/javascript');
          var scriptID = $.UIUuid();
          script.setAttribute('id', scriptID);
-         script.html(name + data)
+         script.html(name + data);
          $('head').append(script);
          $.defer(function() {
             var id = '#' + scriptID;
@@ -389,20 +402,21 @@ Version 2.0.0
 			} else {
 				if (!this.id) {
 					++$.uuid;
-					var id = $.makeUuid();
+					id = $.makeUuid();
                this.setAttribute("id", id);
-               $.chch_cache.data[id] = {}
+               $.chch_cache.data[id] = {};
                $.chch_cache.data[id][key] = value;
 				} else {
-					var id = this.id;
+					id = this.id;
 					if (!$.chch_cache.data[id]) {
-               	$.chch_cache.data[id] = {}
+               	$.chch_cache.data[id] = {};
                	$.chch_cache.data[id][key] = value;
                } else {
                	$.chch_cache.data[id][key] = value;
                }
 				}
 			}
+		 return this;
       },
       
       removeData : function ( key ) {
@@ -448,10 +462,22 @@ Version 2.0.0
       },
       
       childElements : function ( selector ) {
+      	var $this = this;
          if (typeof selector === 'string') {
-            return $.slice.apply(this.findAll(selector));
-         } else {
-            return $.slice.apply(this.children);
+         	var ret = [];
+            var arr = $.slice.apply(this.findAll(selector));
+            console.dir(ctx);
+            arr.forEach(function(ctx, idx) {
+            	if ($this === ctx.parentNode) {
+            		ret.push(ctx);
+            	}
+            });
+            if(ret.length) return ret;
+            else return [];
+         } else if (!selector){
+            var ret = $.slice.apply(this.children);
+            if (ret.length) return ret;
+            else return [];
          }
       },
       
@@ -560,8 +586,6 @@ Version 2.0.0
          else return false;
       },
       
-      not : this.isnt,
-      
       has : function ( arg ) {
          if (typeof arg === 'string') {
             if (this.find(arg)) {
@@ -581,9 +605,6 @@ Version 2.0.0
          else return false;
       },
       
-      hasNot : this.hasnt,
-      
-       
       clone : function ( value ) {
          if (value === true || !value) {
             return this.cloneNode(true);
@@ -986,14 +1007,16 @@ Version 2.0.0
             i = 0;
          request.queryString = params;
          request.open(method, o.url, async);
-         if (o.headers) {
-            for (; i<o.headers.length; i++) {
-              request.setRequestHeader(o.headers[i].name, o.headers[i].value);
-            }
+  			if (!!o.headers) {  
+             for (var prop in o.headers) { 
+                 if(o.headers.hasOwnProperty(prop)) { 
+                     request.setRequestHeader(prop, o.headers[prop]);
+                 }
+             }
          }
          request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
          function hdl(){ 
-            if(request.status===0 || request.status==200 && request.readyState==4) {   
+            if(request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
                $.responseText = request.responseText;
                request.handleResp(request.responseText); 
             } else {
