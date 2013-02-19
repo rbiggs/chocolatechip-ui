@@ -11,13 +11,9 @@
 	<link rel="stylesheet" href="../chui/chui.ios.css">
 	<style type="text/css">
 		/* Local Styles Here */
-		#main {
-			background-color: rgba(128,96,0,0.5);
+		segmentedcontrol uibutton {
+			background-color: #8297ff;
 		}
-		#main navbar {
-			background-color: rgba(63,128,0,0.2);
-		}
-		
 	</style>
    <script src="../libs/zepto.js"></script>
    <script src="../chui/iscroll.js"></script>
@@ -47,8 +43,8 @@
 </head>
 <body>
 	<app>
-		<view id="main" ui-background-style="slanted-right" ui-navigation-status="current">
-			<navbar class="ui-custom-tint">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
 				<h1 ui-bar-alignment="center">Segmented Control</h1>
 			</navbar>
 			<subview id="subview1" ui-associations="withNavBar">

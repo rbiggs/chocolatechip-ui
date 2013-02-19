@@ -7,45 +7,9 @@
     <title>Subview Transitions</title>
     <link rel="stylesheet" href="../chui/chui.android.css">
     <style type="text/css">
-		
-		
-		#flip subview:nth-of-type(1) {
-			background-color: rgba(192,168,96,0.5);
-			background-size: 20px 20px;
+		subview {
+			background-color: #000;
 		}
-		#flip subview:nth-of-type(2) {
-			background-color: #bfe6ff;
-		}
-		#pop {
-			background-color: #576990;
-		}
-		#pop subview:nth-of-type(2) {
-			background-color: #ffefbf;
-		}
-		#pop subview:nth-of-type(2) tableheader,
-		#pop subview:nth-of-type(2) tablefooter,
-		#fade subview:nth-of-type(1) tableheader,
-		#fade subview:nth-of-type(1) tablefooter {
-			color: #000;
-		}
-		#fade subview:nth-of-type(1) {
-			background-color: #8090c8;
-		}
-		#fade subview:nth-of-type(2) {
-			background-color: #91c2c2;
-		}
-		#spin subview:nth-of-type(1) {
-			background-color: #c7e0c7;
-			background-size: 12px 12px;
-		}
-		#spin subview:nth-of-type(2) {
-			background-color: #ffc64e;
-			background-size: 20px 20px;
-		}
-		#pop tableheader, #pop tablefooter {
-			color: #fff;
-		}
-		
    </style>
 	<script src="../libs/zepto.js"></script>
 	<script src="../chui/iscroll.js"></script>
@@ -104,7 +68,7 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view id="flip" ui-background-style="slanted-right" ui-navigation-status="upcoming">
+		<view id="flip" ui-navigation-status="upcoming">
 			<navbar>
 				<uibutton ui-bar-align="left" ui-implements="back">
 					<label>Back</label>
@@ -142,7 +106,7 @@
 					</tableview>
 				</scrollpanel>
 			</subview>
-			<subview ui-associations="withNavBar" ui-background-style="horizontal-striped">
+			<subview ui-associations="withNavBar">
 				<scrollpanel>
 					<shim></shim>
 					<shim></shim>
@@ -173,7 +137,7 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view id="fade" ui-background-style="squared" ui-tablecell-order="stacked" ui-navigation-status="upcoming">
+		<view id="fade" ui-tablecell-order="stacked" ui-navigation-status="upcoming">
 			<navbar>
 				<uibutton ui-bar-align="left" ui-implements="back">
 					<label>Back</label>
@@ -203,7 +167,7 @@
 					</tableview>
 				</scrollpanel>
 			</subview>
-			<subview ui-associations="withNavBar" ui-background-style="vertical-striped">
+			<subview ui-associations="withNavBar">
 				<scrollpanel>
 					<tableview>
 						<tableheader>
@@ -224,7 +188,7 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view style="background-size: 6px 6px !important;" id="pop" ui-background-style="checkered" ui-tablecell-order="stacked" ui-navigation-status="upcoming">
+		<view id="pop" ui-background-style="checkered" ui-tablecell-order="stacked" ui-navigation-status="upcoming">
 			<navbar>
 				<uibutton ui-bar-align="left" ui-implements="back">
 					<label>Back</label>
@@ -318,7 +282,7 @@
 					</tableview>
 				</scrollpanel>
 			</subview>
-			<subview ui-background-style="slanted-right" ui-associations="withNavBar">
+			<subview ui-associations="withNavBar">
 				<scrollpanel>
 					<tableview ui-kind="grouped">
 						<tableheader>

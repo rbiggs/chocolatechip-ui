@@ -1145,7 +1145,9 @@ Version: 2.1.2
       standalone : navigator.standalone,
       ios4 : navigator.userAgent.match(/OS 4/i),
       ios5 : navigator.userAgent.match(/OS 5/i),
-      userAction : ($.touchEnabled ? 'touchend' : 'click'),
+      userAction : (('createTouch' in document) ? 'touchend' : 'click'),
+      eventStart : (('createTouch' in document) ? 'touchstart' : 'mousedown'),
+      eventEnd : (('createTouch' in document) ? 'touchend' : 'click'),
       mobile : /mobile/img.test(navigator.userAgent),
       desktop : !(/mobile/img.test(navigator.userAgent)),
        

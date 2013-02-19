@@ -195,8 +195,8 @@ Version: 2.1.1
 					$(node).attr('role','radio');
 					$(node).attr('aria-checked','false');
 					$(node).append(checkmark);
-					$(node).on($.userAction, function() {
-						if ($.userAction === 'touchend') {
+					$(node).on($.eventStart, function() {
+						if ('createTouch' in document) {
 							$(node).removeClass('touched');
 							$(node).attr('aria-checked','false');
 						}
@@ -300,7 +300,7 @@ Version: 2.1.1
 			} else {
 				$(newSwitchID).find("input").prop("checked", (status === "on" ? true : false));
 			}
-			$(newSwitchID).on($.userAction, function() {
+			$(newSwitchID).on($.eventStart, function() {
 				$(this).UISwitchControl(callback);
 			});
 		},
@@ -319,7 +319,7 @@ Version: 2.1.1
 					$(item).checked = false;
 					checkbox.checked = false;
 				}
-				$(item).on($.userAction, function(e) {
+				$(item).on($.eventStart, function(e) {
 					e.preventDefault();
 					this.parentNode.style.backgroundImage = 'none';
 					$(item).UISwitchControl();
@@ -438,7 +438,7 @@ Version: 2.1.1
 						that.attr('ui-selected-segment', $(button).attr('id'));
 					}
 				}
-				$(button).on($.userAction, function() {
+				$(button).on($.eventStart, function() {
 					var selectedSegment = that.attr('ui-selected-segment');
 					selectedSegment = $('#'+selectedSegment);
 					var selectedIndex = that.attr('ui-selected-index');
@@ -542,9 +542,8 @@ Version: 2.1.1
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
 			subviews.eq(selectedTab).toggleClassName('unselected','selected');
 			tabs.eq(selectedTab).addClass('selected');
-			var tabSelect =  $.userAction === 'click' ? 'click' : 'touchstart';
 			$._each(tabs, function(idx, tab) {
-				$(tab).on(tabSelect, function() {
+				$(tab).on($.eventStart, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
@@ -571,9 +570,8 @@ Version: 2.1.1
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
 			views.eq(selectedTab).attr('ui-navigation-status','current');
 			tabs.eq(selectedTab).addClass('selected');
-			var tabSelect =  $.userAction === 'click' ? 'click' : 'touchstart';
 			$._each(tabs, function(idx, tab) {
-				$(tab).on(tabSelect, function() {
+				$(tab).on($.eventStart, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
@@ -604,7 +602,7 @@ Version: 2.1.1
 			var prevButton = $(segmentedPager._first());
 			var nextButton = $(segmentedPager._last());
 			subviews.eq(0).attr('ui-navigation-status', 'current');
-			segmentedPager.delegate('uibutton', 'click', function(ctx) {
+			segmentedPager.delegate('uibutton', $.eventStart, function(ctx) {
 				var button = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				if ($(button).hasClass('disabled')) return;
 				var pager = segmentedPager; //$(button).closest('segmentedcontrol');
@@ -1025,8 +1023,10 @@ Version: 2.1.1
 		$.main = $("#main");
 		$.views = $.els('view');
 		$.touchEnabled = ('ontouchstart' in window);
-		$.userAction = 'touchend';
-		if (!$.touchEnabled) {
+		if ('createTouch' in document) {
+			$.userAction = 'touchend';
+			$.eventStart = 'touchstart';
+			$.eventEnd = 'touchend';
 			var stylesheet = $('head').find('link[rel=stylesheet]').attr('href');
 			var stylesheet1 = '';
 			if (/min/.test(stylesheet)) {
@@ -1035,7 +1035,10 @@ Version: 2.1.1
 				stylesheet1 = stylesheet.replace(/chui\.ios\.css/, 'chui.ios.desktop.css');
 			}
 			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
+		} else {
 			$.userAction = 'click';
+			$.eventStart = 'mousedown';
+			$.eventEnd = 'click';
 		}
 
 		if ( _jq || _zo) {
@@ -1145,7 +1148,7 @@ Version: 2.1.1
 					} catch(err) {} 
 				};
 				
-				if ($.userAction === 'touchend') {
+				if ($.touchEnabled) {
 					$.app.on('touchstart', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).addClass('touched');
@@ -1300,10 +1303,10 @@ Version: 2.1.1
 				if (defaultValue == opts.range.end) {
 					$('uibutton:last-of-type', stepper).addClass('disabled');
 				}
-				$('uibutton:first-of-type', opts.selector).on($.userAction, function(button) {
+				$('uibutton:first-of-type', opts.selector).on($.eventStart, function(button) {
 					$.decreaseStepperValue.call(this, opts.selector);
 				});
-				$('uibutton:last-of-type', opts.selector).on($.userAction, function(button) {
+				$('uibutton:last-of-type', opts.selector).on($.eventStart, function(button) {
 					$.increaseStepperValue.call(this, opts.selector);
 				});
 			},
@@ -1362,7 +1365,7 @@ Version: 2.1.1
 		
 		$.UINavigationList();
 		
-		if ($.userAction === 'touchend') {
+		if ($.touchEnabled) {
 			$.app.on('touchstart', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).addClass('touched');
@@ -1382,7 +1385,7 @@ Version: 2.1.1
 				$(node).removeClass('touched');
 			});
 		} else {
-			$.app.on($.userAction, 'uibutton', function(ctx) {
+			$.app.on($.eventStart, 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				if ($(node).attr('ui-implements') === 'back') {
 					if ($.UINavigationListExits) {
@@ -1519,7 +1522,7 @@ Version: 2.1.1
 				});
 				listEl.attr('data-deletable-items', '0');
 				var UIEditExecution = function() {
-					$(options.toolbar + ' > uibutton[ui-implements=edit]').on($.userAction, 
+					$(options.toolbar + ' > uibutton[ui-implements=edit]').on($.eventStart, 
 						function() {
 							if ($('label', this).text() === label1) {
 								$(this).UIToggleButtonLabel(label1, label2);
@@ -1558,7 +1561,7 @@ Version: 2.1.1
 				};
 				var UIDeleteDisclosureSelection = function() {
 					$._each($.els('deletedisclosure'), function(idx, disclosure) {
-						$(disclosure).on($.userAction, function() {
+						$(disclosure).on($.eventStart, function() {
 							$(disclosure).toggleClass('checked');
 							$(disclosure).closest('tablecell').toggleClass('deletable');
 							$('uibutton[ui-implements=delete]', toolbarEl).removeClass('disabled');
@@ -2181,6 +2184,8 @@ Version: 2.1.1
 				return result;
 			}
 		});
+		
+		$.UISpinner = $.UIPopover;
 		
 		$.extend($.UIPopover, {
 			activePopover : null,

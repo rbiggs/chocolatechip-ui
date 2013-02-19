@@ -8,9 +8,6 @@
 <title>Carousel Control</title>
 <link rel="stylesheet" href="../chui/chui.ios.css">
 <style type="text/css" media="all">
-	view {
-		background-color: #ffefbf;
-	}
 	stack[ui-implements="paging"] {
 		width: 300px;
 		height: 250px;
@@ -50,8 +47,8 @@ $(function() {
 </head>
 <body>
 <app>
-	<view id='main' ui-navigation-status="current" ui-background-style="slanted-left">
-		<navbar class="ui-custom-tint">
+	<view id='main' ui-navigation-status="current" ui-background-style="striped">
+		<navbar>
 			<h1>$.UIPaging</h1>
 		</navbar>
 		<subview ui-associations="withNavBar">

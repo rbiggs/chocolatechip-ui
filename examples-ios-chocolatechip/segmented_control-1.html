@@ -11,12 +11,6 @@
 	<link rel="stylesheet" href="../chui/chui.ios.css">
 	<style type="text/css">
 		/* Local Styles Here */
-		#main {
-			background-color: rgba(128,96,0,0.5);
-		}
-		#main navbar {
-			background-color: rgba(63,128,0,0.2);
-		}
 		
 		/* Styles for Segmented Control's stack of panels: */
 		#stack_01 {
@@ -41,8 +35,8 @@
 </head>
 <body>
 	<app>
-		<view id="main" ui-background-style="slanted-right" ui-navigation-status="current">
-			<navbar class="ui-custom-tint">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
 				<h1 ui-bar-alignment="center">Segmented Control</h1>
 			</navbar>
 			<subview id="subview1" ui-associations="withNavBar">
@@ -50,16 +44,16 @@
 					<shim></shim>
 					<stack>
 						<segmentedcontrol ui-selected-index='0'>
-							<uibutton class="ui-custom-tint">
+							<uibutton>
 								<label>People</label>
 							</uibutton>
-							<uibutton class="ui-custom-tint">
+							<uibutton>
 								<label>Places</label>
 						   </uibutton>
-						   <uibutton class="ui-custom-tint">
+						   <uibutton>
 								<label>Funny Animals</label>
 						   </uibutton>
-						   <uibutton class="ui-custom-tint">
+						   <uibutton>
 								<label>Food</label>
 						   </uibutton>
 					   </segmentedcontrol>

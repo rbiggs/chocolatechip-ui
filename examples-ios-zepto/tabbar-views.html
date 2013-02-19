@@ -11,24 +11,7 @@
 	<link rel="stylesheet" href="../chui/chui.ios.css">
 	<style type="text/css">
 		/* Local Styles Here */
-		#main {
-			background-color: rgba(128,96,0,0.5);
-		}
-		#main navbar {
-			background-color: rgba(63,128,0,0.2);
-		}
-		view:nth-of-type(2) {
-		    background: rgba(0,255,0,0.2);
-		}
-		view:nth-of-type(3) {
-		    background: rgba(0,0,255,0.2);
-		}
-		view:nth-of-type(4) {
-		    background: rgba(255,255,0,0.2);
-		}
-		view:nth-of-type(5) {
-		    background: rgba(0,0,255,0.2);
-		}
+
 	</style>
    <script src="../libs/zepto.js"></script>
    <script src="../chui/iscroll.js"></script>
@@ -44,8 +27,8 @@
 </head>
 <body>
 	<app>
-		<view id="main" ui-implements="tabbar-panel" ui-background-style="slanted-right" ui-navigation-status="current">
-			<navbar class="ui-custom-tint">
+		<view id="main" ui-implements="tabbar-panel" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
 				<h1 ui-bar-alignment="center">View 1</h1>
 			</navbar>
 			<subview ui-associations="withNavBar withTabBar">
@@ -62,8 +45,8 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view ui-implements="tabbar-panel" ui-navigation-status="upcoming">
-			<navbar class="ui-custom-tint">
+		<view ui-implements="tabbar-panel" ui-background-style="striped" ui-navigation-status="upcoming">
+			<navbar>
 				<h1 ui-bar-alignment="center">View 2</h1>
 			</navbar>
 			<subview ui-associations="withNavBar withTabBar">
@@ -100,8 +83,8 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view ui-implements="tabbar-panel" ui-navigation-status="upcoming">
-			<navbar class="ui-custom-tint">
+		<view ui-implements="tabbar-panel" ui-background-style="striped" ui-navigation-status="upcoming">
+			<navbar>
 				<h1 ui-bar-alignment="center">View 3</h1>
 			</navbar>
 			<subview ui-associations="withNavBar withTabBar">
@@ -151,8 +134,8 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view ui-implements="tabbar-panel" ui-navigation-status="upcoming">
-			<navbar class="ui-custom-tint">
+		<view ui-implements="tabbar-panel" ui-background-style="striped" ui-navigation-status="upcoming">
+			<navbar>
 				<h1 ui-bar-alignment="center">View 4</h1>
 			</navbar>
 			<subview ui-associations="withNavBar withTabBar">
@@ -183,8 +166,8 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view ui-implements="tabbar-panel" ui-navigation-status="upcoming">
-			<navbar class="ui-custom-tint">
+		<view ui-implements="tabbar-panel" ui-background-style="striped" ui-navigation-status="upcoming">
+			<navbar>
 				<h1 ui-bar-alignment="center">View 5</h1>
 			</navbar>
 			<subview ui-associations="withNavBar withTabBar">

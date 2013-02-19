@@ -11,27 +11,6 @@
 	<link rel="stylesheet" href="../chui/chui.ios.css">
 	<style type="text/css">
 		/* Local Styles Here */
-		#main {
-			background-color: rgba(128,96,0,0.5);
-		}
-		#main navbar {
-			background-color: rgba(63,128,0,0.2);
-		}
-		subview:nth-of-type(1) {
-		    background: rgba(255,0,0,0.2);
-		}
-		subview:nth-of-type(2) {
-		    background: rgba(0,255,0,0.2);
-		}
-		subview:nth-of-type(3) {
-		    background: rgba(0,0,255,0.2);
-		}
-		subview:nth-of-type(4) {
-		    background: rgba(255,255,0,0.2);
-		}
-		subview:nth-of-type(5) {
-		    background: rgba(0,0,255,0.2);
-		}
 		subview.selected {
 		    z-index: 100000;
 		    -webkit-transform: translate3d(0,0,0);
@@ -52,11 +31,10 @@
 				 numberOfSegments : 4,
 				 titlesOfSegments : ["People", "Places", "Animals", "Stuff"],
 				 selectedSegment : 2,
-				 cssClass : ["ui-custom-tint", "ui-custom-tint", "ui-custom-tint", "ui-custom-tint"],
 				 imagePath : "../icons/",
 				 container : "#stackpanel_01"
 			};
-			$("stack").UICreateSegmentedControl(seg);
+			$("#segmentedcontrolStack").UICreateSegmentedControl(seg);
 			var seggie = function(item) {
 				console.log("The child position is: " + item.getAttribute("ui-child-position"));
 			}
@@ -77,14 +55,14 @@
 </head>
 <body>
 	<app>
-		<view id="main" ui-background-style="slanted-right" ui-navigation-status="current">
-			<navbar class="ui-custom-tint">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
 				<h1 ui-bar-alignment="center">Tab Bar</h1>
 			</navbar>
 			<subview ui-associations="withNavBar withTabBar">
 				<scrollpanel>
 					<shim></shim>
-					<stack>
+					<stack id='segmentedcontrolStack'>
 					</stack>
 					<shim></shim>
 					<stack id="stackpanel_01" ui-implements="segmented-toggle-stack">
