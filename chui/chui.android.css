@@ -92,15 +92,16 @@ input[type=text]::after, input[type=email]::after, input[type=password]::after {
 }
 input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
 	border: none;
-	border-bottom: 1px solid #2da2cd;
+	/* color: hsl(196,64%,49%): */
+	border-bottom: 1px solid hsl(196,64%,49%);
 	bottom: -1px;
 	left: 0px;
 }
 input:focus::before, input:focus::after {
-	border-color: #2da2cd;
+	border-color: hsl(196,64%,49%);
 }
 input:focus::before, input:focus::after {
-	border-color: #2da2cd;
+	border-color: hsl(196,64%,49%);
 }
 navbar, toolbar, tabbar {
     z-index: 1000;
@@ -379,7 +380,7 @@ uibutton {
    text-align: center;
 } 
 uibutton.touched, uibutton.selected {
-	background-color: #2da2cd !important;
+	background-color: hsl(196,64%,49%) !important;
 	-webkit-tap-highlight-color: transparent;
 }
 
@@ -633,7 +634,7 @@ segmentedcontrol > uibutton.touched,
 segmentedcontrol > uibutton.selected, 
 segmentedcontrol > uibutton.selected.touched, {
     color: #fff;
-    background-color: #2da2cd;
+    background-color: hsl(196,64%,49%);
 }
 segmentedcontrol > uibutton.disabled.touched, {
     color: #6b6b6b;
@@ -642,7 +643,7 @@ segmentedcontrol > uibutton.disabled.touched, {
 }
 
 uibutton[ui-implements=back].touched, uibutton[ui-implements=next].touched {
-	background-color: #2da2cd !important;
+	background-color: hsl(196,64%,49%) !important;
 }
 uibutton[ui-implements=back].disabled.touched, uibutton[ui-implements=next].disabled.touched {
 	background-color: #212121 !important;
@@ -685,8 +686,8 @@ segmentedcontrol[ui-implements="segmented-paging"] uibutton:first-of-type {
 navbar > segmentedcontrol > uibutton.selected, 
 navbar > segmentedcontrol > uibutton.selected.touched {
     color: #fff;
-    border: solid 1px #2da2cd;
-    background-color: #2da2cd;
+    border: solid 1px hsl(196,64%,49%);
+    background-color: hsl(196,64%,49%);
 }
 navbar > segmentedcontrol > uibutton.disabled.touched, 
 toolbar > segmentedcontrol > uibutton.disabled.touched { 
@@ -786,7 +787,7 @@ uibutton[ui-kind='rounded-rectangle'].disabled.touched {
 
 uibuttonn[ui-kind='rounded-rectangle'][ui-implements=attention].touched,
 uibuttonn[ui-implements=attention][ui-kind='rounded-rectangle'].touched{
-    border-color:a7abae !important;
+    border-color: hsl(196,64%,49%) !important;
 }
 
 /* End Rounded Rectangle UIButton Styles */
@@ -807,7 +808,7 @@ uibutton[ui-kind=action] {
     -webkit-box-pack: center;
 }
 uibutton[ui-kind=action].touched, uibutton[ui-kind=action]:hover {
-	background-color: #2da2cd;
+	background-color: hsl(196,64%,49%);
 }
 uibutton[ui-kind=action].disabled:hover {
     margin: 20px 10px;
@@ -990,7 +991,7 @@ tableview[ui-implements='detail-menu'] > tablecell.touched,
 tableview[ui-implements='selection-list'] > tablecell.selected.touched {
     color: #fff;
 	cursor: pointer;
-	background-color: #2da2cd;
+	background-color: hsl(196,64%,49%);
 }
 tableview[ui-implements='selection-list'] > tablecell.selected {
     color: #fff;
@@ -1029,7 +1030,7 @@ tablecell > celltitle:not(celltitle + subtitle) {
 	width: 80%;
 }
 tablecell > cellsubtitle {
-    color: #2da2cd;
+    color: hsl(196,64%,49%);
     position: absolute;
     right: 10px;
     margin-top: 4px;
@@ -1135,7 +1136,7 @@ tableview[ui-kind=grouped][ui-tablecell-order=centered] > tablecell > celltitle 
     text-overflow: ellipsis;
 }
 tableview[ui-tablecell-order=centered] > tablecell > cellsubtitle {
-    color: #2da2cd;
+    color: hsl(196,64%,49%);
     text-align: left;
     font-size: 16px;
     font-weight: bold;
@@ -1360,7 +1361,7 @@ tableview[ui-tablecell-order=centered].ui-show-delete-disclosures celltitle {
 	width: 35%;
 }
 tableview.ui-show-delete-disclosures > tablecell.touched {
-	background: #586B96 !important;
+	background: hsl(196,64%,49%) !important;
 }
 tableview.ui-show-delete-disclosures > tablecell.touched celltitle {
 	color: #fff !important;
@@ -1614,7 +1615,7 @@ tableview[ui-implements=selection-list] tablecell.touched > checkmark {
 	border: solid 2px #fff;
 }
 tableview[ui-implements=selection-list] tablecell.touched {
-	background-color: #2da2cd;
+	background-color: hsl(196,64%,49%);
 	color: #fff;
 }
 tableview[ui-implements=selection-list] > tablecell input[type=radio] {
@@ -1674,7 +1675,7 @@ switchcontrol > thumb:before {
 	height: 14px;
 	width: 2px;
 	background: none;
-	background-color: #2da2cd;
+	background-color: hsl(196,64%,49%);
 	box-shadow: 0px -1px 1px #666;
 	border: none;
 	position: absolute;
@@ -1687,11 +1688,11 @@ switchcontrol.on > thumb:before {
 	left: -20px;
 }
 switchcontrol.on {
-	border-color: #2da2cd;
+	border-color: hsl(196,64%,49%);
 }
 switchcontrol.on > thumb {
-	background-color: #2da2cd;
-	border: solid 1px #2da2cd;
+	background-color: hsl(196,64%,49%);
+	border: solid 1px hsl(196,64%,49%);
 }
 switchcontrol > thumb:after {
 	content: '';
@@ -1771,12 +1772,12 @@ input[type="range"]::-webkit-slider-thumb {
 	margin: 0;
 	background-color: transparent;
 	background-image: 
-		-webkit-radial-gradient(#2da2cd 4px,rgba(18,152,205,.9) 4px);
-	border: solid 1px #2da2cd;
+		-webkit-radial-gradient(hsl(196,64%,49%) 4px, hsla(196,64%,49%, .8) 4px);
+	border: solid 1px hsl(196,64%,49%);
 }
 input[type="range"]:focus::-webkit-slider-thumb, input[type="range"]::-webkit-slider-thumb:hover {
 	background-image:
-	-webkit-radial-gradient(#2da2cd 4px,rgba(18,152,205,.5) 4px);
+	-webkit-radial-gradient(hsl(196,64%,49%) 4px, hsla(196,64%,49%,.5) 4px);
 }
 
 /* End HTML5 Range Input */
@@ -1813,15 +1814,15 @@ tabbar > uibutton:last-of-type {
 	border-right: none;
 }
 tabbar > uibutton[ui-implements=tab].selected {
-    border-bottom: solid 4px #2da2cd;
+    border-bottom: solid 4px hsl(196,64%,49%);
     background-color: #424344 !important;
 }
 tabbar > uibutton[ui-implements=tab].touched {
-    border-bottom: solid 4px #33b5e5;
-    background-color: #33819e !important;
+    border-bottom: solid 4px hsl(196,77%,55%);
+    background-color: hsl(196,51%,41%) !important;
 }
 tabbar > uibutton[ui-implements=tab].disabled.touched {
-    background: #33819e;
+    background: hsl(196,51%,41%);
 }
 tabbar > uibutton[ui-implements=tab] > icon {
     display: none;
@@ -1843,7 +1844,7 @@ tabbar > uibutton > label {
 tabbar > uibutton[ui-implements=tab].selected > icon,
 tabbar > uibutton[ui-implements=tab].touched > icon {
     box-shadow: #000 0 1px 0px;
-    color:#68B3DA;
+    color: hsl(196,44%,55%);
 }
 /* End Tab Bar Styles */
 
@@ -1934,7 +1935,7 @@ expander.ui-status-expanded > header:after {
 expander.ui-status-expanded > header:before {
 }
 expander.ui-status-expanded > header > label {
-	background-color: #2da2cd;
+	background-color: hsl(196,64%,49%);
 }
 /* End Expander Styles */
 /* Progress Bar Styles */
@@ -2027,7 +2028,7 @@ stack[ui-implements='indicators'] > indicator {
 	margin-right: 5px;
 }
 stack[ui-implements='indicators'] > indicator.active {
-	background-color: #2da2cd;
+	background-color: hsl(196,64%,49%);
 }
 stack[ui-implements='indicators'] > indicator:first-child {
 	margin-left: 0;
@@ -2064,7 +2065,7 @@ stepper > label {
 	display: block;
 	-webkit-box-sizing: border-box;
 	border: solid 1px #484e59;
-	border-bottom-color: #4c5c7a;
+	border-bottom-color: hsl(192,42%,30%);
 	width: 50px;
 	height: 30px;
 	font: bold 16px/30px Helvetica;

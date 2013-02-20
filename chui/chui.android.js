@@ -1026,7 +1026,7 @@ Version: 2.1.1
 				}
 			});
 		}
-		$.body = $("body");
+				$.body = $("body");
 		$.app = $("app");
 		$.main = $("#main");
 		$.views = $.els('view');
@@ -1035,6 +1035,11 @@ Version: 2.1.1
 			$.userAction = 'touchend';
 			$.eventStart = 'touchstart';
 			$.eventEnd = 'touchend';
+			$.userAction = 'click';
+		} else {
+			$.userAction = 'click';
+			$.eventStart = 'mousedown';
+			$.eventEnd = 'click';
 			var stylesheet = $('head').find('link[rel=stylesheet]').attr('href');
 			var stylesheet1 = '';
 			if (/min/.test(stylesheet)) {
@@ -1043,17 +1048,6 @@ Version: 2.1.1
 				stylesheet1 = stylesheet.replace(/chui\.android\.css/, 'chui.android.desktop.css');
 			}
 			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
-		} else {
-			$.userAction = 'click';
-			$.eventStart = 'mousedown';
-			$.eventEnd = 'click';
-		}
-
-		if ( _jq || _zo) {
-			$.fn.hasAttr = function(property) {
-				return $(this).attr(property);
-			};
-			$.slice = Array.prototype.slice;
 		}
 		
 		var navigationListItems = $.els('tablecell');
