@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="manifest/carousel.manifest">
 <head>
 <meta charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <title>Carousel Control</title>
 <link rel="stylesheet" href="../chui/chui.ios.css">
 <style type="text/css" media="all">
+	view {
+		background-color: #ffefbf;
+	}
 	stack[ui-implements="paging"] {
 		width: 300px;
 		height: 250px;
@@ -26,18 +30,19 @@
 		background-color: transparent;
 	}
 	stack[ui-implements="indicators"] > indicator {
-		background-color: #fff;
+		background-color: rgba(255,255,255,.5);
 		border: solid 1px #666;
 		-webkit-border-radius: 10px;
 		margin-right: 8px;
 	}
 	stack[ui-implements="indicators"] > indicator.active {
-		background-color: #000;
+		background-color: #007fea;
+		border-color: #007fea;
 	}
 </style>
-<script src="../libs/jquery-1.7.2.js"></script>
-<script src="../chui/iscroll.js"></script>
-<script src="../chui/chui.ios.js"></script>
+ <script src="../libs/jquery-1.7.2.js"></script>
+ <script src="../chui/iscroll.js"></script>
+ <script src="../chui/chui.ios.js"></script>
 <script type="text/javascript">
 $(function() {
 

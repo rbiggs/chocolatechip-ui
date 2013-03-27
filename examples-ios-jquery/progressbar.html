@@ -23,9 +23,9 @@
 		}
 	</style>
 	<link rel="stylesheet" href="../chui/chui.ios.css">
-   <script src="../libs/jquery-1.7.2.js"></script>
-   <script src="../chui/iscroll.js"></script>
-   <script src="../chui/chui.ios.js"></script>
+	<script src="../libs/jquery-1.7.2.js"></script>
+	<script src="../chui/iscroll.js"></script>
+	<script src="../chui/chui.ios.js"></script>
 	<script type="text/javascript">
 		
 		$(function() {
@@ -35,13 +35,13 @@
 			$("section").UIProgressBar({className : "green", width: 280, speed: 8});
 			$("section").UIProgressBar({className : "gold", width: 160, speed: 2});
 			$(".toggleProgressBar").bind("click", function() {
-				if ($(this).text().trim() == "Show") {
-					$(this).UIToggleButtonLabel("Show", "Hide");
+				if (this.text().trim() == "Show") {
+					this.UIToggleButtonLabel("Show", "Hide");
 					$("navbar > h1").UIHideNavBarHeader();
 					$("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
 					
-				} else if ($(this).text().trim() == "Hide") {
-					$(this).UIToggleButtonLabel("Show", "Hide");
+				} else if (this.text().trim() == "Hide") {
+					this.UIToggleButtonLabel("Show", "Hide");
 					$("navbar > h1").UIShowNavBarHeader();
 					$("navbar > progressbar").remove();
 				}
@@ -52,7 +52,7 @@
 </head>
 <body>
 	<app>
-	<view id="main" ui-navigation-status="current">
+	<view id="main" ui-navigation-status="current" ui-background-style='striped'>
 		<navbar>
 			<h1>Progress Bar</h1>
 			<uibutton ui-bar-align="right" class="toggleProgressBar"><label>Show</label></uibutton>

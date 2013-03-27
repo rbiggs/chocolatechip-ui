@@ -21,7 +21,6 @@
 		/* Local JavaScript Here */
 	
 		$(function() {
-			
 			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
 				if ($(this).hasClass("on")) {
 					$("#switchResponse").html($(this).find("input").val());
@@ -34,7 +33,7 @@
 	</script>
 </head>
 <body>
-	<app >
+	<app>
 		<view id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar id="segmentedToolbar">
 				<h1 ui-bar-align="center">Switchcontrol</h1>

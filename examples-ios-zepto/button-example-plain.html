@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Buttons</title>
     <link rel="stylesheet" href="../chui/chui.ios.css">
-    <style type="text/css">
+    <style>
 		stack {
 			min-height: 40px;
 			position: relative;
@@ -28,25 +28,26 @@
         
 		});
    </script>
-
 </head>
 <body>
 	<app>
-		<view id="main" ui-navigation-status="current"  ui-background-style="slanted-right">
+		<view id="main" ui-navigation-status="current"  ui-background-style="striped">
 			<navbar>
 				<h1>Buttons</h1>
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
-					<stack ui-box="horizontal">
+					<br><br>
+					<navbar>
 						<uibutton ui-implements="back" ui-bar-align="left">
 							<label>Back</label>
 						</uibutton>
 						<uibutton ui-implements="next" ui-bar-align="right">
 							<label>Next</label>
 						</uibutton>
-					</stack>
-					<stack ui-box="horizontal">
+					</navbar>
+					<br><br>
+					<navbar>
 						<uibutton ui-bar-align="left">
 							<icon style="-webkit-mask-image: url(../icons/home.svg);"></icon>
 							<label>Save</label>
@@ -55,8 +56,9 @@
 							<icon style="-webkit-mask-image: url(../icons/delete.svg);"></icon>
 							<label>Delete</label>
 						</uibutton>
-					</stack>
-					<stack ui-box="horizontal">
+					</navbar>
+					<br><br>
+					<navbar>
 						<uibutton ui-implements="done" ui-bar-align="left" class="disabled">
 							<icon style="-webkit-mask-image: url(../icons/bookmarks.svg);"></icon>
 							<label>Save</label>
@@ -65,22 +67,19 @@
 							<icon style="-webkit-mask-image: url(../icons/chat.svg);"></icon>
 							<label>Delete</label>
 						</uibutton>
-					</stack>
-					<stack ui-box="horizontal">
+					</navbar>
+					<br><br>
+					<navbar>
 						 <uibutton ui-icon-align="right" ui-bar-align="left">
 							 <icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
 							 <label>Add</label>
 						 </uibutton>
-						 <uibutton>
-							 <label>Message</label>
-						 </uibutton>
 						 <uibutton class="disabled" ui-bar-align="right">
 							 <label>Favorites</label>
 						 </uibutton>
-					 </stack>
-						</stack>
-					
-					<stack ui-box="horizontal">
+					 </navbar>
+					<br><br>
+					<navbar>
 						<uibutton ui-implements="icon">
 							<icon style="-webkit-mask-image: url(../icons/compose.svg);"></icon>
 						</uibutton>
@@ -95,10 +94,11 @@
 							<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
 							<label>Set</label>
 						</uibutton>
-					</stack>
+					</navbar>
+					<br><br>
 					<stack ui-box="horizontal" style="background-color: #666;">
 						<uibutton ui-kind="icon">
-							<icon style="-webkit-mask-image: url(../icons/film.svg);">
+							<icon style="-webkit-mask-image: url(../icons/film.svg);"></icon>
 						</uibutton>
 						<uibutton ui-kind="icon">
 							<icon style="-webkit-mask-image: url(../icons/files.svg); background-color: #ffe7c9;"></icon>
@@ -107,13 +107,12 @@
 							<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
 						</uibutton>
 						<uibutton ui-kind="icon">
-							<icon style="-webkit-mask-image: url(../icons/download.svg); background-image: -webkit-gradient(linear, 0 0, 30% 100%, from(yellow), color-stop(0.45, orange), to(red));">
+							<icon style="-webkit-mask-image: url(../icons/download.svg); background-image: -webkit-gradient(linear, 0 0, 30% 100%, from(yellow), color-stop(0.45, orange), to(red));"></icon>
 						</uibutton>
 						<uibutton ui-kind="icon">
 							<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
 						</uibutton>
 					</stack>
-				
 					<stack ui-box="horizontal">
 						<uibutton ui-kind="rounded-rectangle">
 							<label>Text Message</label>
@@ -128,7 +127,6 @@
 						<uibutton ui-implements="done" ui-kind="rounded-rectangle" ui-icon-align="right" class="stretch disabled">
 							<label>Sign Out</label>
 						</uibutton>
-					</stack>
 				</scrollpanel>
 			</subview>
 		</view>

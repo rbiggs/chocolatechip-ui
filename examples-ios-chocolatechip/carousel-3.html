@@ -8,7 +8,9 @@
 <title>Carousel Control</title>
 <link rel="stylesheet" href="../chui/chui.ios.css">
 <style type="text/css" media="all">
-
+	view {
+		background-color: #ffefbf;
+	}
 	stack[ui-implements="paging"] {
 		width: 300px;
 		height: 250px;
@@ -28,13 +30,14 @@
 		background-color: transparent;
 	}
 	stack[ui-implements="indicators"] > indicator {
-		background-color: #fff;
+		background-color: rgba(255,255,255,.5);
 		border: solid 1px #666;
 		-webkit-border-radius: 10px;
 		margin-right: 8px;
 	}
 	stack[ui-implements="indicators"] > indicator.active {
-		background-color: #000;
+		background-color: #007fea;
+		border-color: #007fea;
 	}
 </style>
  <script src="../libs/chocolatechip.js"></script>

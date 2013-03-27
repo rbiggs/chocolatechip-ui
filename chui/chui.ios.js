@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
-License: BSD
-Version: 2.1.1
+License: GPLv3
+Version: 2.1.3
 */
 (function() {
 	var _$ = null;
@@ -191,13 +191,13 @@ Version: 2.1.1
 			} 
 			$._each(listitems, function(idx, node) {
 				if (node.nodeName.toLowerCase() === 'tablecell') {
-					var checkmark = '<checkmark>&#x2713</checkmark>';
+					var checkmark = '<checkmark></checkmark>';
+					var radio = null;
 					$(node).attr('role','radio');
 					$(node).attr('aria-checked','false');
 					$(node).append(checkmark);
 					$(node).on($.eventStart, function() {
 						if ('createTouch' in document) {
-							$(node).removeClass('touched');
 							$(node).attr('aria-checked','false');
 						}
 						var $this = this;
@@ -205,12 +205,14 @@ Version: 2.1.1
 							if ($.UIScrollingActive) return;
 							$._each(listitems, function(idx, check) {
 								$(check).removeClass('selected');
-								$(check).removeClass('touched');
 								$(check).attr('aria-checked','false');		
 							});
 							$($this).addClass('selected');
+							$($this).addClass('touched');
 							$($this).attr('aria-checked','true');
-							$($this).find('input').checked = true; 
+							radio = $($this).find('input');
+							radio = radio.reduceToNode();
+							radio.checked = true; 
 							if (callback) {
 								callback.call(callback, $($this).find('input'));
 							}
@@ -220,6 +222,9 @@ Version: 2.1.1
 						$(this).addClass('touched');
 					});
 					$(node).on('touchcancel', function() {
+						$(this).removeClass('touched');
+					});
+					$(node).on('mouseup', function() {
 						$(this).removeClass('touched');
 					});
 				}
@@ -496,7 +501,7 @@ Version: 2.1.1
 			disabledTab: 3
 		*/
 		var id = opts.id || $.UIUuid();
-		var imagePath = opts.imagePath || 'icons\/';
+		var imagePath = opts.imagePath || 'icons-ios\/';
 		var numberOfTabs = opts.numberOfTabs || 1;
 		var tabLabels = opts.tabLabels;
 		var iconsOfTabs = opts.iconsOfTabs;
@@ -594,10 +599,14 @@ Version: 2.1.1
 			segmentedPager.attr('ui-pagable-subviews', subviews.length);
 			var childPosition = 0;
 			$._each(subviews, function(idx, ctx) {
+				$(ctx).css('display','none');
 				$(ctx).attr('ui-navigation-status', 'upcoming');
 				$(ctx).attr('ui-child-position', childPosition);
 				childPosition++;
 				$(ctx).attr('ui-paging-orient', pagingOrientation);
+				setTimeout(function() {
+					$(ctx).css('display','block');
+				}, 0);
 			});
 			var prevButton = $(segmentedPager._first());
 			var nextButton = $(segmentedPager._last());
@@ -605,7 +614,7 @@ Version: 2.1.1
 			segmentedPager.delegate('uibutton', $.eventStart, function(ctx) {
 				var button = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				if ($(button).hasClass('disabled')) return;
-				var pager = segmentedPager; //$(button).closest('segmentedcontrol');
+				var pager = segmentedPager;
 				// Previous Button:
 				if (button.isSameNode(button.parentNode.firstElementChild)) {
 					if (pager.attr('ui-paged-subview') == 1) {
@@ -917,11 +926,19 @@ Version: 2.1.1
 		},
 		
 		UIRepositionPopover : function() {
-			var triggerElement = $(this).attr("data-popover-trigger"); 
-			var popoverOrientation = $(this).attr("data-popover-orientation");
-			var pointerOrientation = $(this).attr("data-popover-pointer-orientation");
-			var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
+			var $this = $(this);
+			var triggerElement = $this.attr("data-popover-trigger"); 
+			var popoverOrientation = $this.attr("data-popover-orientation");
+			var pointerOrientation = $this.attr("data-popover-pointer-orientation");
+			var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation, $this.attr('id'));
 			$(this).css(popoverPos);
+			if (popoverOrientation == 'top' && pointerOrientation == 'right') {
+				var popoverWidth = parseInt($this.css('width'), 10);
+				var trigEl = $(triggerElement).reduceToNode();
+				var offset = $.absoluteOffset(trigEl);
+				var left = (offset.left + trigEl.offsetWidth) - popoverWidth;
+				$(this).css('left', left+'px')
+			}
 			
 		},
 		
@@ -930,7 +947,7 @@ Version: 2.1.1
 			var screenWidth = window.innerWidth;
 			var popoverHeight = this.offsetHeight;
 			var popoverWidth = this.offsetWidth;
-			var offset = $(this).offset();
+			var offset = $.absoluteOffset($(this));
 			var popoverTop = offset.top;
 			var popoverLeft = offset.left;
 			var bottomLimit = popoverTop + popoverHeight;
@@ -1023,6 +1040,9 @@ Version: 2.1.1
 		$.main = $("#main");
 		$.views = $.els('view');
 		$.touchEnabled = ('ontouchstart' in window);
+		$.userAction = 'touchend';
+		$.eventStart = 'touchstart';
+		$.eventEnd = 'touchend';
 		if ('createTouch' in document) {
 			$.userAction = 'touchend';
 			$.eventStart = 'touchstart';
@@ -1087,21 +1107,38 @@ Version: 2.1.1
 			UINavigationHistory : ['#main'],
 			
 			UINavigateBack : function() {
-				var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
+				var histLen = $.UINavigationHistory.length;
+				var parent = $.UINavigationHistory[histLen-1];
 				$.UINavigationHistory.pop();
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				histLen = $.UINavigationHistory.length;
+				$($.UINavigationHistory[histLen-1])
 				.css('visibility', 'visible');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				$($.UINavigationHistory[histLen-1])
 				.attr('ui-navigation-status', 'current');
 				
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				$($.UINavigationHistory[histLen-1])
 				.attr('aria-hidden', 'false');
 				$(parent).attr('ui-navigation-status', 'upcoming');
 				$(parent).attr('aria-hidden', 'true');
 				$(parent).css('visibility', 'hidden');
-				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
- 					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
+				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[histLen-1] === '#main') {
+ 					$('navbar > uibutton[ui-implements=back]', $.app).css({'display':'none'});
  				}
+			},
+			
+			UINavigateBackToView : function ( viewID ) {
+				var historyIndex = $.UINavigationHistory.indexOf(viewID);
+				$.UINavigationHistory = $.UINavigationHistory.splice(historyIndex);
+				console.log($.UINavigationHistory);
+				var views = $('app').findAll('views');
+				$._each(views, function(idx, ctx) {
+					if ($(ctx).attr('ui-navigation-status' == 'current')) {
+						$(ctx).attr('ui-navigation-status','traversed');
+						$(ctx).css("visibility", "hidden");
+					}
+				});
+				$.resetApp();
+				$.UINavigateToView(viewID);
 			},
 			
 			UINavigationListExits : false,
@@ -1117,7 +1154,7 @@ Version: 2.1.1
 					if (/^#/.test(href) == false) return;
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
+							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
 						$(node.attr('href')).attr('aria-hidden', 'false');
@@ -1191,18 +1228,21 @@ Version: 2.1.1
 			
 			UINavigateToView : function(viewID) {
 				$.UINavigationListExits = true;
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.attr('ui-navigation-status','traversed');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.attr('aria-hidden', 'true');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.css('visibility', 'hidden');
+				var histLen = $.UINavigationHistory.length;
+				$($.UINavigationHistory[histLen-1]).attr('ui-navigation-status','traversed');
+				$($.UINavigationHistory[histLen-1]).attr('aria-hidden', 'true');
+				$($.UINavigationHistory[histLen-1]).css('visibility', 'hidden');
 				$(viewID).attr('ui-navigation-status','current');
 				$(viewID).attr('aria-hidden', 'false');
 				$(viewID).css('visibility', 'visible');
-				$.UINavigationHistory.push(viewID);
+				if (viewID != '#main') {
+					$.UINavigationHistory.push(viewID);
+				}
 				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
-					$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+					try {
+						$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
+					} catch(err) {}
 				}
 			},
 			
@@ -1237,6 +1277,21 @@ Version: 2.1.1
 						$(ctx).css('visibility', 'visible');
 					}
 				});
+			},
+			
+			absoluteOffset : function(element) {
+				element = $(element).reduceToNode();
+    			var top = 0, left = 0;
+				 do {
+					  top += element.offsetTop  || 0;
+					  left += element.offsetLeft || 0;
+					  element = element.offsetParent;
+				 } while(element);
+
+				 return {
+					  top: top,
+					  left: left
+				 };
 			},
 			
 			UIStepper : function (opts) {
@@ -1341,17 +1396,13 @@ Version: 2.1.1
 				}
 			},
 			
-			resetSpinner : function(selector) {
+			resetStepper : function(selector) {
 				var value = $(selector).data('range-value');
 				value = value.split(',')[0];
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
 			},
-			
-			resetStepper : function(selector) {
-				return this.resetSpinner(selector);
-			}
 		});
 		
 		$.app.delegate('view','webkitTransitionEnd', function() {
@@ -1534,6 +1585,7 @@ Version: 2.1.1
 								toolbarButton = toolbarButton.nodeName;
 								if (/uibutton/i.test(toolbarButton)) {
 								   toolbarEl.childElements().eq(1).css('display', 'none');
+								   $.hiddenButtonByDeletion = toolbarEl.childElements().eq(1);
 								}
 								$._each($.els("tablecell > img", listEl), function(idx, ctx) {
 									$(ctx).css('-webkit-transform','translate3d(40px, 0, 0)');
@@ -1629,6 +1681,10 @@ Version: 2.1.1
 				$._each($.els('tablecell', node), function(idx, ctx) {
 					$(ctx).removeClass('deletable');
 				});
+				if ( $.hiddenButtonByDeletion) {
+					 $($.hiddenButtonByDeletion).css('display','block');
+					 $.hiddenButtonByDeletion = null;
+				}
 			},
 			
 			UIPopUpIsActive : false,
@@ -1707,7 +1763,12 @@ Version: 2.1.1
 				$.UIPopUpIdentifier = selector;
 				var popup = $(selector).reduceToNode();
 				var tmpTop = ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + 'px';
-				var tmpLeft = ((window.innerWidth / 2) - (popup.clientWidth / 2) + 'px');
+				var tempLeft;
+				if (window.innerWidth == 320) {
+					tmpLeft = '10px';
+				} else {
+					tmpLeft = Math.floor((window.innerWidth - 318) /2) + 'px';
+				}
 				$(popup).css({left: tmpLeft, top: tmpTop}); 
 			},
 			
@@ -1800,22 +1861,21 @@ Version: 2.1.1
 			UIAlphabeticalList : function() {
 				var alphaTable = _cc ? $("tableview[ui-kind='titled-list alphabetical']") : $("tableview[ui-kind='titled-list alphabetical']")[0];
 				if (alphaTable) {
-					var tableview = $("tableview[ui-kind='titled-list alphabetical']");
 					var titles = [];
 					var uuidSeed = $.UIUuid();
 					var counter = 0;
 					var alphabeticalList = '<stack ui-kind="alphabetical-list">';
 					var alphabeticalListItems = "";
-					var tableheaders = tableview.findAll("tableheader");
+					var tableheaders = $(alphaTable).findAll("tableheader");
 					$._each(tableheaders, function(idx, title) {
+						var titleText = title.innerHTML;
 						title = $(title);
-						titles.push(title.text());
 						counter++;
-						title.attr("id", $.concat("alpha_", title.text(), uuidSeed, counter));
-						alphabeticalListItems += $.concat('<span href="#alpha_', title.text(), uuidSeed, counter, ' ">', title.text(), '</span>');
+						title.attr("id", $.concat("alpha_", titleText, uuidSeed, counter));
+						alphabeticalListItems += $.concat('<span href="#alpha_', titleText, uuidSeed, counter, ' ">', titleText, '</span>');
 					});
 					alphabeticalList += alphabeticalListItems + '</stack>';
-					tableview.closest("scrollpanel").after(alphabeticalList);
+					$(alphaTable).closest("scrollpanel").after(alphabeticalList);
 				} else {
 					return;
 				}
@@ -1968,21 +2028,23 @@ Version: 2.1.1
 				popoverID = popoverID[1];
 			},
 			
-			determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation ) {
+			determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation, popoverID ) {
 				popoverOrientation = popoverOrientation.toLowerCase();
 				pointerOrientation = pointerOrientation.toLowerCase();
 				var trigEl = $(triggerElement).reduceToNode();
 				var popoverPos = {};
+				popoverID = '#' + popoverID;
+				var offset = $.absoluteOffset(trigEl);
 				switch (popoverOrientation) {
 					case 'top' : 
 						if (pointerOrientation === 'left') {
 							popoverPos.left = trigEl.offsetLeft + 'px';
 						} else if (pointerOrientation === 'center') {
-							popoverPos.left = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160) + 'px';
+							popoverPos.left = (offset.left + (trigEl.offsetWidth/2) - 160) + 'px';
 						} else {
-							popoverPos.left = ((trigEl.offsetLeft + trigEl.offsetWidth) - 320) +'px';
+							popoverPos.left = ((offset.left + trigEl.offsetWidth) - 320) +'px';
 						}
-						popoverPos.top = (trigEl.offsetTop + trigEl.offsetHeight + 20) +'px';
+						popoverPos.top = (offset.top + trigEl.offsetHeight + 20) +'px';
 						break;
 					case 'right' :
 						if (pointerOrientation === 'top') {
@@ -1997,13 +2059,13 @@ Version: 2.1.1
 						break;
 					case 'bottom' :
 						if (pointerOrientation === 'left') {
-							popoverPos.left = trigEl.offsetLeft + 'px';
+							popoverPos.left = offset.left + 'px';
 						} else if (pointerOrientation === 'center') {
-							popoverPos.left = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160) + 'px';
+							popoverPos.left = (offset.left + (trigEl.offsetWidth/2) - 160) + 'px';
 						} else {
-							popoverPos.left = ((trigEl.offsetLeft + trigEl.offsetWidth) - 320) + 'px';
+							popoverPos.left = ((offset.left + trigEl.offsetWidth) - 320) + 'px';
 						}
-						popoverPos.bottom = (trigEl.offsetTop + trigEl.offsetHeight +20)  + 'px';
+						popoverPos.top = (offset.top - parseInt($(popoverID).css('height'),10)  - 20)  + 'px';
 						break;
 					case 'left' :
 						if (pointerOrientation === 'top') {
@@ -2013,7 +2075,7 @@ Version: 2.1.1
 						} else {
 							popoverPos.top = (trigEl.getTop() - trigEl.offsetHeight - 20) + 'px';
 						}
-						popoverPos.left = (trigEl.offsetLeft + trigEl.offsetWidth + 20) + 'px';
+						popoverPos.left = (offset.left + trigEl.offsetWidth + 20) + 'px';
 						break;
 					default :
 						popoverPos.left = (trigEl.getTop() + trigEl.offsetHeight) + 'px';
@@ -2034,11 +2096,11 @@ Version: 2.1.1
 					title = opts.title ? $.concat('<h3>', opts.title, '</h3>') : "";
 				}
 				var trigEl = $(triggerElement);
-				var pos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);	
 				var popoverShell = $.concat('<popover ', 'id="', popoverID, '" ui-pointer-position="', popoverOrientation, '-', pointerOrientation, '"', ' data-popover-trigger="#', trigEl.attr("id"), '" data-popover-orientation="', popoverOrientation, '" data-popover-pointer-orientation="', pointerOrientation, '"><header>', title, '</header><section><scrollpanel class="popover-content"></scrollpanel></section></popover>');
 				popoverShell;
 				$.app.append(popoverShell);
 				
+				var pos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation, popoverID);	
 				// Apply positioning to popover:
 				$('#'+popoverID).css(pos);
 				
@@ -2069,7 +2131,6 @@ Version: 2.1.1
 			},
 			
 			form2JSON : function(rootNode, delimiter) {
-				//rootNode = typeof rootNode == 'string' ? $(rootNode) : rootNode;
 				rootNode = $.el(rootNode);
 				delimiter = delimiter || '.';
 				var formValues = getFormValues(rootNode);
@@ -2125,16 +2186,10 @@ Version: 2.1.1
 								result.push(ctx.value);
 							}
 						});
-						/*$$('option', selectNode).each(function(item) {
-							if (item.selected) {
-								result.push(item.value);
-							}
-						});*/
 						return result;
 					}
 				}    
 				$._each(formValues, function(idx, item) {
-				//formValues.each(function(item) {
 					var value = item.value;
 					if (value !== '') {
 						var name = item.name;
@@ -2195,11 +2250,13 @@ Version: 2.1.1
 					popover.UIBlock(".01");
 					popover.UIRepositionPopover();
 					var setPopoverCSS = function() {
-						popover.css({"opacity": 1, "-webkit-transform": "scale(1)", 'overflow':'visible'});
+						popover.css({'display':'block'});
+						popover.css({'-webkit-transform':'scale(1)'});
 					};
+					setPopoverCSS();
 					setTimeout(function() {
-						setPopoverCSS();
-					},0);
+						popover.css({"opacity": 1});
+					}, 200);
 					$.UIPopover.activePopover = popover.id || popover[0].id;
 			
 					$.UIEnableScrolling();
@@ -2211,7 +2268,10 @@ Version: 2.1.1
 			
 			hide : function ( popover ) {
 				if ($.UIPopover.activePopover) {
-					popover.css({"opacity": 0, "-webkit-transform": "scale(0)"});
+					popover.css({"opacity": 0});
+					setTimeout(function() {
+						popover.css({'display': 'none', '-webkit-transform':'scale(0)'});
+					},500);
 					$.UIPopover.activePopover = null;
 				}				
 			}

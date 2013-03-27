@@ -6,6 +6,7 @@ global OS
 global lib
 global libScript
 global minified
+global icons
 global files
 global local_path
 
@@ -150,15 +151,19 @@ if config.opts['images'] == True:
 # If icons flag is set to True, create 
 # icons directory and copy icons to it:
 #---------------------------------
+if config.opts['os'] == 'ios':
+	icons = 'icons-ios/'
+elif config.opts['os'] == 'android':
+	icons = 'icons-android/'
 if type(config.opts['icons']) is bool:
 	if config.opts['icons'] == True:
-		shutil.copytree(local_path + 'icons/', path + name + '/icons/')
+		shutil.copytree(local_path + icons, path + name + '/' + icons)
 
 #---------------------------------		
 # If the icons are a list, copy the 
 # list items to the new folder:
 #---------------------------------
 elif type(config.opts['icons']) is list:
-	os.mkdir(path + name + '/icons/')
+	os.mkdir(path + name + '/' + icons)
 	for item in config.opts['icons']:
-		shutil.copyfile(local_path + 'icons/' + item + '.svg', path + name + '/icons/' + item + '.svg')
+		shutil.copyfile(local_path + icons + item + '.svg', path + name + '/' + icons + item + '.svg')

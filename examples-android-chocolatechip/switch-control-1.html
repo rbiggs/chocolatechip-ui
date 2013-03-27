@@ -21,7 +21,7 @@
 		/* Local JavaScript Here */
 	
 		$(function() {
-			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
+			$.app.on($.eventStart, "switchcontrol", function(switchcontrol) {
 				if (switchcontrol.hasClass("on")) {
 					$("#switchResponse").html(switchcontrol.find("input").value);
 				} else {
@@ -29,7 +29,6 @@
 				}
 			});
 		});
-		
 	</script>
 </head>
 <body>

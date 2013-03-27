@@ -11,12 +11,7 @@
 	<link rel="stylesheet" href="../../chui/chui.ios.css">
 	<style>
 		/* Local Styles Here */
-		view#main {
-			background-color: rgba(192,132,96,0.25);
-		}
-		view#main tableview > tablecell {
-			background-color: rgba(255,255,255,0.75);
-		}	
+	
 	</style>
    <script src="../../libs/jquery-1.7.2.js"></script>
    <script src="../../chui/iscroll.js"></script>
@@ -72,17 +67,17 @@
 				}
 				
 			// Insert the results of the parsed template into the tableview."
-			$("#main tableview:first-of-type").html(userTmpl);
+			$("#output").html(userTmpl);
 		});
 	</script>
 </head>
 <body>
 	<app>
-		<view id="main" ui-background-style="slanted-left" ui-navigation-status="current">
-		<navbar class="ui-custom-tint"><h1>JSON from URL</h1></navbar>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+		<navbar><h1>JSON from URL</h1></navbar>
 			<subview id="subview1" ui-associations="withNavBar">
 				<scrollpanel>
-					<tableview ui-tablecell-order="stacked" ui-kind="grouped">
+					<tableview id="output" ui-tablecell-order="stacked" ui-kind="grouped">
 						<tableheader>
 							This is an example of a JSON object sent through the url. 
 						</tableheader>

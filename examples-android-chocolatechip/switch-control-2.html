@@ -19,7 +19,6 @@
 	<script src="../chui/chui.android.js"></script>
 	<script>
 		/* Local JavaScript Here */
-	
 		$(function() {
 			var sleepSwitch = {
 				id : "sleepSwitch",
@@ -66,7 +65,7 @@
 				
 			});
 			
-			$.app.delegate("switchcontrol", $.userAction, function(switchcontrol) {
+			$.app.on($.eventStart, "switchcontrol", function(switchcontrol) {
 				if (switchcontrol.hasClass("on")) {
 					$("#switchResponse").html(switchcontrol.find("input").value);
 				} else {
@@ -74,7 +73,6 @@
 				}
 			});
 		});
-		
 	</script>
 </head>
 <body>

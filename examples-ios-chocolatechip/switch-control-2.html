@@ -66,7 +66,7 @@
 				
 			});
 			
-			$.app.delegate("switchcontrol", $.userAction, function(switchcontrol) {
+			$.app.on($.eventStart, "switchcontrol", function(switchcontrol) {
 				if (switchcontrol.hasClass("on")) {
 					$("#switchResponse").html(switchcontrol.find("input").value);
 				} else {

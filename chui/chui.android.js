@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.android.js
 Copyright 2013 Sourcebits www.sourcebits.com
-License: BSD
-Version: 2.1.1
+License: GPLv3
+Version: 2.1.3
 */
 (function() {
 	var _$ = null;
@@ -193,7 +193,8 @@ Version: 2.1.1
 			} 
 			$._each(listitems, function(idx, node) {
 				if (node.nodeName.toLowerCase() === 'tablecell') {
-					var checkmark = '<checkmark><span>&#x2713</span></checkmark>';
+					var checkmark = '<checkmark></checkmark>';
+					var radio = null;
 					$(node).attr('role','radio');
 					$(node).attr('aria-checked','false');
 					$(node).append(checkmark);
@@ -211,8 +212,9 @@ Version: 2.1.1
 								$(check).attr('aria-checked','false');		
 							});
 							$($this).addClass('selected');
-							$($this).attr('aria-checked','true');
-							$($this).find('input').checked = true; 
+							radio = $($this).find('input');
+							radio = radio.reduceToNode();
+							radio.checked = true;  
 							if (callback) {
 								callback.call(callback, $($this).find('input'));
 							}
@@ -602,10 +604,14 @@ Version: 2.1.1
 			segmentedPager.attr('ui-pagable-subviews', subviews.length);
 			var childPosition = 0;
 			$._each(subviews, function(idx, ctx) {
+				$(ctx).css('display','none');
 				$(ctx).attr('ui-navigation-status', 'upcoming');
 				$(ctx).attr('ui-child-position', childPosition);
 				childPosition++;
 				$(ctx).attr('ui-paging-orient', pagingOrientation);
+				setTimeout(function() {
+					$(ctx).css('display','block');
+				}, 0);
 			});
 			var prevButton = $(segmentedPager._first());
 			var nextButton = $(segmentedPager._last());
@@ -613,7 +619,7 @@ Version: 2.1.1
 			segmentedPager.delegate('uibutton', $.eventStart, function(ctx) {
 				var button = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				if ($(button).hasClass('disabled')) return;
-				var pager = segmentedPager; //$(button).closest('segmentedcontrol');
+				var pager = segmentedPager;
 				// Previous Button:
 				if (button.isSameNode(button.parentNode.firstElementChild)) {
 					if (pager.attr('ui-paged-subview') == 1) {
@@ -792,14 +798,14 @@ Version: 2.1.1
 		UIActivityIndicator : function ( opts ) {
 			opts = opts || {};
 			var panel;
-			var color = opts.color || '#000';
+			var color = '#000';
 			var size = opts.size || '80px';
 			var position = opts.position || null;
 			var modal = opts.modal || false;
 			var modalMessage = opts.modalMessage ? $.concat('<h5 role="dialog">',opts.modalMessage,'</h5>') : '';
 			var modalPanelID = $.UIUuid();
 			var duration = opts.duration || '1s';
-			var style = $.concat('background-color:', color,'; height:', size, ';  width:',size);
+			var style = $.concat('height:', size, ';  width:',size);
 			var spinner;
 			if (modal) {
 				panel = document.createElement('panel');
@@ -809,7 +815,7 @@ Version: 2.1.1
 				$(panel).attr('id', modalPanelID);
 				$(panel).css({'display':'-webkit-box','-webkit-box-orient':'vertical','-webkit-box-align':'center','-webkit-box-pack':'center', 'background-color':'#282828', 'height': '120px', 'width':'200px', 'z-index': 11111});
 				spinner = document.createElement('activityindicator');
-				$(spinner).css({'background-color': '#fff', 'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
+				$(spinner).css({'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
 				$(spinner).attr('role','progressbar');
 				$(panel).append(spinner);
 				if (modalMessage) {
@@ -834,7 +840,7 @@ Version: 2.1.1
 			} else {
 				var webkitAnim = _zo ? null : {'-webkit-animation-duration': duration};
 				spinner = document.createElement('activityindicator');
-				$(spinner).css({'background-color': color, 'height': size, 'width': size});
+				$(spinner).css({'height': size, 'width': size});
 				if (webkitAnim) $(spinner).css(webkitAnim);
 				$(spinner).attr('role','progressbar');
 				if (position) $(spinner).attr('ui-bar-align', position);
@@ -938,7 +944,7 @@ Version: 2.1.1
 			var screenWidth = window.innerWidth;
 			var popoverHeight = this.offsetHeight;
 			var popoverWidth = this.offsetWidth;
-			var offset = $(this).offset();
+			var offset = $.absoluteOffset($(this));
 			var popoverTop = offset.top;
 			var popoverLeft = offset.left;
 			var bottomLimit = popoverTop + popoverHeight;
@@ -947,7 +953,13 @@ Version: 2.1.1
 				this.style.top	= screenHeight - popoverHeight - 10 + "px";
 			}
 			if (rightLimit > screenWidth) {
-				this.style.left = screenWidth - 10 + "px";
+				var leftDiff = (rightLimit) - screenWidth;
+				var newLeft = Math.floor((popoverLeft - leftDiff) / 2);
+				console.log('newLeft: ' + newLeft);
+				if (newLeft < 0) {
+					newLeft = 2;
+				}
+				this.style.left = newLeft + "px";
 			}
 		}
 	};
@@ -958,7 +970,7 @@ Version: 2.1.1
 	$(function() {			
 		/* 
 		Function to iterate over node collections. This gets used by ChocolateChip.js.
-		jQuery and Zepto already provide this method. It will always return the a plain DOM node so you can wrap it in $() or use $(this) to use node methods such as css(), etc.
+		jQuery and Zepto already provide this method. It will always return a plain DOM node so you can wrap it in $() or use $(this) to use node methods such as css(), etc.
 		*/
 		if (_cc) {
 			$._each = function ( elements, callback ) {
@@ -1026,16 +1038,18 @@ Version: 2.1.1
 				}
 			});
 		}
-				$.body = $("body");
+		$.body = $("body");
 		$.app = $("app");
 		$.main = $("#main");
 		$.views = $.els('view');
 		$.touchEnabled = ('ontouchstart' in window);
+		$.userAction = 'touchend';
+		$.eventStart = 'touchstart';
+		$.eventEnd = 'touchend';
 		if ('createTouch' in document) {
 			$.userAction = 'touchend';
 			$.eventStart = 'touchstart';
 			$.eventEnd = 'touchend';
-			$.userAction = 'click';
 		} else {
 			$.userAction = 'click';
 			$.eventStart = 'mousedown';
@@ -1048,6 +1062,13 @@ Version: 2.1.1
 				stylesheet1 = stylesheet.replace(/chui\.android\.css/, 'chui.android.desktop.css');
 			}
 			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
+		}
+			
+		if ( _jq || _zo) {
+			$.fn.hasAttr = function(property) {
+				return $(this).attr(property);
+			};
+			$.slice = Array.prototype.slice;
 		}
 		
 		var navigationListItems = $.els('tablecell');
@@ -1089,21 +1110,38 @@ Version: 2.1.1
 			UINavigationHistory : ['#main'],
 			
 			UINavigateBack : function() {
-				var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
+				var histLen = $.UINavigationHistory.length;
+				var parent = $.UINavigationHistory[histLen-1];
 				$.UINavigationHistory.pop();
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				histLen = $.UINavigationHistory.length;
+				$($.UINavigationHistory[histLen-1])
 				.css('visibility', 'visible');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				$($.UINavigationHistory[histLen-1])
 				.attr('ui-navigation-status', 'current');
 				
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				$($.UINavigationHistory[histLen-1])
 				.attr('aria-hidden', 'false');
 				$(parent).attr('ui-navigation-status', 'upcoming');
 				$(parent).attr('aria-hidden', 'true');
 				$(parent).css('visibility', 'hidden');
-				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
- 					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
+				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[histLen-1] === '#main') {
+ 					$('navbar > uibutton[ui-implements=back]', $.app).css({'display':'none'});
  				}
+			},
+			
+			UINavigateBackToView : function ( viewID ) {
+				var historyIndex = $.UINavigationHistory.indexOf(viewID);
+				$.UINavigationHistory = $.UINavigationHistory.splice(historyIndex);
+				console.log($.UINavigationHistory);
+				var views = $('app').findAll('views');
+				$._each(views, function(idx, ctx) {
+					if ($(ctx).attr('ui-navigation-status' == 'current')) {
+						$(ctx).attr('ui-navigation-status','traversed');
+						$(ctx).css("visibility", "hidden");
+					}
+				});
+				$.resetApp();
+				$.UINavigateToView(viewID);
 			},
 			
 			UINavigationListExits : false,
@@ -1119,7 +1157,7 @@ Version: 2.1.1
 					if (/^#/.test(href) == false) return;
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
+							$('navbar > uibutton[ui-implements=back]', $.app).css({'display': 'block'});
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
 						$(node.attr('href')).attr('aria-hidden', 'false');
@@ -1150,7 +1188,7 @@ Version: 2.1.1
 					} catch(err) {} 
 				};
 				
-				if ($.touchEnabled) {
+				if ($.userAction === 'touchend') {
 					$.app.on('touchstart', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).addClass('touched');
@@ -1193,18 +1231,21 @@ Version: 2.1.1
 			
 			UINavigateToView : function(viewID) {
 				$.UINavigationListExits = true;
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.attr('ui-navigation-status','traversed');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.attr('aria-hidden', 'true');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.css('visibility', 'hidden');
+				var histLen = $.UINavigationHistory.length;
+				$($.UINavigationHistory[histLen-1]).attr('ui-navigation-status','traversed');
+				$($.UINavigationHistory[histLen-1]).attr('aria-hidden', 'true');
+				$($.UINavigationHistory[histLen-1]).css('visibility', 'hidden');
 				$(viewID).attr('ui-navigation-status','current');
 				$(viewID).attr('aria-hidden', 'false');
 				$(viewID).css('visibility', 'visible');
-				$.UINavigationHistory.push(viewID);
+				if (viewID != '#main') {
+					$.UINavigationHistory.push(viewID);
+				}
 				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
-					$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+					try {
+						$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
+					} catch(err) {}
 				}
 			},
 			
@@ -1239,6 +1280,21 @@ Version: 2.1.1
 						$(ctx).css('visibility', 'visible');
 					}
 				});
+			},
+			
+			absoluteOffset : function(element) {
+				element = $(element).reduceToNode();
+    			var top = 0, left = 0;
+				 do {
+					  top += element.offsetTop  || 0;
+					  left += element.offsetLeft || 0;
+					  element = element.offsetParent;
+				 } while(element);
+
+				 return {
+					  top: top,
+					  left: left
+				 };
 			},
 			
 			UIStepper : function (opts) {
@@ -1343,17 +1399,13 @@ Version: 2.1.1
 				}
 			},
 			
-			resetSpinner : function(selector) {
+			resetStepper : function(selector) {
 				var value = $(selector).data('range-value');
 				value = value.split(',')[0];
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
 			},
-			
-			resetStepper : function(selector) {
-				return this.resetSpinner(selector);
-			}
 		});
 	
 		
@@ -1368,7 +1420,7 @@ Version: 2.1.1
 		
 		$.UINavigationList();
 		
-		if ($.touchEnabled) {
+		if ($.userAction === 'touchend') {
 			$.app.on('touchstart', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).addClass('touched');
@@ -1486,7 +1538,7 @@ Version: 2.1.1
 					toolbar: toolbar,
 					callback: callback
 				} */
-				var defaultCheckboxColor ='#2da2cd';
+				var defaultCheckboxColor ='hsl(196,64%,49%)';
 				var checkboxHeight = 30;
 				var label1;
 				if (options.editButton) {
@@ -1539,6 +1591,7 @@ Version: 2.1.1
 								toolbarButton = toolbarButton.nodeName;
 								if (/uibutton/i.test(toolbarButton)) {
 								   toolbarEl.childElements().eq(1).css('display', 'none');
+								   $.hiddenButtonByDeletion = toolbarEl.childElements().eq(1);
 								}
 								$._each($.els("tablecell > img", listEl), function(idx, ctx) {
 									$(ctx).css('-webkit-transform','translate3d(40px, 0, 0)');
@@ -1568,9 +1621,10 @@ Version: 2.1.1
 					$._each($.els('deletedisclosure'), function(idx, disclosure) {
 						$(disclosure).on($.eventStart, function() {
 							var checkmark = $(disclosure).find('path');
+							checkmark = checkmark.reduceToNode();
 							checkmark.style.fill = '#fff';
 							setTimeout(function() {
-								checkmark.style.fill = '#2da2cd';
+								checkmark.style.fill = 'hsl(196,64%,49%)';
 							}, 500);
 						});						
 						$(disclosure).parent().on('mouseover', function() {
@@ -1585,9 +1639,9 @@ Version: 2.1.1
 							if (_jq || _zo) {
 								checkmark = checkmark[0];
 							}
-							checkmark.style.fill = '#2da2cd';
+							checkmark.style.fill = 'hsl(196,64%,49%)';
 						});
-						$(disclosure).on($.userAction, function() {
+						$(disclosure).on($.eventStart, function() {
 							$(disclosure).toggleClass('checked');
 							$(disclosure).closest('tablecell').toggleClass('deletable');
 							$('uibutton[ui-implements=delete]', toolbarEl).removeClass('disabled');
@@ -1655,6 +1709,10 @@ Version: 2.1.1
 				$._each($.els('tablecell', node), function(idx, ctx) {
 					$(ctx).removeClass('deletable');
 				});
+				if ( $.hiddenButtonByDeletion) {
+					 $($.hiddenButtonByDeletion).css('display','block');
+					 $.hiddenButtonByDeletion = null;
+				}				
 			},
 			
 			UIPopUpIsActive : false,
@@ -1683,17 +1741,19 @@ Version: 2.1.1
 				var popupBtn = '#' + id + ' uibutton';
 				$._each($.els(popupBtn), function(idx, ctx) {
 					$(ctx).on('click', cancelClickPopup = function(e) {
+						$("#openPopup").css({'pointer-events':'visible'});
 						if ($(ctx).attr('ui-implements')==='continue') {
 							callback.call(callback, this);
 						}
-						e.preventDefault();
 						$.UIClosePopup('#' + id);
 						$('view[ui-navigation-status=current]').ariaShow();
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
 					$.UIPopUpIsActive = false;
 					$.UIPopUpIdentifier = null;
-					$(ctx).on('touchend', cancelTouchPopup = function(e) {	
+					$(ctx).on('touchend', cancelTouchPopup = function(e) {
+						e.preventDefault();
+						e.stopPropagation();
 						if ($(this).attr('ui-implements')==='continue') {
 							callback.call(callback, this);
 						}
@@ -1701,6 +1761,9 @@ Version: 2.1.1
 						$.UIClosePopup('#' + id);
 						$('view[ui-navigation-status=current]').ariaShow();
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
+						setTimeout(function() {
+							$("#openPopup").css({'pointer-events':'visible'});
+						},800);
 					});
 					$.UIPopUpIsActive = false;
 					$.UIPopUpIdentifier = null;
@@ -1828,22 +1891,21 @@ Version: 2.1.1
 			UIAlphabeticalList : function() {
 				var alphaTable = _cc ? $("tableview[ui-kind='titled-list alphabetical']") : $("tableview[ui-kind='titled-list alphabetical']")[0];
 				if (alphaTable) {
-					var tableview = $("tableview[ui-kind='titled-list alphabetical']");
 					var titles = [];
 					var uuidSeed = $.UIUuid();
 					var counter = 0;
 					var alphabeticalList = '<stack ui-kind="alphabetical-list">';
 					var alphabeticalListItems = "";
-					var tableheaders = tableview.findAll("tableheader");
+					var tableheaders = $(alphaTable).findAll("tableheader");
 					$._each(tableheaders, function(idx, title) {
+						var titleText = title.innerHTML;
 						title = $(title);
-						titles.push(title.text());
 						counter++;
-						title.attr("id", $.concat("alpha_", title.text(), uuidSeed, counter));
-						alphabeticalListItems += $.concat('<span href="#alpha_', title.text(), uuidSeed, counter, ' ">', title.text(), '</span>');
+						title.attr("id", $.concat("alpha_", titleText, uuidSeed, counter));
+						alphabeticalListItems += $.concat('<span href="#alpha_', titleText, uuidSeed, counter, ' ">', titleText, '</span>');
 					});
 					alphabeticalList += alphabeticalListItems + '</stack>';
-					tableview.closest("scrollpanel").after(alphabeticalList);
+					$(alphaTable).closest("scrollpanel").after(alphabeticalList);
 				} else {
 					return;
 				}
@@ -2000,15 +2062,16 @@ Version: 2.1.1
 				pointerOrientation = pointerOrientation.toLowerCase();
 				var trigEl = $(triggerElement).reduceToNode();
 				var popoverPos = {};
+				var offset = $.absoluteOffset(trigEl);
 				if (pointerOrientation === 'left') {
-					popoverPos.left = trigEl.offsetLeft + 'px';
+					popoverPos.left = offset.left + 'px';
 				} else if (pointerOrientation === 'center') {
-					popoverPos.left = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160) + 'px';
+					popoverPos.left = (offset.left + (trigEl.offsetWidth/2) - 160) + 'px';
 				} else {
-					popoverPos.left = ((trigEl.offsetLeft + trigEl.offsetWidth) - 280) +'px';
+					popoverPos.left = ((offset.left + trigEl.offsetWidth) - 280) +'px';
 				}
-				popoverPos.top = (trigEl.offsetTop + trigEl.offsetHeight + 20) +'px';
-				return popoverPos;			
+				popoverPos.top = (offset.top + trigEl.offsetHeight + 20) +'px';
+				return popoverPos;	
 			},
 			
 			UIPopover : function( opts ) {
@@ -2057,7 +2120,6 @@ Version: 2.1.1
 			},
 			
 			form2JSON : function(rootNode, delimiter) {
-				//rootNode = typeof rootNode == 'string' ? $(rootNode) : rootNode;
 				rootNode = $.el(rootNode);
 				delimiter = delimiter || '.';
 				var formValues = getFormValues(rootNode);
@@ -2113,16 +2175,10 @@ Version: 2.1.1
 								result.push(ctx.value);
 							}
 						});
-						/*$$('option', selectNode).each(function(item) {
-							if (item.selected) {
-								result.push(item.value);
-							}
-						});*/
 						return result;
 					}
 				}    
 				$._each(formValues, function(idx, item) {
-				//formValues.each(function(item) {
 					var value = item.value;
 					if (value !== '') {
 						var name = item.name;
@@ -2182,11 +2238,19 @@ Version: 2.1.1
 				if ($.UIPopover.activePopover === null) {
 					popover.UIBlock(".01");
 					popover.UIRepositionPopover();
+					var offset = $(popover).offset();
+					var popoverLeft = offset.left;
+					var popoverWidth = $(popover).offsetWidth;
+					var rightLimit = popoverLeft + popoverWidth;
+				
 					var setPopoverCSS = function() {
 						popover.css({"opacity": 1, "-webkit-transform": "scaleY(1)", 'overflow':'visible'});
 					};
 					setTimeout(function() {
 						setPopoverCSS();
+						setTimeout(function() {
+							popover.UIAdjustPopoverPosition();
+						},70);
 					},0);
 					$.UIPopover.activePopover = popover.id || popover[0].id;
 			

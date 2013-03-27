@@ -1,4 +1,39 @@
-/* Zepto v1.0rc1-146-g4364a33 - polyfill zepto event detect fx ajax form data selector touch gesture - zeptojs.com/license */
+/* Zepto v1.0-1-ga3cab6c - polyfill zepto detect event ajax form fx data selector touch gesture - zeptojs.com/license */
+
+
+;(function(undefined){
+  if (String.prototype.trim === undefined) // fix for iOS 3.2
+    String.prototype.trim = function(){ return this.replace(/^\s+|\s+$/g, '') }
+
+  // For iOS 3.x
+  // from https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/reduce
+  if (Array.prototype.reduce === undefined)
+    Array.prototype.reduce = function(fun){
+      if(this === void 0 || this === null) throw new TypeError()
+      var t = Object(this), len = t.length >>> 0, k = 0, accumulator
+      if(typeof fun != 'function') throw new TypeError()
+      if(len == 0 && arguments.length == 1) throw new TypeError()
+
+      if(arguments.length >= 2)
+       accumulator = arguments[1]
+      else
+        do{
+          if(k in t){
+            accumulator = t[k++]
+            break
+          }
+          if(++k >= len) throw new TypeError()
+        } while (true)
+
+      while (k < len){
+        if(k in t) accumulator = fun.call(undefined, accumulator, t[k], k, t)
+        k++
+      }
+      return accumulator
+    }
+
+})()
+
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
     document = window.document,
@@ -182,8 +217,11 @@ var Zepto = (function() {
 
   function extend(target, source, deep) {
     for (key in source)
-      if (deep && isPlainObject(source[key])) {
-        if (!isPlainObject(target[key])) target[key] = {}
+      if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
+        if (isPlainObject(source[key]) && !isPlainObject(target[key]))
+          target[key] = {}
+        if (isArray(source[key]) && !isArray(target[key]))
+          target[key] = []
         extend(target[key], source[key], deep)
       }
       else if (source[key] !== undefined) target[key] = source[key]
@@ -418,14 +456,22 @@ var Zepto = (function() {
       return el && !isObject(el) ? el : $(el)
     },
     find: function(selector){
-      var result
-      if (this.length == 1) result = $(zepto.qsa(this[0], selector))
+      var result, $this = this
+      if (typeof selector == 'object')
+        result = $(selector).filter(function(){
+          var node = this
+          return emptyArray.some.call($this, function(parent){
+            return $.contains(parent, node)
+          })
+        })
+      else if (this.length == 1) result = $(zepto.qsa(this[0], selector))
       else result = this.map(function(){ return zepto.qsa(this, selector) })
       return result
     },
     closest: function(selector, context){
-      var node = this[0]
-      while (node && !zepto.matches(node, selector))
+      var node = this[0], collection = false
+      if (typeof selector == 'object') collection = $(selector)
+      while (node && !(collection ? collection.indexOf(node) >= 0 : zepto.matches(node, selector)))
         node = node !== context && !isDocument(node) && node.parentNode
       return $(node)
     },
@@ -590,8 +636,8 @@ var Zepto = (function() {
       return {
         left: obj.left + window.pageXOffset,
         top: obj.top + window.pageYOffset,
-        width: obj.width,
-        height: obj.height
+        width: Math.round(obj.width),
+        height: Math.round(obj.height)
       }
     },
     css: function(property, value){
@@ -599,17 +645,18 @@ var Zepto = (function() {
         return this[0] && (this[0].style[camelize(property)] || getComputedStyle(this[0], '').getPropertyValue(property))
 
       var css = ''
-      for (key in property)
-        if (!property[key] && property[key] !== 0)
-          this.each(function(){ this.style.removeProperty(dasherize(key)) })
-        else
-          css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';'
-
-      if (typeof property == 'string')
+      if (type(property) == 'string') {
         if (!value && value !== 0)
           this.each(function(){ this.style.removeProperty(dasherize(property)) })
         else
           css = dasherize(property) + ":" + maybeAddPx(property, value)
+      } else {
+        for (key in property)
+          if (!property[key] && property[key] !== 0)
+            this.each(function(){ this.style.removeProperty(dasherize(key)) })
+          else
+            css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';'
+      }
 
       return this.each(function(){ this.style.cssText += ';' + css })
     },
@@ -770,9 +817,61 @@ var Zepto = (function() {
   return $
 })()
 
-// If `$` is not yet defined, point it to `Zepto`
 window.Zepto = Zepto
 '$' in window || (window.$ = Zepto)
+
+;(function($){
+  function detect(ua){
+    var os = this.os = {}, browser = this.browser = {},
+      webkit = ua.match(/WebKit\/([\d.]+)/),
+      android = ua.match(/(Android)\s+([\d.]+)/),
+      ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+      iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+      webos = ua.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
+      touchpad = webos && ua.match(/TouchPad/),
+      kindle = ua.match(/Kindle\/([\d.]+)/),
+      silk = ua.match(/Silk\/([\d._]+)/),
+      blackberry = ua.match(/(BlackBerry).*Version\/([\d.]+)/),
+      bb10 = ua.match(/(BB10).*Version\/([\d.]+)/),
+      rimtabletos = ua.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
+      playbook = ua.match(/PlayBook/),
+      chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
+      firefox = ua.match(/Firefox\/([\d.]+)/)
+
+    // Todo: clean this up with a better OS/browser seperation:
+    // - discern (more) between multiple browsers on android
+    // - decide if kindle fire in silk mode is android or not
+    // - Firefox on Android doesn't specify the Android version
+    // - possibly devide in os, device and browser hashes
+
+    if (browser.webkit = !!webkit) browser.version = webkit[1]
+
+    if (android) os.android = true, os.version = android[2]
+    if (iphone) os.ios = os.iphone = true, os.version = iphone[2].replace(/_/g, '.')
+    if (ipad) os.ios = os.ipad = true, os.version = ipad[2].replace(/_/g, '.')
+    if (webos) os.webos = true, os.version = webos[2]
+    if (touchpad) os.touchpad = true
+    if (blackberry) os.blackberry = true, os.version = blackberry[2]
+    if (bb10) os.bb10 = true, os.version = bb10[2]
+    if (rimtabletos) os.rimtabletos = true, os.version = rimtabletos[2]
+    if (playbook) browser.playbook = true
+    if (kindle) os.kindle = true, os.version = kindle[1]
+    if (silk) browser.silk = true, browser.version = silk[1]
+    if (!silk && os.android && ua.match(/Kindle Fire/)) browser.silk = true
+    if (chrome) browser.chrome = true, browser.version = chrome[1]
+    if (firefox) browser.firefox = true, browser.version = firefox[1]
+
+    os.tablet = !!(ipad || playbook || (android && !ua.match(/Mobile/)) || (firefox && ua.match(/Tablet/)))
+    os.phone  = !!(!os.tablet && (android || iphone || webos || blackberry || bb10 ||
+      (chrome && ua.match(/Android/)) || (chrome && ua.match(/CriOS\/([\d.]+)/)) || (firefox && ua.match(/Mobile/))))
+  }
+
+  detect.call($, navigator.userAgent)
+  // make available to unit tests
+  $.__detect = detect
+
+})(Zepto)
+
 ;(function($){
   var $$ = $.zepto.qsa, handlers = {}, _zid = 1, specialEvents={},
       hover = { mouseenter: 'mouseover', mouseleave: 'mouseout' }
@@ -1017,154 +1116,7 @@ window.Zepto = Zepto
   }
 
 })(Zepto)
-;(function($){
-  function detect(ua){
-    var os = this.os = {}, browser = this.browser = {},
-      webkit = ua.match(/WebKit\/([\d.]+)/),
-      android = ua.match(/(Android)\s+([\d.]+)/),
-      ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
-      iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
-      webos = ua.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
-      touchpad = webos && ua.match(/TouchPad/),
-      kindle = ua.match(/Kindle\/([\d.]+)/),
-      silk = ua.match(/Silk\/([\d._]+)/),
-      blackberry = ua.match(/(BlackBerry).*Version\/([\d.]+)/),
-      bb10 = ua.match(/(BB10).*Version\/([\d.]+)/),
-      rimtabletos = ua.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
-      playbook = ua.match(/PlayBook/),
-      chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
-      firefox = ua.match(/Firefox\/([\d.]+)/)
 
-    // Todo: clean this up with a better OS/browser seperation:
-    // - discern (more) between multiple browsers on android
-    // - decide if kindle fire in silk mode is android or not
-    // - Firefox on Android doesn't specify the Android version
-    // - possibly devide in os, device and browser hashes
-
-    if (browser.webkit = !!webkit) browser.version = webkit[1]
-
-    if (android) os.android = true, os.version = android[2]
-    if (iphone) os.ios = os.iphone = true, os.version = iphone[2].replace(/_/g, '.')
-    if (ipad) os.ios = os.ipad = true, os.version = ipad[2].replace(/_/g, '.')
-    if (webos) os.webos = true, os.version = webos[2]
-    if (touchpad) os.touchpad = true
-    if (blackberry) os.blackberry = true, os.version = blackberry[2]
-    if (bb10) os.bb10 = true, os.version = bb10[2]
-    if (rimtabletos) os.rimtabletos = true, os.version = rimtabletos[2]
-    if (playbook) browser.playbook = true
-    if (kindle) os.kindle = true, os.version = kindle[1]
-    if (silk) browser.silk = true, browser.version = silk[1]
-    if (!silk && os.android && ua.match(/Kindle Fire/)) browser.silk = true
-    if (chrome) browser.chrome = true, browser.version = chrome[1]
-    if (firefox) browser.firefox = true, browser.version = firefox[1]
-
-    os.tablet = !!(ipad || playbook || (android && !ua.match(/Mobile/)) || (firefox && ua.match(/Tablet/)))
-    os.phone  = !!(!os.tablet && (android || iphone || webos || blackberry || bb10 || chrome || firefox))
-  }
-
-  detect.call($, navigator.userAgent)
-  // make available to unit tests
-  $.__detect = detect
-
-})(Zepto)
-;(function($, undefined){
-  var prefix = '', eventPrefix, endEventName, endAnimationName,
-    vendors = { Webkit: 'webkit', Moz: '', O: 'o', ms: 'MS' },
-    document = window.document, testEl = document.createElement('div'),
-    supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i,
-    transform,
-    transitionProperty, transitionDuration, transitionTiming,
-    animationName, animationDuration, animationTiming,
-    cssReset = {}
-
-  function dasherize(str) { return downcase(str.replace(/([a-z])([A-Z])/, '$1-$2')) }
-  function downcase(str) { return str.toLowerCase() }
-  function normalizeEvent(name) { return eventPrefix ? eventPrefix + name : downcase(name) }
-
-  $.each(vendors, function(vendor, event){
-    if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
-      prefix = '-' + downcase(vendor) + '-'
-      eventPrefix = event
-      return false
-    }
-  })
-
-  transform = prefix + 'transform'
-  cssReset[transitionProperty = prefix + 'transition-property'] =
-  cssReset[transitionDuration = prefix + 'transition-duration'] =
-  cssReset[transitionTiming   = prefix + 'transition-timing-function'] =
-  cssReset[animationName      = prefix + 'animation-name'] =
-  cssReset[animationDuration  = prefix + 'animation-duration'] =
-  cssReset[animationTiming    = prefix + 'animation-timing-function'] = ''
-
-  $.fx = {
-    off: (eventPrefix === undefined && testEl.style.transitionProperty === undefined),
-    speeds: { _default: 400, fast: 200, slow: 600 },
-    cssPrefix: prefix,
-    transitionEnd: normalizeEvent('TransitionEnd'),
-    animationEnd: normalizeEvent('AnimationEnd')
-  }
-
-  $.fn.animate = function(properties, duration, ease, callback){
-    if ($.isPlainObject(duration))
-      ease = duration.easing, callback = duration.complete, duration = duration.duration
-    if (duration) duration = (typeof duration == 'number' ? duration :
-                    ($.fx.speeds[duration] || $.fx.speeds._default)) / 1000
-    return this.anim(properties, duration, ease, callback)
-  }
-
-  $.fn.anim = function(properties, duration, ease, callback){
-    var key, cssValues = {}, cssProperties, transforms = '',
-        that = this, wrappedCallback, endEvent = $.fx.transitionEnd
-
-    if (duration === undefined) duration = 0.4
-    if ($.fx.off) duration = 0
-
-    if (typeof properties == 'string') {
-      // keyframe animation
-      cssValues[animationName] = properties
-      cssValues[animationDuration] = duration + 's'
-      cssValues[animationTiming] = (ease || 'linear')
-      endEvent = $.fx.animationEnd
-    } else {
-      cssProperties = []
-      // CSS transitions
-      for (key in properties)
-        if (supportedTransforms.test(key)) transforms += key + '(' + properties[key] + ') '
-        else cssValues[key] = properties[key], cssProperties.push(dasherize(key))
-
-      if (transforms) cssValues[transform] = transforms, cssProperties.push(transform)
-      if (duration > 0 && typeof properties === 'object') {
-        cssValues[transitionProperty] = cssProperties.join(', ')
-        cssValues[transitionDuration] = duration + 's'
-        cssValues[transitionTiming] = (ease || 'linear')
-      }
-    }
-
-    wrappedCallback = function(event){
-      if (typeof event !== 'undefined') {
-        if (event.target !== event.currentTarget) return // makes sure the event didn't bubble from "below"
-        $(event.target).unbind(endEvent, wrappedCallback)
-      }
-      $(this).css(cssReset)
-      callback && callback.call(this)
-    }
-    if (duration > 0) this.bind(endEvent, wrappedCallback)
-
-    // trigger page reflow so new elements can animate
-    this.size() && this.get(0).clientLeft
-
-    this.css(cssValues)
-
-    if (duration <= 0) setTimeout(function() {
-      that.each(function(){ wrappedCallback.call(this) })
-    }, 0)
-
-    return this
-  }
-
-  testEl = null
-})(Zepto)
 ;(function($){
   var jsonpID = 0,
       document = window.document,
@@ -1251,8 +1203,6 @@ window.Zepto = Zepto
       },
       xhr = { abort: abort }, abortTimeout
 
-    serializeData(options)
-
     if (ajaxBeforeSend(xhr, options) === false) {
       abort('abort')
       return false
@@ -1307,10 +1257,13 @@ window.Zepto = Zepto
     // Default timeout
     timeout: 0,
     // Whether data should be serialized to string
-    processData: true
+    processData: true,
+    // Whether the browser should be allowed to cache GET responses
+    cache: true,
   }
 
   function mimeToDataType(mime) {
+    if (mime) mime = mime.split(';', 2)[0]
     return mime && ( mime == htmlType ? 'html' :
       mime == jsonType ? 'json' :
       scriptTypeRE.test(mime) ? 'script' :
@@ -1338,14 +1291,15 @@ window.Zepto = Zepto
     if (!settings.crossDomain) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) &&
       RegExp.$2 != window.location.host
 
+    if (!settings.url) settings.url = window.location.toString()
+    serializeData(settings)
+    if (settings.cache === false) settings.url = appendQuery(settings.url, '_=' + Date.now())
+
     var dataType = settings.dataType, hasPlaceholder = /=\?/.test(settings.url)
     if (dataType == 'jsonp' || hasPlaceholder) {
       if (!hasPlaceholder) settings.url = appendQuery(settings.url, 'callback=?')
       return $.ajaxJSONP(settings)
     }
-
-    if (!settings.url) settings.url = window.location.toString()
-    serializeData(settings)
 
     var mime = settings.accepts[dataType],
         baseHeaders = { },
@@ -1473,6 +1427,7 @@ window.Zepto = Zepto
     return params.join('&').replace(/%20/g, '+')
   }
 })(Zepto)
+
 ;(function ($) {
   $.fn.serializeArray = function () {
     var result = [], el
@@ -1509,6 +1464,106 @@ window.Zepto = Zepto
   }
 
 })(Zepto)
+
+;(function($, undefined){
+  var prefix = '', eventPrefix, endEventName, endAnimationName,
+    vendors = { Webkit: 'webkit', Moz: '', O: 'o', ms: 'MS' },
+    document = window.document, testEl = document.createElement('div'),
+    supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i,
+    transform,
+    transitionProperty, transitionDuration, transitionTiming,
+    animationName, animationDuration, animationTiming,
+    cssReset = {}
+
+  function dasherize(str) { return downcase(str.replace(/([a-z])([A-Z])/, '$1-$2')) }
+  function downcase(str) { return str.toLowerCase() }
+  function normalizeEvent(name) { return eventPrefix ? eventPrefix + name : downcase(name) }
+
+  $.each(vendors, function(vendor, event){
+    if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
+      prefix = '-' + downcase(vendor) + '-'
+      eventPrefix = event
+      return false
+    }
+  })
+
+  transform = prefix + 'transform'
+  cssReset[transitionProperty = prefix + 'transition-property'] =
+  cssReset[transitionDuration = prefix + 'transition-duration'] =
+  cssReset[transitionTiming   = prefix + 'transition-timing-function'] =
+  cssReset[animationName      = prefix + 'animation-name'] =
+  cssReset[animationDuration  = prefix + 'animation-duration'] =
+  cssReset[animationTiming    = prefix + 'animation-timing-function'] = ''
+
+  $.fx = {
+    off: (eventPrefix === undefined && testEl.style.transitionProperty === undefined),
+    speeds: { _default: 400, fast: 200, slow: 600 },
+    cssPrefix: prefix,
+    transitionEnd: normalizeEvent('TransitionEnd'),
+    animationEnd: normalizeEvent('AnimationEnd')
+  }
+
+  $.fn.animate = function(properties, duration, ease, callback){
+    if ($.isPlainObject(duration))
+      ease = duration.easing, callback = duration.complete, duration = duration.duration
+    if (duration) duration = (typeof duration == 'number' ? duration :
+                    ($.fx.speeds[duration] || $.fx.speeds._default)) / 1000
+    return this.anim(properties, duration, ease, callback)
+  }
+
+  $.fn.anim = function(properties, duration, ease, callback){
+    var key, cssValues = {}, cssProperties, transforms = '',
+        that = this, wrappedCallback, endEvent = $.fx.transitionEnd
+
+    if (duration === undefined) duration = 0.4
+    if ($.fx.off) duration = 0
+
+    if (typeof properties == 'string') {
+      // keyframe animation
+      cssValues[animationName] = properties
+      cssValues[animationDuration] = duration + 's'
+      cssValues[animationTiming] = (ease || 'linear')
+      endEvent = $.fx.animationEnd
+    } else {
+      cssProperties = []
+      // CSS transitions
+      for (key in properties)
+        if (supportedTransforms.test(key)) transforms += key + '(' + properties[key] + ') '
+        else cssValues[key] = properties[key], cssProperties.push(dasherize(key))
+
+      if (transforms) cssValues[transform] = transforms, cssProperties.push(transform)
+      if (duration > 0 && typeof properties === 'object') {
+        cssValues[transitionProperty] = cssProperties.join(', ')
+        cssValues[transitionDuration] = duration + 's'
+        cssValues[transitionTiming] = (ease || 'linear')
+      }
+    }
+
+    wrappedCallback = function(event){
+      if (typeof event !== 'undefined') {
+        if (event.target !== event.currentTarget) return // makes sure the event didn't bubble from "below"
+        $(event.target).unbind(endEvent, wrappedCallback)
+      }
+      $(this).css(cssReset)
+      callback && callback.call(this)
+    }
+    if (duration > 0) this.bind(endEvent, wrappedCallback)
+
+    // trigger page reflow so new elements can animate
+    this.size() && this.get(0).clientLeft
+
+    this.css(cssValues)
+
+    if (duration <= 0) setTimeout(function() {
+      that.each(function(){ wrappedCallback.call(this) })
+    }, 0)
+
+    return this
+  }
+
+  testEl = null
+})(Zepto)
+
 ;(function($) {
   var data = {}, dataAttr = $.fn.data, camelize = $.camelCase,
     exp = $.expando = 'Zepto' + (+new Date())
@@ -1570,6 +1625,7 @@ window.Zepto = Zepto
     })
   }
 })(Zepto)
+
 ;(function($){
   var zepto = $.zepto, oldQsa = zepto.qsa, oldMatches = zepto.matches
 
@@ -1651,6 +1707,7 @@ window.Zepto = Zepto
     })
   }
 })(Zepto)
+
 ;(function($){
   var touch = {},
     touchTimeout, tapTimeout, swipeTimeout,
@@ -1706,6 +1763,8 @@ window.Zepto = Zepto
         cancelLongTap()
         touch.x2 = e.touches[0].pageX
         touch.y2 = e.touches[0].pageY
+        if (Math.abs(touch.x1 - touch.x2) > 10)
+          e.preventDefault()
       })
       .bind('touchend', function(e){
          cancelLongTap()
@@ -1760,6 +1819,7 @@ window.Zepto = Zepto
     $.fn[m] = function(callback){ return this.bind(m, callback) }
   })
 })(Zepto)
+
 ;(function($){
   if ($.os.ios) {
     var gesture = {}, gestureTimeout

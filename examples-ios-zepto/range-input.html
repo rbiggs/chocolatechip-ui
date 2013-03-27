@@ -57,25 +57,34 @@
 			</navbar>
 			<subview id="subview1" ui-associations="withNavBar">
 				<scrollpanel>
-					<br>
-					<tableheader>Point for Point Increase</tableheader>
-					<section>
-						<label for="rangeControl1">Current Value: <span id='rangeValue1'></span></label> 
-						<input type="range" id="rangeControl1" value="10" min="0" max="40">
-					</section>
-					<br>	
-					<tableheader>With Steps of 5</tableheader>
-					<section>
-						<label for="rangeControl2">Current Value: <span id='rangeValue2'></span></label> 
-						<input type="range" id="rangeControl2" step='5' value="20" min="0" max="40">
-					</section>
-					<br>	
-					<tableheader>Media Player Style</tableheader>
-					<section>
-						<label for="rangeControl3">Current Value: <span id='rangeValue3'></span></label> 
-						<input type="range" class='media-player' id="rangeControl3" value="20" min="0" max="40">
-					</section>
-					<br><br>
+					<tableheader>Range Control</tableheader>
+					<tableview  ui-tablecell-order="stacked" ui-kind='grouped'>
+						<tablecell>
+							<celltitle>Point for Point Increase<span></span></celltitle>
+							<cellsubtitle>
+								<label>Current Value: <span id='rangeValue1'></span></label><br>
+								<input type="range" id="rangeControl1" value="10" min="0" max="40">
+							</cellsubtitle>
+						</tablecell>
+					</tableview>
+					<tableview ui-tablecell-order="stacked" ui-kind='grouped'>
+						<tablecell>
+							<celltitle>With Steps of 5<span></span></celltitle>
+							<cellsubtitle>
+								<label>Current Value: <span id='rangeValue2'></span></label><br>
+								<input type="range" id="rangeControl2" step='5' value="20" min="0" max="40">		
+							</cellsubtitle>
+						</tablecell>
+					</tableview>
+					<tableview ui-tablecell-order="stacked" ui-kind='grouped'>
+						<tablecell>
+							<celltitle>Media Player Style</celltitle>
+							<cellsubtitle>
+								<label>Current Value: <span id='rangeValue3'></span></label><br>
+								<input type="range" class='media-player' id="rangeControl3" value="20" min="0" max="40">
+							</cellsubtitle>
+						</tablecell>
+					</tableview>
 				</scrollpanel>
 			</subview>
 		</view>

@@ -11,12 +11,6 @@
 	<link rel="stylesheet" href="../chui/chui.ios.css">
 	<style type="text/css">
 		/* Local Styles Here */
-		#main {
-			background-color: rgba(128,96,0,0.5);
-		}
-		#main navbar {
-			background-color: rgba(63,128,0,0.2);
-		}
 		
 		/* Styles for Segmented Control's stack of panels: */
 		#stack_01 {
@@ -31,7 +25,7 @@
 	
 		$(function() {
 			var logChildNodes = function(item) {
-				var index = $(item).closest('segmentedcontrol').attr("ui-selected-index");
+				var index = item.closest('segmentedcontrol').attr("ui-selected-index");
 				$('#output').append("<tableheader>The child position is: " + index + "</tableheader>");
 			}
 			$("segmentedcontrol").UISegmentedControl("#stack_01", logChildNodes);
@@ -104,12 +98,6 @@
 									<celltitle>Food</celltitle>
 									<cellsubtitle>Recipes</cellsubtitle>
 									<celldetail>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</celldetail>
-								</tablecell>
-								<tablecell ui-usage="image">
-									<img src="../images/killers.png">
-									<celltitle>Good Eats</celltitle>
-									<cellsubtitle>Restaurants</cellsubtitle>
-									<celldetail> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.</celldetail>
 								</tablecell>
 							</tableview>	
 						</panel>

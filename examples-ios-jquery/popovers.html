@@ -7,31 +7,17 @@
     <title>iPad Popover: Top/Bottom</title>
     <link rel="stylesheet" href="../chui/chui.ios.css">
     
-    <style type="text/css">
-        toolbar {
-            background-color: rgba(125,130,140,.85);
-        }
-        uibutton > label {
-        	-webkit-font-smoothing: subpixel-antialiased;
-        }
-		popover#popover2  {
-			background-color: red;
+   <style type="text/css">
+		popover  {
+    		width: 300px;
+    	}
+		popover actionsheet {
+			 width: auto;
 		}
-		popover#popover2  > header {
-			background-image: 
-        	 -webkit-linear-gradient(top, yellow, orange 50%, red 50%);
-		}
-		popover#popover2:after {
-			background-color: yellow !important;
-		}
-		#popover2[ui-pointer-position*=bottom]:after {
-			background-color: red;
-		}
-        
-   </style>
-   <script src="../libs/jquery-1.7.2.js"></script>
-   <script src="../chui/iscroll.js"></script>
-   <script src="../chui/chui.ios.js"></script>
+	</style>
+	<script src="../libs/jquery-1.7.2.js"></script>
+	<script src="../chui/iscroll.js"></script>
+	<script src="../chui/chui.ios.js"></script>
 
    <script type="text/javascript">
         $(function(){
@@ -52,24 +38,31 @@
          	$("#showPopover1").on("click", function() {
                 $.UIPopover.show($("#popover1"));
             });
-            
-				var popover2 = {
+
+            var popover2 = {
 					triggerElement: "#showPopover2", 
 					popoverOrientation: "top", 
-					pointerOrientation: "center", 
+					pointerOrientation: "right", 
 					id: "popover2", 
 					title: "Popover Two"
 				};
 				$.UIPopover(popover2);
-				$("#popover2 scrollpanel").append('<tableview><tablecell><celltitle>item one</celltitle></tablecell><tablecell><celltitle>item two</celltitle></tablecell><tablecell><celltitle>item three</celltitle></tablecell></tableview>');
-				$("#showPopover2").on("click", function() {
+				$("#popover2 scrollpanel").append('<actionsheet>\
+                <uibutton ui-kind="action">\
+                    <label>Set Value</label>\
+                </uibutton>\
+                <uibutton ui-kind="action" ui-implements="cancel">\
+                    <label>Cancel</label>\
+                </uibutton>\
+            </actionsheet>');
+            $("#showPopover2").on("click", function() {
                 $.UIPopover.show($("#popover2"));
             });
             
             var popover3 = {
 					triggerElement: "#showPopover3", 
-					popoverOrientation: "top", 
-					pointerOrientation: "right", 
+					popoverOrientation: "bottom", 
+					pointerOrientation: "left", 
 					id: "popover3", 
 					title: "Popover Three"
 				};
@@ -81,74 +74,25 @@
                 <uibutton ui-kind="action" ui-implements="cancel">\
                     <label>Cancel</label>\
                 </uibutton>\
-            </actionsheet>');
-            $("#showPopover3").on("click", function() {
-                $.UIPopover.show($("#popover3"));
-            });
-            
-            var popover4 = {
-					triggerElement: "#showPopover4", 
-					popoverOrientation: "bottom", 
-					pointerOrientation: "left", 
-					id: "popover4", 
-					title: "Popover Four"
-				};
-				$.UIPopover(popover4);
-				$("#popover4 scrollpanel").append('<tableheader>Nothing here yet</tableheader>');
-				$("#showPopover4").on("click", function() {
-                $.UIPopover.show($("#popover4"));
-            });
-            
-            var popover5 = {
-					triggerElement: "#showPopover5", 
-					popoverOrientation: "bottom", 
-					pointerOrientation: "center", 
-					id: "popover5", 
-					title: "Popover Five"
-				};
-				$.UIPopover(popover5);
-				$("#popover5 scrollpanel").append('<actionsheet>\
-                <uibutton ui-kind="action">\
-                    <label>Set Value</label>\
-                </uibutton>\
-                <uibutton ui-kind="action" ui-implements="cancel">\
-                    <label>Cancel</label>\
-                </uibutton>\
                 <uibutton ui-kind="action" ui-implements="delete">\
                     <label>Delete</label>\
                 </uibutton>\
             </actionsheet>');
-            $("#showPopover5").on("click", function() {
-                $.UIPopover.show($("#popover5"));
-            });
-            
-            var popover6 = {
-					triggerElement: "#showPopover6", 
-					popoverOrientation: "bottom", 
-					pointerOrientation: "right", 
-					id: "popover6", 
-					title: "Popover Six"
-				};
-				$.UIPopover(popover6);
-				$("#popover6 scrollpanel").append('<tableview><tablecell><celltitle>item one</celltitle></tablecell><tablecell><celltitle>item two</celltitle></tablecell><tablecell><celltitle>item three</celltitle></tablecell><tableview>');
-				 $("#showPopover6").on("click", function() {
-                $.UIPopover.show($("#popover6"));
+            $("#showPopover3").on("click", function() {
+                $.UIPopover.show($("#popover3"));
             });
         });
     </script>
 </head>
 <body>
 	<app>
-		<view id="main" ui-background-style="slanted-left-equal" style="background-color: #bbbac4" ui-navigation-status="current">
-         <toolbar class="ui-custom-tint">
-            <uibutton id="showPopover1" class="ui-custom-tint" style="background-color: #000">
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+         <toolbar>
+            <uibutton id="showPopover1">
                 <label>Show Popover 1</label>
             </uibutton>
-            <uibutton id="showPopover2" class="ui-custom-tint" style="background-color: #000">
-                <label>Show Popover is a long button 2</label>
-            </uibutton>
-             <uibutton id="showPopover3" class="ui-custom-tint" style="background-color: #000">
-                 <label>Show Popover 3</label>
+             <uibutton id="showPopover2">
+                 <label>Show Popover 2</label>
              </uibutton>
          </toolbar>
          <subview ui-associations="withNavBar withBottomToolBar">
@@ -156,18 +100,12 @@
              
              </scrollpanel>
          </subview>
-         <toolbar ui-placement="bottom" class="ui-custom-tint">
-             <uibutton id="showPopover4" class="ui-custom-tint" style="background-color: #000">
-                 <label>Show Popover 4</label>
-             </uibutton>
-             <uibutton id="showPopover5" class="ui-custom-tint" style="background-color: #000">
-                 <label>Show Popover is a very long button you know 5</label>
-             </uibutton>
-             <uibutton id="showPopover6" class="ui-custom-tint" style="background-color: #000">
-                 <label>Show Popover 6</label>
+         <toolbar ui-placement="bottom">
+             <uibutton id="showPopover3">
+                 <label>Show Popover 3</label>
              </uibutton>
          </toolbar>
      </view>
-</app>
+	</app>
 </body>
 </html>

@@ -14,23 +14,6 @@
         uibutton > label {
         	-webkit-font-smoothing: subpixel-antialiased;
         }
-			
-			/* popover background */
-			popover#popover2  {
-				background-color: red;
-			}
-			popover#popover2  > header {
-				background-image: 
-				 -webkit-linear-gradient(top, yellow, orange 50%, red 50%);
-			}
-			popover#popover2:after {
-				/* Matches the first color of the header above. */
-				background-color: yellow !important;
-			}
-			#popover2[ui-pointer-position*=bottom]:after {
-				/* For a popover attached to the bottom. This color needs to match the background color of the popover */
-				background-color: red;
-			}
    </style>
    <script src="../libs/zepto.js"></script>
    <script src="../chui/iscroll.js"></script>

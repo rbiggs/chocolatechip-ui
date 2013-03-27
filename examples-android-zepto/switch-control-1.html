@@ -21,15 +21,15 @@
 		/* Local JavaScript Here */
 	
 		$(function() {
-			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
-				if ($(this).hasClass("on")) {
-					$("#switchResponse").html($(this).find("input").val());
+			$.app.on($.eventStart, "switchcontrol", function() {
+				var switchcontrol = $(this);
+				if (switchcontrol.hasClass("on")) {
+					$("#switchResponse").html(switchcontrol.find("input").val());
 				} else {
 					$("#switchResponse").empty();
 				}
 			});
 		});
-		
 	</script>
 </head>
 <body>
@@ -48,8 +48,6 @@
 								 <input type="checkbox" value="ZZZZZZZZ!" name="sleepSwitch">
 							</switchcontrol>
 						</tablecell>
-				  	</tableview>
-				  	<tableview ui-kind="grouped">
 						<tablecell>
 							<celltitle>Vacation</celltitle>
 							<switchcontrol class="off" id="vacationSwitch" ui-kind='generic'>
@@ -57,8 +55,6 @@
 								<input type="checkbox" value="See you later!!" name="vacationSwitch">
 							</switchcontrol>
 						</tablecell>
-				  	</tableview>
-				  	<tableview ui-kind="grouped">
 						<tablecell>
 							<celltitle>Breakfast</celltitle>
 							<switchcontrol class="off" id="breakfastSwitch" ui-implements="attention">

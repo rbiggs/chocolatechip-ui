@@ -2,13 +2,13 @@
 
 # Please read the instructions below and change this configuration to suit your needs.
 opts = {
-	'path': '/Users/tom/Desktop/', 
-	'name': 'Bongo', 
-	'os': 'android',
-	'lib': 'jquery',
-	'images': False,
-	'icons': False,
-	'minified': False
+   'path': '/Users/top/Desktop/', 
+   'name': 'MyApp', 
+   'os': 'ios',
+   'lib': 'chocolatechip',
+   'images': True,
+   'icons': True,
+   'minified': False
 }
 
 # README
@@ -17,21 +17,21 @@ You can modify the build to suit your needs. Change the path to match where you 
 """
 """
 opts = {
-	'path': '/Users/joe/Desktop/', 
-	'name': 'HappyTimes', 
-	'os': 'android',
-	'lib': 'chocolatechip',
-	'images': True,
-	'icons': ['add','bag','cog']
+   'path': '/Users/joe/Desktop/', 
+   'name': 'HappyTimes', 
+   'os': 'android',
+   'lib': 'chocolatechip',
+   'images': True,
+   'icons': ['add','bag','cog']
 }
 """
 """
 opts = {
-	'path': '/Users/brad/Documents/', 
-	'name': 'TestRun', 
-	'os': 'ios',
-	'lib': 'jquery',
-	'images': False,
-	'icons': True
+   'path': '/Users/brad/Documents/', 
+   'name': 'TestRun', 
+   'os': 'ios',
+   'lib': 'jquery',
+   'images': False,
+   'icons': True
 }
 """

@@ -29,7 +29,7 @@ body {
 </style>		
 	<script>
 		$(function() {
-			$('#showModalActivityIndicator').on('click', function() {
+			$('#showModalActivityIndicator').on($.userAction, function() {
 				$('app').UIActivityIndicator({modal:true, modalMessage:'Loading...'});
 				setTimeout(function() {
 					$('app').RemoveUIAcitivityIndicator();
@@ -40,9 +40,9 @@ body {
 </head>
 <body>
 	<app>
-		<view ui-background-style="striped" id="main" ui-background-style="striped" ui-navigation-status="current">
+		<view id='main' ui-background-style="striped" id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar id="segmentedToolbar">
-				<h1 ui-bar-align="center">Expander </h1>
+				<h1 ui-bar-align="center">Activity Indicator</h1>
 			</navbar>
 			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
 				<scrollpanel>

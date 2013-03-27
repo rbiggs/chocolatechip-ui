@@ -11,7 +11,7 @@
    <link rel="stylesheet" href="../chui/chui.ios.css">
 	<style>
 		/* Local Styles Here */
-		html, body { background-color: #CBD2D8; }
+		
 	</style>
    <script src="../libs/zepto.js"></script>
    <script src="../chui/iscroll.js"></script>
@@ -23,7 +23,6 @@
 		 		$.UINavigateToNextView("#item_01_detail_view");
 		 	});
 		});
-		
 	</script>
 </head>
 <body>
@@ -43,7 +42,7 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="slanted-right">
+		<view id="item_01_view" ui-navigation-status="upcoming" ui-background-style="striped">
 			<navbar>
 				<uibutton ui-implements="back" ui-bar-align='left'>
 					<label>Back</label>
@@ -62,7 +61,7 @@
 				</scrollpanel>
 			</subview>
 		</view>
-		<view id="item_01_detail_view" ui-navigation-status="upcoming" ui-background-style="squared">
+		<view id="item_01_detail_view" ui-navigation-status="upcoming" ui-background-style="striped">
 			<navbar>
 				<uibutton ui-implements="back" ui-bar-align='left'>
 					<label>Back</label>

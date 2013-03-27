@@ -9,8 +9,8 @@
       
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
-License: BSD
-Version: 2.1.2
+License: GPLv3
+Version: 2.1.3
 */
  
 (function() {
@@ -146,7 +146,7 @@ Version: 2.1.2
       hasnt : function ( arg ) {
          var items = [];
          this.each(function(item) {
-            if (item.hasNot(arg)) items.push(item);
+            if (item.hasnt(arg)) items.push(item);
          });
          if (items.length) return items;
          else return false;
@@ -170,7 +170,7 @@ Version: 2.1.2
    
    $.extend({
  
-      version : '2.1.2',
+      version : '2.1.3',
       
       libraryName : 'ChocolateChip',
       
@@ -1145,9 +1145,7 @@ Version: 2.1.2
       standalone : navigator.standalone,
       ios4 : navigator.userAgent.match(/OS 4/i),
       ios5 : navigator.userAgent.match(/OS 5/i),
-      userAction : (('createTouch' in document) ? 'touchend' : 'click'),
-      eventStart : (('createTouch' in document) ? 'touchstart' : 'mousedown'),
-      eventEnd : (('createTouch' in document) ? 'touchend' : 'click'),
+      userAction : ($.touchEnabled ? 'touchend' : 'click'),
       mobile : /mobile/img.test(navigator.userAgent),
       desktop : !(/mobile/img.test(navigator.userAgent)),
        

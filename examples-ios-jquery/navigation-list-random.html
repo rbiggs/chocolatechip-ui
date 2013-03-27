@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="app-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Specific Back Navigation</title>
+    <link rel="stylesheet" href="../chui/chui.ios.css">
+    <script src="../libs/jquery-1.7.2.js"></script>
+    <script src="../chui/iscroll.js"></script>
+    <script src="../chui/chui.ios.js"></script>
+	<script>
+		/* Local JavaScript Here */
+		$(function() {
+			$("uibutton[ui-kind=action]").bind("click", function() {
+		 		$.UINavigateToNextView("#view3");
+		 	});
+		 	$('#backToMain').on('click', function() {
+		 		$.UINavigateBackToView('#main');
+		 	});
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="striped" ui-navigation-status="current">
+			<navbar>
+				<h1>Specific Back Nav</h1>
+			</navbar>
+			<subview id="subview_01" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview role='list'>
+						<tablecell role='button' href="#view2" ui-implements="disclosure">
+							<celltitle>Item</celltitle>
+						</tablecell>
+					</tableview>
+					<uibutton ui-kind="action">Straight to Detail View</uibutton>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="view2" ui-navigation-status="upcoming" ui-background-style="striped">
+			<navbar>
+				<uibutton role='button' ui-implements="back" ui-bar-align='left'>
+					<label>Back</label>
+				</uibutton>
+				<h1>Second View</h1>
+			</navbar>
+			<subview id="subview_01" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview role='list' ui-tablecell-order="stacked">
+						<tablecell role='button' href="#view3" ui-implements="detail-disclosure">
+							<cellcounter>1</cellcounter>
+							<celltitle>Item</celltitle>
+							<cellsubtitle>Item Subtitle</cellsubtitle>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+		<view id="view3" ui-navigation-status="upcoming" ui-background-style="striped">
+			<navbar>
+				<uibutton id='backToMain' ui-implements="backTo" ui-bar-align='left'>
+					<label>Back</label>
+				</uibutton>
+				<h1>Third View</h1>
+			</navbar>
+			<subview id="subview_01" ui-associations="withNavBar">
+				<scrollpanel>
+					<tableview ui-tablecell-order="stacked">
+						<tablecell>
+							<celltitle>Item</celltitle>
+							<cellsubtitle>Item Subtitle</cellsubtitle>
+							<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+							</celldetail>
+						</tablecell>
+					</tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

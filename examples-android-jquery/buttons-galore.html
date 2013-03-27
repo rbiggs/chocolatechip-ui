@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Buttons</title>
     <link rel="stylesheet" href="../chui/chui.android.css">
-     <style type="text/css">	
+    <style type="text/css">
 		h2 {
 			font-size: 16px;
 			line-height: 22px;
@@ -39,7 +39,7 @@
     </script>
 
 </head>
-<body ui-background-style="slanted-right">
+<body>
 	<app>
 		<view id="main" ui-navigation-status="current">
 			<navbar>
@@ -52,30 +52,30 @@
 					  <section>
 					     <toolbar>
 								<uibutton ui-implements="icon">
-									<icon style="-webkit-mask-image: url(../icons/apple_logo.svg);"></icon>
+									<icon ui-icon-image="apple_logo"></icon>
 								</uibutton>
 								<uibutton ui-kind="icon">
-									<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: yellow"></icon>
+									<icon ui-icon-image="download"></icon>
 								</uibutton>
 								<uibutton  ui-implements="icon">
-									<icon style="-webkit-mask-image: url(../icons/droid_logo.svg);"></icon>
+									<icon ui-icon-image="droid_logo"></icon>
 									 </uibutton>
-								<uibutton ui-icon-align="right" class="disabled>
-									<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
+								<uibutton ui-icon-align="right" class="disabled">
+									<icon ui-icon-image="cog"></icon>
 									<label>Favorites</label>
 								</uibutton>
 							</toolbar>
 						  <br><br>
 							<toolbar >
 								<uibutton  ui-implements="icon">
-									<icon style="-webkit-mask-image: url(../icons/add.svg); background-color: #fff;"></icon>
+									<icon ui-icon-image="add"></icon>
 								</uibutton>
 								<uibutton ui-implements="done">
-									<icon style="-webkit-mask-image: url(../icons/attachement.svg);"></icon>
+									<icon ui-icon-image="attachment"></icon>
 									<label>Save</label>
 								</uibutton>
 								<uibutton ui-implements="done"  ui-icon-align="right">
-									<icon style="-webkit-mask-image: url(../icons/attachement.svg);"></icon>
+									<icon ui-icon-image="attachment"></icon>
 									<label>Save</label>
 								</uibutton>
 								<uibutton>
@@ -86,11 +86,11 @@
 							<br><br>
 							<toolbar>
 								 <uibutton ui-bar-align="left">
-								<icon style="-webkit-mask-image: url(../icons/home.svg);"></icon>
+								<icon ui-icon-image="home"></icon>
 								<label>Delete</label>
 								 </uibutton>
 								 <uibutton ui-implements="delete" ui-icon-align="right" ui-bar-align="right">
-								<icon style="-webkit-mask-image: url(../icons/delete.svg);"></icon>
+								<icon ui-icon-image="delete"></icon>
 								<label>Delete</label>
 								 </uibutton>
 							</toolbar>
@@ -100,16 +100,16 @@
 									<label>Click1</label>
 								</uibutton>
 								<uibutton ui-kind="icon">
-									<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
+									<icon ui-icon-image="cog"></icon>
 								</uibutton>
 								<uibutton ui-kind="icon">
-									<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: yellow"></icon>
+									<icon ui-icon-image="download"></icon>
 								</uibutton>
 								<uibutton>
 									<label>Click3</label>
 								</uibutton>
 								<uibutton ui-kind="icon">
-									<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
+									<icon ui-icon-image="add"></icon>
 								</uibutton>
 							</toolbar>
 					  </section>
@@ -120,11 +120,11 @@
 					<section>
 							<navbar>
 							<uibutton ui-icon-align="right" class="disabled">
-								<icon style="-webkit-mask-image: url(../icons/cog.svg)"></icon>
+								<icon ui-icon-image="cog"></icon>
 								<label>Favorites</label>
 							</uibutton>
 							<uibutton>
-								<icon style="-webkit-mask-image: url(../icons/apple_logo.svg);"></icon>
+								<icon ui-icon-image="apple_logo"></icon>
 								<label>Message</label>
 							</uibutton>
 							<uibutton class="disabled">
@@ -171,12 +171,12 @@
 							
 							<navbar>
 								 <uibutton ui-implements="done" ui-bar-align="left" class="disabled">
-								<icon style="-webkit-mask-image: url(../icons/bookmarks.svg);"></icon>
+								<icon ui-icon-image="bookmarks"></icon>
 								<label>Save</label>
 								 </uibutton>
 								 <h1>Buttons</h1>
 								 <uibutton ui-implements="delete" ui-bar-align="right" class="disabled">
-								<icon style="-webkit-mask-image: url(../icons/chat.svg);"></icon>
+								<icon ui-icon-image="chat"></icon>
 								<label>Delete</label>
 								 </uibutton>
 							</navbar>
@@ -189,38 +189,38 @@
 							</div>
 							<toolbar class="box-pack-justify">
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/envelope.svg);"></icon>
+								<icon ui-icon-image="envelope"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/history.svg);"></icon>
+								<icon ui-icon-image="history"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/compose.svg);"></icon>
+								<icon ui-icon-image="compose"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/downloads.svg); background-color: lightblue"></icon>
+								<icon ui-icon-image="downloads" background-color: lightblue"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/head_phones.svg);"></icon>
+								<icon ui-icon-image="head_phones"></icon>
 								 </uibutton>
 							</toolbar>
 							<br><br>
 							
 							<toolbar class="box-pack-justify ui-custom-tint">
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
+								<icon ui-icon-image="add"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon" class="disabled">
-								<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
+								<icon ui-icon-image="cog"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/badge.svg);"></icon>
+								<icon ui-icon-image="badge"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon">
-								<icon style="-webkit-mask-image: url(../icons/download.svg); background-color: orange"></icon>
+								<icon ui-icon-image="download" background-color: orange"></icon>
 								 </uibutton>
 								 <uibutton ui-kind="icon" class="disabled">
-								<icon style="-webkit-mask-image: url(../icons/film.svg);"></icon>
+								<icon ui-icon-image="film"></icon>
 								 </uibutton>
 							</toolbar>
 					  </section>
@@ -263,16 +263,16 @@
 							</div>
 							<navbar>
 								 <segmentedcontrol>
-									  <uibutton>
-									<icon class="disabled" style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+									  <uibutton class="disabled">
+									<icon ui-icon-image="reload"></icon>
 									<label>Canada</label>
 									  </uibutton>
 									  <uibutton ui-icon-align="right">         
-									<icon style="-webkit-mask-image: url(../icons/settings.svg);"></icon>
+									<icon ui-icon-image="settings"></icon>
 									<label>USA</label>
 									 </uibutton>
 									 <uibutton class="disabled">
-											<icon style="-webkit-mask-image: url(../icons/top_rated.svg);"></icon>
+											<icon ui-icon-image="top_rated"></icon>
 											<label>Mexico</label>
 									 </uibutton>
 								</segmentedcontrol>
@@ -284,15 +284,15 @@
 							<div>
 								 <segmentedcontrol>
 									  <uibutton ui-icon-implements="mask">
-									<icon style="-webkit-mask-image: url(../icons/chart.svg);"></icon>
+									<icon ui-icon-image="chart"></icon>
 									<label>Canada</label>
 									  </uibutton>
 									  <uibutton ui-icon-align="right">
-									<icon style="-webkit-mask-image: url(../icons/add.svg);"></icon>
+									<icon ui-icon-image="add"></icon>
 									<label>USA</label>
 									  </uibutton>
 									  <uibutton class="disabled" ui-icon-align="right">
-											<icon style="-webkit-mask-image: url(../icons/chart.svg);"></icon>
+											<icon ui-icon-image="chart"></icon>
 											<label>Mexico</label>
 									  </uibutton>
 								 </segmentedcontrol>
@@ -301,15 +301,15 @@
 							<div>
 								 <segmentedcontrol>
 									  <uibutton>
-									<icon style="-webkit-mask-image: url(../icons/chart.svg);"></icon>
+									<icon ui-icon-image="chart"></icon>
 									<label>Canada</label>
 									  </uibutton>
 									  <uibutton ui-icon-align="right">
-									<icon style="-webkit-mask-image: url(../icons/chart.svg);"></icon>
+									<icon ui-icon-image="chart"></icon>
 									<label>USA</label>
 									  </uibutton>
 									  <uibutton ui-icon-align="right">
-											<icon style="-webkit-mask-image: url(../icons/cog.svg);"></icon>
+											<icon ui-icon-image="cog"></icon>
 											<label>Mexico</label>
 									  </uibutton>
 								 </segmentedcontrol>
@@ -325,23 +325,23 @@
 							<div>
 							<h2>Regular Action Buttons</h2>
 							<uibutton ui-kind="action" ui-implements="default">
-								 <icon style="-webkit-mask-image: url(../icons/location_pin.svg);"></icon>
+								 <icon ui-icon-image="location_pin"></icon>
 								 <label>Set Value</label>
 							</uibutton>
 							<uibutton ui-kind="action" ui-implements="cancel" ui-icon-align="left">
-								 <icon style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+								 <icon ui-icon-image="reload"></icon>
 								 <label>Cancel</label>
 							</uibutton>
 							<uibutton ui-kind="action" ui-implements="cancel" ui-icon-align="right">
-								  <icon style="-webkit-mask-image: url(../icons/reload.svg);"></icon>
+								  <icon ui-icon-image="reload"></icon>
 								 <label>Cancel</label>
 							</uibutton>
 							<uibutton ui-kind="action" ui-implements="delete" ui-icon-align="top">
-								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <icon ui-icon-image="refresh"></icon>
 								 <label>Delete</label>
 							</uibutton>
 							<uibutton ui-kind="action" ui-implements="delete" ui-icon-align="top" class="disabled">
-								 <icon style="-webkit-mask-image: url(../icons/refresh.svg);"></icon>
+								 <icon ui-icon-image="refresh"></icon>
 								 <label>Delete</label>
 							</uibutton>
 							</div>

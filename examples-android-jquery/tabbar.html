@@ -22,26 +22,11 @@
 	</style>
     <script src="../libs/jquery-1.7.2.js"></script>
     <script src="../chui/iscroll.js"></script>
-    <script src="../chui/chui.android.js"></script>
+    <script src="../chui/chui.android.min.js"></script>
 	<script type="text/javascript">
 		/* Local JavaScript Here */
 	
 		$(function() {
-			var seg = {
-				 id : "segmented_001",
-				 numberOfSegments : 4,
-				 titlesOfSegments : ["People", "Places", "Animals", "Stuff"],
-				 selectedSegment : 2,
-				 cssClass : ["ui-custom-tint", "ui-custom-tint", "ui-custom-tint", "ui-custom-tint"],
-				 imagePath : "../../icons/",
-				 container : "#stackpanel_01"
-			};
-			$("stack").UICreateSegmentedControl(seg);
-			var seggie = function(item) {
-				console.log("The child position is: " + item.getAttribute("ui-child-position"));
-			}
-			$("segmentedcontrol").UISegmentedControl("#stackpanel_01", seggie);
-			$("#stackpanel_01").UIIdentifyChildNodes();
 			var opts = {
                 numberOfTabs : 5,
                 imagePath : "../../icons\/",
@@ -50,7 +35,6 @@
                 selectedTab : 0
 			};
 			$("#main").UICreateTabBar(opts);
-			
 		});
 	</script>
 </head>

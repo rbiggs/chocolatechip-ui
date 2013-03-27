@@ -40,7 +40,7 @@
 				status : "off",
 				namePrefix : "customer.choice",
 				value : "I'm hungry!",
-				callback : function(item) { 
+				callback : function(item) {
 					/* 
 					At the time the user clicks, the button is set to "off",
 					so we know that after clicking it will be set to "on".
@@ -66,9 +66,10 @@
 				
 			});
 			
-			$.app.delegate("switchcontrol", "click", function(switchcontrol) {
-				if ($(this).hasClass("on")) {
-					$("#switchResponse").html($(this).find("input").val());
+			$.app.on($.eventStart, "switchcontrol", function() {
+				var switchcontrol = $(this);
+				if (switchcontrol.hasClass("on")) {
+					$("#switchResponse").html(switchcontrol.find("input").val());
 				} else {
 					$("#switchResponse").empty();
 				}
@@ -89,13 +90,9 @@
 						<tablecell>
 							<celltitle>Sleep</celltitle>
 						</tablecell>
-					  </tableview>
-					  <tableview ui-kind="grouped">
 						<tablecell>
 							<celltitle>Vacation</celltitle>
 						</tablecell>
-					  </tableview>
-					  <tableview ui-kind="grouped">
 						<tablecell>
 							<celltitle>Breakfast</celltitle>
 						</tablecell>
