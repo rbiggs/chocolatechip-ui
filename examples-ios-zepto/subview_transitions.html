@@ -7,7 +7,9 @@
     <title>Subview Transitions</title>
     <link rel="stylesheet" href="../chui/chui.ios.css">
     <style type="text/css">
-		
+		#flip subview + subview {
+			opacity: 0;
+		}		
    </style>
 	<script src="../libs/zepto.js"></script>
 	<script src="../chui/iscroll.js"></script>
@@ -104,7 +106,7 @@
 					</tableview>
 				</scrollpanel>
 			</subview>
-			<subview ui-associations="withNavBar" ui-background-style="striped">
+			<subview ui-associations="withNavBar" style='background-color: #cbd2d8;' ui-background-style="slanted-left-equal">
 				<scrollpanel>
 					<shim></shim>
 					<shim></shim>
