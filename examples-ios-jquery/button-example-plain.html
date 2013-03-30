@@ -21,11 +21,11 @@
 			-webkit-box-orient: horizontal;
 			-webkit-box-sizing: border-box;
 			height: 45px;
-			padding: 0px;
+			padding: 0px;			
 			background-image: 
-				-webkit-linear-gradient(top, #b2bbca, #a7b0c3 25%, #909cb3 50%, #8593ac 50%, #7c8ba5 75%, #73839f); 
+				-webkit-linear-gradient(top, #C2CCDD, #617396); 
 			border-top: 1px solid #cdd5df;
-			border-bottom: 1px solid #2d3642; 
+	 		border-top: solid 1px #546b85;
 			margin: 10px 0;
 		}
 		stack > uibutton {
@@ -53,78 +53,82 @@
 			</navbar>
 			<subview ui-associations="withNavBar">
 				<scrollpanel>
-					<stack ui-box="horizontal" class='navbar'>
+					<br><br>
+					<navbar>
 						<uibutton ui-implements="back" ui-bar-align="left">
 							<label>Back</label>
 						</uibutton>
 						<uibutton ui-implements="next" ui-bar-align="right">
 							<label>Next</label>
 						</uibutton>
-					</stack>
-					<stack ui-box="horizontal" class='navbar'>
+					</navbar>
+					<br><br>
+					<navbar>
 						<uibutton ui-bar-align="left">
-							<icon ui-icon-image="home"></icon>
+							<icon ui-icon-image='home'></icon>
 							<label>Save</label>
 						</uibutton>
 						<uibutton ui-implements="delete" ui-icon-align="right" ui-bar-align="right">
-							<icon ui-icon-image="delete"></icon>
+							<icon ui-icon-image='delete'></icon>
 							<label>Delete</label>
 						</uibutton>
-					</stack>
-					<stack ui-box="horizontal" class='navbar'>
+					</navbar>
+					<br><br>
+					<navbar>
 						<uibutton ui-implements="done" ui-bar-align="left" class="disabled">
-							<icon ui-icon-image="bookmarks"></icon>
+							<icon ui-icon-image='bookmarks'></icon>
 							<label>Save</label>
 						</uibutton>
 						<uibutton ui-implements="delete" ui-bar-align="right" ui-icon-align="right" class="disabled">
-							<icon ui-icon-image="chat"></icon>
+							<icon ui-icon-image='chat'></icon>
 							<label>Delete</label>
 						</uibutton>
-					</stack>
-					<stack ui-box="horizontal" class='navbar'>
+					</navbar>
+					<br><br>
+					<navbar>
 						 <uibutton ui-icon-align="right" ui-bar-align="left">
-							 <icon ui-icon-image="cog"></icon>
+							 <icon ui-icon-image='cog'></icon>
 							 <label>Add</label>
 						 </uibutton>
 						 <uibutton class="disabled" ui-bar-align="right">
 							 <label>Favorites</label>
 						 </uibutton>
-					 </stack>
-					
-					<stack ui-box="horizontal" class='navbar'>
+					 </navbar>
+					<br><br>
+					<navbar>
 						<uibutton ui-implements="icon">
-							<icon ui-icon-image="compose"></icon>
+							<icon ui-icon-image='compose'></icon>
 						</uibutton>
 						<uibutton ui-implements="done"  ui-icon-align="right">
-							<icon ui-icon-image="attachment"></icon>
+							<icon ui-icon-image='attachment'></icon>
 							<label>Save</label>
 						</uibutton>
 						<uibutton  ui-implements="icon">
-							<icon ui-icon-image="add"></icon>
+							<icon ui-icon-image='add' style="background-color: #fff5b6;"></icon>
 						</uibutton>
 						<uibutton ui-icon-align="right">
-							<icon ui-icon-image="cog"></icon>
+							<icon ui-icon-image='cog'></icon>
 							<label>Set</label>
 						</uibutton>
-					</stack>
+					</navbar>
+					<br><br>
 					<stack ui-box="horizontal" style="background-color: #666;">
 						<uibutton ui-kind="icon">
-							<icon ui-icon-image="film"></icon>
+							<icon ui-icon-image='film'></icon>
 						</uibutton>
 						<uibutton ui-kind="icon">
-							<icon ui-icon-image="files"></icon>
+							<icon ui-icon-image='files'></icon>
 						</uibutton>
 						<uibutton ui-kind="icon">
-							<icon ui-icon-image="cog"></icon>
+							<icon ui-icon-image='cog' style='background-color: red !important'></icon>
 						</uibutton>
 						<uibutton ui-kind="icon">
-							<icon ui-icon-image="download"></icon>
+							<icon ui-icon-image='download' style="background-image: -webkit-linear-gradient(top, yellow, orange 45%, red);"></icon>
 						</uibutton>
 						<uibutton ui-kind="icon">
-							<icon ui-icon-image="add"></icon>
+							<icon ui-icon-image='add'></icon>
 						</uibutton>
 					</stack>
-				
 					<stack ui-box="horizontal">
 						<uibutton ui-kind="rounded-rectangle">
 							<label>Text Message</label>
@@ -139,7 +143,6 @@
 						<uibutton ui-implements="done" ui-kind="rounded-rectangle" ui-icon-align="right" class="stretch disabled">
 							<label>Sign Out</label>
 						</uibutton>
-					</stack>
 				</scrollpanel>
 			</subview>
 		</view>
