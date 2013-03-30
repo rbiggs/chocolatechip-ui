@@ -501,7 +501,6 @@ Version: 2.1.3
 			disabledTab: 3
 		*/
 		var id = opts.id || $.UIUuid();
-		var imagePath = opts.imagePath || 'icons-ios\/';
 		var numberOfTabs = opts.numberOfTabs || 1;
 		var tabLabels = opts.tabLabels;
 		var iconsOfTabs = opts.iconsOfTabs;
@@ -521,10 +520,9 @@ Version: 2.1.3
 					}
 					tabbar.push("'");
 				}
-				tabbar.push("><icon style='-webkit-mask-image: url(");
-				tabbar.push(imagePath);
+				tabbar.push("><icon ui-icon-image='");
 				tabbar.push(iconsOfTabs[i]);
-				tabbar.push(".svg);'></icon>");
+				tabbar.push("'></icon>");
 				tabbar.push("<label>");
 				tabbar.push(tabLabels[i]);
 				tabbar.push("</label></uibutton>");
