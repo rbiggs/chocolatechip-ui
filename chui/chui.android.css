@@ -2194,9 +2194,9 @@ expander {
 expander > header {
 	position: relative;
 	z-index: 100;
-	padding-left: 40px;
 	background-size: 100% 8px;
 	background-repeat: repeat-x;
+	padding-left: 15px;
 	padding-bottom: 8px;
 	cursor: pointer;
 	margin-top: 10px;
@@ -2205,48 +2205,30 @@ expander > header > label {
 	display: inline-block;
 	border-top: solid 1px #828283; 
 	background-color: #424344;
+	position: relative;
 	color: #fff;
-	position: absolute;
-	top: -14px;
 	padding: 2px 10px;
-	margin-left: 10px;
+	margin-right: 10px;
+	cursor: pointer;
+	padding-right: 40px;
 	cursor: pointer;
 }
-expander > header:before {
+expander > header > label:after {
 	content: '';
 	display: block;
 	width: 30px;
 	height: 30px;
 	position: absolute;
-	top: -12px;
-	left: 10px;
-	border-radius: 20px;
+	top: -3px;
+	right: 0;
+	background: transparent url(../icons-android/arrow_down.svg) no-repeat;
+	background-position: center center;
+	background-size: 100% 100%;
 	-webkit-box-sizing: border-box;
-	-webkit-background-clip: padding-box;
-	padding: 2px;
-	box-shadow: 
-		0 3px 4px rgba(0,0,0,0.25),  
-		0 -1px 4px rgba(0,0,0,0.25);
-} 
-expander > header:after {
-	content: '';
-	display: block;
-	width: 30px;
-	height: 30px;
-	position: absolute;
-	top: -13px;
-	left: 10px;
-	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" xml:space="preserve"><polygon points="35,25 17,11 17,39 "/></svg>');
-	-webkit-mask-repeat: no-repeat;
-	background-position: 5px 5px;
-	-webkit-mask-position: 50% 50%;
-	-webkit-box-sizing: border-box;
-	background-color: #fff;
 	cursor: pointer;
-	-webkit-transition: all 0.5s  ease-in-out;
+	-webkit-transition: all 0.25s ease-in-out;
 	-webkit-transform: rotate(0deg);
-	-webkit-mask-clip: border-box;
-} 
+}
 expander > panel {
 	position: relative;
 	z-index: 1;
@@ -2256,24 +2238,20 @@ expander > panel {
 	overflow: hidden;
 	padding-bottom: 10px;
 } 
-expander.ui-status-expanded > header {
-}
 expander.ui-status-expanded > panel {
 	opacity: 1;
-	background-color: rgba(0,0,0,0.1);
+	background-color: #1a1a1a;
 	background-size: 100% 8px;
 	background-position: bottom left;
 	background-repeat: repeat-x;
 } 
-expander.ui-status-expanded > header:after {
-	-webkit-transform: rotate(90deg);
-}
-expander.ui-status-expanded > header:before {
+
+expander.ui-status-expanded > header > label:after {
+  -webkit-transform: rotate(180deg);
 }
 expander.ui-status-expanded > header > label {
 	background-color: hsl(196,64%,49%);
-}
-/* End Expander Styles */
+}/* End Expander Styles */
 /* Progress Bar Styles */
 progressbar {
 	display: block;

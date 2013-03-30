@@ -2740,7 +2740,7 @@ expander > header:after {
 	top: -13px;
 	left: 10px;
 	border-radius: 30px;
-	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" xml:space="preserve"><polygon points="35,25 17,11 17,39 "/></svg>');
+	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" xml:space="preserve"><polygon points="24,35 10,17 38,17 "/></svg>');
 	-webkit-mask-repeat: no-repeat;
 	background-position: 5px 5px;
 	-webkit-mask-position: 50% 50%;
@@ -2775,7 +2775,7 @@ expander.ui-status-expanded > panel {
 	background-repeat: repeat-x;
 } 
 expander.ui-status-expanded > header:after {
-	-webkit-transform: rotate(90deg);
+	-webkit-transform: rotate(180deg);
 }
 expander.ui-status-expanded > header:before {
 	background-image: 
