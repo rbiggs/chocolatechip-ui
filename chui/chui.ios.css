@@ -1481,9 +1481,12 @@ tablecell[ui-implements=disclosure]:after {
     height: 25px;
     width: 12px;
     float: right;
-    margin-top: 0;
+    margin-top: 2px;
     margin-bottom: -20px;
     margin-left: -10px;
+}
+tableview[ui-kind=grouped] tablecell[ui-implements=disclosure]:after {
+	margin-top: 0;
 }
 tablecell[ui-implements=disclosure][href].touched:after {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g   transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path   d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#fff;fill-opacity:1;stroke:none' /></g></svg>");
@@ -1883,12 +1886,17 @@ celldatetime, cellvalue {
 	color: #2671d8;
 	float: right;
 	margin-right: 22px;
-	margin-top: -16px;
+	margin-top: -17px;
 	margin-left: -20px;
 	font-size: 14px;
 	text-align: right;
 	-webkit-transform: translate3d(0,0,0);
 }
+tableview[ui-kind=grouped] celldatetime,
+tableview[ui-kind=grouped] cellvalue {
+	margin-top: -16px;
+}
+
 cellvalue {
 	margin-top: 6px;
 }
@@ -1897,7 +1905,7 @@ tableview > tablecell > cellcounter {
 	border-radius: 10px;
 	display: inline-block !important;
 	float: right;
-	margin-right: 22px;
+	margin-right: 30px;
 	margin-left: -20px;
 	margin-top: 4px;
 	margin-bottom: -20px;
