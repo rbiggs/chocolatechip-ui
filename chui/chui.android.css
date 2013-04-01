@@ -1241,6 +1241,7 @@ uibutton[ui-implements=backTo][ui-bar-align=left],
 segmentedcontrol[ui-bar-align=left] {
 	position: static;
 	margin-left: 0 !important;
+	margin-right: 10px;
 	top: 9px;
 	display: -webkit-box;
 	-webkit-box-align: center;
