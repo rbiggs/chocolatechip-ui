@@ -26,10 +26,7 @@
 					{ title : "Delete", uiButtonImplements : "delete", callback : "respondToDeleteButton" },
 					{ title : "Save", uiButtonImplements : "save", callback : "respondToSaveButton"
 					}
-				],
-				cancelButtonCallback : function() {
-					$('#output').html("You pressed the Cancel button.");
-				}
+				]
 			};
 			$.body.UIActionSheet(opts);
 						

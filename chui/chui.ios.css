@@ -875,6 +875,21 @@ segmentedcontrol > uibutton.selected.touched {
     color: #fff;
     border-color: #193a7f;
 }
+segmentedcontrol > uibutton > icon[ui-icon-image] {
+	background-color: #000 !important;
+}
+segmentedcontrol > uibutton.touched > icon[ui-icon-image], 
+segmentedcontrol > uibutton.selected > icon[ui-icon-image] {
+	background-color: #fff !important;
+}
+navbar > segmentedcontrol > uibutton > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton > icon[ui-icon-image],
+navbar > segmentedcontrol > uibutton.touched > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton.touched > icon[ui-icon-image],
+navbar > segmentedcontrol > uibutton.selected > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton.selected > icon[ui-icon-image]  {
+	background-color: #000 !important;
+}
 navbar segmentedcontrol > uibutton > label,
 toolbar segmentedcontrol > uibutton > label {	
 	text-shadow: 0 -1px rgba(0,0,0,0.5);

@@ -333,6 +333,16 @@ Version: 2.1.3
 		},
 		
 		UICreateSegmentedControl : function(opts) {
+			// Icons are indicated in an array assigned to iconsOfSegments.
+			// If you don't want an icon on a segment, leave its position empty: ''.
+			/* var opts = {
+				id : 'mySegmentedControl', 
+				numberOfSegments : 3,
+				titlesOfSegments : 'Work','Eat','Shop',
+				// Put bag icon on last segmented:
+				iconsOfSegments : ['','','bag']
+				
+			*/
 			position = opts.position || null;
 			var segmentedControl = "<segmentedcontrol";
 			if (opts.id) {
@@ -377,7 +387,7 @@ Version: 2.1.3
 					segmentedControl += ">";
 					if (opts.iconsOfSegments) {
 						if (!!opts.iconsOfSegments[i]) {
-						segmentedControl += "<icon ui-implements='icon-mask' style='-webkit-mask-box-image: url(icons/" + opts.iconsOfSegments[count-1] +"." + opts.fileExtension[count-1] + ")'  ui-implements='icon-mask'></icon>";
+						segmentedControl += "<icon ui-icon-image='" + opts.iconsOfSegments[count-1] +"'></icon>";
 						}
 					}
 					if (opts.titlesOfSegments) {

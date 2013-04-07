@@ -237,20 +237,20 @@
 								 <h2>Example of Default Action Buttons for Action within a View</h2>
 							</div>
 							<stack ui-box="horizontal" ui-box-pack="center">
-							<uibutton>
+							<uibutton ui-kind='action'>
 							<label>Text Message</label>
 							</uibutton>
-							<uibutton  class="disabled">
+							<uibutton  ui-kind='action' class="disabled">
 							<label>Add to Favorites</label>
 							</uibutton>
 							</stack>
 							<div>
 								 <h2>Example of Important Action Buttons for Action within a View</h2>
 							</div>
-							<uibutton ui-implements="done">
+							<uibutton ui-kind='action' ui-implements="done">
 							<label>View Account</label>
-							</uibutton>
-							<uibutton ui-implements="done" ui-icon-align="right" class="disabled">
+							</uibutton><br>
+							<uibutton ui-kind='action' ui-implements="done" ui-icon-align="right" class="disabled">
 							<label>Sign Out</label>
 							</uibutton>
 					  </section>
@@ -283,15 +283,15 @@
 							</div>
 							<div>
 								 <segmentedcontrol>
-									  <uibutton ui-icon-implements="mask">
+									  <uibutton style='height: 54px;' ui-icon-implements="mask">
 									<icon ui-icon-image="chart"></icon>
 									<label>Canada</label>
 									  </uibutton>
-									  <uibutton ui-icon-align="right">
+									  <uibutton style='height: 54px;' ui-icon-align="top">
 									<icon ui-icon-image="add"></icon>
 									<label>USA</label>
 									  </uibutton>
-									  <uibutton class="disabled" ui-icon-align="right">
+									  <uibutton style='height: 54px;' class="disabled" ui-icon-align="right">
 											<icon ui-icon-image="chart"></icon>
 											<label>Mexico</label>
 									  </uibutton>

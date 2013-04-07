@@ -243,6 +243,13 @@ uibutton[ui-kind=action][ui-implements=done]:hover {
         -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%); 
     color: #fff;
 }
+segmentedcontrol > uibutton:hover > icon[ui-icon-image] {
+	background-color: #fff !important;
+}
+navbar > segmentedcontrol > uibutton:hover > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton:hover > icon[ui-icon-image]  {
+	background-color: #fff !important;
+}
 uibutton.ui-custom-tint.disabled:hover, 
 uibutton[ui-implements=done].ui-custom-tint.disabled:hover, 
 uibutton[ui-implements=delete].ui-custom-tint.disabled:hover {
