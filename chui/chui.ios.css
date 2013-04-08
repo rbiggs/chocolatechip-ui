@@ -2798,7 +2798,7 @@ expander.ui-status-expanded > panel {
 	background-repeat: repeat-x;
 } 
 expander.ui-status-expanded > header:after {
-	-webkit-transform: rotate(180deg);
+	-webkit-transform: rotate(-180deg);
 }
 expander.ui-status-expanded > header:before {
 	background-image: 
