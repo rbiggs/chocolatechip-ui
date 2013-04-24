@@ -1182,44 +1182,33 @@ Version: 2.1.3
        
       templates : {},
        
-      template : function(str, data) {
-         if ($.ajaxStatus === null || $.ajaxStatus === false) {
-            return data;
-         }
-         if ($.templates[str]) {
-            str = $.templates[str];
-         } else {
-            str = str;
-         }
-         var tmpl = 'var p=[],print=function(){p.push.apply(p,arguments);};with(obj||{}){p.push(\''; 
-         var regex1; 
-         var regex2;
-         if (/\{\{/.test(str) || (/$\{/).test(str)) {
-            regex1 = /\$\{([\s\S]+?)\}/g;
-            regex2 = /\{\{([\s\S]+?)\}\}/g;
-         } else if (/\[\[/.test(str) || (/$\[/).test(str)) {
-            regex1 = /\$\[([\s\S]+?)\]/g;
-            regex2 = /\[\[([\s\S]+?)\]\]/g;
-         } else if (/<%=/.test(str) || (/<%/).test(str)) {
-            regex1 = /<%=([\s\S]+?)%>/g;
-            regex2 = /<%([\s\S]+?)%>/g;
-         }  
-         tmpl +=
-           str.replace(/\\/g, '\\\\')
-             .replace(/'/g, "\\'")
-             .replace(regex1, function(match, code) {
-               return "'," + code.replace(/\\'/g, "'") + ",'";
-             })
-             .replace(regex2 || null, function(match, code) {
-               return "');" + code.replace(/\\'/g, "'")
-               .replace(/[\r\n\t]/g, ' ') + "p.push('";
-             })
-             .replace(/\r/g, '\\r')
-             .replace(/\n/g, '\\n')
-             .replace(/\t/g, '\\t') + "');} return p.join('');";
-         var fn = new Function('obj', tmpl);
-         return data ? fn(data) : fn;
-      },
+      template : function ( tmpl, variable ) {
+			var regex, delimiterOpen, delimiterClosed;
+			var variable = variable ? variable : 'data';
+			if (/\$\{\{/.test(tmpl) || (/\{\{/).test(tmpl)) {
+				regex = /\$\{\{([\s\S]+?)\}\}/g;
+				delimiterOpen = '{{';
+				delimiterClosed = '}}';
+			} else if (/\[\[=/.test(tmpl) || (/\[\[/).test(tmpl)) {
+				regex = /\[\[=([\s\S]+?)\]\]/g;
+				delimiterOpen = '[[';
+				delimiterClosed = ']]';
+			} else if (/<%=/.test(tmpl) || (/<%/).test(tmpl)) {
+				var regex = /<%=(.+?)%>/g;
+				delimiterOpen = '<%';
+				delimiterClosed = '%>';
+			} 
+			var template =  new Function(variable, 
+				"var p=[];" + "p.push('" + tmpl
+				.replace(/[\r\t\n]/g, " ")
+				.split("'").join("\\'")
+				.replace(regex,"',$1,'")
+				.split(delimiterOpen).join("');")
+				.split(delimiterClosed).join("p.push('") + "');" +
+				"return p.join('');");
+				$.bongo = template;
+			return template;
+		},
        
       UIUpdateOrientationChange : function ( ) {
          var body = $('body');
