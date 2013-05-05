@@ -11,7 +11,7 @@ ChocolateChip-UI
 Chui.android.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.3
+Version: 2.1.4
 */
 @font-face {
 	font-family: 'Roboto';
@@ -104,7 +104,8 @@ input:focus::before, input:focus::after {
 	border-color: hsl(196,64%,49%);
 }
 navbar, toolbar, tabbar {
-    z-index: 1000;
+    z-index: 10000;
+    -webkit-transform: translate3d(0,0,0);
 }
 app {
 	overflow-y: auto;
@@ -1240,7 +1241,7 @@ segmentedcontrol[ui-bar-align=left] {
 	position: static;
 	margin-left: 0 !important;
 	margin-right: 10px;
-	top: 9px;
+	top: 15px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-orient: horizontal;
@@ -1256,7 +1257,7 @@ uibutton[ui-bar-align=right],
 uibutton[ui-implements=next][ui-bar-align=right], 
 segmentedcontrol[ui-bar-align=right] {
 	position: absolute;
-	right: 10px !important;
+	right: 15px !important;
 	margin-right: 0px;
 	top: 7px;
 	display: -webkit-box;

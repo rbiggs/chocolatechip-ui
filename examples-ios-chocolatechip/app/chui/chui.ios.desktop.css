@@ -1,16 +1,14 @@
 /*
 ChocolateChip-UI
-Desktop version of chui.ios.css
-
-Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
-License: BSD
-Version: 2.0 Beta
+Chui.ios.desktop.css
+Copyright 2013 Sourcebits www.sourcebits.com
+License: GPLv3
+Version: 2.1.4
 */
 uibutton:hover, 
 uibutton[ui-implements=done]:hover {
 	background-image: 
-		-webkit-linear-gradient(top,
-			#7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
+		-webkit-linear-gradient(top, #808ca3, #23365f);
 	-webkit-tap-highlight-color: transparent;
 }
 tabbar uibutton:hover {
@@ -32,9 +30,9 @@ uibutton[ui-implements=done].disabled:hover {
       -webkit-linear-gradient(top, #7a9eec, #5785e5 25%, #3470e0 50%, #2461dd 50%, #2465dd 75%, #2461de);
 }
 uibutton[ui-implements=done]:hover {
-    border-color: #484e59 #54617d #4c5c7a #54617d; 
+    border-color: #484e59 #54617d #4b353a #54617d; 
     background-image: 
-      -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
+      -webkit-linear-gradient(top, #808ca3, #23365f);
 }
 uibutton[ui-implements=delete].disabled:hover {
     border: solid 1px #4b353a;
@@ -45,18 +43,19 @@ uibutton[ui-implements=delete].disabled:hover {
 uibutton[ui-implements=delete]:hover {
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     background-image: 
-      -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
+      -webkit-linear-gradient(top, #808ca3 10%, #23365f 90%);
 }
 uibutton.disabled:hover {
 	background-image: 
-		-webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993);
+		-webkit-linear-gradient(top, #9EAAC1, #4C618C);
 }
-uibutton[ui-implements=back].disabled:hover:before {
+uibutton[ui-implements=back].disabled:hover:before,
+uibutton[ui-implements=backTo].disabled:hover:before {
     content: '';
     display: block;
     z-index: 0;
     background-image: 
-        -webkit-linear-gradient(left top, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
+        -webkit-linear-gradient(-45deg, #9EAAC1 12%, #4C618C 88%); 
     border-left: solid 1px #54617D;
     border-bottom: solid 1px #9AA5BB; 
     border-top-left-radius: 7px;
@@ -73,16 +72,17 @@ uibutton[ui-implements=back].disabled:hover:before {
     top: 3px;
     -webkit-background-clip: content;
 }
-uibutton[ui-implements=back]:hover:before {
+uibutton[ui-implements=back]:hover:before,
+uibutton[ui-implements=backTo]:hover:before {
     background-image: 
-        -webkit-linear-gradient(left top, #7d88a5 10%, #58698c 30%, #3a4e78 51%, #253c6a 51%, #273f6d 75%, #273f6d); 
+        -webkit-linear-gradient(-45deg, #808ca3 12%, #23365f 88%); 
 }
 uibutton[ui-implements=next].disabled:hover:before  {
     content: '';
     display: block;
     z-index: 0;
     background-image: 
-        -webkit-linear-gradient(left top, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
+        -webkit-linear-gradient(-45deg, #9EAAC1 10%, #4C618C 90%); 
     border-right: solid 1px #484e59;
     border-top: solid 1px #484e59;
     border-top-left-radius: 7px;
@@ -101,7 +101,7 @@ uibutton[ui-implements=next].disabled:hover:before  {
 }
 uibutton[ui-implements=next]:hover:before {
     background-image: 
-        -webkit-linear-gradient(left top, #7d88a5 10%, #58698c 30%, #3a4e78 51%, #253c6a 51%, #273f6d 75%, #273f6d); 
+        -webkit-linear-gradient(left top, #808ca3 10%, #23365f 90%); 
 }
 segmentedcontrol > uibutton:hover, 
 segmentedcontrol > uibutton.selected:hover {
@@ -109,6 +109,13 @@ segmentedcontrol > uibutton.selected:hover {
         -webkit-linear-gradient(top, #2a55b1, #6297f2);
     color: #fff;
     border-color: #193a7f;
+}
+navbar > segmentedcontrol > uibutton:hover, 
+navbar > segmentedcontrol > uibutton.selected:hover,
+toolbar > segmentedcontrol > uibutton:hover, 
+toolbar > segmentedcontrol > uibutton.selected:hover {
+    background-image: 
+        -webkit-linear-gradient(top, #808ca3, #23365f);
 }
 segmentedcontrol > uibutton.disabled:hover {
     background-image: 
@@ -120,14 +127,14 @@ segmentedcontrol > uibutton.disabled:hover {
 navbar > segmentedcontrol > uibutton:hover, 
 navbar > segmentedcontrol > uibutton.selected:hover {
     background-image: 
-        -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75% #273f6d) !important;
+        -webkit-linear-gradient(top, #808ca3, #23365f) !important;
     color: #fff;
     border-color: #193a7f;
 }
 navbar > segmentedcontrol > uibutton.disabled:hover,
 toolbar > segmentedcontrol > uibutton.disabled:hover {
     background-image: 
-        -webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993) !important;  
+        -webkit-linear-gradient(top, #9EAAC1, #4C618C) !important;  
     color: #fff;
     border-color: #484e59 #54617d #4c5c7a #54617d;
 }
@@ -162,7 +169,7 @@ uibutton[ui-kind=action].disabled:hover {
     height: 52px;
     border-radius: 12px;
     background-image: 
-        -webkit-linear-gradient(top, rgba(234,234,234,0.7), rgba(195,195,195,0.7) 50%, rgba(166,166,166,0.7) 50%, rgba(167,167,167,0.80)); 
+        -webkit-linear-gradient(top, rgb(234,234,234), rgb(166,166,166) 50%, rgb(167,167,167)); 
     color: #000;
     font: bold 16px/20px Helvetica, sans-serif;
     text-decoration: none;
@@ -175,72 +182,79 @@ uibutton[ui-kind=action].disabled:hover {
 }
 uibutton[ui-kind=action]:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
+        -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action][ui-implements=cancel].disabled:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(74,74,74,0.7), rgba(20,20,20,0.7) 50%, rgba(2,2,2,0.7) 50%, rgba(14,14,14,0.7)); 
+        -webkit-linear-gradient(top, #858586, #464647 30%, #2f2e2f 50%); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action][ui-implements=cancel]:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7));  
+        -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%);  
     color: #fff;
     text-shadow: #000 0 1px 0;
 }
 uibutton[ui-kind=action][ui-implements=delete].disabled:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(255,124,151,0.7), rgba(255,74,89,0.7) 50%, rgba(255,0,4,0.7) 50%, rgba(255,62,27,0.7)); 
+        -webkit-linear-gradient(top, #e98a8a, #eb253b 50%, #eb253b 80%, #e9092e); 
     color: #fff;
     text-shadow: #000 0 1px 0;
 }
 uibutton[ui-kind=action][ui-implements=delete]:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
+        -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%); 
     color: #fff;
 }
 uibutton[ui-kind=action].green.disabled:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(79,156,74,0.7), rgba(54,127,35,0.7) 50%, rgba(0,113,0,0.7) 50%, rgba(0,150,0,0.7)); 
+        -webkit-linear-gradient(top, #e98a8a, #eb253b 50%, #eb253b 80%, #e9092e) !important; 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action].green:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
+        -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%); 
     color: #fff;
 }
 uibutton[ui-kind=action].gold.disabled:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(255,217,0,0.7), rgba(255,185,0,0.7) 50%, rgba(255,138,0,0.7) 50%, rgba(255,165,0,0.7)); 
+        -webkit-linear-gradient(top, #60bf5b, #00ac01 30%, rgba(0,150,0,1) 50%); 
     color: #000;
     text-shadow: 0 1px 0 #ccc;
 }
 uibutton[ui-kind=action].gold:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
+        -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action][ui-implements=done].disabled:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(123,159,235,0.7), rgba(54,111,226,0.7) 50%, rgba(32,87,225,0.7) 50%, rgba(24,87,224,0.7)); 
+        -webkit-linear-gradient(top, rgba(255,217,0,1), rgba(255,138,0,1) 50%); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action][ui-implements=done]:hover {
     background-image: 
-        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
+        -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%); 
     color: #fff;
+}
+segmentedcontrol > uibutton:hover > icon[ui-icon-image] {
+	background-color: #fff !important;
+}
+navbar > segmentedcontrol > uibutton:hover > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton:hover > icon[ui-icon-image]  {
+	background-color: #fff !important;
 }
 uibutton.ui-custom-tint.disabled:hover, 
 uibutton[ui-implements=done].ui-custom-tint.disabled:hover, 
 uibutton[ui-implements=delete].ui-custom-tint.disabled:hover {
 	background-image: 
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(0,0,0,.5));
     border: solid 1px #808080;
     border-color: #6f6f6f #4d4d4d #676767 #616161;
 }
@@ -248,15 +262,16 @@ uibutton.ui-custom-tint:hover,
 uibutton[ui-implements=done].ui-custom-tint:hover, 
 uibutton[ui-implements=delete].ui-custom-tint:hover {
 	background-image: 
-		-webkit-linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2));
+		-webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(255,255,255,.25));
 }
-uibutton[ui-implements=back].ui-custom-tint:hover:before {
+uibutton[ui-implements=back].ui-custom-tint:hover:before,
+uibutton[ui-implements=backTo].ui-custom-tint:hover:before {
 	background-image: 
-		-webkit-linear-gradient(left top, rgba(0,0,0,.1) 10%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2) 90%);
+		-webkit-linear-gradient(-45deg, rgba(0,0,0,.5) 10%, rgba(255,255,255,.25) 90%);
 }
 uibutton[ui-implements=next].ui-custom-tint:hover:before {
 	background-image: 
-		-webkit-linear-gradient(left top, rgba(0,0,0,.1) 10%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2) 90%);
+		-webkit-linear-gradient(-45deg, rgba(0,0,0,.5) 10%, rgba(255,255,255,.25) 90%);
 }
 segmentedcontrol > uibutton.ui-custom-tint.disabled:hover, 
 navbar > segmentedcontrol > uibutton.ui-custom-tint.disabled:hover, 
@@ -265,14 +280,14 @@ navbar > segmentedcontrol > uibutton.disabled.ui-custom-tint:hover,
 toolbar > segmentedcontrol > uibutton.disabled.ui-custom-tint:hover {
 	border: solid 1px #484E59;
 	background-image: 
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5)) !important;
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(0,0,0,.5)) !important;
 	color: #fff;
 }
 segmentedcontrol > uibutton.ui-custom-tint:hover, 
 segmentedcontrol > uibutton.ui-custom-tint.selected:hover {
 	border: solid 1px #484E59;
 	background-image: 
-		-webkit-linear-gradient(top, rgba(0,0,0,.35), rgba(0,0,0,.35) 50%, rgba(50,50,50,.35) 50%, rgba(255,255,255,.35)) !important;
+		-webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(255,255,255,.25)) !important;
 	color: #fff;
 }
 uibutton[ui-kind=action].ui-custom-tint.disabled:hover {
@@ -283,7 +298,7 @@ uibutton[ui-kind=action].ui-custom-tint.disabled:hover {
 }
 uibutton[ui-kind=action].ui-custom-tint:hover {
 	background-image: 
-		-webkit-linear-gradient(top, rgba(0,0,0,.45), rgba(0,0,0,.5) 50%, rgba(30,30,30,.5) 50%, rgba(255,255,255,.5));
+		-webkit-linear-gradient(top, rgba(0,0,0,.45) 50%, rgba(255,255,255,.5));
 	color: #fff;
 	text-shadow: 0 1px 1px #000;
 }
@@ -296,9 +311,9 @@ uibutton[ui-kind=action].ui-custom-tint:hover {
 tableview > tablecell[href]:hover,
 tableview[ui-implements='detail-menu'] > tablecell:hover,
 tableview[ui-implements='selection-list'] > tablecell:hover {
-    background-image: 
-        -webkit-linear-gradient(top, #4286f5, #194fdb);
-    color: #fff;
+   background-image: 
+      -webkit-linear-gradient(top, #4286f5, #194fdb);
+   color: #fff;
 	cursor: pointer;
 }
 tableview > tablecell[href]:hover > *,
@@ -363,9 +378,10 @@ popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action]:hover {
 	background-image: 
 		-webkit-linear-gradient(top, #70747f, #424857 50%, #171e30 50%, #222839);
 	text-shadow: black 0px 1px 0px;
+	box-shadow: inset 0 -20px 2px #171e30;
 }
 tableview[ui-implements=selection-list] tablecell.selected:hover > checkmark {
-	color: #fff;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='48' height='48' viewBox='0 0 48 48' id='svg3804' xml:space='preserve'><metadata id='metadata8'></metadata> <defs id='defs3806' /> <g transform='matrix(2.8817229,0,0,2.9517892,5.3723918,5.2474312)' id='layer1'> <path d='M 10.58744,0.11700172 12.620401,1.4648176 4.9418522,12.209841 0.10319639,7.8243369 1.7365255,6.1043166 4.4838194,8.7340293 z' id='path3908' style='fill:#ffffff;fill-opacity:1;stroke:none' /> </g> </svg>");
 }
 switchcontrol:hover > thumb {
 	background-image: none;
@@ -373,6 +389,9 @@ switchcontrol:hover > thumb {
 switchcontrol[ui-kind=generic]:hover > thumb {
 	-webkit-box-shadow: inset 0 2px 1px #fff, inset 0 -2px 1px #fff;
 	background-image: none;
+}
+tabbar > uibutton[ui-implements=tab]:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 tabbar > uibutton[ui-implements=tab].disabled:hover {
    background: none;
@@ -395,7 +414,7 @@ tabbar > uibutton[ui-implements=tab].disabled:hover {
 }
 tabbar > uibutton[ui-implements=tab]:hover > icon {
     background-image: 
-    	-webkit-linear-gradient(-85deg, #DDE9F0, #79B2EC 60%, #2E91E5 70%, #3FC5F8) !important;
+    	-webkit-linear-gradient(top, #d6e3f9, #028ef7 50%, #00ccfe) !important;
     -webkit-box-shadow: #000 0 1px 0px;
     color:#68B3DA;
 }

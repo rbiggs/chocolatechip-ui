@@ -1,27 +1,35 @@
 /*
+    pO\		
+   6  /\
+     /OO\
+    /OOOO\
+  /OOOOOOOO\
+ ((OOOOOOOO))
+  \:~=++=~:/    
+ 
 ChocolateChip-UI
-Version 2.0 Beta
-This version works with ChocolateChip.js, jQuery or Zepto. 
-For jQuery, ChocolateChip-UI requires as a minimum version 1.7.1
-When using Zepto, make sure you have the following modules included in your build: zepto, event, detect, fx, fx_methods, ajax, form, data, selector, stack. 
+Chui.ios.js
+Copyright 2013 Sourcebits www.sourcebits.com
+License: GPLv3
+Version: 2.1.4
 */
-
 (function() {
+	var _$ = null;
 	if (window.$chocolatechip) {
-		var $ = window.$chocolatechip;
+		_$ = window.$chocolatechip;
 		var $$ = window.$$chocolatechip;
 		var _cc = true;
-		
-		$.fn = HTMLElement.prototype;
 	}
 	if (window.jQuery) {
-		var $ = window.jQuery;
+		_$ = window.jQuery;
 		var _jq = true;
 	}
 	if (window.Zepto) {
-		var $ = window.Zepto;
+		_$ = window.Zepto;
 		var _zo = true;
 	}
+	var $ = _$;
+	
 	UIConvertElementMethods = function(elementMethods) {
 		for (var method in elementMethods) {
 			if (_jq || _zo) {
@@ -39,8 +47,12 @@ When using Zepto, make sure you have the following modules included in your buil
 	if (_jq || _zo) {
 		$.extend($, {
 			concat : function ( args ) {
-				args = [].slice.apply(arguments);
-				return String.prototype.concat.apply(args.join(''));
+				if (args instanceof Array) {
+					return args.join('');
+				} else {
+					args = $.slice.apply(arguments);
+					return String.prototype.concat.apply(args.join(''));
+				}
 			},
          capitalize : function ( str ) {
 				return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
@@ -114,10 +126,6 @@ When using Zepto, make sure you have the following modules included in your buil
 			$this.attr('aria-hidden','true');
 			var elems = $.els('*', $this);
 			$._each(elems, function(idx, ctx) {
-				$(ctx).data('savedAriaHidden', $(ctx).attr('aria-hidden'));
-				if ($(ctx).attr('aria-hidden')) {
-					$(ctx).data('savedAriaHidden', $(ctx).attr('aria-hidden'));
-				}
 				$(ctx).attr('aria-hidden','true');
 			});
 			$this.addClass('ariaHidden');
@@ -125,18 +133,10 @@ When using Zepto, make sure you have the following modules included in your buil
 		
 		ariaShow : function ( ) {
 			var $this = $(this);
-			$this.attr({'aria-hidden':'false'});
+			$this.removeAttr('aria-hidden');
 			var elems = $.els('*', $this);
 			$._each(elems, function(idx, ctx) {
-				var saved;
-				try {
-					saved = $(ctx).data('savedAriaHidden');
-				} catch(err) {}
-				if (!saved) {
-					$(ctx).removeAttr('aria-hidden');
-				} else {
-					$(ctx).attr('aria-hidden', saved);
-				}
+				$(ctx).removeAttr('aria-hidden');
 			});
 			$this.removeClass('ariaHidden');
 		},
@@ -179,13 +179,13 @@ When using Zepto, make sure you have the following modules included in your buil
 			} 
 			$._each(listitems, function(idx, node) {
 				if (node.nodeName.toLowerCase() === 'tablecell') {
-					var checkmark = '<checkmark>&#x2713</checkmark>';
+					var checkmark = '<checkmark></checkmark>';
+					var radio = null;
 					$(node).attr('role','radio');
 					$(node).attr('aria-checked','false');
 					$(node).append(checkmark);
-					$(node).on($.userAction, function() {
-						if ($.userAction === 'touchend') {
-							$(node).removeClass('touched');
+					$(node).on($.eventStart, function() {
+						if ('createTouch' in document) {
 							$(node).attr('aria-checked','false');
 						}
 						var $this = this;
@@ -193,12 +193,14 @@ When using Zepto, make sure you have the following modules included in your buil
 							if ($.UIScrollingActive) return;
 							$._each(listitems, function(idx, check) {
 								$(check).removeClass('selected');
-								$(check).removeClass('touched');
 								$(check).attr('aria-checked','false');		
 							});
 							$($this).addClass('selected');
+							$($this).addClass('touched');
 							$($this).attr('aria-checked','true');
-							$($this).find('input').checked = true; 
+							radio = $($this).find('input');
+							radio = radio.reduceToNode();
+							radio.checked = true; 
 							if (callback) {
 								callback.call(callback, $($this).find('input'));
 							}
@@ -208,6 +210,9 @@ When using Zepto, make sure you have the following modules included in your buil
 						$(this).addClass('touched');
 					});
 					$(node).on('touchcancel', function() {
+						$(this).removeClass('touched');
+					});
+					$(node).on('mouseup', function() {
 						$(this).removeClass('touched');
 					});
 				}
@@ -245,7 +250,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					customClass : "specials",
 					status : "on",
 					kind : "traditional",
-					implements: 'attention',
+					uiImplements: 'attention',
 					labelValue : ["on","off"],
 					value : "$1000",
 					callback : function() {console.log('This is great!');},	
@@ -262,7 +267,10 @@ When using Zepto, make sure you have the following modules included in your buil
 			customClass += opts.customClass ? opts.customClass : "";
 			var status = opts.status || "off";
 			var kind = opts.kind ? " ui-kind='" + opts.kind + "'" : "";
-			var implements = opts.implements ? " ui-implements='" + opts.implements + "'" : "";
+			var uiImplements = '';
+			if (opts.uiImplements) {
+				uiImplements = " ui-implements='" + opts.uiImplements + "'";
+			}
 			var label1 = "ON";
 			var label2 = "OFF";
 			if (opts.kind === "traditional") {
@@ -274,7 +282,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			var value = opts.value || "";
 			var callback = opts.callback || function() { return false; };
 			var label = (opts.kind === "traditional") ? $.concat('<label ui-implements="on">', label1, '</label><thumb></thumb><label ui-implements="off">', label2, '</label>') : "<thumb></thumb>";
-			var uiswitch = $.concat('<switchcontrol ', kind, ' class="', status, " ", customClass, '" ', implements, 'id="', id, '"', '>', label, '<input type="checkbox" ', namePrefix, ' style="display: none;" value="', value, '"></switchcontrol>');
+			var uiswitch = $.concat('<switchcontrol ', kind, ' class="', status, " ", customClass, '" ', uiImplements, 'id="', id, '"', '>', label, '<input type="checkbox" ', namePrefix, ' style="display: none;" value="', value, '"></switchcontrol>');
 			if ($(this).css("position")  !== "absolute") {
 				this.css("position: relative;");
 			}
@@ -285,7 +293,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			} else {
 				$(newSwitchID).find("input").prop("checked", (status === "on" ? true : false));
 			}
-			$(newSwitchID).on($.userAction, function() {
+			$(newSwitchID).on($.eventStart, function() {
 				$(this).UISwitchControl(callback);
 			});
 		},
@@ -304,7 +312,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					$(item).checked = false;
 					checkbox.checked = false;
 				}
-				$(item).on($.userAction, function(e) {
+				$(item).on($.eventStart, function(e) {
 					e.preventDefault();
 					this.parentNode.style.backgroundImage = 'none';
 					$(item).UISwitchControl();
@@ -313,6 +321,16 @@ When using Zepto, make sure you have the following modules included in your buil
 		},
 		
 		UICreateSegmentedControl : function(opts) {
+			// Icons are indicated in an array assigned to iconsOfSegments.
+			// If you don't want an icon on a segment, leave its position empty: ''.
+			/* var opts = {
+				id : 'mySegmentedControl', 
+				numberOfSegments : 3,
+				titlesOfSegments : 'Work','Eat','Shop',
+				// Put bag icon on last segmented:
+				iconsOfSegments : ['','','bag']
+				
+			*/
 			position = opts.position || null;
 			var segmentedControl = "<segmentedcontrol";
 			if (opts.id) {
@@ -357,7 +375,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					segmentedControl += ">";
 					if (opts.iconsOfSegments) {
 						if (!!opts.iconsOfSegments[i]) {
-						segmentedControl += "<icon ui-implements='icon-mask' style='-webkit-mask-box-image: url(icons/" + opts.iconsOfSegments[count-1] +"." + opts.fileExtension[count-1] + ")'  ui-implements='icon-mask'></icon>";
+						segmentedControl += "<icon ui-icon-image='" + opts.iconsOfSegments[count-1] +"'></icon>";
 						}
 					}
 					if (opts.titlesOfSegments) {
@@ -423,7 +441,7 @@ When using Zepto, make sure you have the following modules included in your buil
 						that.attr('ui-selected-segment', $(button).attr('id'));
 					}
 				}
-				$(button).on($.userAction, function() {
+				$(button).on($.eventStart, function() {
 					var selectedSegment = that.attr('ui-selected-segment');
 					selectedSegment = $('#'+selectedSegment);
 					var selectedIndex = that.attr('ui-selected-index');
@@ -481,7 +499,6 @@ When using Zepto, make sure you have the following modules included in your buil
 			disabledTab: 3
 		*/
 		var id = opts.id || $.UIUuid();
-		var imagePath = opts.imagePath || 'icons\/';
 		var numberOfTabs = opts.numberOfTabs || 1;
 		var tabLabels = opts.tabLabels;
 		var iconsOfTabs = opts.iconsOfTabs;
@@ -501,10 +518,9 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 					tabbar.push("'");
 				}
-				tabbar.push("><icon style='-webkit-mask-image: url(")
-				tabbar.push(imagePath);
+				tabbar.push("><icon ui-icon-image='");
 				tabbar.push(iconsOfTabs[i]);
-				tabbar.push(".svg);'></icon>");
+				tabbar.push("'></icon>");
 				tabbar.push("<label>");
 				tabbar.push(tabLabels[i]);
 				tabbar.push("</label></uibutton>");
@@ -528,7 +544,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			subviews.eq(selectedTab).toggleClassName('unselected','selected');
 			tabs.eq(selectedTab).addClass('selected');
 			$._each(tabs, function(idx, tab) {
-				$(tab).on('click', function() {
+				$(tab).on($.eventStart, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
@@ -553,10 +569,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(view).attr('ui-navigation-status','upcoming');
 			});
 			var selectedTab = tabbar.attr('ui-selected-tab') || 0;
-			views.eq(selectedTab).attr('ui-navigation-status','current')
+			views.eq(selectedTab).attr('ui-navigation-status','current');
 			tabs.eq(selectedTab).addClass('selected');
 			$._each(tabs, function(idx, tab) {
-				$(tab).on('click', function() {
+				$(tab).on($.eventStart, function() {
 					if ($(tab).hasClass('disabled') || $(tab).hasClass('selected')) {
 						return;
 					}
@@ -579,18 +595,22 @@ When using Zepto, make sure you have the following modules included in your buil
 			segmentedPager.attr('ui-pagable-subviews', subviews.length);
 			var childPosition = 0;
 			$._each(subviews, function(idx, ctx) {
+				$(ctx).css('display','none');
 				$(ctx).attr('ui-navigation-status', 'upcoming');
 				$(ctx).attr('ui-child-position', childPosition);
 				childPosition++;
 				$(ctx).attr('ui-paging-orient', pagingOrientation);
+				setTimeout(function() {
+					$(ctx).css('display','block');
+				}, 0);
 			});
 			var prevButton = $(segmentedPager._first());
 			var nextButton = $(segmentedPager._last());
 			subviews.eq(0).attr('ui-navigation-status', 'current');
-			segmentedPager.delegate('uibutton', 'click', function(ctx) {
+			segmentedPager.delegate('uibutton', $.eventStart, function(ctx) {
 				var button = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				if ($(button).hasClass('disabled')) return;
-				var pager = segmentedPager; //$(button).closest('segmentedcontrol');
+				var pager = segmentedPager;
 				// Previous Button:
 				if (button.isSameNode(button.parentNode.firstElementChild)) {
 					if (pager.attr('ui-paged-subview') == 1) {
@@ -666,7 +686,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		UIParagraphEllipsis : function () {
 			var lines = $(this).UICalculateNumberOfLines();
 			var $this = this.reduceToNode();
-			$this.style.WebkitLineClamp = lines
+			$this.style.WebkitLineClamp = lines;
 		},
 		
 		UIProgressBar : function ( opts ) {
@@ -709,7 +729,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				if (actionSheetColor) color = $.concat(" ui-action-sheet-color='", actionSheetColor, "'");
 				var actionSheetStr = $.concat("<actionsheet id='", actionSheetID, "' class='hidden' aria-hidden='true' role='dialog' style='display:none' ui-contains='action-buttons'", color, "><scrollpanel ui-scroller='", $.UIUuid(), "'><panel>", title, uiButtons, "<uibutton ui-kind='action' ui-implements='cancel' class='stretch' onclick='$.UIHideActionSheet(\"#", actionSheetID, "\")'><label>Cancel</label></uibutton></panel></scrollpanel></actionsheet>");
 				$(that).append(actionSheetStr);
-			}
+			};
 			createActionSheet();
 			var actionsheet = $("#" + actionSheetID);
 			actionsheet.attr('aria-hidden','true');
@@ -777,6 +797,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			var modalPanelID = $.UIUuid();
 			var duration = opts.duration || '1s';
 			var style = $.concat('background-color:', color,'; height:', size, ';  width:',size);
+			var spinner;
 			if (modal) {
 				panel = document.createElement('panel');
 				$(panel).attr('ui-implements','modal-activity-indicator');
@@ -784,7 +805,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(panel).attr('role','dialog');
 				$(panel).attr('id', modalPanelID);
 				$(panel).css({'display':'-webkit-box','-webkit-box-orient':'vertical','-webkit-box-align':'center','-webkit-box-pack':'center', 'background-color':'rgba(0,0,0,0.5)', 'border-radius':'20px', 'height': '120px', 'width':'200px', 'z-index': 11111});
-				var spinner = document.createElement('activityindicator');
+				spinner = document.createElement('activityindicator');
 				$(spinner).css({'background-color': '#fff', 'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
 				$(spinner).attr('role','progressbar');
 				$(panel).append(spinner);
@@ -809,13 +830,14 @@ When using Zepto, make sure you have the following modules included in your buil
 				}, false);
 			} else {
 				var webkitAnim = _zo ? null : {'-webkit-animation-duration': duration};
-				var spinner = document.createElement('activityindicator');
+				spinner = document.createElement('activityindicator');
 				$(spinner).css({'background-color': color, 'height': size, 'width': size});
 				if (webkitAnim) $(spinner).css(webkitAnim);
 				$(spinner).attr('role','progressbar');
 				if (position) $(spinner).attr('ui-bar-align', position);
 				return $(this).append(spinner);
 			}
+			return this;
 		},
 		
 		RemoveUIAcitivityIndicator : function ( ) {
@@ -900,11 +922,19 @@ When using Zepto, make sure you have the following modules included in your buil
 		},
 		
 		UIRepositionPopover : function() {
-			var triggerElement = $(this).attr("data-popover-trigger"); 
-			var popoverOrientation = $(this).attr("data-popover-orientation");
-			var pointerOrientation = $(this).attr("data-popover-pointer-orientation");
-			var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);
+			var $this = $(this);
+			var triggerElement = $this.attr("data-popover-trigger"); 
+			var popoverOrientation = $this.attr("data-popover-orientation");
+			var pointerOrientation = $this.attr("data-popover-pointer-orientation");
+			var popoverPos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation, $this.attr('id'));
 			$(this).css(popoverPos);
+			if (popoverOrientation == 'top' && pointerOrientation == 'right') {
+				var popoverWidth = parseInt($this.css('width'), 10);
+				var trigEl = $(triggerElement).reduceToNode();
+				var offset = $.absoluteOffset(trigEl);
+				var left = (offset.left + trigEl.offsetWidth) - popoverWidth;
+				$(this).css('left', left+'px')
+			}
 			
 		},
 		
@@ -913,7 +943,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			var screenWidth = window.innerWidth;
 			var popoverHeight = this.offsetHeight;
 			var popoverWidth = this.offsetWidth;
-			var offset = $(this).offset();
+			var offset = $.absoluteOffset($(this));
 			var popoverTop = offset.top;
 			var popoverLeft = offset.left;
 			var bottomLimit = popoverTop + popoverHeight;
@@ -951,7 +981,8 @@ When using Zepto, make sure you have the following modules included in your buil
 						}
 					}
 				}
-		  	}  
+				return this;
+		  	};
 		} else {
 			$._each = $.each;
 		}
@@ -1006,11 +1037,24 @@ When using Zepto, make sure you have the following modules included in your buil
 		$.views = $.els('view');
 		$.touchEnabled = ('ontouchstart' in window);
 		$.userAction = 'touchend';
-		if (!$.touchEnabled) {
-			var stylesheet = $('head').find('link[rel=stylesheet]').attr('href');
-			var stylesheet1 = stylesheet.replace(/chui\.ios\.css/, 'chui.ios.desktop.css');
-			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
+		$.eventStart = 'touchstart';
+		$.eventEnd = 'touchend';
+		if ('createTouch' in document) {
+			$.userAction = 'touchend';
+			$.eventStart = 'touchstart';
+			$.eventEnd = 'touchend';
+		} else {
 			$.userAction = 'click';
+			$.eventStart = 'mousedown';
+			$.eventEnd = 'click';
+			var stylesheet = $('head').find('link[rel=stylesheet]').attr('href');
+			var stylesheet1 = '';
+			if (/min/.test(stylesheet)) {
+				stylesheet1 = stylesheet.replace(/chui\.ios\.min\.css/, 'chui.ios.desktop.css');
+			} else {
+				stylesheet1 = stylesheet.replace(/chui\.ios\.css/, 'chui.ios.desktop.css');
+			}
+			$('head').append(['<link rel="stylesheet" href="',stylesheet1,'">'].join(''));
 		}
 
 		if ( _jq || _zo) {
@@ -1024,7 +1068,7 @@ When using Zepto, make sure you have the following modules included in your buil
 		$._each(navigationListItems, function(idx, ctx) {
 			if ($(ctx).hasAttr('href')) {
 				$(ctx).attr('role', 'button');
-				$(ctx).closest('tableview').attr('role','list')
+				$(ctx).closest('tableview').attr('role','list');
 			} else {
 				$(ctx).attr('role', 'listitem');
 			}
@@ -1043,8 +1087,9 @@ When using Zepto, make sure you have the following modules included in your buil
 			
 			ctx : function(node) {
 				try {
-					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? node[0] : node
-				} catch(err) {}
+					return (node.nodeType !== 1 && typeof node === 'object' && !node.length) ? node[0] : node;
+				} catch(err) {};
+				return this;
 			},
 	
 			UIEnableScrolling : function ( options ) {
@@ -1058,21 +1103,38 @@ When using Zepto, make sure you have the following modules included in your buil
 			UINavigationHistory : ['#main'],
 			
 			UINavigateBack : function() {
-				var parent = $.UINavigationHistory[$.UINavigationHistory.length-1];
+				var histLen = $.UINavigationHistory.length;
+				var parent = $.UINavigationHistory[histLen-1];
 				$.UINavigationHistory.pop();
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				histLen = $.UINavigationHistory.length;
+				$($.UINavigationHistory[histLen-1])
 				.css('visibility', 'visible');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
+				$($.UINavigationHistory[histLen-1])
 				.attr('ui-navigation-status', 'current');
 				
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-				.attr('aria-hidden', 'false');
+				$($.UINavigationHistory[histLen-1])
+				.removeAttr('aria-hidden');
 				$(parent).attr('ui-navigation-status', 'upcoming');
 				$(parent).attr('aria-hidden', 'true');
 				$(parent).css('visibility', 'hidden');
-				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[$.UINavigationHistory.length-1] === '#main') {
- 					$('navbar > uibutton[ui-implements=back]', $.app).css('display','none');
+				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[histLen-1] === '#main') {
+ 					$('navbar > uibutton[ui-implements=back]', $.app).css({'display':'none'});
  				}
+			},
+			
+			UINavigateBackToView : function ( viewID ) {
+				var historyIndex = $.UINavigationHistory.indexOf(viewID);
+				$.UINavigationHistory = $.UINavigationHistory.splice(historyIndex);
+				console.log($.UINavigationHistory);
+				var views = $('app').findAll('views');
+				$._each(views, function(idx, ctx) {
+					if ($(ctx).attr('ui-navigation-status' == 'current')) {
+						$(ctx).attr('ui-navigation-status','traversed');
+						$(ctx).css("visibility", "hidden");
+					}
+				});
+				$.resetApp();
+				$.UINavigateToView(viewID);
 			},
 			
 			UINavigationListExits : false,
@@ -1082,17 +1144,16 @@ When using Zepto, make sure you have the following modules included in your buil
 			UINavigationList : function() {
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
-					var node = $(node);
-					var regex = /^#/;
+					node = $(node);
 					node.attr('role','link');
 					var href = node.attr('href');
-					if (!/^#/.test(href)) return;
+					if (/^#/.test(href) == false) return;
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
+							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
-						$(node.attr('href')).attr('aria-hidden', 'false');
+						$(node.attr('href')).removeAttr('aria-hidden');
 						$(node.attr('href')).css('visibility', 'visible');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
@@ -1120,32 +1181,33 @@ When using Zepto, make sure you have the following modules included in your buil
 					} catch(err) {} 
 				};
 				
-				if ($.userAction === 'touchend') {
-					$.app.delegate('tablecell', 'touchstart', function(ctx) {
+				if ($.touchEnabled) {
+					$.app.on('touchstart', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).addClass('touched');
+						setTimeout(function() {
+							$(node).removeClass('touched')
+						}, 500);
 					});
-					$.app.delegate('tablecell', 'touchcancel', function(ctx) {
+					$.app.on('touchcancel', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).removeClass('touched');
 					});
-					$.app.delegate('tablecell', 'touchend', function(ctx) {
+					$.app.on('click', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						$(node).removeClass('touched');
-						try {
-							if ($(node).hasAttr('href')) {
-								$.UINavigationListExits = true;			
-								if ($(node).hasClass('disabled')) {
-									return
-								} else {
-									$(node).addClass('disabled');
-									navigateList($(node));
-								}
+						if ($(node).hasAttr('href')) {
+							$.UINavigationListExits = true;				
+							if ($(node).hasClass('disabled')) {
+								return;
+							} else {
+								$(node).addClass('disabled');
+								navigateList(node);
 							}
-						} catch(err) {}
+						}
 					});
 				} else {
-					$.app.delegate('tablecell', 'click', function(ctx) {
+					$.app.on('click', 'tablecell', function(ctx) {
 						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 						if ($(node).hasAttr('href')) {
 							$.UINavigationListExits = true;				
@@ -1162,18 +1224,21 @@ When using Zepto, make sure you have the following modules included in your buil
 			
 			UINavigateToView : function(viewID) {
 				$.UINavigationListExits = true;
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.attr('ui-navigation-status','traversed');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.attr('aria-hidden', 'true');
-				$($.UINavigationHistory[$.UINavigationHistory.length-1])
-					.css('visibility', 'hidden');
+				var histLen = $.UINavigationHistory.length;
+				$($.UINavigationHistory[histLen-1]).attr('ui-navigation-status','traversed');
+				$($.UINavigationHistory[histLen-1]).attr('aria-hidden', 'true');
+				$($.UINavigationHistory[histLen-1]).css('visibility', 'hidden');
 				$(viewID).attr('ui-navigation-status','current');
-				$(viewID).attr('aria-hidden', 'false');
+				$(viewID).removeAttr('aria-hidden');
 				$(viewID).css('visibility', 'visible');
-				$.UINavigationHistory.push(viewID);
+				if (viewID != '#main') {
+					$.UINavigationHistory.push(viewID);
+				}
 				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
-					$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+					try {
+						$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
+					} catch(err) {}
 				}
 			},
 			
@@ -1194,7 +1259,7 @@ When using Zepto, make sure you have the following modules included in your buil
 					$.UINavigationHistory = ["#main"];
 				}
 			},
-	
+			
 			UITouchedTableCell : null,
 			
 			setupAriaForViews : function() {
@@ -1204,10 +1269,25 @@ When using Zepto, make sure you have the following modules included in your buil
 						$(ctx).attr('aria-hidden', 'true');
 						$(ctx).css('visibility', 'hidden');
 					} else {
-						$(ctx).attr('aria-hidden', 'false');
+						$(ctx).removeAttr('aria-hidden');
 						$(ctx).css('visibility', 'visible');
 					}
 				});
+			},
+			
+			absoluteOffset : function(element) {
+				element = $(element).reduceToNode();
+    			var top = 0, left = 0;
+				 do {
+					  top += element.offsetTop  || 0;
+					  left += element.offsetLeft || 0;
+					  element = element.offsetParent;
+				 } while(element);
+
+				 return {
+					  top: top,
+					  left: left
+				 };
 			},
 			
 			UIStepper : function (opts) {
@@ -1274,10 +1354,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				if (defaultValue == opts.range.end) {
 					$('uibutton:last-of-type', stepper).addClass('disabled');
 				}
-				$('uibutton:first-of-type', opts.selector).on($.userAction, function(button) {
+				$('uibutton:first-of-type', opts.selector).on($.eventStart, function(button) {
 					$.decreaseStepperValue.call(this, opts.selector);
 				});
-				$('uibutton:last-of-type', opts.selector).on($.userAction, function(button) {
+				$('uibutton:last-of-type', opts.selector).on($.eventStart, function(button) {
 					$.increaseStepperValue.call(this, opts.selector);
 				});
 			},
@@ -1311,14 +1391,14 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}
 			},
-							
+			
 			resetStepper : function(selector) {
 				var value = $(selector).data('range-value');
 				value = value.split(',')[0];
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
-			}
+			},
 		});
 		
 		$.app.delegate('view','webkitTransitionEnd', function() {
@@ -1332,12 +1412,12 @@ When using Zepto, make sure you have the following modules included in your buil
 		
 		$.UINavigationList();
 		
-		if ($.userAction === 'touchend') {
-			$.app.delegate('uibutton', 'touchstart', function(ctx) {
+		if ($.touchEnabled) {
+			$.app.on('touchstart', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).addClass('touched');
 			});
-			$.app.delegate('uibutton', 'touchend', function(ctx) {
+			$.app.on('touchend', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).removeClass('touched');
 				if ($(node).attr('ui-implements') === 'back') {
@@ -1347,12 +1427,12 @@ When using Zepto, make sure you have the following modules included in your buil
 					}
 				}
 			});
-			$.app.delegate('uibutton', 'touchcancel', function(ctx) {
+			$.app.on('touchcancel', 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				$(node).removeClass('touched');
 			});
 		} else {
-			$.app.delegate('uibutton', $.userAction, function(ctx) {
+			$.app.on($.eventStart, 'uibutton', function(ctx) {
 				var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 				if ($(node).attr('ui-implements') === 'back') {
 					if ($.UINavigationListExits) {
@@ -1380,7 +1460,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var guid = $.UIUuid();
 				var indicators = '<stack id="' + guid + '" ui-implements="indicators" role="radiogroup" style="width:"' + indicatorsWidth + ';">';
 				scrollerPanels.eq(0).addClass('active');
-				var panels = stack.childElements()
+				var panels = stack.childElements();
 				$._each([].slice.apply(panels), function(idx, ctx) {
 					if (idx === 0) {
 						indicators += '<indicator class="active" title="page 1 of'+panels.length+'"><input type="radio" name="group'+guid+'"></indicator>';
@@ -1483,13 +1563,13 @@ When using Zepto, make sure you have the following modules included in your buil
 				var editButtonTmpl = $.concat('<uibutton role="button" ui-kind="deletionListEditButton" ui-bar-align="right"  ui-implements="edit"',' ui-button-labels="',label1,' ',label2,'"><label>', label1, '</label></uibutton>');
 				$(toolbarEl).prepend(deleteButtonTmpl);
 				$(toolbarEl).append(editButtonTmpl);
-				var deleteDisclosure = '<deletedisclosure><span><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="20" height="20" viewBox="0 0 56 56" id="svg4441" xml:space="preserve"><g transform="matrix(3.627675,0,0,4.1708195,-0.38756952,2.0459536)" id="layer1"><path d="m 11.593506,0.85181027 c 0,0 -2.8782812,1.78368203 -4.3315408,3.46282313 C 5.8087055,5.9937746 5.2466215,6.7535798 5.2466215,6.7535798 4.5883903,5.9988655 4.4131283,5.7074764 3.5602554,4.9454794 L 1.6930171,6.6720302 c 0.8705482,0.5389683 1.1118812,0.5228901 1.6820456,0.9472989 0.6284449,0.4677906 1.6685596,1.2039011 2.2759527,2.014857 L 6.65407,7.7313389 C 7.5655527,6.0022084 8.3358445,4.1589192 11.560016,1.9084663 l 0.03349,-1.05665603 z" id="rect5112" style="fill:#ffffff;fill-opacity:1;stroke:none" /></g></svg></span></deletedisclosure>';
+				var deleteDisclosure = '<deletedisclosure><span><svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="18" height="18" viewBox="0 0 48 48" id="svg3804" xml:space="preserve"><path d="M 35.465895,6.1655247 43.279492,11.956238 21.764356,40.49005 5.4540477,27.811351 l 5.8969333,-7.344633 8.291376,6.489244 z" id="path3908" style="fill:#ffffff;fill-opacity:1;stroke:none" /></svg></span></deletedisclosure>';
 				$._each($.els(options.selector + " > tablecell"), function(idx, ctx) {
 					$(ctx).prepend(deleteDisclosure);
 				});
 				listEl.attr('data-deletable-items', '0');
 				var UIEditExecution = function() {
-					$(options.toolbar + ' > uibutton[ui-implements=edit]').on($.userAction, 
+					$(options.toolbar + ' > uibutton[ui-implements=edit]').on($.eventStart, 
 						function() {
 							if ($('label', this).text() === label1) {
 								$(this).UIToggleButtonLabel(label1, label2);
@@ -1501,6 +1581,7 @@ When using Zepto, make sure you have the following modules included in your buil
 								toolbarButton = toolbarButton.nodeName;
 								if (/uibutton/i.test(toolbarButton)) {
 								   toolbarEl.childElements().eq(1).css('display', 'none');
+								   $.hiddenButtonByDeletion = toolbarEl.childElements().eq(1);
 								}
 								$._each($.els("tablecell > img", listEl), function(idx, ctx) {
 									$(ctx).css('-webkit-transform','translate3d(40px, 0, 0)');
@@ -1528,7 +1609,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				};
 				var UIDeleteDisclosureSelection = function() {
 					$._each($.els('deletedisclosure'), function(idx, disclosure) {
-						$(disclosure).on($.userAction, function() {
+						$(disclosure).on($.eventStart, function() {
 							$(disclosure).toggleClass('checked');
 							$(disclosure).closest('tablecell').toggleClass('deletable');
 							$('uibutton[ui-implements=delete]', toolbarEl).removeClass('disabled');
@@ -1596,6 +1677,10 @@ When using Zepto, make sure you have the following modules included in your buil
 				$._each($.els('tablecell', node), function(idx, ctx) {
 					$(ctx).removeClass('deletable');
 				});
+				if ( $.hiddenButtonByDeletion) {
+					 $($.hiddenButtonByDeletion).css('display','block');
+					 $.hiddenButtonByDeletion = null;
+				}
 			},
 			
 			UIPopUpIsActive : false,
@@ -1629,7 +1714,8 @@ When using Zepto, make sure you have the following modules included in your buil
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						$('view[ui-navigation-status=current]').ariaShow();
+						//$('view[ui-navigation-status=current]').ariaShow();
+						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
 					$.UIPopUpIsActive = false;
@@ -1640,7 +1726,8 @@ When using Zepto, make sure you have the following modules included in your buil
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						$('view[ui-navigation-status=current]').ariaShow();
+						//$('view[ui-navigation-status=current]').ariaShow();
+						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
 					$.UIPopUpIsActive = false;
@@ -1652,7 +1739,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				$.UIPopUp(options);
 				$.UIPopUpIsActive = true;
 				$.UIPopUpIdentifier = '#' + options.id;
-				$($.UIPopUpIdentifier).attr('aria-hidden', 'false');
+				$($.UIPopUpIdentifier).removeAttr('aria-hidden');
 				var screenCover = $('mask');
 				screenCover.on('touchmove', function(e) {
 					e.preventDefault();
@@ -1663,7 +1750,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				screenCover.attr('ui-visible-state', 'visible');
 				thePopup.attr('ui-visible-state', 'visible');
 				thePopup.ariaFocusChild('h1');
-				$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
+				//$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
 				$('view[ui-navigation-status=current]').ariaHide();
 				$('view[ui-navigation-status=current]').css('display','none');
 				$('view[ui-navigation-status=current]').css('display','block');
@@ -1674,7 +1761,12 @@ When using Zepto, make sure you have the following modules included in your buil
 				$.UIPopUpIdentifier = selector;
 				var popup = $(selector).reduceToNode();
 				var tmpTop = ((window.innerHeight /2) + window.pageYOffset) - (popup.clientHeight /2) + 'px';
-				var tmpLeft = ((window.innerWidth / 2) - (popup.clientWidth / 2) + 'px');
+				var tempLeft;
+				if (window.innerWidth == 320) {
+					tmpLeft = '10px';
+				} else {
+					tmpLeft = Math.floor((window.innerWidth - 318) /2) + 'px';
+				}
 				$(popup).css({left: tmpLeft, top: tmpTop}); 
 			},
 			
@@ -1687,6 +1779,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				$(selector).remove();
 				$.UIPopUpIdentifier = null;
 				$.UIPopUpIsActive = false;
+				$.app.ariaShow();
 			},
 			
 			UIRepositionPopupOnOrientationChange : function ( ) {
@@ -1713,7 +1806,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				var actionsheet = $(actionSheetID);
 				actionsheet.css('display','block');
 				actionsheet.UIBlock();
-				actionsheet.attr('aria-hidden','false');
+				actionsheet.removeAttr('aria-hidden');
 				$('view[ui-navigation-status=current]').css('display','none');
 				setTimeout(function() {
 					$('view[ui-navigation-status=current]').css('display','-webkit-box');
@@ -1721,7 +1814,7 @@ When using Zepto, make sure you have the following modules included in your buil
 				setTimeout(function() {
 					actionsheet.ariaFocusChild('h3');
 				},1000);
-				$('view[ui-navigation-status=current]').attr('aria-hidden','true')
+				$('view[ui-navigation-status=current]').attr('aria-hidden','true');
 				var screenCover = $('mask');
 				screenCover.css({'opacity': '.5'});
 				screenCover.attr('ui-visible-state', 'visible');
@@ -1767,22 +1860,21 @@ When using Zepto, make sure you have the following modules included in your buil
 			UIAlphabeticalList : function() {
 				var alphaTable = _cc ? $("tableview[ui-kind='titled-list alphabetical']") : $("tableview[ui-kind='titled-list alphabetical']")[0];
 				if (alphaTable) {
-					var tableview = $("tableview[ui-kind='titled-list alphabetical']");
 					var titles = [];
 					var uuidSeed = $.UIUuid();
 					var counter = 0;
 					var alphabeticalList = '<stack ui-kind="alphabetical-list">';
 					var alphabeticalListItems = "";
-					var tableheaders = tableview.findAll("tableheader");
+					var tableheaders = $(alphaTable).findAll("tableheader");
 					$._each(tableheaders, function(idx, title) {
+						var titleText = title.innerHTML;
 						title = $(title);
-						titles.push(title.text());
 						counter++;
-						title.attr("id", $.concat("alpha_", title.text(), uuidSeed, counter));
-						alphabeticalListItems += $.concat('<span href="#alpha_', title.text(), uuidSeed, counter, ' ">', title.text(), '</span>');
+						title.attr("id", $.concat("alpha_", titleText, uuidSeed, counter));
+						alphabeticalListItems += $.concat('<span href="#alpha_', titleText, uuidSeed, counter, ' ">', titleText, '</span>');
 					});
 					alphabeticalList += alphabeticalListItems + '</stack>';
-					tableview.closest("scrollpanel").after(alphabeticalList);
+					$(alphaTable).closest("scrollpanel").after(alphabeticalList);
 				} else {
 					return;
 				}
@@ -1925,7 +2017,7 @@ When using Zepto, make sure you have the following modules included in your buil
 			},
 			
 			determinePopoverWidth : function() {
-				var screenWidth = window.innerWidth
+				var screenWidth = window.innerWidth;
 			},
 			
 			adjustPopoverHeight : function( popover ) {
@@ -1935,21 +2027,23 @@ When using Zepto, make sure you have the following modules included in your buil
 				popoverID = popoverID[1];
 			},
 			
-			determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation ) {
+			determinePopoverPosition : function( triggerElement, popoverOrientation, pointerOrientation, popoverID ) {
 				popoverOrientation = popoverOrientation.toLowerCase();
 				pointerOrientation = pointerOrientation.toLowerCase();
 				var trigEl = $(triggerElement).reduceToNode();
 				var popoverPos = {};
+				popoverID = '#' + popoverID;
+				var offset = $.absoluteOffset(trigEl);
 				switch (popoverOrientation) {
 					case 'top' : 
 						if (pointerOrientation === 'left') {
 							popoverPos.left = trigEl.offsetLeft + 'px';
 						} else if (pointerOrientation === 'center') {
-							popoverPos.left = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160) + 'px';
+							popoverPos.left = (offset.left + (trigEl.offsetWidth/2) - 160) + 'px';
 						} else {
-							popoverPos.left = ((trigEl.offsetLeft + trigEl.offsetWidth) - 320) +'px';
+							popoverPos.left = ((offset.left + trigEl.offsetWidth) - 320) +'px';
 						}
-						popoverPos.top = (trigEl.offsetTop + trigEl.offsetHeight + 20) +'px';
+						popoverPos.top = (offset.top + trigEl.offsetHeight + 20) +'px';
 						break;
 					case 'right' :
 						if (pointerOrientation === 'top') {
@@ -1964,13 +2058,13 @@ When using Zepto, make sure you have the following modules included in your buil
 						break;
 					case 'bottom' :
 						if (pointerOrientation === 'left') {
-							popoverPos.left = trigEl.offsetLeft + 'px';
+							popoverPos.left = offset.left + 'px';
 						} else if (pointerOrientation === 'center') {
-							popoverPos.left = (trigEl.offsetLeft + (trigEl.offsetWidth/2) - 160) + 'px';
+							popoverPos.left = (offset.left + (trigEl.offsetWidth/2) - 160) + 'px';
 						} else {
-							popoverPos.left = ((trigEl.offsetLeft + trigEl.offsetWidth) - 320) + 'px';
+							popoverPos.left = ((offset.left + trigEl.offsetWidth) - 320) + 'px';
 						}
-						popoverPos.bottom = (trigEl.offsetTop + trigEl.offsetHeight +20)  + 'px';
+						popoverPos.top = (offset.top - parseInt($(popoverID).css('height'),10)  - 20)  + 'px';
 						break;
 					case 'left' :
 						if (pointerOrientation === 'top') {
@@ -1980,7 +2074,7 @@ When using Zepto, make sure you have the following modules included in your buil
 						} else {
 							popoverPos.top = (trigEl.getTop() - trigEl.offsetHeight - 20) + 'px';
 						}
-						popoverPos.left = (trigEl.offsetLeft + trigEl.offsetWidth + 20) + 'px';
+						popoverPos.left = (offset.left + trigEl.offsetWidth + 20) + 'px';
 						break;
 					default :
 						popoverPos.left = (trigEl.getTop() + trigEl.offsetHeight) + 'px';
@@ -2001,11 +2095,11 @@ When using Zepto, make sure you have the following modules included in your buil
 					title = opts.title ? $.concat('<h3>', opts.title, '</h3>') : "";
 				}
 				var trigEl = $(triggerElement);
-				var pos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation);	
 				var popoverShell = $.concat('<popover ', 'id="', popoverID, '" ui-pointer-position="', popoverOrientation, '-', pointerOrientation, '"', ' data-popover-trigger="#', trigEl.attr("id"), '" data-popover-orientation="', popoverOrientation, '" data-popover-pointer-orientation="', pointerOrientation, '"><header>', title, '</header><section><scrollpanel class="popover-content"></scrollpanel></section></popover>');
 				popoverShell;
 				$.app.append(popoverShell);
 				
+				var pos = $.determinePopoverPosition(triggerElement, popoverOrientation, pointerOrientation, popoverID);	
 				// Apply positioning to popover:
 				$('#'+popoverID).css(pos);
 				
@@ -2036,7 +2130,6 @@ When using Zepto, make sure you have the following modules included in your buil
 			},
 			
 			form2JSON : function(rootNode, delimiter) {
-				//rootNode = typeof rootNode == 'string' ? $(rootNode) : rootNode;
 				rootNode = $.el(rootNode);
 				delimiter = delimiter || '.';
 				var formValues = getFormValues(rootNode);
@@ -2092,16 +2185,10 @@ When using Zepto, make sure you have the following modules included in your buil
 								result.push(ctx.value);
 							}
 						});
-						/*$$('option', selectNode).each(function(item) {
-							if (item.selected) {
-								result.push(item.value);
-							}
-						});*/
 						return result;
 					}
 				}    
 				$._each(formValues, function(idx, item) {
-				//formValues.each(function(item) {
 					var value = item.value;
 					if (value !== '') {
 						var name = item.name;
@@ -2152,6 +2239,8 @@ When using Zepto, make sure you have the following modules included in your buil
 			}
 		});
 		
+		$.UISpinner = $.UIPopover;
+		
 		$.extend($.UIPopover, {
 			activePopover : null,
 			
@@ -2160,11 +2249,13 @@ When using Zepto, make sure you have the following modules included in your buil
 					popover.UIBlock(".01");
 					popover.UIRepositionPopover();
 					var setPopoverCSS = function() {
-						popover.css({"opacity": 1, "-webkit-transform": "scale(1)", 'overflow':'visible'});
+						popover.css({'display':'block'});
+						popover.css({'-webkit-transform':'scale(1)'});
 					};
+					setPopoverCSS();
 					setTimeout(function() {
-						setPopoverCSS()
-					},0);
+						popover.css({"opacity": 1});
+					}, 200);
 					$.UIPopover.activePopover = popover.id || popover[0].id;
 			
 					$.UIEnableScrolling();
@@ -2176,7 +2267,10 @@ When using Zepto, make sure you have the following modules included in your buil
 			
 			hide : function ( popover ) {
 				if ($.UIPopover.activePopover) {
-					popover.css({"opacity": 0, "-webkit-transform": "scale(0)"});
+					popover.css({"opacity": 0});
+					setTimeout(function() {
+						popover.css({'display': 'none', '-webkit-transform':'scale(0)'});
+					},500);
 					$.UIPopover.activePopover = null;
 				}				
 			}

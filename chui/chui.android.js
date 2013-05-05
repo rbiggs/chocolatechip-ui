@@ -11,7 +11,7 @@ ChocolateChip-UI
 Chui.android.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.3
+Version: 2.1.4
 */
 (function() {
 	var _$ = null;
@@ -128,10 +128,6 @@ Version: 2.1.3
 			$this.attr('aria-hidden','true');
 			var elems = $.els('*', $this);
 			$._each(elems, function(idx, ctx) {
-				$(ctx).data('savedAriaHidden', $(ctx).attr('aria-hidden'));
-				if ($(ctx).attr('aria-hidden')) {
-					$(ctx).data('savedAriaHidden', $(ctx).attr('aria-hidden'));
-				}
 				$(ctx).attr('aria-hidden','true');
 			});
 			$this.addClass('ariaHidden');
@@ -139,18 +135,10 @@ Version: 2.1.3
 		
 		ariaShow : function ( ) {
 			var $this = $(this);
-			$this.attr({'aria-hidden':'false'});
+			$this.removeAttr('aria-hidden');
 			var elems = $.els('*', $this);
 			$._each(elems, function(idx, ctx) {
-				var saved;
-				try {
-					saved = $(ctx).data('savedAriaHidden');
-				} catch(err) {}
-				if (!saved) {
-					$(ctx).removeAttr('aria-hidden');
-				} else {
-					$(ctx).attr('aria-hidden', saved);
-				}
+				$(ctx).removeAttr('aria-hidden');
 			});
 			$this.removeClass('ariaHidden');
 		},
@@ -1158,84 +1146,168 @@ Version: 2.1.3
 
 		   UINavigationEvent : false,
 			
+
 			UINavigationList : function() {
+				var nua = navigator.userAgent;
+				var isNativeAndroidBrowser = ((nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1) && !(nua.indexOf('Chrome') > -1));
+				if (isNativeAndroidBrowser) {
+					var navigateList = function(node) {
+						var currentNavigatingView = '#main';
+						var node = $(node);
+						var regex = /^#/;
+						node.attr('role','link');
+						var href = node.attr('href');
+						if (!/^#/.test(href)) return;
+						try {
+							if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
+								$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
+							}
+							$(node.attr('href')).attr('ui-navigation-status', 'current');
+							$(node.attr('href')).attr('aria-hidden', 'false');
+							$(node.attr('href')).css('visibility', 'visible');
+							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
+							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
+							$($.UINavigationHistory[$.UINavigationHistory.length-1]).css('visibility', 'hidden');
+							if ($('#main').attr('ui-navigation-status') !== 'traversed') {
+								$('#main').attr('ui-navigation-status', 'traversed');
+								$('#main').attr('aria-hidden', 'true');
+								$('#main').css('visibility', 'hidden');
+							}
+						
+							$.UINavigationHistory.push(href);
+							currentNavigatingView = node.closest('view');
+						
+							currentNavigatingView.on('webkitTransitionEnd', function(event) {
+								if (_jq) {
+									if (event.type === 'webkitTransitionEnd') {
+										node.removeClass('disabled');
+									}
+								} else {
+									if (event.propertyName === '-webkit-transform') {
+										node.removeClass('disabled');
+									}
+								}
+							});
+						} catch(err) {} 
+					};
+				
+					if ($.userAction === 'touchend') {
+						$.app.delegate('tablecell', 'touchstart', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							$(node).addClass('touched');
+						});
+						$.app.delegate('tablecell', 'touchcancel', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							$(node).removeClass('touched');
+						});
+						$.app.delegate('tablecell', 'touchend', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							$(node).removeClass('touched');
+							try {
+								if ($(node).hasAttr('href')) {
+									$.UINavigationListExits = true;			
+									if ($(node).hasClass('disabled')) {
+										return
+									} else {
+										$(node).addClass('disabled');
+										navigateList($(node));
+									}
+								}
+							} catch(err) {}
+						});
+					} else {
+						$.app.delegate('tablecell', 'click', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							if ($(node).hasAttr('href')) {
+								$.UINavigationListExits = true;				
+								if ($(node).hasClass('disabled')) {
+									return;
+								} else {
+									$(node).addClass('disabled');
+									navigateList(node);
+								}
+							}
+						});
+					}				
+				} else {
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
 					node = $(node);
 					node.attr('role','link');
 					var href = node.attr('href');
 					if (/^#/.test(href) == false) return;
-					try {
-						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-							$('navbar > uibutton[ui-implements=back]', $.app).css({'display': 'block'});
-						}
-						$(node.attr('href')).attr('ui-navigation-status', 'current');
-						$(node.attr('href')).attr('aria-hidden', 'false');
-						$(node.attr('href')).css('visibility', 'visible');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).css('visibility', 'hidden');
-						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
-							$('#main').attr('ui-navigation-status', 'traversed');
-							$('#main').attr('aria-hidden', 'true');
-							$('#main').css('visibility', 'hidden');
-						}
+						try {
+							if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
+								$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
+							}
+							$(node.attr('href')).attr('ui-navigation-status', 'current');
+							$(node.attr('href')).attr('aria-hidden', 'false');
+							$(node.attr('href')).css('visibility', 'visible');
+							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
+							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
+							$($.UINavigationHistory[$.UINavigationHistory.length-1]).css('visibility', 'hidden');
+							if ($('#main').attr('ui-navigation-status') !== 'traversed') {
+								$('#main').attr('ui-navigation-status', 'traversed');
+								$('#main').attr('aria-hidden', 'true');
+								$('#main').css('visibility', 'hidden');
+							}
 						
-						$.UINavigationHistory.push(href);
-						currentNavigatingView = node.closest('view');
+							$.UINavigationHistory.push(href);
+							currentNavigatingView = node.closest('view');
 						
-						currentNavigatingView.on('webkitTransitionEnd', function(event) {
-							if (_jq) {
-								if (event.type === 'webkitTransitionEnd') {
-									node.removeClass('disabled');
+							currentNavigatingView.on('webkitTransitionEnd', function(event) {
+								if (_jq) {
+									if (event.type === 'webkitTransitionEnd') {
+										node.removeClass('disabled');
+									}
+								} else {
+									if (event.propertyName === '-webkit-transform') {
+										node.removeClass('disabled');
+									}
 								}
-							} else {
-								if (event.propertyName === '-webkit-transform') {
-									node.removeClass('disabled');
+							});
+						} catch(err) {} 
+					};
+				
+					if ($.userAction === 'touchend') {
+						$.app.on('touchstart', 'tablecell', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							$(node).addClass('touched');
+							setTimeout(function() {
+								$(node).removeClass('touched')
+							}, 500);
+						});
+						$.app.on('touchcancel', 'tablecell', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							$(node).removeClass('touched');
+						});
+						$.app.on('click', 'tablecell', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							$(node).removeClass('touched');
+							if ($(node).hasAttr('href')) {
+								$.UINavigationListExits = true;				
+								if ($(node).hasClass('disabled')) {
+									return;
+								} else {
+									$(node).addClass('disabled');
+									navigateList(node);
 								}
 							}
 						});
-					} catch(err) {} 
-				};
-				
-				if ($.userAction === 'touchend') {
-					$.app.on('touchstart', 'tablecell', function(ctx) {
-						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-						$(node).addClass('touched');
-						setTimeout(function() {
-							$(node).removeClass('touched')
-						}, 500);
-					});
-					$.app.on('touchcancel', 'tablecell', function(ctx) {
-						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-						$(node).removeClass('touched');
-					});
-					$.app.on('click', 'tablecell', function(ctx) {
-						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-						$(node).removeClass('touched');
-						if ($(node).hasAttr('href')) {
-							$.UINavigationListExits = true;				
-							if ($(node).hasClass('disabled')) {
-								return;
-							} else {
-								$(node).addClass('disabled');
-								navigateList(node);
+					} else {
+						$.app.on('click', 'tablecell', function(ctx) {
+							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+							if ($(node).hasAttr('href')) {
+								$.UINavigationListExits = true;				
+								if ($(node).hasClass('disabled')) {
+									return;
+								} else {
+									$(node).addClass('disabled');
+									navigateList(node);
+								}
 							}
-						}
-					});
-				} else {
-					$.app.on('click', 'tablecell', function(ctx) {
-						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-						if ($(node).hasAttr('href')) {
-							$.UINavigationListExits = true;				
-							if ($(node).hasClass('disabled')) {
-								return;
-							} else {
-								$(node).addClass('disabled');
-								navigateList(node);
-							}
-						}
-					});
+						});
+					}				
 				}
 			},
 			
@@ -1795,7 +1867,6 @@ Version: 2.1.3
 				screenCover.attr('ui-visible-state', 'visible');
 				thePopup.attr('ui-visible-state', 'visible');
 				thePopup.ariaFocusChild('h1');
-				$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
 				$('view[ui-navigation-status=current]').ariaHide();
 				$('view[ui-navigation-status=current]').css('display','none');
 				$('view[ui-navigation-status=current]').css('display','block');
@@ -1819,6 +1890,7 @@ Version: 2.1.3
 				$(selector).remove();
 				$.UIPopUpIdentifier = null;
 				$.UIPopUpIsActive = false;
+				$.app.ariaShow();
 			},
 			
 			UIRepositionPopupOnOrientationChange : function ( ) {

@@ -1,3 +1,4 @@
+@@ -1,3974 +0,0 @@
 /*
     pO\		
    6  /\
@@ -8,17 +9,10 @@
   \:~=++=~:/    
  
 ChocolateChip-UI
-Three yummy ingredients make this something to sink your teeth into:
-ChococlateChip.js: It's tiny but delicious
-ChUI.css: Good looks do impress
-ChUI.js: The magic to make it happen
-Also staring WAML--Web App Markup Language: no more masquerading as a Web page.
-WAML makes coding a Web app logical and straightforward, the way it was meant to be.
-
-Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
-License: BSD
-Version: 2.1
-
+Chui.ios.css
+Copyright 2013 Sourcebits www.sourcebits.com
+License: GPLv3
+Version: 2.1.4
 */
 html, body {
 	margin: 0;
@@ -41,7 +35,8 @@ app, view, subview, section, navbar, toolbar, tabbar, tableview, tablecell, cell
 	outline: none;
 }
 navbar, toolbar, tabbar {
-    z-index: 1000;
+    z-index: 10000;
+    -webkit-transform: translate3d(0,0,0);
 }
 app {
 	overflow-y: auto;
@@ -111,7 +106,7 @@ subview {
 }
 subview[ui-associations=withNavBar], 
 subview[ui-associations=withTopToolBar] {
-	top: 45px;
+	top: 44px;
 	bottom: 0px;
 }
 subview[ui-associations='withNavBar withBottomToolBar'],  
@@ -131,8 +126,8 @@ subview[ui-associations='withToolBar withTabBar'] {
 *[ui-background-style=striped] {
 	background: #cbd2d8;
 	background-image:
-		-webkit-linear-gradient(0deg, #c5ccd4 75%, transparent 75%); 
-	background-size: 5px 100%;
+		-webkit-linear-gradient(0deg, #cbd2d8 60%, #c9cdd8 60%); 
+	background-size: 8px 100%;
 }
 *[ui-background-style=vertical-striped] {
 	background-image: 
@@ -514,15 +509,15 @@ uibutton > label,
 uibutton > img {
 	display: block;
    -webkit-box-align: center;
+   pointer-events: none;
 }
 uibutton icon[style*=-webkit-mask-image] {
    background-color: #fff;
    -webkit-mask-repeat: no-repeat !important;
 }
 uibutton {
-	box-shadow: 0 1px 1px #9aa5bb, 0 -1px 1px #8e96a5; 
-	border: solid 1px #54617d;
-	border-color: #484e59 #54617d #4c5c7a #54617d; 
+	box-shadow: 0 1px 1px rgba(157,168,192,.35), 0 -1px 1px rgba(131,139,153,.25); 
+	border: solid 1px rgba(66,72,83,.7);
 	display: block;
 	padding: 0px 10px;
 	font-size: 12px;
@@ -531,7 +526,7 @@ uibutton {
 	-webkit-box-sizing: border-box;
 	border-radius: 5px;
 	background-image: 
-		-webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993); 
+		-webkit-linear-gradient(top, #9EAAC1, #4C618C); 
 	color: #fff;
 	-webkit-tap-highlight-color: transparent;
 	-webkit-user-select: none;
@@ -543,12 +538,20 @@ uibutton {
    -webkit-box-align: center;
    -webkit-box-direction: normal;
 } 
+uibutton label {
+	font-weight: bold;
+	text-shadow: 0 -1px rgba(0,0,0,0.5);
+}
 uibutton.touched,
 uibutton[ui-implements=done].touched {
 	background-image: 
-		-webkit-linear-gradient(top,
-			#7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
+		-webkit-linear-gradient(top, #808ca3, #23365f);
 	-webkit-tap-highlight-color: transparent;
+}
+celltitle > uibutton, 
+cellsubtitle > uibutton, 
+celldetail > uibutton {
+	display: inline-block;
 }
 /* Begin Toolbar Bordered uibutton Styles */
 navbar uibutton, toolbar uibutton {
@@ -613,8 +616,8 @@ icon {
 }
 uibutton[ui-kind=icon] icon[style*='webkit-mask-image'], 
 uibutton[ui-kind=icon] icon[style*='webkit-mask-image'],
-icon[ui-implements='icon-mask'] {
-	margin: 0;
+uibutton > icon {
+	margin: 2px 0 0;
 	background-color: #fff;
 }
 uibutton[ui-kind=icon] > icon {
@@ -691,12 +694,12 @@ uibutton[ui-implements=done].disabled.touched {
     border: solid 1px #2c344b;
     border-color: #2c344b #2d54b9 #1a49b5 #2d54b9; 
     background-image:
-        -webkit-linear-gradient(top, #7a9eec, #5785e5 25%, #3470e0 50%, #2461dd 50%, #2465dd 75%, #2461de);
+        -webkit-linear-gradient(top, #8aafff, #2b46a9);
 }
 uibutton[ui-implements=done].touched {
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     background-image: 
-        -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
+        -webkit-linear-gradient(top, #808ca3, #23365f);
 }
 /* End Important Bordered UIButton Styles */
 
@@ -704,14 +707,14 @@ uibutton[ui-implements=done].touched {
 uibutton[ui-implements=delete], 
 uibutton[ui-implements=delete].disabled.touched {
     border: solid 1px #4b353a;
-    border-color: #4b353a #832936 #1a49b5 #832936; 
+    border-color: #4b353a #832936 #4b353a #832936; 
     background-image:
         -webkit-linear-gradient(top, #c66572, #b63849 25%, #ac1a2e 50%, #a40018 50%, #a40018 75%, #7d1022);
 }
 uibutton[ui-implements=delete].touched {
     border-color: #484e59 #54617d #4c5c7a #54617d; 
     background-image: 
-        -webkit-linear-gradient(top, #7d88a5, #58698c 25%, #3a4e78 50%, #253c6a 50%, #273f6d 75%, #273f6d);
+        -webkit-linear-gradient(top, #808ca3, #23365f);
 }
 uibutton[ui-implements=delete].disabled label {
 	cursor: auto;
@@ -722,44 +725,50 @@ uibutton[ui-implements=delete].disabled label {
 /* Back Bordered UIButton Styles */
 uibutton.disabled.touched {
 	background-image: 
-		-webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993);
+		-webkit-linear-gradient(top, #9EAAC1, #4C618C);
 }			
-uibutton[ui-implements=back] {
+uibutton[ui-implements=back],
+uibutton[ui-implements=backTo] {
     padding: 0px 10px 0px 6px;
     margin-left: 16px;
     position: relative;
     border-left-color: transparent;
 }
-uibutton[ui-implements=back] > label {
+uibutton[ui-implements=back] > label {,
+uibutton[ui-implements=backTo] > label
     position: relative;
     z-index: 1;
 }
 uibutton[ui-implements=back]:before,
-uibutton[ui-implements=back].disabled.touched:before {
+uibutton[ui-implements=back].disabled.touched:before,
+uibutton[ui-implements=backTo]:before,
+uibutton[ui-implements=backTo].disabled.touched:before {
     content: '';
     display: block;
     z-index: 0;
+    box-shadow: inset 0 1px .5px rgba(66,72,83,.7);
     background-image: 
-        -webkit-linear-gradient(left top, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
-    border-left: solid 1px #54617D;
-    border-bottom: solid 1px #9AA5BB; 
-    border-top-left-radius: 7px;
-    border-bottom-right-radius: 7px;
+        -webkit-linear-gradient(-45deg, #9EAAC1 12%, #4C618C 88%);  
+    border-left: solid 1px rgba(66,72,83,.7);
+    border-bottom: solid 1px rgba(131,139,153,.5); 
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     border-bottom-left-radius: 4px;
-    height: 22.2px;
-    width: 22.2px;
+    height: 23.5px;
+    width: 20px;
     display: inline-block;
-    -webkit-transform: rotate(45deg) skew(6deg, 6deg);
+    -webkit-transform: rotate(45deg) skew(10deg, 10deg);
     -webkit-mask-image: 
         -webkit-linear-gradient(left bottom, #000000, #000000 50%, transparent 50%, transparent);
     position: absolute;
-    left: -8px;
-    top: 3px;
+    left: -7px;
+    top: 1.5px;
     -webkit-background-clip: content;
 }
-uibutton[ui-implements=back].touched:before {
+uibutton[ui-implements=back].touched:before, 
+uibutton[ui-implements=backTo].touched:before {
     background-image: 
-        -webkit-linear-gradient(left top, #7d88a5 10%, #58698c 30%, #3a4e78 51%, #253c6a 51%, #273f6d 75%, #273f6d); 
+        -webkit-linear-gradient(-45deg, #808ca3 12%, #23365f 88%) !important; 
 }
 
 /* End Back Bordered uibutton Styles */
@@ -781,9 +790,10 @@ uibutton[ui-implements=next].disabled.touched:before  {
     content: '';
     display: block;
     z-index: 0;
-    background-image: 
-      -webkit-linear-gradient(-45deg, #92a1bf 10%, #798aad 30%, #6276a0 51%, #556a97 51%, #566c98 75%, #546993); 
-    border-right: solid 1px #484e59;
+    box-shadow: inset 0 1px .5px rgba(66,72,83,.4);
+    background-image:
+      -webkit-linear-gradient(-45deg, #9EAAC1 10%, #4C618C 90%); 
+    border-right: solid 1px rgba(66,72,83,.7);
     border-top: solid 1px #484e59;
     border-top-left-radius: 7px;
     border-bottom-right-radius: 7px;
@@ -796,12 +806,12 @@ uibutton[ui-implements=next].disabled.touched:before  {
       -webkit-linear-gradient(right top, #000000, #000000 50%, transparent 50%, transparent);
     position: absolute;
     right: -8px;
-    top: 2.5px;
+    top: 2.75px;
     -webkit-background-clip: content;
 }
 uibutton[ui-implements=next].touched:before {
     background-image: 
-      -webkit-linear-gradient(left top, #7d88a5 10%, #58698c 30%, #3a4e78 51%, #253c6a 51%, #273f6d 75%, #273f6d); 
+      -webkit-linear-gradient(left top, #808ca3 10%, #23365f 90%); 
 }
 /* End Next Bordered uibutton Styles */
 
@@ -849,6 +859,16 @@ segmentedcontrol > uibutton {
     margin: 0px !important;
     padding: 0px 10px;
 }
+segmentedcontrol > uibutton > label {
+	text-shadow: none;
+}
+segmentedcontrol > uibutton.disabled.touched {
+    background-image: 
+        -webkit-linear-gradient(top, #fbfbfb, #bdbdbd);
+    color: #6b6b6b;
+    border-color: #9a9a99;
+    cursor: auto;
+}
 segmentedcontrol > uibutton.touched, 
 segmentedcontrol > uibutton.selected, 
 segmentedcontrol > uibutton.selected.touched {
@@ -857,11 +877,38 @@ segmentedcontrol > uibutton.selected.touched {
     color: #fff;
     border-color: #193a7f;
 }
-segmentedcontrol > uibutton.disabled.touched {
+segmentedcontrol > uibutton > icon[ui-icon-image] {
+	background-color: #000 !important;
+}
+segmentedcontrol > uibutton.touched > icon[ui-icon-image], 
+segmentedcontrol > uibutton.selected > icon[ui-icon-image] {
+	background-color: #fff !important;
+}
+navbar > segmentedcontrol > uibutton > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton > icon[ui-icon-image],
+navbar > segmentedcontrol > uibutton.touched > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton.touched > icon[ui-icon-image],
+navbar > segmentedcontrol > uibutton.selected > icon[ui-icon-image],
+toolbar > segmentedcontrol > uibutton.selected > icon[ui-icon-image]  {
+	background-color: #000 !important;
+}
+navbar segmentedcontrol > uibutton > label,
+toolbar segmentedcontrol > uibutton > label {	
+	text-shadow: 0 -1px rgba(0,0,0,0.5);
+}
+navbar segmentedcontrol > uibutton,
+toolbar segmentedcontrol > uibutton {	
     background-image: 
-        -webkit-gradient(linear, left top, left bottom, 
-            from(#fbfbfb), 
-            to(#bdbdbd));
+      -webkit-linear-gradient(top, #9EAAC1, #4C618C);
+}
+segmentedcontrol > uibutton.disabled.touched {
+	background-image: 
+   	-webkit-linear-gradient(top, #fbfbfb, #bdbdbd);
+}
+navbar segmentedcontrol > uibutton.disabled.touched,
+toolbar segmentedcontrol > uibutton.disabled.touched {
+    background-image: 
+        -webkit-linear-gradient(top, #fbfbfb, #bdbdbd) !important;
     color: #6b6b6b;
     border-color: #9a9a99;
     cursor: auto;
@@ -877,9 +924,19 @@ segmentedcontrol > uibutton:last-of-type {
     border-bottom-right-radius: 8px;
     margin-right: 0;
 }
+segmentedcontrol > uibutton:not(:last-of-type) {
+	border-left: none;
+}
 navbar > segmentedcontrol > uibutton,
 toolbar > segmentedcontrol > uibutton {
 	display: -webkit-box !important;
+}
+navbar > segmentedcontrol > uibutton.touched, 
+navbar > segmentedcontrol > uibutton.selected.touched {
+    background-image: 
+        -webkit-linear-gradient(top, #808ca3, #23365f);
+    color: #fff;
+    border-color: #193a7f;
 }
 /* End Segmented UIButton Styles */
 
@@ -899,7 +956,7 @@ toolbar > segmentedcontrol > uibutton {
     -webkit-box-flex: 1;
     text-align: center;
     background-image: 
-      -webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993);
+      -webkit-linear-gradient(top, #9EAAC1, #4C618C);
     color: #fff;
     -webkit-tap-highlight-color: transparent;
     -webkit-user-select: none;
@@ -914,7 +971,7 @@ navbar > segmentedcontrol > uibutton.selected.touched {
 navbar > segmentedcontrol > uibutton.disabled.touched, 
 toolbar > segmentedcontrol > uibutton.disabled.touched {
     background-image: 
-      -webkit-linear-gradient(top, #92a1bf, #798aad 25%, #6276a0 50%, #556a97 50%, #566c98 75%, #546993) !important;  
+      -webkit-linear-gradient(top, #9EAAC1, #4C618C) !important;  
     color: #fff;
     border-color: #484e59 #54617d #4c5c7a #54617d;
 }
@@ -923,6 +980,10 @@ toolbar segmentedcontrol > uibutton:first-of-type {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     border-left: solid 1px #424650;
+}
+navbar segmentedcontrol > uibutton:not(:last-of-type),
+toolbar segmentedcontrol > uibutton:not(:last-of-type) {
+	border-right: none;
 }
 navbar segmentedcontrol > uibutton:last-of-type,
 toolbar segmentedcontrol > uibutton:last-of-type {
@@ -1053,13 +1114,14 @@ uibuttonn[ui-implements=attention][ui-kind='rounded-rectangle'].touched{
 /* Default White Action uibutton Styles */
 uibutton[ui-kind=action] {
     border: solid 1px #64676a;
-    border-color: #64676a #717375 #717375 #717375;
-    box-shadow: 0 1px 1px #fff;
+    border-color: rbga(87,89,92,.7) rgba(77,79,81,.7) rgba(77,79,81,.7) rgba(77,79,81,.7);
+    box-shadow: 0 1px 1px rgba(255,255,255,.35);
     display: -webkit-box;
     -webkit-box-pack: justify;
     -webkit-box-align: center;
     -webkit-box-orient: horizontal;
     -webkit-box-flex: 1;
+    box-shadow: 0 0 0 4px rgba(0,0,0,.5), 0 1px 0 5px rgba(255,255,255,.15);
 }
 
 actionsheet > uibutton[ui-kind=action], 
@@ -1069,14 +1131,14 @@ actionsheet > uibutton[ui-kind=action].disabled {
 }
 uibutton[ui-kind=action],
 uibutton[ui-kind=action].disabled.touched {
-    margin: 20px 10px;
+    margin: 20px 14px;
     min-width: 110px;
     cursor: pointer;
     -webkit-box-sizing: border-box;
     height: 52px;
     border-radius: 12px;
     background-image: 
-      -webkit-linear-gradient(top, rgba(234,234,234,0.7), rgba(195,195,195,0.7) 50%, rgba(166,166,166,0.7) 50%, rgba(167,167,167,0.80)); 
+      -webkit-linear-gradient(top, rgb(234,234,234), rgb(166,166,166) 50%, rgb(167,167,167)); 
     color: #000;
     font: bold 16px/20px Helvetica, sans-serif;
     text-decoration: none;
@@ -1086,15 +1148,17 @@ uibutton[ui-kind=action].disabled.touched {
     -webkit-font-smoothing: antialiased;
     -webkit-box-align: center;
     -webkit-box-pack: center;
+    box-shadow: inset 0 0 2px 2px rbga(255,255,255,.15);
 }
 uibutton[ui-kind=action].touched {
     background-image: 
-      -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
+      -webkit-linear-gradient(top, rgb(135,148,203), rgb(0,27,145) 50%); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action] > label {
     line-height: 23px;
+    font-size: 20px;
 }
 uibutton[ui-kind=action].disabled, 
 uibutton[ui-usage=icon].disabled  {
@@ -1115,9 +1179,9 @@ uibutton[ui-kind=action][ui-icon-align=bottom] {
 uibutton[ui-kind=action][ui-implements=cancel],
 uibutton[ui-kind=action][ui-implements=cancel].disabled.touched {
     background-image: 
-      -webkit-linear-gradient(top, rgba(74,74,74,0.7), rgba(20,20,20,0.7) 50%, rgba(2,2,2,0.7) 50%, rgba(14,14,14,0.7)); 
+      -webkit-linear-gradient(top, #858586, #464647 30%, #2f2e2f 50%); 
     color: #fff;
-    text-shadow: 0 1px 1px #000;
+    text-shadow: inset 0 1px 1px rgba(255,255,255,.5);
 }
 uibutton[ui-kind=action][ui-implements=cancel].touched  {
     background-image: 
@@ -1131,7 +1195,7 @@ uibutton[ui-kind=action][ui-implements=cancel].touched  {
 uibutton[ui-kind=action][ui-implements=delete],
 uibutton[ui-kind=action][ui-implements=delete].disabled.touched  {
     background-image: 
-      -webkit-linear-gradient(top, rgba(255,124,151,0.7), rgba(255,74,89,0.7) 50%, rgba(255,0,4,0.7) 50%, rgba(255,62,27,0.7)); 
+      -webkit-linear-gradient(top, #e98a8a, #eb253b 50%, #eb253b 80%, #e9092e); 
     color: #fff;
     text-shadow: #000 0 1px 0;
 }
@@ -1146,7 +1210,7 @@ uibutton[ui-kind=action][ui-implements=delete].touched {
 uibutton[ui-kind=action].green, 
 uibutton[ui-kind=action].green.disabled.touched {
     background-image: 
-        -webkit-linear-gradient(top, rgba(79,156,74,0.7), rgba(54,127,35,0.7) 50%, rgba(0,113,0,0.7) 50%, rgba(0,150,0,0.7)); 
+        -webkit-linear-gradient(top, #60bf5b, #00ac01 30%, rgba(0,150,0,1) 50%); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
@@ -1161,7 +1225,7 @@ uibutton[ui-kind=action].green.touched {
 uibutton[ui-kind=action].gold,
 uibutton[ui-kind=action].gold.disabled.touched {
     background-image: 
-      -webkit-linear-gradient(top, rgba(255,217,0,0.7), rgba(255,185,0,0.7) 50%, rgba(255,138,0,0.7) 50%, rgba(255,165,0,0.7)); 
+      -webkit-linear-gradient(top, rgba(255,217,0,1), rgba(255,138,0,1) 50%); 
     color: #000;
     text-shadow: 0 1px 0 #ccc;
 }
@@ -1177,22 +1241,22 @@ uibutton[ui-kind=action].gold.touched {
 uibutton[ui-kind=action][ui-implements=done],
 uibutton[ui-kind=action][ui-implements=done].disabled.touched {
     background-image: 
-        -webkit-linear-gradient(top, rgba(123,159,235,0.7), rgba(54,111,226,0.7) 50%, rgba(32,87,225,0.7) 50%, rgba(24,87,224,0.7)); 
+        -webkit-linear-gradient(top, #8aafff, #4166DB 50%); 
     color: #fff;
     text-shadow: 0 1px 1px #000;
 }
 uibutton[ui-kind=action][ui-implements=done].touched {
     background-image: 
-        -webkit-linear-gradient(top, rgba(135,148,203,0.7), rgba(34,56,159,0.7) 50%, rgba(0,27,145,0.7) 50%, rgba(2,59,152,0.7)); 
+        -webkit-linear-gradient(top, #808ca3, rgba(0,27,145,1) 50%, #23365f); 
     color: #fff;
 }
 /* End Action Important UIButton */
 
-/* Sgwt Custom Tint Styles */
+/* Custom Tint Styles */
 navbar.ui-custom-tint,
 toolbar.ui-custom-tint {
 	background-image: 
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.45));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(0,0,0,.55));
 	border-top: 1px solid #878788;
 	border-bottom: 1px solid #2c2c2c; 
 }
@@ -1201,7 +1265,7 @@ uibutton.ui-custom-tint.disabled.touched,
 uibutton[ui-implements=done].ui-custom-tint.disabled.touched, 
 uibutton[ui-implements=delete].ui-custom-tint.disabled.touched {
 	background-image: 
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(0,0,0,.5));
     border: solid 1px #808080;
     border-color: #6f6f6f #4d4d4d #676767 #616161;
 }
@@ -1209,25 +1273,27 @@ uibutton.ui-custom-tint.touched,
 uibutton[ui-implements=done].ui-custom-tint.touched, 
 uibutton[ui-implements=delete].ui-custom-tint.touched {
 	background-image: 
-		-webkit-linear-gradient(top, rgba(0,0,0,.1), rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2));
+		-webkit-linear-gradient(top, rgba(0,0,0,.5), rgba(255,255,255,.25));
 }
-uibutton[ui-implements=back].ui-custom-tint:before {
+uibutton[ui-implements=back].ui-custom-tint:before,
+uibutton[ui-implements=backTo].ui-custom-tint:before {
 	background-image: 
-		-webkit-linear-gradient(left top, rgba(255,255,255,.5) 10%, rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5) 90%);
-	box-shadow: 0 1px 1px #9AA5BB, 0 -1px 1px #8E96A5;
+		-webkit-linear-gradient(-45deg, rgba(255,255,255,.5) 10%, rgba(0,0,0,.5) 90%);
+		box-shadow: none;
 }
-uibutton[ui-implements=back].ui-custom-tint.touched:before {
+uibutton[ui-implements=back].ui-custom-tint.touched:before,
+uibutton[ui-implements=backTo].ui-custom-tint.touched:before {
 	background-image: 
-		-webkit-linear-gradient(left top, rgba(0,0,0,.1) 10%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2) 90%);
+		-webkit-linear-gradient(-45deg, rgba(0,0,0,.5) 10%, rgba(255,255,255,.25) 90%);
 }
 
 uibutton[ui-implements=next].ui-custom-tint:before {
 	background-image: 
-		-webkit-linear-gradient(left top, rgba(255,255,255,.5) 10%, rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5) 90%);
+		-webkit-linear-gradient(-45deg, rgba(255,255,255,.5) 10%, rgba(0,0,0,.5) 90%);
 }
 uibutton[ui-implements=next].ui-custom-tint.touched:before {
 	background-image: 
-		-webkit-linear-gradient(left top, rgba(0,0,0,.1) 10%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.6) 50%, rgba(255,255,255,.2) 90%);
+		-webkit-linear-gradient(-45deg, rgba(0,0,0,.5) 10%, rgba(255,255,255,.25) 90%);
 }
 segmentedcontrol > uibutton.ui-custom-tint,
 segmentedcontrol > uibutton.ui-custom-tint.disabled.touched, 
@@ -1239,8 +1305,16 @@ navbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched,
 toolbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched {
 	border: solid 1px rgba(0,0,0,.5);
 	background-image: 
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.5)) !important;
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(0,0,0,.5)) !important;
 	color: #fff;
+}
+segmentedcontrol > uibutton.ui-custom-tint:not(:first-of-type),
+segmentedcontrol > uibutton.ui-custom-tint.disabled.touched:not(:first-of-type), 
+navbar > segmentedcontrol > uibutton.ui-custom-tint.disabled.touched:not(:first-of-type), 
+toolbar > segmentedcontrol > uibutton.ui-custom-tint.disabled.touched:not(:first-of-type),
+navbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched:not(:first-of-type),
+toolbar > segmentedcontrol > uibutton.disabled.ui-custom-tint.touched:not(:first-of-type) {
+	border-left: none !important;
 }
 segmentedcontrol > uibutton.ui-custom-tint.touched,
 segmentedcontrol > uibutton.ui-custom-tint.selected, 
@@ -1250,10 +1324,16 @@ segmentedcontrol > uibutton.ui-custom-tint.selected.touched {
 		-webkit-linear-gradient(top, rgba(0,0,0,.35), rgba(0,0,0,.35) 50%, rgba(50,50,50,.35) 50%, rgba(255,255,255,.35)) !important;
 	color: #fff;
 }
+
+segmentedcontrol > uibutton.ui-custom-tint.touched:not(:first-of-type),
+segmentedcontrol > uibutton.ui-custom-tint.selected:not(:first-of-type), 
+segmentedcontrol > uibutton.ui-custom-tint.selected.touched:not(:first-of-type) {
+	border-left: none !important;
+}
 uibutton[ui-kind=action].ui-custom-tint,
 uibutton[ui-kind=action].ui-custom-tint.disabled.touched {
 	background-image: 
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(30,30,30,.5) 50%, rgba(0,0,0,.5) 50%, rgba(0,0,0,.45));
+		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(0,0,0,.45) 50%);
 	color: #fff;
 	text-shadow: 0 1px 1px #000;
 }
@@ -1263,7 +1343,7 @@ uibutton[ui-kind=action].ui-custom-tint.touched {
 	color: #fff;
 	text-shadow: 0 1px 1px #000;
 }
-/* End Sgwt Custom Tint Styles */
+/* End Custom Tint Styles */
 
 *[ui-contains='action-uibuttons'] {
 	-webkit-box-orient: vertical;
@@ -1285,15 +1365,28 @@ navbar, toolbar {
 	-webkit-box-align: center;
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
-	height: 45px;
+	height: 44px;
 	padding: 0px;
 	background-image: 
-		-webkit-linear-gradient(top, #b2bbca, #a7b0c3 25%, #909cb3 50%, #8593ac 50%, #7c8ba5 75%, #73839f); 
+		-webkit-linear-gradient(top, #C2CCDD, #617396); 
 	border-top: 1px solid #cdd5df;
-	border-bottom: 1px solid #2d3642; 
+	border-bottom: 1px solid #495C7F; 
 }
 navbar {
 	-webkit-box-pack: center;
+	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+toolbar[ui-placement=bottom] {
+	 margin: 0;
+	 position: absolute;
+	 bottom: 0px;
+	 left: 0;
+	 right: 0;
+	 border-bottom: none;
+	 border-top: solid 1px #546b85;
+	 box-shadow: inset 0 -1px 1px #d8dfe9;
+	 background-image: 
+		-webkit-linear-gradient(top, #a7b9d0, #617396); 
 }
 navbar h1 {
 	-webkit-box-flex: 0 !important;
@@ -1312,17 +1405,20 @@ navbar h1 {
 *[ui-bar-align=left],
 uibutton[ui-bar-align=left], 
 uibutton[ui-implements=back][ui-bar-align=left], 
+uibutton[ui-implements=backTo][ui-bar-align=left], 
 segmentedcontrol[ui-bar-align=left] {
 	position: absolute;
-	left: 0px;
+	left: 10px;
+	margin: 0;
 	top: 7px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
 }
-toolbar > uibutton[ui-bar-align=left] {
-	margin-left: 10px;
+uibutton[ui-implements=back][ui-bar-align=left],
+uibutton[ui-implements=backTo][ui-bar-align=left] {
+	margin-left: 6px !important;
 }
 *[ui-bar-align=right],
 stack[ui-bar-align=right],
@@ -1349,14 +1445,6 @@ uibutton[ui-bar-align=left],
 navbar uibutton {
 	height: 30px;
 }
-toolbar[ui-placement=bottom] {
-	 margin: 0;
-	 position: absolute;
-	 bottom: 0px;
-	 left: 0;
-	 right: 0;
-	 border-bottom: none;
- }
  
 /* Tableview Styles */ 
 tableview, tablecell {
@@ -1366,14 +1454,13 @@ tableview > tablecell > celldetail + celldetail {
 	margin-top: 6px;
 }
 tableview > tablecell {
-    background-color: #fff;
+    background-color: #f8f8f8;
     -webkit-user-select: none;
     -webkit-tap-highlight-color: transparent;
     cursor: auto;
     padding: 8px;
-    border-left:  1px solid #d9d9d9;
-    border-right: 1px solid #d9d9d9;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid #cfcfcf;
+    border-top: 1px solid #fdfdfd;
     -webkit-box-sizing: border-box;
     min-height: 44px;
     overflow: hidden;
@@ -1383,6 +1470,7 @@ tableview > tablecell {
 }
 tableview > tablecell[href].touched,
 tableview[ui-implements='detail-menu'] > tablecell.touched,
+tableview[ui-implements='selection-list'] > tablecell.touched,
 tableview[ui-implements='selection-list'] > tablecell.selected.touched {
     background-image: -webkit-linear-gradient(top, #4286f5, #194fdb);
     color: #fff;
@@ -1408,11 +1496,14 @@ tablecell[ui-implements=disclosure]:after {
     font: normal 28px/28px Verdana;
     display: block;
     height: 25px;
-    width: 25px;
+    width: 12px;
     float: right;
-    margin-top: 0;
+    margin-top: 2px;
     margin-bottom: -20px;
     margin-left: -10px;
+}
+tableview[ui-kind=grouped] tablecell[ui-implements=disclosure]:after {
+	margin-top: 0;
 }
 tablecell[ui-implements=disclosure][href].touched:after {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' viewBox='0 0 48 48' id='svg2' xml:space='preserve'><g   transform='matrix(0.76271185,0,0,0.76271185,19.695775,18.208103)' id='layer2'><path   d='M -2.3429035,-12.884216 -8.4213641,-6.8057547 4.8587627,6.4744128 -8.4214285,19.754506 -2.3429188,25.833035 10.937222,12.552872 17.015686,6.4743806 10.937219,0.39595097 -2.3429035,-12.884216 z' id='rect3730'   style='fill:#fff;fill-opacity:1;stroke:none' /></g></svg>");
@@ -1437,7 +1528,6 @@ tablecell[ui-implements=detail-disclosure]:after {
     padding: 0 6px 13px 4px;
     height: 24px;
     width: 24px;
-    border-radius: 14px;
     border-radius: 14px;
     border: solid 3px #fff;
     box-shadow: 0 1px 3px #666;
@@ -1485,7 +1575,6 @@ tablecell[ui-implements=add]:after {
     padding: 0 6px 13px 1px;
     height: 24px;
     width: 24px;
-    border-radius: 14px;
     border-radius: 14px;
     border: solid 3px #fff;
     box-shadow: 0 1px 3px #666;
@@ -1565,7 +1654,7 @@ tableview[ui-tablecell-order=stacked][ui-usage=icon] > celltitle,
 tableview[ui-usage=icon][ui-tablecell-order=stacked] > celltitle {
     position: relative;
     top: 2px;
-    width: 70% !important;
+    width: 70%;
     display: inline-block !important;
 }
 tableview > tablecell[ui-usage=icon] > cellsubtitle,
@@ -1755,36 +1844,51 @@ tableview > tablecell[ui-implements=celltitle-with-button] > uibutton {
     display: -webkit-inline-box;
     float: right;
 }
-div[ui-kind=grouped], p[ui-kind=grouped], tableview[ui-kind=grouped] {
+tableview[ui-kind=grouped] {
 	-webkit-margin-bottom-collapse: separate;
 	-webkit-margin-top-collapse: separate;
 	-webkit-user-select: none;
 	margin: 17px 9px;
 	overflow: hidden;
 }
+tableview[ui-kind=grouped] tablecell:first-of-type {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+tableview[ui-kind=grouped] tablecell:last-of-type {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+div[ui-kind=grouped], p[ui-kind=grouped] {
+	-webkit-margin-bottom-collapse: separate;
+	-webkit-margin-top-collapse: separate;
+	-webkit-user-select: none;
+	margin: 17px 9px;
+	overflow: hidden;
+	box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 1px 2px rgba(255,255,255,1);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
 tableview[ui-kind=grouped] > tablecell {
    cursor: pointer;
    padding: 8px;
-   border-left:  1px solid #d9d9d9;
-   border-right: 1px solid #d9d9d9;
    border-bottom: 1px solid #d9d9d9;
    background-color: #fff;
    font-weight: bold;
    -webkit-tap-highlight-color: transparent;
 }
-div[ui-kind=grouped], p[ui-kind=grouped], tableview[ui-kind=grouped] > tablecell:first-of-type {
-	border-top: 1px solid #acacac;
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
+tableview[ui-kind=grouped] > tablecell:first-of-type {
+	border-top: none;
 }
 tableview[ui-kind=grouped] > tablecell:last-of-type {
-	border-bottom-left-radius: 10px;
-	border-bottom-right-radius: 10px;
+	border-bottom: none;
 }
 div[ui-kind=grouped], p[ui-kind=grouped] {
    padding: 8px 10px;
    background-color: #fff;
-	border-top: 1px solid #acacac;
+	border-top: 1px solid rgba(0,0,0,.4);
 	border-radius: 10px;
 	border-radius: 10px;
 }
@@ -1798,19 +1902,32 @@ tableview > tablecell > button > .content > img {
 celldatetime, cellvalue {
 	color: #2671d8;
 	float: right;
-	margin-right: 34px;
-	margin-top: -20px;
+	margin-right: 22px;
+	margin-top: -17px;
+	margin-left: -20px;
 	font-size: 14px;
 	text-align: right;
 	-webkit-transform: translate3d(0,0,0);
+}
+cellvalue {
+	margin-top: 6px;
+}
+tableview[ui-kind=grouped] celldatetime,
+tableview[ui-kind=grouped] cellvalue {
+	margin-top: -16px;
+}
+tableview[ui-kind=grouped] tablecell[ui-implements=detail-disclosure] celldatetime,
+tableview[ui-kind=grouped] tablecell[ui-implements=detail-disclosure] cellvalue {
+	margin-top: -20px;
+	margin-right: 30px;
 }
 tableview > tablecell > cellcounter {
 	background-color: #8999b4;
 	border-radius: 10px;
 	display: inline-block !important;
 	float: right;
-	margin-right: 32px;
-	margin-top: 8px;
+	margin-right: 30px;
+	margin-left: -20px;
 	margin-top: 4px;
 	margin-bottom: -20px;
 	font-size: 14px;
@@ -1960,35 +2077,41 @@ tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures  > tablecell > 
 }
 /* Table Headers and Footers */
 tableheader {
-	padding: 6px 10px;
-	text-align: center;
-	font-size: 16px;
-	color: #666;
+	padding: 12px 10px;
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	color: #4E566B;
 	text-shadow: 0px 1px 1px #fff;
 }
 tablefooter {
 	padding: 6px 10px;
-	font-size: 14px;
-	color: #777;
+	font-size: 18px;
+	color: #4E566B;
 	text-align: center;
 	text-shadow: 0px 1px 1px #fff;
+}
+tableheader + tableview[ui-kind=grouped] {
+	margin-top: 0 !important;
 }
 /* Styles for Titled Tableview Lists */
 tableview[ui-kind^=titled-list] tableheader {
 	-webkit-box-sizing: border-box;
 	height: 24px;
+	padding: 12px 10px 14px 10px;
 	background-image:
-		-webkit-linear-gradient(top, #92a1ac, #b7bfc6);
-	border-top: solid 1px #717d85;
-	border-bottom: solid 1px #989ea4;
-	font-size: 14px;
+		-webkit-linear-gradient(top, #8d9eaa, #afbac2);
+	border-top: solid 1px #738189;
+	border-bottom: solid 1px #8b96a0;
+	font-size: 18px;
 	font-weight: bold;
-	line-height: 12px;
+	line-height: 2px;
 	color: #fff;
-	text-shadow: 0 1px 1px #666;
+	text-shadow: 0 1px 1px #738189;
 	text-align: left;
 	display: -webkit-box;
 	-webkit-box-align: center;
+	box-shadow: inset 0 1px 1px #738189;
 }
 /* Styles for Alphabetical Titled Tableview Lists */
 stack[ui-kind=alphabetical-list] {
@@ -2027,10 +2150,10 @@ stack[ui-kind=alphabetical-list].touched span {
 /* Modal Popup Styles */
 popup {
 	display: block;
+	-webkit-box-sizeing: border-box;
 	width: 320px;
 	border: solid 1px #72767b;
-	box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
-	box-shadow: 0px 4px 6px #666, 0 0 50px rgba(255,255,255,1);
+	box-shadow: 0px 4px 6px #666, 0 0 80px 30px #ffffff;
 	border-radius: 10px;
 	padding: 0px;
 	opacity: 1;
@@ -2043,11 +2166,6 @@ popup {
 	background-image: 
 		-webkit-linear-gradient(top, rgba(0,15,70,0.5), rgba(0,0,70,0.5));
 }
-@media only screen and (max-device-width : 320px) and (orientation : portrait) {
-	popup {
-		width: 300px;
-	}
-}
 popup[ui-visible-state=hidden] {
 	opacity: 0;
 	-webkit-transform: scale(0);
@@ -2057,9 +2175,9 @@ popup[ui-visible-state=hidden] {
 }
 popup > panel {
 	display: block;
-	border: solid 2px #e6e7ed;
+	border: solid 2px #b5b9c5;
 	border-radius: 10px;
-	padding: 10px;
+	padding: 10px 10px 0 10px;
 	background-image: 
 	   -webkit-gradient(radial, 50% -1180, 150, 50% -280, 1400,
 		   color-stop(0, rgba(143,150,171, 1)),
@@ -2086,7 +2204,7 @@ popup h1 {
 	margin: 0px;
 }
 popup > panel > p, popup > panel > message {
-	margin-top: 0;
+	margin-top: 10px;
 }
 popup > panel > uibutton {
 
@@ -2105,14 +2223,15 @@ popup > panel > toolbar[ui-placement=bottom] {
 	border: none;
 	height: auto;
 	position: relative;
+	box-shadow: none;
 }
 popup > panel > toolbar[ui-placement=bottom] > uibutton {
 	-webkit-box-flex: 1;
 	display: -webkit-box;
-	width: 45%;
+	width: 50%;
 	text-align: center;
 	box-shadow: none;
-	margin: 10px 5px;
+	margin: 10px 2px;
 	height: 42px;
 	font-size: 18px;
 	line-height: 32px;
@@ -2127,6 +2246,7 @@ popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=canc
 		text-shadow: 0 1px 1px #000;
 		-webkit-font-smoothing: antialiased;
 		padding: 9px;
+		margin-left: -4px;
 }
 popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=continue] {
 	background-image: 
@@ -2137,12 +2257,14 @@ popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cont
 			text-shadow: 0 1px 1px #000;
 			-webkit-font-smoothing: antialiased;
     		padding: 9px;
+    		margin-right: -4px;
 }
 popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action].touched {
 	background-image: 
 		-webkit-linear-gradient(top, #70747f, #424857 50%, #171e30 50%, #222839);
 	text-shadow: black 0px 1px 0px;
 }
+
 /* End Modal Popups */
 
 /* Styles for Selection Lists. */
@@ -2151,15 +2273,23 @@ tableview[ui-implements=selection-list] > tablecell > celltitle {
 }
 tableview[ui-implements=selection-list] tablecell > checkmark {
 	float: right;
-	-webkit-transition: all 0.125s  ease-in-out;
 	opacity: 0;
+	height: 20px;
+	width: 20px;
+	position: relative;
+	top: 3px;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='48' height='48' viewBox='0 0 48 48' id='svg3804' xml:space='preserve'><metadata id='metadata8'></metadata> <defs id='defs3806' /> <g transform='matrix(2.8817229,0,0,2.9517892,5.3723918,5.2474312)' id='layer1'> <path d='M 10.58744,0.11700172 12.620401,1.4648176 4.9418522,12.209841 0.10319639,7.8243369 1.7365255,6.1043166 4.4838194,8.7340293 z' id='path3908' style='fill:#000;fill-opacity:1;stroke:none' /> </g> </svg>");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-position: center center;
 }
 tableview[ui-implements=selection-list] tablecell.selected > checkmark {
 	opacity: 1;
 	color: #496691;
-}
-tableview[ui-implements=selection-list] tablecell > checkmark, tableview[ui-implements=selection-list] tablecell.selected.touched > checkmark {
-	color: #fff;
+} 
+tableview[ui-implements=selection-list] tablecell.touched > checkmark,
+tableview[ui-implements=selection-list] tablecell.selected.touched > checkmark {
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='48' height='48' viewBox='0 0 48 48' id='svg3804' xml:space='preserve'><metadata id='metadata8'></metadata> <defs id='defs3806' /> <g transform='matrix(2.8817229,0,0,2.9517892,5.3723918,5.2474312)' id='layer1'> <path d='M 10.58744,0.11700172 12.620401,1.4648176 4.9418522,12.209841 0.10319639,7.8243369 1.7365255,6.1043166 4.4838194,8.7340293 z' id='path3908' style='fill:#fff;fill-opacity:1;stroke:none' /> </g> </svg>") !important;
 }
 tableview[ui-implements=selection-list] > tablecell input[type=radio] {
 	display: none;
@@ -2207,6 +2337,7 @@ switchcontrol > thumb {
     -webkit-transition: all 0.125s  ease-in-out;
     -webkit-transform: translateX(0px);
     -webkit-transform: translate3d(0,0,0);
+    pointer-events: none;
 }
 switchcontrol.touched > thumb {
 	background-image: none;
@@ -2400,12 +2531,9 @@ actionsheet, actionsheet[ui-action-sheet-color=blue] {
 	-webkit-box-sizing: border-box;
 	padding: 30px 0 0 0;
 	background-image:
-		-webkit-linear-gradient(top, #000, #000 50%, rgba(255,255,255,.6) 50%, rgba(255,255,255,.6)),
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(255,255,255,.15) 90%, rgba(255,255,255,.015)),
-		-webkit-linear-gradient(top, rgba(93,102,118,0.85), rgba(75,81,95,0.85));
-	-webkit-background-size:  100% 2px, 100% 22px, 100% 100%;
-	background-repeat: repeat-x, repeat-x, repeat-x;
-	background-position: top left, top left, top left;
+		-webkit-linear-gradient(top, rgba(75,81,95,.1) 3px, rgba(75,81,95,0.8) 40px, rgba(75,81,95,0.9));
+	border-top: 1px solid rgba(36,36,36,.6);
+	box-shadow: inset 0 1px 2px rgba(255,255,255,.3);
 	position: absolute;
 	bottom: 0px;
 	z-index: 10000;
@@ -2415,9 +2543,8 @@ actionsheet, actionsheet[ui-action-sheet-color=blue] {
 }
 actionsheet[ui-action-sheet-color=black] {
 	background-image:
-		-webkit-linear-gradient(top, #000, #000 50%, rgba(255,255,255,.6) 50%, rgba(255,255,255,.6)),
-		-webkit-linear-gradient(top, rgba(255,255,255,.5), rgba(255,255,255,.15) 90%, rgba(255,255,255,.015)),
-		-webkit-linear-gradient(top, rgba(0,0,0,0.45), rgba(0,0,0,0.65)) !important;
+		-webkit-linear-gradient(top, rgba(36,36,36,.1) 3px, rgba(36,36,36,.8) 40px, rgba(36,36,36,.9) 45px, rgba(36,36,36,.9));
+		background-size: 100% 100%;
 }
 actionsheet.hidden {
 	-webkit-transform: translate3d(0,75%,0);
@@ -2427,12 +2554,18 @@ actionsheet > scrollpanel {
 	padding: 0 0 0 0;
 }
 actionsheet h3 {
-	font-weight: normal;
-	font-size: 12px;
+	font-weight: bold;
+	font-size: 16px;
 	color: #fff;
 	text-shadow: 0 -1px 1px #000;
 	text-align: center;
 	margin: 0;
+}
+actionsheet > scrollpanel > panel > uibutton[ui-implements="save"] > label {
+	text-shadow: 0 0 0 transparent !important;
+}
+actionsheet > scrollpanel > panel > uibutton {
+    box-shadow:  0 0 2px 1px rbga(255,255,255,.005) !important;
 }
 /* End Action Sheet Styles */
 
@@ -2442,34 +2575,39 @@ input[type="range"] {
 	outline: none;
 	display: block;
 	margin: 20px auto;
-	height: 9px;
+	height: 8px;
 	width: auto;
 	border-radius: 4px;
+	border: solid 1px #999999;
+	border-color: #999999 #c4c4c4 #d1d1d1 #c4c4c4;
 	background-image: 
-		-webkit-linear-gradient(top, #f0f0f0, #9a9a9a 20%, #cbcbcb 30%, #f0f0f0 40%, #f0f0f0);
+		-webkit-linear-gradient(top, #aaaaaa, #fdfdfd 6px);
 	background-repeat:repeat-x;
-	box-shadow: 0 1px 2px #000;
+	box-shadow: 0 1px 2px #666;
 }
 input[type="range"]::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	display: block;
-	width: 20px;
-	height: 20px;
+	width: 30px;
+	height: 30px;
 	border-radius: 20px;   
 	margin: 0;
+	border: solid 1px #969696;
+	background-color: #dddddd;
 	background-image:
-		-webkit-linear-gradient(bottom, #8e8e8e, #fff);
-	box-shadow: inset 0 -2px rgba(0,0,0,0.3), 0 0px 1px rgba(0,0,0,0.5);
+		-webkit-linear-gradient(top, #989898, #f9f9f9);
+	box-shadow: inset 0 0 2px 1px rgba(255,255,255,0.7), 0 2px 1px  rgba(0,0,0,.28);
 	position: relative;
-	top: 1px;
+	-webkit-background-clip: border-box;
+	top: 0px;
 }
 input[type="range"]::-webkit-slider-thumb:hover {
-	background-image:
-		-webkit-linear-gradient(bottom, #666, #eee);
+	background-image: none;
+	background-color: #ccc;
 }
 input[type="range"].media-player::-webkit-slider-thumb {
 	background-image:
-		-webkit-gradient(radial, right 130%, 0, right bottom, 36, 
+		-webkit-gradient(radial, right 80%, 0, right bottom, 36, 
 			from(rgba(0,0,0,0)), 
 			color-stop(.43, rgba(0,0,0,.1)),
 			color-stop(.45, rgba(0,0,0,.4)), 
@@ -2491,7 +2629,7 @@ tabbar {
     -webkit-box-pack: justify;
     -webkit-box-sizing: border-box;
     background-image: 
-      -webkit-linear-gradient(top, #000, #545454 2%, #3b3b3b 4%, #1d1d1d 50%, #000 51%);
+      -webkit-linear-gradient(top, #272727, #141414 20%, #1d1d1d 50%, #000 50%);
     font-size: 10px;
     font-family: 'Helvetica Neue', HelveticaNeue, Helvetica-Neue, Helvetica, sans-serif;
     text-align: center;
@@ -2515,12 +2653,11 @@ tabbar > uibutton {
     border: none;
     box-shadow: none;
     border-radius: 3px;
-    margin: 3px 3px 3px 3px;
     padding: 4px 0 0 0;
 }
 tabbar > uibutton[ui-implements=tab].selected,
 tabbar > uibutton[ui-implements=tab].touched {
-    background: rgba(255, 255, 255, 0.15) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
 }
 tabbar > uibutton[ui-implements=tab].disabled.touched {
     background: none !important;
@@ -2532,11 +2669,15 @@ tabbar > uibutton[ui-implements=tab].disabled.touched > icon {
     height: 30px;
     width: 30px;
     margin-bottom: -8px;
-    background-image: 
-    	-webkit-linear-gradient(top left, #A6A6A6, #8C8C8C 50%, #606060);
     box-shadow: #000 0 1px 0px;
     -webkit-mask-size: 30px 30px;
     background-size: 30px 30px;
+   background-image: 
+   	-webkit-linear-gradient(top, #eee, #999, #eee);
+}
+tabbar > uibutton[ui-implements=tab].disabled.touched > icon {
+    background-image: 
+    	-webkit-linear-gradient(top, #d6e3f9, #028ef7 50%, #00ccfe);
 }
 tabbar > uibutton > icon + label {
     display: inline-block;
@@ -2544,7 +2685,7 @@ tabbar > uibutton > icon + label {
     font-weight: bold;
     line-height: 11px;
     margin: 0;
-    color: rgba(255,255,255,0.9);
+    color: #ccc;
     text-overflow: ellipsis;
     white-space: nowrap;
     -webkit-font-smoothing: subpixel-antialiased !important;
@@ -2552,9 +2693,16 @@ tabbar > uibutton > icon + label {
 tabbar > uibutton[ui-implements=tab].selected > icon,
 tabbar > uibutton[ui-implements=tab].touched > icon {
     background: 
-    	-webkit-linear-gradient(-85deg, #DDE9F0, #79B2EC 60%, #2E91E5 70%, #3FC5F8) !important;
+    	-webkit-linear-gradient(top, #d6e3f9, #028ef7 50%, #00ccfe)!important;
     box-shadow: #000 0 1px 0px;
     color:#68B3DA;
+}
+subview.selected {
+	 z-index: 100000;
+	 -webkit-transform: translate3d(0,0,0);
+}
+subview.unselected {
+	-webkit-transform: translate3d(100%,0,0);
 }
 /* End Tab Bar Styles */
 
@@ -2584,7 +2732,7 @@ expander > header > label {
 	color: #fff;
 	text-shadow: 0 1px 1px #666;
 	position: absolute;
-	top: -14px;
+	top: -12px;
 	padding: 2px 10px;
 	margin-left: 10px;
 	border: solid 2px #fff;
@@ -2600,7 +2748,7 @@ expander > header:before {
 	position: absolute;
 	top: -12px;
 	left: 10px;
-	border: solid 2px rgba(154,189,219,0.8);
+	border: solid 2px rgba(255,255,255,0.8);
 	background-color: #556a97;
 	border-radius: 20px;
 	-webkit-box-sizing: border-box;
@@ -2610,9 +2758,7 @@ expander > header:before {
 		0 3px 4px rgba(0,0,0,0.25),  
 		0 -1px 4px rgba(0,0,0,0.25);
 	background-image: 
-		-webkit-linear-gradient(top, #ddd, #556a97);
-			
-	
+		-webkit-linear-gradient(top, #ddd, #556a97);	
 } 
 expander > header:after {
 	content: '';
@@ -2623,7 +2769,7 @@ expander > header:after {
 	top: -13px;
 	left: 10px;
 	border-radius: 30px;
-	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" xml:space="preserve"><polygon points="35,25 17,11 17,39 "/></svg>');
+	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 48 48" xml:space="preserve"><polygon points="24,35 10,17 38,17 "/></svg>');
 	-webkit-mask-repeat: no-repeat;
 	background-position: 5px 5px;
 	-webkit-mask-position: 50% 50%;
@@ -2658,7 +2804,7 @@ expander.ui-status-expanded > panel {
 	background-repeat: repeat-x;
 } 
 expander.ui-status-expanded > header:after {
-	-webkit-transform: rotate(90deg);
+	-webkit-transform: rotate(-180deg);
 }
 expander.ui-status-expanded > header:before {
 	background-image: 
@@ -2835,16 +2981,16 @@ stepper > uibutton:last-of-type {
 	margin-left: 0;
 }
 stepper > uibutton:first-of-type > icon {
-	-webkit-mask-image: url(../icons/arrow_down.svg);
+	-webkit-mask-image: url(../icons-ios/arrow_down.svg);
 }
 stepper > uibutton:last-of-type > icon {
-	-webkit-mask-image: url(../icons/arrow_up.svg);
+	-webkit-mask-image: url(../icons-ios/arrow_up.svg);
 }
 stepper > uibutton:first-of-type > icon.indicator {
-	-webkit-mask-image: url(../icons/minus.svg);
+	-webkit-mask-image: url(../icons-ios/minus.svg);
 }
 stepper > uibutton:last-of-type > icon.indicator {
-	-webkit-mask-image: url(../icons/add.svg);
+	-webkit-mask-image: url(../icons-ios/add.svg);
 }
 stepper > uibutton.disabled > span {
 	opacity: 0.5;
@@ -3043,70 +3189,71 @@ view[ui-transition-type=accordion] {
 	-webkit-animation-name: anim-flip-bottom-back-out;
 }
 @-webkit-keyframes anim-flip-right-front-in {
-	0% { -webkit-transform: rotateY(0deg); }
-	100% { -webkit-transform: rotateY(-180deg); }
+	0% { -webkit-transform: rotateY(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateY(-180deg); opacity: 0;}
 }
 @-webkit-keyframes anim-flip-right-front-out {
-	0% { -webkit-transform: rotateY(-180deg); }
-	100% { -webkit-transform: rotateY(0deg); }
+	0% { -webkit-transform: rotateY(-180deg); opacity: 0;}
+	100% { -webkit-transform: rotateY(0deg); opacity: 1;}
 }
 @-webkit-keyframes anim-flip-right-back-in {
-	0% { -webkit-transform: rotateY(180deg); }
-	100% { -webkit-transform: rotateY(0deg); }
+	0% { -webkit-transform: rotateY(180deg); opacity: 0;}
+	100% { -webkit-transform: rotateY(0deg); opacity: 1;}
 }
 @-webkit-keyframes anim-flip-right-back-out {
-	0% { -webkit-transform: rotateY(0deg); }
-	100% { -webkit-transform: rotateY(180deg); }
+	0% { -webkit-transform: rotateY(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateY(180deg); opacity: 0;}
 }
+
 @-webkit-keyframes anim-flip-left-front-in {
-	0% { -webkit-transform: rotateY(0deg); }
-	100% { -webkit-transform: rotateY(180deg); }
+	0% { -webkit-transform: rotateY(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateY(180deg); opacity: 0;}
 }
 @-webkit-keyframes anim-flip-left-front-out {
-	0% { -webkit-transform: rotateY(180deg); }
-	100% { -webkit-transform: rotateY(0deg); }
+	0% { -webkit-transform: rotateY(180deg); opacity: 0;}
+	100% { -webkit-transform: rotateY(0deg); opacity: 1;}
 }
 @-webkit-keyframes anim-flip-left-back-in {
-	0% { -webkit-transform: rotateY(-180deg); }
-	100% { -webkit-transform: rotateY(0deg); }
+	0% { -webkit-transform: rotateY(-180deg); opacity: 0;}
+	100% { -webkit-transform: rotateY(0deg); opacity: 1;}
 }
 @-webkit-keyframes anim-flip-left-back-out {
-	0% { -webkit-transform: rotateY(0deg); }
-	100% { -webkit-transform: rotateY(-180deg); }
+	0% { -webkit-transform: rotateY(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateY(-180deg); opacity: 0;}
 }
 
 @-webkit-keyframes anim-flip-top-front-in {
-	0% { -webkit-transform: rotateX(180deg); }
-	100% { -webkit-transform: rotateX(0deg); }
+	0% { -webkit-transform: rotateX(180deg); opacity: 0;}
+	100% { -webkit-transform: rotateX(0deg); opacity: 1;}
 }
 @-webkit-keyframes anim-flip-top-front-out {
-	0% { -webkit-transform: rotateX(0deg); }
-	100% { -webkit-transform: rotateX(180deg); }
+	0% { -webkit-transform: rotateX(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateX(180deg); opacity: 0;}
 }
 @-webkit-keyframes anim-flip-top-back-in {
-	0% { -webkit-transform: rotateX(0deg); }
-	100% { -webkit-transform: rotateX(-180deg); }
+	0% { -webkit-transform: rotateX(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateX(-180deg); opacity: 0;}
 }
 @-webkit-keyframes anim-flip-top-back-out {
-	0% { -webkit-transform: rotateX(-180deg); }
-	100% { -webkit-transform: rotateX(0deg); }
+	0% { -webkit-transform: rotateX(-180deg);  opacity: 0;}
+	100% { -webkit-transform: rotateX(0deg); opacity: 1;}
 }
 
 @-webkit-keyframes anim-flip-bottom-front-in {
-	0% { -webkit-transform: rotateX(-180deg); }
-	100% { -webkit-transform: rotateX(0deg); }
+	0% { -webkit-transform: rotateX(-180deg);   opacity: 0;}
+	100% { -webkit-transform: rotateX(0deg); opacity: 1;}
 }
 @-webkit-keyframes anim-flip-bottom-front-out {
-	0% { -webkit-transform: rotateX(0deg); }
-	100% { -webkit-transform: rotateX(-180deg); }
+	0% { -webkit-transform: rotateX(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateX(-180deg);   opacity: 0;}
 }
 @-webkit-keyframes anim-flip-bottom-back-in {
-	0% { -webkit-transform: rotateX(0deg); }
-	100% { -webkit-transform: rotateX(180deg); }
+	0% { -webkit-transform: rotateX(0deg); opacity: 1;}
+	100% { -webkit-transform: rotateX(180deg); opacity: 0;}
 }
 @-webkit-keyframes anim-flip-bottom-back-out {
-	0% { -webkit-transform: rotateX(180deg); }
-	100% { -webkit-transform: rotateX(0deg); }
+	0% { -webkit-transform: rotateX(180deg);  opacity: 0;}
+	100% { -webkit-transform: rotateX(0deg); opacity: 1;}
 }
 
 .spin-left-in,
@@ -3151,16 +3298,16 @@ segmentedcontrol[ui-paging] > uibutton > icon {
 	background-color: #fff !important;
 }
 segmentedcontrol[ui-paging=vertical] > uibutton:first-of-type > icon {
-	-webkit-mask-image: url(../icons/arrow_down.svg);
+	-webkit-mask-image: url(../icons-ios/arrow_down.svg);
 }
 segmentedcontrol[ui-paging=vertical] > uibutton:last-of-type > icon {
-	-webkit-mask-image: url(../icons/arrow_up.svg);
+	-webkit-mask-image: url(../icons-ios/arrow_up.svg);
 }
 segmentedcontrol[ui-paging=horizontal] > uibutton:first-of-type > icon {
-	-webkit-mask-image: url(../icons/arrow_left.svg);
+	-webkit-mask-image: url(../icons-ios/arrow_left.svg);
 }
 segmentedcontrol[ui-paging=horizontal] > uibutton:last-of-type > icon {
-	-webkit-mask-image: url(../icons/arrow_right.svg);
+	-webkit-mask-image: url(../icons-ios/arrow_right.svg);
 }
 subview[ui-paging-orient] {
 	-webkit-transition: all 0.25s  ease-in-out;
@@ -3198,7 +3345,8 @@ subview[ui-paging-orient=vertical][ui-navigation-status=traversed] {
 	-webkit-transform: translate3d(0,-100%,0);
 	opacity: 0;
 }
-app[ui-kind='navigation-with-one-navbar'] > navbar > uibutton[ui-implements='back'] {
+app[ui-kind='navigation-with-one-navbar'] > navbar > uibutton[ui-implements='back'],
+app[ui-kind='navigation-with-one-navbar'] > navbar > uibutton[ui-implements='backTo'] {
 	display: none;
 }
 
@@ -3253,21 +3401,20 @@ popover  {
     width: 320px;
     /* Change color of popover background. */
     background-color: #121a2e;
-    border: solid 2px #4f4f4f;
     margin: 0px;
     -webkit-padding-start: 0px;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px #000;
     position: absolute;
     z-index: 10000000;
     opacity: 0;
     -webkit-transform: scale(0);
     -webkit-transition: all 0.15s ease-in-out;
     border-radius: 10px;
+    overflow: visible !important;
 }
 
 popover > section {
-    background-color: #fff;
+    background-color: #121a2e;
     margin: 0px 5px 5px 5px !important; 
     border-radius: 5px;
     min-height: 50px;
@@ -3285,9 +3432,11 @@ popover  > header {
     -webkit-box-sizing: border-box;
     height: 45px;
     padding: 6px 10px;
+    border: solid 2px #121a2e;
+    border-bottom: none;
     /* Gradient for popover header. The last color in the gradient should be the same as the background color of the popover. */
     background-image: 
-        -webkit-linear-gradient(top, #7d828c, #303749 50%, #121a2e 50%);
+        -webkit-linear-gradient(top, #6f7583 3%, #232e47 50%, #07152f 50%, #020f2a);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     position: relative;
@@ -3304,12 +3453,17 @@ popover  > header > h3 {
     text-shadow: -1px -1px 1px #000;
     font-weight: normal;
 }
-popover  > section .actionSheet {
-    height: 100%;
-    margin: -1px;
-    border-radius: 5px;
-    padding: 1px;
-    
+popover  tableheader {
+	padding: 0px 10px 10px 10px;
+	text-align: left;
+	font-size: 16px;
+	color: #fff;
+	text-shadow: none;
+}
+popover  > section > scrollpanel > actionSheet {
+    border: none;
+    box-shadow: none !important;
+    background-color: #020f2a !important
 }
 popover header {
     display: -webkit-box;
@@ -3321,35 +3475,38 @@ popover header {
 popover:after {
     content: '';
     position: absolute;
-    z-index: 10000;
-    top: -16px;
+    z-index: 10000000;
+    top: -15.55px;
     left: 17px;
     height: 30px !important;
     width: 30px;
-    border: solid 2px #4f4f4f;
-    border-radius: 5px;
+    border: solid 2px #020f2a;
+    -webkit-background-clip: border-box;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.25);
     border-bottom: none;
     border-right: none;
     /* Change color of top pointer. Should match first color of popover > header gradient. */
     background-color: #7d828c !important;
+    background-image: 
+    	-webkit-linear-gradient(-45deg, #a8aab2, #6f7583 40%);
     -webkit-transform: rotate(45deg);
     -webkit-mask-image: 
         -webkit-linear-gradient(left top, #000000, #000000 50%, transparent 50%, transparent);
 }
 [ui-pointer-position=top-left]:after {
-    top: -16px;
+    top: -14px;
     left: 17px;
     right: auto;
     display: block;
 }
 [ui-pointer-position=top-right]:after {
-    top: -16px;
+    top: -14px;
     left: auto;
     right: 17px;
     display: block;
 }
 [ui-pointer-position=top-center]:after {
-    top: -16px;
+    top: -14px;
     left: 44.5%;
     right: auto;
     display: block;
@@ -3361,19 +3518,19 @@ popover:after {
 }
 [ui-pointer-position=bottom-left]:after {
     top: auto;
-    bottom: -16px;
+    bottom: -15px;
     left: 20px;
     display: block;
 }
 [ui-pointer-position=bottom-center]:after {
     top: auto;
-    bottom: -16px;
+    bottom: -15px;
     left: 44.5%;
     display: block;
 }
 [ui-pointer-position=bottom-right]:after {
     top: auto;
-    bottom: -16px;
+    bottom: -15px;
     left: auto;
     right: 20px;
     display: block;
@@ -3411,11 +3568,10 @@ popover actionsheet {
     -webkit-box-sizing: border-box;
     padding: 1px 0px 1px;
     background: none;
-    background-color: rgba(65,72,92,1);
+    background-color: #121a2e;
     display: block;
     position: static;
     border-radius: 5px;
-    box-shadow: 0 0 2px  rgba(65,72,92,1);
 }
 mask {
 	display: block;
@@ -3468,6 +3624,7 @@ rootview > panel > view > subview {
 detailview > subview {
 	 display: none;
 	background-color: #d6dadf;
+	top: 45px !important;
 }
 detailview > subview:first-of-type {
 	 display: block;
@@ -3546,7 +3703,7 @@ body:not(.SplitViewFixed).portrait rootview navbar h1 {
 splitview scrollpanel { 
 	display: block; 
 }
-splitview subview {
+splitview rootview subview {
 	height: 100%;
 }
 splitview scrollpanel {
@@ -3564,3 +3721,261 @@ rootview view[ui-navigation-status=current] {
 rootview view[ui-navigation-status=traversed] {
 	-webkit-transform: translate3d(0%, 0%, 0%);
 }
+uibutton icon[ui-icon-image], uibutton.disabled icon[ui-icon-image] {
+   background-color: #fff !important;
+   -webkit-mask-repeat: no-repeat !important;
+   background-repeat: no-repeat;
+   -webkit-transform: translate3d(0,0,0);
+}
+
+uibutton icon[ui-icon-image=action] {
+	-webkit-mask-image: url(../icons-ios/action.svg);
+}
+uibutton icon[ui-icon-image=activitye-indicator] {
+	-webkit-mask-image: url(../icons-ios/activitye_indicator.svg);
+}
+uibutton icon[ui-icon-image=add] {
+	-webkit-mask-image: url(../icons-ios/add.svg);
+}
+uibutton icon[ui-icon-image=add_black] {
+	-webkit-mask-image: url(../icons-ios/add_black.svg);
+}
+uibutton icon[ui-icon-image=action] {
+	-webkit-mask-image: url(../icons-ios/action.svg);
+}
+uibutton icon[ui-icon-image=android-back] {
+	-webkit-mask-image: url(../icons-ios/android-back.svg);
+}
+uibutton icon[ui-icon-image=android-next] {
+	-webkit-mask-image: url(../icons-ios/android-next.svg);
+}
+uibutton icon[ui-icon-image=apple_logo] {
+	-webkit-mask-image: url(../icons-ios/apple_logo.svg);
+}
+uibutton icon[ui-icon-image=arrow_down] {
+	-webkit-mask-image: url(../icons-ios/arrow_down.svg);
+}
+uibutton icon[ui-icon-image=arrow_left] {
+	-webkit-mask-image: url(../icons-ios/arrow_left.svg);
+}
+uibutton icon[ui-icon-image=arrow_right] {
+	-webkit-mask-image: url(../icons-ios/arrow_right.svg);
+}
+uibutton icon[ui-icon-image=arrow_up] {
+	-webkit-mask-image: url(../icons-ios/arrow_up.svg);
+}
+uibutton icon[ui-icon-image=attachment] {
+	-webkit-mask-image: url(../icons-ios/attachment.svg);
+}
+uibutton icon[ui-icon-image=badge] {
+	-webkit-mask-image: url(../icons-ios/badge.svg);
+}
+uibutton icon[ui-icon-image=bag] {
+	-webkit-mask-image: url(../icons-ios/bag.svg);
+}
+uibutton icon[ui-icon-image=bar_graph] {
+	-webkit-mask-image: url(../icons-ios/bar_graph.svg);
+}
+uibutton icon[ui-icon-image=bookmarks] {
+	-webkit-mask-image: url(../icons-ios/bookmarks.svg);
+}
+uibutton icon[ui-icon-image=cabinet] {
+	-webkit-mask-image: url(../icons-ios/cabinet.svg);
+}
+uibutton icon[ui-icon-image=calendar] {
+	-webkit-mask-image: url(../icons-ios/calendar.svg);
+}
+uibutton icon[ui-icon-image=chart] {
+	-webkit-mask-image: url(../icons-ios/chart.svg);
+}
+uibutton icon[ui-icon-image=chat_more] {
+	-webkit-mask-image: url(../icons-ios/chat_more.svg);
+}
+uibutton icon[ui-icon-image=chat] {
+	-webkit-mask-image: url(../icons-ios/chat.svg);
+}
+uibutton icon[ui-icon-image=check_mark] {
+	-webkit-mask-image: url(../icons-ios/check_mark.svg);
+}
+uibutton icon[ui-icon-image=chevron-left] {
+	-webkit-mask-image: url(../icons-ios/chevron-left.svg);
+}
+uibutton icon[ui-icon-image=chevron] {
+	-webkit-mask-image: url(../icons-ios/chevron.svg);
+}
+uibutton icon[ui-icon-image=cog] {
+	-webkit-mask-image: url(../icons-ios/cog.svg);
+}
+uibutton icon[ui-icon-image=compose] {
+	-webkit-mask-image: url(../icons-ios/compose.svg);
+}
+uibutton icon[ui-icon-image=computer] {
+	-webkit-mask-image: url(../icons-ios/computer.svg);
+}
+uibutton icon[ui-icon-image=contacts] {
+	-webkit-mask-image: url(../icons-ios/contacts.svg);
+}
+uibutton icon[ui-icon-image=delete_check_mark] {
+	-webkit-mask-image: url(../icons-ios/delete_check_mark.svg);
+}
+uibutton icon[ui-icon-image=delete_check_mark2] {
+	-webkit-mask-image: url(../icons-ios/delete_check_mark2.svg);
+}
+uibutton icon[ui-icon-image=delete] {
+	-webkit-mask-image: url(../icons-ios/delete.svg);
+}
+uibutton icon[ui-icon-image=download] {
+	-webkit-mask-image: url(../icons-ios/download.svg);
+}
+uibutton icon[ui-icon-image=downloads] {
+	-webkit-mask-image: url(../icons-ios/downloads.svg);
+}
+uibutton icon[ui-icon-image=droid_logo] {
+	-webkit-mask-image: url(../icons-ios/droid_logo.svg);
+}
+uibutton icon[ui-icon-image=envelope] {
+	-webkit-mask-image: url(../icons-ios/envelope.svg);
+}
+uibutton icon[ui-icon-image=eye] {
+	-webkit-mask-image: url(../icons-ios/eye.svg);
+}
+uibutton icon[ui-icon-image=files] {
+	-webkit-mask-image: url(../icons-ios/files.svg);
+}
+uibutton icon[ui-icon-image=film] {
+	-webkit-mask-image: url(../icons-ios/film.svg);
+}
+uibutton icon[ui-icon-image=flag] {
+	-webkit-mask-image: url(../icons-ios/flag.svg);
+}
+uibutton icon[ui-icon-image=gift] {
+	-webkit-mask-image: url(../icons-ios/gift.svg);
+}
+uibutton icon[ui-icon-image=group] {
+	-webkit-mask-image: url(../icons-ios/group.svg);
+}
+uibutton icon[ui-icon-image=head_phones] {
+	-webkit-mask-image: url(../icons-ios/head_phones.svg);
+}
+uibutton icon[ui-icon-image=heart] {
+	-webkit-mask-image: url(../icons-ios/heart.svg);
+}
+uibutton icon[ui-icon-image=history] {
+	-webkit-mask-image: url(../icons-ios/history.svg);
+}
+uibutton icon[ui-icon-image=home] {
+	-webkit-mask-image: url(../icons-ios/home.svg);
+}
+uibutton icon[ui-icon-image=id_card] {
+	-webkit-mask-image: url(../icons-ios/id_card.svg);
+}
+uibutton icon[ui-icon-image=info] {
+	-webkit-mask-image: url(../icons-ios/info.svg);
+}
+uibutton icon[ui-icon-image=light_bulb] {
+	-webkit-mask-image: url(../icons-ios/light_bulb.svg);
+}
+uibutton icon[ui-icon-image=lightning_bolt] {
+	-webkit-mask-image: url(../icons-ios/lightning_bolt.svg);
+}
+uibutton icon[ui-icon-image=location_pin] {
+	-webkit-mask-image: url(../icons-ios/location_pin.svg);
+}
+uibutton icon[ui-icon-image=lock] {
+	-webkit-mask-image: url(../icons-ios/lock.svg);
+}
+uibutton icon[ui-icon-image=minus] {
+	-webkit-mask-image: url(../icons-ios/minus.svg);
+}
+uibutton icon[ui-icon-image=more] {
+	-webkit-mask-image: url(../icons-ios/more.svg);
+}
+uibutton icon[ui-icon-image=move_indicator] {
+	-webkit-mask-image: url(../icons-ios/move_indicator.svg);
+}
+uibutton icon[ui-icon-image=new_page] {
+	-webkit-mask-image: url(../icons-ios/new_page.svg);
+}
+uibutton icon[ui-icon-image=overflow-menu] {
+	-webkit-mask-image: url(../icons-ios/overflow-menu.svg);
+}
+uibutton icon[ui-icon-image=refresh] {
+	-webkit-mask-image: url(../icons-ios/refresh.svg);
+}
+uibutton icon[ui-icon-image=reload] {
+	-webkit-mask-image: url(../icons-ios/reload.svg);
+}
+uibutton icon[ui-icon-image=search] {
+	-webkit-mask-image: url(../icons-ios/search.svg);
+}
+uibutton icon[ui-icon-image=settings] {
+	-webkit-mask-image: url(../icons-ios/settings.svg);
+}
+uibutton icon[ui-icon-image=shopping_cart] {
+	-webkit-mask-image: url(../icons-ios/shopping_cart.svg);
+}
+uibutton icon[ui-icon-image=target] {
+	-webkit-mask-image: url(../icons-ios/target.svg);
+}
+uibutton icon[ui-icon-image=todo] {
+	-webkit-mask-image: url(../icons-ios/todo.svg);
+}
+uibutton icon[ui-icon-image=top_rated] {
+	-webkit-mask-image: url(../icons-ios/top_rated.svg);
+}
+uibutton icon[ui-icon-image=windows] {
+    -webkit-mask-image: url(../icons-ios/windows.svg);
+}
+uibutton icon[ui-icon-image=save] {
+    -webkit-mask-image: url(../icons-ios/save.svg);
+}
+uibutton icon[ui-icon-image=folder] {
+    -webkit-mask-image: url(../icons-ios/folder.svg);
+}
+uibutton icon[ui-icon-image=trash] {
+    -webkit-mask-image: url(../icons-ios/trash.svg);
+}
+
+/* for Examples only! */
+uibutton icon[ui-icon-image=range] {
+	-webkit-mask-image: url(../icons-ios/range.svg);
+}
+uibutton icon[ui-icon-image=switch] {
+	-webkit-mask-image: url(../icons-ios/switch.svg);
+}
+uibutton icon[ui-icon-image=stepper] {
+	-webkit-mask-image: url(../icons-ios/stepper.svg);
+}
+
+popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cancel] {
+	margin-left: -16px;
+}
+popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=continue] {
+	margin-right: -12px;
+	margin-left: 6px;
+}
+/* Media Queries */
+/* ================= */
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+	popup {
+		width: 300px;
+	}
+	popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cancel] {
+		mmmargin-right: 10px;
+		margin-left: -12px;
+	}
+	popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=continue] {
+		margin-right: -12px;
+		margin-left: 6px;
+	}
+}
+@media only screen and (max-device-width : 320px) and (orientation : landscape) {
+	popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=cancel] {
+		margin-right: 10px;
+		margin-left: -4px;
+	}
+	popup toolbar[ui-placement=bottom] > uibutton[ui-kind=action][ui-implements=continue] {
+		margin-left: -4px;
+	}
+}
+\ No newline at end of file

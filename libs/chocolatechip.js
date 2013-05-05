@@ -10,7 +10,7 @@
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.3
+Version: 2.1.4
 */
  
 (function() {
@@ -1016,7 +1016,7 @@ Version: 2.1.3
          }
          request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
          function hdl(){ 
-            if(request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
+            if(request.status===0 || request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
                $.responseText = request.responseText;
                request.handleResp(request.responseText); 
             } else {

@@ -1016,7 +1016,7 @@ Version: 2.1.2
          }
          request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
          function hdl(){ 
-            if(request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
+            if(request.status===0 || request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
                $.responseText = request.responseText;
                request.handleResp(request.responseText); 
             } else {

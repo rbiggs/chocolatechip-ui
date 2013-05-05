@@ -11,7 +11,7 @@ ChocolateChip-UI
 Chui.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.3
+Version: 2.1.4
 */
 (function() {
 	var _$ = null;
@@ -126,10 +126,6 @@ Version: 2.1.3
 			$this.attr('aria-hidden','true');
 			var elems = $.els('*', $this);
 			$._each(elems, function(idx, ctx) {
-				$(ctx).data('savedAriaHidden', $(ctx).attr('aria-hidden'));
-				if ($(ctx).attr('aria-hidden')) {
-					$(ctx).data('savedAriaHidden', $(ctx).attr('aria-hidden'));
-				}
 				$(ctx).attr('aria-hidden','true');
 			});
 			$this.addClass('ariaHidden');
@@ -137,18 +133,10 @@ Version: 2.1.3
 		
 		ariaShow : function ( ) {
 			var $this = $(this);
-			$this.attr({'aria-hidden':'false'});
+			$this.removeAttr('aria-hidden');
 			var elems = $.els('*', $this);
 			$._each(elems, function(idx, ctx) {
-				var saved;
-				try {
-					saved = $(ctx).data('savedAriaHidden');
-				} catch(err) {}
-				if (!saved) {
-					$(ctx).removeAttr('aria-hidden');
-				} else {
-					$(ctx).attr('aria-hidden', saved);
-				}
+				$(ctx).removeAttr('aria-hidden');
 			});
 			$this.removeClass('ariaHidden');
 		},
@@ -1125,7 +1113,7 @@ Version: 2.1.3
 				.attr('ui-navigation-status', 'current');
 				
 				$($.UINavigationHistory[histLen-1])
-				.attr('aria-hidden', 'false');
+				.removeAttr('aria-hidden');
 				$(parent).attr('ui-navigation-status', 'upcoming');
 				$(parent).attr('aria-hidden', 'true');
 				$(parent).css('visibility', 'hidden');
@@ -1165,7 +1153,7 @@ Version: 2.1.3
 							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
-						$(node.attr('href')).attr('aria-hidden', 'false');
+						$(node.attr('href')).removeAttr('aria-hidden');
 						$(node.attr('href')).css('visibility', 'visible');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
 						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
@@ -1241,7 +1229,7 @@ Version: 2.1.3
 				$($.UINavigationHistory[histLen-1]).attr('aria-hidden', 'true');
 				$($.UINavigationHistory[histLen-1]).css('visibility', 'hidden');
 				$(viewID).attr('ui-navigation-status','current');
-				$(viewID).attr('aria-hidden', 'false');
+				$(viewID).removeAttr('aria-hidden');
 				$(viewID).css('visibility', 'visible');
 				if (viewID != '#main') {
 					$.UINavigationHistory.push(viewID);
@@ -1281,7 +1269,7 @@ Version: 2.1.3
 						$(ctx).attr('aria-hidden', 'true');
 						$(ctx).css('visibility', 'hidden');
 					} else {
-						$(ctx).attr('aria-hidden', 'false');
+						$(ctx).removeAttr('aria-hidden');
 						$(ctx).css('visibility', 'visible');
 					}
 				});
@@ -1726,7 +1714,8 @@ Version: 2.1.3
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						$('view[ui-navigation-status=current]').ariaShow();
+						//$('view[ui-navigation-status=current]').ariaShow();
+						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
 					$.UIPopUpIsActive = false;
@@ -1737,7 +1726,8 @@ Version: 2.1.3
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						$('view[ui-navigation-status=current]').ariaShow();
+						//$('view[ui-navigation-status=current]').ariaShow();
+						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
 					$.UIPopUpIsActive = false;
@@ -1749,7 +1739,7 @@ Version: 2.1.3
 				$.UIPopUp(options);
 				$.UIPopUpIsActive = true;
 				$.UIPopUpIdentifier = '#' + options.id;
-				$($.UIPopUpIdentifier).attr('aria-hidden', 'false');
+				$($.UIPopUpIdentifier).removeAttr('aria-hidden');
 				var screenCover = $('mask');
 				screenCover.on('touchmove', function(e) {
 					e.preventDefault();
@@ -1760,7 +1750,7 @@ Version: 2.1.3
 				screenCover.attr('ui-visible-state', 'visible');
 				thePopup.attr('ui-visible-state', 'visible');
 				thePopup.ariaFocusChild('h1');
-				$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
+				//$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
 				$('view[ui-navigation-status=current]').ariaHide();
 				$('view[ui-navigation-status=current]').css('display','none');
 				$('view[ui-navigation-status=current]').css('display','block');
@@ -1789,6 +1779,7 @@ Version: 2.1.3
 				$(selector).remove();
 				$.UIPopUpIdentifier = null;
 				$.UIPopUpIsActive = false;
+				$.app.ariaShow();
 			},
 			
 			UIRepositionPopupOnOrientationChange : function ( ) {
@@ -1815,7 +1806,7 @@ Version: 2.1.3
 				var actionsheet = $(actionSheetID);
 				actionsheet.css('display','block');
 				actionsheet.UIBlock();
-				actionsheet.attr('aria-hidden','false');
+				actionsheet.removeAttr('aria-hidden');
 				$('view[ui-navigation-status=current]').css('display','none');
 				setTimeout(function() {
 					$('view[ui-navigation-status=current]').css('display','-webkit-box');

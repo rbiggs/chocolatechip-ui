@@ -89,7 +89,6 @@
 				url : "data/perfumes.json", 
 				dataType: 'json',
 				success: function(data) {
-					console.dir(data.ladies);
 					ladiesPerfume = ko.observableArray(data.ladies);
 					ko.applyBindings(ladiesPerfume, $('#ladiesPerfumeTableView')[0]);
 					mensPerfume = ko.observableArray(data.men);
@@ -288,6 +287,7 @@
     </script>
 </head>
 <body>
+	
 	<app ui-background-style="striped">
 		<view id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar>
@@ -317,7 +317,7 @@
 				</uibutton>
 				<h1>Ladies Perfumes</h1>
 				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
-					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+					<icon ui-icon-image="home"></icon>
                 </uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
@@ -341,7 +341,7 @@
 				</uibutton>
 				<h1>Mens Perfumes</h1>
 				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
-					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+					<icon ui-icon-image="home"></icon>
                 </uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
@@ -365,7 +365,7 @@
 				</uibutton>
 				<h1>Kids Perfumes</h1>
 				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
-					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+					<icon ui-icon-image="home"></icon>
                 </uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
@@ -389,7 +389,7 @@
 				</uibutton>
 				<h1>Detail</h1>
 				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
-					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+					<icon ui-icon-image="home"></icon>
                 </uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
@@ -409,10 +409,10 @@
 			<toolbar ui-placement="bottom" ui-box-pack="center">
 				<label>QTY: </label><stepper id="qty"></stepper>
 				<uibutton id="add" ui-implements="done">
-					<icon style="-webkit-mask-image: url(icons/add.svg);"></icon>
+					<icon ui-icon-image="add"></icon>
 				</uibutton>
 				<uibutton id="showCart" ui-implements="icon">
-					<icon style="-webkit-mask-image: url(icons/shopping_cart.svg);"></icon>
+					<icon ui-icon-image="shopping_cart"></icon>
                 </uibutton>                  
 			</toolbar>
 		</view>
@@ -424,7 +424,7 @@
 				</uibutton>
 				<h1>Shopping Cart</h1>
 				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
-					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+					<icon ui-icon-image="home"></icon>
                 </uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
@@ -464,7 +464,7 @@
 				</uibutton>
 				<h1>Confirmation</h1>
 				<uibutton class="home" ui-implements="icon" ui-bar-align="right">
-					<icon style="-webkit-mask-image: url(icons/home.svg);"></icon>
+					<icon ui-icon-image="home"></icon>
                 </uibutton>
 			</navbar>
 			<subview ui-associations="withNavBar">
@@ -477,6 +477,7 @@
 					</tableview>
 					<tableview ui-tablecell-order="stacked">
 						<tableheader>Purchase Details:</tableheader>
+					</tableview>
 					<tableview ui-tablecell-order="stacked" id="purchasedItemsSummary">
 					</tableview>
 					<tableview ui-tablecell-order="stacked">
