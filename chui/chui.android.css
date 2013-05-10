@@ -1350,6 +1350,7 @@ tablecell > celltitle {
     text-overflow: ellipsis;
     display: inline-block;
     margin-top: 2px;
+    pointer-events: none;
 }
 tablecell > celltitle:not(celltitle + subtitle) {
 	width: 80%;
@@ -1359,16 +1360,15 @@ tablecell > cellsubtitle {
     position: absolute;
     right: 10px;
     margin-top: 4px;
+    pointer-events: none;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
-}
-tablecell > cellsubtitle {
     width: 54%;
     text-align: right;
-    margin-right: 0px;
     float: right;
+    pointer-events: none;
 }
 /* End default celltitle and cellsubtitle styles */
 
@@ -1560,6 +1560,7 @@ tablecell > celldetail {
     font-size: 14px;
     color: #ccc;
     line-height: 16px;
+    pointer-events: none;
 }
 tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > span:first-of-type {
     float: left;

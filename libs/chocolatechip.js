@@ -1036,6 +1036,20 @@ Version: 2.1.4
       	return $.xhr(options);
       },
       
+      get : function(url, success, dataType) {
+      	var options = {};
+      	if (url) {
+      		options.url = url;
+      	}
+      	if (success) {
+      		options.success = success;
+      	}
+      	if (dataType) {
+      		options.dataType = dataType;
+      	}
+      	return $.xhr(options);
+      },
+      
       xhrjson : function ( url, options ) {
             if (typeof options === 'undefined') {
                 return this;

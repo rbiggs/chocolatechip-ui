@@ -1191,7 +1191,7 @@ Version: 2.1.4
 						} catch(err) {} 
 					};
 				
-					if ($.userAction === 'touchend') {
+				/*	if ($.userAction === 'touchend') {
 						$.app.delegate('tablecell', 'touchstart', function(ctx) {
 							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 							$(node).addClass('touched');
@@ -1215,7 +1215,7 @@ Version: 2.1.4
 								}
 							} catch(err) {}
 						});
-					} else {
+					} else {*/
 						$.app.delegate('tablecell', 'click', function(ctx) {
 							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
 							if ($(node).hasAttr('href')) {
@@ -1223,12 +1223,15 @@ Version: 2.1.4
 								if ($(node).hasClass('disabled')) {
 									return;
 								} else {
-									$(node).addClass('disabled');
+									$(node).addClass('touched');
+									setTimeout(function() {
+										$(node).removeClass('touched');
+									},1000);
 									navigateList(node);
 								}
 							}
 						});
-					}				
+					//}				
 				} else {
 				var navigateList = function(node) {
 					var currentNavigatingView = '#main';
