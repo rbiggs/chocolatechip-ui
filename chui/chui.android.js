@@ -1158,7 +1158,7 @@ Version: 2.1.4
 					if (/^#/.test(href) == false) return;
 					try {
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-							$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
+							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
 						$(node.attr('href')).removeAttr('aria-hidden');
