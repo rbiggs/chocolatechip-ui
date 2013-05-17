@@ -1360,7 +1360,6 @@ tablecell > cellsubtitle {
     position: absolute;
     right: 10px;
     margin-top: 4px;
-    pointer-events: none;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

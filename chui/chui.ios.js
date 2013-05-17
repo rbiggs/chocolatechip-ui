@@ -1116,6 +1116,7 @@ Version: 2.1.4
 				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[histLen-1] === '#main') {
  					$('navbar > uibutton[ui-implements=back]', $.app).css({'display':'none'});
  				}
+ 				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
  				if ($.UINavigationHistory[$.UINavigationHistory.length-1] !== '#main') {
  					$.UINavigationHistory.pop();
  				}
@@ -1138,6 +1139,14 @@ Version: 2.1.4
 			UINavigationListExits : false,
 
 		   UINavigationEvent : false,
+		   
+			UIOutputHashToUrl : null,
+			
+			UITrackHashNavigation : function ( url, delimeter ) {
+				url = url || true;
+				$.UIOutputHashToUrl = url;
+				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimeter);
+			},
 			
 			UINavigationList : function() {
 				var navigateList = function(node) {
@@ -1148,8 +1157,13 @@ Version: 2.1.4
 					var href = node.attr('href');
 					if (/^#/.test(href) == false) return;
 					try {
-						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
+						if ($.UIOutputHashToUrl) {
+							if ($(href).hasAttr('ui-uri')) {
+								$.UISetHashOnUrl($(href).attr('ui-uri'), '#');
+								console.log('#' + $(href).attr('ui-uri'));
+							} else {
+								$.UISetHashOnUrl(href);
+							}
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
 						$(node.attr('href')).removeAttr('aria-hidden');
@@ -1240,10 +1254,40 @@ Version: 2.1.4
 						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
 					} catch(err) {}
 				}
+				if ($(viewID).hasAttr('ui-uri')) {
+					$.UISetHashOnUrl($(viewID).attr('ui-uri'));
+				} else {
+				   $.UISetHashOnUrl(viewID);
+				}
 			},
 			
 			UINavigateToNextView : function ( viewID ) {
 				return $.UINavigateToView(viewID);
+			},
+			
+			UISetHashOnUrl : function ( url, delimiter ) {
+				delimiter = delimiter || '#/';
+				if ($.UIOutputHashToUrl) {
+					var hash;
+					if (/^#/.test(url)) {
+						hash = delimiter + (url.split('#')[1]);
+					} else {
+						hash = delimiter + url;
+					}
+					window.history.replaceState('Object', 'Title', hash);
+				}
+			},
+			
+			UISetAppStateFromRoute : function ( route ) {
+				if (route) {
+					$.UIOutputHashToUrl = route;
+					// Code here:
+					
+				} else {
+					$.UIOutputHashToUrl = true;
+					// Code here:
+					
+				}
 			},
 		
 			resetApp : function ( hard ) {

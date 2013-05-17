@@ -1121,6 +1121,7 @@ Version: 2.1.4
 				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[histLen-1] === '#main') {
  					$('navbar > uibutton[ui-implements=back]', $.app).css({'display':'none'});
  				}
+ 				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
  				if ($.UINavigationHistory[$.UINavigationHistory.length-1] !== '#main') {
  					$.UINavigationHistory.pop();
  				}
@@ -1143,7 +1144,14 @@ Version: 2.1.4
 			UINavigationListExits : false,
 
 		   UINavigationEvent : false,
+		   
+			UIOutputHashToUrl : null,
 			
+			UITrackHashNavigation : function ( url ) {
+				url = url || true;
+				$.UIOutputHashToUrl = url;
+				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
+			},
 
 			UINavigationList : function() {
 				var nua = navigator.userAgent;
@@ -1157,6 +1165,9 @@ Version: 2.1.4
 					var href = node.attr('href');
 					if (/^#/.test(href) == false) return;
 					try {
+						if ($.UIOutputHashToUrl) {
+							$.UISetHashOnUrl(href);
+						}
 						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
 							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
 						}
@@ -1267,12 +1278,33 @@ Version: 2.1.4
 						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
 					} catch(err) {}
 				}
+ 				$.UISetHashOnUrl(viewID);
 			},
 			
 			UINavigateToNextView : function ( viewID ) {
 				return $.UINavigateToView(viewID);
 			},
 		
+			UISetHashOnUrl : function ( url, delimiter ) {
+				delimiter = delimiter || '#/';
+				if ($.UIOutputHashToUrl) {
+					var hash = delimiter + (url.split('#')[1]);
+					window.history.replaceState('Object', 'Title', hash);
+				}
+			},
+			
+			UISetAppStateFromRoute : function ( route ) {
+				if (route) {
+					$.UIOutputHashToUrl = route;
+					// Code here:
+					
+				} else {
+					$.UIOutputHashToUrl = true;
+					// Code here:
+					
+				}
+			},
+			
 			resetApp : function ( hard ) {
 				if (hard === "hard") {
 					window.location.reload(true);
