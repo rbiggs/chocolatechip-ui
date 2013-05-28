@@ -19,30 +19,29 @@
 		celltitle {
 			width: 95% !important;
 		}
-
 	</style>
-   <script src="../libs/zepto.js"></script>
-   <script src="../chui/iscroll.js"></script>
-   <script src="../chui/chui.android.js"></script>
+	<script src="../libs/chocolatechip.js"></script>
+	<script src="../chui/iscroll.js"></script>
+	<script src="../chui/chui.android.js"></script>
 	<script type="text/javascript">
 		/* Local JavaScript Here */
 		$(function() {
 			
 			$.UIStepper({
-				selector: "#days",
+				selector: "#days",  
 				range: {values: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']},
 				namePrefix: "cusomers.schedule"
 				//defaultValue: "Mon"
 			});
 			
 			$.UIStepper({
-				selector: "#months",
+				selector: "#months", 
 				range: {values: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']},
 				defaultValue: "Mar"
 			});
 			
 			$.UIStepper({
-				selector: "#date",
+				selector: "#date", 
 				range: {start: 0, end: 31},
 				defaultValue: 10,
 			});
@@ -55,7 +54,7 @@
 			
 			$.UIStepper({
 				selector: "#range1", 
-				buttonClass: "ui-custom-tint ", 
+				buttonClass: "ui-custom-tint", 
 				range: {start: 0, end: 40},
 				step: 4
 			});
@@ -99,80 +98,80 @@
 			<subview id="subview1" class="mySubView" ui-associations="withNavBar">
 				<scrollpanel>
 					<tableview ui-kind="grouped" class="containssteppers">
-                    	<tablecell>
-                        	<celltitle>
-                        		<label>Day of week: </label><stepper id="days"></stepper>
-                        	</celltitle>
-                    	</tablecell>
-                    	<tablecell>
-                        	<celltitle>
-                        		<label>Month: </label><stepper id="months"></stepper>
-                        	</celltitle>
-                    	</tablecell>
-                    	<tablecell>
-                        	<celltitle>
-                        		<label>Day: </label><stepper id="date"></stepper>
-                        	</celltitle>
-                    	</tablecell>
-                    	<tablecell>
-                        	<celltitle>
-                        		<label>Year: </label><stepper id="year"></stepper>
-                        	</celltitle>
-                    	</tablecell>
-                    </tableview>
-                    <tableview ui-kind="grouped" ui-tablecell-order="stacked">
-                    	<tablecell>
-                    		<celltitle>
-                    			Start: 0, End: 40
-                    		</celltitle>
-                    		<celltitle>
-                    			Default: 8, Step: 4
-                    		</celltitle>
-                    		<cellsubtitle>
-                    			<stepper id="range1"></stepper>
-                    		<cellsubtitle>
-                    	</tablecell>
-                    </tableview>
-                    <tableview ui-kind="grouped" ui-tablecell-order="stacked">
-                    	<tablecell>
-                    		<celltitle>
-                    			Start: 3, End: 30
-                    		</celltitle>
-                    		<celltitle>
-                    			Default: 9, Step: 3
-                    		</celltitle>
-                    		<cellsubtitle>
-                    			<stepper id="range2"></stepper>
-                    		<cellsubtitle>
-                    	</tablecell>
-                    </tableview>
-                    <tableview ui-kind="grouped" ui-tablecell-order="stacked">
-                    	<tablecell>
-                    		<celltitle>
-                    			Start: 0, End: 96
-                    		</celltitle>
-                    		<celltitle>
-                    			Default: 24, Step: 12
-                    		</celltitle>
-                    		<cellsubtitle>
-                    			<stepper id="range3"></stepper>
-                    		<cellsubtitle>
-                    	</tablecell>
-                    </tableview>
-                    <tableview ui-kind="grouped" ui-tablecell-order="stacked">
-	                    <tablecell>
-                    		<celltitle>
-                    			Start: 33, End: 132
-                    		</celltitle>
-                    		<celltitle>
-                    			Default: 33, Step: 23
-                    		</celltitle>
-                    		<cellsubtitle>
-                    			<stepper id="stepper33"></stepper>
-                    		<cellsubtitle>
-                    	</tablecell>
-   	            	</tableview>
-   	            	<br><br>
+						<tablecell>
+							<celltitle>
+								<label>Day of week: </label><stepper id="days"></stepper>
+							</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>
+								<label>Month: </label><stepper id="months"></stepper>
+							</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>
+								<label>Day: </label><stepper id="date"></stepper>
+							</celltitle>
+						</tablecell>
+						<tablecell>
+							<celltitle>
+								<label>Year: </label><stepper id="year"></stepper>
+							</celltitle>
+						</tablecell>
+					  </tableview>
+				  <tableview ui-kind="grouped" ui-tablecell-order="stacked">
+					<tablecell>
+						<celltitle>
+							Start: 0, End: 40
+						</celltitle>
+						<celltitle>
+							Default: 8, Step: 4
+						</celltitle>
+						<cellsubtitle>
+							<stepper id="range1"></stepper>
+						<cellsubtitle>
+					</tablecell>
+				  </tableview>
+				  <tableview ui-kind="grouped" ui-tablecell-order="stacked">
+					<tablecell>
+						<celltitle>
+							Start: 3, End: 30
+						</celltitle>
+						<celltitle>
+							Default: 9, Step: 3
+						</celltitle>
+						<cellsubtitle>
+							<stepper id="range2"></stepper>
+						<cellsubtitle>
+					</tablecell>
+				  </tableview>
+				  <tableview ui-kind="grouped" ui-tablecell-order="stacked">
+					<tablecell>
+						<celltitle>
+							Start: 0, End: 96
+						</celltitle>
+						<celltitle>
+							Default: 24, Step: 12
+						</celltitle>
+						<cellsubtitle>
+							<stepper id="range3"></stepper>
+						<cellsubtitle>
+					</tablecell>
+				  </tableview>
+				  <tableview ui-kind="grouped" ui-tablecell-order="stacked">
+					  <tablecell>
+						<celltitle>
+							Start: 33, End: 132
+						</celltitle>
+						<celltitle>
+							Default: 33, Step: 23
+						</celltitle>
+						<cellsubtitle>
+							<stepper id="stepper33"></stepper>
+						<cellsubtitle>
+					</tablecell>
+					</tableview>
+					<br><br>
 				</scrollpanel>
 			</subview>
 		</view>

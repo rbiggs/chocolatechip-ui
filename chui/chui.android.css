@@ -11,7 +11,7 @@ ChocolateChip-UI
 Chui.android.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.4
+Version: 2.1.5
 */
 @font-face {
 	font-family: 'Roboto';
@@ -994,6 +994,10 @@ segmentedcontrol[ui-implements="segmented-paging"] uibutton:first-of-type {
 segmentedcontrol[ui-implements="segmented-paging"] uibutton {
 	border: solid 1px #828283;
 }
+navbar > segmentedcontrol > uibutton {
+	border-left-width: 1px !important;
+	border-left-style: solid !important;
+}
 navbar > segmentedcontrol > uibutton.selected, 
 navbar > segmentedcontrol > uibutton.selected.touched {
     color: #fff;
@@ -1008,7 +1012,7 @@ toolbar > segmentedcontrol > uibutton.disabled.touched {
 segmentedcontrol > uibutton[ui-usage=icon] {
 	display: -webkit-box;
 	-webkit-box-pack: center;
-	-webkit-box-align: cetner;
+	-webkit-box-align: center;
 }
 segmentedcontrol > uibutton > icon {
 	display: -webkit-inline-box;
@@ -1240,8 +1244,7 @@ uibutton[ui-implements=backTo][ui-bar-align=left],
 segmentedcontrol[ui-bar-align=left] {
 	position: static;
 	margin-left: 0 !important;
-	margin-right: 10px;
-	top: 15px;
+	top: 9px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-orient: horizontal;
@@ -1257,7 +1260,7 @@ uibutton[ui-bar-align=right],
 uibutton[ui-implements=next][ui-bar-align=right], 
 segmentedcontrol[ui-bar-align=right] {
 	position: absolute;
-	right: 15px !important;
+	right: 10px !important;
 	margin-right: 0px;
 	top: 7px;
 	display: -webkit-box;
@@ -1350,6 +1353,8 @@ tablecell > celltitle {
     text-overflow: ellipsis;
     display: inline-block;
     margin-top: 2px;
+}
+tablecell[href] > celltitle {
     pointer-events: none;
 }
 tablecell > celltitle:not(celltitle + subtitle) {
@@ -1360,6 +1365,7 @@ tablecell > cellsubtitle {
     position: absolute;
     right: 10px;
     margin-top: 4px;
+    margin-right: 0px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -1367,6 +1373,8 @@ tablecell > cellsubtitle {
     width: 54%;
     text-align: right;
     float: right;
+}
+tablecell[href] > cellsubtitle {
     pointer-events: none;
 }
 /* End default celltitle and cellsubtitle styles */
@@ -1559,6 +1567,8 @@ tablecell > celldetail {
     font-size: 14px;
     color: #ccc;
     line-height: 16px;
+}
+tablecell[href] > celldetail {
     pointer-events: none;
 }
 tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > span:first-of-type {
@@ -2212,7 +2222,7 @@ expander > header > label {
 	margin-right: 10px;
 	cursor: pointer;
 	padding-right: 40px;
-	cursor: pointer;
+	-webkit-transition: all 0.25s ease-in-out;
 }
 expander > header > label:after {
 	content: '';
@@ -2912,6 +2922,7 @@ mask {
 	width: 100%;
 	z-index: 9999;
 	cursor: pointer;
+	-webkit-transform: translate3d(0,0,0);
 }
 /* SplitView Styles */
 splitview {
@@ -3081,4 +3092,7 @@ tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-
 	tablecell > celltitle {
 		width: 100%;
 	}
+}
+body * {
+    -webkit-font-smoothing: subpixel-antialiased !important;
 }

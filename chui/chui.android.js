@@ -11,7 +11,7 @@ ChocolateChip-UI
 Chui.android.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.4
+Version: 2.1.5
 */
 (function() {
 	var _$ = null;
@@ -110,7 +110,7 @@ Version: 2.1.4
 		},
 		
 		UIBlock : function ( opacity ) {
-			opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+			opacity = opacity ? " style='opacity:" + opacity + "'" : " style='opacity: .5;'";
 			$(this).before("<mask" + opacity + "></mask>");
 			return this;
 		},
@@ -952,12 +952,9 @@ Version: 2.1.4
 			}
 			if (rightLimit > screenWidth) {
 				var leftDiff = (rightLimit) - screenWidth;
-				var newLeft = Math.floor((popoverLeft - leftDiff) / 2);
-				console.log('newLeft: ' + newLeft);
-				if (newLeft < 0) {
-					newLeft = 2;
-				}
-				this.style.left = newLeft + "px";
+				var newLeft = Math.floor((popoverLeft - leftDiff));
+				popoverLeft = popoverLeft - ((popoverWidth + popoverLeft)- screenWidth);
+				this.style.left = (popoverLeft - 8) + "px";
 			}
 		}
 	};
@@ -1147,10 +1144,10 @@ Version: 2.1.4
 		   
 			UIOutputHashToUrl : null,
 			
-			UITrackHashNavigation : function ( url ) {
+			UITrackHashNavigation : function ( url, delimeter ) {
 				url = url || true;
 				$.UIOutputHashToUrl = url;
-				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
+				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimeter);
 			},
 
 			UINavigationList : function() {
@@ -1457,7 +1454,7 @@ Version: 2.1.4
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
-			},
+			}
 		});
 	
 		
@@ -1793,7 +1790,7 @@ Version: 2.1.4
 				var popupBtn = '#' + id + ' uibutton';
 				$._each($.els(popupBtn), function(idx, ctx) {
 					$(ctx).on('click', cancelClickPopup = function(e) {
-						$("#openPopup").css({'pointer-events':'visible'});
+						$("#openPopup").css({'pointer-events':'auto'});
 						if ($(ctx).attr('ui-implements')==='continue') {
 							callback.call(callback, this);
 						}
@@ -1851,7 +1848,7 @@ Version: 2.1.4
 				$(popup).css({left: tmpLeft, top: tmpTop}); 
 			},
 			
-			UIClosePopup : function ( selector ) {
+			UIClosePopup : function ( selector, callback ) {
 				$(selector + ' uibutton[ui-implements=cancel]').UIRemovePopupBtnEvents('click', 'cancelClickPopup');
 					$(selector + ' uibutton[ui-implements=continue]').UIRemovePopupBtnEvents('click', 'cancelTouchPopup');
 				$(selector).UIUnblock();
@@ -1861,6 +1858,7 @@ Version: 2.1.4
 				$.UIPopUpIdentifier = null;
 				$.UIPopUpIsActive = false;
 				$.app.ariaShow();
+				callback();
 			},
 			
 			UIRepositionPopupOnOrientationChange : function ( ) {

@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="../chui/chui.ios.css">
 	<style type="text/css">
 		/* Local Styles Here */
-		tableview.containssteppers celltitle > label {
+		/*tableview.containssteppers celltitle > label {
 			width: 120px;
 			text-align: right;
 			display: inline-block;
@@ -30,7 +30,7 @@
 		}
 		stepper > uibutton:first-of-type {
 			margin-left: 0px;
-		}
+		}*/
 	</style>
    <script src="../libs/jquery-1.7.2.js"></script>
    <script src="../chui/iscroll.js"></script>
@@ -42,8 +42,8 @@
 			$.UIStepper({
 				selector: "#days",  
 				range: {values: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']},
-				namePrefix: "cusomers.schedule"
-				//defaultValue: "Mon"
+				namePrefix: "cusomers.schedule",
+				defaultValue: "Mon"
 			});
 			
 			$.UIStepper({

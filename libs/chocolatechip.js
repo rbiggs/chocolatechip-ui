@@ -10,7 +10,7 @@
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.4
+Version: 2.1.5
 */
  
 (function() {
@@ -197,12 +197,6 @@ Version: 2.1.4
          return ret;
       },
       
-      fill : function ( args ) {
-         this.each(function(node) {
-            return node.fill(args);
-         });
-      },
-      
       empty : function ( ) {
          this.each(function(node) {
             return node.empty();
@@ -251,18 +245,38 @@ Version: 2.1.4
          });
       },
       
-      attr : function ( args ) {
+      attr : function ( property, value ) {
+      	var ret = [];
          this.each(function(node) {
-            return node.attr(args);
-         });
+            if (!value) {
+            	if (node.hasAttr(property)) {
+            		ret.push(node.attr(property));
+            	}
+            } else {
+            	node.attr(property, value);
+            }
+         });	
+         if (ret.length) {
+         	return ret;
+         } else {
+         	return;
+         }
       },
       
       prop : this.attr,
       
       hasAttr : function ( args ) {
+      	var ret = []
          this.each(function(node) {
-            return node.hasAttr(args);
-         });
+            if (node.hasAttr(args)) {
+            	ret.push(node);
+            }
+         });	
+         if (ret.length) {
+         	return ret;
+         } else {
+         	return;
+         }
       },
       
       removeAttr : function ( args ) {
@@ -272,9 +286,17 @@ Version: 2.1.4
       },
       
       hasClass : function ( args ) {
+      	var ret = [];
          this.each(function(node) {
-            return node.hasClass(args);
-         });
+         	if (node.hasClass(args)) {
+         		ret.push(node);
+         	}
+         });	
+         if (ret.length) {
+         	return ret;
+         } else {
+         	return;
+         }
       },
       
       addClass : function ( args ) {
@@ -295,10 +317,22 @@ Version: 2.1.4
          });
       },
       
-      val : function ( args ) {
+      val : function ( value ) {
+      	var ret = [];
          this.each(function(node) {
-            return node.val(args);
+         	if (!value) {
+					if (node.val()) {
+						ret.push(node.val())
+					}
+				} else {
+					node.val(value);
+				}
          });
+         if (ret.length) {
+         	return ret;
+         } else {
+         	return;
+         }
       },
       
       disable : function ( ) {
@@ -940,13 +974,14 @@ Version: 2.1.4
        
       disable : function ( ) {
          this.addClass('disabled');
+         this.attr('disabled',true);
          this.css('{cursor: default;}');
-         this.preventDefault();
          return this;
       },
        
       enable : function ( ) {
          this.removeClass('disabled');
+         this.removeAttr('disabled');
          this.css('{cursor: pointer;}');
          return this;
       },
@@ -1162,7 +1197,7 @@ Version: 2.1.4
          }
          request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
          function hdl(){ 
-            if(request.status===0 || request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
+            if(request.status === 0 && request.readyState == 4 || request.status >= 200 && request.status < 300 && request.readyState == 4 || request.status == 304 && request.readyState == 4 ) {   
                $.responseText = request.responseText;
                request.handleResp(request.responseText); 
             } else {

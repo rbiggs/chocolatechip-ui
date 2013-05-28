@@ -11,7 +11,7 @@ ChocolateChip-UI
 Chui.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: GPLv3
-Version: 2.1.4
+Version: 2.1.5
 */
 (function() {
 	var _$ = null;
@@ -108,7 +108,7 @@ Version: 2.1.4
 		},
 		
 		UIBlock : function ( opacity ) {
-			opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+			opacity = opacity ? " style='opacity:" + opacity + "'" : " style='opacity: .5;'";
 			$(this).before("<mask" + opacity + "></mask>");
 			return this;
 		},
@@ -1191,6 +1191,15 @@ Version: 2.1.4
 								}
 							}
 						});
+						if ($('app').hasAttr('ui-kind')) {
+							if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
+								console.log('navigation-with-one-navbar');
+								try {
+									$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+									$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
+								} catch(err) {}
+							}
+						}
 					} catch(err) {} 
 				};
 				
@@ -1248,11 +1257,14 @@ Version: 2.1.4
 				$(viewID).attr('ui-navigation-status','current');
 				$(viewID).removeAttr('aria-hidden');
 				$(viewID).css('visibility', 'visible');
-				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
-					try {
-						$('navbar uibutton[ui-implements=back]').css({'display':'block'});
-						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
-					} catch(err) {}
+				if ($('app').hasAttr('ui-kind')) {
+					if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
+						console.log('navigation-with-one-navbar');
+						try {
+							$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+							$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
+						} catch(err) {}
+					}
 				}
 				if ($(viewID).hasAttr('ui-uri')) {
 					$.UISetHashOnUrl($(viewID).attr('ui-uri'));
@@ -1442,14 +1454,13 @@ Version: 2.1.4
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
-			},
+			}
 		});
 		
 		$.app.delegate('view','webkitTransitionEnd', function() {
 			if (!$('view[ui-navigation-status=current]')) {
 				$($.UINavigationHistory[$.UINavigationHistory.length-1])	 
 					.attr('ui-navigation-status', 'current');
-				//$.UINavigationHistory.pop(); 
 			}	
 			$.UINavigationEvent = false;
 		});
@@ -1467,7 +1478,6 @@ Version: 2.1.4
 				if ($(node).attr('ui-implements') === 'back') {
 					if ($.UINavigationListExits) {
 						$.UINavigateBack();
-						//$.UINavigationEvent = false;
 					}
 				}
 			});
@@ -1481,15 +1491,12 @@ Version: 2.1.4
 				if ($(node).attr('ui-implements') === 'back') {
 					if ($.UINavigationListExits) {
 						$.UINavigateBack();
-						//$.UINavigationEvent = false;
 					}
 				}
 			});	
 		};
 		
 		$.UIEnableScrolling();
-		
-		//$.setupAriaForViews();
 		
 		$.app.UIInitSwitchToggling();
 		
@@ -1758,7 +1765,6 @@ Version: 2.1.4
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						//$('view[ui-navigation-status=current]').ariaShow();
 						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
@@ -1770,7 +1776,6 @@ Version: 2.1.4
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						//$('view[ui-navigation-status=current]').ariaShow();
 						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
@@ -1794,7 +1799,6 @@ Version: 2.1.4
 				screenCover.attr('ui-visible-state', 'visible');
 				thePopup.attr('ui-visible-state', 'visible');
 				thePopup.ariaFocusChild('h1');
-				//$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
 				$('view[ui-navigation-status=current]').ariaHide();
 				$('view[ui-navigation-status=current]').css('display','none');
 				$('view[ui-navigation-status=current]').css('display','block');

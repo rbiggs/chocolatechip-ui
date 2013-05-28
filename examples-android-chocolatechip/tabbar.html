@@ -18,6 +18,9 @@
 		subview.unselected {
 			-webkit-transform: translate3d(100%,0,0);
 		}
+		#withSubtitles tablecell celltitle {
+			width: 42% !important;
+		}
 	</style>
    <script src="../libs/chocolatechip.js"></script>
    <script src="../chui/iscroll.js"></script>
@@ -148,7 +151,7 @@
 			<subview ui-associations="withNavBar withTabBar">
 				<scrollpanel>
                     <tableview ui-kind="grouped">
-                        <tablecell>
+                        <tablecell id='withSubtitles'>
                             <celltitle>Item 1</celltitle>
                             <cellsubtitle>Item 1 Subtitle</cellsubtitle>
                         </tablecell>
