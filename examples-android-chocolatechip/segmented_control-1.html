@@ -10,8 +10,6 @@
 	<title>Segmented Control</title>
 	<link rel="stylesheet" href="../chui/chui.android.css">
 	<style type="text/css">
-		/* Local Styles Here */
-		
 		/* Styles for Segmented Control's stack of panels: */
 		#stack_01 {
 			margin: 0 20px;
@@ -26,11 +24,10 @@
 		$(function() {
 			var logChildNodes = function(item) {
 				var index = item.closest('segmentedcontrol').attr("ui-selected-index");
-				$('#output').append("<tableheader>The child position is: " + index + "</tableheader>");
+				$('#output').html("<tableheader>The child position is: " + index + "</tableheader>");
 			}
 			$("segmentedcontrol").UISegmentedControl("#stack_01", logChildNodes);
 		});
-		
 	</script>
 </head>
 <body>

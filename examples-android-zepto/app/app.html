@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Perfumes App</title>
-    <link rel="stylesheet" href="chui/chui.android.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Perfumes App</title>
+	<link rel="stylesheet" href="chui/chui.android.css">
 	<style type="text/css">
 		/* Local Styles Here */
 		tableview.containsSpinners celltitle > label {
@@ -78,7 +78,7 @@
 		    function createPurchaseTemplate ( item ) {
 				ret = "<tablecell>\
 					<celltitle class='product'>"+ item.product+"</celltitle>\
-					<celltitle>SKU: <span class='sku'>"+ item.sku +"<span></celltitle>\
+					<celltitle>SKU: <span class='sku'>"+ item.sku +"</span></celltitle>\
 					<cellsubtitle class='quantity'>Quantity: <span>"+item.quantity+"</span></cellsubtitle>\
 					<cellsubtitle class='price'>Price per Item: $<span>"+item.price+"</span></cellsubtitle>\
 				</tablecell>";
@@ -287,7 +287,6 @@
     </script>
 </head>
 <body>
-	
 	<app ui-background-style="striped">
 		<view id="main" ui-background-style="striped" ui-navigation-status="current">
 			<navbar>

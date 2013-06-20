@@ -1,47 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" manifest="manifest/transitions.manifest">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Subview Transitions</title>
-    <link rel="stylesheet" href="../chui/chui.ios.css">
-    <style type="text/css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Subview Transitions</title>
+	<link rel="stylesheet" href="../chui/chui.ios.css">
+	<style type="text/css">
 		#flip subview + subview {
 			opacity: 0;
 		}		
-   </style>
+	</style>
 	<script src="../libs/zepto.js"></script>
 	<script src="../chui/iscroll.js"></script>
 	<script src="../chui/chui.ios.js"></script>
-   <script type="text/javascript">
-        $(function() {
-        /*
-        		You can modify UIFlipSubview direction by passing the following four paramters: top, bottom, left or right.
-        */
-        	$("#flipbutton").UIFlipSubview("top");
-        	$("#fadebutton").UIFadeSubview();
-        	$("#popbutton").UIPopSubview();
-        /*
-        		You can modify UISpinSubview direction by passing the following tw paramters: left or right.
-        */
-        	$("#spinbutton").UISpinSubview('left');
-        	
-        	$("#flip > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		$(this).UIToggleButtonLabel("Flip", "Flip Back");
-        	});
-        	$("#fade > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		$(this).UIToggleButtonLabel("Fade In", "Fade Out");
-        	});
-        	$("#pop > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		$(this).UIToggleButtonLabel("Pop In", "Close");
-        	});
-        	$("#spin  > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
-        		$(this).UIToggleButtonLabel("Spin In", "Spin Out");
-        	});
+	<script type="text/javascript">
+		$(function() {
+		  /*
+				You can modify UIFlipSubview direction by passing the following four paramters: top, bottom, left or right.
+		  */
+			$("#flipbutton").UIFlipSubview("top");
+			$("#fadebutton").UIFadeSubview();
+			$("#popbutton").UIPopSubview();
+		  /*
+				You can modify UISpinSubview direction by passing the following tw paramters: left or right.
+		  */
+			$("#spinbutton").UISpinSubview('left');
+		
+			$("#flip > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+				$(this).UIToggleButtonLabel("Flip", "Flip Back");
+			});
+			$("#fade > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+				$(this).UIToggleButtonLabel("Fade In", "Fade Out");
+			});
+			$("#pop > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+				$(this).UIToggleButtonLabel("Pop In", "Close");
+			});
+			$("#spin  > navbar > uibutton[ui-bar-align=right]").bind("click", function() {
+				$(this).UIToggleButtonLabel("Spin In", "Spin Out");
+			});
 		});
-    </script>
-    
+	</script>  
 </head>
 <body>
 	<app>

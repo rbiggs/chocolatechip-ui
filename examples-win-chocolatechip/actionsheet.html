@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no" />
+	<title>Actionsheet Control</title>
+	<link href="../chui/chui.win.css" rel="stylesheet">
+	<script src="../libs/chocolatechip.js"></script>
+	<script src="../chui/chui.win.js"></script>
+	<style type="text/css">
+		#output {
+			padding: 10px;
+			text-align: center;
+			color: #0099e3;
+			font-size: 18pt;
+		}
+	</style>
+
+	<script type="text/javascript">
+		$(function() {
+	
+			var opts = {
+				id : "actionsheet_01",
+				title : "This is an Annoucement!",
+				color : "black",
+				uiButtons : [
+					{ title : "Delete", uiButtonImplements : "delete", callback : "respondToDeleteButton" },
+					{ title : "Save", uiButtonImplements : "save", callback : "respondToSaveButton"
+					}
+				],
+				cancelButtonCallback : function() {
+					$('#output').html("You pressed the Cancel button.");
+				}
+			};
+			$('body').UIActionSheet(opts);
+				
+			$("#displayActionSheet").bind("click", function() {
+				$.UIShowActionSheet("#actionsheet_01");
+			});
+		});
+
+		// Define callback for actionsheet buttons:
+		var actionSheetButtonResponse = function(text) {
+			$('#output').html("You pressed the " + text + " button.");
+		};
+		var respondToDeleteButton = function(actionSheetID) {
+			actionSheetButtonResponse("Delete");
+		};
+		var respondToSaveButton = function(actionSheetID) {
+			actionSheetButtonResponse("Save");
+		};
+		setTimeout(function() {
+			$('#actionsheet_01').find('uibutton[ui-implements=cancel]').on('click', function() {
+				actionSheetButtonResponse("Cancel");
+			});
+		},0);
+	</script>
+</head>
+<body>
+<app>
+	<view id='main' ui-navigation-status="current">
+		<navbar>
+			<h1>Action Sheet</h1>
+			<uibutton id="displayActionSheet" ui-implements="done" ui-bar-align="right">
+				<label>Edit</label>
+			</uibutton>
+		</navbar>
+		<subview ui-associations="withNavBar">
+			<scrollpanel>
+				<tableview ui-kind="grouped">
+					<tablecell ui-implements="add">
+						<celltitle>People</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Places</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Entertainment</celltitle>
+					</tablecell>
+					<tablecell ui-implements="add">
+						<celltitle>Exercise</celltitle>
+					</tablecell>
+				</tableview>
+				<div id='output'></div>
+			</scrollpanel>
+		</subview>
+	</view>
+</app>
+</body>
+</html>

@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.ios.css
 Copyright 2013 Sourcebits www.sourcebits.com
-License: GPLv3
-Version: 2.1.5
+License: BSD
+Version: 2.1.6
 */
 html, body {
 	margin: 0;
@@ -2811,7 +2811,7 @@ expander.ui-status-expanded > panel {
 	background-repeat: repeat-x;
 } 
 expander.ui-status-expanded > header:after {
-	-webkit-transform: rotate(-180deg);
+	-webkit-transform: rotate(90deg);
 }
 expander.ui-status-expanded > header:before {
 	background-image: 

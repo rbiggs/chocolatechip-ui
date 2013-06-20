@@ -10,7 +10,7 @@
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 2.1.2
+Version: 2.1.6
 */
  
 (function() {
@@ -146,31 +146,238 @@ Version: 2.1.2
       hasnt : function ( arg ) {
          var items = [];
          this.each(function(item) {
-            if (item.hasNot(arg)) items.push(item);
+            if (item.hasnt(arg)) items.push(item);
          });
          if (items.length) return items;
          else return false;
       },
       
+      css: function ( property, value ) {
+         var ret = [];
+         this.each(function(node) {
+            if (value) {
+               node.css(property, value);
+            } else {
+               ret.push(node.css(property));
+            }
+         });
+         return ret.length ? ret: this;
+      },
+      
       prependTo : function ( selector ) {
          this.reverse();
          this.each(function(item) {
-            $(selector).prepend(item);
+            $(selector).insertBefore(item, $(selector).firstChild);
          });
-         return $(selector);
+         return this;
       },
       
       appendTo : function ( selector ) {
          this.each(function(item) {
             $(selector).append(item);
          });
-         return $(selector);
+         return this;
+      },
+      
+      wrap : function ( string ) {
+         this.each(function(node) {
+            node.wrap(string);
+         });
+         return this;
+      },
+      
+      unwrap : function ( ) {
+         var parentNode = null;
+         this.each(function(node) {
+            if (node.parentNode === parentNode) return;
+            parentNode = node.parentNode;
+            node.unwrap();
+            
+         });
+         return this;
+      },
+      
+      text : function ( string ) {
+         var ret = '';
+         this.each(function(node) {
+            if (string) {
+               node.text(string);
+            } else {
+               ret += node.text()
+            }
+         });
+         if (!string) return ret;
+         return this;
+      },
+      
+      empty : function ( ) {
+         this.each(function(node) {
+            node.empty();
+         });
+         return this;
+      },
+      
+      remove : function ( ) {
+         this.each(function(node) {
+            node.remove();
+         });
+         return this;
+      },
+      
+      insert : function ( content, position ) {
+         var c = content;
+         if (typeof c == 'string') {
+            this.each(function(node) {
+               node.insert(content, position);
+            });
+         } else if (typeof c == 'array') {
+            var cc = c;
+            this.each(function(el, idx) {
+               el.insert(cc[idx], position);
+            });
+         } else if (c.nodeType == 1) {
+            this.each(function(el) {
+               el.insert(c, position);
+            });
+         }
+         return this;
+      },
+      
+      html : function ( args ) {
+         this.each(function(node) {
+            node.html(args);
+         });
+         return this;
+      },
+      
+      prepend : function ( args ) {
+         this.each(function(node) {
+            node.prepend(args);
+         });
+         return this;
+      },
+      
+      append : function ( args ) {
+         this.each(function(node) {
+            node.append(args);
+         });
+         return this;
+      },
+      
+      before: function ( args ) {
+         this.each(function(node) {
+            node.before(args);
+         });
+         return this;
+      },
+      
+      after : function ( args ) {
+         this.each(function(node) {
+            node.after(args);
+         });
+         return this;
+      },
+      
+      attr : function ( property, value ) {
+         var ret = [];
+         this.each(function(node) {
+            if (!value) {
+               if (node.hasAttr(property)) {
+                  ret.push(node.attr(property));
+               }
+            } else {
+               node.attr(property, value);
+            }
+         });   
+         if (ret.length) return ret;
+         return this;
+      },
+      
+      prop : this.attr,
+      
+      hasAttr : function ( args ) {
+         var ret = [];
+         this.each(function(node) {
+            if (node.hasAttr(args)) {
+               ret.push(node);
+            }
+         });   
+         if (ret.length) return ret;
+         return this;
+      },
+      
+      removeAttr : function ( args ) {
+         this.each(function(node) {
+            node.removeAttr(args);
+         });
+         return this;
+      },
+      
+      hasClass : function ( args ) {
+         var ret = [];
+         this.each(function(node) {
+            if (node.hasClass(args)) {
+               ret.push(node);
+            }
+         });   
+         if (ret.length) return ret;
+         return this;
+      },
+      
+      addClass : function ( args ) {
+         this.each(function(node) {
+            node.addClass(args);
+         });
+         return this;
+      },
+      
+      removeClass : function ( args ) {
+         this.each(function(node) {
+            node.removeClass(args);
+         });
+         return this;
+      },
+      
+      toggleClass : function ( class1, class2 ) {
+         this.each(function(node) {
+            node.toggleClass(class1, class2);
+         });
+         return this;
+      },
+      
+      val : function ( value ) {
+         var ret = [];
+         this.each(function(node) {
+            if (!value) {
+               if (node.val()) {
+                  ret.push(node.val())
+               }
+            } else {
+               node.val(value);
+            }
+         });
+         if (ret.length) return ret;
+         return this;
+      },
+      
+      disable : function ( ) {
+         this.each(function(node) {
+            node.disable();
+         });
+         return this;
+      },
+      
+      enable : function ( ) {
+         this.each(function(node) {
+            node.enable();
+         });
+         return this;
       }
    });
    
    $.extend({
  
-      version : '2.1.2',
+      version : '2.1.3',
       
       libraryName : 'ChocolateChip',
       
@@ -466,7 +673,6 @@ Version: 2.1.2
          if (typeof selector === 'string') {
          	var ret = [];
             var arr = $.slice.apply(this.findAll(selector));
-            console.dir(ctx);
             arr.forEach(function(ctx, idx) {
             	if ($this === ctx.parentNode) {
             		ret.push(ctx);
@@ -475,7 +681,7 @@ Version: 2.1.2
             if(ret.length) return ret;
             else return [];
          } else if (!selector){
-            var ret = $.slice.apply(this.children);
+          	ret = $.slice.apply(this.children);
             if (ret.length) return ret;
             else return [];
          }
@@ -681,9 +887,18 @@ Version: 2.1.2
                i++;
             }
          } else if (position === 1 || position === 'first') {
+            if (this.children) {
+               if (this.firstChild.nodeType === 3) {
+                  while (i < len) {
+                     this.insertBefore(c[i], this.firstChild);
+                     i++;
+                  }
+               }
+            } else {
             while (i < len) {
                this.insertBefore(c[i], this.firstElementChild);
                i++;
+            }
             }
          } else {
             while (i < len) {
@@ -695,6 +910,7 @@ Version: 2.1.2
       },
       
       html : function ( content ) {
+         if (!content) throw 'This method requires content to insert in the target element.';
          this.innerHTML = content;
       },
       
@@ -794,13 +1010,14 @@ Version: 2.1.2
        
       disable : function ( ) {
          this.addClass('disabled');
+         this.attr('disabled',true);
          this.css('{cursor: default;}');
-         this.preventDefault();
          return this;
       },
        
       enable : function ( ) {
          this.removeClass('disabled');
+         this.removeAttr('disabled');
          this.css('{cursor: pointer;}');
          return this;
       },
@@ -920,8 +1137,12 @@ Version: 2.1.2
            var evtObj = document.createEvent('Events');
            evtObj.initEvent(event, true, false);
            this.dispatchEvent(evtObj);
+         } else {
+           var evt = new Event(event);
+           this.dispatchEvent(evt);
          }
       },
+      
       on : function ( event, selector, callback, capturePhase ) {
       	 if (typeof selector === 'function') {
       	 	this.bind(event, selector, callback);
@@ -1016,7 +1237,7 @@ Version: 2.1.2
          }
          request.handleResp = (successCallback !== null) ? successCallback : $.noop; 
          function hdl(){ 
-            if(request.status===0 || request.status >= 200 && request.status < 300 && request.readyState == 4 || request.readyState == 4 && request.status == 304) {   
+            if(request.status === 0 && request.readyState == 4 || request.status >= 200 && request.status < 300 && request.readyState == 4 || request.status == 304 && request.readyState == 4 ) {   
                $.responseText = request.responseText;
                request.handleResp(request.responseText); 
             } else {
@@ -1034,6 +1255,20 @@ Version: 2.1.2
       
       ajax : function( options ) {
       	return $.xhr(options);
+      },
+      
+      get : function(url, success, dataType) {
+         var options = {};
+         if (url) {
+            options.url = url;
+         }
+         if (success) {
+            options.success = success;
+         }
+         if (dataType) {
+            options.dataType = dataType;
+         }
+         return $.xhr(options);
       },
       
       xhrjson : function ( url, options ) {
@@ -1145,6 +1380,8 @@ Version: 2.1.2
       standalone : navigator.standalone,
       ios4 : navigator.userAgent.match(/OS 4/i),
       ios5 : navigator.userAgent.match(/OS 5/i),
+      ios6 : navigator.userAgent.match(/OS 6/i),
+      ios7 : navigator.userAgent.match(/OS 7/i),
       userAction : ($.touchEnabled ? 'touchend' : 'click'),
       mobile : /mobile/img.test(navigator.userAgent),
       desktop : !(/mobile/img.test(navigator.userAgent)),
@@ -1182,43 +1419,31 @@ Version: 2.1.2
        
       templates : {},
        
-      template : function(str, data) {
-         if ($.ajaxStatus === null || $.ajaxStatus === false) {
-            return data;
-         }
-         if ($.templates[str]) {
-            str = $.templates[str];
-         } else {
-            str = str;
-         }
-         var tmpl = 'var p=[],print=function(){p.push.apply(p,arguments);};with(obj||{}){p.push(\''; 
-         var regex1; 
-         var regex2;
-         if (/\{\{/.test(str) || (/$\{/).test(str)) {
-            regex1 = /\$\{([\s\S]+?)\}/g;
-            regex2 = /\{\{([\s\S]+?)\}\}/g;
-         } else if (/\[\[/.test(str) || (/$\[/).test(str)) {
-            regex1 = /\$\[([\s\S]+?)\]/g;
-            regex2 = /\[\[([\s\S]+?)\]\]/g;
-         } else if (/<%=/.test(str) || (/<%/).test(str)) {
-            regex1 = /<%=([\s\S]+?)%>/g;
-            regex2 = /<%([\s\S]+?)%>/g;
-         }  
-         tmpl +=
-           str.replace(/\\/g, '\\\\')
-             .replace(/'/g, "\\'")
-             .replace(regex1, function(match, code) {
-               return "'," + code.replace(/\\'/g, "'") + ",'";
-             })
-             .replace(regex2 || null, function(match, code) {
-               return "');" + code.replace(/\\'/g, "'")
-               .replace(/[\r\n\t]/g, ' ') + "p.push('";
-             })
-             .replace(/\r/g, '\\r')
-             .replace(/\n/g, '\\n')
-             .replace(/\t/g, '\\t') + "');} return p.join('');";
-         var fn = new Function('obj', tmpl);
-         return data ? fn(data) : fn;
+      template : function ( tmpl, variable ) {
+         var regex, delimiterOpen, delimiterClosed;
+         variable = variable ? variable : 'data';
+         if (/\$\{\{/.test(tmpl) || (/\{\{/).test(tmpl)) {
+            regex = /\$\{\{([\s\S]+?)\}\}/g;
+            delimiterOpen = '{{';
+            delimiterClosed = '}}';
+         } else if (/\[\[=/.test(tmpl) || (/\[\[/).test(tmpl)) {
+            regex = /\[\[=([\s\S]+?)\]\]/g;
+            delimiterOpen = '[[';
+            delimiterClosed = ']]';
+         } else if (/<%=/.test(tmpl) || (/<%/).test(tmpl)) {
+            regex = /<%=(.+?)%>/g;
+            delimiterOpen = '<%';
+            delimiterClosed = '%>';
+         } 
+         var template =  new Function(variable, 
+            "var p=[];" + "p.push('" + tmpl
+            .replace(/[\r\t\n]/g, " ")
+            .split("'").join("\\'")
+            .replace(regex,"',$1,'")
+            .split(delimiterOpen).join("');")
+            .split(delimiterClosed).join("p.push('") + "');" +
+            "return p.join('');");
+         return template;
       },
        
       UIUpdateOrientationChange : function ( ) {

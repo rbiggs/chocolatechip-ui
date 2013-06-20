@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" manifest="manifest/deletionlist.manifest">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no" />
+	<title>Deletion List - Icons</title>
+	<link href="../chui/chui.win.css" rel="stylesheet">
+	<script src="../libs/jquery-1.9.0.js"></script>
+	<script src="../chui/chui.win.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("tableview:first-of-type").UIIdentifyChildNodes();
+			var deleteItem = function(item) {
+				$("tablefooter").append("<p>Vous avez supprimé la cellule " +  (parseInt($(item).attr("ui-child-position"),10)+1) + "</p>");
+			};
+			$.UIDeleteTableCell({
+				selector: "tableview", 
+				toolbar: "navbar", 
+				callback: deleteItem, 
+				deleteButton: "Supprimer", 
+				editButton: ["Modifier","OK"]
+			});
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-navigation-status="current">
+			<navbar id="toolbar1">
+				<h1>Français</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel>
+						<tableview  id="deletable-items1" ui-tablecell-order="stacked">
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="../images/ipod.png">
+								<celltitle>Les gens</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="../images/phone.png">
+								<celltitle>Places</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="../images/mail.png">
+								<celltitle>Ceci est un exemple d'un texte très long qui sera tronquée car elle ne forme.</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="../images/safari.png">
+								<celltitle>Animaux</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="../images/sms.png">
+								<celltitle>Alimentaires</celltitle>
+							</tablecell>
+							<tablecell ui-implements="add" ui-usage="icon">
+								<img src="../images/store.png">
+								<celltitle>Choses</celltitle>
+							</tablecell>
+						<tablefooter></tablefooter>
+						</tableview>			
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

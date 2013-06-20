@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="msapplication-tap-highlight" content="no" />
+	<title>Progress Bar</title>
+	<link href="../chui/chui.win.css" rel="stylesheet">
+	<style type="text/css">
+		scrollpanel > section {
+			padding: 20px;
+		}
+	</style>
+	<script src="../libs/chocolatechip.js"></script>
+	<script src="../chui/chui.win.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("section").UIProgressBar({speed: 1});
+			$("section").UIProgressBar({className : "black", speed: 2.5});
+			$("section").UIProgressBar({className : "red", width: 200, speed: 10});
+			$("section").UIProgressBar({className : "green", width: 280, speed: 8});
+			$("section").UIProgressBar({className : "gold", width: 200, speed: 2});
+			$(".toggleProgressBar").bind("click", function() {
+				if (this.text().trim() == "Show") {
+					this.UIToggleButtonLabel("Show", "Hide");
+					$("navbar > h1").UIHideNavBarHeader();
+					$("navbar").UIProgressBar({margin: "0px auto", speed: 2, width: 160});
+					
+				} else if (this.text().trim() == "Hide") {
+					this.UIToggleButtonLabel("Show", "Hide");
+					$("navbar > h1").UIShowNavBarHeader();
+					$("navbar > progress").remove();
+				}
+			});	
+		});
+	</script>
+</head>
+<body>
+	<app>
+	<view id="main" ui-navigation-status="current">
+		<navbar>
+			<h1>Progress Bar</h1>
+			<uibutton ui-bar-align="right" class="toggleProgressBar"><label>Show</label></uibutton>
+		</navbar>
+		<subview ui-associations="withNavBar">
+			<scrollpanel>
+				<section>
+					<p class="rounded">Examples of custom progress bars with varying widths, background colors and animation speeds.</p>
+				</section>
+			</scrollpanel>
+		</subview>
+	</view>
+	</app>
+</body>
+</html>

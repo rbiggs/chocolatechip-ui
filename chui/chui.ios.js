@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
-License: GPLv3
-Version: 2.1.5
+License: BSD
+Version: 2.1.6
 */
 (function() {
 	var _$ = null;
@@ -155,7 +155,9 @@ Version: 2.1.5
 		ariaFocusChild : function ( selector ) {
 			selector = selector || 'h1';
 			var self = this;
-			$(self).find(selector).ariaFocus();
+			var child = $(self).find(selector);
+			child = child.nodeType === 1 ? child : child[0];
+			if (child) $(child).ariaFocus();
     		return this;
 		},
 		
@@ -845,6 +847,7 @@ Version: 2.1.5
 			try {
 				var panel = $(this).find('panel[ui-implements=modal-activity-indicator]');
 				panel.remove();
+				return;
 			} catch(error) {}
 			var ai = $(this).find('activityindicator');
 			ai.remove();
@@ -2194,7 +2197,7 @@ Version: 2.1.5
 							var subresult = getFormValues(currentNode);
 							result = result.concat(subresult);
 						}
-						currentNode = currentNode.nextSibling;
+						currentNode = currentNode.nextElementSibling;
 					}
 					return result;
 				}

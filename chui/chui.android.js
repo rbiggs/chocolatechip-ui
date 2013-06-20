@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.android.js
 Copyright 2013 Sourcebits www.sourcebits.com
-License: GPLv3
-Version: 2.1.5
+License: BSD
+Version: 2.1.6
 */
 (function() {
 	var _$ = null;
@@ -796,7 +796,7 @@ Version: 2.1.5
 		UIActivityIndicator : function ( opts ) {
 			opts = opts || {};
 			var panel;
-			var color = '#000';
+			var color = opts.color ? opts.color : '#000';
 			var size = opts.size || '80px';
 			var position = opts.position || null;
 			var modal = opts.modal || false;
@@ -813,8 +813,9 @@ Version: 2.1.5
 				$(panel).attr('id', modalPanelID);
 				$(panel).css({'display':'-webkit-box','-webkit-box-orient':'vertical','-webkit-box-align':'center','-webkit-box-pack':'center', 'background-color':'#282828', 'height': '120px', 'width':'200px', 'z-index': 11111});
 				spinner = document.createElement('activityindicator');
-				$(spinner).css({'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
+				$(spinner).css({'height': '50px', 'width': '50px', '-webkit-animation-duration': duration, "background-image":  'url(' + '"data:image/svg+xml;utf8,<svg xmlns:svg=' + "'http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><circle fill='none' stroke='" + color + "' stroke-width='20' stroke-miterlimit='10' cx='199' cy='199' r='174'/>" + '</svg>"' + ')'});
 				$(spinner).attr('role','progressbar');
+				$(spinner).innerHTML = "<div></div><div></div>";
 				$(panel).append(spinner);
 				if (modalMessage) {
 					$(panel).append(modalMessage);
@@ -838,9 +839,10 @@ Version: 2.1.5
 			} else {
 				var webkitAnim = _zo ? null : {'-webkit-animation-duration': duration};
 				spinner = document.createElement('activityindicator');
-				$(spinner).css({'height': size, 'width': size});
+				$(spinner).css({'height': size, 'width': size, "background-image":  'url(' + '"data:image/svg+xml;utf8,<svg xmlns:svg=' + "'http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><circle fill='none' stroke='" + color + "' stroke-width='20' stroke-miterlimit='10' cx='199' cy='199' r='174'/>" + '</svg>"' + ')'});
 				if (webkitAnim) $(spinner).css(webkitAnim);
 				$(spinner).attr('role','progressbar');
+				$(spinner).innerHTML = "<div></div><div></div>";
 				if (position) $(spinner).attr('ui-bar-align', position);
 				return $(this).append(spinner);
 			}
@@ -852,6 +854,7 @@ Version: 2.1.5
 			try {
 				var panel = $(this).find('panel[ui-implements=modal-activity-indicator]');
 				panel.remove();
+				return;
 			} catch(error) {}
 			var ai = $(this).find('activityindicator');
 			ai.remove();

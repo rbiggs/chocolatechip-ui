@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.android.js
 Copyright 2013 Sourcebits www.sourcebits.com
-License: GPLv3
-Version: 2.1.4
+License: BSD
+Version: 2.1.6
 */
 (function() {
 	var _$ = null;
@@ -110,7 +110,7 @@ Version: 2.1.4
 		},
 		
 		UIBlock : function ( opacity ) {
-			opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+			opacity = opacity ? " style='opacity:" + opacity + "'" : " style='opacity: .5;'";
 			$(this).before("<mask" + opacity + "></mask>");
 			return this;
 		},
@@ -796,7 +796,7 @@ Version: 2.1.4
 		UIActivityIndicator : function ( opts ) {
 			opts = opts || {};
 			var panel;
-			var color = '#000';
+			var color = opts.color ? opts.color : '#000';
 			var size = opts.size || '80px';
 			var position = opts.position || null;
 			var modal = opts.modal || false;
@@ -813,8 +813,9 @@ Version: 2.1.4
 				$(panel).attr('id', modalPanelID);
 				$(panel).css({'display':'-webkit-box','-webkit-box-orient':'vertical','-webkit-box-align':'center','-webkit-box-pack':'center', 'background-color':'#282828', 'height': '120px', 'width':'200px', 'z-index': 11111});
 				spinner = document.createElement('activityindicator');
-				$(spinner).css({'height': '50px', 'width': '50px', '-webkit-animation-duration': duration});
+				$(spinner).css({'height': '50px', 'width': '50px', '-webkit-animation-duration': duration, "background-image":  'url(' + '"data:image/svg+xml;utf8,<svg xmlns:svg=' + "'http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><circle fill='none' stroke='" + color + "' stroke-width='20' stroke-miterlimit='10' cx='199' cy='199' r='174'/>" + '</svg>"' + ')'});
 				$(spinner).attr('role','progressbar');
+				$(spinner).innerHTML = "<div></div><div></div>";
 				$(panel).append(spinner);
 				if (modalMessage) {
 					$(panel).append(modalMessage);
@@ -838,9 +839,10 @@ Version: 2.1.4
 			} else {
 				var webkitAnim = _zo ? null : {'-webkit-animation-duration': duration};
 				spinner = document.createElement('activityindicator');
-				$(spinner).css({'height': size, 'width': size});
+				$(spinner).css({'height': size, 'width': size, "background-image":  'url(' + '"data:image/svg+xml;utf8,<svg xmlns:svg=' + "'http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><circle fill='none' stroke='" + color + "' stroke-width='20' stroke-miterlimit='10' cx='199' cy='199' r='174'/>" + '</svg>"' + ')'});
 				if (webkitAnim) $(spinner).css(webkitAnim);
 				$(spinner).attr('role','progressbar');
+				$(spinner).innerHTML = "<div></div><div></div>";
 				if (position) $(spinner).attr('ui-bar-align', position);
 				return $(this).append(spinner);
 			}
@@ -852,6 +854,7 @@ Version: 2.1.4
 			try {
 				var panel = $(this).find('panel[ui-implements=modal-activity-indicator]');
 				panel.remove();
+				return;
 			} catch(error) {}
 			var ai = $(this).find('activityindicator');
 			ai.remove();
@@ -952,12 +955,9 @@ Version: 2.1.4
 			}
 			if (rightLimit > screenWidth) {
 				var leftDiff = (rightLimit) - screenWidth;
-				var newLeft = Math.floor((popoverLeft - leftDiff) / 2);
-				console.log('newLeft: ' + newLeft);
-				if (newLeft < 0) {
-					newLeft = 2;
-				}
-				this.style.left = newLeft + "px";
+				var newLeft = Math.floor((popoverLeft - leftDiff));
+				popoverLeft = popoverLeft - ((popoverWidth + popoverLeft)- screenWidth);
+				this.style.left = (popoverLeft - 8) + "px";
 			}
 		}
 	};
@@ -1109,28 +1109,27 @@ Version: 2.1.4
 			
 			UINavigateBack : function() {
 				var histLen = $.UINavigationHistory.length;
-				var parent = $.UINavigationHistory[histLen-1];
-				$.UINavigationHistory.pop();
-				histLen = $.UINavigationHistory.length;
-				$($.UINavigationHistory[histLen-1])
-				.css('visibility', 'visible');
-				$($.UINavigationHistory[histLen-1])
-				.attr('ui-navigation-status', 'current');
-				
-				$($.UINavigationHistory[histLen-1])
-				.attr('aria-hidden', 'false');
-				$(parent).attr('ui-navigation-status', 'upcoming');
-				$(parent).attr('aria-hidden', 'true');
-				$(parent).css('visibility', 'hidden');
+				var currentView = "#" + $('view[ui-navigation-status=current]')
+					.attr('id');
+				$($.UINavigationHistory[histLen -1])
+					.css({'visibility':'visible'})
+					.attr('ui-navigation-status', 'current');
+				$($.UINavigationHistory[histLen-1]).removeAttr('aria-hidden');
+				$(currentView).attr('ui-navigation-status', 'upcoming');
+				$(currentView).attr('aria-hidden', 'true');
+				$(currentView).css('visibility', 'hidden');
 				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[histLen-1] === '#main') {
  					$('navbar > uibutton[ui-implements=back]', $.app).css({'display':'none'});
+ 				}
+ 				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
+ 				if ($.UINavigationHistory[$.UINavigationHistory.length-1] !== '#main') {
+ 					$.UINavigationHistory.pop();
  				}
 			},
 			
 			UINavigateBackToView : function ( viewID ) {
 				var historyIndex = $.UINavigationHistory.indexOf(viewID);
 				$.UINavigationHistory = $.UINavigationHistory.splice(historyIndex);
-				console.log($.UINavigationHistory);
 				var views = $('app').findAll('views');
 				$._each(views, function(idx, ctx) {
 					if ($(ctx).attr('ui-navigation-status' == 'current')) {
@@ -1145,130 +1144,79 @@ Version: 2.1.4
 			UINavigationListExits : false,
 
 		   UINavigationEvent : false,
+		   
+			UIOutputHashToUrl : null,
 			
+			UITrackHashNavigation : function ( url, delimeter ) {
+				url = url || true;
+				$.UIOutputHashToUrl = url;
+				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimeter);
+			},
 
 			UINavigationList : function() {
 				var nua = navigator.userAgent;
 				var isNativeAndroidBrowser = ((nua.indexOf('Mozilla/5.0') > -1 && nua.indexOf('Android ') > -1 && nua.indexOf('AppleWebKit') > -1) && !(nua.indexOf('Chrome') > -1));
-				if (isNativeAndroidBrowser) {
-					var navigateList = function(node) {
-						var currentNavigatingView = '#main';
-						var node = $(node);
-						var regex = /^#/;
-						node.attr('role','link');
-						var href = node.attr('href');
-						if (!/^#/.test(href)) return;
-						try {
-							if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-								$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
-							}
-							$(node.attr('href')).attr('ui-navigation-status', 'current');
-							$(node.attr('href')).attr('aria-hidden', 'false');
-							$(node.attr('href')).css('visibility', 'visible');
-							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
-							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
-							$($.UINavigationHistory[$.UINavigationHistory.length-1]).css('visibility', 'hidden');
-							if ($('#main').attr('ui-navigation-status') !== 'traversed') {
-								$('#main').attr('ui-navigation-status', 'traversed');
-								$('#main').attr('aria-hidden', 'true');
-								$('#main').css('visibility', 'hidden');
-							}
-						
-							$.UINavigationHistory.push(href);
-							currentNavigatingView = node.closest('view');
-						
-							currentNavigatingView.on('webkitTransitionEnd', function(event) {
-								if (_jq) {
-									if (event.type === 'webkitTransitionEnd') {
-										node.removeClass('disabled');
-									}
-								} else {
-									if (event.propertyName === '-webkit-transform') {
-										node.removeClass('disabled');
-									}
-								}
-							});
-						} catch(err) {} 
-					};
 				
-					if ($.userAction === 'touchend') {
-						$.app.delegate('tablecell', 'touchstart', function(ctx) {
-							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-							$(node).addClass('touched');
-						});
-						$.app.delegate('tablecell', 'touchcancel', function(ctx) {
-							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-							$(node).removeClass('touched');
-						});
-						$.app.delegate('tablecell', 'touchend', function(ctx) {
-							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-							$(node).removeClass('touched');
-							try {
-								if ($(node).hasAttr('href')) {
-									$.UINavigationListExits = true;			
-									if ($(node).hasClass('disabled')) {
-										return
-									} else {
-										$(node).addClass('disabled');
-										navigateList($(node));
-									}
-								}
-							} catch(err) {}
-						});
-					} else {
-						$.app.delegate('tablecell', 'click', function(ctx) {
-							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
-							if ($(node).hasAttr('href')) {
-								$.UINavigationListExits = true;				
-								if ($(node).hasClass('disabled')) {
-									return;
-								} else {
-									$(node).addClass('disabled');
-									navigateList(node);
-								}
-							}
-						});
-					}				
-				} else {
 				var navigateList = function(node) {
-					var currentNavigatingView = '#main';
-					node = $(node);
+					var currentNavigatingView = $(node).closest('view');
+					var currentViewID = '#' + $(currentNavigatingView).attr('id');
+					var node = $(node);
 					node.attr('role','link');
 					var href = node.attr('href');
 					if (/^#/.test(href) == false) return;
-						try {
-							if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-								$('navbar > uibutton[ui-implements=back]', $.app).css('display: block;');
-							}
-							$(node.attr('href')).attr('ui-navigation-status', 'current');
-							$(node.attr('href')).attr('aria-hidden', 'false');
-							$(node.attr('href')).css('visibility', 'visible');
-							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
-							$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
-							$($.UINavigationHistory[$.UINavigationHistory.length-1]).css('visibility', 'hidden');
-							if ($('#main').attr('ui-navigation-status') !== 'traversed') {
-								$('#main').attr('ui-navigation-status', 'traversed');
-								$('#main').attr('aria-hidden', 'true');
-								$('#main').css('visibility', 'hidden');
-							}
-						
-							$.UINavigationHistory.push(href);
-							currentNavigatingView = node.closest('view');
-						
-							currentNavigatingView.on('webkitTransitionEnd', function(event) {
-								if (_jq) {
-									if (event.type === 'webkitTransitionEnd') {
-										node.removeClass('disabled');
-									}
-								} else {
-									if (event.propertyName === '-webkit-transform') {
-										node.removeClass('disabled');
-									}
+					try {
+						if ($.UIOutputHashToUrl) {
+							$.UISetHashOnUrl(href);
+						}
+						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
+							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
+						}
+						$(node.attr('href')).attr('ui-navigation-status', 'current');
+						$(node.attr('href')).removeAttr('aria-hidden');
+						$(node.attr('href')).css('visibility', 'visible');
+						$(currentViewID).attr('ui-navigation-status', 'traversed');
+						$(currentViewID).attr('aria-hidden', 'true');
+						$(currentViewID).css('visibility', 'hidden');
+						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
+							$('#main').attr('ui-navigation-status', 'traversed');
+							$('#main').attr('aria-hidden', 'true');
+							$('#main').css('visibility', 'hidden');
+						}
+					
+						if (currentViewID != '#main') {
+							$.UINavigationHistory.push(currentViewID);
+						}
+						currentNavigatingView.on('webkitTransitionEnd', function(event) {
+							if (_jq) {
+								if (event.type === 'webkitTransitionEnd') {
+									node.removeClass('disabled');
 								}
-							});
-						} catch(err) {} 
-					};
-				
+							} else {
+								if (event.propertyName === '-webkit-transform') {
+									node.removeClass('disabled');
+								}
+							}
+						});
+					} catch(err) {} 
+				};
+				if (isNativeAndroidBrowser) {
+					$.app.delegate('tablecell', $.eventEnd, function(ctx) {
+						var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
+						if ($(node).hasAttr('href')) {
+							if ($.UINavigationEvent) return;
+							$.UINavigationListExits = true;			
+							if ($(node).hasClass('disabled')) {
+								return;
+							} else {
+								$(node).addClass('touched');
+								setTimeout(function() {
+									$(node).removeClass('touched');
+								},1000);
+								navigateList(node);
+							}
+						}
+					});			
+				} else {
 					if ($.userAction === 'touchend') {
 						$.app.on('touchstart', 'tablecell', function(ctx) {
 							var node = ctx.nodeType === 1 ? $.ctx(ctx) : $.ctx(this);
@@ -1312,29 +1260,51 @@ Version: 2.1.4
 			},
 			
 			UINavigateToView : function(viewID) {
+				var currentView = $('view[ui-navigation-status=current]').attr('id');
+				if (currentView !== 'main') {
+					$.UINavigationHistory.push("#" + currentView);
+				}
 				$.UINavigationListExits = true;
 				var histLen = $.UINavigationHistory.length;
 				$($.UINavigationHistory[histLen-1]).attr('ui-navigation-status','traversed');
 				$($.UINavigationHistory[histLen-1]).attr('aria-hidden', 'true');
 				$($.UINavigationHistory[histLen-1]).css('visibility', 'hidden');
 				$(viewID).attr('ui-navigation-status','current');
-				$(viewID).attr('aria-hidden', 'false');
+				$(viewID).removeAttr('aria-hidden');
 				$(viewID).css('visibility', 'visible');
-				if (viewID != '#main') {
-					$.UINavigationHistory.push(viewID);
-				}
 				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
 					try {
 						$('navbar uibutton[ui-implements=back]').css({'display':'block'});
 						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
 					} catch(err) {}
 				}
+ 				$.UISetHashOnUrl(viewID);
 			},
 			
 			UINavigateToNextView : function ( viewID ) {
 				return $.UINavigateToView(viewID);
 			},
 		
+			UISetHashOnUrl : function ( url, delimiter ) {
+				delimiter = delimiter || '#/';
+				if ($.UIOutputHashToUrl) {
+					var hash = delimiter + (url.split('#')[1]);
+					window.history.replaceState('Object', 'Title', hash);
+				}
+			},
+			
+			UISetAppStateFromRoute : function ( route ) {
+				if (route) {
+					$.UIOutputHashToUrl = route;
+					// Code here:
+					
+				} else {
+					$.UIOutputHashToUrl = true;
+					// Code here:
+					
+				}
+			},
+			
 			resetApp : function ( hard ) {
 				if (hard === "hard") {
 					window.location.reload(true);
@@ -1487,7 +1457,7 @@ Version: 2.1.4
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
-			},
+			}
 		});
 	
 		
@@ -1823,7 +1793,7 @@ Version: 2.1.4
 				var popupBtn = '#' + id + ' uibutton';
 				$._each($.els(popupBtn), function(idx, ctx) {
 					$(ctx).on('click', cancelClickPopup = function(e) {
-						$("#openPopup").css({'pointer-events':'visible'});
+						$("#openPopup").css({'pointer-events':'auto'});
 						if ($(ctx).attr('ui-implements')==='continue') {
 							callback.call(callback, this);
 						}
@@ -1881,7 +1851,7 @@ Version: 2.1.4
 				$(popup).css({left: tmpLeft, top: tmpTop}); 
 			},
 			
-			UIClosePopup : function ( selector ) {
+			UIClosePopup : function ( selector, callback ) {
 				$(selector + ' uibutton[ui-implements=cancel]').UIRemovePopupBtnEvents('click', 'cancelClickPopup');
 					$(selector + ' uibutton[ui-implements=continue]').UIRemovePopupBtnEvents('click', 'cancelTouchPopup');
 				$(selector).UIUnblock();
@@ -1891,6 +1861,7 @@ Version: 2.1.4
 				$.UIPopUpIdentifier = null;
 				$.UIPopUpIsActive = false;
 				$.app.ariaShow();
+				callback();
 			},
 			
 			UIRepositionPopupOnOrientationChange : function ( ) {

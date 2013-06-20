@@ -22,15 +22,13 @@
    <script src="../chui/chui.ios.js"></script>
 	<script type="text/javascript">
 		/* Local JavaScript Here */
-	
 		$(function() {
 			var logChildNodes = function(item) {
 				var index = item.closest('segmentedcontrol').attr("ui-selected-index");
-				$('#output').append("<tableheader>The child position is: " + index + "</tableheader>");
+				$('#output').html("<tableheader>The child position is: " + index + "</tableheader>");
 			}
 			$("segmentedcontrol").UISegmentedControl("#stack_01", logChildNodes);
 		});
-		
 	</script>
 </head>
 <body>

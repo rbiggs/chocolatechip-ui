@@ -1,12 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>iPad Popover: Top/Bottom</title>
-    <link rel="stylesheet" href="../chui/chui.ios.css">
-    
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>iPad Popover: Top/Bottom</title>
+	<link rel="stylesheet" href="../chui/chui.ios.css">
    <style type="text/css">
 		popover  {
     		width: 300px;
@@ -18,71 +17,70 @@
 	<script src="../libs/chocolatechip.js"></script>
 	<script src="../chui/iscroll.js"></script>
 	<script src="../chui/chui.ios.js"></script>
-
    <script type="text/javascript">
-        $(function(){
-				var popover1 = { 
-					triggerElement : "#showPopover1", 
-					popoverOrientation: "top", 
-					pointerOrientation: "left", 
-					id: "popover1", 
-					title: "Popover One"
-				};
-				$.UIPopover(popover1);
-				$("#popover1 scrollpanel").append('<tableview ui-kind="grouped">\
-					<tablecell><celltitle>item one</celltitle></tablecell>\
-					<tablecell><celltitle>item two</celltitle></tablecell>\
-					<tablecell><celltitle>item three</celltitle></tablecell>\
-					<tablecell><celltitle>item four</celltitle></tablecell>\
-					</ul>');
-         	$("#showPopover1").on("click", function() {
-                $.UIPopover.show($("#popover1"));
-            });
+		$(function(){
+			var popover1 = { 
+				triggerElement : "#showPopover1", 
+				popoverOrientation: "top", 
+				pointerOrientation: "left", 
+				id: "popover1", 
+				title: "Popover One"
+			};
+			$.UIPopover(popover1);
+			$("#popover1 scrollpanel").append('<tableview ui-kind="grouped">\
+				<tablecell><celltitle>item one</celltitle></tablecell>\
+				<tablecell><celltitle>item two</celltitle></tablecell>\
+				<tablecell><celltitle>item three</celltitle></tablecell>\
+				<tablecell><celltitle>item four</celltitle></tablecell>\
+				</ul>');
+			$("#showPopover1").on("click", function() {
+				 $.UIPopover.show($("#popover1"));
+			});
 
-            var popover2 = {
-					triggerElement: "#showPopover2", 
-					popoverOrientation: "top", 
-					pointerOrientation: "right", 
-					id: "popover2", 
-					title: "Popover Two"
-				};
-				$.UIPopover(popover2);
-				$("#popover2 scrollpanel").append('<actionsheet>\
-                <uibutton ui-kind="action">\
-                    <label>Set Value</label>\
-                </uibutton>\
-                <uibutton ui-kind="action" ui-implements="cancel">\
-                    <label>Cancel</label>\
-                </uibutton>\
-            </actionsheet>');
-            $("#showPopover2").on("click", function() {
-                $.UIPopover.show($("#popover2"));
-            });
-            
-            var popover3 = {
-					triggerElement: "#showPopover3", 
-					popoverOrientation: "bottom", 
-					pointerOrientation: "left", 
-					id: "popover3", 
-					title: "Popover Three"
-				};
-				$.UIPopover(popover3);
-				$("#popover3 scrollpanel").append('<actionsheet>\
-                <uibutton ui-kind="action">\
-                    <label>Set Value</label>\
-                </uibutton>\
-                <uibutton ui-kind="action" ui-implements="cancel">\
-                    <label>Cancel</label>\
-                </uibutton>\
-                <uibutton ui-kind="action" ui-implements="delete">\
-                    <label>Delete</label>\
-                </uibutton>\
-            </actionsheet>');
-            $("#showPopover3").on("click", function() {
-                $.UIPopover.show($("#popover3"));
-            });
-        });
-    </script>
+			var popover2 = {
+				triggerElement: "#showPopover2", 
+				popoverOrientation: "top", 
+				pointerOrientation: "right", 
+				id: "popover2", 
+				title: "Popover Two"
+			};
+			$.UIPopover(popover2);
+			$("#popover2 scrollpanel").append('<actionsheet>\
+				 <uibutton ui-kind="action">\
+					  <label>Set Value</label>\
+				 </uibutton>\
+				 <uibutton ui-kind="action" ui-implements="cancel">\
+					  <label>Cancel</label>\
+				 </uibutton>\
+			</actionsheet>');
+			$("#showPopover2").on("click", function() {
+				 $.UIPopover.show($("#popover2"));
+			});
+			
+			var popover3 = {
+				triggerElement: "#showPopover3", 
+				popoverOrientation: "bottom", 
+				pointerOrientation: "left", 
+				id: "popover3", 
+				title: "Popover Three"
+			};
+			$.UIPopover(popover3);
+			$("#popover3 scrollpanel").append('<actionsheet>\
+				 <uibutton ui-kind="action">\
+					  <label>Set Value</label>\
+				 </uibutton>\
+				 <uibutton ui-kind="action" ui-implements="cancel">\
+					  <label>Cancel</label>\
+				 </uibutton>\
+				 <uibutton ui-kind="action" ui-implements="delete">\
+					  <label>Delete</label>\
+				 </uibutton>\
+			</actionsheet>');
+			$("#showPopover3").on("click", function() {
+				 $.UIPopover.show($("#popover3"));
+			});
+		});
+	</script>
 </head>
 <body>
 	<app>

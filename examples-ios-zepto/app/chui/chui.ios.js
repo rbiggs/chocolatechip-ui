@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
-License: GPLv3
-Version: 2.1.4
+License: BSD
+Version: 2.1.6
 */
 (function() {
 	var _$ = null;
@@ -108,7 +108,7 @@ Version: 2.1.4
 		},
 		
 		UIBlock : function ( opacity ) {
-			opacity = opacity ? " style='opacity:" + opacity + "'" : "";
+			opacity = opacity ? " style='opacity:" + opacity + "'" : " style='opacity: .5;'";
 			$(this).before("<mask" + opacity + "></mask>");
 			return this;
 		},
@@ -155,7 +155,9 @@ Version: 2.1.4
 		ariaFocusChild : function ( selector ) {
 			selector = selector || 'h1';
 			var self = this;
-			$(self).find(selector).ariaFocus();
+			var child = $(self).find(selector);
+			child = child.nodeType === 1 ? child : child[0];
+			if (child) $(child).ariaFocus();
     		return this;
 		},
 		
@@ -845,6 +847,7 @@ Version: 2.1.4
 			try {
 				var panel = $(this).find('panel[ui-implements=modal-activity-indicator]');
 				panel.remove();
+				return;
 			} catch(error) {}
 			var ai = $(this).find('activityindicator');
 			ai.remove();
@@ -1104,28 +1107,27 @@ Version: 2.1.4
 			
 			UINavigateBack : function() {
 				var histLen = $.UINavigationHistory.length;
-				var parent = $.UINavigationHistory[histLen-1];
-				$.UINavigationHistory.pop();
-				histLen = $.UINavigationHistory.length;
-				$($.UINavigationHistory[histLen-1])
-				.css('visibility', 'visible');
-				$($.UINavigationHistory[histLen-1])
-				.attr('ui-navigation-status', 'current');
-				
-				$($.UINavigationHistory[histLen-1])
-				.removeAttr('aria-hidden');
-				$(parent).attr('ui-navigation-status', 'upcoming');
-				$(parent).attr('aria-hidden', 'true');
-				$(parent).css('visibility', 'hidden');
+				var currentView = "#" + $('view[ui-navigation-status=current]')
+					.attr('id');
+				$($.UINavigationHistory[histLen -1])
+					.css({'visibility':'visible'})
+					.attr('ui-navigation-status', 'current');
+				$($.UINavigationHistory[histLen-1]).removeAttr('aria-hidden');
+				$(currentView).attr('ui-navigation-status', 'upcoming');
+				$(currentView).attr('aria-hidden', 'true');
+				$(currentView).css('visibility', 'hidden');
 				 if ($.app.attr('ui-kind')==='navigation-with-one-navbar' && $.UINavigationHistory[histLen-1] === '#main') {
  					$('navbar > uibutton[ui-implements=back]', $.app).css({'display':'none'});
+ 				}
+ 				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
+ 				if ($.UINavigationHistory[$.UINavigationHistory.length-1] !== '#main') {
+ 					$.UINavigationHistory.pop();
  				}
 			},
 			
 			UINavigateBackToView : function ( viewID ) {
 				var historyIndex = $.UINavigationHistory.indexOf(viewID);
 				$.UINavigationHistory = $.UINavigationHistory.splice(historyIndex);
-				console.log($.UINavigationHistory);
 				var views = $('app').findAll('views');
 				$._each(views, function(idx, ctx) {
 					if ($(ctx).attr('ui-navigation-status' == 'current')) {
@@ -1140,33 +1142,47 @@ Version: 2.1.4
 			UINavigationListExits : false,
 
 		   UINavigationEvent : false,
+		   
+			UIOutputHashToUrl : null,
+			
+			UITrackHashNavigation : function ( url, delimeter ) {
+				url = url || true;
+				$.UIOutputHashToUrl = url;
+				$.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimeter);
+			},
 			
 			UINavigationList : function() {
 				var navigateList = function(node) {
-					var currentNavigatingView = '#main';
+					var currentNavigatingView = $(node).closest('view');
+					var currentViewID = '#' + $(currentNavigatingView).attr('id');
 					node = $(node);
 					node.attr('role','link');
 					var href = node.attr('href');
 					if (/^#/.test(href) == false) return;
 					try {
-						if ($.app.attr('ui-kind')==='navigation-with-one-navbar') {
-							$('app > navbar > uibutton[ui-implements=back]').css({'display': 'block'});
+						if ($.UIOutputHashToUrl) {
+							if ($(href).hasAttr('ui-uri')) {
+								$.UISetHashOnUrl($(href).attr('ui-uri'), '#');
+								console.log('#' + $(href).attr('ui-uri'));
+							} else {
+								$.UISetHashOnUrl(href);
+							}
 						}
 						$(node.attr('href')).attr('ui-navigation-status', 'current');
 						$(node.attr('href')).removeAttr('aria-hidden');
 						$(node.attr('href')).css('visibility', 'visible');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('ui-navigation-status', 'traversed');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).attr('aria-hidden', 'true');
-						$($.UINavigationHistory[$.UINavigationHistory.length-1]).css('visibility', 'hidden');
+						$(currentViewID).attr('ui-navigation-status', 'traversed');
+						$(currentViewID).attr('aria-hidden', 'true');
+						$(currentViewID).css('visibility', 'hidden');
 						if ($('#main').attr('ui-navigation-status') !== 'traversed') {
 							$('#main').attr('ui-navigation-status', 'traversed');
 							$('#main').attr('aria-hidden', 'true');
 							$('#main').css('visibility', 'hidden');
 						}
 						
-						$.UINavigationHistory.push(href);
-						currentNavigatingView = node.closest('view');
-						
+						if (currentViewID != '#main') {
+							$.UINavigationHistory.push(currentViewID);
+						}
 						currentNavigatingView.on('webkitTransitionEnd', function(event) {
 							if (_jq) {
 								if (event.type === 'webkitTransitionEnd') {
@@ -1178,6 +1194,15 @@ Version: 2.1.4
 								}
 							}
 						});
+						if ($('app').hasAttr('ui-kind')) {
+							if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
+								console.log('navigation-with-one-navbar');
+								try {
+									$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+									$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
+								} catch(err) {}
+							}
+						}
 					} catch(err) {} 
 				};
 				
@@ -1223,6 +1248,10 @@ Version: 2.1.4
 			},
 			
 			UINavigateToView : function(viewID) {
+				var currentView = $('view[ui-navigation-status=current]').attr('id');
+				if (currentView !== 'main') {
+					$.UINavigationHistory.push("#" + currentView);
+				}
 				$.UINavigationListExits = true;
 				var histLen = $.UINavigationHistory.length;
 				$($.UINavigationHistory[histLen-1]).attr('ui-navigation-status','traversed');
@@ -1231,19 +1260,49 @@ Version: 2.1.4
 				$(viewID).attr('ui-navigation-status','current');
 				$(viewID).removeAttr('aria-hidden');
 				$(viewID).css('visibility', 'visible');
-				if (viewID != '#main') {
-					$.UINavigationHistory.push(viewID);
+				if ($('app').hasAttr('ui-kind')) {
+					if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
+						console.log('navigation-with-one-navbar');
+						try {
+							$('navbar uibutton[ui-implements=back]').css({'display':'block'});
+							$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
+						} catch(err) {}
+					}
 				}
-				if ($.app.attr('ui-kind') === 'navigation-with-one-navbar') {
-					try {
-						$('navbar uibutton[ui-implements=back]').css({'display':'block'});
-						$('navbar uibutton[ui-implements=backTo]').css({'display':'block'});
-					} catch(err) {}
+				if ($(viewID).hasAttr('ui-uri')) {
+					$.UISetHashOnUrl($(viewID).attr('ui-uri'));
+				} else {
+				   $.UISetHashOnUrl(viewID);
 				}
 			},
 			
 			UINavigateToNextView : function ( viewID ) {
 				return $.UINavigateToView(viewID);
+			},
+			
+			UISetHashOnUrl : function ( url, delimiter ) {
+				delimiter = delimiter || '#/';
+				if ($.UIOutputHashToUrl) {
+					var hash;
+					if (/^#/.test(url)) {
+						hash = delimiter + (url.split('#')[1]);
+					} else {
+						hash = delimiter + url;
+					}
+					window.history.replaceState('Object', 'Title', hash);
+				}
+			},
+			
+			UISetAppStateFromRoute : function ( route ) {
+				if (route) {
+					$.UIOutputHashToUrl = route;
+					// Code here:
+					
+				} else {
+					$.UIOutputHashToUrl = true;
+					// Code here:
+					
+				}
 			},
 		
 			resetApp : function ( hard ) {
@@ -1398,14 +1457,13 @@ Version: 2.1.4
 				$(selector).find('label').text(value);
 				$(selector).find('uibutton:first-of-type').addClass('disabled');
 				$(selector).find('uibutton:last-of-type').removeClass('disabled');
-			},
+			}
 		});
 		
 		$.app.delegate('view','webkitTransitionEnd', function() {
 			if (!$('view[ui-navigation-status=current]')) {
-				$($.UINavigationHistory[$.UINavigationHistory.length-2])	 
+				$($.UINavigationHistory[$.UINavigationHistory.length-1])	 
 					.attr('ui-navigation-status', 'current');
-				$.UINavigationHistory.pop(); 
 			}	
 			$.UINavigationEvent = false;
 		});
@@ -1423,7 +1481,6 @@ Version: 2.1.4
 				if ($(node).attr('ui-implements') === 'back') {
 					if ($.UINavigationListExits) {
 						$.UINavigateBack();
-						$.UINavigationEvent = false;
 					}
 				}
 			});
@@ -1437,15 +1494,12 @@ Version: 2.1.4
 				if ($(node).attr('ui-implements') === 'back') {
 					if ($.UINavigationListExits) {
 						$.UINavigateBack();
-						$.UINavigationEvent = false;
 					}
 				}
 			});	
 		};
 		
 		$.UIEnableScrolling();
-		
-		//$.setupAriaForViews();
 		
 		$.app.UIInitSwitchToggling();
 		
@@ -1714,7 +1768,6 @@ Version: 2.1.4
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						//$('view[ui-navigation-status=current]').ariaShow();
 						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
@@ -1726,7 +1779,6 @@ Version: 2.1.4
 						}
 						e.preventDefault();
 						$.UIClosePopup('#' + id);
-						//$('view[ui-navigation-status=current]').ariaShow();
 						$('view[ui-navigation-status=current]').removeAttr('aria-hidden');
 						$('view[ui-navigation-status=current]').ariaFocusChild('h1');
 					});
@@ -1750,7 +1802,6 @@ Version: 2.1.4
 				screenCover.attr('ui-visible-state', 'visible');
 				thePopup.attr('ui-visible-state', 'visible');
 				thePopup.ariaFocusChild('h1');
-				//$('view[ui-navigation-status=current]').attr('aria-hidden', 'true');
 				$('view[ui-navigation-status=current]').ariaHide();
 				$('view[ui-navigation-status=current]').css('display','none');
 				$('view[ui-navigation-status=current]').css('display','block');
@@ -2146,7 +2197,7 @@ Version: 2.1.4
 							var subresult = getFormValues(currentNode);
 							result = result.concat(subresult);
 						}
-						currentNode = currentNode.nextSibling;
+						currentNode = currentNode.nextElementSibling;
 					}
 					return result;
 				}

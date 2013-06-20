@@ -1,11 +1,9 @@
 /*
 ChocolateChip-UI
-Desktop version of chui.android.css
-
-Copyright 2012 Robert Biggs: www.chocolatechip-ui.com
+Chui.android.desktop.css
+Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 2.0
-Modern Theme for non-iOS devices
+Version: 2.1.6
 */
 uibutton:hover {
 	background-color: #2da2cd;
@@ -19,9 +17,11 @@ uibutton[ui-kind=icon].disabled:hover {
 }
 uibutton.disabled:hover {
 	color: #3c6094;
-   cursor: auto;
+	cursor: auto;
 }
-uibutton[ui-implements=back]:hover, uibutton[ui-implements=next]:hover {
+uibutton[ui-implements=back]:hover, 
+uibutton[ui-implements=backTo]:hover, 
+uibutton[ui-implements=next]:hover {
 	background-color: #2da2cd !important;
 }
 
@@ -97,7 +97,7 @@ tableview > tablecell[href]:hover,
 tableview[ui-implements='selection-list'] > tablecell:hover {
     background-color: #2da2cd;
     color: #fff;
-	 cursor: pointer;
+	cursor: pointer;
 }
 tableview > tablecell[href]:hover > *,
 tableview[ui-implements='detail-menu'] > tablecell:hover > * {
@@ -115,17 +115,15 @@ tablecell[ui-implements=disclosure][href]:hover:after {
 tableview.ui-show-delete-disclosures > tablecell:hover {
 	background-color: #2da2cd !important;
 }
-tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle{
-    color: #586b96 !important;
+tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle,
+tableview[ui-tablecell-order="stacked"].ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
+    color: #fff !important;
 }
 tableview[ui-tablecell-order=centered].ui-show-delete-disclosures > tablecell:hover > celltitle {
     color: #586B96 !important;
 }
-tableview.ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
-    color: #000 !important;
-}
 tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > cellsubtitle {
-	color: #666 !important;
+	color: #fff !important;
 }
 tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell:hover > celldetail {
     color: #4c5f70 !important;
@@ -138,7 +136,7 @@ stack[ui-kind=alphabetical-list] span:hover {
 	cursor: pointer;
 }
 stack[ui-kind=alphabetical-list]:hover {
-	background-color: rgba(0,0,0,0.25);
+	background-color: rgba(225,225,255,0.15);
 }
 stack[ui-kind=alphabetical-list]:hover span {
 	color: #fff;
@@ -172,7 +170,7 @@ tabbar > uibutton[ui-implements=tab].disabled:hover {
     cursor: default;
 }
 tabbar > uibutton[ui-implements=tab]:hover {
-    border-bottom: solid 4px #424344;
+    border-bottom: solid 4px #2da2cd;
     background: #33819e !important;
 }
 tabbar > uibutton[ui-implements=tab]:hover label {

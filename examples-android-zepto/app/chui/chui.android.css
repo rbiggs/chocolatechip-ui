@@ -10,8 +10,8 @@
 ChocolateChip-UI
 Chui.android.css
 Copyright 2013 Sourcebits www.sourcebits.com
-License: GPLv3
-Version: 2.1.4
+License: BSD
+Version: 2.1.6
 */
 @font-face {
 	font-family: 'Roboto';
@@ -124,6 +124,7 @@ view {
 	-webkit-box-orient: vertical;
 	-webkit-box-align: stretch;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-transition: all 0.25s  ease-in-out;
 	overflow: hidden;
 	position: absolute;
@@ -279,12 +280,15 @@ subview[ui-associations='withToolBar withTabBar'] {
 }
 .ui-box-sizing-content {
 	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
 }
 *[ui-box-sizing=content] {
 	-webkit-box-sizing: content-box;
+	box-sizing: content-box;
 }
 *[ui-box-sizing=border] {
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 stack {
 	display: -webkit-box;
@@ -330,6 +334,7 @@ uibutton, uibutton * {
 /* Basic UIButton Styles */
 uibutton {
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-box-flex: 1;
 	display: block;
    -webkit-box-align: center;
@@ -665,6 +670,7 @@ uibutton {
 	line-height: 28px;
 	height: 30px;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	border-radius: 0px;
 	color: #fff;
 	-webkit-tap-highlight-color: transparent;
@@ -747,6 +753,7 @@ uibutton[ui-kind=icon] {
 	border: none; 
 	padding: 0px;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	border-radius: 0px;
 	background: none;
 	-webkit-box-pack: center;
@@ -902,6 +909,7 @@ segmentedcontrol {
     -webkit-box-orient: horizontal;
     -webkit-box-pack:justify;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     margin: 0px 10px;
     display: -webkit-inline-box;
     -webkit-box-flex: 1;
@@ -929,6 +937,7 @@ segmentedcontrol > uibutton {
     -webkit-box-flex: 1;
     font-size: 13px;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     height: 30px;
     cursor: pointer;
     margin: 0px !important;
@@ -980,6 +989,7 @@ toolbar > segmentedcontrol > uibutton {
     font-size: 12px;
     line-height: 28px;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     -webkit-box-flex: 1;
     text-align: center;
     color: #fff;
@@ -993,6 +1003,10 @@ segmentedcontrol[ui-implements="segmented-paging"] uibutton:first-of-type {
 }
 segmentedcontrol[ui-implements="segmented-paging"] uibutton {
 	border: solid 1px #828283;
+}
+navbar > segmentedcontrol > uibutton {
+	border-left-width: 1px !important;
+	border-left-style: solid !important;
 }
 navbar > segmentedcontrol > uibutton.selected, 
 navbar > segmentedcontrol > uibutton.selected.touched {
@@ -1008,7 +1022,7 @@ toolbar > segmentedcontrol > uibutton.disabled.touched {
 segmentedcontrol > uibutton[ui-usage=icon] {
 	display: -webkit-box;
 	-webkit-box-pack: center;
-	-webkit-box-align: cetner;
+	-webkit-box-align: center;
 }
 segmentedcontrol > uibutton > icon {
 	display: -webkit-inline-box;
@@ -1079,6 +1093,7 @@ navbar > segmentedcontrol > uibutton:last-of-type > icon + label {
 uibutton[ui-kind='rounded-rectangle'] {
 	display: -webkit-box !important;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     -webkit-box-orient: horizontal;
     height: 46px;
     margin: 10px;
@@ -1110,6 +1125,7 @@ uibutton[ui-kind=rounded-rectangle] {
     min-width: 110px;
     cursor: pointer;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     height: 52px;
     color: #fff;
     font: bold 16px/20px Roboto, Helvetica, Arial, Sans-Serif;
@@ -1129,6 +1145,7 @@ uibutton[ui-kind=rounded-rectangle].disabled:hover {
     min-width: 110px;
     cursor: pointer;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     height: 52px;
     color: #000;
     font: bold 16px/20px Helvetica, sans-serif;
@@ -1211,8 +1228,10 @@ navbar, toolbar {
 	-webkit-box-align: center;
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	height: 46px;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	padding: 1px 10px; 
 	background-color: #222222; 
 }
@@ -1240,12 +1259,12 @@ uibutton[ui-implements=backTo][ui-bar-align=left],
 segmentedcontrol[ui-bar-align=left] {
 	position: static;
 	margin-left: 0 !important;
-	margin-right: 10px;
-	top: 15px;
+	top: 9px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 toolbar > uibutton[ui-bar-align=left] {
 	margin-left: 10px;
@@ -1257,13 +1276,14 @@ uibutton[ui-bar-align=right],
 uibutton[ui-implements=next][ui-bar-align=right], 
 segmentedcontrol[ui-bar-align=right] {
 	position: absolute;
-	right: 15px !important;
+	right: 10px !important;
 	margin-right: 0px;
 	top: 7px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-box-pack: end;
 }
 uibutton[ui-bar-align=right], 
@@ -1302,11 +1322,11 @@ tableview > tablecell {
     padding: 8px;
     border-bottom: solid 1px #232425;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     min-height: 44px;
     overflow: hidden;
     position: relative;
     -webkit-margin-collapse: separate;
-    -webkit-box-sizing: border-box;
     min-height: 44px;
 }
 tableview > tablecell[href],
@@ -1351,6 +1371,9 @@ tablecell > celltitle {
     display: inline-block;
     margin-top: 2px;
 }
+tablecell[href] > celltitle {
+    pointer-events: none;
+}
 tablecell > celltitle:not(celltitle + subtitle) {
 	width: 80%;
 }
@@ -1359,16 +1382,17 @@ tablecell > cellsubtitle {
     position: absolute;
     right: 10px;
     margin-top: 4px;
+    margin-right: 0px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
-}
-tablecell > cellsubtitle {
     width: 54%;
     text-align: right;
-    margin-right: 0px;
     float: right;
+}
+tablecell[href] > cellsubtitle {
+    pointer-events: none;
 }
 /* End default celltitle and cellsubtitle styles */
 
@@ -1561,6 +1585,9 @@ tablecell > celldetail {
     color: #ccc;
     line-height: 16px;
 }
+tablecell[href] > celldetail {
+    pointer-events: none;
+}
 tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > span:first-of-type {
     float: left;
     width: auto;
@@ -1632,6 +1659,7 @@ deletedisclosure {
 	-webkit-transition: -webkit-transform .25s ease-in-out;
 	-webkit-transform: translate3d(0,0,0) scale(.75);
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     padding: 2px 5px 13px 1px;
     height: 24px;
     width: 24px;
@@ -1785,6 +1813,7 @@ tableheader + tableview[ui-kind=grouped] {
 /* Styles for Titled Tableview Lists */
 tableview[ui-kind^=titled-list] tableheader {
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	border-bottom: solid 2px #585858;
 	font-size: 14px;
 	font-weight: bold;
@@ -1880,6 +1909,7 @@ popup > panel > toolbar[ui-placement=bottom] {
 	display: -webkit-box;
 	-webkit-box-orient: horizontal;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-box-pack: none;
 	-webkit-box-align: center;
 	height: auto;
@@ -1971,6 +2001,7 @@ switchcontrol {
    -webkit-box-orient: horizontal;
    -webkit-box-pack:justify;
    -webkit-box-sizing: border-box;
+	box-sizing: border-box;
    -webkit-tap-highlight-color: transparent;
    overflow: hidden;
    text-align: center;
@@ -2054,6 +2085,7 @@ actionsheet {
 	-webkit-user-select: none;
 	width: 100%;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	padding: 30px 0 0 0;
 	position: absolute;
 	top: 0px;
@@ -2119,6 +2151,7 @@ tabbar {
     -webkit-box-orient: horizontal;
     -webkit-box-align: center;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     font-size: 10px;
     font-family: 'Helvetica Neue', HelveticaNeue, Helvetica-Neue, Helvetica, sans-serif;
     text-align: center;
@@ -2212,7 +2245,7 @@ expander > header > label {
 	margin-right: 10px;
 	cursor: pointer;
 	padding-right: 40px;
-	cursor: pointer;
+	-webkit-transition: all 0.25s ease-in-out;
 }
 expander > header > label:after {
 	content: '';
@@ -2226,6 +2259,7 @@ expander > header > label:after {
 	background-position: center center;
 	background-size: 100% 100%;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	cursor: pointer;
 	-webkit-transition: all 0.25s ease-in-out;
 	-webkit-transform: rotate(0deg);
@@ -2310,6 +2344,7 @@ stack[ui-implements='paging'] > panel > stack {
 }
 stack[ui-implements='paging'] > panel > stack > panel {
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	display: block !important; 
 	width: 320px; 
 	height: 280px;
@@ -2323,6 +2358,7 @@ stack[ui-implements='indicators'] {
 	width: 320px;
 	padding: 10px 10px 10px 10px;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-box-orient: horizontal; 
 	-wekit-box-align: center; 
 	-webkit-box-pack: center;
@@ -2374,6 +2410,7 @@ stepper > input {
 stepper > label {
 	display: block;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	border: solid 1px #484e59;
 	width: 50px;
 	height: 30px;
@@ -2383,6 +2420,7 @@ stepper > label {
 stepper > uibutton {
 	display: -webkit-inline-box;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	width: 33px;
 }
 tablecell.touched stepper > uibutton > label {
@@ -2431,17 +2469,43 @@ stepper > uibutton.disabled > span {
 	100% { background-position-x: 100%; }
 }
 /*  End Progress Bar Styles */
-@-webkit-keyframes activityIndicatorAnim {
+
+@-webkit-keyframes activityIndicatorAnimLeft {
+	0% { -webkit-transform:  rotate(0deg); }
+	100% { -webkit-transform:  rotate(360deg); }
+}	
+
+@-webkit-keyframes activityIndicatorAnimRight {
 	0% { -webkit-transform:  rotate(0deg); }
 	100% { -webkit-transform:  rotate(-360deg); }
 }
 activityindicator {
+	position: relative;
 	-webkit-animation: activityIndicatorAnim 3s infinite linear;
 	display: block;
 	height: 20px;
 	width: 20px;
-	background: transparent url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="400px" height="400px" viewBox="0 0 400 400" enable-background="new 0 0 400 400" xml:space="preserve"> <g id="Layer_2" display="none"> <rect x="-42" y="-25" display="inline" stroke="#000000" stroke-width="20" stroke-miterlimit="10" width="480" height="446"/> </g> <g id="Layer_1"> <circle fill="none" stroke="#999999" stroke-width="20" stroke-miterlimit="10" cx="199" cy="199" r="174"/> <g> <linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="15" y1="108" x2="383" y2="108" gradientTransform="matrix(-1 0 0 1 398 0)"> <stop offset="0" style="stop-color:#1D1D1B"/> <stop offset="1" style="stop-color:#FFFFFF"/> </linearGradient> <path fill="url(#SVGID_1_)" d="M383,200h-20c0-90.43-73.57-164-164-164S35,109.57,35,200H15C15,98.542,97.542,16,199,16 S383,98.542,383,200z"/> </g> </g> </svg>') no-repeat center center;
+	background: transparent url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><circle fill='none' stroke='#999999' stroke-width='20' stroke-miterlimit='10' cx='199' cy='199' r='174'/></svg>") no-repeat center center;
 	background-size: 100% 100%;
+}
+activityindicator > div:first-child, activityindicator > div + div {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-size: 100%;
+	background-repeat:no-repeat;
+	background-position:center;
+	
+}
+activityindicator > div:first-child {
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1'  x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><g id='left'><linearGradient id='SVGID_1_' gradientUnits='userSpaceOnUse' x1='15' y1='-68' x2='383' y2='-68' gradientTransform='matrix(-1 0 0 -1 398 224)'><stop  offset='0' style='stop-color:#1D1D1B'/><stop  offset='1' style='stop-color:#FFFFFF'/> 	</linearGradient><path fill='url(#SVGID_1_)' d='M199,384C97.542,384,15,301.458,15,200h20c0,90.43,73.57,164,164,164s164-73.57,164-164h20 		C383,301.458,300.458,384,199,384z'/> </g></svg>");
+	-webkit-animation: activityIndicatorAnimLeft 2s infinite linear;
+}
+activityindicator > div + div {
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1'   x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><g id='right'><linearGradient id='SVGID_2_' gradientUnits='userSpaceOnUse' x1='15' y1='108' x2='383' y2='108' gradientTransform='matrix(-1 0 0 1 398 0)'><stop offset='0' style='stop-color:#1D1D1B'/><stop offset='1' style='stop-color:#FFFFFF'/> 	</linearGradient><path fill='url(#SVGID_2_)' d='M383,200h-20c0-90.43-73.57-164-164-164S35,109.57,35,200H15C15,98.542,97.542,16,199,16 		S383,98.542,383,200z'/> </g></svg>");
+	-webkit-animation: activityIndicatorAnimRight 5.5s infinite linear;
 }
 panel[ui-implements="modal-activity-indicator"] {
 	background-color: #282828;
@@ -2893,6 +2957,7 @@ popover  > section actionSheet {
 popover actionsheet {
 	min-height: 20px;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
     padding: 1px 0px 1px;
     background: none;
     background-color: rgba(65,72,92,1);
@@ -2912,6 +2977,7 @@ mask {
 	width: 100%;
 	z-index: 9999;
 	cursor: pointer;
+	-webkit-transform: translate3d(0,0,0);
 }
 /* SplitView Styles */
 splitview {
@@ -2921,12 +2987,14 @@ splitview {
 	-webkit-box-orient: horizontal;
 	-webkit-box-align: stretch;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	background:#282828;
 }
 detailview, rootview {
 	display: block;
 	position: relative;
 	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-box-flex: 1;
 	height: 100%;
 }
@@ -3036,6 +3104,7 @@ tablecell[ui-implements=add]:after {
     float: right;
     margin-left: -10px;
     -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
 }
 tablecell[ui-usage=icon][ui-implements=add]:after,
 tablecell[ui-implements=add][ui-usage=icon]:after {
@@ -3081,4 +3150,7 @@ tableview[ui-tablecell-order=stacked].ui-show-delete-disclosures > tablecell[ui-
 	tablecell > celltitle {
 		width: 100%;
 	}
+}
+body * {
+    -webkit-font-smoothing: subpixel-antialiased !important;
 }

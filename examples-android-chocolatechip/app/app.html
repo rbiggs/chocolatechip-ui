@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Perfumes App</title>
-    <link rel="stylesheet" href="chui/chui.android.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<title>Perfumes App</title>
+	<link rel="stylesheet" href="chui/chui.android.css">
 	<style type="text/css">
 		/* Local Styles Here */
 		tableview.containsSpinners celltitle > label {
@@ -51,7 +51,7 @@
 	<script src="chui/iscroll.js"></script>
 	<script src="chui/chui.android.js"></script>
 	<script src="libs/knockout-2.2.0.js" type="text/javascript"></script>
-    <script>
+   <script>
 		$.extend($, {
 			centsToDollars : function( amount ) {
 				amount = amount.substr(0, amount.length-3) + amount.substr(amount.length-2,2);
@@ -81,7 +81,7 @@
 		    function createPurchaseTemplate ( item ) {
 				ret = "<tablecell>\
 					<celltitle class='product'>"+ item.product+"</celltitle>\
-					<celltitle>SKU: <span class='sku'>"+ item.sku +"<span></celltitle>\
+					<celltitle>SKU: <span class='sku'>"+ item.sku +"</span></celltitle>\
 					<cellsubtitle class='quantity'>Quantity: <span>"+item.quantity+"</span></cellsubtitle>\
 					<cellsubtitle class='price'>Price per Item: $<span>"+item.price+"</span></cellsubtitle>\
 				</tablecell>";
@@ -289,7 +289,7 @@
 			};
 
 		});
-    </script>
+	</script>
 </head>
 <body>
 

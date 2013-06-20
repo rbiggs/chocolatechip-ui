@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="msapplication-tap-highlight" content="no" />
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>Segmented Control</title>
+	<link href="../chui/chui.win.css" rel="stylesheet">
+	<style type="text/css">
+		/* Styles for Segmented Control's stack of panels: */
+		#stack_01 {
+			margin: 0 20px;
+		}
+	</style>
+	<script src="../libs/jquery-1.9.0.js"></script>
+	<script src="../chui/chui.win.js"></script>
+	<script type="text/javascript">
+		/* Local JavaScript Here */
+		$(function() {
+			var logChildNodes = function(item) {
+				var index = $(item).closest('segmentedcontrol').attr("ui-selected-index");
+				$('#output').html("<tableheader>The child position is: " + index + "</tableheader>");
+			}
+			$("segmentedcontrol").UISegmentedControl("#stack_01", logChildNodes);
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-background-style="slanted-right" ui-navigation-status="current">
+			<navbar>
+				<h1 ui-bar-alignment="center">Segmented Control</h1>
+			</navbar>
+			<subview id="subview1" ui-associations="withNavBar">
+				<scrollpanel>
+					<shim></shim>
+					<stack>
+						<segmentedcontrol ui-selected-index='0'>
+							<uibutton>
+								<label>People</label>
+							</uibutton>
+							<uibutton>
+								<label>Places</label>
+						   </uibutton>
+						   <uibutton>
+								<label>Animals</label>
+						   </uibutton>
+						   <uibutton>
+								<label>Food</label>
+						   </uibutton>
+					   </segmentedcontrol>
+					</stack>
+					<div style="height: 20px;"></div>
+					<stack id="stack_01" ui-implements="segmented-toggle-stack">
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								<tablecell ui-usage="image">
+									<img src="../images/alternative.png">
+									<celltitle>People</celltitle>
+									<cellsubtitle>Your Friends</cellsubtitle>
+									<celldetail>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								<tablecell ui-usage="image">
+									<img src="../images/blues.png">
+									<celltitle>Places</celltitle>
+									<cellsubtitle>Interesting Destinations</cellsubtitle>
+									<celldetail>Nam omnium facilis volumus at, eam noster reprehendunt mediocritatem at. Enim urbanitas reprimique quo no. Duo dico munere partem cu, tollit bonorum duo cu.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								
+								<tablecell ui-usage="image">
+									<img src="../images/classical.png">
+									<celltitle>Funny Animals</celltitle>
+									<cellsubtitle>Critters from Around the Globe</cellsubtitle>
+									<celldetail>Vis ad atqui mediocrem iracundia, sanctus quaestio complectitur vel ei. Senserit referrentur mea te. An vocent omnesque eum, erat democritum complectitur vel no.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+						<panel>
+							<tableview ui-tablecell-order="stacked">
+								<tablecell ui-usage="image">
+									<img src="../images/itunes.png">
+									<celltitle>Food</celltitle>
+									<cellsubtitle>Recipes</cellsubtitle>
+									<celldetail>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae.</celldetail>
+								</tablecell>
+							</tableview>	
+						</panel>
+					</stack>
+					<shim></shim>
+                    <tableview ui-kind="grouped">				
+                        <tablecell>
+                            <celltitle>Item One</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Item Two</celltitle>
+                        </tablecell>		
+                        <tablecell>
+                            <celltitle>Item Three</celltitle>
+                        </tablecell>
+                    </tableview>
+                    <tableview id='output'></tableview>
+				</scrollpanel>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

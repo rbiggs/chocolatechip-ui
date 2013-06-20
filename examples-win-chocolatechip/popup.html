@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" manifest="manifest/popup.manifest">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="msapplication-tap-highlight" content="no" />
+	<link rel="apple-touch-startup-image" href="startup.png">
+	<link rel="apple-touch-icon" href="chocolatechip-icon.png"/>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link href="../chui/chui.win.css" rel="stylesheet">
+	<style>
+		/* Local Styles Here */
+		/* Popup Demo Styles */
+		#popupMessageTarget {
+			font-size: 20px;
+			font-weight: bold;
+			color: #ccc;
+			padding: 0 10px;
+            color: #2da2cd ;
+		}
+	</style>
+	<script src="../libs/chocolatechip.js"></script>
+	<script src="../chui/chui.win.js"></script>
+	<script>
+		/* Local JavaScript Here */
+	
+		$(function() {
+			
+			// Bind event to show the popup:
+			$("#openPopup").bind("click", function() {
+				$.UIShowPopUp({
+					selector: "#main",
+					id: "warning",
+					title: 'Attention Viewers!', 
+					message: 'Hello. Please be seated while we are getting ready. Thank you for your patience.', 
+					cancelUIButton: 'Skip', 
+					continueUIButton: 'Stay for it', 
+					callback: function() {
+						var popupMessageTarget = document.querySelector('#popupMessageTarget');
+						popupMessageTarget.textContent = 'Thanks for staying with us a bit longer.';
+						setTimeout(function () {
+						    $("#popupMessageTarget").textContent = '';
+						}, 2000);
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-navigation-status="current">
+			<navbar id="segmentedToolbar">
+				<h1 ui-bar-align="center">Popup Example</h1>
+			</navbar>
+			<subview id="subview1" class="mySubView" ui-associations="withNavBar withBottomToolBar">
+				<scrollpanel>
+				<tableview>
+					<tableheader>Another Table Header</tableheader>
+					<tablecell ui-subtitle-alignment="right">
+						<celltitle>Title One</celltitle>
+						<cellsubtitle>Something</cellsubtitle>
+					</tablecell>
+					<tablecell ui-subtitle-alignment="right">
+						<celltitle>Title Two</celltitle>
+						<cellsubtitle>Another One</cellsubtitle>
+					</tablecell>
+					<tablecell ui-table-cell-order="stacked">
+						<celltitle>Title Three</celltitle>
+						<cellsubtitle>This is different</cellsubtitle>
+				</tableview>
+				<p id="popupMessageTarget"></p>
+				</scrollpanel>
+			</subview>
+			<toolbar ui-placement='bottom'>
+				<uibutton ui-bar-align="right" id="openPopup" ui-implements="edit">
+					<label>Popup</label>
+				</uibutton>
+			</toolbar>
+		</view>
+	</app>
+</body>
+</html>

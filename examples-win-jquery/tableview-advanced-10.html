@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no" />
+	<title>Advanced Tableview</title>
+	<link href="../chui/chui.win.css" rel="stylesheet">
+    <style>
+    	scrollpanel2 {
+            display: block;
+            padding: 0;
+            margin: 0;
+            font: normal 18px SegoeWP, SegoeUI, Helvetica, Arial, Sans-serif;
+            -ms-user-select: none;
+            user-select: none;
+            box-sizing: border-box;
+            box-sizing: border-box;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+        subview {
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+    </style>
+	<script src="../libs/jquery-1.9.0.js"></script>
+	<script src="../chui/chui.win.js"></script>
+    <script type="text/javascript">
+        $(function() {
+        
+		});
+    </script>
+</head>
+<body>
+	<app>
+		<view id="main" ui-navigation-status="current">
+			<navbar>
+				<h1>Counter Badge</h1>
+			</navbar>
+			<subview ui-associations="withNavBar">
+				<scrollpanel2>
+					<tableview ui-tablecell-order="stacked">
+						<tablecell  ui-implements="disclosure" href='javascript:void(null)'>
+							<cellcounter>22</cellcounter>
+							<celltitle>People</celltitle>
+							<cellsubtitle>Your Friends</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-implements="disclosure" href='javascript:void(null)'>
+							<cellcounter>32</cellcounter>
+							<celltitle>Places</celltitle>
+							<cellsubtitle>Interesting Destinations</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-implements="disclosure" href='javascript:void(null)'>
+							<cellcounter>5</cellcounter>
+							<celltitle>Funny Animals</celltitle>
+							<cellsubtitle>Critters from Around the Globe</cellsubtitle>
+						</tablecell>
+						<tablecell  ui-implements="disclosure" href='javascript:void(null)'>
+							<cellcounter>43</cellcounter>
+							<celltitle>Food</celltitle>
+							<cellsubtitle>Recipes</cellsubtitle>
+						</tablecell>
+						<tablecell ui-implements="disclosure" href='javascript:void(null)'>
+							<cellcounter>129</cellcounter>
+							<celltitle>Good Eats</celltitle>
+							<cellsubtitle>Restaurants</cellsubtitle>
+						</tablecell>
+					</tableview>				
+				</scrollpanel2>
+			</subview>
+		</view>
+	</app>
+</body>
+</html>

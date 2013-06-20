@@ -9,36 +9,12 @@
 	<link rel="shortcut icon" href="favicon.ico">
 	<title>Stepper Control</title>
 	<link rel="stylesheet" href="../chui/chui.ios.css">
-	<style type="text/css">
-		/* Local Styles Here */
-		/*tableview.containssteppers celltitle > label {
-			width: 120px;
-			text-align: right;
-			display: inline-block;
-		}
-		celltitle {
-			width: 95% !important;
-		}
-		stepper > uibutton.green:first-of-type {
-			background-color: lightgreen;
-		}
-		stepper > uibutton.green:last-of-type {
-			background-color: red;
-		}
-		stepper > uibutton.gold {
-			background-color: gold;
-		}
-		stepper > uibutton:first-of-type {
-			margin-left: 0px;
-		}*/
-	</style>
-   <script src="../libs/jquery-1.7.2.js"></script>
+   <script src="../libs/jquery-1.9.0.js"></script>
    <script src="../chui/iscroll.js"></script>
    <script src="../chui/chui.ios.js"></script>
 	<script type="text/javascript">
 		/* Local JavaScript Here */
 		$(function() {
-			
 			$.UIStepper({
 				selector: "#days",  
 				range: {values: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']},
@@ -97,7 +73,6 @@
 				indicator: "plus"
 			});
 		});
-		
 	</script>
 </head>
 <body>
