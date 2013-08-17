@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="sapple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no">
+	<title>Flexible Box Model Layouts</title>
+	<link rel="stylesheet" href="../chui/chui.win-3.0.css">
+	<script src="../chui/chocolatechip-3.0.js"></script>
+	<script src="../chui/chui-3.0.js"></script>
+	<script type="text/javascript">
+		var masterData = [
+			{ title: "California", "data_uri": 'california' },
+			{ title: "Oregon", "data_uri": 'oregon' },
+			{ title: "Washington", "data_uri": 'washington' },
+			{ title: "Colorado", "data_uri": 'colorado' },
+			{ title: "Nevada", "data_uri": 'nevada' },
+			{ title: "Arizona", "data_uri": 'arizona' },
+			{ title: "New Mexico", "data_uri": 'newmexico' },
+			{ title: "New York", "data_uri": 'newyork' },
+			{ title: "Massachussetts", "data_uri": 'massachussetts' },
+			{ title: "Ohio", "data_uri": 'ohio' },
+			{ title: "Illinois", "data_uri": 'illinois' },
+			{ title: "Hawaii", "data_uri": 'hawaii' },
+			{ title: "Texas", "data_uri": 'texas' },
+			{ title: "Alaska", "data_uri": 'alaska' },
+			{ title: "Florida", "data_uri": 'florida' },
+			{ title: "Virginia", "data_uri": 'virginia' },
+			{ title: "Nebraska", "data_uri": 'nebraska' },
+			{ title: "Connecticut", "data_uri": 'connecticut' }
+		];
+		$(function() {
+			var masterTemplate = 
+			'<li data-uri="[[=state.data_uri]]">[[=state.title]]</li>';
+			var myTmpl8 = $.template(masterTemplate, 'state');
+			masterData.forEach(function(ctx) {
+				$('.master ul').append(myTmpl8(ctx));
+			});
+			$('.master ul li').eq(0).addClass('selected');
+			$.get('../data/splitlayout/california.html', function(data) {
+				$('.detail section').html(data);
+			});
+			$('.master ul').on('singletap', 'li', function() {
+				$(this).siblings().removeClass('selected');
+				$(this).addClass('selected');
+				$('#detailTitle').text(this.textContent);
+				var detail = $('.detail section');
+				detail.empty();
+				detail.UIBusy({'color':'#000', 'size': '100px'});
+				var url = '../data/splitlayout/' + this.dataset.uri + '.html';
+				// Delay 1/2 second to show busy indicator while loading.
+				// Please do not do this for real world app!
+				setTimeout(function() {
+					$.get(url, function(data) {
+						detail.html(data);
+					});
+				}, 500);
+			});
+		});
+	</script>
+	<style>
+		.detail .list > li > img {
+			height: 83px;
+			border: solid 1px #ccc;
+		}
+		.busy {
+			top: 50px
+		}
+	</style>
+</head>
+<body class='splitlayout'>
+	<nav>
+		<h1>Pick One</h1>
+	</nav>
+	<article class='master'>
+		<section id="scroller2">
+			<ul class='list'>
+			</ul>
+		</section>
+	</article>
+	<nav>
+		<h1 id='detailTitle'>Detail 1</h1>
+	</nav>
+	<article class='detail' class='master'>
+		<section>
+			<ul class='list'>
+		</section>
+	</article>
+</body>
+</html>

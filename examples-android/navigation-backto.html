@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no">
+	<title>Navigation Non-Linear</title>
+	<link rel="stylesheet" href="../chui/chui.android-3.0.css">
+	<script src="../chui/chocolatechip-3.0.js"></script>
+	<script src="../chui/chui-3.0.js"></script>
+	<script>
+		$(function() {
+			$("#goToLast").on("singletap", function() {
+		 		$.UINavigateToArticle("#article3");
+		 	});
+		 	$('#backToMain').on('singletap', function() {
+		 		$.UINavigateBackToArticle('#main')
+		 	});
+		});
+	</script>
+</head>
+<body>
+	<nav>
+		<h1>Non-Linear Navigation</h1>
+	</nav>
+	<article id='main' class='current'>
+		<section>
+			<ul class='list' role='list'>
+				<li role='button' data-goto="article2" ui-implements="disclosure">
+					<h3>Item</h3>
+				</li>
+			</ul>
+			<a id='goToLast' href='javascript:void(null)' class="button action">Straight to Detail Article</a>
+		</section>
+	</article>
+	<nav>
+		<a href='javascript:void(null)' class="button back">Back</a>
+		<h1>Second Article</h1>
+	</nav>
+	<article id="article2" class='next'>
+		<section>
+			<ul class='list' role='list'>
+				<li role='button' data-goto="article3" class='nav'>
+					<span class='counter'>1</span>
+					<h3>Item</h3>
+					<h4>Item Subtitle</h4>
+				</li>
+			</ul>
+		</section>
+	</article>
+	<nav>
+		<a href='javascript:void(null)' id='backToMain' class="button backTo"'>Back</a>
+		<h1>BackTo Button</h1>
+	</nav>
+	<article id="article3" class='next'>
+		<section>
+			<ul class='list'>
+				<li>
+					<h3>Item</h3>
+					<h4>Item Subtitle</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+					</p>
+				</li>
+			</ul>
+		</section>
+	</article>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no">
+	<title>Prototype</title>
+	<link rel='stylesheet' href='../chui/chui.android-3.0.css'>
+	<script type='text/javascript' src='../chui/chocolatechip-3.0.min.js'></script>
+	<script type='text/javascript' src='../chui/chui-3.0.js'></script>
+	<script>
+		$(function() {
+			/*$('section').bind('touchmove', function(e) {
+				e.stopPropagation();
+			});*/
+			var dingo1 = function() {
+				console.log('Dingo 1');
+			}
+			var dingo2 = function() {
+				console.log('Dingo 2');
+			}
+			var dingo3 = function() {
+				console.log('Dingo 3');
+			}
+			$.defer(dingo3);
+			$.defer(dingo1);
+			console.log('hello');
+			dingo2();
+			
+			var $eventStart = 'click';
+			if ('ontouchstart' in window) {
+				$eventStart = 'touchend';
+			}
+			
+			$('#main li').on('click', function(e) {
+				console.log(this.textContent);
+				$('#main').removeClass('current').addClass('previous');
+				$('#second').removeClass('next').addClass('current');
+				$('nav[data-for=main]').removeClass('current').addClass('previous');
+				$('nav[data-for=second]').removeClass('next').addClass('current');
+			});
+			
+			$('#second li').on('click', function(e) {
+				console.log(this.textContent);
+				$('#second').removeClass('current').addClass('previous');
+				$('#third').removeClass('next').addClass('current');
+				$('nav[data-for=second]').removeClass('current').addClass('previous');
+				$('nav[data-for=third]').removeClass('next').addClass('current');
+			});
+			
+			$('nav[data-for=second] > .button.back').on($eventStart, function() {
+				$('#main').removeClass('previous').addClass('current');
+				$('#second').removeClass('current').addClass('next');
+				$('nav[data-for=main]').removeClass('previous').addClass('current');
+				$('nav[data-for=second]').removeClass('current').addClass('next');
+			});
+			
+			$('nav[data-for=third] > .button.back').on($eventStart, function() {
+				$('#second').removeClass('previous').addClass('current');
+				$('#third').removeClass('current').addClass('next');
+				$('nav[data-for=second]').removeClass('previous').addClass('current');
+				$('nav[data-for=third]').removeClass('current').addClass('next');
+			});
+			$('#anim').data("bingo", {name: 'Wobba',age:100});
+			$('#anim').on('click', function() {
+				$('#animTarget').animate({values: {'-webkit-transform': 'translate3d(500px,0,0)'}});
+				console.dir($('#anim').data());
+			});
+			var styles = {
+				color: 'red',
+				'background-color': 'yellow'
+			};
+			//$('#animTarget').css(styles);
+	
+		});
+		
+	</script>
+	<style>
+		
+		#animTarget {
+			position: relative;
+			margin: 0 0 0 15px;
+		}
+		#anim {
+			margin: 0 0 0 15px;
+		}
+		#bingo {
+			display: block;
+			width: 20pt;
+			height: 20pt;
+			border: solid 1px red;
+			color: red;
+		}
+		#bingo::before {
+			content: '\25C0';
+			font-size: 18pt;
+			line-height: 22pt;
+			border: solid 1px green;
+		}
+	</style>
+</head>
+<body>
+	<nav  data-for='main'>
+		<h1>Main</h1>
+	</nav>
+	<article id='main'>
+		<section>
+			<a id='anim' class='button' role='button' href='javascript:void(null)'>Animate</a>
+			<h5 id='animTarget'>Animate Me!</h5>
+			<br><br>
+			<span id='bingo'></span>
+			<h2>List One</h2>
+			<ul class='list'>
+				<li class='comp'>
+					<div>
+						<h3>The Title</h3>
+					</div>
+					<aside>
+						<h4>This is the subtitle</h4>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='comp' data-goto='Dingo'>
+					<div>
+						<h3>Item One is rather long too</h3>
+						<h4>Subtitle One</h4>
+					</div>
+					<aside>
+						<label>Amount:</label>
+						<label>$3,000</label>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='comp'>
+					<aside>
+						<img src="../images/place.png" width="60" alt="Kitchensink-4">
+					</aside>
+					<div>
+						<h3>Item Two</h3>
+						<h4>Subtitle</h4>
+						<p>This is the detail text about this obviously boring piece of trivia that should not even exist, but it does, so get used to it.</p>
+						<p>This is the detail text about this obviously boring piece of trivia that should not even exist, but it does, so get used to it.</p>
+						<p>This is the detail text about this obviously boring piece of trivia that should not even exist, but it does, so get used to it.</p>
+					</div>
+					<aside>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='comp'>
+					<aside>
+						<img src="../images/icon-itunes.png" width="29" height="29" alt="ipod">
+					</aside>
+					<div>
+						<h3>Item Three</h3>
+						<h4>Subtitle</h4>
+					</div>
+					<aside>
+						<span class='nav'></span>
+					</aside>
+				</li>
+			</ul>
+			<h2>List Two</h2>
+			<ul class='list'>
+				<li class='comp'>
+					<div>
+						<h3>Item One</h3>
+						<br>
+						<ol>
+							<li>item</li>
+							<li>item</li>
+							<li>item</li>
+							<li>item</li>
+						</ol>
+					</div>
+					<aside>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='nav'>
+					<h3>Item Two</h3>
+				</li>
+				<li class='nav'>
+					<h3>Item Three</h3>
+				</li>
+			</ul>
+		</section>
+	</article>
+	<nav  data-for='second' class='next'>
+		<a href='javascript:void(null)' role='button' id='long' class='button back'>Playlist</a>
+		<h1>Purchased</h1>
+		<a href='javascript:void(null)' role='button' class='button next'>Playing</a>
+	</nav>
+	<article id='second' class='next has-toolbar'>
+		<section class='scroller'>
+			<ul class='list'>
+				<li class='nav'>
+					<h3>Thing One</h3>
+					<h4>Sub thing one</h4>
+				</li>
+				<li class='nav'>
+					<h3>Thing Two</h3>
+					<h4>Sub thing two</h4>
+					<p>This is a long detail about all the fun stuff you
+					 can do with this because, well, because we know 
+					 you'll be tickled pink to play with this. Right?
+					  I thought so.</p>
+				</li>
+				<li class='nav'>
+					<h3>Thing Three</h3>
+				</li>
+			</ul>
+		</scroller>
+	</article>
+	<nav  data-for='third' class='next'>
+		<a href='javascript:void(null)' role='button' class='button back'>Second</a>
+		<h1>Third</h1>
+	</nav>
+	<article id='third' class='next'>
+		<section>
+			<ul class='list'>
+				<li class='show-detail'>
+					<h3>Thing One</h3>
+				</li>
+				<li class='show-detail'>
+					<h3>Thing Two</h3>
+				</li>
+				<li class='show-detail'>
+					<h3>Thing Three</h3>
+				</li>
+			</ul>
+		</scroller>
+	</article>
+</body>
+</html>
+

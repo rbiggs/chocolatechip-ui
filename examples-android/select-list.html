@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no">
+	<title>Select List</title>
+	<link rel="stylesheet" href="../chui/chui.android-3.0.css">
+	<script src="../chui/chocolatechip-3.0.min.js"></script>
+	<script src="../chui/chui-3.0.js"></script>
+	<script>
+    	$(function() {
+    		$('.list.select').UISelectList({
+    			selected: 0,
+    			callback: function() {
+    				$("#response").html($(this).text());
+    			}
+    		});
+    		if ($('li').is('.selected')) {
+    			$("#response").html($('li').is('.selected').text());
+    		}
+		});
+	</script>
+	<style>
+		#response {
+			color: hsl(196,64%,49%);
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<nav>
+		<h1>To Do</h1>
+	</nav>
+	<article id='select-example'>
+		<section>
+			<ul class='list select'>
+				<li>
+					<h3>Go eat something</h3>
+				</li>
+				<li>
+					<h3>Take a nap</h3>
+				</li>
+				<li>
+					<h3>Get some work done</h3>
+				</li>
+				<li>
+					<h3>Play a game</h3>
+				</li>
+			</ul>
+			<p><strong>You are going to: </strong><span id="response"></span></p>
+		</section>
+	</article>
+</body>
+</html>

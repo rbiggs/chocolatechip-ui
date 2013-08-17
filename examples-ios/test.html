@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no">
+	<title>Prototype</title>
+	<link rel='stylesheet' href='../chui/chui.ios-3.0.css'>
+	<script src="../chui/chocolatechip-3.0.js"></script>
+	<script type='text/javascript' src='../chui/chui-3.0.js'></script>
+	<script>
+		$(function() {
+			
+			//$('.segmented').UISegmented({selected: 0});
+		
+			//$('.switch').UISwitchToggle();
+			
+		/*$('body').on('click', '.switch', function() {
+			if (this.classList.contains('on')) {
+				console.log('This is on!');
+			} else {
+				console.log('It\'s off for now.');
+			}
+		});*/
+			/*
+			$('#anim').on('click', function() {
+				$('#animTarget').animate({values: {'-webkit-transform': 'translate3d(500px,0,0)'}});
+				console.dir($('#anim').data());
+			}); 
+			var styles = {
+				color: 'red',
+				'background-color': 'yellow'
+			};
+			$('#animTarget').css(styles); 
+			*/
+		});
+		
+	</script>
+	<style>
+		#animTarget {
+			position: relative;
+			margin: 0 0 0 15px;
+		}
+		#anim {
+			margin: 0 0 0 15px;
+		}
+	</style>
+</head>
+<body>
+	<nav class='current'>
+		<h1>Main</h1>
+	</nav>
+	<article class='current' id='main'>
+		<section>
+			<a id='anim' class='button' role='button' href='javascript:void(null)'>Animate</a>
+			<h5 id='animTarget'>Animate Me!</h5>
+			<h2>List One</h2>
+			<ul class='list'>
+				<li class='comp'>
+					<div>
+						<h3 id='switchLabel'>This is a Switch</h3>
+					</div>
+					<aside>
+						<span aria-labeledby='switchLabel' class='switch on' role='checkbox' aria-checked='true'>
+							<!--<input type="checkbox" value="ZZZZZZZZ!" name="sleepSwitch">-->
+						</span>
+					</aside>
+				</li>
+				<li class='comp'>
+					<div>
+						<div class='segmented'>
+							<a role='radio' class='button' aria-checked='true' href='javascript:void(null)'>Click</a>
+							<a role='radio' class='button' href='javascript:void(null)'>Click</a>
+							<a role='radio' class='button' href='javascript:void(null)'>Click</a>
+						</div>
+					</div>
+				</li>
+				<li class='comp'>
+					<div>
+						<h3>The Title</h3>
+					</div>
+					<aside>
+						<h4>This is the subtitle</h4>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='comp'>
+					<div>
+						<h3>Item One is rather long too</h3>
+						<h4>Subtitle One</h4>
+					</div>
+					<aside>
+						<label>Amount:</label>
+						<label>$3,000</label>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='comp'>
+					<aside>
+						<img src="../images/place.png" width="60" alt="Kitchensink-4">
+					</aside>
+					<div>
+						<h3>Item Two</h3>
+						<h4>Subtitle</h4>
+						<p>This is the detail text about this obviously boring piece of trivia that should not even exist, but it does, so get used to it.</p>
+						<p>This is the detail text about this obviously boring piece of trivia that should not even exist, but it does, so get used to it.</p>
+						<p>This is the detail text about this obviously boring piece of trivia that should not even exist, but it does, so get used to it.</p>
+					</div>
+					<aside>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='comp'>
+					<aside>
+						<img src="../images/ios/icon-itunes.png" width="29" height="29" alt="ipod">
+					</aside>
+					<div>
+						<h3>Item Three</h3>
+						<h4>Subtitle</h4>
+					</div>
+					<aside>
+						<span class='nav'></span>
+					</aside>
+				</li>
+			</ul>
+			<h2>List Two</h2>
+			<ul class='list'>
+				<li class='comp'>
+					<div>
+						<h3>Item One</h3>
+						<br>
+						<ol>
+							<li>item</li>
+							<li>item</li>
+							<li>item</li>
+							<li>item</li>
+						</ol>
+					</div>
+					<aside>
+						<span class='nav'></span>
+					</aside>
+				</li>
+				<li class='nav'>
+					<h3>Item Two</h3>
+				</li>
+				<li class='nav'>
+					<h3>Item Three</h3>
+				</li>
+			</ul>
+		</section>
+	</article>
+	<nav class='next'>
+		<a href='javascript:void(null)' role='button' id='long' class='button back'>Playlist</a>
+		<h1>Purchased</h1>
+		<a href='javascript:void(null)' role='button' class='button next'>Playing</a>
+	</nav>
+	<article id='second' class='next'>
+		<section class='scroller'>
+			<ul class='list'>
+				<li class='nav'>
+					<h3>Thing One</h3>
+					<h4>Sub thing one</h4>
+				</li>
+				<li class='nav'>
+					<h3>Thing Two</h3>
+					<h4>Sub thing two</h4>
+					<p>This is a long detail about all the fun stuff you
+					 can do with this because, well, because we know 
+					 you'll be tickled pink to play with this. Right?
+					  I thought so.</p>
+				</li>
+				<li class='nav'>
+					<h3>Thing Three</h3>
+				</li>
+			</ul>
+		</section>
+	</article>
+	<nav class='next'>
+		<a href='javascript:void(null)' role='button' class='button back'>Second</a>
+		<h1>Third</h1>
+	</nav>
+	<article id='third' class='next'>
+		<section>
+			<ul class='list'>
+				<li class='show-detail'>
+					<h3>Thing One</h3>
+				</li>
+				<li class='show-detail'>
+					<h3>Thing Two</h3>
+				</li>
+				<li class='show-detail'>
+					<h3>Thing Three</h3>
+				</li>
+			</ul>
+		</section>
+	</article>
+</body>
+</html>
+

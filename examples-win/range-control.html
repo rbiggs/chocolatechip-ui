@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="msapplication-tap-highlight" content="no">
+  	<title>Range Input</title>
+	<link rel="stylesheet" href="../chui/chui.win-3.0.css">
+	<style>
+		div {
+			width: 300px;
+			font:  bold 16pt/20pt Helvetica, sans-serif;
+			color: #000;
+			-webkit-user-select: none;
+		}
+		section label {
+			display: block;
+			margin-bottom: 6px;
+		}
+		section input[type=range] {
+			width: 200px
+		}
+	</style>
+	<script src="../chui/chocolatechip-3.0.js"></script>
+	<script src="../chui/chui-3.0.js"></script>
+	<script>
+		$(function() {
+			$('#rangeValue1').html($('#rangeControl1').val());
+			$('#rangeControl1').on('change', function() {
+				$('#rangeValue1').html($(this).val());
+			});
+			
+			$('#rangeValue2').html($('#rangeControl2').val());
+			$('#rangeControl2').on('change', function() {
+				$('#rangeValue2').html($(this).val());
+			});
+		});
+	</script>
+</head>
+<body>
+	<nav>
+		<h1>Range Input</h1>
+	</nav>
+	<article id="main" class="current">
+		<section>
+			<h2>Range Control</h2>
+			<ul class='list'>
+				<li>
+					<h3>Point for Point Increase<span></span></h3>
+					<div>
+						<label>Current Value: <span id='rangeValue1'></span></label>
+						<input type="range" id="rangeControl1" value="10" min="0" max="40">
+					</div>
+				</li>
+			</ul>
+			<ul class='list'>
+				<li>
+					<h3>With Steps of 5<span></span></h3>
+					<div>
+						<label>Current Value: <span id='rangeValue2'></span></label>
+						<input type="range" id="rangeControl2" step='5' value="20" min="0" max="40">		
+					</div>
+				</li>
+			</ul>
+		</section>
+	</article>
+</body>
+</html>
