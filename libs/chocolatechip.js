@@ -34,14 +34,15 @@ Version: 2.1.6
          $.ready(function() {
             return selector.call(selector);
          });
-      } else {
+      } else if (typeof selector === 'string') {
+      	selector = selector.trim();
          if (document.querySelector(selector)) {
             return document.querySelector(selector);
          } else {
             return;
          }
       }
-        return this;
+      return this;
    };
    $.extend = function(obj, prop, enumerable) {
       enumerable = enumerable || false;
@@ -1159,18 +1160,30 @@ Version: 2.1.6
           }
       },
        
+      /*
+      	options = {
+      		duration: '.5s',
+      		easing: 'ease-out',
+      		values: {
+      			'left': '100px'
+      		}
+      	}
+      */
       anim : function ( options ) {
          var onEnd = null;
-         var value = '-webkit-transition: all ' + (options.duration + ' ' || '.5s ') + (options.easing + ';') || 'linear;';
+         var duration = options.duration || '.5s';
+         var easing = options.easing || 'linear';
+         var css = {};
+         css["-webkit-transition"] = 'all ' + duration + ' ' + easing;
          for (var prop in options.values) {
             if (prop === 'onEnd') {
                onEnd = options.values[prop];
                this.bind('webkitTransitionEnd', onEnd());
             } else {
-               value += prop + ':' + options.values[prop] + ';';
+               css[prop] =  options.values[prop];
             }
          }
-         this.css(value);
+         this.css(css);
       },
  
       UICheckForOverflow : function (){
