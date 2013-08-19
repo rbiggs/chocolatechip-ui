@@ -1371,11 +1371,11 @@ div.handle::before {
    display: block;
    margin: 0 auto;
    position: relative;
-   left: -16px;
-   font-size: 30pt;
-   font-weight: bold;
-   -webkit-transform: rotate(-90deg);
-   padding-top: 30px;
+	left: -11px;
+	font-size: 30pt;
+	font-weight: bold;
+	-webkit-transform: rotate(-90deg);
+	padding-top: 15px;
    text-shadow: 1px 1px 3px #fff;
 }
 

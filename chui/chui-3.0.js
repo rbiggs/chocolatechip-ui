@@ -693,8 +693,11 @@ Version: 3.0
             var $this = this;
             $.body.append(popover);
             $('.popover').UIBlock('.25');
-            var events = $.eventStart + ' singletap ' + $.eventEnd;
-            $('.mask').on(events, function(e) {
+            var event = 'singletap';
+            if ($.isWin && $.isDesktop) {
+               event = $.eventStart + ' singletap ' + $.eventEnd;
+            }
+            $('.mask').on(event, function(e) {
                e.preventDefault();
                e.stopPropagation();
             });

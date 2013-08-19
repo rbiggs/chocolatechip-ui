@@ -22,8 +22,43 @@ Version: 3.0
       if (result.length) return result;
       else return [];
    };
-   
    var $ = function ( selector, context ) {
+      var idRE = /^#([\w-]*)$/;
+      var classRE = /^\.([\w-]+)$/;
+      var tagRE = /^[\w-]+$/;
+      var getId = function(selector) {
+         return  [document.getElementById(selector.split('#')[1])];
+      };
+      var getTag = function(selector, context) {
+         if (context) {
+            return [].slice.apply(context.getElementsByTagName(selector)); 
+         } else {
+            return [].slice.apply(document.getElementsByTagName(selector));
+         }
+      };
+      var getClass = function(selector, context) {
+         if (context) {
+            return [].slice.apply(context.getElementsByClassName(selector.split('.')[1]));
+         } else {
+            return [].slice.apply(document.getElementsByClassName(selector.split('.')[1]));
+         }
+      };
+      var getNode = function ( selector, context ) {
+         selector = selector.trim();
+         if (idRE.test(selector)) {
+            return getId(selector);
+         } else if (tagRE.test(selector)) {
+            return getTag(selector, context);
+         } else if (classRE.test(selector)) {
+            return getClass(selector, context) ;
+         } else {
+            if (context) {
+               return [].slice.apply(context.querySelectorAll(selector));
+            } else {
+               return [].slice.apply(document.querySelectorAll(selector));
+            }
+         }
+      };
       if (typeof selector === 'undefined' || selector === document) {
          return [document];
       }
@@ -31,7 +66,7 @@ Version: 3.0
          if (typeof context === 'string') {
             return [].slice.apply(document.querySelectorAll(context + ' ' + selector));
          } else if (context.nodeType === 1) {
-            return [].slice.apply(context.querySelectorAll(selector));
+            return getNode(selector);
          }
       } else if (typeof selector === 'function') {
          $.ready(function() {
@@ -43,12 +78,7 @@ Version: 3.0
          if (/<\/?[^>]+>/.test(selector)) {
             return $.make(selector);
          } else {
-            selector = selector.trim();
-            if (document.querySelectorAll(selector)) {
-               return [].slice.apply(document.querySelectorAll(selector));
-            } else {
-               return;
-            }
+            return getNode(selector);
          }
       } else if (selector instanceof Array) {
          return selector;
@@ -960,7 +990,6 @@ Version: 3.0
                   });
                }
             } else if (typeof speed === 'number') {
-               console.log('speed is a number');
                $(ctx).css({visibility: 'visible', display: display});
                setTimeout(function() {
                   $(ctx).css({transition: 'all ' + speed + 'ms ease-out'});
