@@ -20,7 +20,7 @@
 			var segmentedOptions = {
 				id: 'mySegmented',
 				labels: ['Radioactive', 'Hurt', 'Yeah, Yeah'],
-				selected: 0
+				selected: 2
 			};
 			var segmentedResponse = function (e) {
 				e.stopPropagation();
@@ -29,8 +29,9 @@
 			var newSegmented = $.UICreateSegmented(segmentedOptions);
 			$('#segmentedPanel').append(newSegmented);
 			$('.segmented').UISegmented({ callback: segmentedResponse });
-			$('.segmented').UIPanelToggle('#toggle-panels', function () { $.noop; })
-			$('#output').find('span').html('1');
+			$('.segmented').UIPanelToggle('#toggle-panels', function () { $.noop; });
+			var selectedPanel = $('.segmented').find('.selected').index();
+			$('#output').find('span').html(selectedPanel + 1);
 		});
    </script>
 </head>

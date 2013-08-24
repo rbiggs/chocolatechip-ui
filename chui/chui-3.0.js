@@ -337,13 +337,11 @@ Version: 3.0
       UISegmented : function ( options ) {
          if (this.hasClass('paging')[0]) return;
          var callback = (options && options.callback) ? options.callback : $.noop;
-         var selected = 0;
+         var selected;
+         if (options && options.selected) selected = options.selected;
          if (options && options.callback) {
             callback = options.callback;
          }
-         if (options && options.selected) {
-            selected = options.selected;
-         } 
          this.find('a').each(function(ctx, idx) {
             $(ctx).find('a').attr('role','radio');
             if (selected === 0 && idx === 0) {
@@ -355,6 +353,11 @@ Version: 3.0
                ctx.classList.add('selected');
             }
          });
+         if (!selected) {
+         	if (!this.find('.selected')[0]) {
+         		this.children().eq(0).addClass('selected');
+         	}	
+         }
          this.on('singletap', '.button', function(e) {
             var $this = $(this);
             if (this.parentNode.classList.contains('paging')) return;
@@ -371,12 +374,16 @@ Version: 3.0
       ////////////////////////////////////////////
       UIPanelToggle : function ( panel, callback ) {
          var panels;
+         var selected = 0;
+         if (this.children().hasClass('selected')[0]) {
+         	selected = this.children().hasClass('selected').index();
+         }
          if (panel instanceof Array) {
             panels = panel.children('div');
          } else if (typeof panel === 'string') {
             panels = $(panel).children('div');
          }
-         panels.eq(0).siblings().css({display: 'none'});
+         panels.eq(selected).siblings().css({display: 'none'});
          if (callback) callback.apply(this, arguments);
          this.on($.eventEnd, 'a', function() {
             panels.eq($(this).index()).css({display:'block'})
@@ -702,7 +709,7 @@ Version: 3.0
                e.stopPropagation();
             });
             $('.popover').data('triggerEl', triggerID);
-                $('.popover').addClass('open');
+            $('.popover').addClass('open');
             setTimeout(function () {
                 _calcPopPos($this);
             });
@@ -748,9 +755,9 @@ Version: 3.0
                selected : 0 based number of selected button
             }
          */
-         var className = options ? options.className : '';
-         var labels = options ? options.labels : [];
-         var selected = options ? options.selected : 0;
+         var className = (options && options.className) ? options.className : '';
+         var labels = (options && options.labels) ? options.labels : [];
+         var selected = (options && options.selected) ? options.selected : 0;
          var _segmented = ['<div class="segmented'];
          if (className) _segmented.push(' ' + className);
          _segmented.push('">');
@@ -891,6 +898,11 @@ Version: 3.0
          }
          tabbar += '</div>';
          $.body.append(tabbar);
+         $('nav').removeClass('current').addClass('next');
+         $('nav').eq(selected).removeClass('next').addClass('current');
+         $('article').removeClass('current').addClass('next');
+         $('article').eq(selected-1).removeClass('next').addClass('current');
+         console.dir($('article').eq(selected));
          $.body.find('.tabbar').on('singletap', '.button', function() {
          var $this = this;
          var index;

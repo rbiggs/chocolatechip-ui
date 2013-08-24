@@ -96,6 +96,9 @@ article {
    overflow-y: auto;
    -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+.slide-out > section > ul.list {
+	margin-top: 20px;
+}
 .slide-out.open {
    visibility: visible;
    transform: translate3d(0,0,0);

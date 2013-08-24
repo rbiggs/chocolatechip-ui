@@ -693,9 +693,10 @@ body.isNativeAndroidBrowser a.button.back::before {
 	top: 0;
 	bottom: 8px;
 }
-.button:hover {
+.button:hover,
+.button.show-popover:hover {
 	cursor: pointer;
-	background-color: #4bbde7;
+	background-color: #4bbde7 !important;
 	border-color: #4bbde7;
 	color: #000;
 	box-shadow: 0 0 3px 3px #a5d9ed;
@@ -1086,13 +1087,13 @@ stepper > input {
 	box-shadow: 0 0 6px 4px #85d3f0;
 }
 .popup.closed {
-	-webkit-transform: scale(0);
+	-webkit-transform: scale(.4);
 }
 .popup.opened {
 	display: block;
 	opacity: 1;
-	-webkit-transform: scale(1);
-	-webkit-transition: all 0.25s  ease-in-out;
+	-webkit-transform: scale(1.1);
+	-webkit-transition: all 0.5s  ease-in-out;
 }
 .popup > .panel {
 	display: -webkit-box;
@@ -1176,7 +1177,30 @@ stepper > input {
 	width: 100%;
    padding-bottom: 20px;
 }
-
+.button.show-popover {
+	position: relative;
+	background-color: transparent !important;
+	border: none;
+	padding: 8px 22px 0 0;
+	margin: 0 10px 0 0;
+	box-shadow: none !important;
+}
+.button.show-popover.align-flush {
+	position: absolute;
+}
+.button.show-popover::after {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
+	height: 0px;
+	width: 0px;
+	border-right: solid 6px #ccc;
+	border-bottom: solid 6px #ccc;
+	border-top: solid 6px transparent;
+	border-left: solid 6px transparent;
+}
 /* ==============================
    Mask Control
    ============================== */
@@ -1240,6 +1264,9 @@ body.splitlayout {
 	left: 0;
 	-wekbit-box-flex: 1;
 	-wekbit-flex: 1;
+}
+.master .list > li.selected {
+	background-color: #d9d9d9;
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
 	.splitlayout > article.master {
@@ -1544,5 +1571,12 @@ li.selected > .deletion-indicator::before {
 }
 .list > li h4 {
    color: #b2b2b2;
+}
+.splitlayout > nav {
+	background-color: #000;
+}
+.master .list > li.selected {
+	background-color: #fff;
+	color: #000;
 }
 // */

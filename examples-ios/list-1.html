@@ -10,18 +10,23 @@
 	<script src="../chui/chocolatechip-3.0.js"></script>
 	<script src="../chui/chui-3.0.js"></script>
 	<script>
-			
-		$(document).ready(function() {
-			$.body.delegate('li', 'click', function(e) {
-				e.stopPropagation();
-				console.dir(e);
-				console.log('you clicked a list item');
+		$(function() {
+			$.fn.extend({
+				dingo: function(options) {
+					options = options || {};
+					var defaults = {
+						color: 'red',
+						backgroundColor: 'yellow'
+					}
+					$.extend(defaults, options);
+					if (!this.length) return [];
+						console.dir(this[0]);
+					this.each(function(ctx, idx) {
+						$(ctx).css({color: defaults.color, 'background-color': defaults. backgroundColor});
+					});
+				}
 			});
-			$.body.on('click', function(e) {
-				console.dir(e);
-				console.log('The Body was clicked');
-			});
-		})
+		});
 	</script>
 </head>
 <body>

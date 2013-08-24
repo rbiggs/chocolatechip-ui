@@ -81,7 +81,7 @@ article {
    overflow-y: auto;
    -webkit-overflow-scrolling: touch;
    display: -webkit-box;
-   -wekbit-box-align: center;
+   -wekbit-box-align: stretch;
    -webkit-box-pack: start;
    -webkit-box-orient: vertical;
    /* New syntax */
@@ -202,8 +202,10 @@ article > section,
 .slide-out > section {
    padding-top: 20px;
    padding-bottom: 100px;
-   -webkit-box-flex: 1;
+   -webkit-box-flex: 1 !important;
    -webkit-flex: 1;
+   position: absolute;
+   width: 100%;
 }
 
 /* ==============================
@@ -882,6 +884,9 @@ div.horizontal.centered > .segmented {
 }
 article.paging {
    overflow: hidden !important;
+   overflow-y: scroll !important;
+   -webkit-box-orient: vertical !important;
+   -webkit-direction: column !important;
 }
 article.paging > section {
    position: absolute;
@@ -894,15 +899,15 @@ article.paging > section {
    padding: 0 0 100px 0 !important;
    -webkit-transition: all .15s ease-out;
 }
-
+/* Scaling needed to fix overflow bug in mobile Safari: */
 article.paging.horizontal > section.previous {
    -webkit-transform: translate3d(-100%,0,0);
 }
 article.paging.horizontal > section.current {
-   -webkit-transform: translate3d(0,0,0);
+   -webkit-transform: translate3d(0,0,0) scale(1,1);
 }
 article.paging.horizontal > section.next {
-   -webkit-transform: translate3d(100%,0,0);
+   -webkit-transform: translate3d(100%,0,0) scale(0,1);
 }
 article.paging.vertical > section.previous {
    -webkit-transform: translate3d(0,-100%,0);
@@ -1323,6 +1328,8 @@ body.hasTabBar article {
 article.current.blurred {
    -webkit-filter: blur(20px);
    -webkit-transition-duration: .15s;
+   filter: blur(20px);
+   transition-duration: .15s;
 }
 article.current.blurred.removeBlurSlow {
    -webkit-filter: blur(0px);

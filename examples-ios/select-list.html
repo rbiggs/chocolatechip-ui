@@ -12,14 +12,14 @@
 	<script>
     	$(function() {
     		$('.list').UISelectList({
-    			selected: 0,
+    			selected: 2,
     			callback: function() {
     				$("#response").html($(this).text());
     			}
     		});
     		
-    		if ($('li').is('.selected')) {
-    			$("#response").html($('li').is('.selected').text());
+    		if ($('li').hasClass('selected')[0]) {
+    			$("#response").html($('li').hasClass('selected').text());
     		}
 		});
 	</script>

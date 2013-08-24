@@ -129,7 +129,6 @@ Version: 3.0
        
       replace : function ( newElem, oldElem ) {
          if (!newElem || !oldElem) return;
-          //console.dir(oldElem[0]);
           newElem = newElem.length ? newElem[0] : newElem;
           oldElem = oldElem.length ? oldElem[0] : oldElem;
           oldElem.parentNode.replaceChild(newElem, oldElem);
@@ -228,8 +227,14 @@ Version: 3.0
       
       uuid : 0,
       
-      chch_cache : {}
-   });   
+      chch_cache : {},
+      
+      fn : Array.prototype
+      
+   });
+   $.fn.extend = function ( object ) {
+   	return $.extend($.fn, object);
+   };
    
    $.uuid = $.uuidNum();
    
@@ -319,7 +324,7 @@ Version: 3.0
       }
    }); 
    
-   $.extend(Array.prototype, {
+   $.extend($.fn, {
      each : function ( fn, ctx ) {
            if (!this.length) return [];
          if (typeof fn !== "function") { return; }
@@ -342,6 +347,7 @@ Version: 3.0
       },
       
       eq : function ( index ) {
+      	index = parseInt(index, 10);
          if (this.length < index + 1) {
             return [];
          }

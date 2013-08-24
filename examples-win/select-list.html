@@ -11,15 +11,15 @@
 	<script src="../chui/chui-3.0.js"></script>
 	<script>
     	$(function() {
-    		$('.list.select').UISelectList({
-    			selected: 0,
+    		$('.list').UISelectList({
+    			selected: 2,
     			callback: function() {
     				$("#response").html($(this).text());
     			}
     		});
     		
-    		if ($('li').is('.selected')) {
-    			$("#response").html($('li').is('.selected').text());
+    		if ($('li').hasClass('selected')[0]) {
+    			$("#response").html($('li').hasClass('selected').text());
     		}
 		});
 	</script>
