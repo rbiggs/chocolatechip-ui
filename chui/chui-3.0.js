@@ -354,9 +354,9 @@ Version: 3.0
             }
          });
          if (!selected) {
-         	if (!this.find('.selected')[0]) {
-         		this.children().eq(0).addClass('selected');
-         	}	
+            if (!this.find('.selected')[0]) {
+               this.children().eq(0).addClass('selected');
+            }  
          }
          this.on('singletap', '.button', function(e) {
             var $this = $(this);
@@ -376,7 +376,7 @@ Version: 3.0
          var panels;
          var selected = 0;
          if (this.children().hasClass('selected')[0]) {
-         	selected = this.children().hasClass('selected').index();
+            selected = this.children().hasClass('selected').index();
          }
          if (panel instanceof Array) {
             panels = panel.children('div');
@@ -613,7 +613,7 @@ Version: 3.0
             parentWidth = parseInt(parent.css('width'),10);
          }
          var tmpTop, tmpLeft;
-         if (parent[0].nodeName == 'body') {
+         if (parent[0].nodeName === 'body') {
             tmpTop = ((window.innerHeight /2) + window.pageYOffset) - height /2 + 'px';
             tmpLeft = ((window.innerWidth / 2) - (width / 2) + 'px');
          } else {
@@ -835,7 +835,7 @@ Version: 3.0
          if (!popup[0]) return;
          var tmpTop = ((window.innerHeight /2) + window.pageYOffset) - (popup[0].clientHeight /2) + 'px';
          var tmpLeft;
-         if (window.innerWidth == 320) {
+         if (window.innerWidth === 320) {
             tmpLeft = '10px';
          } else {
             tmpLeft = Math.floor((window.innerWidth - 318) /2) + 'px';
@@ -1236,7 +1236,7 @@ Version: 3.0
                   touchTimeout && clearTimeout(touchTimeout);
                   touch.x1 = e.touches[0].pageX;
                   touch.y1 = e.touches[0].pageY;
-                  if (e.targetTouches.length == 2) {
+                  if (e.targetTouches.length === 2) {
                      twoTouches = true;
                   } else {
                      twoTouches = false;
@@ -1264,7 +1264,7 @@ Version: 3.0
                touch.y2 = e.pageY;
             } else {
                // One finger gesture:
-               if (e.touches.length == 1) { 
+               if (e.touches.length === 1) { 
                   touch.x2 = e.touches[0].pageX;
                   touch.y2 = e.touches[0].pageY;
                }

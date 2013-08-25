@@ -233,7 +233,7 @@ Version: 3.0
       
    });
    $.fn.extend = function ( object ) {
-   	return $.extend($.fn, object);
+      return $.extend($.fn, object);
    };
    
    $.uuid = $.uuidNum();
@@ -347,7 +347,7 @@ Version: 3.0
       },
       
       eq : function ( index ) {
-      	index = parseInt(index, 10);
+         index = parseInt(index, 10);
          if (this.length < index + 1) {
             return [];
          }
@@ -1336,7 +1336,7 @@ Version: 3.0
          var ret;
          var ctx = this[0];
          id = ctx.id;
-         if (key == 'undefined' || key == null) {
+         if (key === 'undefined' || key === null) {
             if (!id) {
                return this;
             } else {
@@ -1714,7 +1714,7 @@ Version: 3.0
                for (var j = 0; j < nameParts.length; j++) {
                   var namePart = nameParts[j];
                   var arrName;
-                  if (namePart.indexOf('[]') > -1 && j == nameParts.length - 1) {
+                  if (namePart.indexOf('[]') > -1 && j === nameParts.length - 1) {
                      arrName = namePart.substr(0, namePart.indexOf('['));
                      if (!currResult[arrName]) {
                         currResult[arrName] = [];
@@ -1770,8 +1770,7 @@ Version: 3.0
       isiOS6 : navigator.userAgent.match(/OS 6/i),
       isiOS7 : navigator.userAgent.match(/OS 7/i),
       isWin : /trident/img.test(navigator.userAgent),
-      isWinPhone : (/trident/img.test(navigator.userAgent) 
-         && /mobile/img.test(navigator.userAgent)),
+      isWinPhone : (/trident/img.test(navigator.userAgent) && /mobile/img.test(navigator.userAgent)),
       isIE10 : navigator.userAgent.match(/msie 10/i),
       isIE11 : navigator.userAgent.match(/msie 11/i),
       isWebkit : navigator.userAgent.match(/webkit/),

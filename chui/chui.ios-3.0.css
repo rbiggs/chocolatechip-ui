@@ -205,6 +205,8 @@ article > section,
    -webkit-box-flex: 1 !important;
    -webkit-flex: 1;
    position: absolute;
+   top: 0;
+   left: 0;
    width: 100%;
 }
 
@@ -1281,6 +1283,7 @@ body.hasTabBar article {
    -webkit-flex-direction: column;
    color: #929292;
    font-size: 9pt;
+   padding: 1px;
 }
 .tabbar > .button:hover,
 .tabbar > .button.selected {
