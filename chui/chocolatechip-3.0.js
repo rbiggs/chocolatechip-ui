@@ -670,7 +670,7 @@ Version: 3.0
                }
             } else if (position === 1 || position === 'first') {
                if (node.children) {
-                  if (node.firstChild.nodeType === 3) {
+                  if (node.firstChild && node.firstChild.nodeType === 3) {
                      while (i < len) {
                         node.insertBefore(c[i], node.firstChild);
                         i++;

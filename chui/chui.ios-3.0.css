@@ -367,11 +367,16 @@ nav > h1 + a.button {
    right: 15px;
 }
 /* List Footer */
+.list + p, .list + p + p {
+   color: #7f7f7f;
+   font-family: HelveticaNeue, Helvetica, sans-serif;
+   -webkit-font-smoothing: antialiased;
+}
 .list ~ p {
    margin: 0 15px;
 }
 .list ~ p + p {
-margin-top: 5pt;
+	margin-top: 5pt;
 }
 .list > li[data-goto] { 
    cursor: pointer;
@@ -400,6 +405,7 @@ li[data-show-article].touched,
 }
 .list > li h4 {
    line-height: 14pt;
+   color: #7f7f7f;
 }
 .list > li > h4, 
 .list > li > div > h4 {
@@ -409,13 +415,14 @@ li[data-show-article].touched,
 .list > li > aside > h4 {
    margin: 0;
    font-weight: normal;
-   color: #666;
+   color: #7f7f7f;
 }
 /* ==============================
    List detail
    ============================== */
 .list > li > p {
    margin: 6px 0px;
+   color: #7f7f7f;
 }
 .list > li p + p {
    margin-top: 6px;
@@ -423,6 +430,7 @@ li[data-show-article].touched,
 .list > li.comp > div > p {
    font-size: 10pt;
    margin: 0;
+   color: #7f7f7f;
 }
 .list h3, .list h4, .list p {
    pointer-events: none;
@@ -439,6 +447,7 @@ section h2 {
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
+   color: #7f7f7f;
 }
 /* Display header as is */
 section h2.normal-case {
@@ -549,7 +558,7 @@ li.comp:last-of-type > aside:last-child {
 }
 aside > span.counter, aside > span.date-time {
    font-weight: normal;
-   color: #666;
+   color: #7f7f7f;
    font-size: 12pt;
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
@@ -577,7 +586,7 @@ li.switched h3 {
    overflow: hidden;
    text-overflow: ellipsis;
 }
-li.switched h4 {
+.list > li.switched > h4 {
    width: 48%;
    text-align: right;
    margin-right: 10px;
@@ -586,7 +595,8 @@ li.switched h4 {
    white-space: nowrap;
    overflow: hidden;
    text-overflow: ellipsis;
-    max-width: 50%;
+   max-width: 50%;
+   color: #000 !important;
 }
 
 /* ============================== 
