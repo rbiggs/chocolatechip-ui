@@ -73,7 +73,7 @@ Version: 3.0
       //////////////////////////////////////
       // Navigate Back to Non-linear Article
       //////////////////////////////////////
-      UINavigateBackToArticle : function ( articleID ) {
+      UIGoBackToArticle : function ( articleID ) {
          var historyIndex = $.UINavigationHistory.indexOf(articleID);
          var current = $('article.current');
          var destination = $(articleID);
@@ -94,7 +94,7 @@ Version: 3.0
       ////////////////////////////////////
       // Navigate Back to Previous Article
       ////////////////////////////////////
-      UINavigateBack : function () {
+      UIGoBack : function () {
          var histLen = $.UINavigationHistory.length;
          var currentArticle = $('article.current');
          var destination = $($.UINavigationHistory[histLen-2]);
@@ -114,7 +114,7 @@ Version: 3.0
       ///////////////////////////////
       // Navigate to Specific Article
       ///////////////////////////////
-      UINavigateToArticle : function ( destination ) {
+      UIGoToArticle : function ( destination ) {
          if ($.isNavigating) return;
          $.isNavigating = true;
          var current = $('article.current');
@@ -1057,7 +1057,7 @@ Version: 3.0
       ///////////////////////////
       $.body.on('singletap', 'a.back', function() {
          if (this.classList.contains('back')) {
-            $.UINavigateBack();
+            $.UIGoBack();
          }
       });
       
@@ -1070,7 +1070,7 @@ Version: 3.0
          if (!this.getAttribute('data-goto')) return;
          var destinationHref = '#' + this.getAttribute('data-goto');
          var destination = $(destinationHref);
-         $.UINavigateToArticle(destination);
+         $.UIGoToArticle(destination);
          $.UINavigationHistory.push(destinationHref);
       });
       
