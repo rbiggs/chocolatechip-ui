@@ -295,7 +295,7 @@ Version: 3.0
       }
    });
    
-   $.extend($.array, {
+   $.fn.extend({
    
       ////////////////////////////
       // Initialize Switch Control
