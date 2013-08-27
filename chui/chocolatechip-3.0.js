@@ -324,9 +324,9 @@ Version: 3.0
       }
    }); 
    
-   $.extend($.fn, {
+   $.fn.extend({
      each : function ( fn, ctx ) {
-           if (!this.length) return [];
+         if (!this.length) return [];
          if (typeof fn !== "function") { return; }
          var i; 
          var l = this.length;
@@ -389,7 +389,7 @@ Version: 3.0
             $this = this;
             if (typeof arg === 'string') {
                if ([].slice.apply(node.parentNode.querySelectorAll(arg)).indexOf(node) >= 0) {
-                  return this;
+                  return node;
                }
             } else if (typeof arg === 'function') {
                if (arg.call($this)) {
@@ -420,10 +420,33 @@ Version: 3.0
       },
       
       isnt : function ( arg ) {
-         if (!this.length) return [];
+if (!this.length) return [];
          var items = [];
+         var $this;
+         var __isnt = function ( node, arg ) {
+            $this = this;
+            if (typeof arg === 'string') {
+               if ([].slice.apply(node.parentNode.querySelectorAll(arg)).indexOf(node) === -1) {
+                  return node;
+               }
+            } else if (typeof arg === 'function') {
+               if (arg.call($this)) {
+                  return node;
+               }
+            } else if (arg.length) {
+               if ($.slice.apply(arg).indexOf(node) === -1) {
+                  return node;
+               }
+            } else if (arg.nodeType === 1) {
+               if (node !== arg) {
+                  return node;
+               }
+            } else {
+               return [];
+            }
+         }; 
          this.each(function(item) {
-            if (![item].is(arg)) {
+            if (__isnt(item, arg)) {
                items.push(item);
             }
          });
@@ -1730,7 +1753,7 @@ Version: 3.0
                         if (!currResult[arrName]) {
                            currResult[arrName] = [];
                         }
-                        if (j == nameParts.length - 1) {
+                        if (j === nameParts.length - 1) {
                            currResult[arrName].push(value);
                         } else {
                            if (!arrays[arrName][arrIdx]) {

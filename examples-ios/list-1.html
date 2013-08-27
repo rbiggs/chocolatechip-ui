@@ -11,21 +11,7 @@
 	<script src="../chui/chui-3.0.js"></script>
 	<script>
 		$(function() {
-			$.fn.extend({
-				dingo: function(options) {
-					options = options || {};
-					var defaults = {
-						color: 'red',
-						backgroundColor: 'yellow'
-					}
-					$.extend(defaults, options);
-					if (!this.length) return [];
-						console.dir(this[0]);
-					this.each(function(ctx, idx) {
-						$(ctx).css({color: defaults.color, 'background-color': defaults. backgroundColor});
-					});
-				}
-			});
+
 		});
 	</script>
 </head>
