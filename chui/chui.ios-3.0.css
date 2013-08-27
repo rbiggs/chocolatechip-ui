@@ -810,20 +810,20 @@ a.button, a.button.back::before {
    box-sizing: border-box;
 }
 .segmented > .button {
-   border: solid 1px #007aff;
-   padding: 4px 15px;
-   border-left: none;
-   background-color: rgba(255,255,255,.65);
-   width: auto;
-   overflow-x: hidden;
-   -webkit-transition: none;
-   transition: none;
-   font-size: 10pt;
-    -webkit-box-align: center;
-    -webkit-box-pack: center;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    text-align: center;
+	border: solid 1px #007aff;
+	padding: 4px 15px;
+	border-left: none;
+	background-color: rgba(255,255,255,.65);
+	width: auto;
+	overflow-x: hidden;
+	-webkit-transition: none;
+	transition: none;
+	font-size: 10pt;
+	-webkit-box-align: center;
+	-webkit-box-pack: center;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	text-align: center;
 }
 .segmented > .button:first-of-type {
    border-left: solid 1px #007aff;

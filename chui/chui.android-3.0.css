@@ -800,11 +800,12 @@ body.isNativeAndroidBrowser a.button.back::before {
 	-webkit-box-orient: horizontal;
 	display: -webkit-inline-flex;
 	-wekbit-flex-direction: row;
-    -webkit-box-pack:justify;
-	 box-sizing: border-box;
-    margin: 0px 10px;
-    display: -webkit-inline-box;
-    -webkit-box-flex: 1;
+	-webkit-box-pack:center;
+   -webkit-justify-content: center;
+	box-sizing: border-box;
+	margin: 0px 10px;
+	display: -webkit-inline-box;
+	-webkit-box-flex: 1;
 }
 .segmented > .button {
     display: -webkit-box;
@@ -813,9 +814,9 @@ body.isNativeAndroidBrowser a.button.back::before {
     -webkit-box-align: center;
     -webkit-flex-align: center;
     -webkit-box-pack: center;
-    -webkit-flex-pack:center;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
+   -webkit-justify-content: center;
+    /*-webkit-box-flex: 1;
+    -webkit-flex: 1;*/
     border: solid 1px #828283;
     text-align: center !important;
     border-bottom: none;
@@ -1181,9 +1182,12 @@ stepper > input {
 	position: relative;
 	background-color: transparent !important;
 	border: none;
-	padding: 8px 22px 0 0;
-	margin: 0 10px 0 0;
+	padding: 8px 22px 2px 10px;
+	margin: 0 10px 0 0 !important;
 	box-shadow: none !important;
+}
+.segmented > a.button.show-popover:first-of-type {
+	border-left: none !important;
 }
 .button.show-popover.align-flush {
 	position: absolute;
