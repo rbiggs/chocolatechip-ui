@@ -867,7 +867,10 @@ Version: 3.0
       
       UIPopoverClose : function ( ) {
          $.body.UIUnblock();
-         $('.popover').remove();
+         $('.popover').css('visibility','hidden');
+        	setTimeout(function() {
+        		$('.popover').remove();
+        	},10);
       },
    
       ///////////////////////////////////////////
