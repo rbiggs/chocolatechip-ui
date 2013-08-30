@@ -947,7 +947,7 @@ Version: 3.0
       
       UIShowSheet : function ( ) {
          $('article.current').addClass('blurred');
-         if ($.isAndroid) {
+         if ($.isAndroid || $.isChrome) {
             $('.sheet').css('display','block');
            setTimeout(function() {
                $('.sheet').addClass('opened');
