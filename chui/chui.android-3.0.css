@@ -1185,6 +1185,7 @@ stepper > input {
 	padding: 8px 22px 2px 10px;
 	margin: 0 10px 0 0 !important;
 	box-shadow: none !important;
+	font-size: 18px !important;
 }
 .segmented > a.button.show-popover:first-of-type {
 	border-left: none !important;

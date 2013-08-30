@@ -160,7 +160,21 @@ article > section,
 article > section {
    padding-top: 10px;
 }
-
+/* ==============================
+   Horizontal Panels
+   ============================== */
+.horizontal {
+   display: -ms-flexbox;
+   -ms-flex-pack: start;
+   -ms-flex-align: stretch;
+   -ms-flex-direction: row;
+}
+.horizontal.centered {
+   display: -ms-flexbox;
+   -ms-flex-pack: center;
+   -ms-flex-align: stretch;
+   -ms-flex-direction: row;
+}
 /* ============================== */
 /* Nav bars                       */
 /* ============================== */
@@ -228,32 +242,6 @@ nav > a.button.align-flush {
    top: 0;
 }
 
-/* ==============================
-   Toolbar Styles
-   ============================== */
-.toolbar {
-   height: 50px;
-   box-sizing: border-box;
-   display: -ms-flexbox;
-   -ms-flex-pack: justify;
-   -ms-flex-align: center;
-   -ms-flex-direction: row;
-   text-align: center;
-   position: absolute;
-   bottom: 0;
-   left: 0;
-   right: 0;
-   width: 100%;
-   padding: 0 16px;
-   vertical-align: middle;
-   background-color: #dddddd;
-   overflow: hidden;
-   border-top: solid 1px #acacac;
-   box-shadow: 0 -1px 1px #acacac;
-}
-.toolbar .button {
-   display: inline-block;
-}
 /* ============================== */
 /* Lists                          */
 /* ============================== */

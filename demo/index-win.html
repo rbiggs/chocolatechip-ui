@@ -70,6 +70,9 @@
 			90% { opacity: 1; }
 			100% { opacity: 0; }
 		}
+		.popover-buttons {
+			-ms-flex-direction: row;
+		}
 	</style>
 	<script src="../chui/chocolatechip-3.0.js"></script>
 	<script src="../chui/chui-3.0.js"></script>
@@ -495,11 +498,9 @@ It droppeth as the gentle rain from heaven upon the place beneath. It is twice b
 	</nav>
 	<article id='popover-article' class='next'>
 		<section>
-			<div class='horizontal centered'>
-			<div class='segmented'>
+			<div class='horizontal centered popover-buttons'>
 				<a class='button show-popover' id="showPopover1" href="javascript:void(null)">Fruits</a>
 				<a class='button show-popover' id="showPopover2" href="javascript:void(null)">Deserts</a>
-			</div>
 			</div>
 			<ul class='list'>
 				<li>
