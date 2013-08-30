@@ -709,10 +709,15 @@ Version: 3.0
                e.stopPropagation();
             });
             $('.popover').data('triggerEl', triggerID);
-            $('.popover').addClass('open');
-            setTimeout(function () {
-                _calcPopPos($this);
-            });
+            if ($.isWin) {
+            	_calcPopPos($this);
+            	$('.popover').addClass('open');
+            } else {
+					$('.popover').addClass('open');
+					setTimeout(function () {
+						 _calcPopPos($this);
+					});
+            }
             callback.call(callback, $this);
          });
       }
