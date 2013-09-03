@@ -711,6 +711,7 @@ a.button.back, a.button.backTo {
    margin-top: 3px;
    line-height: 28px;
    color: #007aff;
+   border: none;
 }
 a.button.back::before, 
 a.button.backTo::before {
@@ -725,6 +726,7 @@ a.button.backTo::before {
    left: -2px;
    top: 17px;
    font-size: 24pt;
+   border: none;
 }
 .button:hover {
    cursor: pointer;
@@ -1136,14 +1138,15 @@ stepper > input {
    display: block;
    height: 15px;
    width: 15px;
-   background-color: #e7e9ee;
+   background-color: #f5f5f6;
    -webkit-transform: rotate(45deg);
    margin: 0 auto;
    position: absolute;
    top: -7px;
    left: 49%;
+   z-index: -1;
 }
-.popover nav {
+.popover header {
    background-color: #f5f5f6;
    border-top-left-radius: 10px;
    border-top-right-radius: 10px;
@@ -1151,7 +1154,7 @@ stepper > input {
    box-sizing: border-box;
    width: 100%;
 }
-.popover nav h1 {
+.popover header h1 {
    font-size: 12pt;
    text-align: center;
 }
@@ -1444,14 +1447,6 @@ aside > span.counter, aside > span.date-time {
 a.button, a.button.back, a.button.next {
    color: #52b1ff;
 }
-a.button.back::before {
-   border-top: solid 2.5px #52b1ff;
-   border-left: solid 2.5px #52b1ff;
-}
-.button.next::after {
-   border-top: solid 2.5px #52b1ff;
-   border-right: solid 2.5px #52b1ff;
-}
 li.switched h3 {
    color: #52b1ff;
 }
@@ -1480,5 +1475,17 @@ li.comp > aside:last-child {
 }
 .toolbar {
    background-color: #000;
+}
+.popover {
+    background-color: #666;
+}
+.popover::before {
+   background-color: #666;
+}
+.popover header {
+   background-color: #666;
+}
+.popover header h1 {
+   color: #fff;
 }
 // */

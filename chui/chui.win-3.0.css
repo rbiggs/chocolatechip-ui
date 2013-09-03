@@ -1629,4 +1629,7 @@ div.handle::before {
     background-color: #fff;
     color: #000 !important;
 }
+.splitlayout > nav {
+	background-color: #000;
+}
 // */

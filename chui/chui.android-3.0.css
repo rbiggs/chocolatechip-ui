@@ -666,7 +666,7 @@ a.button.backTo {
 	color: #007aff;
 	font-size: 0;
 	border: none;
-	background: none;
+	background: none !important;
 	top: 7px;
 	box-shadow: none;
 }

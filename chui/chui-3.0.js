@@ -1324,11 +1324,12 @@ Version: 3.0
       body.on('touchcancel', cancelAll);
    });
 
-   ['swipe', 'swipeleft', 'swiperight', 'swipeup', 'swipedown', 'doubletap', 'tap', 'singletap', 'longtap'].forEach(function(m){       
+   ['swipe', 'swipeleft', 'swiperight', 'swipeup', 'swipedown', 'doubletap', 'tap', 'singletap', 'longtap'].forEach(function(method){       
       // Add gesture events to ChocolateChipJS:
-      $.extend(Array.prototype,  {
-         m : function(callback){ 
-            return this.on(m, callback);
+      $.fn.extend({
+         method : function(callback){ 
+         	console.dir(this);
+            return this.on(method, callback);
          }
       });
    });
