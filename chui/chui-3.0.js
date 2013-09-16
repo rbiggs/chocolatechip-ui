@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0
+Version: 3.0.1
 */
       
 (function($) {
@@ -89,6 +89,7 @@ Version: 3.0
          current.removeClass('current').addClass('next');
          current.prev().removeClass('current').addClass('next');
          $.UINavigationHistory = $.UINavigationHistory.splice(historyIndex,1);
+         $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
       },
 
       ////////////////////////////////////
@@ -966,8 +967,8 @@ Version: 3.0
          $('.sheet').removeClass('opened');
          $('article.current').addClass('removeBlurSlow'); 
          setTimeout(function() {
-            $('article.current').removeClass('blurred');
-            $('article.current').removeClass('removeBlurSlow'); 
+            $('article').removeClass('blurred');
+            $('article').removeClass('removeBlurSlow'); 
          },500);   
       },
       
@@ -1149,12 +1150,27 @@ Version: 3.0
       // Added classes for client side
       // os-specific styles:
       ////////////////////////////////
+		$.extend({
+			browserVersion : function ( ) {
+				var n = navigator.appName;
+				var ua = navigator.userAgent;
+				var temp;
+				var m = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+				if (m && (temp = ua.match(/version\/([\.\d]+)/i))!= null) m[2]= temp[1];
+				m = m ? [m[1], m[2]]: [n, navigator.appVersion, '-?'];
+				return m[1];
+			}
+		 });
+		 
       if ($.isAndroid) {
          $.body.addClass('isAndroid');
       } else if ($.isiOS) {
          $.body.addClass('isiOS');
       } else if ($.isWin) {
          $.body.addClass('isWindows');
+      }
+      if ($.isSafari && parseInt($.browserVersion(), 10) === 6) {
+      	$.body.addClass('isSafari6');
       }
       $.UIDesktopCompat();
    });

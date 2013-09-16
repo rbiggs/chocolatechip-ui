@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.ios.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0
+Version: 3.0.1
 */
 
 html, body {
@@ -208,6 +208,7 @@ article > section,
    top: 0;
    left: 0;
    width: 100%;
+   height: 100%;
 }
 
 /* ==============================
@@ -708,10 +709,14 @@ nav > .button {
 a.button.back, a.button.backTo {
    text-align: left;
    padding: 0 0 0 16px;
-   margin-top: 3px;
+   margin-top: 8px;
    line-height: 28px;
    color: #007aff;
    border: none;
+}
+.isSafari6 a.button.back,
+.isSafari6 a .button.backTo {
+   margin-top: 3px;
 }
 a.button.back::before, 
 a.button.backTo::before {

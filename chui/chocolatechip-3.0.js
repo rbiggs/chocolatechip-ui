@@ -10,7 +10,7 @@
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0
+Version: 3.0.1
 */
 
 (function() {
@@ -156,7 +156,7 @@ Version: 3.0
          }
          var script = document.createElement('script');
          script.setAttribute('type', 'text/javascript');
-         var scriptID = $.UIUuid();
+         var scriptID = "_" + $.uuidNum();
          script.setAttribute('id', scriptID);
          script.html(name + data);
          $('head').append(script);
@@ -420,7 +420,7 @@ Version: 3.0
       },
       
       isnt : function ( arg ) {
-if (!this.length) return [];
+      if (!this.length) return [];
          var items = [];
          var $this;
          var __isnt = function ( node, arg ) {

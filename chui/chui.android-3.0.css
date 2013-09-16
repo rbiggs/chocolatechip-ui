@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.android.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0
+Version: 3.0.1
 */
 
 html, body {
@@ -155,6 +155,7 @@ body.slide-out-app > nav.show  {
 article > section,
 .scroller-vertical {
 	padding-top: 10px;
+   height: 100%;
 }
 /* ==============================
    Horizontal Panels
