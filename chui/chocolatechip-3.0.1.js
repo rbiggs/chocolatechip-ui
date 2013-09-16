@@ -1649,7 +1649,7 @@ Version: 3.0.1
           } else if (typeof data === 'object' && typeof success === 'function') {
              $.ajax({url : url, type: 'GET', data : data, dataType : 'json'});
           }
-      },
+      }
       
       // Parameters: url, data, success, dataType.
       post : function ( url, data, success, dataType ) {
