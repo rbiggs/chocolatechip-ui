@@ -10,7 +10,7 @@
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.1
+Version: 3.0.2
 */
 
 (function() {
@@ -218,7 +218,7 @@ Version: 3.0.1
       },
       
       uuidNum : function ( ) {
-         return ((1 + Math.random()) * 0x100000000);
+         return Math.floor(((1 + Math.random()) * 0x100000000));
       },
       
       makeUuid : function ( ) {
@@ -1649,7 +1649,21 @@ Version: 3.0.1
           } else if (typeof data === 'object' && typeof success === 'function') {
              $.ajax({url : url, type: 'GET', data : data, dataType : 'json'});
           }
-      }
+      },
+
+		// Parameters: url, callback.
+		JSONP : function ( url, callback ) {
+			var fn = 'fn_' + $.uuidNum(),
+			script = document.createElement('script'),
+			head = $('head')[0];
+			window[fn] = function(data) {
+				head.removeChild(script);
+				callback && callback(data);
+				delete window[fn];
+			};
+			script.src = url.replace('callback=?', 'callback=' + fn);
+			head.appendChild(script);
+		},
       
       // Parameters: url, data, success, dataType.
       post : function ( url, data, success, dataType ) {
@@ -1820,6 +1834,51 @@ Version: 3.0.1
             .split(delimiterClosed).join("p.push('") + "');" +
             "return p.join('');");
          return template;
+      },
+      
+      subscriptions : {},
+      
+      // Topic: string defining topic: /some/topic
+      // Data: a string, number, array or object.
+      subscribe : function (topic, callback) {
+         if (!$.subscriptions[topic]) {
+            $.subscriptions[topic] = [];
+         }
+         var token = ($.uuidNum());
+         $.subscriptions[topic].push({
+            token: token,
+            callback: callback
+         });
+         return token;
+      },
+      
+      unsubscribe : function ( token ) {
+         setTimeout(function() {
+            for (var m in $.subscriptions) {
+               if ($.subscriptions[m]) {
+                   for (var i = 0, len = $.subscriptions[m].length; i < len; i++) {
+                       if ($.subscriptions[m][i].token === token) {
+                           $.subscriptions[m].splice(i, 1);
+                           return token;
+                       }
+                   }
+               }
+            }
+            return false;
+         });            
+      },
+      
+      publish : function ( topic, args ) {
+         if (!$.subscriptions[topic]) {
+            return false;
+         }
+         setTimeout(function () {
+            var len = $.subscriptions[topic] ? $.subscriptions[topic].length : 0;
+            while (len--) {
+                $.subscriptions[topic][len].callback(topic, args);
+            }
+            return true;
+         });
       }
       
    });

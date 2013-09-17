@@ -6,10 +6,10 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>TabBar Control</title>
-	<link rel="stylesheet" href="../chui/chui.ios-3.0.1.css">
+	<link rel="stylesheet" href="../chui/chui.ios-3.0.2.css">
 	</style>
-	<script src="../chui/chocolatechip-3.0.1.js"></script>
-	<script src="../chui/chui-3.0.1.js"></script>
+	<script src="../chui/chocolatechip-3.0.2.js"></script>
+	<script src="../chui/chui-3.0.2.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			var opts = {
@@ -29,8 +29,8 @@
 			we can style the tab bar icons just for Safari
 			with affecting the look of Android and Windows Phone 8.
 		*/
-		.isiOS .tabbar > .button::before,
-		.isDesktopSafari .tabbar > .button::before {
+		.isiOS .tabbar > .button > .icon,
+		.isSafari .tabbar > .button > .icon {
 			content: '';
 			display: block;
 			height: 30px;
@@ -40,23 +40,23 @@
 			-webkit-mask-size: 100%;
 			-webkit-mask-repeat: no-repeat;
 		}
-		.tabbar > .button.selected::before,
-		.tabbar > .button:hover::before {
+		.isiOS .tabbar > .button.selected > .icon,
+		.isiOS .tabbar > .button:hover > .icon {
 			background-color: #007aff;
 		}
-		.tabbar > .button.music::before  {
+		.tabbar > .button.music > .icon  {
 			-webkit-mask-image: url('../images/icons/Head_phones.svg');
 		}
-		.tabbar > .button.pictures::before  {
+		.tabbar > .button.pictures > .icon  {
 			-webkit-mask-image: url('../images/icons/Camera.svg');
 		}
-		.tabbar > .button.docs::before  {
+		.tabbar > .button.docs > .icon {
 			-webkit-mask-image: url('../images/icons/Documents.svg');
 		}
-		.tabbar > .button.recipes::before  {
+		.tabbar > .button.recipes > .icon  {
 			-webkit-mask-image: url('../images/icons/Download.svg');
 		}
-		.tabbar > .button.top_rated::before {
+		.tabbar > .button.top_rated > .icon {
 			-webkit-mask-image: url('../images/icons/Favorite.svg');
 		}
 		.image-grid, .image-grid > li {

@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.ios.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.1
+Version: 3.0.2
 */
 
 html, body {
@@ -1297,7 +1297,8 @@ body.hasTabBar article {
    /* new */
    display: -webkit-flex;
    -webkit-flex: 1;
-   -webkit-align-item: stretch;
+   -webkit-align-item: center;
+   -webkit-justify-content: center;
    -webkit-flex-direction: column;
    color: #929292;
    font-size: 9pt;
@@ -1307,6 +1308,9 @@ body.hasTabBar article {
 .tabbar > .button.selected {
    color: #007aff !important;
    opacity: 1 !important;
+}
+.tabbar > .button > .icon {
+   margin: 0 auto;
 }
 .hasTabBar .current {
 

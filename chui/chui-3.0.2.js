@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.1
+Version: 3.0.2
 */
       
 (function($) {
@@ -894,10 +894,11 @@ Version: 3.0.1
          */
          if (!options) return;
          $.body.addClass('hasTabBar');
+         if ($.isiOS6) $.body.addClass('isiOS6');
          var id = options.id || $.Uuid();
          var selected = options.selected || '';
          var tabbar = '<div class="tabbar" id="' + id + '">';
-         var icon = $.isiOS ? '<span class="icon"></span>' : '';
+         var icon = ($.isiOS || $.isSafari) ? '<span class="icon"></span>' : '';
          for (var i = 0; i < options.tabs; i++) {
             tabbar += '<a class="button ' + options.icons[i];
             if (selected === i+1) {
@@ -911,7 +912,6 @@ Version: 3.0.1
          $('nav').eq(selected).removeClass('next').addClass('current');
          $('article').removeClass('current').addClass('next');
          $('article').eq(selected-1).removeClass('next').addClass('current');
-         console.dir($('article').eq(selected));
          $.body.find('.tabbar').on('singletap', '.button', function() {
          var $this = this;
          var index;
@@ -1344,7 +1344,6 @@ Version: 3.0.1
       // Add gesture events to ChocolateChipJS:
       $.fn.extend({
          method : function(callback){ 
-         	console.dir(this);
             return this.on(method, callback);
          }
       });
