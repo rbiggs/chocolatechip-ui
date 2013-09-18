@@ -12,52 +12,50 @@
 	<script>
 		$(function() {
 			// Two methods to subscribe to:
-			var arraySubscriber = function( topic , data ) {
-				if (data instanceof Array) {
-					if (data[0] instanceof Object) {
-						data.forEach(function(ctx) {
-							if (ctx['news-flash']) {
-								$('.list').append('<li><h3>Array: ' + topic + "</h3><h4>" + ctx['news-flash'] + '</h4></li>');
-							} else {
-								$('.list').append('<li><h3>Array: ' + topic + "</h3><h4>" + ctx['update'] + '</h4></li>');
-							}
-						});
-					} else {
-						$('.list').append('<li><h3>Array: ' + topic + "</h3><h4>" + data.join(' ') + '.</h4></li>');
-					}
-				}
+			var arraySubscriber = function( topic , data ){
+				$('.list').append('<li><h3>' + topic + "</h3><h4>" + data + '</h4></li>');
 			};
-			
+			var objSubscriber = function(topic , obj ) {
+				obj.forEach(function(ctx) {
+					for (key in ctx) {
+						$('.list').append('<li><h3>' + topic + ': ' + key + ': ' + ctx[key]+ '</h3></li>');
+					}
+				});
+			};
 			var stringSubscriber = function(topic, string) {
-				if (typeof string === 'string') {
-					$('.list').append('<li><h3>String: ' + topic + ': ' + string + '</h3></li>');
+				if (typeof string !== 'string') {
+					$('.list').append('<li><h3>Coming from stringSubscriber: not a string!</h3></li>');
+				} else {
+					$('.list').append('<li><h3>Coming from stringSubscriber: ' + topic + ': ' + string + '</h3></li>');
 				}
 			};
 
-			var arrayOfObjs = function(topic, obj) {
-				if (obj instanceof Array) {
-					obj.forEach(function(ctx) {
-						if (ctx.name && ctx.job) {
-							$('.list').append('<li><h3>My name is ' + ctx.name + ', and I am a ' + ctx.job + '.</h3></li>');
-						} else {
-							return;
-						}				
-					});
+			var objSubscribor = function(topic, obj) {
+				if (obj instanceof Object) {
+					if (obj.name && obj.job) {
+						$('.list').append('<li><h3>My name is ' + obj.name + ', and I am a ' + obj.job + '</h3></li>');
+					} else {
+						return;
+					}
+				} else {
+					return;
 				}
 			};
-			var stringSubscription = $.subscribe('news/update', stringSubscriber);
-			var arraySubscription = $.subscribe( 'news/update', arraySubscriber );	
-			var objSubscription = $.subscribe( 'users/new', arrayOfObjs );
+			var testSubscription = $.subscribe( 'example1/bozo', arraySubscriber );	
+			var objSubscription = $.subscribe('Bongo', objSubscriber);
+			var stringSubscription = $.subscribe('example1/bozo', stringSubscriber);
+			var objSubscritor = $.subscribe('example1/bozo', objSubscribor);
 			
-			$.publish( 'news/update', 'This is the latest news!' );
-			$.publish( 'news/update', ['Somebody','did','something','funny'] );
-			$.publish( 'news/update', [{'news-flash':'Not much has happened yet.'},{'update':'More of the same.'}] );
+			$.publish( 'example1/bozo', 'hello world!' );
+			$.publish( 'example1/bozo', ['test','a','b','c'] );
+			$.publish( 'example1/bozo', [{'color':'blue'},{'text':'hello'}] );
+			$.publish( 'example1/bozo', ['Bingie','Bongo','Bozo']);
+			$.publish( 'example1/bozo', {'name':'Wobba','job': 'Clown'});
 			
-			$.unsubscribe( stringSubscription );
-			// This doesn't get published:
-			$.publish( 'news/update', 'We need piles of money now!' );
-			// This does get published:
-			$.publish('users/new', [{'name':'Wobba', 'job':'developer'}, {'name':'Bozo the Clown', 'job':'clown'}, {'name':'Joe','job':'just a regular guy'}]);
+			$.unsubscribe( testSubscription );
+			$.publish( 'example1/bozo', 'hello again!' );
+			$.publish('Bongo', [{'color':'blue'}, {'text':'hello'}]);
+			$.publish('Bongo', [{'name':'Wobba', 'job':'developer'}, {'name':'Bozo the Clown', 'job':'clown'}, {'name':'Dingo','job':'just a dingo'}]);
 		});
 	</script>
 </head>
