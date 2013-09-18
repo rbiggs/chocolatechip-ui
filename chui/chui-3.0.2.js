@@ -711,13 +711,13 @@ Version: 3.0.2
             });
             $('.popover').data('triggerEl', triggerID);
             if ($.isWin) {
-            	_calcPopPos($this);
-            	$('.popover').addClass('open');
+               _calcPopPos($this);
+               $('.popover').addClass('open');
             } else {
-					$('.popover').addClass('open');
-					setTimeout(function () {
-						 _calcPopPos($this);
-					});
+               $('.popover').addClass('open');
+               setTimeout(function () {
+                   _calcPopPos($this);
+               });
             }
             callback.call(callback, $this);
          });
@@ -874,9 +874,9 @@ Version: 3.0.2
       UIPopoverClose : function ( ) {
          $.body.UIUnblock();
          $('.popover').css('visibility','hidden');
-        	setTimeout(function() {
-        		$('.popover').remove();
-        	},10);
+         setTimeout(function() {
+            $('.popover').remove();
+         },10);
       },
    
       ///////////////////////////////////////////
@@ -1150,18 +1150,18 @@ Version: 3.0.2
       // Added classes for client side
       // os-specific styles:
       ////////////////////////////////
-		$.extend({
-			browserVersion : function ( ) {
-				var n = navigator.appName;
-				var ua = navigator.userAgent;
-				var temp;
-				var m = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
-				if (m && (temp = ua.match(/version\/([\.\d]+)/i))!= null) m[2]= temp[1];
-				m = m ? [m[1], m[2]]: [n, navigator.appVersion, '-?'];
-				return m[1];
-			}
-		 });
-		 
+      $.extend({
+         browserVersion : function ( ) {
+            var n = navigator.appName;
+            var ua = navigator.userAgent;
+            var temp;
+            var m = ua.match(/(opera|chrome|safari|firefox|msie)\/?\s*(\.?\d+(\.\d+)*)/i);
+            if (m && (temp = ua.match(/version\/([\.\d]+)/i))!= null) m[2]= temp[1];
+            m = m ? [m[1], m[2]]: [n, navigator.appVersion, '-?'];
+            return m[1];
+         }
+       });
+       
       if ($.isAndroid) {
          $.body.addClass('isAndroid');
       } else if ($.isiOS) {
@@ -1170,7 +1170,7 @@ Version: 3.0.2
          $.body.addClass('isWindows');
       }
       if ($.isSafari && parseInt($.browserVersion(), 10) === 6) {
-      	$.body.addClass('isSafari6');
+         $.body.addClass('isSafari6');
       }
       $.UIDesktopCompat();
    });
