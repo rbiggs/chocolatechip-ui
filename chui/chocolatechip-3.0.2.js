@@ -229,11 +229,11 @@ Version: 3.0.2
       
       chch_cache : {},
       
-      fn : Array.prototype
+      fn : {}
       
    });
    $.fn.extend = function ( object ) {
-      return $.extend($.fn, object);
+      return $.extend(Array.prototype, object);
    };
    
    $.uuid = $.uuidNum();

@@ -7,11 +7,16 @@
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>List</title>
 	<link rel="stylesheet" href="../chui/chui.ios-3.0.2.css">
-	<script src="../chui/chocolatechip-3.0.2.js"></script>
+	<script src="../chui/chocolatechip-3.0.2.min.js"></script>
 	<script src="../chui/chui-3.0.2.js"></script>
+	<style>
+		li.selected {
+			color: red;
+		}
+	</style>
 	<script>
 		$(function() {
-
+			$('li').hasClass('selected').css('color','red').find('h3').append(': this is selected!');
 		});
 	</script>
 </head>
@@ -22,7 +27,7 @@
 	<article id='main'>
 		<section>
 			<ul class='list'>
-				<li>
+				<li class='selected'>
 					<h3>People</h3>
 				</li>
 				<li>
