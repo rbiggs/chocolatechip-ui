@@ -612,7 +612,14 @@ li.switched h3 {
    background-color: #d9d9d9;
 }
 .list.select li.selected::after {
-   content: '\2713';
+   content: '';
+   height: 20px;
+   width: 20px;
+   background-color: #007aff;
+   -webkit-mask-position: 50% 50%;
+   -webkit-mask-size: 90% 90%;
+   -webkit-mask-repeat: no-repeat;
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="26" viewBox="0 0 32 26" id="svg2"><defs id="defs8" /><g transform="translate(0.13135593,-0.34322034)" id="Page-1" style="fill:none;stroke:none"><g id="Artboard-1" style="stroke:#000000;stroke-width:5"><path d="m 10.500868,22.761362 11.023688,0 0,-27.9582975" transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,10.899977,-8.7504466)" id="Rectangle-1" /></g></g></svg>');
    float: right;
    margin-top: -20px;
    color: #007aff;
@@ -708,30 +715,41 @@ nav > .button {
 }
 a.button.back, a.button.backTo {
    text-align: left;
-   padding: 0 0 0 16px;
-   margin-top: 8px;
+   padding: 0;
+   margin-top: 3px;
    line-height: 28px;
    color: #007aff;
    border: none;
+   display: -webkit-box;
+   -webkit-align-item: center;
+   -webkit-box-pack: end;
+   -webkit-box-align: center;
+   display: -webkit-flex;
+   -wekbit-flex-direction: row;
+   -webkit-box-orient: horizontal;
+   -webkit-justify-content: end;
+}
+.isiOS a.button.back, .isiOS a.button.backTo {
+	display: -webkit-box;
+	margin-top: 0;
+}
+a.button.back::before, 
+a.button.backTo::before {
+	content: '';
+   background-color: #007aff;
+   -webkit-mask-position: 50% 50%;
+   -webkit-mask-size: 90% 90%;
+   -webkit-mask-repeat: no-repeat; 
+   border: solid 1px red !important;
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="18" height="35" viewBox="0 0 18 35" id="svg2"><defs id="defs8" /><g transform="translate(-2.1355929,0.0677963)" id="Page-1" style="fill:none;stroke:none"> <path d="M 31,6 8,6 8,29" transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,-6.6629509,18.914214)" id="Rectangle-1" style="stroke:#000;stroke-width:2" /></g></svg>');
+   display: block;
+   height: 20px;
+   width: 10px;
+   margin-right: 7px;
 }
 .isSafari6 a.button.back,
 .isSafari6 a .button.backTo {
    margin-top: 3px;
-}
-a.button.back::before, 
-a.button.backTo::before {
-   content: '\2303';
-   font-family: 'HelveticaNeue-Light', Courier;
-   font-weight: 100;
-   display: block;
-   height: 10px;
-   width: 10px;
-   -webkit-transform: rotate(-90deg);
-   position: absolute;
-   left: -2px;
-   top: 17px;
-   font-size: 24pt;
-   border: none;
 }
 .button:hover {
    cursor: pointer;
