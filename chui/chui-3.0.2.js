@@ -198,10 +198,7 @@ Version: 3.0.2
                
                if ($.isiOS) {
                   $(list).on('swipe', 'li', function() {
-                     if (this.classList.contains('selected')) {
-                        this.classList.remove('selected');
-                     }
-                     $(this).removeClass('selected');
+                     $(this).toggleClass('selected');
                   });
                }
                $(list).on('singletap', '.delete', function() {

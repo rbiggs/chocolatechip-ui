@@ -701,7 +701,7 @@ a.button {
    box-sizing: border-box;
    height: auto;
    width: auto;
-   padding: 8px 20px;
+   padding: 8px 0px;
    position: relative;
    white-space: nowrap;
    overflow: hidden;
@@ -710,12 +710,12 @@ a.button {
    text-align: center;
    background-color: rgba(255,255,255,.01);
 }
-nav > .button {
+nav > a.button {
    max-width: 100px;
 }
 a.button.back, a.button.backTo {
    text-align: left;
-   padding: 0;
+   padding: 0 !important;
    margin-top: 3px;
    line-height: 28px;
    color: #007aff;
@@ -741,7 +741,7 @@ a.button.backTo::before {
    -webkit-mask-size: 90% 90%;
    -webkit-mask-repeat: no-repeat; 
    border: solid 1px red !important;
-   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="18" height="35" viewBox="0 0 18 35" id="svg2"><defs id="defs8" /><g transform="translate(-2.1355929,0.0677963)" id="Page-1" style="fill:none;stroke:none"> <path d="M 31,6 8,6 8,29" transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,-6.6629509,18.914214)" id="Rectangle-1" style="stroke:#000;stroke-width:2" /></g></svg>');
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="21" height="35" viewBox="0 0 21 35" id="svg2"><defs id="defs8" /><g transform="translate(-2.1355929,0.0677963)" id="Page-1" style="fill:none;stroke:none"><path d="M 21.353814,1.2365445 5.0903576,17.5 21.353814,33.763456" id="Rectangle-1" style="stroke:#000;stroke-width:3" /></g></svg>');
    display: block;
    height: 20px;
    width: 10px;
@@ -761,7 +761,7 @@ a.button, a.button.back::before {
 }
 .button.align-flush {
    position: absolute;
-   right: 0;
+   right: 15px;
 }
 .button.action {
    color: #585d63;
@@ -1417,16 +1417,17 @@ div.handle {
    height: 20pt;
 }
 div.handle::before {
-   content: '\3008';
+	content: '';
+   background-color: #fff;
+   -webkit-mask-position: 50% 50%;
+   -webkit-mask-size: 90% 90%;
+   -webkit-mask-repeat: no-repeat; 
+   border: solid 1px red !important;
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="76" height="27" viewBox="0 0 76 27" id="svg2"><defs id="defs8" /><g transform="translate(-283.79661,-123.77966)" id="Page-1" style="fill:none;stroke:none"><g transform="translate(254,108)" id="Artboard-1" style="stroke:#000;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"><path d="m 36.25,26.242187 31.394531,7.972657 30.53125,-8.425782" id="Path-1" /></g></g></svg>');
    display: block;
-   margin: 0 auto;
-   position: relative;
-	left: -11px;
-	font-size: 30pt;
-	font-weight: bold;
-	-webkit-transform: rotate(-90deg);
-	padding-top: 15px;
-   text-shadow: 1px 1px 3px #fff;
+   margin: 10px auto 0;
+	height: 20px;
+	width: 50px;
 }
 
 /* ==============================
