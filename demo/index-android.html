@@ -6,7 +6,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>Demo</title>
-	<link rel="stylesheet" href="../chui/chui.android-3.0.2.css">
+	<link rel="stylesheet" href="../chui/chui.android-3.0.3.css">
 	<style>
 		.icon {
 			height: 40px;
@@ -72,8 +72,8 @@
 		}
 		
 	</style>
-	<script src="../chui/chocolatechip-3.0.2.js"></script>
-	<script src="../chui/chui-3.0.2.js"></script>
+	<script src="../chui/chocolatechip-3.0.3.js"></script>
+	<script src="../chui/chui-3.0.3.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			
@@ -85,9 +85,15 @@
     		//////////////
     		// Select List
     		//////////////
-    		if ($('.select li').is('.selected')[0]) {
-    			$("#select-response").html($('.select li').is('.selected')[0].textContent);
-    		}
+    		if (window.jQuery) {
+				if ($('.select li').is('.selected')) {
+					$("#select-response").html($('.select li.selected')[0].textContent);
+				}    		
+    		} else {
+				if ($('.select li').is('.selected')[0]) {
+					$("#select-response").html($('.select li').is('.selected')[0].textContent);
+				}    		}
+
 			// Select list callback:
 			$('.list.select').UISelectList({
     			selected: 0,
@@ -122,6 +128,12 @@
 			
 			// Insert switches into list:
 			$('#switches aside').each(function(ctx, idx) {
+				var temp;
+				if (window.jQuery) {
+					temp = ctx;
+					ctx = idx;
+					idx = temp;
+				}
 				switch (idx){
 					case 0:
 						$(ctx).prepend($.UICreateSwitch(sleepSwitch));
@@ -139,7 +151,8 @@
 			
 			
 			// Set response to last checked switch for page load state:
-			$('.switch').each(function(ctx) {
+			$('.switch').each(function(ctx, idx) {
+				if (window.jQuery) ctx = idx;
 				if (ctx.classList.contains('on')) {
 					$('#switch-response').html($(ctx).find('input').val());
 				}
@@ -247,7 +260,7 @@
 						if (e.target.nodeName === 'LI') {
 							$(results).html(e.target.textContent.trim());
 						} else {
-							listItem = $(e.target).ancestor('li')[0];
+							listItem = $(e.target).closest('li')[0];
 							$(results).html(listItem.textContent.trim());
 						}
 						$.UIPopoverClose();

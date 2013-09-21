@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.android.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.2
+Version: 3.0.3
 */
 
 html, body {
@@ -155,7 +155,10 @@ body.slide-out-app > nav.show  {
 article > section,
 .scroller-vertical {
 	padding-top: 10px;
-   height: 100%;
+   min-height: 100%;
+}
+article > section > :last-child {
+	margin-bottom: 200px;
 }
 /* ==============================
    Horizontal Panels
@@ -1370,13 +1373,18 @@ body.hasTabBar article {
 .sheet.opened {
 	-webkit-transform: translate3d(0,0,0);
 }
-.sheet > section {
+.sheet > section.scroller-vertical {
 	position: absolute;
-	top: 36px;
+	top: 0;
 	left: 0;
 	bottom: 0;
 	height: auto;
 	right: 0;
+	padding: 0 !important;
+}
+.sheet.opened > section.scroller-vertical {
+	top: 36px;
+	padding: 10px 0 100px 0 !important;
 }
 .sheet .button {
 	display: block;

@@ -11,9 +11,11 @@ ChocolateChip-UI
 ChUI.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.2
+Version: 3.0.3
 */
       
+
+var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
 (function($) {
    'use strict';
 
@@ -25,6 +27,63 @@ Version: 3.0.2
       // Define min-length for gesture detection:
       gestureLength : 30 
    });
+   
+   if (window && window.jQuery) {
+      $.extend($, {
+         make : function ( string ) {
+            return $(string);
+         },
+
+         concat : function ( args ) {
+            if (args instanceof Array) {
+               return args.join('');
+            } else {
+               args = Array.prototype.slice.apply(arguments);
+               return String.prototype.concat.apply(args.join(''));
+            }
+         },
+
+         templates : {},
+          
+         template : function ( tmpl, variable ) {
+            var regex, delimiterOpen, delimiterClosed;
+            variable = variable ? variable : 'data';
+            regex = /\[\[=([\s\S]+?)\]\]/g;
+            delimiterOpen = '[[';
+            delimiterClosed = ']]'; 
+            var template =  new Function(variable, 
+               "var p=[];" + "p.push('" + tmpl
+               .replace(/[\r\t\n]/g, " ")
+               .split("'").join("\\'")
+               .replace(regex,"',$1,'")
+               .split(delimiterOpen).join("');")
+               .split(delimiterClosed).join("p.push('") + "');" +
+               "return p.join('');");
+            return template;
+         },
+         isiPhone : /iphone/img.test(navigator.userAgent),
+         isiPad : /ipad/img.test(navigator.userAgent),
+         isiPod : /ipod/img.test(navigator.userAgent),
+         isiOS : /ip(hone|od|ad)/img.test(navigator.userAgent),
+         isAndroid : /android/img.test(navigator.userAgent),
+         isWebOS : /webos/img.test(navigator.userAgent),
+         isBlackberry : /blackberry/img.test(navigator.userAgent),
+         isTouchEnabled : ('createTouch' in document),
+         isOnline :  navigator.onLine,
+         isStandalone : navigator.standalone,
+         isiOS6 : navigator.userAgent.match(/OS 6/i),
+         isiOS7 : navigator.userAgent.match(/OS 7/i),
+         isWin : /trident/img.test(navigator.userAgent),
+         isWinPhone : (/trident/img.test(navigator.userAgent) && /mobile/img.test(navigator.userAgent)),
+         isIE10 : navigator.userAgent.match(/msie 10/i),
+         isIE11 : navigator.userAgent.match(/msie 11/i),
+         isWebkit : navigator.userAgent.match(/webkit/),
+         isMobile : /mobile/img.test(navigator.userAgent),
+         isDesktop : !(/mobile/img.test(navigator.userAgent)),
+         isSafari : (!/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent)),
+         isChrome : /chrome/i.test(navigator.userAgent)
+      });
+   }
    
    $.extend($, {
          
@@ -188,7 +247,7 @@ Version: 3.0.2
                   });
                });
                $.body.on('singletap', '.deletion-indicator', function() {
-                  if ($(this).closest('li').hasClass('selected').length) {
+               	if ($(this).closest('li')[0].classList.contains('selected')) {
                      $(this).closest('li').removeClass('selected');
                      return;
                   } else {
@@ -196,7 +255,7 @@ Version: 3.0.2
                   }
                });
                
-               if ($.isiOS) {
+               if ($.isiOS || $.isSafari) {
                   $(list).on('swipe', 'li', function() {
                      $(this).toggleClass('selected');
                   });
@@ -216,16 +275,17 @@ Version: 3.0.2
             editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
             deletionIndicator = '<span class="deletion-indicator"></span>';
             if (placement === 'left') {
-               list.ancestor('article').prev().prepend(editButton);
+               list.closest('article').prev().prepend(editButton);
             } else {
-               list.ancestor('article').prev().append(editButton);
-               list.ancestor('article').prev().find('h1').addClass('buttonOnRight');
-               list.ancestor('article').prev().find('.edit').addClass('align-flush');
+               list.closest('article').prev().append(editButton);
+               list.closest('article').prev().find('h1').addClass('buttonOnRight');
+               list.closest('article').prev().find('.edit').addClass('align-flush');
             }
             list.find('li').prepend(deletionIndicator);
             list.find('li').append(deleteButton);
             var height = $('li').eq(1)[0].clientHeight;
-            $('li').find('.delete').each(function(ctx) {
+            $('li').find('.delete').each(function(ctx, idx) {
+               if (window && window.jQuery) ctx = idx;
                if (!$.isWin) $(ctx).css({height: height + 'px'});
             });
             setupDeletability(callback);
@@ -239,17 +299,26 @@ Version: 3.0.2
       ///////////////////////
       UIPaging : function ( ) {
          var currentArticle = $('.segmented.paging').closest('nav').next();
-         if ($('.segmented.paging').hasClass('horizontal')[0]) {
-            currentArticle.addClass('horizontal');
-         } else if ($('.segmented.paging').hasClass('vertical')[0]) {
-            
-            currentArticle.addClass('vertical');
+         if (window.jQuery) {
+				if ($('.segmented.paging').hasClass('horizontal')) {
+					currentArticle.addClass('horizontal');
+				} else if ($('.segmented.paging').hasClass('vertical')) {
+					currentArticle.addClass('vertical');
+				}        
+         } else {
+				if ($('.segmented.paging').hasClass('horizontal')[0]) {
+					currentArticle.addClass('horizontal');
+				} else if ($('.segmented.paging').hasClass('vertical')[0]) {
+					currentArticle.addClass('vertical');
+				}
          }
-         currentArticle.first().addClass('current');
-         currentArticle.first().siblings().addClass('next');
+         currentArticle.children().eq(0).addClass('current');
+         currentArticle.children().eq(0).siblings().addClass('next');
          var sections = currentArticle.children().length;
          
          $('.segmented.paging').on($.eventStart, '.button:first-of-type', function() {
+            $(this).next().removeClass('selected');
+            $(this).addClass('selected');
             var currentSection;
             currentSection = $('section.current');
             if (currentSection.index() === 0) return;
@@ -257,6 +326,8 @@ Version: 3.0.2
             currentSection.prev().removeClass('previous').addClass('current');
          });
          $('.segmented.paging').on($.eventStart, '.button:last-of-type', function() {
+            $(this).prev().removeClass('selected');
+            $(this).addClass('selected');
             var currentSection;
             if (this.classList.contains('disabled')) return;
             currentSection = $('section.current');
@@ -300,7 +371,8 @@ Version: 3.0.2
       ////////////////////////////
       UISwitch : function ( ) {
          var hasThumb = false;
-         this.each(function(ctx) {
+         this.each(function(ctx, idx) {
+            if (window && window.jQuery) ctx = idx;
             ctx.setAttribute('role','checkbox');
             if ($(ctx).data('ui-setup') === true) return;
             if (!ctx.querySelector('input')) {
@@ -333,7 +405,11 @@ Version: 3.0.2
       // Initialize Segmented Control
       ///////////////////////////////
       UISegmented : function ( options ) {
-         if (this.hasClass('paging')[0]) return;
+      	if (window.jQuery) {
+      		 if (this.hasClass('paging')) return;
+      	} else {
+         	if (this.hasClass('paging')[0]) return;
+      	}
          var callback = (options && options.callback) ? options.callback : $.noop;
          var selected;
          if (options && options.selected) selected = options.selected;
@@ -341,6 +417,7 @@ Version: 3.0.2
             callback = options.callback;
          }
          this.find('a').each(function(ctx, idx) {
+            if (window && window.jQuery) ctx = idx;
             $(ctx).find('a').attr('role','radio');
             if (selected === 0 && idx === 0) {
                ctx.setAttribute('aria-checked', 'true');
@@ -373,9 +450,20 @@ Version: 3.0.2
       UIPanelToggle : function ( panel, callback ) {
          var panels;
          var selected = 0;
-         if (this.children().hasClass('selected')[0]) {
-            selected = this.children().hasClass('selected').index();
+         if (window.jQuery) {
+         	if ($(this).children().hasClass('selected')) {
+         		this.children().each(function(idx, ctx) {
+         			if ($(ctx).hasClass('selected')) {
+         				selected = idx;
+         			};
+         		});
+         	}
+         } else {
+				if (this.children().hasClass('selected')[0]) {
+					selected = this.children().hasClass('selected').index();
+				}
          }
+
          if (panel instanceof Array) {
             panels = panel.children('div');
          } else if (typeof panel === 'string') {
@@ -417,12 +505,24 @@ Version: 3.0.2
       UISelectList : function (options) {
          var name = (options && options.name) ? options.name : $.Uuid(); 
          var list = this[0];
-         if (list && !$(list).hasClass('select')) {
-            this.addClass('select');
+         if (window.jQuery) {
+				if (list && !$(list).hasClass('select')) {
+					this.addClass('select');
+				}
+         } else {
+				if (list && !$(list).hasClass('select')[0]) {
+					this.addClass('select');
+				}                  
          }
          if (!list) return [];
          list.classList.add('select');
          $(list).find('li').each(function(ctx, idx) {
+            var temp;
+            if (window && window.jQuery) {
+               temp = ctx;
+               ctx = idx;
+               idx = temp;
+            }
             ctx.setAttribute('role', 'radio');
             if (options && options.selected === idx) {
                ctx.setAttribute('aria-checked', 'true');
@@ -517,11 +617,11 @@ Version: 3.0.2
                }
             }
          };
-            
-         [stepper].find('.button:first-of-type').on('singletap', function() {
+         var $stepper = (window && window.jQuery) ? $(stepper) : [stepper];
+         $stepper.find('.button:first-of-type').on('singletap', function() {
             decreaseStepperValue.call(this, stepper);
          });
-         [stepper].find('.button:last-of-type').on('singletap', function() {
+         $stepper.find('.button:last-of-type').on('singletap', function() {
             increaseStepperValue.call(this, stepper);
          });
       },
@@ -683,11 +783,11 @@ Version: 3.0.2
             var popover = $('.popover');
             var popoverOffset = popover.offset();
             calcLeft = popoverOffset.left;
-            calcTop = offset.bottom;
+            calcTop = offset.top + $(element)[0].clientHeight;
             if ((popover.width() + offset.left) > window.innerWidth) {
                popover.css({
                   'left': ((window.innerWidth - popover.width())-20) + 'px',
-                  'top': (offset.bottom + 20) + 'px'
+                  'top': (calcTop + 20) + 'px'
                });
             } else {
                popover.css({'left': left + 'px', 'top': (calcTop + 20) + 'px'});
@@ -764,7 +864,7 @@ Version: 3.0.2
          var _segmented = ['<div class="segmented'];
          if (className) _segmented.push(' ' + className);
          _segmented.push('">');
-         labels.each(function(ctx, idx) {
+         labels.forEach(function(ctx, idx) {
             _segmented.push('<a role="radio" class="button');
             if (selected === idx) {
                _segmented.push(' selected" aria-checked="true"');
@@ -918,7 +1018,6 @@ Version: 3.0.2
             $('.current').removeClass('current').addClass('next');
             $('article').eq(index).removeClass('next').addClass('current');
             $('nav').eq(index+1).removeClass('next').addClass('current');
-            
          });
       },
       
@@ -1029,6 +1128,12 @@ Version: 3.0.2
       // Make sure that navs and articles have navigation states:
       ///////////////////////////////////////////////////////////
       $('nav').each(function(ctx, idx) {
+         var temp;
+         if (window && window.jQuery) {
+            temp = ctx;
+            ctx = idx;
+            idx = temp;
+         }
          // Prevent if splitlayout for tablets:
          if ($.body[0].classList.contains('splitlayout')) return;
          if (idx === 0) {
@@ -1038,6 +1143,12 @@ Version: 3.0.2
          }
       });
       $('article').each(function(ctx, idx) {
+         var temp;
+         if (window && window.jQuery) {
+            temp = ctx;
+            ctx = idx;
+            idx = temp;
+         }
          // Prevent if splitlayout for tablets:
          if ($.body[0].classList.contains('splitlayout')) return;
          if ($.body[0].classList.contains('slide-out-app')) {
@@ -1102,8 +1213,8 @@ Version: 3.0.2
       // Handle Closing Popups:
       //////////////////////////
       $.body.on($.eventStart, '.cancel', function() {
-         if ($(this).ancestor('.popup')[0]) {
-            $(this).ancestor('.popup').UIPopupClose();
+         if ($(this).closest('.popup')[0]) {
+            $(this).closest('.popup').UIPopupClose();
          }
       });
       
@@ -1137,7 +1248,8 @@ Version: 3.0.2
       // Add class to nav when button on right.
       // This allows us to adjust the nav h1 for small screens.
       /////////////////////////////////////////////////////////
-      $('h1').each(function(ctx) {
+      $('h1').each(function(ctx, idx) {
+         if (window && window.jQuery) ctx = idx;
          if (ctx.nextElementSibling && ctx.nextElementSibling.nodeName === 'A') {
             ctx.classList.add('buttonOnRight');
          }
@@ -1172,7 +1284,7 @@ Version: 3.0.2
       $.UIDesktopCompat();
    });
    
-})(window.$chocolatechip);
+})(whichJavaScriptLibrary);
 
 //////////////////////////////////////////////////////
 // Swipe Gestures for ChocolateChip.
@@ -1231,10 +1343,19 @@ Version: 3.0.2
       body.on($.eventStart, function(e) {
          now = Date.now();
          delta = now - (touch.last || now);
+         if (e.originalEvent) e = e.originalEvent;
          
          // Handle MSPointer Events:
          if (window.navigator.msPointerEnabled) {
+         	if (window.jQuery) {
+					if (e.originalEvent && !e.originalEvent.isPrimary) return;
+				} else {
                if (!e.isPrimary) return;
+				}
+            e = e.originalEvent ? e.originalEvent : e;
+				body.on('MSHoldVisual', function (e) {
+					e.preventDefault();
+				});
                touch.el = $(parentIfText(e.target));
                touchTimeout && clearTimeout(touchTimeout);
                touch.x1 = e.pageX;
@@ -1272,12 +1393,17 @@ Version: 3.0.2
          longTapTimeout = setTimeout(longTap, longTapDelay);
       });
       body.on($.eventMove, function(e) {
+      	if (e.originalEvent) e = e.originalEvent;
          if (window.navigator.msPointerEnabled) {
-            if (!e.isPrimary) return;
+         	if (window.jQuery) {
+					if (e.originalEvent && !e.originalEvent.isPrimary) return;
+				} else {
+            	if (!e.isPrimary) return;
+            }
+            e = e.originalEvent ? e.originalEvent : e;
             cancelLongTap();
             touch.x2 = e.pageX;
             touch.y2 = e.pageY;
-               
          } else {
             cancelLongTap();
             if ($.eventMove === 'mousemove') {
@@ -1294,7 +1420,11 @@ Version: 3.0.2
       });
       body.on($.eventEnd, function(e) {
          if (window.navigator.msPointerEnabled) {
-            if (!e.isPrimary) return;
+				if (window.jQuery) {
+					if (e.originalEvent && !e.originalEvent.isPrimary) return;
+				} else {
+            	if (!e.isPrimary) return;
+         	}
          }
          cancelLongTap();
          if (!!touch.el) {
@@ -1345,4 +1475,4 @@ Version: 3.0.2
          }
       });
    });
-})(window.$chocolatechip);
+})(whichJavaScriptLibrary);

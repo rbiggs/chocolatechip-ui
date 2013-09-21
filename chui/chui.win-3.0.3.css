@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.win.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.2
+Version: 3.0.3
 */
 
 html, body {
@@ -111,7 +111,7 @@ article {
    height: 35px;
    width: 35px;
    box-sizing: border-box;
-   padding: 0;
+   margin-left: -5px !important
 }
 .button.slide-out-button::before {
    content: '\E179';

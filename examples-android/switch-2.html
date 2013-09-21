@@ -6,9 +6,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>Switch</title>
-	<link rel="stylesheet" href="../chui/chui.android-3.0.2.css">
-	<script src="../chui/chocolatechip-3.0.2.js"></script>
-	<script src="../chui/chui-3.0.2.js"></script>
+	<link rel="stylesheet" href="../chui/chui.android-3.0.3.css">
+	<script src="../chui/chocolatechip-3.0.3.js"></script>
+	<script src="../chui/chui-3.0.3.js"></script>
 	<script>
 		$(function() {
 			var sleepSwitch = {
@@ -30,6 +30,11 @@
 				value : "breakfast"
 			};
 			$('aside').each(function(ctx, idx) {
+				if (window && window.jQuery) {
+					temp = ctx;
+					ctx = idx;
+					idx = temp;
+				}			
 				switch (idx){
 					case 0:
 						$(ctx).prepend($.UICreateSwitch(sleepSwitch));
@@ -46,7 +51,13 @@
 			
 			
 			// Set response to last checked switch:
-			$('.switch').each(function(ctx) {
+			$('.switch').each(function(ctx, idx) {
+				var temp;
+	            if (window && window.jQuery) {
+	               temp = ctx;
+	               ctx = idx;
+	               idx = temp;
+	            }
 				if (ctx.classList.contains('on')) {
 					$('#response').html($(ctx).find('input').val());
 				}

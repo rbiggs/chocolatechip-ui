@@ -6,9 +6,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>Select List</title>
-	<link rel="stylesheet" href="../chui/chui.android-3.0.2.css">
-	<script src="../chui/chocolatechip-3.0.2.min.js"></script>
-	<script src="../chui/chui-3.0.2.js"></script>
+	<link rel="stylesheet" href="../chui/chui.android-3.0.3.css">
+	<script src="../chui/chocolatechip-3.0.3.min.js"></script>
+	<script src="../chui/chui-3.0.3.js"></script>
 	<script>
     	$(function() {
     		$('.list').UISelectList({
@@ -17,9 +17,14 @@
     				$("#response").html($(this).text());
     			}
     		});
-    		
-    		if ($('li').hasClass('selected')[0]) {
-    			$("#response").html($('li').hasClass('selected').text());
+    		if (window.jQuery) {
+				$('li').each(function(idx, ctx) {
+					if ($(ctx).hasClass('selected')) {
+						$("#response").html($(ctx).text());
+					}
+				});
+    		} else {
+				$("#response").html($('li').hasClass('selected').text());
     		}
 		});
 	</script>

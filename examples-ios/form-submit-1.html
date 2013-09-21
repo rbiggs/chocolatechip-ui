@@ -6,10 +6,13 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>Form To JSON Submission</title>
-	<link rel="stylesheet" href="../chui/chui.ios-3.0.2.css">
-	<script src="../chui/chocolatechip-3.0.2.js"></script>
-	<script src="../chui/chui-3.0.2.js"></script>
+	<link rel="stylesheet" href="../chui/chui.ios-3.0.3.css">
+	<script src="../chui/chocolatechip-3.0.3.js"></script>
+	<script src="../chui/chui-3.0.3.js"></script>
    <script>
+      /*
+   	This example uses the ChocolateChipJS method $.form2JSON. Since this is specific to ChocolateChip, this example will not work with jQuery. There are existing jQuery plugins that do the same thing which you can find by searching for "jQuery plugin form to JSON".
+   	*/
       function submitForm() {
          var formData = $.form2JSON('#userForm');
          var data = JSON.stringify(formData);
