@@ -10,5 +10,9 @@ If, on the other hand, you have experience with Web development, you'll be right
 
 ChocolateChip-UI uses its own JavaScript library, ChocolateChip, for DOM manipulation, Ajax requests, etc. It is very similar to jQuery. It was built specifically to enable the creation of ChocolateChip-UI. It is optimized for mobile devices. That means it's small and focused. It's much smaller than jQuery and loads quickly. It is not a clone of jQuery. This means that jQuery plugins will not work with ChocolateChip-UI unless they are refactored to do so. If you already know jQuery, it's not that hard to learn ChocolateChip.
 
+###jQuery Support
+
+As of version 3.0.3, ChocolateChip-UI supports jQuery 2.0.3. Just change the link for chocolatechip.js to jQuery. Including jQuery as the library allows you to use jQuery coding patterns and plugins with your ChocolateChip-UI apps.
+
 Please visit [ChocolateChip-UI's Website](http://chocolatechip-ui.com) for tutorials and documentation. The project includes examples to help you get going.
 
