@@ -7,14 +7,8 @@
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>Sheet Control</title>
 	<link rel="stylesheet" href="../chui/chui.android-3.0.3.css">
-	<script src="../chui/chocolatechip-3.0.3.js"></script>
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
 	<script src="../chui/chui-3.0.3.js"></script>
-	<style>
-		.sheet li > .button {
-			display: block;
-			width: 300px;
-		}
-	</style>
 	<script>
 		$(function() {
 			// Create sheet and populate it:
@@ -23,7 +17,8 @@
 			$('.sheet .list').append("<li><a class='button' href='javascript:void(null)'>Save</a></li><li><a class='button' href='javascript:void(null)'>Delete</a></li><li><a class='button' href='javascript:void(null)'>Cancel</a></li>");
 			$('.sheet .list').append ('<h2 style="text-align: center; margin: 20px;">The End</h2>');
 			
-			$('.sheet .list').on('singletap', '.button', function() {
+			$('.sheet .list').on('singletap', '.button', function(e) {
+				e.preventDefault();
 				$.UIHideSheet();
 			});
 			
@@ -31,13 +26,16 @@
 			$('#showSheet').on('singletap', function() {
 				$.UIShowSheet();
 			});
+			$('#main .list').on('singletap', 'li', function() {
+				alert($(this).text());
+			});
 		});
 	</script>
 </head>
 <body>
 	<nav>
 		<h1>Sheet Control</h1>
-		<a class='button' id='showSheet' href='javascript:void(null)'>Show</a>
+		<a class='button align-flush' id='showSheet' href='javascript:void(null)'>Show</a>
 	</nav>
 	<article id='main'>
 		<section>

@@ -21,13 +21,12 @@ html, body {
 	top: 0; right: 0;
 	bottom: 0; left: 0;
 	overflow: hidden;
-	font: normal 14px/18px Roboto, SegoeWP, Helvetica, Sans-serif;
 	-webkit-font-smoothing: subpixel-antialiased;
 }
 body {
 	/* Change background color for your app: */
 	background-color: #f2f0f0;
-	font: normal 10pt/13pt Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+	font: normal 14px/18px Roboto, SegoeWP, HelveticaNeue, Sans-serif;
 	-webkit-user-select: none;
 	-webkit-tap-highlight-color: transparent;
 }
@@ -155,10 +154,11 @@ body.slide-out-app > nav.show  {
 article > section,
 .scroller-vertical {
 	padding-top: 10px;
+	padding-bottom: 100px;
    min-height: 100%;
 }
-article > section > :last-child {
-	margin-bottom: 200px;
+article > section > :last-child::after {
+	margin-bottom: 100px;
 }
 /* ==============================
    Horizontal Panels
@@ -196,7 +196,7 @@ article > section > :last-child {
    Nav bars                      
    ============================== */
 #global-nav {
-	background-color: #dddddd;
+	background-color: #e2e2e2;
 	overflow: hidden;
 	border-bottom: solid 1px #acacac;
 	box-shadow: 0 1px 1px #acacac;
@@ -227,7 +227,7 @@ nav {
 nav > h1 {
 	text-align: left;
 	display: inline-block;
-	margin: 0;
+	margin: 0 20px 0 0;
 	-webkit-box-flex: 1;
 	font: normal 16pt/36pt Roboto, SegoeWP, HelveticaNeue, Sans-serif;
 	position: relative;
@@ -308,8 +308,8 @@ nav > h1 + a.button {
 	height: 20px;
 	width: 22px;
 	border-radius: 20px;
-	border: solid 1px #007aff;
-	color: #007aff;
+	border: solid 1px #999;
+	color: #999;
 	font: bold 14px/0 Roboto, SegoeWP, HelveticaNeue, Sans-serif;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -335,9 +335,7 @@ margin-top: 5pt;
 .list > li[data-goto].touched,
 li[data-show-article]:hover,
 li[data-show-article].touched,
-.list.select > li:hover,
-.list.select > li.touched,
-.list.select > li.selected {
+.list.select > li:hover {
 	cursor: pointer;
 	background-color: #81cfeb;
 }
@@ -363,12 +361,12 @@ li[data-show-article].touched,
 .list > li > div > h4,
 .list > li > p,
 .list > li > div > p {
-	font-size: 12pt;
+	font-size: 13pt;
 	margin: 0;
 }
 .list > li > p,
 .list > li > div > p {
-	font-size: 10pt;
+	font-size: 13pt;
 }
 .list > li p + p {
 	margin-top: 6px;
@@ -417,6 +415,9 @@ li.comp {
 li.comp > div {
 	-webkit-box-flex: 1;
 	padding: 0 0 10px 0;
+}
+li.comp > div:first-child {
+	padding: 8px 0 10px 0;
 }
 li.comp > div > h3,
 li.comp > div > h4 {
@@ -468,9 +469,8 @@ li.comp > aside > .show-detail::after {
 	height: 20px;
 	width: 22px;
 	border-radius: 20px;
-	border: solid 1px #007aff;
-	color: #007aff;
-	/*box-shadow: 0 0 1px #007aff, inset 0 0 1px #007aff; */
+	border: solid 1px #999;
+	color: #999;
 	font: bold 14px/0 Roboto, Times, serif;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -495,8 +495,21 @@ aside > span.counter, aside > span.date-time {
 	color: #666;
 	font-size: 12pt;
 }
+li.comp > div:first-child {
+	min-width: 48%;
+}
+li.comp > div:first-child + aside > h4 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 60%;
+}
+li.comp > div:first-child + aside > h4:nth-child(1) {
+	max-width: 100% !important;
+}
 p {
 	color: #707070;
+	font-size: 13pt;
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
 	li.comp > aside > h4 {
@@ -542,10 +555,12 @@ li.switched h4 {
 .list.select li > input {
 	display: none;
 }
-.list.select li.selected,
-.list.select li:hover,
-.list.select li.touched {
+.list.select li:hover {
 	background-color: #81cfeb;
+}
+.list.select li.selected,
+.list.select li.touched {
+	background: none !important;
 }
 .list.select li.selected *,
 .list.select li:hover *,
@@ -566,10 +581,11 @@ li.switched h4 {
 }
 .list.select li:hover::after,
 .list.select li.selected::after {
+	background-color: #81cfeb;
 	-webkit-transition: all 0.125s  ease-in-out;
 	opacity: 1;
-	border-color: #fff;
-	box-shadow: inset 0 0 2px 2px #000, inset 0 2px 3px 3px hsl(196,77%,89%), inset 0 0 8px 
+	bborder-color: #81cfeb;
+	box-shadow: 0 0 0 3px #81cfeb, inset 0 0px 0px 3px #fff;
 }
 
 
@@ -583,7 +599,7 @@ li.switched h4 {
 	padding: 2px 5px 13px 1px;
 	height: 24px;
 	width: 24px;
-	border: solid 2px #525252;
+	border: solid 2px #979797;
 	position: absolute;
 	top: 14px;
 	left: -40px;
@@ -596,15 +612,24 @@ li.selected > .deletion-indicator {
     color: #2da2cd !important;
 }
 li.selected > .deletion-indicator::before {
-	content: '\2713' !important;
-	color: #2da2cd !important;
+	content: '';
+	display: block;
+   height: 24px;
+   width: 24px;
+	background-color: #2da2cd !important;
+	-webkit-mask-position: 50% 50%;
+   -webkit-mask-size: 90% 90%;
+   -webkit-mask-repeat: no-repeat;
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="100" viewBox="0 0 100 100" id="svg3080"><defs id="defs3086" /><g id="Page-1" style="fill:none;stroke:none"><g id="Artboard-1" style="fill:#2da2cd"><path d="m 34.864907,56.030239 0,18.88388 45,0 0,-100 -18.539881,0 0,81.11612 -26.460119,0 z m 0,0" transform="matrix(0.81915204,0.57357644,-0.57357644,0.81915204,16.748369,-11.174682)" id="Rectangle-1" /></g></g></svg> ');
 	display: block !important;
 	margin: -5px 0 0 -8px !important;
 	font-size: 24pt;
 }
-
+.isAndroid li.selected > .deletion-indicator::before {
+	margin: -6px 0 0 -2px !important;
+}
 .isDesktopChrome li.selected > .deletion-indicator::before {
-	margin: -3px 0 0 0px !important;
+	margin: -7px 0 0 -2px !important;
 }
 .list.showIndicators .deletion-indicator {
 	margin-left: 40px;
@@ -620,18 +645,18 @@ li.selected > .deletion-indicator::before {
 	width: 100px;
 	position: absolute;
 	right: 0;
-	top: 0;
+	top: 10px;
 	display: -webkit-box;
 	-webkit-box-align: center;
 	-webkit-box-pack: center;
 	-webkit-transition: all .25s ease-out;
-	-webkit-transform: translate3d(140px,0,0);
+	display: none;
 	cursor: pointer;
 	font-weight: 200;
 	margin-right: 0 !important;
 }
 li.selected > .button.delete {
-	-webkit-transform: translate3d(0,0,0)
+	display: block;
 }
 /* ==============================
    Buttons                       
@@ -639,11 +664,11 @@ li.selected > .button.delete {
 a.button {
 	box-shadow: none; 
 	border: none;
-	border-top: solid 1px #e2e2e2;
+	border-top: solid 2px #e5e5e5;
 	background-color: #cbcbcb;
    color: #000;
 	display: inline-block;
-	padding: 2px 10px;
+	padding: 5px 10px 2px 10px !important;
 	font-size: 12px;
 	height: 30px;
 	-webkit-box-sizing: border-box;
@@ -667,7 +692,7 @@ a.button.backTo {
 	padding: 0 0 0 20px;
 	margin: 3px 5px 0 0;
 	line-height: 28px;
-	color: #007aff;
+	color: #81cfeb;
 	font-size: 0;
 	border: none;
 	background: none !important;
@@ -698,22 +723,30 @@ body.isNativeAndroidBrowser a.button.back::before {
 	bottom: 8px;
 }
 .button:hover,
-.button.show-popover:hover {
+.button.show-popover:hover,
+.button.show-popover.selected,
+.button.selected {
 	cursor: pointer;
-	background-color: #4bbde7 !important;
-	border-color: #4bbde7;
+	background-color: #81cfeb !important;
+	border-color: #81cfeb;
 	color: #000;
 	box-shadow: 0 0 3px 3px #a5d9ed;
+}
+.button.show-popover:hover::after,
+.button.show-popover.selected::after {
+	border-right: solid 6px #fff;
+	border-bottom: solid 6px #fff;
 }
 .button.back:hover,
 .button.backTo:hover {
 	border: none;
 	box-shadow: none;
-	background-color: #4bbde7;
+	background-color: #81cfeb !important;
 }
-.button.back:hover::before,
-.button.backTo:hover::before {
-	border-color: #fff;
+a.button.back:hover::before,
+a.button.backTo:hover::before {
+	border-top: solid 2.5px #fff;
+	border-left: solid 2.5px #fff;
 }
 
 /* ==============================
@@ -724,7 +757,7 @@ body.isNativeAndroidBrowser a.button.back::before {
 	height:  24px;
 	width: 70px;
 	border: 1px solid #979797;
-	background-color: #414141;
+	background-color: #fafafa;
    display: -webkit-box;
    -webkit-box-orient: horizontal;
    -webkit-box-pack:justify;
@@ -741,10 +774,10 @@ body.isNativeAndroidBrowser a.button.back::before {
 }
 .switch:hover,
 .switch.touched {
-	box-shadow: 0 0 2px 2px hsl(196,64%,49%);
+	box-shadow: 0 0 2px 2px #81cfeb;
 }
 .switch.on {
-   border-color: hsl(196,64%,49%);
+   border-color: #81cfeb;
 }
 .switch > em {
 	display: block;
@@ -752,50 +785,28 @@ body.isNativeAndroidBrowser a.button.back::before {
 	z-index: 30;
 	top: -1px;
 	border: solid 1px #919191;
-	width: 26px;
+	border-top: solid 3px #e5e5e5;
+	width: 30px;
 	height: 22px;
 	background-color: #cecece;
 	pointer-events: none;
    -webkit-transform: translate3d(-1px,0,0);
-	-webkit-transition: all .15s ease-in-out;
-	transition: all .15s ease-in-out;
+	-webkit-transition: all .1s ease-in-out;
+	transition: all .1s ease-in-out;
 }
 .switch.on > em {
-	-webkit-transform: translate3d(40px,0,0);
-	background-color: hsl(196,64%,49%);
-	border: solid 1px hsl(196,64%,49%);
+	-webkit-transform: translate3d(36px,0,0);
+	background-color: #81cfeb;
+	border: solid 1px #81cfeb;
+	border-top: solid 3px #a1e4ff;
+	border-left-color: #3c93b8;
 }
 .switch > input {
 	display: none;
 }
 .switch.on {
-	border-color: hsl(196,64%,49%);
+	border-color: #3c93b8;
 }
-.switch > em:before {
-	content: '';
-   display: block;
-	height: 12px;
-	width: 2px;
-	background: none;
-	background-color: hsl(196,64%,49%);
-	box-shadow: 0px -1px 1px #666;
-	border: none;
-	position: absolute;
-	top: 6px;
-	left: -23px;
-}
-.switch > em:after {
-	content: '';
-	display: block;
-	height: 10px;
-	width: 10px;
-	border-radius: 10px;
-	border: solid 2px #ccc;
-	position: absolute;
-	right: -28px;
-	top: 4px;
-}
-
 /* ==============================
    Segmented Control
    ============================== */
@@ -821,10 +832,10 @@ body.isNativeAndroidBrowser a.button.back::before {
    -webkit-justify-content: center;
     /*-webkit-box-flex: 1;
     -webkit-flex: 1;*/
-    border: solid 1px #828283;
+    border: solid 1px #979797;
     text-align: center !important;
-    border-bottom: none;
     border-left: none;
+    border-top: solid 3px #e5e5e5;
     box-shadow: none;
     font-size: 13px;
     -webkit-box-sizing: border-box;
@@ -832,17 +843,17 @@ body.isNativeAndroidBrowser a.button.back::before {
     height: 30px;
     cursor: pointer;
     margin: 0px !important;
-    padding: 0px 10px;
+    padding: 0px 10px !important;
 }
 .segmented > .button:first-of-type {
 	border-left: solid 1px #828283;
 }
 .segmented > .button:hover,
 .segmented > .button.selected {
-	color: #fff;
-	background-color: #007aff;
+	background-color: #81cfeb;
 	opacity: 1 !important;
 	box-shadow: none;
+	border-top: solid 3px #a1e4ff;
 }
 div.horizontal.centered > .segmented {
 	display: -webkit-box;
@@ -865,50 +876,48 @@ div.horizontal.centered > .segmented {
     -webkit-box-align: center;
     -webkit-flex-align: center;
 	border: none;
-	background-color: #cbcbcb;
 	font-size: 20pt;
 	color: #000;
 	padding: 0;
 	width: 40px;
 	height: 40px;
 	display: block;
-	border: solid 1px #828283;
+	border: solid 1px transparent;
+	background: none;
 	box-shadow: none;
 	position: relative;
 	box-sizing: border-box;
-	box-shadow: none;
 }
 .segmented.paging > .button:hover,
-.segmented.paging > .button.selected,
 .segmented.paging > .button.touched {
-	color: #007aff;
-	border-color: #007aff;
-	background-color: #b0b0b0;
-	opacity: 1;
+	color: #fff;
+	background-color: #81cfeb;
 }
 .segmented.paging > .button::before {
 	display: block;
 	-webkit-box-flex: 1;
 	font-size: 50pt;
 	text-align: center;
-	margin-top: 6px;
 }
 .segmented.paging.horizontal > .button:first-of-type::before {
 	content: '‹';
+	margin-left: -2px !important;
+	margin-top: 4px;
 }
 .segmented.paging.horizontal > .button:last-of-type::before {
 	content: '›';
+	margin-top: 4px;
 }
 .segmented.paging.vertical > .button:first-of-type::before {
 	content: '‹';
 	-webkit-transform: rotate(90deg);
-	margin-top: 10px !important;
+	margin-top: 5px !important;
 	margin-left: 8px !important;
 }
 .segmented.paging.vertical > .button:last-of-type::before {
 	content: '›';	content: '›';
 	-webkit-transform: rotate(90deg);
-	margin-top: 10px !important;
+	margin-top: 5px !important;
 	margin-left: 8px !important;
 }
 
@@ -1007,9 +1016,12 @@ stepper > input {
 	cursor: pointer !important;
 	margin: 0;
 	box-shadow: none;
+	border: solid 1px #979797;
+	border-top: solid 3px #e5e5e5;
+	padding: 4px 10px !important;
 }
 .stepper > .button:hover {
-	color: #fff;
+	border-top: solid 3px #a1e4ff;
 }
 .stepper > .button:first-of-type {
 	border-right: none;
@@ -1091,13 +1103,9 @@ stepper > input {
 	margin-right: auto;
 	box-shadow: 0 0 6px 4px #85d3f0;
 }
-.popup.closed {
-	-webkit-transform: scale(.4);
-}
 .popup.opened {
 	display: block;
-	opacity: 1;
-	-webkit-transform: scale(1.1);
+	opacity: 1;;
 	-webkit-transition: all 0.5s  ease-in-out;
 }
 .popup > .panel {
@@ -1186,10 +1194,13 @@ stepper > input {
 	position: relative;
 	background-color: transparent !important;
 	border: none;
-	padding: 8px 22px 2px 10px;
-	margin: 0 10px 0 0 !important;
+	padding: 6px 22px 2px 10px !important;
+	margin: 0 10px 0 !important;
 	box-shadow: none !important;
 	font-size: 18px !important;
+}
+.button.show-popover.selected {
+   background-color: #81cfeb;
 }
 .segmented > a.button.show-popover:first-of-type {
 	border-left: none !important;
@@ -1209,6 +1220,14 @@ stepper > input {
 	border-bottom: solid 6px #ccc;
 	border-top: solid 6px transparent;
 	border-left: solid 6px transparent;
+}
+nav > .button.show-popover::after {
+	border-right: solid 6px #666;
+	border-bottom: solid 6px #666;
+}
+.popover .list > li:hover,
+.popover .list > li.selected {
+	background-color: #81cfeb !important;
 }
 /* ==============================
    Mask Control
@@ -1390,7 +1409,7 @@ body.hasTabBar article {
 	display: block;
 	width: auto;
 	margin: 0 auto;
-	padding: 10px 20px;
+	padding: 10px 20px !important;
 	height: auto;
 }
 .sheet > section > .list {
@@ -1453,7 +1472,7 @@ div.handle::before {
    Black Color Scheme            
    ============================== */
 /* Put a forward slash after the last two
-   asterisks to enable this scheme *//**/
+   asterisks to enable this scheme *//**
    
 body {
    background-color: #000;
@@ -1576,7 +1595,7 @@ li.selected > .deletion-indicator::before {
 .popup footer .button:hover,
 .popup footer .button.selected {
    color: #fff !important;
-   background-color: #007aff !important;
+   background-color: #81cfeb !important;
    opacity: 1 !important;
    box-shadow: none;
 }

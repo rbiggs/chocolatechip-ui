@@ -46,6 +46,11 @@
 		.image-grid {
 			margin-left: 10px;
 		}
+		.image-grid::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
 		.image-grid > li {
 			float: left;
 			height: 100px;

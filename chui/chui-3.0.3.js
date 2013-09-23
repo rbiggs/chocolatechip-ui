@@ -247,7 +247,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
                   });
                });
                $.body.on('singletap', '.deletion-indicator', function() {
-               	if ($(this).closest('li')[0].classList.contains('selected')) {
+                  if ($(this).closest('li')[0].classList.contains('selected')) {
                      $(this).closest('li').removeClass('selected');
                      return;
                   } else {
@@ -286,7 +286,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
             var height = $('li').eq(1)[0].clientHeight;
             $('li').find('.delete').each(function(ctx, idx) {
                if (window && window.jQuery) ctx = idx;
-               if (!$.isWin) $(ctx).css({height: height + 'px'});
+               if ($.isiOS || $.isSafari) $(ctx).css({height: height + 'px'});
             });
             setupDeletability(callback);
          
@@ -300,17 +300,17 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       UIPaging : function ( ) {
          var currentArticle = $('.segmented.paging').closest('nav').next();
          if (window.jQuery) {
-				if ($('.segmented.paging').hasClass('horizontal')) {
-					currentArticle.addClass('horizontal');
-				} else if ($('.segmented.paging').hasClass('vertical')) {
-					currentArticle.addClass('vertical');
-				}        
+            if ($('.segmented.paging').hasClass('horizontal')) {
+               currentArticle.addClass('horizontal');
+            } else if ($('.segmented.paging').hasClass('vertical')) {
+               currentArticle.addClass('vertical');
+            }        
          } else {
-				if ($('.segmented.paging').hasClass('horizontal')[0]) {
-					currentArticle.addClass('horizontal');
-				} else if ($('.segmented.paging').hasClass('vertical')[0]) {
-					currentArticle.addClass('vertical');
-				}
+            if ($('.segmented.paging').hasClass('horizontal')[0]) {
+               currentArticle.addClass('horizontal');
+            } else if ($('.segmented.paging').hasClass('vertical')[0]) {
+               currentArticle.addClass('vertical');
+            }
          }
          currentArticle.children().eq(0).addClass('current');
          currentArticle.children().eq(0).siblings().addClass('next');
@@ -405,11 +405,11 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       // Initialize Segmented Control
       ///////////////////////////////
       UISegmented : function ( options ) {
-      	if (window.jQuery) {
-      		 if (this.hasClass('paging')) return;
-      	} else {
-         	if (this.hasClass('paging')[0]) return;
-      	}
+         if (window.jQuery) {
+             if (this.hasClass('paging')) return;
+         } else {
+            if (this.hasClass('paging')[0]) return;
+         }
          var callback = (options && options.callback) ? options.callback : $.noop;
          var selected;
          if (options && options.selected) selected = options.selected;
@@ -451,17 +451,17 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          var panels;
          var selected = 0;
          if (window.jQuery) {
-         	if ($(this).children().hasClass('selected')) {
-         		this.children().each(function(idx, ctx) {
-         			if ($(ctx).hasClass('selected')) {
-         				selected = idx;
-         			};
-         		});
-         	}
+            if ($(this).children().hasClass('selected')) {
+               this.children().each(function(idx, ctx) {
+                  if ($(ctx).hasClass('selected')) {
+                     selected = idx;
+                  };
+               });
+            }
          } else {
-				if (this.children().hasClass('selected')[0]) {
-					selected = this.children().hasClass('selected').index();
-				}
+            if (this.children().hasClass('selected')[0]) {
+               selected = this.children().hasClass('selected').index();
+            }
          }
 
          if (panel instanceof Array) {
@@ -506,13 +506,13 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          var name = (options && options.name) ? options.name : $.Uuid(); 
          var list = this[0];
          if (window.jQuery) {
-				if (list && !$(list).hasClass('select')) {
-					this.addClass('select');
-				}
+            if (list && !$(list).hasClass('select')) {
+               this.addClass('select');
+            }
          } else {
-				if (list && !$(list).hasClass('select')[0]) {
-					this.addClass('select');
-				}                  
+            if (list && !$(list).hasClass('select')[0]) {
+               this.addClass('select');
+            }                  
          }
          if (!list) return [];
          list.classList.add('select');
@@ -796,6 +796,10 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
 
          $(this).on($.eventStart, function() {
             var $this = this;
+            $(this).addClass('selected');
+            setTimeout(function() {
+               $($this).removeClass('selected');
+            }, 1000);
             $.body.append(popover);
             $('.popover').UIBlock('.25');
             var event = 'singletap';
@@ -1106,7 +1110,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       
       $.firstArticle = $('article').eq(0);
       
-      if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) )&& (!/Chrome/img.test(navigator.userAgent))) {
+      if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) ) && (!/Chrome/img.test(navigator.userAgent))) {
          document.body.classList.add('isNativeAndroidBrowser');
       }
       
@@ -1175,6 +1179,20 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       $.body.on('singletap', 'a.back', function() {
          if (this.classList.contains('back')) {
             $.UIGoBack();
+         }
+      });
+      $.body.on('singletap', '.button', function() {
+         var $this = $(this);
+         if ($this.parent()[0].classList.contains('tabbar')) return;
+         $this.addClass('selected');
+         setTimeout(function() {
+            $this.removeClass('selected');
+         }, 500);
+         if (this.classList.contains('show-popover')) {
+            $this.addClass('selected');
+            setTimeout(function() {
+               $this.removeClass('selected');
+            },500);
          }
       });
       
@@ -1347,15 +1365,15 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          
          // Handle MSPointer Events:
          if (window.navigator.msPointerEnabled) {
-         	if (window.jQuery) {
-					if (e.originalEvent && !e.originalEvent.isPrimary) return;
-				} else {
+            if (window.jQuery) {
+               if (e.originalEvent && !e.originalEvent.isPrimary) return;
+            } else {
                if (!e.isPrimary) return;
-				}
+            }
             e = e.originalEvent ? e.originalEvent : e;
-				body.on('MSHoldVisual', function (e) {
-					e.preventDefault();
-				});
+            body.on('MSHoldVisual', function (e) {
+               e.preventDefault();
+            });
                touch.el = $(parentIfText(e.target));
                touchTimeout && clearTimeout(touchTimeout);
                touch.x1 = e.pageX;
@@ -1393,12 +1411,12 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          longTapTimeout = setTimeout(longTap, longTapDelay);
       });
       body.on($.eventMove, function(e) {
-      	if (e.originalEvent) e = e.originalEvent;
+         if (e.originalEvent) e = e.originalEvent;
          if (window.navigator.msPointerEnabled) {
-         	if (window.jQuery) {
-					if (e.originalEvent && !e.originalEvent.isPrimary) return;
-				} else {
-            	if (!e.isPrimary) return;
+            if (window.jQuery) {
+               if (e.originalEvent && !e.originalEvent.isPrimary) return;
+            } else {
+               if (!e.isPrimary) return;
             }
             e = e.originalEvent ? e.originalEvent : e;
             cancelLongTap();
@@ -1420,11 +1438,11 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       });
       body.on($.eventEnd, function(e) {
          if (window.navigator.msPointerEnabled) {
-				if (window.jQuery) {
-					if (e.originalEvent && !e.originalEvent.isPrimary) return;
-				} else {
-            	if (!e.isPrimary) return;
-         	}
+            if (window.jQuery) {
+               if (e.originalEvent && !e.originalEvent.isPrimary) return;
+            } else {
+               if (!e.isPrimary) return;
+            }
          }
          cancelLongTap();
          if (!!touch.el) {

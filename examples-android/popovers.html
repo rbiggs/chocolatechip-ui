@@ -41,9 +41,17 @@
 						}
 						var listItem;
 						if (e.target.nodeName === 'LI') {
+							$(e.target).addClass('selected');
+							setTimeout(function() {
+								$(e.target).removeClass('selected');
+							}, 1000);
 							$(results).html(e.target.textContent.trim());
 						} else {
 							listItem = $(e.target).closest('li')[0];
+							$(listItem).addClass('selected');
+							setTimeout(function() {
+								$(listItem).removeClass('selected');
+							}, 1000);
 							$(results).html(listItem.textContent.trim());
 						}
 						$.UIPopoverClose();
@@ -68,14 +76,17 @@
 	  #choices h4 {
 			color: #0099e3;
 	  }
+	  nav > .button.show-popover {
+	  	margin-top: 2px !important;
+	  }
 	</style>
 
 </head>
 <body>
 	<nav>
-		<a class='button show-popover' id="showPopover1" href="javascript:void(null)">Fruits</a>
 		<h1>Popover</h1>
-		<a class='button show-popover align-flush' id="showPopover2" href="javascript:void(null)">Deserts</a>
+		<a class='button show-popover' id="showPopover1" href="javascript:void(null)">Fruits</a>
+		<a class='button show-popover' id="showPopover2" href="javascript:void(null)">Deserts</a>
 	</nav>
 	<article id="main" class="current">
 		<section>

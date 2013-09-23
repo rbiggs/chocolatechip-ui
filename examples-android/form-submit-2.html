@@ -25,18 +25,22 @@
 		form li > h3 {
 			width: auto;
 		}
-    	form li > label > span.warning {
-    		color: red;
-    	}
     	form button[type=submit] {
     		display: none;
+    	}
+    	.list > li.comp > div:first-child {
+    		width: 100px;
+    	}
+    	.list > li.comp > div:first-child + aside {
+    		width: 200px;
+    		-webkit-box-pack: end !important;
+    	}
+    	.list > li.comp > div:first-child + aside > input {
+    		width: 150px;
     	}
 
    </style>
    <script>
-      /*
-   	This example uses the ChocolateChipJS method $.form2JSON. Since this is specific to ChocolateChip, this example will not work with jQuery. There are existing jQuery plugins that do the same thing which you can find by searching for "jQuery plugin form to JSON".
-   	*/
       function submitForm() {
          var formData = $.form2JSON('#userForm');
          var data = JSON.stringify(formData);
