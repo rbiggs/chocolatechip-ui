@@ -28,7 +28,7 @@ Version: 3.0.3
       var tagRE = /^[\w-]+$/;
       var getId = function(selector) {
          var el =  document.getElementById(selector.split('#')[1]);
-         return el ? el : [];
+         return el ? [el] : [];
       };
       var getTag = function(selector, context) {
          if (context) {

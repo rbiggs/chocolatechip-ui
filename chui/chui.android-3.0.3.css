@@ -362,11 +362,13 @@ li[data-show-article].touched,
 .list > li > p,
 .list > li > div > p {
 	font-size: 13pt;
+	line-height: 16pt;
 	margin: 0;
 }
 .list > li > p,
 .list > li > div > p {
 	font-size: 13pt;
+	line-height: 16pt;
 }
 .list > li p + p {
 	margin-top: 6px;
@@ -379,7 +381,8 @@ li[data-show-article].touched,
    ============================== */
 .list > li > p {
 	margin: 6px 0px;
-	font-size: 10pt;
+	font-size: 13pt;
+	line-height: 16pt;
 	color: #9d9d9d;
 }
 /* List title */
@@ -510,6 +513,7 @@ li.comp > div:first-child + aside > h4:nth-child(1) {
 p {
 	color: #707070;
 	font-size: 13pt;
+	line-height: 16pt;
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
 	li.comp > aside > h4 {
