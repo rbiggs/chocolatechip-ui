@@ -113,7 +113,7 @@ article {
 	height: 35px;
 	width: 35px;
 	box-sizing: border-box;
-	padding: 0;
+	padding: 0 !important;
 }
 .button.slide-out-button::before {
 	content: '';
