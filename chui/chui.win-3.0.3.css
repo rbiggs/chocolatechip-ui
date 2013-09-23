@@ -160,7 +160,7 @@ article > section,
 article > section {
    padding-top: 10px;
 }
-article > section > :last-child::after {
+article > section > :last-child:not(a)::after {
 	content: '';
 	display: block;
 	margin-bottom: 100px;
