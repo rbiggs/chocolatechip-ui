@@ -6,9 +6,9 @@
 	<meta name="sapple-mobile-web-app-capable" content="yes">
 	<meta name="msapplication-tap-highlight" content="no">
 	<title>Flexible Box Model Layouts</title>
-	<link rel="stylesheet" href="../chui/chui.android-3.0.3.css">
-	<script src="../chui/chocolatechip-3.0.3.js"></script>
-	<script src="../chui/chui-3.0.3.js"></script>
+	<link rel="stylesheet" href="../chui/chui.android-3.0.4.css">
+	<script src="../chui/chocolatechip-3.0.4.js"></script>
+	<script src="../chui/chui-3.0.4.js"></script>
 	<script type="text/javascript">
 		var masterData = [
 			{ title: "California", "data_url": 'california' },
@@ -32,8 +32,8 @@
 		];
 		$(function() {
 			var masterTemplate = 
-			'<li data-url="[[=state.data_url]]">[[=state.title]]</li>';
-			var myTmpl8 = $.template(masterTemplate, 'state');
+			'<li data-url="[[=data.data_url]]">[[=data.title]]</li>';
+			var myTmpl8 = $.template(masterTemplate);
 			masterData.forEach(function(ctx) {
 				$('.master ul').append(myTmpl8(ctx));
 			});
@@ -83,6 +83,9 @@
 			</ul>
 		</section>
 	</article>
+	<div class="toolbar current">
+		<a class='button' href="javascript:void(null)">Button 1</a>
+	</div>
 	<nav>
 		<h1 id='detailTitle'>Detail 1</h1>
 	</nav>
@@ -91,6 +94,10 @@
 			<ul class='list'>
 		</section>
 	</article>
+	<div class="toolbar current">
+		<a class='button' href="javascript:void(null)">Button 2</a>
+		<a class='button align-flush' href="javascript:void(null)">Button 3</a>
+	</div>
 </body>
 </html>
 

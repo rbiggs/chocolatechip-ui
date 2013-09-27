@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.android.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.3
+Version: 3.0.4
 */
 
 html, body {
@@ -251,36 +251,6 @@ nav > h1 + a.button {
 	top: -4px;
 }
 
-/* ==============================
-   Toolbar Styles
-   ============================== */
-.toolbar {
-	height: 50px;
-	box-sizing: border-box;
-	/* new flex box */
-	display: -webkit-flexbox;
-	display: -webkit-flex;
-	-wekbit-flex-direction: row;
-	-webkit-justify-content: start;
-	-webkit-align-item: center;
-	/* old flex box */
-	display: -webkit-box;
-	-webkit-box-orient: horizontal;
-	-webkit-box-align: center;
-	-webkit-box-pack: start;
-	text-align: center;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	width: 100%;
-	padding: 0 16px;
-	vertical-align: middle;
-	background-color: #dddddd;
-	overflow: hidden;
-	border-top: solid 1px #acacac;
-	box-shadow: 0 -1px 1px #acacac;
-}
 
 /* ==============================
    Lists                         
@@ -1266,7 +1236,7 @@ body.splitlayout {
 	-webkit-align-item: stretch;
 }
 .splitlayout > nav {
-	background-color: #f7f7f7;
+	background-color: #e2e2e2;
 	border-bottom: solid 1px #a7a7aa;
 }
 .splitlayout > nav h1 {
@@ -1373,10 +1343,25 @@ body.hasTabBar article {
 .tabbar > .button > .icon {
 	display: none;
 }
-.hasTabBar .previous,
-.hasTabBar .next {
+.tabbar > .button.more {
+   font-size: 0;
+   border-left: solid 1px #666;
+}
+.hasTabBar .previous:not(.navigable),
+.hasTabBar .next:not(.navigable) {
 	display: none;
 	-webkiit-transform: none;
+}
+.tabbar > .button.more::before {
+	content: '';
+	display: block;
+	height: 30px;
+	background-color: #fff;
+	margin-top: -4px;
+	-webkit-mask-position: 50% 50%;
+	-webkit-mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><circle cx="10" cy="23" r="5.172"/><circle cx="24" cy="23" r="5.172"/><circle cx="38" cy="23" r="5.172"/></svg> ');
 }
 
 /* ==============================
@@ -1388,7 +1373,7 @@ body.hasTabBar article {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: #f2f0f0;
+	background-color: rgba(240,240,240,.95);
 	-webkit-transition: all .25s ease-in;
 	-webkit-transform: translate3d(0,-100%,0);
 	display: none;
@@ -1472,6 +1457,90 @@ div.handle::before {
 	background-size: auto 70%;
 	border-radius: 50%;
 }
+
+/* ==============================
+   Toolbar Styles
+   ============================== */
+s.toolbar {
+	height: 50px;
+	box-sizing: border-box;
+	/* new flex box */
+	display: -webkit-flexbox;
+	display: -webkit-flex;
+	-wekbit-flex-direction: row;
+	-webkit-justify-content: start;
+	-webkit-align-item: center;
+	/* old flex box */
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-align: center;
+	-webkit-box-pack: start;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	padding: 0 16px;
+	vertical-align: middle;
+	background-color: #dddddd;
+	overflow: hidden;
+	border-top: solid 1px #acacac;
+	box-shadow: 0 -1px 1px #acacac;
+}
+/* ==============================
+   Toolbar Styles
+   ============================== */
+div.toolbar  {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   height: 50px;
+   padding: 0 15px;
+   overflow: hidden;
+   box-sizing: border-box;
+	/* new flex box */
+	display: -webkit-flexbox;
+	display: -webkit-flex;
+	-wekbit-flex-direction: row;
+	-webkit-justify-content: start;
+	-webkit-align-item: center;
+	/* old flex box */
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-align: center;
+	-webkit-box-pack: start;
+   -webkit-transition: all .15s ease-out;
+   transition: all .15s ease-out;
+   -webkit-transform: translate3d(0,0,0);
+	padding: 0 16px;
+	vertical-align: middle;
+	background-color: #e2e2e2;
+	overflow: hidden;
+	border-top: solid 1px #a7a7aa;
+}
+.splitlayout > .master + .toolbar {
+   left: 0;
+   width: 320px;
+   border-right: solid 1px #C8C8C7 !important;
+}
+.splitlayout > .detail + .toolbar {
+   left: 320px;
+}
+article.has-toolbar {
+   bottom: 50px !important;
+}
+div.toolbar.current {
+   -webkit-transform: translate3d(0,0,0) !important;
+}
+div.toolbar.next {
+   -webkit-transform: translate3d(101%,0,0) !important;
+}
+div.toolbar.previous {
+   -webkit-transform: translate3d(-101%,0,0) !important;
+}
+
 /* ==============================
    Black Color Scheme            
    ============================== */

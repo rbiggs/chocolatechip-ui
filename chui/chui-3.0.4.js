@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.ios.js
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.3
+Version: 3.0.4
 */
       
 
@@ -28,7 +28,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       gestureLength : 30 
    });
    
-   if (window && window.jQuery) {
+   if (window && window.jQuery && $ === window.jQuery) {
       $.extend($, {
          make : function ( string ) {
             return $(string);
@@ -158,9 +158,24 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          var histLen = $.UINavigationHistory.length;
          var currentArticle = $('article.current');
          var destination = $($.UINavigationHistory[histLen-2]);
+         var currentToolbar;
+         var destinationToolbar;
+         if (window && window.jQuery && $ === window.jQuery) {
+            if (currentArticle.next().hasClass('toolbar')) {
+               currentToolbar = currentArticle.next('toolbar');
+            }
+            if (destination.next().hasClass('toolbar')) {
+               destinationToolbar = destination.next('toolbar');
+            }
+         } else {
+            currentToolbar = currentArticle.next().hasClass('toolbar');
+            destinationToolbar = destination.next().hasClass('toolbar');
+         }
+         currentToolbar.removeClass('current').addClass('next');
+         destinationToolbar.removeClass('previous').addClass('current');
+
          destination.removeClass('previous').addClass('current');
          destination.prev().removeClass('previous').addClass('current');
-         
          currentArticle.removeClass('current').addClass('next');
          currentArticle.prev().removeClass('current').addClass('next');
          $.UISetHashOnUrl($.UINavigationHistory[histLen-2]);
@@ -181,10 +196,25 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          destination = $(destination);         
          var currentNav = current.prev();
          var destinationNav = destination.prev();
+         var currentToolbar;
+         var destinationToolbar;
+         if (window && window.jQuery && $ === window.jQuery) {
+            if (current.next().hasClass('toolbar')) {
+               currentToolbar = current.next('toolbar');
+            }
+            if (destination.next().hasClass('toolbar')) {
+               destinationToolbar = destination.next('toolbar');
+            }
+         } else {
+            currentToolbar = current.next().hasClass('toolbar');
+            destinationToolbar = destination.next().hasClass('toolbar');
+         }
          current.removeClass('current').addClass('previous');
-         destination.removeClass('next').addClass('current');
          currentNav.removeClass('current').addClass('previous');
+         currentToolbar.removeClass('current').addClass('previous');
+         destination.removeClass('next').addClass('current');
          destinationNav.removeClass('next').addClass('current');
+         destinationToolbar.removeClass('next').addClass('current');
          $.UISetHashOnUrl(destination[0].id);
          setTimeout(function() {
             $.isNavigating = false;
@@ -256,8 +286,8 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
                });
                
                if ($.isiOS || $.isSafari) {
-                  $(list).on('swipe', 'li', function() {
-                     $(this).toggleClass('selected');
+                  $(list).on('swiperight singletap', 'li', function() {
+                     $(this).removeClass('selected');
                   });
                }
                $(list).on('singletap', '.delete', function() {
@@ -285,7 +315,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
             list.find('li').append(deleteButton);
             var height = $('li').eq(1)[0].clientHeight;
             $('li').find('.delete').each(function(ctx, idx) {
-               if (window && window.jQuery) ctx = idx;
+               if (window && window.jQuery && $ === window.jQuery) ctx = idx;
                if ($.isiOS || $.isSafari) $(ctx).css({height: height + 'px'});
             });
             setupDeletability(callback);
@@ -299,7 +329,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       ///////////////////////
       UIPaging : function ( ) {
          var currentArticle = $('.segmented.paging').closest('nav').next();
-         if (window.jQuery) {
+         if (window && window.jQuery && $ === window.jQuery) {
             if ($('.segmented.paging').hasClass('horizontal')) {
                currentArticle.addClass('horizontal');
             } else if ($('.segmented.paging').hasClass('vertical')) {
@@ -372,7 +402,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       UISwitch : function ( ) {
          var hasThumb = false;
          this.each(function(ctx, idx) {
-            if (window && window.jQuery) ctx = idx;
+            if (window && window.jQuery && $ === window.jQuery) ctx = idx;
             ctx.setAttribute('role','checkbox');
             if ($(ctx).data('ui-setup') === true) return;
             if (!ctx.querySelector('input')) {
@@ -397,6 +427,22 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
                   ctx.setAttribute('aria-checked', true);
                }
             });
+            $(ctx).on('swipeleft', function() {
+               var checkbox = ctx.querySelector('input');
+               if (ctx.classList.contains('on')) {
+                  ctx.classList.remove('on');
+                  ctx.removeAttribute('aria-checked');
+                  checkbox.removeAttribute('checked');
+               }
+            });
+            $(ctx).on('swiperight', function() {
+               var checkbox = ctx.querySelector('input');
+               if (!ctx.classList.contains('on')) {
+                  ctx.classList.add('on');
+                  checkbox.setAttribute('checked', 'checked');
+                  ctx.setAttribute('aria-checked', true);
+               }
+            });
             $(ctx).data('ui-setup', true);
          });
       },
@@ -405,7 +451,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       // Initialize Segmented Control
       ///////////////////////////////
       UISegmented : function ( options ) {
-         if (window.jQuery) {
+         if (window && window.jQuery && $ === window.jQuery) {
              if (this.hasClass('paging')) return;
          } else {
             if (this.hasClass('paging')[0]) return;
@@ -417,7 +463,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
             callback = options.callback;
          }
          this.find('a').each(function(ctx, idx) {
-            if (window && window.jQuery) ctx = idx;
+            if (window && window.jQuery && $ === window.jQuery) ctx = idx;
             $(ctx).find('a').attr('role','radio');
             if (selected === 0 && idx === 0) {
                ctx.setAttribute('aria-checked', 'true');
@@ -450,12 +496,12 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       UIPanelToggle : function ( panel, callback ) {
          var panels;
          var selected = 0;
-         if (window.jQuery) {
+         if (window && window.jQuery && $ === window.jQuery) {
             if ($(this).children().hasClass('selected')) {
                this.children().each(function(idx, ctx) {
                   if ($(ctx).hasClass('selected')) {
                      selected = idx;
-                  };
+                  }
                });
             }
          } else {
@@ -505,7 +551,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       UISelectList : function (options) {
          var name = (options && options.name) ? options.name : $.Uuid(); 
          var list = this[0];
-         if (window.jQuery) {
+         if (window && window.jQuery && $ === window.jQuery) {
             if (list && !$(list).hasClass('select')) {
                this.addClass('select');
             }
@@ -518,7 +564,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          list.classList.add('select');
          $(list).find('li').each(function(ctx, idx) {
             var temp;
-            if (window && window.jQuery) {
+            if (window && window.jQuery && $ === window.jQuery) {
                temp = ctx;
                ctx = idx;
                idx = temp;
@@ -617,7 +663,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
                }
             }
          };
-         var $stepper = (window && window.jQuery) ? $(stepper) : [stepper];
+         var $stepper = (window && window.jQuery && $ === window.jQuery) ? $(stepper) : [stepper];
          $stepper.find('.button:first-of-type').on('singletap', function() {
             decreaseStepperValue.call(this, stepper);
          });
@@ -801,7 +847,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
                $($this).removeClass('selected');
             }, 1000);
             $.body.append(popover);
-            $('.popover').UIBlock('.25');
+            $('.popover').UIBlock('.5');
             var event = 'singletap';
             if ($.isWin && $.isDesktop) {
                event = $.eventStart + ' singletap ' + $.eventEnd;
@@ -1016,10 +1062,26 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          $.body.find('.tabbar').on('singletap', '.button', function() {
          var $this = this;
          var index;
+            var id;
             $this.classList.add('selected');
             $(this).siblings('a').removeClass('selected');
             index = $(this).index();
+            $('.previous').removeClass('previous').addClass('next');
             $('.current').removeClass('current').addClass('next');
+            id = $('article').eq(index)[0].id;
+            $.UISetHashOnUrl('#'+id);
+            if ($.UINavigationHistory[0] === ('#' + id)) {
+               $.UINavigationHistory = [$.UINavigationHistory[0]];
+               console.log('You clicked main: ' + $.UINavigationHistory);
+            } else if ($.UINavigationHistory.length === 1) {
+               if ($.UINavigationHistory[0] !== ('#' + id)) {
+                  $.UINavigationHistory.push('#'+id);
+               }
+            } else if($.UINavigationHistory.length === 3) {
+               $.UINavigationHistory.pop();
+            } else {
+               $.UINavigationHistory[1] = '#'+id;
+            }
             $('article').eq(index).removeClass('next').addClass('current');
             $('nav').eq(index+1).removeClass('next').addClass('current');
          });
@@ -1133,7 +1195,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       ///////////////////////////////////////////////////////////
       $('nav').each(function(ctx, idx) {
          var temp;
-         if (window && window.jQuery) {
+         if (window && window.jQuery && $ === window.jQuery) {
             temp = ctx;
             ctx = idx;
             idx = temp;
@@ -1148,7 +1210,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       });
       $('article').each(function(ctx, idx) {
          var temp;
-         if (window && window.jQuery) {
+         if (window && window.jQuery && $ === window.jQuery) {
             temp = ctx;
             ctx = idx;
             idx = temp;
@@ -1204,9 +1266,16 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          if (!this.hasAttribute('data-goto')) return;
          if (!this.getAttribute('data-goto')) return;
          var destinationHref = '#' + this.getAttribute('data-goto');
+         $(destinationHref).addClass('navigable');
          var destination = $(destinationHref);
          $.UIGoToArticle(destination);
          $.UINavigationHistory.push(destinationHref);
+      });
+      $('li[data-goto]').each(function(ctx, idx) {
+         if (window && window.jQuery && $ === window.jQuery) ctx = idx;
+         $(ctx).closest('article').addClass('navigable');
+         var navigable =  '#' + ctx.getAttribute('data-goto');
+         $(navigable).addClass('navigable');
       });
       
       /////////////////////////////////////
@@ -1267,11 +1336,17 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       // This allows us to adjust the nav h1 for small screens.
       /////////////////////////////////////////////////////////
       $('h1').each(function(ctx, idx) {
-         if (window && window.jQuery) ctx = idx;
+         if (window && window.jQuery && $ === window.jQuery) ctx = idx;
          if (ctx.nextElementSibling && ctx.nextElementSibling.nodeName === 'A') {
             ctx.classList.add('buttonOnRight');
          }
       });
+      
+      //////////////////////////////////////////
+      // Get any toolbars and adjust the bottom 
+      // of their corresponding articles:
+      //////////////////////////////////////////
+      $('.toolbar').prev().addClass('has-toolbar');
       
       ////////////////////////////////
       // Added classes for client side
@@ -1365,7 +1440,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          
          // Handle MSPointer Events:
          if (window.navigator.msPointerEnabled) {
-            if (window.jQuery) {
+            if (window && window.jQuery && $ === window.jQuery) {
                if (e.originalEvent && !e.originalEvent.isPrimary) return;
             } else {
                if (!e.isPrimary) return;
@@ -1413,7 +1488,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       body.on($.eventMove, function(e) {
          if (e.originalEvent) e = e.originalEvent;
          if (window.navigator.msPointerEnabled) {
-            if (window.jQuery) {
+            if (window && window.jQuery && $ === window.jQuery) {
                if (e.originalEvent && !e.originalEvent.isPrimary) return;
             } else {
                if (!e.isPrimary) return;
@@ -1438,7 +1513,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       });
       body.on($.eventEnd, function(e) {
          if (window.navigator.msPointerEnabled) {
-            if (window.jQuery) {
+            if (window && window.jQuery && $ === window.jQuery) {
                if (e.originalEvent && !e.originalEvent.isPrimary) return;
             } else {
                if (!e.isPrimary) return;

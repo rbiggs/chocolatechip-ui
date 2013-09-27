@@ -10,7 +10,7 @@
 ChocolateChip.js: It's tiny but delicious.
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.3
+Version: 3.0.4
 */
 
 (function() {

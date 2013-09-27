@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.ios.css
 Copyright 2013 Sourcebits www.sourcebits.com
 License: BSD
-Version: 3.0.3
+Version: 3.0.4
 */
 
 html, body {
@@ -628,6 +628,7 @@ li.switched h3 {
 
 }
 
+
 /* ============================== 
    Deletable Lists
    ============================== */
@@ -665,7 +666,7 @@ li.switched h3 {
    color: #fff;
    text-align: center;
    -webkit-box-sizing: border-box;
-   width: 100px;
+   width: 80px;
    position: absolute;
    right: 0;
    top: 0;
@@ -673,19 +674,26 @@ li.switched h3 {
    -webkit-box-align: center;
    -webkit-box-pack: center;
    -webkit-transition: all .25s ease-out;
-   -webkit-transform: translate3d(100px,0,0);
+   -webkit-transform: translate3d(80px,0,0);
    cursor: pointer;
    font-family: 'HelveticaNeue-Light';
    font-weight: 200;
 }
 
 li.selected > .button.delete {
-   -webkit-transform: translate3d(0,0,0);
+   -webkit-transform: translate3d(80px,0,0);
 }
 .deletable > li.selected h3, .deletable > li.selected h4, .deletable > li.selected p {
    position: relative;
    -webkit-transform: translate3d(0,0,0);
    -webkit-transition: all 1s ease-out;
+}
+.list.deletable > li {
+	-webkit-transtion: all .25s ease-out;
+	-webkit-transform: translate3d(0,0,0);
+}
+.list.deletable > li.selected {
+	-webkit-transform: translate3d(-80px,0,0);
 }
 /* ============================== 
    Buttons
@@ -803,6 +811,10 @@ a.button, a.button.back::before {
    border-radius: 50%;
    -webkit-transition: -webkit-transform .1s ease-in-out;
    transition: -webkit-transform .1s ease-in-out;
+   -webkit-animation-duration: .45s;
+   -webkit-animation-timing-function: ease-in-out;
+   -webkit-animation-fill-mode: forwards;
+   -webkit-animation-name: switchThumbAnimationOff;
 }
 .switch > input {
    display: none;
@@ -816,6 +828,12 @@ a.button, a.button.back::before {
    box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.45);
    box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.45);
    -webkit-transform: translate3d(23px,0,0);
+   -webkit-transition-duration: .2s;
+   -webkit-animation-duration: .45s;
+   -webkit-animation-timing-function: ease-in-out;
+   -webkit-animation-fill-mode: forwards;
+   -webkit-animation-name: switchThumbAnimation;
+   
 }
 @-webkit-keyframes switchAnimationOff {
    0% { box-shadow: inset 0 0 0 15px #e6e6e6; }
@@ -824,6 +842,18 @@ a.button, a.button.back::before {
    100% { box-shadow: inset 0 0 0 15px #fff; }
 }
 
+@-webkit-keyframes switchThumbAnimation {
+   0% { width: 27px; }
+   1% { width: 40px; }
+   50% { width: 27px; }	
+   100% { width: 27px; }	
+}
+@-webkit-keyframes switchThumbAnimationOff {
+   0% { width: 27px; }
+   5% { width: 45px; }
+   50% { width: 27px; }	
+   100% { width: 27px; }	
+}
 /* ==============================
    Segmented Control
    ============================== */
@@ -1333,10 +1363,20 @@ body.hasTabBar article {
 .hasTabBar .current {
 
 }
-.hasTabBar .previous,
-.hasTabBar .next {
+.hasTabBar nav {
+   background-color: #f7f7f7;
+   border-bottom: solid 1px #a7a7aa;
+}
+.hasTabBar .previous:not(.navigable),
+.hasTabBar .next:not(.navigable) {
    display: none;
    -webkiit-transform: none;
+}
+.tabbar > .button.more > .icon {
+	-webkit-mask-position: 50% 50%;
+	-webkit-mask-size: 90% 90%;
+	-webkit-mask-repeat: no-repeat;
+	-webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><circle cx="10" cy="23" r="5.172"/><circle cx="24" cy="23" r="5.172"/><circle cx="38" cy="23" r="5.172"/></svg> ');
 }
 
 /* ==============================
@@ -1450,6 +1490,56 @@ div.handle::before {
    border-radius: 10px;
 }
 
+/* ==============================
+   Toolbar Styles
+   ============================== */
+div.toolbar  {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   height: 45px;
+   padding: 0 15px;
+   background-color: #f7f7f7;
+   border-top: solid 1px #a7a7aa;
+   overflow: hidden;
+   box-sizing: border-box;
+   /* old flex box */
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-align: center;
+   /* new flex box */
+   display: -webkit-flex;
+   -wekbit-flex-direction: row;
+   -webkit-justify-content: start;
+   -webkit-align-item: center;
+   -webkit-transition: all .15s ease-out;
+   transition: all .15s ease-out;
+   -webkit-transform: translate3d(0,0,0);
+}
+.splitlayout > .master + .toolbar {
+   left: 0;
+   width: 320px;
+   border-right: solid 1px #C8C8C7 !important;
+}
+.splitlayout > .detail + .toolbar {
+   left: 320px;
+}
+article.has-toolbar {
+   bottom: 45px !important;
+}
+div.toolbar.current {
+   -webkit-transform: translate3d(0,0,0) !important;
+}
+div.toolbar.next {
+   -webkit-transform: translate3d(101%,0,0) !important;
+}
+div.toolbar.previous {
+   -webkit-transform: translate3d(-101%,0,0) !important;
+}
+.toolbar > .button {
+   margin-right: 20px;
+}
 /* ==============================
    Black Color Scheme
    ============================== */
