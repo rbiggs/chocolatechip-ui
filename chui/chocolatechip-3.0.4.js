@@ -890,15 +890,15 @@ Version: 3.0.4
       
       val : function ( value ) {
          if (!this.length) return [];
-         if (!value) {
+         if (typeof value === 'string') {
+            this[0].value = value;
+            return this;
+         } else {
             if (this[0] && this[0].value) {
                return this[0].value;
             } else {
                return;
             }
-         } else {
-            this[0].value = value;
-            return this;
          }
       },
       
