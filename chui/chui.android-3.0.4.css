@@ -247,11 +247,6 @@ nav > h1 + a.button {
 	top: 8px !important;
 }
 
-.isNativeAndroidBrowser nav > a.button:first-of-type {
-	top: -4px;
-}
-
-
 /* ==============================
    Lists                         
    ============================== */
@@ -692,9 +687,13 @@ a.button.backTo::before {
 	-webkit-transition: all .25s ease-out;
 	transition: all .25s ease-out;
 }
-body.isNativeAndroidBrowser a.button.back::before {
+body.isNativeAndroidBrowser a.button.back,
+body.isNativeAndroidBrowser a.button.backTo {
 	top: 0;
-	bottom: 8px;
+	bottom: 0;
+}
+body.isNativeAndroidBrowser a.button.back::before {
+	top: 8px;
 }
 .button:hover,
 .button.show-popover:hover,

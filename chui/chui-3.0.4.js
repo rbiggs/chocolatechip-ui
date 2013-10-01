@@ -170,9 +170,9 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          } else {
             currentToolbar = currentArticle.next().hasClass('toolbar');
             destinationToolbar = destination.next().hasClass('toolbar');
+            currentToolbar.removeClass('current').addClass('next');
+            destinationToolbar.removeClass('previous').addClass('current');
          }
-         currentToolbar.removeClass('current').addClass('next');
-         destinationToolbar.removeClass('previous').addClass('current');
 
          destination.removeClass('previous').addClass('current');
          destination.prev().removeClass('previous').addClass('current');
@@ -201,20 +201,37 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          if (window && window.jQuery && $ === window.jQuery) {
             if (current.next().hasClass('toolbar')) {
                currentToolbar = current.next('toolbar');
+            } else {
+               currentToolbar = $();
             }
             if (destination.next().hasClass('toolbar')) {
                destinationToolbar = destination.next('toolbar');
+            } else {
+               destinationToolbar = $();
             }
          } else {
             currentToolbar = current.next().hasClass('toolbar');
             destinationToolbar = destination.next().hasClass('toolbar');
          }
-         current.removeClass('current').addClass('previous');
-         currentNav.removeClass('current').addClass('previous');
-         currentToolbar.removeClass('current').addClass('previous');
-         destination.removeClass('next').addClass('current');
-         destinationNav.removeClass('next').addClass('current');
-         destinationToolbar.removeClass('next').addClass('current');
+         if (window && window.jQuery && $ === window.jQuery) {
+            if (currentToolbar[0]) {
+               currentToolbar.removeClass('current').addClass('previous');
+               destination.removeClass('next').addClass('current');
+               destinationToolbar.removeClass('next').addClass('current'); 
+            } else {
+               current.removeClass('current').addClass('previous');
+               currentNav.removeClass('current').addClass('previous');
+               destination.removeClass('next').addClass('current');
+               destinationNav.removeClass('next').addClass('current');
+            }
+         } else {
+            current.removeClass('current').addClass('previous');
+            currentNav.removeClass('current').addClass('previous');
+            currentToolbar.removeClass('current').addClass('previous');
+            destination.removeClass('next').addClass('current');
+            destinationNav.removeClass('next').addClass('current');
+            destinationToolbar.removeClass('next').addClass('current');
+         }
          $.UISetHashOnUrl(destination[0].id);
          setTimeout(function() {
             $.isNavigating = false;
