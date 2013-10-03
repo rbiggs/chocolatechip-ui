@@ -1547,14 +1547,14 @@ a.button:hover {
 li.switched h3 {
    color: #52b1ff;
 }
-.list > li.show-detail::after,
-li.comp > aside > .show-detail::after {
-   border: solid 1px #52b1ff;
-   color: #52b1ff;
-   box-shadow: 0 0 1px #52b1ff, inset 0 0 1px #52b1ff;
-}
 li.switched h4 {
    color: #fff !important;
+}
+.list > li.show-detail::after,
+li.comp > aside > .show-detail::after {
+   border: solid 1px #fff;
+   color: #fff;
+   box-shadow: 0 0 1px #fff, inset 0 0 1px #fff;
 }
 .list > li[data-goto]:hover, 
 .list > li[data-goto].touched {
@@ -1580,6 +1580,12 @@ li.switched h4 {
    border: solid 1px #fff;
    background-color: #fff;
    color: #000;
+}
+.list > li[data-goto]:hover.show-detail::after,
+li[data-goto].comp:hover > aside > .show-detail::after {
+   color: #000;
+   border-color: #000;
+   box-shadow: 0 0 1px #000;
 }
 .stepper > label {
    background-color: #000;

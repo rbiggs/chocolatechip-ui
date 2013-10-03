@@ -529,6 +529,10 @@ li.comp > aside > .nav::after {
    border-top: solid 2px #c7c7cc;
    -webkit-transform: rotate(45deg) translate3d(4px,0,0);
 }
+li.comp > aside > .show-detail {
+   display: inline-block;
+   margin-bottom: -4px;
+}
 li.comp > aside > .show-detail::after {
    content: 'i';
    display: block;
@@ -542,7 +546,7 @@ li.comp > aside > .show-detail::after {
    box-sizing: border-box;
    padding: 10px 8px;
    float: right;
-   margin: -20px 10px 0 0;
+   margin: 0px 10px 0 0 !important;
 }
 li.comp > aside:first-child {
    margin-right: 10px;

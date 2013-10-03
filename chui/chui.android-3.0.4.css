@@ -431,6 +431,10 @@ li.comp > aside > .nav {
 li.comp > aside > .nav::after {
 	display: none;
 }
+li.comp > aside > .show-detail {
+   display: inline-block;
+   margin-bottom: -4px;
+}
 li.comp > aside > .show-detail::after {
 	content: 'i';
 	display: block;
@@ -1372,7 +1376,7 @@ body.hasTabBar article {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgba(240,240,240,.95);
+	background-color: rgba(240,240,240,.9);
 	-webkit-transition: all .25s ease-in;
 	-webkit-transform: translate3d(0,-100%,0);
 	display: none;
@@ -1417,7 +1421,7 @@ div.handle {
 	display: block;
 	text-align: center;
 	margin: 0 auto;
-	color: #000;
+	color: #999;
 	cursor: pointer;
 	height: 29pt;
 }
