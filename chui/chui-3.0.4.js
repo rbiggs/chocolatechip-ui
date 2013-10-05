@@ -1282,6 +1282,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          if ($.isNavigating) return;
          if (!this.hasAttribute('data-goto')) return;
          if (!this.getAttribute('data-goto')) return;
+         if (!document.getElementById(this.getAttribute('data-goto'))) return;
          var destinationHref = '#' + this.getAttribute('data-goto');
          $(destinationHref).addClass('navigable');
          var destination = $(destinationHref);
