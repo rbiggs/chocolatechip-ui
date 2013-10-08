@@ -73,17 +73,17 @@
 					$('#response').empty();
 				}
 			};
-			$.body.on('singletap', '.switch', function() {
+			$.body.on('singletap swipeleft swiperight', '.switch', function() {
 				handleSwitch(this);
 			});
 		});
 	</script>
 	<style>
-	  #response {
+		#response {
 			color: #0099e3;
 			font-weight: bold;
 			text-transform: capitalize;
-	  }
+		}
 	</style>
 </head>
 <body>	

@@ -20,7 +20,7 @@
 				}
 			});
 			
-			$('.switch').on('singletap', function() {
+			$('.switch').on('singletap swipeleft swiperight', function() {
 				if (this.classList.contains('on')) {
 					$('#response').html($(this).find('input').val());
 				} else {

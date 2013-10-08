@@ -656,7 +656,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
                newValue = Number(currentValue) - 1;
                $(stepper).find('.button:last-of-type').removeClass('disabled');
                $(stepper).find('label').text(newValue);
-               $(stepper).find('input').val(newValue);
+               $(stepper).find('input')[0].value = newValue;
                if (currentValue === start) {
                   $(this).addClass('disabled');
                }
@@ -674,13 +674,13 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
                newValue = Number(currentValue) + 1;
                $(stepper).find('.button:first-of-type').removeClass('disabled');
                $(stepper).find('label').text(newValue);
-               $(stepper).find('input').val(newValue);
+               $(stepper).find('input')[0].value = newValue;
                if (currentValue === end) {
                   $(this).addClass('disabled');
                }
             }
          };
-         var $stepper = (window && window.jQuery && $ === window.jQuery) ? $(stepper) : [stepper];
+         var $stepper = (window && window.jQuery && $ === jQuery) ? $(stepper) : [stepper];
          $stepper.find('.button:first-of-type').on('singletap', function() {
             decreaseStepperValue.call(this, stepper);
          });
