@@ -134,20 +134,35 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       //////////////////////////////////////
       UIGoBackToArticle : function ( articleID ) {
          var historyIndex = $.UINavigationHistory.indexOf(articleID);
-         var current = $('article.current');
+         var currentArticle = $('article.current');
          var destination = $(articleID);
-         var prevArticles = $.UINavigationHistory.slice(historyIndex+1);
+         var currentToolbar;
+         var destinationToolbar;
+         var prevArticles = $.UINavigationHistory.splice(historyIndex+1);
+         console.log(prevArticles)
          if (prevArticles.length) {
             prevArticles.forEach(function(ctx) {
                $(ctx).removeClass('previous').addClass('next');
                $(ctx).prev().removeClass('previous').addClass('next');
             });
          }
+         if (window && window.jQuery && $ === window.jQuery) {
+            if (currentArticle.next().hasClass('toolbar')) {
+               currentToolbar = currentArticle.next('toolbar');
+            }
+            if (destination.next().hasClass('toolbar')) {
+               destinationToolbar = destination.next('toolbar');
+            }
+         } else {
+            currentToolbar = currentArticle.next().hasClass('toolbar');
+            destinationToolbar = destination.next().hasClass('toolbar');
+            currentToolbar.removeClass('current').addClass('next');
+            destinationToolbar.removeClass('previous').addClass('current');
+         }
          destination.removeClass('previous').addClass('current');
          destination.prev().removeClass('previous').addClass('current');
-         current.removeClass('current').addClass('next');
-         current.prev().removeClass('current').addClass('next');
-         $.UINavigationHistory = $.UINavigationHistory.splice(historyIndex,1);
+         currentArticle.removeClass('current').addClass('next');
+         currentArticle.prev().removeClass('current').addClass('next');
          $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
       },
 
@@ -408,6 +423,17 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
             $(whichArticle).addClass('show');
             $(whichArticle).prev().addClass('show');
          });
+      },
+
+      ///////////////////////////////////////////
+      // Pass the id of the stepper to reset.
+      // It's value will be reset to the default.
+      ///////////////////////////////////////////
+      // Pass it the id of the stepper:
+      UIResetStepper : function ( stepper ) {
+         var defaultValue = $(stepper).data('ui-value').defaultValue;
+         $(stepper).find('label').html(defaultValue);
+         $(stepper).find('input')[0].value = defaultValue;
       }
    });
    

@@ -771,9 +771,11 @@ a.button, a.button.back::before {
    color: #007aff;
    border-color: #007aff;
 }
-.button.align-flush {
+.button.align-flush,
+.toolbar > .button.align-flush {
    position: absolute;
    right: 15px;
+   margin-right: 0 !important;
 }
 .button.action {
    color: #585d63;
