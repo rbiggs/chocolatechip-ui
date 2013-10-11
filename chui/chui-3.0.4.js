@@ -139,7 +139,6 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          var currentToolbar;
          var destinationToolbar;
          var prevArticles = $.UINavigationHistory.splice(historyIndex+1);
-         console.log(prevArticles)
          if (prevArticles.length) {
             prevArticles.forEach(function(ctx) {
                $(ctx).removeClass('previous').addClass('next');

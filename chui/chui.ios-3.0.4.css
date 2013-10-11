@@ -256,15 +256,15 @@ article > section,
 nav {
    height: 45px;
    box-sizing: border-box;
-   /* old flex box */
-   display: -webkit-box;
-   -webkit-box-orient: horizontal;
-   -webkit-box-align: center;
    /* new flex box */
    display: -webkit-flex;
    -wekbit-flex-direction: row;
    -webkit-justify-content: start;
    -webkit-align-item: center;
+   /* old flex box */
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-align: center;
    text-align: center;
    position: absolute;
    top: 0;
@@ -299,7 +299,18 @@ nav > h1 + a.button {
    right: 15px;
    top: 3px;
 }
-
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+   nav > a.button + h1 {
+      left: 115px;
+      right: 115px;
+   }
+}
+@media only screen and (max-device-width : 320px) and (orientation : landscape) {
+   nav > a.button + h1 {
+      left: 150px;
+      right: 150px;
+   }
+}
 /* ==============================
    Lists
    ============================== */
@@ -727,23 +738,24 @@ nav > a.button {
 }
 a.button.back, a.button.backTo {
    text-align: left;
-   padding: 0 !important;
+   padding: 0 0 0 20px !important;
    margin-top: 3px;
    line-height: 28px;
    color: #007aff;
    border: none;
-   display: -webkit-box;
-   -webkit-align-item: center;
-   -webkit-box-pack: end;
-   -webkit-box-align: center;
-   display: -webkit-flex;
-   -wekbit-flex-direction: row;
-   -webkit-box-orient: horizontal;
-   -webkit-justify-content: end;
+   position: relative;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: inline-block !important;
+   height: 30px;
+   margin-top: 8px;
 }
 .isiOS a.button.back, .isiOS a.button.backTo {
 	display: -webkit-box;
 	margin-top: 0;
+}
+.isSafari6 a.button.back, .isSafari6 a.button.backTo {
+	margin-top: 2px !important;
 }
 a.button.back::before, 
 a.button.backTo::before {
@@ -758,10 +770,13 @@ a.button.backTo::before {
    height: 20px;
    width: 10px;
    margin-right: 7px;
+   position: absolute;
+   left: 0px;
+   top: 2px;
 }
 .isSafari6 a.button.back,
 .isSafari6 a .button.backTo {
-   margin-top: 3px;
+   margin-top: 0;
 }
 .button:hover {
    cursor: pointer;
@@ -776,6 +791,7 @@ a.button, a.button.back::before {
    position: absolute;
    right: 15px;
    margin-right: 0 !important;
+   z-index: 100;
 }
 .button.action {
    color: #585d63;
@@ -789,6 +805,12 @@ a.button, a.button.back::before {
    height: auto;
    min-width: 200px;
    max-width: 300px
+}
+.toolbar > .button.align-flush {
+   position: absolute;
+   right: 15px;
+   top: 0px;
+   margin-right: 0 !important;
 }
 /* ==============================
    Switch
@@ -1025,6 +1047,10 @@ input[type="range"]::-webkit-slider-thumb:hover {
    Stepper Control
    ============================== */ 
 .stepper {
+   display: -webkit-inline-flex;
+   -wekbit-flex-direction: row;
+   -webkit-align-item: center;
+   -webkit-justify-content: start;
    display: -webkit-inline-box;
    -webkit-box-orient: horizontal;
    -webkit-box-pack: center;
@@ -1510,15 +1536,16 @@ div.toolbar  {
    border-top: solid 1px #a7a7aa;
    overflow: hidden;
    box-sizing: border-box;
-   /* old flex box */
-   display: -webkit-box;
-   -webkit-box-orient: horizontal;
-   -webkit-box-align: center;
    /* new flex box */
    display: -webkit-flex;
    -wekbit-flex-direction: row;
    -webkit-justify-content: start;
    -webkit-align-item: center;
+   /* old flex box */
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-align: center;
+   -webkit-box-pack: start;
    -webkit-transition: all .15s ease-out;
    transition: all .15s ease-out;
    -webkit-transform: translate3d(0,0,0);
