@@ -1114,7 +1114,6 @@ stepper > input {
 .popup footer {
 	width: 320px;
 	padding: 0;
-	border: solid 1px red;
 }
 .popup footer > .button {
 	display: block !important;
