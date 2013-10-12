@@ -668,7 +668,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          var label = '<label>' + defaultValue + '</label><input type="text" value="' + defaultValue + '">';
          var increaseButton = '<a href="javascript:void(null)" class="button increase">' + increaseSymbol + '</a>';
          $(stepper).append(decreaseButton + label + increaseButton);
-         $(stepper).data('ui-value', {start: start, end: end});
+         $(stepper).data('ui-value', {start: start, end: end, defaultValue: defaultValue});
          
          var decreaseStepperValue = function() {
             var currentValue = $(stepper).find('input').val();
