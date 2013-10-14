@@ -206,6 +206,7 @@ Version: 3.0.4
          if ($.isNavigating) return;
          $.isNavigating = true;
          var current = $('article.current');
+         $.UINavigationHistory.push(destination);
          destination = $(destination);         
          var currentNav = current.prev();
          var destinationNav = destination.prev();
@@ -1311,7 +1312,6 @@ Version: 3.0.4
          $(destinationHref).addClass('navigable');
          var destination = $(destinationHref);
          $.UIGoToArticle(destination);
-         $.UINavigationHistory.push(destinationHref);
       });
       $('li[data-goto]').each(function(ctx, idx) {
          if (window && window.jQuery && $ === window.jQuery) ctx = idx;
