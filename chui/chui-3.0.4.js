@@ -416,6 +416,8 @@ Version: 3.0.4
          });
          $('.slide-out').on('singletap', 'li', function() {
             var whichArticle = '#' + $(this).attr('data-show-article');
+            $.UINavigationHistory[0] = whichArticle;
+            $.UISetHashOnUrl(whichArticle);
             $('.slide-out').removeClass('open');
             $('article').removeClass('show');
             $('article').prev().removeClass('show');
@@ -1259,9 +1261,7 @@ Version: 3.0.4
          }
          // Prevent if splitlayout for tablets:
          if ($.body[0].classList.contains('splitlayout')) return;
-         if ($.body[0].classList.contains('slide-out-app')) {
-            return;
-         }
+         if ($.body[0].classList.contains('slide-out-app')) return;
          if (idx === 0) {
             ctx.classList.add('current');
          } else { 

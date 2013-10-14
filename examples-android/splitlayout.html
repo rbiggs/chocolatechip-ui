@@ -42,6 +42,7 @@
 				$('.detail section').html(data);
 			});
 			$('.master ul').on('singletap', 'li', function() {
+				$.UISetHashOnUrl('#' + $(this).attr('data-url'));
 				$(this).siblings().removeClass('selected');
 				$(this).addClass('selected');
 				$('#detailTitle').text(this.textContent);
