@@ -15,7 +15,6 @@ Version: 3.0.4
 */
       
 
-var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
 (function($) {
    'use strict';
 
@@ -1420,7 +1419,7 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
       $.UIDesktopCompat();
    });
    
-})(whichJavaScriptLibrary);
+})(this.$);
 
 //////////////////////////////////////////////////////
 // Swipe Gestures for ChocolateChip.
@@ -1611,4 +1610,4 @@ var whichJavaScriptLibrary = window.$chocolatechip || window.jQuery;
          }
       });
    });
-})(whichJavaScriptLibrary);
+})(this.$);
