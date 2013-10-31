@@ -16,7 +16,7 @@ ChocolateChip-UI uses Gruntjs to build. This is a Node package, so you'll first 
 
 **npm install && grunt** 
 
-This will install all the dependencies for the Grunt build proces and then run the Grunt build script. This will create the following folders: **chui**, **data**, **demo**, **examples-android**, **examples-ios**, **examples-win**, **images** and **node\_modules**. You do not need **node\_modules** in your final project. The node modules are there to enable the build process with Gruntjs. **Data** and **images** are used by the examples and demo files. All you really need is what's in the **chui** folder. 
+This will install all the dependencies for the Grunt build proces and then run the Grunt build script. This will create the following folders: **chui**, **data**, **demo**, **examples-android**, **examples-ios**, **examples-win**, **images** and **node\_modules**. You do not need **node\_modules** in your final project. The node modules are there to enable the build process with Gruntjs. **Data** and **images** are used by the examples and demo files. All you really need is what's in the **chui** folder. If you want to create a custom build, then just run **npm install**, then any of the custom build patterns listed below.
 
 If you're going to use jQuery instead of ChocolateChipJS, then don't bother including ChocolateChipJS in your project and instead include jQuery however you want. Use version 2.0.3 or later.
 
@@ -66,23 +66,25 @@ You can create custom builds of ChocolateChip-UI for just the platform you're in
 
 **Just the Framework, no examples, etc.**
 
+If you haven't already first run **npm install**. Then any of the following commands.
+
     // Build for just iOS with ChocolateChipJS:
-    less:ios cssmin:ios concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
+    grunt less:ios cssmin:ios concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
 
     // Build for just Android with ChocolateChipJS:
-    less:android cssmin:android concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
+    grunt less:android cssmin:android concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
 
     // Build for just Windows Phone 8 with ChocolateChipJS:
-    less:win cssmin:win concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
+    grunt less:win cssmin:win concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
 
     //Build for iOS without ChocolateChipJS (will use jQuery):
-    less:ios cssmin:ios concat:chui uglify:chui
+    grunt less:ios cssmin:ios concat:chui uglify:chui
 
     //Build for Android without ChocolateChipJS (will use jQuery):
-    less:android cssmin:android concat:chui uglify:chui
+    grunt less:android cssmin:android concat:chui uglify:chui
 
     //Build for Windows Phone 8 without ChocolateChipJS (will use jQuery):
-    less:win cssmin:win concat:chui uglify:chui
+    grunt less:win cssmin:win concat:chui uglify:chui
 
 
 ##Test
