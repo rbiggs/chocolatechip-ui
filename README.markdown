@@ -63,6 +63,28 @@ You can create custom builds of ChocolateChip-UI for just the platform you're in
 
     grunt less:win concat:win cssmin:win concat:chocolatechip concat:chui concat:example_win concat:demo_win uglify:chocolatechip uglify:chui copy:images copy:data copy:index_win
 
+
+**Just the Framework, no examples, etc.**
+
+    // Build for just iOS with ChocolateChipJS:
+    less:ios cssmin:ios concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
+
+    // Build for just Android with ChocolateChipJS:
+    less:android cssmin:android concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
+
+    // Build for just Windows Phone 8 with ChocolateChipJS:
+    less:win cssmin:win concat:chocolatechip concat:chui uglify:chocolatechip uglify:chui
+
+    //Build for iOS without ChocolateChipJS (will use jQuery):
+    less:ios cssmin:ios concat:chui uglify:chui
+
+    //Build for Android without ChocolateChipJS (will use jQuery):
+    less:android cssmin:android concat:chui uglify:chui
+
+    //Build for Windows Phone 8 without ChocolateChipJS (will use jQuery):
+    less:win cssmin:win concat:chui uglify:chui
+
+
 ##Test
 
 ChocolateChip uses QUnit for tests. To run the tests, you first have to build the framework running **grunt** in the command line. Grunt does not run the tests automatically. You can run each test by opening the html files in the test folder in a browser.
