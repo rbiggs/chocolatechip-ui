@@ -1,0 +1,78 @@
+   <script>
+      $(function() {
+         $('.segmented').UIPanelToggle('#toggle-panels',function(){$.noop;});
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Segmented</h1>
+   </nav>
+   <article id="main" class="current">
+      <section>
+         <div class='horizontal centered'>
+            <div class='segmented'>
+               <a class='button'>Radioactive</a>
+               <a class='button'>Hurt</a>
+               <a class='button'>Permanent</a>
+            </div>
+         </div>
+         <div id="toggle-panels">
+            <div>
+               <ul class='list'>
+                  <li class='comp'>
+                     <aside>
+                        <img title='Imagine Dragons' src="../images/music/Imagine Dragons.png" height="80px">
+                     </aside>
+                     <div>
+                        <h3>Imagine Dragons</h3>
+                        <h4>Radioactive</h4>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                     </div>
+                  </li>
+               </ul>   
+            </div>
+            <div>
+               <ul class='list'>
+                  <li class='comp'>
+                     <aside>
+                        <img title='Hurry and Harm' src="../images/music/Hurry and Harm.png" height="80px">
+                     </aside>
+                     <div>
+                        <h3>The Hurry and the Harm</h3>
+                        <h4>Hurt</h4>
+                        <p>Nam omnium facilis volumus at, eam noster reprehendunt mediocritatem at. Enim urbanitas reprimique quo no. Duo dico munere partem cu, tollit bonorum duo cu.</p>
+                     </div>
+                  </li>
+               </ul>   
+            </div>
+            <div>
+               <ul class='list'>
+                  <li class='comp'>
+                     <aside>
+                        <img title='Permanent' src="../images/music/Permanent.png" height="80px">
+                     </aside>
+                     <div>
+                        <h3>David Cook</h3>
+                        <h4>Permanent</h4>
+                        <p>Vis ad atqui mediocrem iracundia, sanctus quaestio complectitur vel ei. Senserit referrentur mea te. An vocent omnesque eum, erat democritum complectitur vel no.</p>
+                     </div>
+                  </li>
+               </ul>   
+            </div>
+         </div>
+         <ul class='list'>            
+            <li>
+                <h3>Item One</h3>
+            </li>      
+            <li>
+                <h3>Item Two</h3>
+            </li>      
+            <li>
+                <h3>Item Three</h3>
+            </li>
+         </ul>
+      </section>
+   </article>
+</body>
+</html>

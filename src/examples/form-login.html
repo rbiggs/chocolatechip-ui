@@ -1,0 +1,40 @@
+   <style type="text/css" media="all">
+      /* Set background color for invalid inputs: */
+      input:focus:invalid {
+         background-color: rgba(225,0,0,0.05);
+      }
+   </style>
+</head>
+<body>
+      <nav>
+         <h1>Login</h1>      
+      </nav>
+      <article class='current'>
+         <section>
+            <h2>You must log in to play</h2>
+            <ul ui-implements='form' class='list'>
+                <li class='comp'>
+                   <div>
+                    <label for='userName'>User name:</label>
+                  </div>
+                  <aside>
+                    <input id="userName" type="text" name="user.username" autocapitalize="off" autocorrect="off" required>
+                  </aside>
+                </li>
+                <li class='comp'>
+                   <div>
+                    <label for='password'>Password:</label>
+                   </div>
+                  <aside>
+                    <input id="password" type="password" name="user.password" autocapitalize="off" autocorrect="off" required>
+                  </aside>
+                </li>
+            </ul> 
+         <div>
+            <a href="javascript:void(null)" class="button" id="loginSubmit">Login</a>
+            <a href="javascript:void(null)" class="button" id="goToForgotPassword">Forgot password?</a>
+         </div>
+         </section>
+      </article>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "chui",
+  "title": "ChocolateChip-UI",
+  "description": "JavaScript framework for mobile Web apps",
+  "version": "3.0.5",
+  "homepage": "http://chocolatechip-ui.com",
+  "author": {
+    "name": "Sourcebits Inc. and other contributors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sourcebitsllc/chocolatechip-ui.git"
+  },
+  "licences": [
+    {
+      "type": "BSD",
+      "url": "https://github.com/sourcebitsllc/chocolatechip-ui/blob/master/BSD-LICENSE.txt"
+    }
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-less": "~0.7.0",
+    "grunt-contrib-cssmin": "~0.6.2",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.4"
+  }
+}

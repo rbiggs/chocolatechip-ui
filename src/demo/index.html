@@ -1,0 +1,1010 @@
+   <style>
+      .icon {
+         height: 40px;
+         width: 40px;
+         background-repeat: no-repeat;
+         background-position: center center;
+         background-size: auto 70%;
+      }
+      .icon.weather {
+         background-color: #29abe2;
+         background-image: url(../images/app-icons/weather.png);
+         background-size: 70% auto;
+      }
+      .icon.mail {
+         background-color: #52c5d0;
+         background-image: url(../images/app-icons/mail.png);
+         background-size: 70% auto;
+      }
+      .icon.music {
+         background-color: #f38133;
+         background-image: url(../images/app-icons/music.png);
+      }
+      .icon.browser {
+         background-color: #ed453a;
+         background-image: url(../images/app-icons/browser.png);
+      }
+      .icon.app {
+         background-color: #6ec05c;
+         background-image: url(../images/app-icons/app.png);
+      }
+      /* Border Radius for each OS: */
+      .isiOS .icon {
+         border-radius: 10px;
+      }
+      .isAndroid .icon {
+         border-radius: 50%;
+      }
+      .isWindows .icon {
+         border-radius: 0;
+      }
+      .isWindows p {
+         color: #fff;
+      }
+      
+      /* Popup Demo Styles */
+      #popupMessageTarget {
+         opacity: 0;
+         font-size: 12pt;
+         line-height: 14pt;
+         font-family: 'HelveticaNeue-Light';
+         color: #007aff;
+         padding: 0 15px;
+         margin: 0;
+      }
+      .animatePopupMessage {
+         -webkit-animation-duration: 2s;
+         -webkit-animation-timing-function: linear;
+         -webkit-animation-name: updatePopupMessage;
+      }
+      
+      @-webkit-keyframes updatePopupMessage {
+         0% { opacity: 0; }
+         20% { opacity: 1; }
+         90% { opacity: 1; }
+         100% { opacity: 0; }
+      }
+      @keyframes updatePopupMessage {
+         0% { opacity: 0; }
+         20% { opacity: 1; }
+         90% { opacity: 1; }
+         100% { opacity: 0; }
+      }
+      .popover-buttons {
+         margin-bottom: 20px;
+         padding: 0 40px;
+      }
+      .popover-buttons > .button {
+         display: -webkit-box;
+         display: -webkit-flex;
+         border: solid 1px #007aff;
+         padding: 4px 15px;
+         border-left: none;
+         background-color: rgba(255,255,255,.65);
+         width: auto;
+         overflow-x: hidden;
+         -webkit-transition: none;
+         transition: none;
+         font-size: 10pt;
+         -webkit-box-align: center;
+         -webkit-box-pack: center;
+         -webkit-box-flex: 1;
+         -wekbit-flex: 1;
+         text-align: center;
+      }
+      
+      .popover-buttons > .button:first-of-type {
+         border-left: solid 1px #007aff;
+         border-top-left-radius: 4px;
+         border-bottom-left-radius: 4px;
+      }
+      .popover-buttons > .button:last-of-type {
+         border-top-right-radius: 4px;
+         border-bottom-right-radius: 4px;
+      }
+      .popover-buttons > .button:hover {
+         color: #fff;
+         background-color: #007aff;
+         border-left-color: #fff !important;
+      }
+      .isWindows section > .popover-buttons > .button:first-of-type,
+      .isWindows section > .popover-buttons > .button:last-of-type {
+         background-color: #000;
+         border-color: #fff;
+         border-radius: 0 !important;
+         border-top-left-radius: 0 !important;
+         border-bottom-left-radius: 0 !important;
+         border-top-right-radius: 0 !important;
+         border-bottom-right-radius: 0 !important;
+      }
+      .isWindows section > .popover-buttons > .button:hover {
+         background-color: #fff;
+         color: #000;
+         border-color: #000 !important;
+      }
+      .isAndroid .popover-buttons > .button {
+         border-radius: 0 !important;
+      }
+   </style>
+   <script type="text/javascript">
+      $(function() {
+         
+         ////////////////////
+         // Segmented Control
+         ////////////////////
+         $('.segmented').UIPanelToggle('#toggle-panels',function(){$.noop;});
+          
+          //////////////
+          // Select List
+          //////////////
+          if (window.jQuery) {
+            if ($('.select li').is('.selected')) {
+               $("#select-response").html($('.select li.selected')[0].textContent);
+            }          
+          } else {
+            if ($('.select li').is('.selected')[0]) {
+               $("#select-response").html($('.select li').is('.selected')[0].textContent);
+            }          }
+
+         // Select list callback:
+         $('.list.select').UISelectList({
+             selected: 0,
+             callback: function() {
+                $("#select-response").html($(this).text());
+             }
+          });
+          
+          /////////////////
+          // Switch Control
+          /////////////////
+          
+          // Define switches
+         var sleepSwitch = {
+            id : "sleepSwitch",
+            state : "on",
+            name : "activity.choice",
+            value: "sleep"
+         };
+         var vacationSwitch = {
+            id : "vacationSwitch",
+            state : "off",
+            name : "activity.choice",
+            value : "vacation"
+         };
+         var breakfastSwitch = {
+            id : "breakfastSwitch",
+            state : "off",
+            name : "activity.choice",
+            value : "breakfast"
+         };
+         
+         // Insert switches into list:
+         $('#switches aside').each(function(ctx, idx) {
+            var temp;
+            if (window.jQuery) {
+               temp = ctx;
+               ctx = idx;
+               idx = temp;
+            }
+            switch (idx){
+               case 0:
+                  $(ctx).prepend($.UICreateSwitch(sleepSwitch));
+                  break;
+               case 1:
+                  $(ctx).prepend($.UICreateSwitch(vacationSwitch));
+                  break;
+               case 2:
+                  $(ctx).prepend($.UICreateSwitch(breakfastSwitch));
+                  break;
+            }
+         })
+         // Initialize switches:
+         $('.switch').UISwitch();
+         
+         
+         // Set response to last checked switch for page load state:
+         $('.switch').each(function(ctx, idx) {
+            if (window.jQuery) ctx = idx;
+            if (ctx.classList.contains('on')) {
+               $('#switch-response').html($(ctx).find('input').val());
+            }
+         });
+         
+         // Set switch's checkbox value:
+         var handleSwitch = function(_switch) {
+            var value = '';
+            if (_switch.classList.contains('on')) {
+               value = $(_switch).find('input').val();
+               $('#switch-response').html(value);
+            } else {
+               $('#switch-response').empty();
+            }
+         };
+         $.body.on('singletap', '.switch', function() {
+            handleSwitch(this);
+         });
+         
+         ////////////////////
+         // Setup Range Input
+         ////////////////////
+         $('#rangeValue1').html($('#rangeControl1').val());
+         $('#rangeControl1').on('change', function() {
+            $('#rangeValue1').html($(this).val());
+         });
+         
+         $('#rangeValue2').html($('#rangeControl2').val());
+         $('#rangeControl2').on('change', function() {
+            $('#rangeValue2').html($(this).val());
+         });      
+         
+         ////////////////
+         // Stepper Setup
+         ////////////////   
+         $('#digits').UIStepper({  
+            start: 1,
+            end: 8,
+            defaultValue: 3
+         });
+         
+          ///////////////////////
+          // Setup Deletable list
+          ///////////////////////
+          $.UIDeletable({
+              list: '#deletables', 
+              callback: function(item) {
+                 var text = $(item).siblings('h3').text();
+                 $('#deletable-response').html('You deleted: <strong>' + text + '</strong>');
+              }
+           });
+
+         ///////////////////
+         // Initialize Popup
+         ///////////////////
+         $("#openPopup").bind("singletap", function() {
+            $.UIPopup({
+               id: "warning",
+               title: 'Attention Viewers!', 
+               message: 'The performance of "Merchant of Venice", Act 4 scene 1, will begin shortly. Thank you for your patience.', 
+               cancelButton: 'Skip', 
+               continueButton: 'Stay', 
+               callback: function() {
+                  var popupMessageTarget = document.querySelector('#popupMessageTarget');
+                  popupMessageTarget.textContent = 'Thanks for staying with us a bit longer.';
+                  popupMessageTarget.className = "";
+                  popupMessageTarget.className = "animatePopupMessage";
+               }
+            });
+         });
+         
+            //////////////////////
+            // Setup for Popovers:
+            //////////////////////
+        
+              // Content for Popovers:
+              var popover1Content = "<ul class='list'><li><h3>Apples</h3></li><li><h3>Oranges</h3></li><li><h3>Bananas</h3></li><li><h3>Pears</h3></li><li><h3>Plums</h3></li><li><h3>Cherries</h3></li><li><h3>Apricots</h3></li><li><h3>Lemons</h3></li><li><h3>Peaches</h3></li><li><h3>Pineapples</h3></li><li><h3>Strawberries</h3></li><li><h3>Guavas</h3></li><li><h3>Grapefruit</h3></li></ul>";
+              
+              var popover2Content = "<ul class='list'><li><h3>Cake</h3></li><li><h3>Ice cream</h3></li><li><h3>Pies</h3></li><li><h3>Tiramisu</h3></li><li><h3>Cupcakes</h3></li><li><h3>Donuts</h3></li><li><h3>Cookies</h3></li><li><h3>Cobbler</h3></li><li><h3>Crepes</h3></li><li><h3>Tarts</h3></li><li><h3>Custard</h3></li><li><h3>Pudding</h3></li><li><h3>Fudge</h3></li><li><h3>Turnovers</h3></li><li><h3>Eclairs</h3></li></ul>";
+              
+            // Callback for Popovers:
+            var fillPopover1 = function(popover) {
+               // Populate Popover with content:
+               $('.popover').find('section').append(popover1Content);
+               popoverEventHandler();
+            };
+            
+            var fillPopover2 = function(popover) {
+               // Populate Popover with content:
+               $('.popover').find('section').append(popover2Content);
+               popoverEventHandler();
+            };
+            
+            var popoverEventHandler = function() {
+               // Attach event to catch user interaction.
+               // Use singletap to allow user to scroll content.
+               $('.popover').on('singletap', function(e) {
+                  var results;
+                  if (this.id === 'fruitsPopover') {
+                     results = '#fruitsChoice';
+                  } else if(this.id === 'desertsPopover') {
+                     results = '#desertsChoice';
+                  }
+                  var listItem;
+                  if (e.target.nodeName === 'LI') {
+                     $(results).html(e.target.textContent.trim());
+                  } else {
+                     listItem = $(e.target).closest('li')[0];
+                     $(results).html(listItem.textContent.trim());
+                  }
+                  $.UIPopoverClose();
+               });
+            };
+            
+            // Initialize Popover:
+            $('#showPopover1').UIPopover({
+               id: 'fruitsPopover', 
+               title: "Fruits", 
+               callback: fillPopover1
+            });
+            // Initialize Popover:
+            $('#showPopover2').UIPopover({
+               id: 'desertsPopover', 
+               title: "Deserts", 
+               callback: fillPopover2
+            });         
+            
+            ///////////////////////////
+            // Setup Horizontal Paging:
+            ///////////////////////////
+            $.UIPaging();
+            
+            //////////////
+            // Setup Sheet
+            //////////////
+            $.UISheet();
+            $('.sheet').find('section').append('<h2>Available Options</h2>');
+            $('.sheet').find('section').append("<ul class='list'></li>");
+            var list = $('.sheet .list');
+            list.append('<li><a class="button" href="javascript:void(null)">Save</a></li>');
+            list.append('<li><a class="button" href="javascript:void(null)">Delete</a></li>');
+            list.append('<li><a class="button" href="javascript:void(null)">Cancel</a></li>');
+            list.on('singletap', '.button', function() {
+               $.UIHideSheet();
+            });
+         // Initialize button to show sheet:
+         $('#showSheet').on('singletap', function() {
+            $.UIShowSheet();
+         });
+         $('#sheetBackButton').on($.eventStart, function() {
+            $.UIHideSheet();
+         });
+      });
+   </script>
+   <style>
+      #select-response,
+      #switch-response,
+      #deletable-response,
+      #fruitsChoice,
+      #desertsChoice {
+         color: #007aff;
+         text-transform: capitalize;
+      }
+      .sheet .button {
+         min-width: 200px;
+         width: 80%;
+      }
+   </style>
+</head>
+<body>
+   <nav>
+      <h1>Demo</h1>
+   </nav>
+   <article id="main" class="current">
+      <section>
+         <ul class='list'>
+            <li data-goto="segmented-article" class='nav'>
+               <h3>Segmented Control</h3>
+            </li>
+            <li data-goto="select-article" class='nav'>
+               <h3>Select List</h3>
+            </li>
+            <li data-goto="deletable-article" class='nav'>
+               <h3>Deletable List</h3>
+            </li>
+            <li data-goto="popup-article" class='nav'>
+               <h3>Popup</h3>
+            </li>
+            <li data-goto="popover-article" class='nav'>
+               <h3>Popover</h3>
+            </li>
+            <li data-goto="sheet-article" class='nav'>
+               <h3>Sheet</h3>
+            </li>
+            <li data-goto="paging-article" class='nav'>
+               <h3>Paging</h3>
+            </li>
+         </ul>
+      </section>
+   </article>
+   <nav>
+      <a class='button back'>Demo</a>
+      <h1>Segmented Control</h1>
+   </nav>
+   <article id='segmented-article' class='next'>
+      <section>
+         <div class='horizontal centered'>
+            <div class='segmented'>
+               <a class='button selected'>Switch</a>
+               <a class='button'>Range</a>
+               <a class='button'>Stepper</a>
+            </div>
+         </div>
+         <div id="toggle-panels">
+            <div id='switches'>
+               <h2>Switch</h2>
+               <ul class='list'>
+                  <li class='comp'>
+                     <div>
+                        <h3>Sleep</h3>
+                     </div>
+                     <aside>
+                     </aside>
+                  </li>
+               </ul>
+               <ul class='list'>
+                  <li class='comp'>
+                     <div>
+                        <h3>Vacation</h3>
+                     </div>
+                     <aside>
+                     </aside>
+                  </li>
+               </ul>
+               <ul class='list'>
+                  <li class='comp'>
+                     <div>
+                        <h3>Breakfast</h3>
+                     </div>
+                     <aside>
+                     </aside>
+                  </li>
+               </ul>
+               <p><span>Response: </span><span id="switch-response"></span></p>
+
+            </div>
+            <div>
+               <h2>Range</h2>
+               <ul class='list'>
+                  <li>
+                     <h3>Point for Point Increase<span></span></h3>
+                     <div>
+                        <label>Current Value: <span id='rangeValue1'></span></label>
+                        <input type="range" id="rangeControl1" value="10" min="0" max="40">
+                     </div>
+                  </li>
+               </ul>
+               <ul class='list' ui-li-order="stacked" ui-kind='grouped'>
+                  <li>
+                     <h3>With Steps of 5<span></span></h3>
+                     <div>
+                        <label>Current Value: <span id='rangeValue2'></span></label>
+                        <input type="range" id="rangeControl2" step='5' value="20" min="0" max="40">      
+                     </div>
+                  </li>
+               </ul>
+            </div>
+            <div>
+               <h2>Stepper: 1-8 limit</h2>
+               <ul class='list'>
+                  <li>
+                     <h3>Choose a value:</h3>
+                     <span class='stepper' id="digits"></span>
+                  </li>
+               </ul>
+               <p>The stepper is used for presenting the user with a very small range of values. If you have a large range, consider using a normal HTML select box. This will give the user the appropriate interface for each Operating System.</p>
+            </div>
+         </div>
+      </section>
+   </article>
+   <nav>
+      <a class='button back'>Demo</a>
+      <h1>Select List</h1>
+   </nav>
+   <article id='select-article' class='next'>
+      <section>
+         <ul class='list select'>
+            <li class='selected'>
+               <h3>Go eat something</h3>
+            </li>
+            <li>
+               <h3>Take a nap</h3>
+            </li>
+            <li>
+               <h3>Get some work done</h3>
+            </li>
+            <li>
+               <h3>Play a game</h3>
+            </li>
+         </ul>
+         <p><strong>You are going to: </strong><span id="select-response"></span></p>
+      </section>
+   </article>
+   <nav>
+      <a class='button back'>Demo</a>
+      <h1>Deletable List</h1>
+   </nav>
+   <article id='deletable-article' class='next'>
+      <section>
+         <h2>Touch "Edit" to enable deletion</h2>
+         <ul class='list' id='deletables'>
+            <li>
+               <h3>People</h3>
+            </li>
+            <li>
+               <h3>Places</h3>
+            </li>
+            <li>
+               <h3>Things</h3>
+            </li>
+            <li>
+               <h3>Animals</h3>
+            </li>
+            <li>
+               <h3>Food</h3>
+            </li>
+         </ul>
+         <p id='deletable-response'></p>
+      </section>
+   </article>
+   <nav>
+      <a class='button back'>Demo</a>
+      <h1>Popup</h1>
+      <a href='javascript:void(null)' class='button align-flush' id="openPopup">Open</a>
+   </nav>
+   <article id='popup-article' class='next'>
+      <section>
+         <p id='popupMessageTarget'></p>
+         <h2>The Merchant of Venice</h2>
+         <ul class='list'>
+            <li>
+               <h3>Speaker: Portia</h3>
+               <h4>Audience: Shylock</h4>
+               <p>The quality of mercy is not strained. 
+It droppeth as the gentle rain from heaven upon the place beneath. It is twice blest: It blesseth him that gives and him that takes. Tis mightiest in the mightiest; it becomes the throned monarch better than his crown. His scepter shows the force of temporal power, the attribute to awe and majesty, wherein doth sit the dread and fear of kings. But mercy is above this sceptered sway; it is enthroned in the hearts of kings; it is an attribute of God himself; and earthly power doth then show like God's when mercy seasons justice.</p>
+            </li>
+         </ul>
+         <p>Portia's entreaty to Shylock to show mercy to Antonio.</p>
+      </section>
+   </article>
+   <nav>
+      <a class='button back'>Demo</a>
+      <h1>Popover</h1>
+   </nav>
+   <article id='popover-article' class='next'>
+      <section>
+         <div class='horizontal centered popover-buttons'>
+            <a class='button show-popover' id="showPopover1" href="javascript:void(null)">Fruits</a>
+            <a class='button show-popover' id="showPopover2" href="javascript:void(null)">Deserts</a>
+         </div>
+         <ul class='list'>
+            <li>
+               <h3>Example of popovers</h3>
+               <h4>Click either button above to launch a popover.</h4>
+            </li>
+         </ul>
+         <h2>Your Choices</h2>
+         <ul class="list" id='popover-choices'>
+             <li>
+                <h3>Fruits:</h3>
+                <h4 id="fruitsChoice"></h4>
+             </li>
+             <li>
+                <h3>Deserts:</h3>
+                <h4 id="desertsChoice"></h4>
+             </li>
+         </ul>
+      </section>
+   </article>
+   <nav>
+      <a class='button back' id='sheetBackButton'>Demo</a>
+      <h1>Sheet</h1>
+      <a class='button align-flush' id='showSheet' href='javascript:void(null)'>Show</a>
+   </nav>
+   <article id='sheet-article' class='next'>
+      <section>
+         <h2>Music</h2>
+         <ul class='list'>
+            <li class='comp'>
+               <aside>
+                  <img title='Imagine Dragons' src="../images/music/Imagine Dragons.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Imagine Dragons</h3>
+                  <h4>Radioactive</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Hurry and Harm' src="../images/music/Hurry and Harm.png" height="80px">
+               </aside>
+               <div>
+                  <h3>The Hurry and the Harm</h3>
+                  <h4>Hurt</h4>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Permanent' src="../images/music/Permanent.png" height="80px">
+               </aside>
+               <div>
+                  <h3>David Cook</h3>
+                  <h4>Permanent</h4>
+                  <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Kiss' src="../images/music/Kiss.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Kiss</h3>
+                  <h4>This Kiss</h4>
+                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Willy Moon' src="../images/music/Willy Moon.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Willy Moon</h3>
+                  <h4>Yeah Yeah</h4>
+                  <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+         </ul>      
+      </section>
+   </article>
+   <nav>
+      <a class='button back'>Demo</a>
+      <h1>Paging</h1>
+      <div class='segmented paging horizontal align-flush'>
+          <a class='button' href='javascript:void(null)' title='previous panel'></a>
+          <a class='button' href='javascript:void(null)' title='next panel'></a>
+      </div>
+   </nav>
+   <article id='paging-article' class='next paging'>
+      <section>         
+         <ul class='list'>
+            <li class='nav'>
+               <h3>People</h3>
+               <h4>Your Friends</h4>
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+            </li>
+            <li class='nav'>
+               <h3>Places</h3>
+               <h4>Interesting Destinations</h4>
+               <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </li>
+            <li class='nav'>
+               <h3>Things</h3>
+               <h4>Stuff that's Just Weird</h4>
+               <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+            </li>
+            <li class='nav'>
+               <h3>Animals</h3>
+               <h4>Critters from Around the Globe</h4>
+               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+            </li>
+            <li class='nav'>
+               <h3>Food</h3>
+               <h4>Restaurants</h4>
+               <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus.</p>
+            </li>
+         </ul>
+      </section>
+      <section>
+         <ul class='list'>
+            <li class='show-detail' href='javascript:void(null)'>
+               <img title='Blues' src="../images/music/Willy Moon.png" height='100px'>
+               <h3>Willy Moon</h3>
+               <h4>Yeah Yeah</h4>
+               <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus.</p>
+            </li>
+            <li class='show-detail' href='javascript:void(null)'>
+               <img title='Classical' src="../images/music/The Olms.png" height='100px'>
+               <h3>The Olms</h3>
+               <h4>Wanna Feel It</h4>
+               <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </li>
+            <li class='show-detail' href='javascript:void(null)'>
+               <img title='iTunes' src="../images/music/Kiss.png" height='100px'>
+               <h3>Kiss</h3>
+               <h4>This Kiss</h4>
+               <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+            </li>
+            <li class='show-detail' href='javascript:void(null)'>
+               <img title='Killers' src="../images/music/Permanent.png" height='100px'>
+               <h3>David Cook</h3>
+               <h4>Permanent</h4>
+               <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+            </li>
+            <li class='show-detail' href='javascript:void(null)'>
+               <img title='Killers' src="../images/music/Imagine Dragons.png" height='100px'>
+               <h3>Imagine Dragons</h3>
+               <h4>Radioactive</h4>
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+            </li>
+         </ul>   
+      </section>   
+      <section>
+         <h2>Music</h2>
+         <ul class='list'>
+            <li class='comp'>
+               <aside>
+                  <img title='Imagine Dragons' src="../images/music/Imagine Dragons.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Imagine Dragons</h3>
+                  <h4>Radioactive</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Hurry and Harm' src="../images/music/Hurry and Harm.png" height="80px">
+               </aside>
+               <div>
+                  <h3>The Hurry and the Harm</h3>
+                  <h4>Hurt</h4>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Permanent' src="../images/music/Permanent.png" height="80px">
+               </aside>
+               <div>
+                  <h3>David Cook</h3>
+                  <h4>Permanent</h4>
+                  <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Kiss' src="../images/music/Kiss.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Kiss</h3>
+                  <h4>This Kiss</h4>
+                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Willy Moon' src="../images/music/Willy Moon.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Willy Moon</h3>
+                  <h4>Yeah Yeah</h4>
+                  <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+         </ul>      
+      </section>
+      <section>
+         <ul class='list'>
+            <li class='switched'>
+               <h3>People</h3>
+               <h4>Your Friends</h4>
+            </li>
+            <li class='switched'>
+               <h3>Places</h3>
+               <h4>Interesting Destinations</h4>
+            </li>
+            <li class='switched'>
+               <h3>Funny Animals</h3>
+               <h4>Critters from Around the Globe</h4>
+            </li>
+            <li class='switched'>
+               <h3>Food</h3>
+               <h4>Recipes</h4>
+            </li>
+            <li class='switched'>
+               <h3>Good Eats</h3>
+               <h4>Restaurants</h4>
+            </li>
+         </ul>   
+      </section>
+      <section>
+         <ul class='list'>
+            <li class='comp'>
+               <div>
+                  <h3>People</h3>
+               </div>
+               <aside>
+                  <h4>Your Friends</h4>
+                  <span class='date-time'>Monday</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Places</h3>
+               </div>
+               <aside>
+                  <h4>Interesting Destinations</h4>
+                  <span class='date-time'>3/14/10</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Funny Animals</h3>
+               </div>
+               <aside>
+                  <h4>Critters from Around the Globe</h4>
+                  <span class='date-time'>12:30 PM</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Food</h3>
+               </div>
+               <aside>
+                  <h4>Recipes</h4>
+                  <span class='date-time'>Noon</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Good Eats</h3>
+               </div>
+               <aside>
+                  <h4>Restaurants</h4>
+                  <span class='date-time'>Next Week</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+         </ul>   
+      </section>
+      <section>
+         <ul class='list'>
+            <li class='comp'>
+               <div>
+                  <h3>People</h3>
+               </div>
+               <aside>
+                  <h4>Your Friends</h4>
+                  <span class='counter'>22</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Places</h3>
+               </div>
+               <aside>
+                  <h4>Destinations</h4>
+                  <span class='counter'>32</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Animals</h3>
+               </div>
+               <aside>
+                  <h4>Funny Critters</h4>
+                  <span class='counter'>5</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Food</h3>
+               </div>
+               <aside>
+                  <h4>Recipes</h4>
+                  <span class='counter'>43</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <div>
+                  <h3>Good Eats</h3>
+               </div>
+               <aside>
+                  <h4>Restaurants</h4>
+                  <span class='counter'>129</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+         </ul>   
+      </section>
+      <section>
+         <ul class='list'>
+            <li class='comp'>
+               <aside>
+                  <span class='icon weather'></span>
+               </aside>
+               <div>
+                  <h3>Weather</h3>
+               </div>
+               <aside>
+                  <h4>Alerts</h4>
+                  <span class='counter'>2</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <span class='icon music'></span>
+               </aside>
+               <div>
+                  <h3>Music</h3>
+               </div>
+               <aside>
+                  <h4>New Purchases</h4>
+                  <span class='counter'>16</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <span class='icon mail'></span>
+               </aside>
+               <div>
+                  <h3>Mail</h3>
+               </div>
+               <aside>
+                  <h4>New</h4>
+                  <span class='counter'>134</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <span class='icon browser'></span>
+               </aside>
+               <div>
+                  <h3>Browser</h3>
+               </div>
+               <aside>
+                  <h4>Bookmarks</h4>
+                  <span class='counter'>22</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <span class='icon app'></span>
+               </aside>
+               <div>
+                  <h3>Apps</h3>
+               </div>
+               <aside>
+                  <h4>Updates</h4>
+                  <span class='counter'>3</span>
+                  <span class='nav'></span>
+               </aside>
+            </li>
+         </ul>
+         <p>Example of icons in list items.</p>
+      </section>
+   </article>
+</body>
+</html>

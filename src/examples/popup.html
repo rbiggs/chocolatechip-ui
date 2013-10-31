@@ -1,0 +1,85 @@
+   <style>
+      /* Popup Demo Styles */
+      #popupMessageTarget {
+         opacity: 0;
+         font-size: 14pt;
+         line-height: 16pt;
+         font-weight: 200;
+         font-family: SegoeWP, SegoeUI, HelveticaNeue, Roboto, Sans-serif;
+         color: #007aff;
+         padding: 0 15px;
+      }
+      .animatePopupMessage {
+         -webkit-animation-duration: 2s;
+         -webkit-animation-timing-function: linear;
+         -webkit-animation-name: updatePopupMessage;
+         animation-duration: 2s;
+         animation-timing-function: linear;
+         animation-name: updatePopupMessage;
+      }
+      @-webkit-keyframes updatePopupMessage {
+         0% { opacity: 0; }
+         20% { opacity: 1; }
+         90% { opacity: 1; }
+         100% { opacity: 0; }
+      }
+      
+      @keyframes updatePopupMessage {
+         0% { opacity: 0; }
+         20% { opacity: 1; }
+         90% { opacity: 1; }
+         100% { opacity: 0; }
+      }
+   </style>
+   <script>
+      $(function() {
+         // This is just an animation for popup callback, 
+         // Not part of popup functionality.
+         $("#popupMessageTarget").on("webkitAnimationEnd", function() {
+            this.className = "";
+            this.textContent = "";
+         });
+         
+         // Bind event to show the popup:
+         $("#openPopup").on("singletap", function() {
+            $.UIPopup({
+               id: "warning",
+               title: 'Attention Viewers!', 
+               message: 'The performance of "Merchant of Venice", Act 4 scene 1, will begin shortly. Thank you for your patience.', 
+               cancelButton: 'Skip', 
+               continueButton: 'Stay', 
+               callback: function() {
+                  var popupMessageTarget = document.querySelector('#popupMessageTarget');
+                  popupMessageTarget.textContent = 'Thanks for staying with us a bit longer.';
+                  popupMessageTarget.className = "";
+                  popupMessageTarget.className = "animatePopupMessage";
+               }
+            });
+         });
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Popup Example</h1>
+      <a href='javascript:void(null)' class='button align-flush' id="openPopup">
+         <label>Popup</label>
+      </a>
+   </nav>
+   <article id="main" class="current">
+      <section>
+         <p id='popupMessageTarget'></p>
+         <h2>The Merchant of Venice</h2>
+         <ul class='list'>
+            <li>
+               <h3>Speaker: Portia</h3>
+               <h4>Audience: Shylock</h4>
+               <p>The quality of mercy is not strained. 
+It droppeth as the gentle rain from heaven upon the place beneath. It is twice blest: It blesseth him that gives and him that takes. Tis mightiest in the mightiest; it becomes the throned monarch better than his crown. His scepter shows the force of temporal power, the attribute to awe and majesty, wherein doth sit the dread and fear of kings. But mercy is above this sceptered sway; it is enthroned in the hearts of kings; it is an attribute of God himself; and earthly power doth then show like God's when mercy seasons justice.</p>
+            </li>
+         </ul>
+         <p>Portia's entreaty to Shylock to show mercy to Antonio.</p>
+      </section>
+   </article>
+</body>
+</html>

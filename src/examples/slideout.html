@@ -1,0 +1,417 @@
+   <style>
+      .image-grid {
+         list-style: none:
+         margin: 0;
+         padding: 0;
+         position: relative;
+         left: 15px;
+      }
+      .image-grid > li {
+         list-style: none:
+         margin: 0;
+         padding: 0;
+      }
+      .image-grid::after {
+         content: '';
+         display: block;
+         clear: both;
+      }
+      .image-grid > li {
+         float: left;
+         height: 100px;
+         width: 30%;
+         border: solid 1px #666;
+         box-sizing: border-box;
+         overflow: hidden;
+         position: relative;
+         display: block;
+      }
+      .image-grid > li > img {
+         display: block;
+         width: 150%;
+      }
+   </style>
+   <script>
+      $(function() {
+         $.UISlideout();
+         $('.slide-out > section').append(
+            '<h2>Your Stuff</h2>\
+             <ul class="list">\
+                  <li data-show-article="music"><h3>Music</h3></li>\
+                  <li data-show-article="pictures"><h3>Pictures</h3></li>\
+                  <li data-show-article="recipes"><h3>Recipes</h3></li>\
+                  <li data-show-article="contacts"><h3>Contacts</h3></li>\
+            </ul>'
+         );
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Music</h1>
+   </nav>
+   <article id='music'>
+      <section>
+         <h2>Music</h2>
+         <ul class='list'>
+            <li class='comp'>
+               <aside>
+                  <img title='Imagine Dragons' src="../images/music/Imagine Dragons.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Imagine Dragons</h3>
+                  <h4>Radioactive</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
+               </div>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Hurry and Harm' src="../images/music/Hurry and Harm.png" height="80px">
+               </aside>
+               <div>
+                  <h3>The Hurry and the Harm</h3>
+                  <h4>Hurt</h4>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+               </div>
+            <li class='comp'>
+               <aside>
+                  <img title='Permanent' src="../images/music/Permanent.png" height="80px">
+               </aside>
+               <div>
+                  <h3>David Cook</h3>
+                  <h4>Permanent</h4>
+                  <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet.</p>
+               </div>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Kiss' src="../images/music/Kiss.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Kiss</h3>
+                  <h4>This Kiss</h4>
+                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+               </div>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Willy Moon' src="../images/music/Willy Moon.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Willy Moon</h3>
+                  <h4>Yeah Yeah</h4>
+                  <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus.</p>
+               </div>
+            </li>
+         </ul>            
+      </section>
+   </article>
+   <nav>
+      <h1>Pictures</h1>
+   </nav>
+   <article id='pictures'>
+      <section>
+         <ul class='image-grid'>
+            <li>
+               <img src='../images/myPictures/american-football-63109_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/couple-168191_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/daisy-75190_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/dependent-100343_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/dreamy-20100_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/girl-102831_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/lacrosse-165576_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/hot-air-balloon-4761_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/piercing-123240_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/portrait-53899_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/quarterback-67701_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/rugby-78193_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/africa-139343_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/baby-19295_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/baby-20339_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/utah-95032_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/germany-70567_640.jpg'>
+            </li>
+            <li>
+               <img src='../images/myPictures/mountain-91385_640.jpg'>
+            </li>
+        </ul>
+      </section>
+   </article>
+   <nav>
+      <h1>Recipes</h1>
+   </nav>
+   <article id='recipes'>
+      <section>
+         <ul class='list'>
+            <li>
+               <h3>
+                  Italian Style Meatloaf
+               </h3>
+               <h4>Ingredients</h4>
+               <ul>
+                  <li>
+                     1 1/2 pounds ground beef
+                  </li>
+                  <li>
+                     2 eggs, beaten
+                  </li>
+                  <li>
+                     3/4 cup dry bread crumbs
+                  </li>
+                  <li>
+                     1/4 cup ketchup
+                  </li>
+                  <li>
+                     1 teaspoon Italian-style seasoning
+                  </li>
+                  <li>
+                     1 teaspoon garlic salt
+                  </li>
+                  <li>
+                     1 (14.5 ounce) can diced tomatoes, drained
+                  </li>
+               </ul>
+               <p>Directions</p>
+               <ol>
+                  <li>
+                     Preheat oven to 350 degrees F (175 degrees C).
+                  </li>
+                  <li>
+                     In a large bowl, mix together ground beef, eggs, bread crumbs and ketchup. Season with Italian-style seasoning, oregano, basil, garlic salt, diced tomatoes and cheese. Press into a 9x5 inch loaf pan, and cover loosely with foil.
+                  </li>
+                  <li>
+                     Bake in the preheated oven approximately 1 hour, or until internal temperature reaches 160 degrees F (70 degrees C).
+                  </li>
+               </ol>
+            </li>
+            <li>
+               <h3>
+                  Chicken Marsala
+               </h3>
+               <h4>Ingredients</h4>
+               <ul>
+                  <li>
+                     1/4 cup all-purpose flour for coating
+                  </li>
+                  <li>
+                     1/2 teaspoon salt
+                  </li>
+                  <li>
+                     1/4 teaspoon ground black pepper
+                  </li>
+                  <li>
+                     1/2 teaspoon dried oregano
+                  </li>
+                  <li>
+                     4 skinless, boneless chicken breast halves - pounded 1/4 inch thick
+                  </li>
+                  <li>
+                     4 tablespoons butter
+                  </li>
+                  <li>
+                     4 tablespoons olive oil
+                  </li>
+                  <li>
+                     1 cup sliced mushrooms
+                  </li>
+                  <li>
+                     1/2 cup Marsala wine
+                  </li>
+                  <li>
+                     1/4 cup cooking sherry
+                  </li>
+               </ul>
+               <p>Directions</p>
+               <ol>
+                  <li>
+                     In a shallow dish or bowl, mix together the flour, salt, pepper and oregano. Coat chicken pieces in flour mixture.
+                  </li>
+                  <li>
+                     In a large skillet, melt butter in oil over medium heat. Place chicken in the pan, and lightly brown. Turn over chicken pieces, and add mushrooms. Pour in wine and sherry. Cover skillet; simmer chicken 10 minutes, turning once, until no longer pink and juices run clear.
+                  </li>
+               </ol>
+            </li>
+            <li>
+               <h3>Chicken Breasts with Lime Sauce</h3>
+               <h4>Ingredients</h4>
+               <ul>
+                  <li>
+                     4 skinless, boneless chicken breast halves - pounded to 1/4 inch thickness
+                  </li>
+                  <li>
+                     1 egg, beaten
+                  </li>
+                  <li>
+                     2/3 cup dry bread crumbs
+                  </li>
+                  <li>
+                     2 tablespoons olive oil
+                  </li>
+                  <li>
+                     1 lime, juiced
+                  </li>
+                  <li>
+                     6 tablespoons butter
+                  </li>
+                  <li>
+                     1 teaspoon minced fresh chives
+                  </li>
+                  <li>
+                     1/2 teaspoon dried dill weed
+                  </li>
+               </ul>
+               <p>Directions</p>
+               <ol>
+                  <li>
+                     Coat chicken breasts with egg, and dip in bread crumbs. Place on a wire rack, and allow to dry for about 10 minutes.
+                  </li>
+                  <li>
+                     Heat olive oil in a large skillet over medium heat. Place chicken into the skillet, and fry for 3 to 5 minutes on each side. Remove to a platter, and keep warm.
+                  </li>
+                  <li>
+                     Drain grease from the skillet, and squeeze in lime juice. Cook over low heat until it boils. Add butter, and stir until melted. Season with chives and dill. Spoon sauce over chicken, and serve immediately.
+                  </li>
+               </ol>
+            </li>
+            <li>
+               <h3>Lemon Rosemary Salmon</h3>
+               <h4>Ingredients</h4>
+               <ul>
+                  <li>
+                     1 lemon, thinly sliced
+                  </li>
+                  <li>
+                     4 sprigs fresh rosemary
+                  </li>
+                  <li>
+                     2 salmon fillets, bones and skin removed coarse salt to taste
+                  </li>
+                  <li>
+                     1 tablespoon olive oil, or as needed
+                  </li>
+               </ul>
+               <p>Directions</p>
+               <ol>
+                  <li>
+                     Preheat oven to 400 degrees F (200 degrees C).
+                  </li>
+                  <li>
+                     Arrange half the lemon slices in a single layer in a baking dish. Layer with 2 sprigs rosemary, and top with salmon fillets. Sprinkle salmon with salt, layer with remaining rosemary sprigs, and top with remaining lemon slices. Drizzle with olive oil.
+                  </li>
+                  <li>
+                     Bake 20 minutes in the preheated oven, or until fish is easily flaked with a fork.
+                  </li>
+               </ol>
+            </li>
+            <li>
+               <h3>Strawberry Angel Food Dessert</h3>
+               <h4>Ingredients</h4>
+               <ul>
+                  <li>
+                     1 (10 inch) angel food cake
+                  </li>
+                  <li>
+                     2 (8 ounce) packages cream cheese, softened
+                  </li>
+                  <li>
+                     1 cup white sugar
+                  </li>
+                  <li>
+                     1 (8 ounce) container frozen whipped topping, thawed
+                  </li>
+                  <li>
+                     1 quart fresh strawberries, sliced
+                  </li>
+                  <li>
+                     1 (18 ounce) jar strawberry glaze
+                  </li>
+               </ul>
+               <p>Directions</p>
+               <ol>
+                  <li>
+                     Crumble the cake into a 9x13 inch dish.
+                  </li>
+                  <li>
+                     Beat the cream cheese and sugar in a medium bowl until light and fluffy. Fold in whipped topping. Mash the cake down with your hands and spread the cream cheese mixture over the cake.
+                  </li>
+                  <li>
+                     In a bowl, combine strawberries and glaze until strawberries are evenly coated. Spread over cream cheese layer. Chill until serving.
+                  </li>
+               </ol>
+            </li>
+         </ul>
+      </section>
+   </article>
+   <nav>
+      <h1>Contacts</h1>
+   </nav>
+   <article id='contacts'>
+      <section>
+         <ul class='list'>
+            <li>
+               <h3>John Doe</h3>
+               </h4>Bagley's Bagels</h4>
+               <p>111-111-1111</p>
+            </li>
+            <li>
+               <h3>Suzy Cue</h3>
+               </h4>Jeff's Jiffies</h4>
+               <p>222-222-2222</p>
+            </li>
+            <li>
+               <h3>Paul Parker</h3>
+               </h4>Bonzo's</h4>
+               <p>333-333-3333</p>
+            </li>
+            <li>
+               <h3>Mary Joe</h3>
+               </h4>Borx International</h4>
+               <p>444-444-4444</p>
+            </li>
+            <li>
+               <h3>Joe Bodoni</h3>
+               </h4>Sasquatch Suits</h4>
+               <p>555-555-5555</p>
+            </li>
+            <li>
+               <h3>Edna Edmond</h3>
+               </h4>MacDoogle's</h4>
+               <p>666-666-6666</p>
+            </li>
+         </ul>
+      </section>
+   </article>
+</body>
+</html>

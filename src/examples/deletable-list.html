@@ -1,0 +1,45 @@
+   <script>
+       $(function() {
+           $.UIDeletable({
+              list: '.list', 
+              callback: function(item) {
+                 var text = $(item).siblings('h3').text();
+                 $('#response').html('You deleted: <strong>' + text + '</strong>');
+              }
+           });
+      });
+   </script>
+   <style type="text/css">
+      #response {
+         color: #007aff !important;
+      }
+   </style>
+</head>
+<body>
+   <nav>
+      <h1>Deletable List</h1>
+   </nav>
+   <article id='main'>
+      <section>
+         <ul class='list'>
+            <li class='nav'>
+               <h3>People</h3>
+            </li>
+            <li class='nav'>
+               <h3>Places</h3>
+            </li>
+            <li class='nav'>
+               <h3>Things</h3>
+            </li>
+            <li class='nav'>
+               <h3>Animals</h3>
+            </li>
+            <li class='nav'>
+               <h3>Food</h3>
+            </li>
+         </ul>
+         <p id='response'></p>
+      </section>
+   </article>
+</body>
+</html>

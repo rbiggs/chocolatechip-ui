@@ -1,0 +1,1558 @@
+/* Colors */
+@appBkColor: #efeff4;
+@appTint: #007aff;
+@slideoutBkColor: #fff;
+@listBkColor: #fff;
+@listBorder: #c8c8c8;
+@listDetail: #7f7f7f;
+@listNavIndicator: #c7c7cc;
+@selectedListItem: #d9d9d9;
+@listTitle: #4d4d4d;
+@switchedSubtitle: #000;
+@actionButton: #585d63;
+/* Buttons need some background to make them clickable: */
+@buttonBkgnd: rgba(255,255,255,.01);
+@switchBorder: #e6e6e6;
+@switchInsetShadow: #fff;
+@switchThumbBkgnd: #fff;
+@switchOnColor: #6ee102;
+@segmentedButtonBkgnd: rgba(255,255,255,.65);
+@segmentedButtonSelectedText: #fff;
+@splitLayoutBorders: #C8C8C7;
+@navColor: #f7f7f7;
+@navBkgnd: @navColor;
+@toolbarBkgnd: @navColor;
+@tabbarBkgnd: @navColor;
+@tabbarButton: #929292;
+@sheetBkgnd: rgba(156,159,164,.5);
+@sheetListBorder: @actionButton;
+@sheetHandle: #fff;
+@sheetButtonTouched: #fff;
+@popover: #e7e9ee;
+@popoverHeader: #f5f5f6;
+@stepperButton: rgba(255,255,255,0.35);
+@stepperLabel: #fff;
+@rangeInput: #b3b3b4;
+@rangeInputThumbHover: #f9f9f9;
+@popupBkgnd: #e3e3e3;
+@popupButton: #b5b5b5;
+/* End Colors */
+
+.flexBlock () {
+   /* New syntax */
+   display: -webkit-flex;
+   -wekbit-flex-direction: column;
+   -webkit-justify-content: center;
+   -webkit-align-item: start;
+   /* Old syntax */   
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -wekbit-box-align: center;
+   -webkit-box-pack: start;
+   /* No prefix */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-item: start;
+}
+.flexBlockHorizontal () {
+   /* new flex box */
+   display: -webkit-flex;
+   -wekbit-flex-direction: row;
+   -webkit-justify-content: start;
+   -webkit-align-item: center;
+   /* old flex box */
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-pack: start;
+   -webkit-box-align: center;
+ }
+ .flexBlockCentered () {
+   /* new flex box */
+   display: -webkit-flex;
+   -wekbit-flex-direction: column;
+   -webkit-justify-content: center;
+   -webkit-align-item: center;
+   /* old flex box */
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-box-pack: center;
+   -webkit-box-align: center;
+ }
+.transition(@prop: all, @duration: .25s, @ease:ease-out) {
+  -webkit-transition: @arguments;
+  transition: @arguments;
+}
+.transform(...) {
+   -webkit-transform: @arguments;
+   transform: @arguments;
+}
+.flex() {
+   -webkit-box-flex: 1 !important;
+   -webkit-flex: 1 !important;
+}
+.imageMask (@bkcolor, @svg) {
+   background-color: @bkcolor;
+   -webkit-mask-position: 50% 50%;
+   -webkit-mask-size: 90% 90%;
+   -webkit-mask-repeat: no-repeat;
+   -webkit-mask-image: url(@svg);
+}
+.overflowYScroll () {
+   overflow-x: hidden;
+   overflow-y: auto;   
+}
+.sizing() {
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+}
+.size(@height, @width) {
+   height: @height;
+   width: @width;
+}
+.pseudoBlock(@content) {
+   display: block;
+   content: @content;
+}
+.nav(@bkgd:@navBkgnd, @border:#a7a7aa) {
+   background-color: @bkgd;
+   border-bottom: solid 1px @border;   
+}
+.toolbarStylz (@bkgd:@toolbarBkgnd, @border:#a7a7aa) {
+   background-color: @bkgd;
+   border-top: solid 1px @border;
+}
+.listBorder (@BrColor: @listBorder) {
+   border-top: solid 1px @BrColor;
+   border-bottom: solid 1px @BrColor;
+}
+.deletionIndicator(@color: #fff, @brColor: #ff3b30) {
+   color: @color;
+   border: solid 1px @brColor;
+   background-color: @brColor;
+}
+.rangeInputThumb() {
+   box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.25);
+   background-color: #fff;
+}
+.deleteButton() {
+   background-color: #ff0000;
+   color: #fff;
+}
+/* End LESS definitions */
+
+html, body {
+   padding: 0;
+   margin: 0;
+   position: absolute;
+   top: 0; right: 0;
+   bottom: 0; left: 0;
+   overflow: hidden;
+}
+body {
+   background-color: @appBkColor;
+   font: normal 10pt/13pt HelveticaNeue, Helvetica, Sans-serif;
+   -webkit-font-smoothing: subpixel-antialiased;
+   -webkit-user-select: none;
+   -webkit-tap-highlight-color: transparent;
+}
+/* ==============================
+   Text Styling
+   ============================== */
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.fontDef(@size, @weight, @lineHeight) {
+   font-size: @size;
+   font-weight: @weight;
+   line-height: @lineHeight;
+}
+h1, .type-xx-large {
+   .fontDef(42pt,200,1.1429);
+    /* 64px when font-size is 42pt */
+}
+h2, .type-x-large {
+   .fontDef(20pt,200,1.2);
+    /* 32px when font-size is 20pt */
+}
+h3, .type-large {
+   .fontDef(11pt,600,1.3636);
+    /* 20px when font-size is 11pt */
+}
+h4, .type-medium, code, pre, samp {
+   .fontDef(11pt,400,1.3636);
+     /* 20px when font-size is 11pt */
+}
+body, h5, .type-small, legend {
+   .fontDef(11pt,300,1.3636);
+    /* 20px when font-size is 11pt */
+}
+h6, caption, figcaption, small, .type-xx-small {
+   .fontDef(9pt,400,1.6667); 
+   /* 20px when font-size is 9pt */
+}
+/* ==============================
+   Article (view) styles
+   ============================== */
+article {
+   position: absolute;
+   top: 45px; right: 0;
+   bottom: 0; left: 0;
+   .transition (all, .15s);
+   .overflowYScroll;
+   -webkit-overflow-scrolling: touch;
+   .flexBlock
+}
+@media only screen and (min-width : 768px) {
+   article {
+      .transition (all, .25s)
+   }
+}
+/* ==============================
+   Article navigation states
+   ============================== */
+.articleState () {
+   opacity: 1;
+   visibility: visible;
+}
+.current {
+   .articleState;
+   .transform(translate3d(0,0,0));
+}
+.next {
+   .transform(translate3d(105%,0,0));
+   .articleState
+}
+.previous {
+   .transform(translate3d(-100%,0,0));
+   .articleState
+}
+/* ==============================
+   Slide Out
+   ============================== */
+.slide-out {
+   position: absolute;
+   top: 45px;
+   left: 0;
+   bottom: 0;
+   background-color: @slideoutBkColor;
+   z-index: 111111111;
+   width: 100%;
+   visibility: hidden;
+   .transform(translate3d(-100%,0,0));
+   .transition;
+   .overflowYScroll;
+   -webkit-overflow-scrolling: touch;
+   .flexBlock
+}
+.slide-out > section {
+   .flex;
+   padding-bottom: 100px;
+   .overflowYScroll;
+}
+.slide-out.open {
+   visibility: visible;
+   .transform(translate3d(0,0,0));
+}
+.button.slide-out-button {
+   position: absolute;
+   z-index: 1111111;
+   top: 5px;
+   left: 15px;
+   .size(35px,35px);
+   .sizing;
+   padding: 0;
+}
+.button.slide-out-button::before {
+   .pseudoBlock('');
+   .size(35px,35px);
+   .imageMask(#000, 'data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><rect x="25.833" y="20" width="64.167" height="7.666"/><rect x="25.833" y="46.136" width="64.167" height="7.667"/><rect x="25.833" y="72.271" width="64.167" height="7.666"/><rect x="9.833" y="20" width="7.667" height="7.666"/><rect x="9.833" y="46" width="7.667" height="7.666"/><rect x="9.833" y="72.271" width="7.667" height="7.666"/></svg>');
+}
+body.slide-out-app > article,
+body.slide-out-app > nav:not(:first-of-type) {
+   display: none !important;
+}
+body.slide-out-app > article.show,
+body.slide-out-app > nav.show  {
+   display: block !important;
+   z-index: 100;
+}
+/* ==============================
+   Scrollers
+   ============================== */
+.scroller-vertical,
+.scroller-horizontal {
+   .flex;
+   padding-bottom: 100px;
+   .overflowYScroll;
+   -webkit-overflow-scrolling: touch;
+}
+.scroller-horizontal {
+   .overflowYScroll;
+}
+article > section,
+.slide-out > section {
+   padding-top: 20px;
+   padding-bottom: 100px;
+   .flex;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   min-height: 100% !important;
+}
+
+/* ==============================
+   Horizontal Panels
+   ============================== */
+.vertical, li.comp > aside.vertical {
+   /* Old syntax */
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-box-pack: start;
+   -webkit-box-align: start;
+   /* New syntax */
+   display: -webkit-flex;
+   -wekbit-flex-direction: column;
+   -webkit-justify-content: start;
+   -webkit-align-item: start;
+}
+
+.horizontal {
+   /* Old syntax */
+   display: -webkit-box;
+   -webkit-align-item: start;
+   -webkit-box-pack: start;
+   -webkit-box-align: start;
+   /* New syntax */
+   display: -webkit-flex;
+   -wekbit-flex-direction: row;
+   -webkit-box-orient: horizontal;
+   -webkit-justify-content: start;
+}
+.horizontal.centered {
+   -webkit-justify-content: center;
+   -webkit-align-item: center;
+   -webkit-box-pack: center;
+   -webkit-box-align: stretch;
+}
+/* ==============================
+   Nav bars
+   ============================== */
+#global-nav {
+   .nav;
+   overflow: hidden;
+}
+nav {
+   height: 45px;
+   .sizing;
+   .flexBlockHorizontal;
+   text-align: center;
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   .transition(all, .15s);
+   padding: 0 15px;
+   vertical-align: middle;
+}
+nav > h1 {
+   text-align: center;
+   display: inline-block;
+   .flex;
+   font: normal 12pt/14pt HelveticaNeue, Sans-serif;
+   position: absolute;
+   top: 0;
+   left: 100px;
+   right: 100px;
+   z-index: -1;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+nav > a.button + h1 {
+   left: 120px;
+   right: 120px;
+}
+nav > h1 + a.button {
+   margin: 0;
+   position: absolute;
+   right: 15px;
+   top: 3px;
+}
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+   nav > a.button + h1 {
+      left: 115px;
+      right: 115px;
+   }
+}
+@media only screen and (max-device-width : 320px) and (orientation : landscape) {
+   nav > a.button + h1 {
+      left: 150px;
+      right: 150px;
+   }
+}
+/* ==============================
+   Lists
+   ============================== */
+.list {
+   list-style: none;
+   margin: 0 0 10px 0;
+   padding: 0;
+   .listBorder;
+   background-color: @listBkColor;
+   overflow: hidden;
+   width: 100%;
+}
+.list > li {
+   padding: 13px 15px 13px 15px;
+   .transition(all, .3s);
+   position: relative;
+   background-color: @listBkColor;
+   font-size: 12pt;
+}
+.list > li + li {
+
+}
+.list > li::before {
+   .pseudoBlock('');
+   position: absolute;
+   bottom: 0px;
+   left: 15px;
+   right: 0px;
+   border-bottom: solid 1px @listBorder;
+}
+.list > li:last-of-type::before {
+   border-bottom: none;
+}
+.list > li.nav::after {
+   .pseudoBlock('');
+   .size(6px,6px);
+   border-right: solid 2px @listNavIndicator;
+   border-top: solid 2px @listNavIndicator;
+   @listBkColor;
+   .transform(rotate(45deg));
+   float: right;
+   position: absolute;
+   top: 16px;
+   right: 15px;
+   .transition(all, .4s);
+}
+.list > li.show-detail::after {
+   .pseudoBlock('i');
+   .size(20px,22px);
+   border-radius: 20px;
+   border: solid 1px @appTint;
+   color: @appTint;
+   font: bold 14px/0 'Times', serif;
+   .sizing;
+   padding: 10px 8px;
+   position: absolute;
+   top: 10px;
+   right: 15px;
+}
+/* List Footer */
+.list + p, .list + p + p {
+   color: @listDetail;
+   font-family: HelveticaNeue, Helvetica, sans-serif;
+   -webkit-font-smoothing: antialiased;
+}
+.list ~ p {
+   margin: 0 15px;
+}
+.list ~ p + p {
+   margin-top: 5pt;
+}
+.list > li[data-goto] { 
+   cursor: pointer;
+}
+.list > li[data-goto]:hover, 
+.list > li[data-goto].touched,
+li[data-show-article]:hover,
+li[data-show-article].touched,
+.list.select > li:hover,
+.list.select > li.touched,
+.list.select > li.selected {
+   background-color: @selectedListItem;
+   cursor: pointer;
+}
+/* ==============================
+   List title & subtitle
+   ============================== */
+.list > li > h3, 
+.list > li > h4 {
+   width: 80%;
+   font-weight: 200;
+   margin: 0;
+}
+.list > li h3 {
+   line-height: 18pt;
+}
+.list > li h4 {
+   line-height: 14pt;
+   color: @listDetail;
+}
+.list > li > h4, 
+.list > li > div > h4 {
+   font-size: 11pt;
+   margin: 0;
+}
+.list > li > aside > h4 {
+   margin: 0;
+   font-weight: normal;
+   color: @listDetail;
+}
+/* ==============================
+   List detail
+   ============================== */
+.list > li > p {
+   margin: 6px 0px;
+   color: @listDetail;
+}
+.list > li p + p {
+   margin-top: 6px;
+}
+.list > li.comp > div > p {
+   font-size: 10pt;
+   margin: 0;
+   color: @listDetail;
+}
+.list h3, .list h4, .list p {
+   pointer-events: none;
+}
+
+/* ==============================
+   List header
+   ============================== */
+section h2 {
+   font: normal 11pt/12pt HelveticaNeue, Sans-serif;
+   color: @listTitle;
+   margin: 40px 0 6px 15px;
+   text-transform: uppercase;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   color: @listDetail;
+}
+/* Display header as is */
+section h2.normal-case {
+   text-transform: none;
+}
+/* Allow header to wrap */
+section h2.wrap {
+   white-space: normal;
+}
+section > h2 {
+   margin: 26px 0 6px 15px !important;
+}
+/* ==============================
+   comp List Items
+   ============================== */
+.list > li.comp::before {
+   content: none;
+}
+li.comp {
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-align: stretch;
+   padding-bottom: 0;
+}
+li.comp > div {
+   -webkit-box-flex: 1;
+   border-bottom: solid 1px @listBorder;
+   padding: 0 0 10px 0;
+   margin-left: 0;
+}
+li.comp:last-of-type > div {
+   border: none;
+}
+
+li.comp > div > h3,
+li.comp > div > h4 {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   font-family: HelveticaNeue, Helvetica, Sans-serif;
+   font-weight: 200;
+}
+li.comp.wrap > div > h3,
+li.comp.wrap > div > h4 {
+   white-space: wrap;
+   overflow: visible;
+}
+li.comp > div > h3 {
+   margin: 0;
+}
+li.comp > div > h4 {
+   margin: 0;
+}
+li.comp > aside {
+   display: -webkit-box;
+   -webkit-box-pack: center;
+   -webkit-box-align: center;
+   padding: 0 0 10px 0;
+}
+li.comp > aside:first-child {
+   -webkit-box-align: start;
+}
+li.comp > aside > label, li.comp > aside > span {
+   display: inline-block;
+   margin-left: 6px;
+}
+li.comp > aside > .nav {
+   display: block;
+   .size(12px,12px);
+}
+li.comp > aside > .nav::after {
+   .pseudoBlock('');
+   .size(6px,6px);
+   border-right: solid 2px @listBorder;
+   border-top: solid 2px @listBorder;
+   .transform(rotate(45deg) translate3d(4px,0,0));
+}
+li.comp > aside > .show-detail {
+   display: inline-block;
+   margin-bottom: -4px;
+}
+li.comp > aside > .show-detail::after {
+   .pseudoBlock('i');
+   .size(20px,22px);
+   border-radius: 20px;
+   border: solid 1px @appTint;
+   color: @appTint;
+   font: bold 14px/0 'Times', serif;
+   .sizing;
+   padding: 10px 8px;
+   float: right;
+   margin: 0px 10px 0 0 !important;
+}
+li.comp > aside:first-child {
+   margin-right: 10px;
+}
+li.comp > aside:last-child {
+   padding: 0 10px 10px 10px;
+   border-bottom: solid 1px @listBorder;
+}
+li.comp > div + aside {
+   margin-right: -15px;
+}
+li.comp:last-of-type > aside:last-child {
+   border: none;
+}
+aside > span.counter, aside > span.date-time {
+   font-weight: normal;
+   color: @listDetail;
+   font-size: 12pt;
+}
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+   li.comp > aside > h4 {
+      max-width: 100px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+}
+/* ==============================
+   Switched List Items
+   ============================== */
+li.switched {
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-direction: reverse;
+}
+li.switched h3 {
+   width: auto;
+   font-size: 15px;
+   line-height: 26px;
+   color: @appTint;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+.list > li.switched > h4 {
+   width: 48%;
+   text-align: right;
+   margin-right: 10px;
+   font-size: 19px;
+   line-height: 24px;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   max-width: 50%;
+   color: @switchedSubtitle !important;
+}
+
+/* ============================== 
+   Select List
+   ============================== */
+.list.select li > input {
+   display: none;
+}
+.list.select li.selected,
+.list.select li:hover,
+.list.select li.touched {
+   background-color: @selectedListItem;
+}
+.list.select li.selected::after {
+   .pseudoBlock('');
+   .size(20px,20px);
+   .imageMask(@appTint, 'data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="26" viewBox="0 0 32 26" id="svg2"><defs id="defs8" /><g transform="translate(0.13135593,-0.34322034)" id="Page-1" style="fill:none;stroke:none"><g id="Artboard-1" style="stroke:#000000;stroke-width:5"><path d="m 10.500868,22.761362 11.023688,0 0,-27.9582975" transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,10.899977,-8.7504466)" id="Rectangle-1" /></g></g></svg>');
+   float: right;
+   margin-top: -20px;
+   color: @appTint;
+}
+.list.select li.selected:hover::after {
+
+}
+
+
+/* ============================== 
+   Deletable Lists
+   ============================== */
+.deletion-indicator {
+   display: -webkit-inline-box;
+   -webkit-box-pack: center;
+   -webkit-box-align: center;
+   .deletionIndicator;
+   border-radius: 50%;
+   .size(20px,20px);
+   float: left;
+   margin-right: 6px;
+   .transition;
+   margin-left: -40px;
+   cursor: pointer;
+   position: relative;
+   z-index: 100;
+}
+.deletion-indicator::before {
+   .pseudoBlock('—');
+   font-size: 12pt;
+   margin-top: -1px;
+}  
+.list.showIndicators .deletion-indicator {
+   margin-left: 0;
+}
+
+.button.delete {
+   float: right;
+   .deleteButton;
+   text-align: center;
+   .sizing;
+   width: 80px;
+   position: absolute;
+   right: 0;
+   top: 0;
+   .flexBlockCentered;
+   .transition;
+   .transform(translate3d(80px,0,0));
+   cursor: pointer;
+   font-family: 'HelveticaNeue-Light';
+   font-weight: 200;
+}
+
+li.selected > .button.delete {
+   .transform(translate3d(80px,0,0));
+}
+.deletable > li.selected h3, .deletable > li.selected h4, .deletable > li.selected p {
+   position: relative;
+   .transform(translate3d(0,0,0));
+   .transition(all, 1s);
+}
+.list.deletable > li {
+   .transition;
+   .transform(translate3d(0,0,0));
+}
+.list.deletable > li.selected {
+   .transform(translate3d(-80px,0,0));
+}
+/* ============================== 
+   Buttons
+   ============================== */
+a.button {
+   cursor: pointer;
+   text-decoration: none;
+   font-size:  13pt;
+   .transition(all, .35s);
+   display: block;
+   .sizing;
+   .size(auto,auto);
+   padding: 8px 0px;
+   position: relative;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   vertical-align: middle;
+   text-align: center;
+   background-color: @buttonBkgnd;
+}
+nav > a.button {
+   max-width: 100px;
+}
+a.button.back, a.button.backTo {
+   text-align: left;
+   padding: 0 0 0 20px !important;
+   margin-top: 3px;
+   line-height: 28px;
+   color: @appTint;
+   border: none;
+   position: relative;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: inline-block !important;
+   height: 30px;
+   margin-top: 8px;
+}
+.isiOS a.button.back, .isiOS a.button.backTo {
+   display: -webkit-box;
+   margin-top: 0;
+}
+.isSafari6 a.button.back, .isSafari6 a.button.backTo {
+   margin-top: 2px !important;
+}
+a.button.back::before, 
+a.button.backTo::before {
+   .pseudoBlock('');
+   border: solid 1px transparent;
+   .imageMask(@appTint, 'data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="21" height="35" viewBox="0 0 21 35" id="svg2"><defs id="defs8" /><g transform="translate(-2.1355929,0.0677963)" id="Page-1" style="fill:none;stroke:none"><path d="M 21.353814,1.2365445 5.0903576,17.5 21.353814,33.763456" id="Rectangle-1" style="stroke:#000;stroke-width:3" /></g></svg>');
+   -webkit-mask-position: left center;
+   .size(20px,20px);
+   margin-right: 7px;
+   position: absolute;
+   left: -4px;
+   top: 2px;
+}
+.isSafari6 a.button.back,
+.isSafari6 a .button.backTo {
+   margin-top: 0;
+}
+.button:hover {
+   cursor: pointer;
+   opacity: .5 !important;
+}
+a.button, a.button.back::before {
+   color: @appTint;
+   border-color: @appTint;
+}
+.button.align-flush,
+.toolbar > .button.align-flush {
+   position: absolute;
+   right: 15px;
+   margin-right: 0 !important;
+   z-index: 100;
+}
+.button.action {
+   color: @actionButton;
+   border: solid 1px @actionButton;
+   border-radius: 20px;
+   display: block;
+   margin: 0 auto;
+   padding: 10px 20px;
+   .sizing;
+   .size(auto,auto);
+   min-width: 200px;
+   max-width: 300px
+}
+.toolbar > .button.align-flush {
+   position: absolute;
+   right: 15px;
+   top: 0px;
+   margin-right: 0 !important;
+}
+/* ==============================
+   Switch
+   ============================== */
+.switch {
+   display: inline-block;
+   .size(32px,54px);
+   .sizing;
+   border: solid 2px @switchBorder;
+   border-radius: 20px;
+   position: relative;
+   box-shadow: inset 0  0 0 15px @switchInsetShadow;
+   cursor: pointer;
+   -webkit-animation-duration: .65s;
+   -webkit-animation-timing-function: ease-in-out;
+   -webkit-animation-fill-mode: forwards;
+   -webkit-animation-name: switchAnimationOff;
+}
+.switch > em {
+   display: block;
+   .size(27px,27px);
+   box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.25);
+   background-color: @switchThumbBkgnd;
+   border-radius: 50%;
+   -webkit-transition: -webkit-transform .1s ease-in-out;
+   transition: -webkit-transform .1s ease-in-out;
+   -webkit-animation-duration: .45s;
+   -webkit-animation-timing-function: ease-in-out;
+   -webkit-animation-fill-mode: forwards;
+   -webkit-animation-name: switchThumbAnimationOff;
+}
+.switch > input {
+   display: none;
+}
+.switch.on {
+   border-color: @switchOnColor;
+   box-shadow: inset 0 0 0 15px @switchOnColor;
+   -webkit-animation-name: none;
+}
+.switch.on > em {
+   -webkit-transform: translate3d(23px,0,0);
+   -webkit-transition-duration: .2s;
+   -webkit-animation-duration: .45s;
+   -webkit-animation-timing-function: ease-in-out;
+   -webkit-animation-fill-mode: forwards;
+   -webkit-animation-name: switchThumbAnimation;
+   
+}
+@-webkit-keyframes switchAnimationOff {
+   0% { box-shadow: inset 0 0 0 15px @switchBorder; }
+   49.999% { box-shadow: inset 0 0 0 0 @switchBorder; }
+   50% { box-shadow: inset 0 0 0 0 #fff; }
+   100% { box-shadow: inset 0 0 0 15px #fff; }
+}
+
+@-webkit-keyframes switchThumbAnimation {
+   0% { width: 27px; }
+   1% { width: 40px; }
+   50% { width: 27px; }   
+   100% { width: 27px; }   
+}
+@-webkit-keyframes switchThumbAnimationOff {
+   0% { width: 27px; }
+   5% { width: 45px; }
+   50% { width: 27px; }   
+   100% { width: 27px; }   
+}
+/* ==============================
+   Segmented Control
+   ============================== */
+.segmented {
+   display: -webkit-inline-box;
+   -webkit-box-orient: horizontal;
+   display: -webkit-inline-flex;
+   -wekbit-flex-direction: row;
+   .sizing;
+}
+.segmented > .button {
+   border: solid 1px @appTint;
+   padding: 4px 15px;
+   border-left: none;
+   background-color: @segmentedButtonBkgnd;
+   width: auto;
+   overflow-x: hidden;
+   -webkit-transition: none;
+   transition: none;
+   font-size: 10pt;
+   .flexBlockHorizontal;
+   .flex;
+   text-align: center;
+}
+.segmented > .button:first-of-type {
+   border-left: solid 1px @appTint;
+   border-top-left-radius: 4px;
+   border-bottom-left-radius: 4px;
+}
+.segmented > .button:last-of-type {
+   border-top-right-radius: 4px;
+   border-bottom-right-radius: 4px;
+}
+.segmented > .button:hover,
+.segmented > .button.selected {
+   color: @segmentedButtonSelectedText;
+   background-color: @appTint;
+   opacity: 1 !important;
+}
+div.horizontal.centered > .segmented {
+   display: -webkit-box;
+   display: -webkit-flex;
+   margin: 10px 15px;
+   -webkit-flex: 1;
+}
+.segmented.align-flush {
+   position: absolute;
+   right: 15px;
+   top: 6px;
+}
+
+/* ==============================
+   Segmented Paging Control
+   ============================== */
+.segmented.paging > .button {
+   border: none;
+   background: none;
+   color: @appTint;
+   .size(40px,40px);
+   position: relative;
+   border-radius: 0 !important;
+}
+.segmented.paging > .button:hover,
+.segmented.paging > .button.selected,
+.segmented.paging > .button.touched {
+   opacity: .5 !important;
+   color: @appTint;
+}
+.segmented.paging > .button::before {
+   .pseudoBlock('');
+   .size(35px,35px);
+   position: absolute;
+   top: 0;
+   left: 0;
+   -webkit-mask-repeat: no-repeat;
+   -webkit-mask-position: 50% 50%;
+   background-color: @appTint;
+}
+.segmented.paging.horizontal > .button:first-of-type::before {
+      -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px"  viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"> <g id="g4"> </g> <g id="layer2"> <path id="path7" d="M28.038,8.381l2.674,2.599L18.545,23.146l12.086,12.086l-2.593,2.679L17.909,27.782l-4.636-4.636l4.636-4.636  L28.038,8.381z"/> </g> </svg> ');
+}
+.segmented.paging.horizontal > .button:last-of-type::before {
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><g id="g4"></g><g id="layer2"><path id="path7" d="M15.946,37.911l-2.674-2.599l12.167-12.167L13.354,11.06l2.593-2.679L26.075,18.51l4.636,4.636l-4.636,4.636L15.946,37.911z"/></g></svg>');
+}
+.segmented.paging.vertical > .button:first-of-type::before {
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"> <g id="g4"> </g> <g id="layer2"> <path id="path7" d="M7.227,17.101l2.599-2.674l12.167,12.167l12.086-12.086l2.679,2.593L26.628,27.229l-4.636,4.636l-4.636-4.636 L7.227,17.101z"/> </g> </svg>');
+}
+.segmented.paging.vertical > .button:last-of-type::before {
+   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg"    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><g id="g4"></g><g id="layer2"><path id="path7" d="M36.757,29.191l-2.599,2.674L21.992,19.698L9.905,31.784l-2.679-2.593l10.129-10.129l4.636-4.636l4.636,4.636 L36.757,29.191z"/></g></svg>');
+}
+article.paging {
+   overflow: hidden !important;
+   overflow-y: scroll !important;
+   -webkit-box-orient: vertical !important;
+   -webkit-direction: column !important;
+}
+article.paging > section {
+   position: absolute;
+   width: 100%;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   top: 0;
+   opacity: 1;
+   padding: 0 0 100px 0 !important;
+   overflow-x: hidden;
+   overflow-y: scroll;
+   .transition(all, .15s);
+}
+/* Scaling needed to fix overflow bug in mobile Safari: */
+article.paging.horizontal > section.previous {
+   .transform(translate3d(-100%,0,0));
+}
+article.paging.horizontal > section.current {
+   .transform(translate3d(0,0,0) scale(1,1));
+}
+article.paging.horizontal > section.next {
+   .transform(translate3d(100%,0,0) scale(0,1));
+}
+article.paging.vertical > section.previous {
+   .transform(translate3d(0,-100%,0));
+}
+article.paging.vertical > section.current {
+   .transform(translate3d(0,0,0));
+}
+article.paging.vertical > section.next {
+   .transform(translate3d(0,-100%,0));
+}
+/* ==============================
+   Range Control
+   ============================== */
+input[type="range"] {
+   -webkit-appearance: none !important;  
+   outline: none;
+   display: block;
+   .size(4px,auto);
+   margin-top: 20px;
+   margin-bottom: 20px;
+   border-radius: 4px;
+   background-color: @rangeInput;
+}
+input[type="range"]::-webkit-slider-thumb {
+   -webkit-appearance: none;
+   display: block;
+   .size(27px,27px);
+   .rangeInputThumb;
+   border-radius: 50%;
+   -webkit-transition: -webkit-transform .1s ease-in-out;
+   transition: -webkit-transform .1s ease-in-out;
+}
+input[type="range"]::-webkit-slider-thumb:hover {
+   background-color: @rangeInputThumbHover;
+}
+
+
+/* ==============================
+   Stepper Control
+   ============================== */ 
+.stepper {
+   .flexBlockHorizontal;
+   display: -webkit-inline-flex;
+   display: -webkit-inline-box;
+   padding: 1px;
+}
+stepper > input {
+   margin: 0;
+   display: none;
+}
+.stepper > label {
+   display: block;
+   .sizing;
+   border: solid 1px @appTint;
+   .size(30px,40px);
+   font: bold 16px/30px Helvetica;
+   text-align: center;
+   background-color: @stepperLabel;
+}
+.stepper > .button {
+   display: inline-box;
+   .sizing;
+   background-color: @stepperButton;
+   .size(30px,33px);
+   border: solid 1px @appTint;
+   border-radius: 4px;
+   text-align: center;
+   font-weight: bold;
+   font-size: 20pt;
+   line-height: 16pt;
+   cursor: pointer !important;
+   overflow: hidden;
+   padding: 0;
+   .sizing;
+}
+.stepper > .button:first-of-type {
+   border-top-right-radius: 0;
+   border-bottom-right-radius: 0;
+   border-right: none;
+}
+.stepper > .button:last-of-type {
+   border-top-left-radius: 0;
+   border-bottom-left-radius: 0;
+   border-left: none;
+}
+.stepper > input {
+   display: none;
+}
+
+/* ==============================
+   Busy Control
+   ============================== */ 
+@-webkit-keyframes busyAnim {
+   0% { .transform(rotate(0deg)); }
+   100% { .transform(rotate(360deg)); }
+}
+.busy {
+   display: block;
+   position: relative;
+   .size(20px,20px);
+   margin-left: auto;
+   margin-right: auto;
+   .imageMask(#000, "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42 42'><style> @-webkit-keyframes busyAnim { 0% { opacity: 0.11111111111111116; } 100% { opacity: 5; } } #tine1 { -webkit-animation: busyAnim 1.250s 1.125s infinite linear; } #tine2 { -webkit-animation: busyAnim 1.250s 1s infinite linear; } #tine3 { -webkit-animation: busyAnim 1.250s .875s infinite linear; } #tine4 { -webkit-animation: busyAnim 1.250s .750s infinite linear; } #tine5 { -webkit-animation: busyAnim 1.250s .625s infinite linear; } #tine6 { -webkit-animation: busyAnim 1.250s .500s infinite linear; } #tine7 { -webkit-animation: busyAnim 1.250s .375s infinite linear; } #tine8 { -webkit-animation: busyAnim 1.250s .250s infinite linear; } #tine9 { -webkit-animation: busyAnim 1.250s .125s infinite linear; } #tine10 { -webkit-animation: busyAnim 1.250s 0s infinite linear; }<\/style><g transform='translate(21,21)'><g stroke-width='4' stroke-linecap='round' stroke='rgb(0, 0, 0)'>  <line id='tine1' x1='0' y1='11' x2='0' y2='18' transform='rotate(0, 0, 0)' opacity='1'></line>  <line id='tine2' x1='0' y1='11' x2='0' y2='18' transform='rotate(-36, 0, 0)' opacity='1'></line>  <line id='tine3' x1='0' y1='11' x2='0' y2='18' transform='rotate(-72, 0, 0)' opacity='1'></line>  <line id='tine4' x1='0' y1='11' x2='0' y2='18' transform='rotate(-108, 0, 0)' opacity='1'></line>  <line id='tine5' x1='0' y1='11' x2='0' y2='18' transform='rotate(-144, 0, 0)' opacity='1'></line>  <line id='tine6' x1='0' y1='11' x2='0' y2='18' transform='rotate(-180, 0, 0)' opacity='1'></line>  <line id='tine7' x1='0' y1='11' x2='0' y2='18' transform='rotate(-216, 0, 0)' opacity='1'></line>  <line id='tine8' x1='0' y1='11' x2='0' y2='18' transform='rotate(-252, 0, 0)' opacity='1'></line>  <line id='tine9' x1='0' y1='11' x2='0' y2='18' transform='rotate(-288, 0, 0)' opacity='1'></line>  <line id='tine10' x1='0' y1='11' x2='0' y2='18' transform='rotate(-324, 0, 0)' opacity='1'></line> </g> </g></svg>");
+}
+.busy.align-flush {
+   position: absolute;
+   right: 15px;
+}
+
+/* ==============================
+   Popup Control
+   ============================== */
+.popup {
+   display: block;
+   .sizing;
+   width: 300px;
+   border-radius: 10px;
+   padding: 0px;
+   background-color: @popupBkgnd;
+   position: absolute;
+   z-index: 10000;
+   margin-left: auto;
+   margin-right: auto;
+   .transition;
+   -webkit-trasform-origin: center center;
+}
+.popup.closed {
+   .transform(scale(0));
+}
+.popup.opened {
+   display: block;
+   opacity: 1;
+   .transform(scale(1));
+}
+.popup > .panel {
+   .flexBlockHorizontal;
+   -webkit-box-orient: vertical;
+   -webkit-flex-flow: column;
+}
+.popup header,
+.popup footer {
+   display: -webkit-box;
+   display: -webkit-flex;
+   -webkit-box-align: stretch;
+   -webkit-box-pack: justify;
+}
+.popup header > h1 {
+   position: static;
+   text-align: center;
+   margin: 0 15px;
+   width: 100%;
+   line-height: 32pt;
+   font-size: 16pt;
+   font-weight: bold;
+}
+.popup > .panel > p {
+   padding: 0 15px;
+   margin-top: 0;
+   text-align: center;
+}
+.popup > .panel .button {
+   border-top: solid 1px @popupButton;
+}
+.popup footer {
+   width: 100%;
+   padding: 0;
+}
+.popup footer > .button {
+   display: block !important;
+   .flex;
+   height: 100%;
+   line-height: 30pt;
+}
+.popup footer > .button {
+   max-width: 320px !important;
+   font-weight: bold;
+}
+.popup footer > .button + .button {
+   border-left: solid 1px @popupButton;
+}
+
+/* ==============================
+   Popover Control
+   ============================== */
+.popover {
+    width: 280px;
+    background-color: @popover;
+    border-radius: 10px;
+    height: 250px;
+    max-height: 300px;
+    position: absolute;
+    padding-bottom: 10px;
+    z-index: 111111;
+}
+.popover::before {
+   .pseudoBlock('');
+   .size(15px,15px);
+   background-color: @popoverHeader;
+   -webkit-transform: rotate(45deg);
+   margin: 0 auto;
+   position: absolute;
+   top: -7px;
+   left: 49%;
+   z-index: -1;
+}
+.popover header {
+   background-color: @popoverHeader;
+   border-top-left-radius: 10px;
+   border-top-right-radius: 10px;
+   padding: 1px 10px;
+   .sizing;
+   width: 100%;
+}
+.popover header h1 {
+   font-size: 12pt;
+   text-align: center;
+}
+.popover > section {
+   overflow-x: hidden;
+   overflow-y: auto;
+   -webkit-overflow-scrolling: touch;
+   padding-bottom: 0;
+   position: absolute;
+   top: 40px;
+   bottom: 10px;
+   left: 0;
+   right: 0;
+}
+
+/* ==============================
+   Mask Control
+   ============================== */
+.mask {
+   display: block;
+   background-color: #000;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   .size(100%,100%);
+   z-index: 9999;
+   cursor: pointer;
+}
+
+
+/* ==============================
+   Split Layout Styles
+   ============================== */
+body.splitlayout {   
+   /* Old syntax */
+   display: -webkit-box;
+   -webkit-box-orient: horizontal;
+   -webkit-box-pack: start;
+   -webkit-box-align: stretch;
+   /* New syntax */
+   display: -webkit-flex;
+   -wekbit-flex-direction: row;
+   -webkit-justify-content: start;
+   -webkit-align-item: stretch;
+}
+.splitlayout > nav {
+   background-color: @navBkgnd;
+   border-bottom: solid 1px #a7a7aa;
+}
+.splitlayout > nav h1 {
+   z-index: auto;
+   text-align: center;
+}
+.splitlayout > nav:first-of-type {
+   width: 320px;
+   right: auto;
+   border-right: solid 1px @splitLayoutBorders !important;
+}
+.splitlayout > nav:last-of-type {
+   left: 320px;
+}
+.splitlayout > article.master {
+   top: 45px;
+   left: 0;
+   bottom: 0;
+   right: 320px;
+   .sizing;
+   width: 320px;
+   border-right: solid 1px @splitLayoutBorders !important;
+}
+.splitlayout > article.detail {
+   top: 45px;
+   left: 320px !important;
+   bottom: 0;
+   left: 0;
+   -wekbit-box-flex: 1;
+   -wekbit-flex: 1;
+}
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+   .splitlayout > article.master {
+      right: 260px !important;
+      width: 260px;
+   }
+   .splitlayout > article.detail {
+      left: 260px !important;
+   }
+   .splitlayout > nav:first-of-type {
+      width: 260px !important;
+   }
+   .splitlayout > nav:last-of-type {
+      left: 260px !important;
+   }
+}
+
+/* ==============================
+   Tab Bar
+   ============================== */
+
+.tabbar {
+   .flexBlockHorizontal;
+   -webkit-box-pack: center;
+   -webkit-justify-content: center;
+   height: 50px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   .sizing;
+   border-top: solid 1px @tabbarButton;
+   background-color: @tabbarBkgnd;
+}
+body.hasTabBar article {
+   bottom: 50px;
+}
+.tabbar > .button {
+   height: 100%;
+   position: relative;
+   padding: 0;
+   .flex;
+   .flexBlock;
+   color: @tabbarButton;
+   font-size: 9pt;
+   padding: 1px;
+}
+.tabbar > .button:hover,
+.tabbar > .button.selected {
+   color: @appTint !important;
+   opacity: 1 !important;
+}
+.tabbar > .button > .icon {
+   margin: 0 auto;
+}
+.hasTabBar .current {
+
+}
+.hasTabBar nav {
+   background-color: @navBkgnd;
+   border-bottom: solid 1px #a7a7aa;
+}
+.hasTabBar .previous:not(.navigable),
+.hasTabBar .next:not(.navigable) {
+   display: none;
+   -webkiit-transform: none;
+}
+.tabbar > .button > .icon {
+   background-color: @tabbarButton;
+}
+.tabbar > .button:hover > .icon ,
+.tabbar > .button.selected > .icon {
+   background-color: @appTint;
+}
+.tabbar > .button > .icon {
+   background-color: @tabbarButton;
+}
+.tabbar > .button.more > .icon {
+   .imageMask(@tabbarButton,'data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><circle cx="10" cy="23" r="5.172"/><circle cx="24" cy="23" r="5.172"/><circle cx="38" cy="23" r="5.172"/></svg> ');
+}
+
+/* ==============================
+   Sheet Control
+   ============================== */
+.sheet {
+   position: absolute;
+   top: 45px;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   background-color: @sheetBkgnd;
+   .transition(all, .25s, ease-in);
+   .transform(translate3d(0,100%,0));
+   visibility: hidden;
+}
+.sheet.opened {
+   visibility: visible;
+   .transform(translate3d(0,0,0));
+}
+.sheet > section {
+   position: absolute;
+   top: 36px;
+   left: 0;
+   bottom: 0;
+   height: auto;
+   right: 0;
+}
+.sheet > section > h2 {
+   text-align: center;
+}
+article.current.blurred {
+   -webkit-filter: blur(20px);
+   -webkit-transition-duration: .15s;
+   filter: blur(20px);
+   transition-duration: .15s;
+}
+article.current.blurred.removeBlurSlow {
+   -webkit-filter: blur(0px);
+   -webkit-transition-duration: .35s;
+}
+.sheet .button {
+   color: @actionButton;
+   border: solid 1px @actionButton;
+   border-radius: 20px;
+   .size(auto,auto);
+   margin: 0 auto;
+   padding: 10px 20px;
+}
+.sheet .button:hover,
+.sheet .button.touched,
+.sheet .button.selected {
+   color: @sheetButtonTouched;
+   border-color: @sheetButtonTouched;
+   opacity: 1 !important;
+   -webkit-transition: none;
+}
+.sheet > section > .list {
+   border: none;
+}
+.sheet > section > .list,
+.sheet > section > .list > li {
+   background-color: transparent !important;
+}
+.sheet > section > .list > li {
+   border-bottom: solid 1px @sheetListBorder;
+}
+.sheet > section > .list > li::before {
+   content: none;
+}
+div.handle {
+   display: block;
+   text-align: center;
+   margin: 0 auto;
+   color: @sheetHandle;
+   cursor: pointer;
+   height: 20pt;
+   .imageMask(@sheetHandle, 'data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="76" height="27" viewBox="0 0 76 27" id="svg2"><defs id="defs8" /><g transform="translate(-283.79661,-123.77966)" id="Page-1" style="fill:none;stroke:none"><g transform="translate(254,108)" id="Artboard-1" style="stroke:#000;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"><path d="m 36.25,26.242187 31.394531,7.972657 30.53125,-8.425782" id="Path-1" /></g></g></svg>');
+   margin: 10px auto 0;
+}
+
+/* ==============================
+   Icon Styles
+   ============================== */
+/*
+   Put a class or id on each icon.
+   The use a png or svg image as 
+   a background image. Apply a
+   background color too.
+   See page article of demo
+   paging control for example.
+*/
+.icon {
+   .size(40px,40px);
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-size: auto 70%;
+   border-radius: 10px;
+}
+
+/* ==============================
+   Toolbar Styles
+   ============================== */
+.toolbar  {
+   position: fixed;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   height: 45px;
+   padding: 0 15px;
+   .toolbarStylz;
+   overflow: hidden;
+   .sizing;
+   .flexBlockHorizontal;
+   .transition(all, .15s);
+   .transform(translate3d(0,0,0));
+}
+.splitlayout > .master + .toolbar {
+   left: 0;
+   width: 320px;
+   border-right: solid 1px @splitLayoutBorders !important;
+}
+.splitlayout > .detail + .toolbar {
+   left: 320px;
+}
+article.has-toolbar {
+   bottom: 45px !important;
+}
+div.toolbar.current {
+   .transform(translate3d(0,0,0)) !important;
+}
+div.toolbar.next {
+   .transform(translate3d(101%,0,0)) !important;
+}
+div.toolbar.previous {
+   .transform(translate3d(-101%,0,0)) !important;
+}
+.toolbar > .button {
+   margin-right: 20px;
+}

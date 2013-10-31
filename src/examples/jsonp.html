@@ -1,0 +1,36 @@
+   <style>
+      pre {
+         font-family: HelveticaNeue, Sans-serif;
+         word-wrap: normal;
+         white-space: pre-wrap;
+      }
+   </style>
+   <script>
+      $(function() {         
+         var url = 'http://soundcloud.com/oembed?url=http%3A//soundcloud.com/makebeliever/ULTRAMEGACHILL&format=js&callback=?';
+         $.JSONP(url, function(data) {
+            $('.list').append('<li><h3><pre>' + data.description + '</pre></h3></li>');
+         });
+         var url2 = 'http://www.geonames.org/postalCodeLookupJSON?postalcode=94102&country=US&callback=?';
+         $.JSONP(url2, function(data){
+          $('.list').append('<li><h3>My Location</h3><h4>' + data.postalcodes[0].adminName2 + ', ' + data.postalcodes[0].adminName1 + '</h4></li>');
+         });       
+         $.JSONP('https://api.github.com/users/yui?callback=?', function(data) {
+            $('.list').append('<li><h3>The name of the library</h3><h4>' + data.data.name + '</h4></li>');
+         });
+
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>JSONP</h1>
+   </nav>
+   <article id='main'>
+      <section>
+         <ul class='list'>
+         </ul>
+      </section>
+   </article>
+</body>
+</html>

@@ -1,0 +1,53 @@
+   <style>
+      #gestureResponse {
+         color: #007aff;
+         font-weight: bold;
+         text-transform: none;
+      }
+   </style>
+   <script>
+       $(function() {
+          $('#main').on('swipeleft', function() {
+            $('#gestureResponse').html('Swipe LEFT completed!');
+         });
+         $('#main').on("swiperight", function() {
+            $('#gestureResponse').html('You just swiped RIGHT!');
+         });
+         $('#main').on('swipeup', function() {
+            $('#gestureResponse').html('Woohoo! Swiping UP!');
+         });
+         $('#main').on('swipedown', function() {
+            $('#gestureResponse').html('We\'re going DOWN!');
+         });
+         $('#main').on('doubletap', function() {
+            $('#gestureResponse').html('That was a Double Tap!');
+         });
+         $('#main').on('longtap', function() {
+            $('#gestureResponse').html('This is a Looooong Tap!');
+         });
+         $('#main').on('singletap', function() {
+            $('#gestureResponse').html('A Single Tap here!');
+         });
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Gestures</h1>
+   </nav>
+   <article id='main'>
+      <section>
+         <h2>Try:<br> 
+         tap, double tap, long tap,<br> 
+         swipe left, swipe right,<br> 
+         swipe up, swipe down</h2> 
+         <ul class='list'>
+            <li>
+               <h3>Gesture:</h3>
+               <h2 id='gestureResponse'></h2>
+            </li>
+         </ul>
+      </section>
+   </article>
+</body>
+</html>

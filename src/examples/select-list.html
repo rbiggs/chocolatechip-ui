@@ -1,0 +1,45 @@
+   <script>
+       $(function() {
+          $('.list').UISelectList({
+             selected: 2,
+             callback: function() {
+                $("#response").html($(this).text());
+             }
+          });
+          if (window.jQuery) {
+            $('li').each(function(idx, ctx) {
+               if ($(ctx).hasClass('selected')) {
+                  $("#response").html($(ctx).text());
+               }
+            });
+          } else {
+            $("#response").html($('li').hasClass('selected').text());
+          }
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>To Do</h1>
+   </nav>
+   <article id='select-example'>
+      <section>
+         <ul class='list'>
+            <li>
+               <h3>Go eat something</h3>
+            </li>
+            <li>
+               <h3>Take a nap</h3>
+            </li>
+            <li>
+               <h3>Get some work done</h3>
+            </li>
+            <li>
+               <h3>Play a game</h3>
+            </li>
+         </ul>
+         <p><strong>You are going to: </strong><span id="response"></span></p>
+      </section>
+   </article>
+</body>
+</html>

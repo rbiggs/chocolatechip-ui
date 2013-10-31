@@ -1,0 +1,98 @@
+   <script>
+      $(function() {
+         // Create sheet and populate it:
+         $.UISheet();
+         $('.sheet').find('section').append("<ul class='list'></li>");
+         $('.sheet .list').append("<li><a class='button' href='javascript:void(null)'>Save</a></li><li><a class='button' href='javascript:void(null)'>Delete</a></li><li><a class='button' href='javascript:void(null)'>Cancel</a></li>");
+         $('.sheet .list').append ('<h2 style="text-align: center; margin: 20px;">The End</h2>');
+         
+         $('.sheet .list').on('singletap', '.button', function() {
+            $.UIHideSheet();
+         });
+         
+         // Initialize button to show sheet:
+         $('#showSheet').on('singletap', function() {
+            $.UIShowSheet();
+         });
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Sheet Control</h1>
+      <a class='button align-flush' id='showSheet' href='javascript:void(null)'>Show</a>
+   </nav>
+   <article id='main'>
+      <section>
+         <h2>Music</h2>
+         <ul class='list'>
+            <li class='comp'>
+               <aside>
+                  <img title='Imagine Dragons' src="../images/music/Imagine Dragons.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Imagine Dragons</h3>
+                  <h4>Radioactive</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Hurry and Harm' src="../images/music/Hurry and Harm.png" height="80px">
+               </aside>
+               <div>
+                  <h3>The Hurry and the Harm</h3>
+                  <h4>Hurt</h4>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Permanent' src="../images/music/Permanent.png" height="80px">
+               </aside>
+               <div>
+                  <h3>David Cook</h3>
+                  <h4>Permanent</h4>
+                  <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Kiss' src="../images/music/Kiss.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Kiss</h3>
+                  <h4>This Kiss</h4>
+                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+            <li class='comp'>
+               <aside>
+                  <img title='Willy Moon' src="../images/music/Willy Moon.png" height="80px">
+               </aside>
+               <div>
+                  <h3>Willy Moon</h3>
+                  <h4>Yeah Yeah</h4>
+                  <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+               </div>
+               <aside>
+                  <span class='show-detail'></span>
+               </aside>
+            </li>
+         </ul>            
+      </section>
+   </article>
+</body>
+</html>

@@ -1,0 +1,52 @@
+   <style type="text/css">
+      body {
+         padding: 60px 10px 20px 20px;
+      }
+      .square {
+         width: 100%;
+         height: 150px;
+         margin: 20px 0;
+         color: #000;
+         background-color: #fff;
+         font-family: Helvetica, Arial, Sans-Serif;
+         position: relative;
+      }
+   </style>      
+   <script>
+      $(function() {
+         $('nav').find('.busy').css('top','10px');
+         $('nav').UIBusy({size: '20px', color:'#666', position: 'right'});
+         
+         $('#busy1').UIBusy({'color':'rgba(200,0,0,0.75)', 'size': '50px'});
+         $('#busy1').find('.busy').UICenter();
+         
+         $('#busy2').UIBusy({size:'40px', color: 'gold'});
+         $('#busy2').find('.busy').UICenter();
+         
+         $('#busy3').UIBusy({color: '#fff'});
+         $('#busy3').find('.busy').UICenter();
+         
+         $('#busy4').UIBusy({color: 'blue', size:'30px'});
+         $('#busy4').find('.busy').UICenter();
+         
+         $('#busy5').UIBusy({color: '#ddd', size:'50px'});
+         $('#busy5').find('.busy').UICenter();
+         
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Busy Control</h1>
+   </nav>
+   <article id="main" ui-background-style="striped" ui-navigation-status="current">
+      <section>
+         <div id="busy1" class="square"></div>
+         <div id="busy2" class="square" style="background:#7d88d3"></div>
+         <div id="busy3" class="square" style="background:#0059a6"></div>
+         <div id="busy4" class="square"></div>
+         <div id="busy5" class="square" style="background:#afafaf"></div>
+      </section>
+   </article>
+</body>
+</html>

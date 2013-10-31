@@ -1,0 +1,58 @@
+   <style>
+      div {
+         width: 300px;
+         font:  bold 16pt/20pt Helvetica, sans-serif;
+         color: #7fa3ff;
+         -webkit-user-select: none;
+      }
+      section label {
+         display: block;
+         margin-bottom: 6px;
+      }
+      section input[type=range] {
+         width: 200px
+      }
+   </style>
+   <script>
+      $(function() {
+         $('#rangeValue1').html($('#rangeControl1').val());
+         $('#rangeControl1').on('change', function() {
+            $('#rangeValue1').html($(this).val());
+         });
+         
+         $('#rangeValue2').html($('#rangeControl2').val());
+         $('#rangeControl2').on('change', function() {
+            $('#rangeValue2').html($(this).val());
+         });
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Range Input</h1>
+   </nav>
+   <article id="main" class="current">
+      <section>
+         <h2>Range Control</h2>
+         <ul class='list'>
+            <li>
+               <h3>Point for Point Increase<span></span></h3>
+               <div>
+                  <label>Current Value: <span id='rangeValue1'></span></label>
+                  <input type="range" id="rangeControl1" value="10" min="0" max="40">
+               </div>
+            </li>
+         </ul>
+         <ul class='list' ui-li-order="stacked" ui-kind='grouped'>
+            <li>
+               <h3>With Steps of 5<span></span></h3>
+               <div>
+                  <label>Current Value: <span id='rangeValue2'></span></label>
+                  <input type="range" id="rangeControl2" step='5' value="20" min="0" max="40">      
+               </div>
+            </li>
+         </ul>
+      </section>
+   </article>
+</body>
+</html>

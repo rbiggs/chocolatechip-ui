@@ -1,0 +1,64 @@
+   <script>
+      $(function() {
+         // Two methods to subscribe to:
+         var arraySubscriber = function( topic , data ) {
+            if (data instanceof Array) {
+               if (data[0] instanceof Object) {
+                  data.forEach(function(ctx) {
+                     if (ctx['news-flash']) {
+                        $('.list').append('<li><h3>Array: ' + topic + "</h3><h4>" + ctx['news-flash'] + '</h4></li>');
+                     } else {
+                        $('.list').append('<li><h3>Array: ' + topic + "</h3><h4>" + ctx['update'] + '</h4></li>');
+                     }
+                  });
+               } else {
+                  $('.list').append('<li><h3>Array: ' + topic + "</h3><h4>" + data.join(' ') + '.</h4></li>');
+               }
+            }
+         };
+         
+         var stringSubscriber = function(topic, string) {
+            if (typeof string === 'string') {
+               $('.list').append('<li><h3>String: ' + topic + ': ' + string + '</h3></li>');
+            }
+         };
+
+         var arrayOfObjs = function(topic, obj) {
+            if (obj instanceof Array) {
+               obj.forEach(function(ctx) {
+                  if (ctx.name && ctx.job) {
+                     $('.list').append('<li><h3>My name is ' + ctx.name + ', and I am a ' + ctx.job + '.</h3></li>');
+                  } else {
+                     return;
+                  }            
+               });
+            }
+         };
+         var stringSubscription = $.subscribe('news/update', stringSubscriber);
+         var arraySubscription = $.subscribe( 'news/update', arraySubscriber );   
+         var objSubscription = $.subscribe( 'users/new', arrayOfObjs );
+         
+         $.publish( 'news/update', 'This is the latest news!' );
+         $.publish( 'news/update', ['Somebody','did','something','funny'] );
+         $.publish( 'news/update', [{'news-flash':'Not much has happened yet.'},{'update':'More of the same.'}] );
+         
+         $.unsubscribe( stringSubscription );
+         // This doesn't get published:
+         $.publish( 'news/update', 'We need piles of money now!' );
+         // This does get published:
+         $.publish('users/new', [{'name':'Wobba', 'job':'developer'}, {'name':'Bozo the Clown', 'job':'clown'}, {'name':'Joe','job':'just a regular guy'}]);
+      });
+   </script>
+</head>
+<body>
+   <nav>
+      <h1>Pub/Sub</h1>
+   </nav>
+   <article id='main'>
+      <section>
+         <ul class='list'>
+         </ul>
+      </section>
+   </article>
+</body>
+</html>

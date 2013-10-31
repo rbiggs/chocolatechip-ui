@@ -1,0 +1,92 @@
+    <script type="text/javascript">
+        $(function(){
+        
+              var popover1Content = "<ul class='list'><li><h3>Apples</h3></li><li><h3>Oranges</h3></li><li><h3>Bananas</h3></li><li><h3>Pears</h3></li><li><h3>Plums</h3></li><li><h3>Cherries</h3></li><li><h3>Apricots</h3></li><li><h3>Lemons</h3></li><li><h3>Peaches</h3></li><li><h3>Pineapples</h3></li><li><h3>Strawberries</h3></li><li><h3>Guavas</h3></li><li><h3>Grapefruit</h3></li></ul>";
+              
+              var popover2Content = "<ul class='list'><li><h3>Cake</h3></li><li><h3>Ice cream</h3></li><li><h3>Pies</h3></li><li><h3>Tiramisu</h3></li><li><h3>Cupcakes</h3></li><li><h3>Donuts</h3></li><li><h3>Cookies</h3></li><li><h3>Cobbler</h3></li><li><h3>Crepes</h3></li><li><h3>Tarts</h3></li><li><h3>Custard</h3></li><li><h3>Pudding</h3></li><li><h3>Fudge</h3></li><li><h3>Turnovers</h3></li><li><h3>Eclairs</h3></li></ul>";
+              
+            // Callback for Popovers:
+            var fillPopover1 = function(popover) {
+               // Populate Popover with content:
+               $('.popover').find('section').append(popover1Content);
+               popoverEventHandler();
+            };
+            
+            var fillPopover2 = function(popover) {
+               // Populate Popover with content:
+               $('.popover').find('section').append(popover2Content);
+               popoverEventHandler();
+            };
+            
+            var popoverEventHandler = function() {
+               // Attach event to catch user interaction.
+               // Use singletap to allow user to scroll content.
+               $('.popover').on('singletap', function(e) {
+                  var results;
+                  if (this.id === 'fruitsPopover') {
+                     results = '#fruitsChoice';
+                  } else if(this.id === 'desertsPopover') {
+                     results = '#desertsChoice';
+                  }
+                  var listItem;
+                  if (e.target.nodeName === 'LI') {
+                     $(results).html(e.target.textContent.trim());
+                  } else {
+                     listItem = $(e.target).closest('li')[0];
+                     $(results).html(listItem.textContent.trim());
+                  }
+                  $.UIPopoverClose();
+               });
+            };
+            
+            // Initialize Popover:
+            $('#showPopover1').UIPopover({
+               id: 'fruitsPopover', 
+               title: "Fruits", 
+               callback: fillPopover1
+            });
+            // Initialize Popover:
+            $('#showPopover2').UIPopover({
+               id: 'desertsPopover', 
+               title: "Deserts", 
+               callback: fillPopover2
+            });
+        });
+   </script>
+   <style>
+     #choices h4 {
+         color: #0099e3;
+         font-family: SegoeWP, SegoeUI, HelveticaNeue, Roboto, Sans-serif;
+     }
+   </style>
+</head>
+<body>
+   <nav>
+      <a class='button show-popover' id="showPopover1" href="javascript:void(null)">Fruits</a>
+      <h1>Popover</h1>
+      <a class='button show-popover align-flush' id="showPopover2" href="javascript:void(null)">Deserts</a>
+   </nav>
+   <article id="main" class="current">
+      <section>
+         <ul class='list'>
+            <li>
+               <h3>Example of popovers</h3>
+               <h4>Click either button above to launch a popover.</h4>
+            </li>
+         </ul>
+         <h2>Your Choices</h2>
+         <ul class="list" id='choices'>
+             <li>
+                <h3>Fruits:</h3>
+                <h4 id="fruitsChoice"></h4>
+             </li>
+             <li>
+                <h3>Deserts:</h3>
+                <h4 id="desertsChoice"></h4>
+             </li>
+         </ul>
+
+      </section>
+  </article>
+</body>
+</html>
