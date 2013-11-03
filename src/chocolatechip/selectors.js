@@ -22,12 +22,18 @@
       };
       var getNode = function ( selector, context ) {
          if (typeof selector === 'string') selector = selector.trim();
-         if (idRE.test(selector)) {
+         if (typeof selector === 'string' && idRE.test(selector)) {
             return getId(selector);
-         } else if (tagRE.test(selector)) {
-            return getTag(selector, context);
-         } else if (classRE.test(selector)) {
-            return getClass(selector, context) ;
+         }
+         if (selector && (selector instanceof Array) && selector.length) return selector;
+         if (!context && typeof selector === 'string') {
+            if (tagRE.test(selector)) {
+               return getTag(selector);
+            } else if (classRE.test(selector)) {
+               return getClass(selector);
+            } else {
+               return [].slice.apply(document.querySelectorAll(selector));
+            }
          } else {
             if (context) {
                return [].slice.apply(context.querySelectorAll(selector));

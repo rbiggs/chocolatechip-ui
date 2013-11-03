@@ -346,8 +346,210 @@ test('[].enable:', function() {
    equal(checkboxes.eq(1).hasAttr('disabled').length, 0, 'Should return 0.');
    equal(checkboxes.eq(1).css('cursor'), 'auto', 'Should return "auto".');
 });
-
-
-
+//24
+test('[].hide(no parameters):', function() {
+   var elem = $('#setEvent2');
+   equal([].hide().length, 0, 'Should have length of 0.');
+   equal($.isArray([].hide()), true, 'Should return an array.');
+   elem.css('height', '100px');
+   elem.hide();
+   equal(elem.css('display'), 'none', 'Should return none.');
+   equal(elem.css('visibility'), 'hidden', 'Should return hidden.');
+   equal(elem.css('height'), '100px', 'Should return 100px.');
+   elem.show();
+   equal(elem.css('display'), 'block', 'Should be block.');
+   equal(elem.css('visibility'), 'visible', 'Should be visible.');
+   equal(elem.css('height'), '100px', 'Should be 100px.');
+});
+//25
+test('[].hide("slow"):', function() {
+   var elem = $('#setEvent2');
+   elem.css('height', '100px');
+   elem.hide('slow');
+   stop();
+   setTimeout(function() {
+      equal(elem.css('display'), 'none', 'Should return none.');
+      equal(elem.css('visibility'), 'hidden', 'Should return hidden.');
+      equal(elem.css('height'), '0px', 'Should return 0px.');
+      start();
+   }, 1100);
+});
+// 26
+test('[].hide("fast"):', function() {
+   var elem = $('#setEvent2');
+   //console.dir(elem);
+   elem.css('height', '100px');
+   elem.hide('fast');
+   stop();
+   setTimeout(function() {
+      equal(elem.css('display'), 'none', 'Should return none.');
+      equal(elem.css('visibility'), 'hidden', 'Should return hidden.');
+      equal(elem.css('height'), '0px', 'Should return 0px.');
+      start();
+   }, 360);
+});
+// 27
+test('[].hide(500):', function() {
+   var elem = $('#setEvent2');
+   elem.css('height', '100px');
+   elem.hide(500);
+   stop();
+   setTimeout(function() {
+      equal(elem.css('display'), 'none', 'Should return none.');
+      equal(elem.css('visibility'), 'hidden', 'Should return hidden.');
+      equal(elem.css('height'), '0px', 'Should return 0px.');
+      start();
+   }, 600);
+});
+// 28
+test('[].show:', function() {
+   var elem = $('#setEvent2');
+   equal([].show().length, 0, 'Should have length of 0.');
+   equal($.isArray([].show()), true, 'Should return an array.');
+   elem.css('height', '100px');
+   elem.hide();
+   elem.show();
+   equal(elem.css('display'), 'block', 'Should return block.');
+   equal(elem.css('visibility'), 'visible', 'Should return visible.');
+   equal(elem.css('height'), '100px', 'Should return 100px.');
+   elem.hide();
+   elem.show();
+   equal(elem.css('display'), 'block', 'Should be block.');
+   equal(elem.css('visibility'), 'visible', 'Should be visible.');
+   equal(elem.css('height'), '100px', 'Should be 100px.');
+});
+// 29
+test('[].show("slow"):', function() {
+   var elem = $('#setEvent2');
+   elem.css('height', '100px');
+   elem.hide();
+   setTimeout(function() {
+      elem.show('slow');
+   }, 100);
+   stop();
+   setTimeout(function() {
+      equal(elem.css('display'), 'block', 'Should return block.');
+      equal(elem.css('visibility'), 'visible', 'Should return visible.');
+      equal(elem.css('height'), '100px', 'Should return 100px.');
+      start();
+   }, 1100);
+});
+// 30
+test('[].show("fast"):', function() {
+   var elem = $('#setEvent2');
+   elem.css('height', '100px');
+   elem.hide();
+   elem.show('fast');
+   stop();
+   setTimeout(function() {
+      equal(elem.css('display'), 'block', 'Should return block.');
+      equal(elem.css('visibility'), 'visible', 'Should return visible.');
+      equal(elem.css('height'), '100px', 'Should return 100px.');
+      start();
+   }, 360);
+});
+// 31
+test('[].show(500):', function() {
+   var elem = $('#setEvent2');
+   elem.css('height', '100px');
+   elem.hide();
+   elem.show(500);
+   stop();
+   setTimeout(function() {
+      equal(elem.css('display'), 'block', 'Should return block.');
+      equal(elem.css('visibility'), 'visible', 'Should return visible.');
+      equal(elem.css('height'), '100px', 'Should return 100px.');
+      start();
+   }, 600);
+});
+// 32
+test('[].clone:', function() {
+   equal([].clone().length, 0, 'Should have length of 0.');
+   equal($.isArray([].clone()), true, 'Should return an array.');
+   var clone = $('input[type=radio]').eq(0);
+   equal(clone[0].nodeName, 'INPUT', 'Should return "INPUT".');
+   equal(clone.val(), 'chardonay', 'Should return "chardonay".');
+   $('#ul').prepend(clone);
+   var cloned = $('ul').first();
+   equal(cloned[0].nodeName, 'INPUT', 'Should return "INPUT".');
+   equal(cloned.val(), 'chardonay', 'Should return "chardonay".');
+});
+// 33
+test('[].wrap:', function() {
+   var input = $('input[type=text]').eq(0);
+   equal([].wrap().length, 0, 'Should have length of 0.');
+   equal($.isArray([].wrap()), true, 'Should return an array.');
+   input.wrap('<div id="inputWrapper"></div>');
+   var wrapper = $('#inputWrapper');
+   equal(wrapper[0].nodeName, 'DIV', 'Shoudl return DIV.');
+   equal(wrapper.first()[0].nodeName, 'INPUT', 'Should return "INPUT".');
+   input = $('input[type=text]').eq(0);
+   equal(input.parent()[0].nodeName, 'DIV', 'Should return "DIV".');
+   equal(input.parent()[0].id, 'inputWrapper', 'Should be "inputWrapper".');
+});
+// 34
+test('[].unwrap:', function() {
+   var input = $('input[type=text]').eq(0);
+   equal([].unwrap().length, 0, 'Should have length of 0.');
+   equal($.isArray([].unwrap()), true, 'Should return an array.');
+   input.wrap('<div id="inputWrapper"></div>');
+   var wrapper = $('#inputWrapper');
+   equal(wrapper[0].nodeName, 'DIV', 'Shoudl return DIV.');
+   equal(wrapper.first()[0].nodeName, 'INPUT', 'Should return "INPUT".');
+   input = $('input[type=text]').eq(0);
+   equal(input.parent()[0].nodeName, 'DIV', 'Should return "DIV".');
+   equal(input.parent()[0].id, 'inputWrapper', 'Should be "inputWrapper".');
+   input = $('input[type=text]').eq(0);
+   input.unwrap();
+   input = $('input[type=text]').eq(0);
+   equal(input.parent()[0].nodeName, 'DIV', 'Should return "DIV".');
+   equal(input.parent()[0].id, 'qunit-fixture', 'Should be "qunit-fixture".');
+});
+//35
+test('[].remove:', function() {
+   var elem = $('#setEvent2');
+   equal([].remove().length, 0, 'Should have length of 0.');
+   equal($.isArray([].remove()), true, 'Should return an array.');
+   equal(elem[0].id, 'setEvent2', 'Should return "setEvent2".');
+   var result = elem.remove();
+   equal(result, undefined, 'Should return "undefined".');
+   var result2 = $('#setEvent2');
+   equal($.isArray(result2), true, 'Should return an array.');
+   equal (result2.length, 0, 'Should return array with length 0.');
+});
+// 36
+test('[].empty:', function() {
+   var ul = $('#ul');
+   equal([].empty().length, 0, 'Should have length of 0.');
+   equal($.isArray([].empty()), true, 'Should return an array.');
+   equal(ul.children().length, 3, 'Should have three children.');
+   ul.empty();
+   equal(ul.children().length, 0, 'Should have no children.');
+});
+//37
+test('[].ready:', function() {
+   var list = $('#ul');
+   equal([].ready().length, 0, 'Should have length of 0.');
+   equal($.isArray([].ready()), true, 'Should return an array.');
+   var readyResult;
+   equal(readyResult, undefined , 'readyResult should be undefined.');
+   list.ready(function() {
+      readyResult = true;
+   });
+   stop();
+   setTimeout(function() {
+      equal(readyResult, true, 'readyResult should be true.');
+      start();
+   }, 100);
+   var readyResult2;
+   $(document).ready(function() {
+      readyResult2 = true;
+   })
+   stop();
+   setTimeout(function() {
+      equal(readyResult2, true, 'readyResult2 should be true.');
+      start();
+   }, 100);
+});
 
 

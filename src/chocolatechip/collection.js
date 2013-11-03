@@ -626,6 +626,7 @@
       },
       
       hide : function ( speed, callback ) {
+         if (!this.length) return [];
          var cbk = callback || $.noop;
          if (!this.length) return [];
          var ret = [];
@@ -676,7 +677,7 @@
                $(ctx).data('','');
                $(ctx).css({
                   display: 'none',
-                  visibility: 'visible'
+                  visibility: 'hidden'
                });
             }
             ret.push(ctx);
@@ -685,6 +686,7 @@
       },
       
       show : function ( speed, callback ) {
+         if (!this.length) return [];
          var cbk = callback || $.noop;
          var createCSSAnim = function(opacity, height, padding) {
             return {
@@ -1040,27 +1042,33 @@
       animate : function ( options ) {
          if (!this.length) return [];   
          var onEnd = null;
-         var duration = options.duration || '.5s';
-         var easing = options.easing || 'linear';
+         var duration = duration || '.5s';
+         var easing = easing || 'linear';
          var css = {};
-         var transition = $.isWebkit ? '-webkit-transition' : 'transition';
-         var transitionEnd = $.isWebkit ? 'webkitTransitionEnd' : 'transitionend';
+         var transition;
+         var transitionEnd
+         if ('ontransitionend' in window) {
+            transition = 'transition';
+            transitionEnd = 'transitionend';
+         } else {
+            transition = '-webkit-transition';
+            transitionEnd = 'webkitTransitionEnd';
+         }
          css[transition] = 'all ' + duration + ' ' + easing;
          this.forEach(function(ctx) {
-            for (var prop in options.values) {
+            for (var prop in options) {
                if (prop === 'onEnd') {
-                  onEnd = options.values[prop];
+                  onEnd = options[prop];
                   $(ctx).bind(transitionEnd, onEnd());
                } else {
-                  css[prop] =  options.values[prop];
+                  css[prop] = options[prop];
                }
             }
             $(ctx).css(css);
          });
          return this;
-      }, 
+      },
            
-      // This only operates on the first element in the collection.
       // This only operates on the first element in the collection.
       data : function( key, value ) {
          if (!this.length) return [];
@@ -1184,10 +1192,8 @@
       
       ready : function ( callback ) {
          if (!this.length) return [];
-         if (this[0] === document) {
-            $.ready(function() {
-               return callback.call(callback);
-            });
-         } 
+         $.ready(function() {
+            return callback.call(callback);
+         });
       }
    });

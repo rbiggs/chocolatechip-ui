@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+  <head>
+      <meta charset='UTF-8' />
+      <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+      <title>QUnit ChocolateChipJS: Collection-Modify</title>
+      <link rel='stylesheet' href='../qunit/qunit.css'>
+      <script src='../../chui/chocolatechip-3.0.5.js'></script>
+      <script src='../qunit/qunit.js'></script>
+      <!-- your tests, any and all to run with the given fixtures below -->
+      <script src='collection-modify-tests.js'></script>
+      <style>
+        #listitem {
+          color: red;
+          background-color: yellow;
+          width: 200px;
+          height: 200px;
+          padding: 20px;
+          border-color: green;
+          border-radius: 20px;
+        }
+      </style>
+  </head>
+  <body>
+    <span></span>
+    <div id="qunit"></div> <!-- QUnit fills this with results, etc -->
+    <div id='qunit-fixture'>
+ 
+      <!-- any HTML you want to be present in each test (will be reset for each test) -->
+      <ul id='ul' class='ul' title='list'>
+        <li id='listitem'>a</li>
+        <li class='listitem'>b</li>
+        <li disabled><span>c</span></li>
+      </ul>
+      <input type='text' value='This is the text value.'>
+      <input type='checkbox' checked value='apples' class='apples'>
+      <input type='checkbox' value='oranges'>
+      <input type='radio' name='radio' value='chardonay' checked>
+      <input type='radio' name='radio' value='zinfandel'>
+      <input type='radio' name='radio' value='merlot'>
+      <div id='setEvent' disabled class='whatever boring'></div>
+      <div id='setEvent2' data-myAttr='silly'></div>
+    </div>
+  </body>
+</html>
