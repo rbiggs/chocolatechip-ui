@@ -1046,7 +1046,7 @@
          var easing = easing || 'linear';
          var css = {};
          var transition;
-         var transitionEnd
+         var transitionEnd;
          if ('ontransitionend' in window) {
             transition = 'transition';
             transitionEnd = 'transitionend';
