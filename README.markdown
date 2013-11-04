@@ -49,7 +49,7 @@ If you've modified ChocolateChipJS or ChUIJS to address a bug or add a feature, 
     
 ##Custom Builds
 
-You can create custom builds of ChocolateChip-UI for just the platform you're interested in. Here are some examples of the command-line options:
+You can create custom builds of ChocolateChip-UI for just the platform you're interested in. Here are some examples of the command-line options (You need to have run **npm install** in the directory first):
 
     // Build everything:
     grunt
@@ -65,29 +65,37 @@ You can create custom builds of ChocolateChip-UI for just the platform you're in
 
     // Build Android theme with ChocolateChipJS:
     grunt android 
+
     // iOS theme with ChocolateChipJS:
     grunt ios 
+
     // Windows Phone 8 theme with ChocolateChipJS:
     grunt windows 
 
     // Build ChocolateChip-UI without ChocolateChipJS (use with jQuery):
     grunt chui_android 
+
     // Build ChocolateChip-UI without ChocolateChipJS (use with jQuery):
     grunt chui_ios 
+
     // Build ChocolateChip-UI without ChocolateChipJS (use with jQuery):
     grunt chui_win 
 
     // Android examples with ChocolateChipJS:
     grunt android_examples 
+
     // iOS examples with ChocolateChipJS:
     grunt ios_examples 
+
     // Windows Phone 8 examples with ChocolateChipJS:
     grunt win_examples 
 
     // Android examples for use with jQuery:
     grunt android_examples_chui 
+
     // iOS examples for use with jQuery:
     grunt ios_examples_chui 
+
     // Windows Phone 8 examples for use with jQuery:
     grunt win_examples_chui 
 

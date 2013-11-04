@@ -284,9 +284,9 @@ module.exports = function(grunt) {
   grunt.registerTask('win_examples', ['less:win', 'concat:win', 'cssmin:win', 'concat:chocolatechip', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chocolatechip', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
 
   // Android examples for use with jQuery:
-  grunt.registerTask('android_examples', ['less:android', 'concat:android', 'cssmin:android', 'concat:chui', 'concat:example_android', 'concat:demo_android', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_android']);
+  grunt.registerTask('android_examples_chui', ['less:android', 'concat:android', 'cssmin:android', 'concat:chui', 'concat:example_android', 'concat:demo_android', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_android']);
   // iOS examples for use with jQuery:
-  grunt.registerTask('ios_examples', ['less:ios', 'concat:ios', 'cssmin:ios', 'concat:chui', 'concat:example_ios', 'concat:demo_ios', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_ios']);
+  grunt.registerTask('ios_examples_chui', ['less:ios', 'concat:ios', 'cssmin:ios', 'concat:chui', 'concat:example_ios', 'concat:demo_ios', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_ios']);
   // Windows Phone 8 examples for use with jQuery:
-  grunt.registerTask('win_examples', ['less:win', 'concat:win', 'cssmin:win', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
+  grunt.registerTask('win_examples_chui', ['less:win', 'concat:win', 'cssmin:win', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
 };
