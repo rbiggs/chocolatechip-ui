@@ -254,5 +254,39 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  // Default build:
   grunt.registerTask('default', ['less', 'concat', 'uglify', 'cssmin', 'copy', 'jshint']);
+  // Only ChocolateChipJS:
+  grunt.registerTask('chocolatechipjs', ['concat:chocolatechip', 'uglify:chocolatechip']);
+  // Only ChUIJS (for use with jQuery):
+  grunt.registerTask('chuijs', ['concat:chui', 'uglify:chui']);
+  // Build ChUIJS with Android theme (for use with jQuery):
+  grunt.registerTask('chui_android', ['less:android', 'cssmin:android', 'concat:chui', 'uglify:chui']);
+  // Build ChUIJS with iOS theme (for use with jQuery):
+  grunt.registerTask('chui_ios', ['less:ios', 'cssmin:ios', 'concat:chui', 'uglify:chui']);
+  // Build ChUIJS with Windows Phone 8 theme (for use with jQuery):
+  grunt.registerTask('chui_win', ['less:win', 'cssmin:win', 'concat:chui', 'uglify:chui']);
+  // Build ChUIJS with all three themes (Anrdoid, iOS, Windows):
+  grunt.registerTask('chui', ['less', 'cssmin', 'concat:chui', 'uglify:chui']);
+
+  // Android theme with ChocolateChipJS:
+  grunt.registerTask('android', ['less:android', 'cssmin:android', 'concat:chocolatechip', 'concat:chui', 'uglify:chocolatechip', 'uglify:chui']);
+  // iOS theme with ChocolateChipJS:
+  grunt.registerTask('ios', ['less:ios', 'cssmin:ios', 'concat:chocolatechip', 'concat:chui', 'uglify:chocolatechip', 'uglify:chui']);
+  // Windows Phone 8 theme with ChocolateChipJS:
+  grunt.registerTask('windows', ['less:win', 'cssmin:win', 'concat:chocolatechip', 'concat:chui', 'uglify:chocolatechip', 'uglify:chui']);
+
+  // Android examples with ChocolateChipJS:
+  grunt.registerTask('android_examples', ['less:android', 'concat:android', 'cssmin:android', 'concat:chocolatechip', 'concat:chui', 'concat:example_android', 'concat:demo_android', 'uglify:chocolatechip', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_android']);
+  // iOS examples with ChocolateChipJS:
+  grunt.registerTask('ios_examples', ['less:ios', 'concat:ios', 'cssmin:ios', 'concat:chocolatechip', 'concat:chui', 'concat:example_ios', 'concat:demo_ios', 'uglify:chocolatechip', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_ios']);
+  // Windows Phone 8 examples with ChocolateChipJS:
+  grunt.registerTask('win_examples', ['less:win', 'concat:win', 'cssmin:win', 'concat:chocolatechip', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chocolatechip', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
+
+  // Android examples for use with jQuery:
+  grunt.registerTask('android_examples', ['less:android', 'concat:android', 'cssmin:android', 'concat:chui', 'concat:example_android', 'concat:demo_android', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_android']);
+  // iOS examples for use with jQuery:
+  grunt.registerTask('ios_examples', ['less:ios', 'concat:ios', 'cssmin:ios', 'concat:chui', 'concat:example_ios', 'concat:demo_ios', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_ios']);
+  // Windows Phone 8 examples for use with jQuery:
+  grunt.registerTask('win_examples', ['less:win', 'concat:win', 'cssmin:win', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
 };
