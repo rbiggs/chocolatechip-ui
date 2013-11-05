@@ -26,6 +26,7 @@
 @popupButtonBkgnd: #fff;
 @popupButtonColor: #000;
 @popupButtonHoverColor: #fff;
+@optionColor: #000;
 /* End Colors */
 .flexVertical() {
    display: -ms-flexbox;
@@ -1430,6 +1431,49 @@ div.toolbar.next {
 }
 div.toolbar.previous {
    -webkit-transform: translate3d(-101%,0,0) !important;
+}
+
+/* ==============================
+   Form Styles
+   ============================== */
+input, textarea {
+   border: solid 2px @buttonBorder;
+   background: transparent !important;
+   padding: 5px;
+   color: @buttonBorder;
+}
+input:focus {
+   border-color: @appTint;
+   color: @buttonBorder;
+}
+select {
+   background-color: transparent;
+   border: solid 2px @buttonBorder;
+   color: @buttonBorder;
+   height: 30px;
+   padding-left: 5px;
+}
+select:focus {
+   border-color: @appTint;
+}
+select:focus::-ms-value {
+   background-color: transparent;
+}
+select::-ms-expand {
+   border: solid 2px @buttonBorder;
+   border-top: none;
+   border-bottom: none;
+   border-right: none;
+   color: @buttonBorder;
+   background-color: transparent;
+   padding: 0 2px;
+}
+select:focus::-ms-expand {
+   border: solid 2px @appTint;
+}
+option {
+   color: @optionColor;
+   padding: 5px;
 }
 
 /* ==============================
