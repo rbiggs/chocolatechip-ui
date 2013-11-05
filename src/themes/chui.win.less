@@ -1436,13 +1436,13 @@ div.toolbar.previous {
 /* ==============================
    Form Styles
    ============================== */
-input, textarea {
+input:not([type=range]), textarea {
    border: solid 2px @buttonBorder;
    background: transparent !important;
    padding: 5px;
    color: @buttonBorder;
 }
-input:focus {
+input:focus:not([type=range]) {
    border-color: @appTint;
    color: @buttonBorder;
 }
@@ -1475,7 +1475,6 @@ option {
    color: @optionColor;
    padding: 5px;
 }
-
 /* ==============================
    Media Query Adjustments
    ============================== */
