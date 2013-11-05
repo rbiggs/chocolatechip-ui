@@ -186,16 +186,17 @@
          $('article').removeClass('current').addClass('next');
          $('article').eq(selected-1).removeClass('next').addClass('current');
          $.body.find('.tabbar').on('singletap', '.button', function() {
-         var $this = this;
-         var index;
+            var $this = this;
+            var index;
             var id;
+            $.publish('chui/navigate/leave', $('article.current')[0].id);
             $this.classList.add('selected');
             $(this).siblings('a').removeClass('selected');
             index = $(this).index();
             $('.previous').removeClass('previous').addClass('next');
             $('.current').removeClass('current').addClass('next');
             id = $('article').eq(index)[0].id;
-            if (window && window.jQuery) {
+            $.publish('chui/navigate/enter', id);
                $('article').each(function(idx, ctx) {
                   $(ctx).scrollTop(0);
                });

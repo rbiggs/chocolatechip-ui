@@ -342,6 +342,8 @@
             var whichArticle = '#' + $(this).attr('data-show-article');
             $.UINavigationHistory[0] = whichArticle;
             $.UISetHashOnUrl(whichArticle);
+            $.publish('chui/navigate/leave', $('article.show')[0].id);
+            $.publish('chui/navigate/enter', whichArticle);
             $('.slide-out').removeClass('open');
             $('article').removeClass('show');
             $('article').prev().removeClass('show');
