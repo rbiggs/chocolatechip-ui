@@ -197,6 +197,7 @@
             $('.current').removeClass('current').addClass('next');
             id = $('article').eq(index)[0].id;
             $.publish('chui/navigate/enter', id);
+            if (window && window.jQuery) {
                $('article').each(function(idx, ctx) {
                   $(ctx).scrollTop(0);
                });
