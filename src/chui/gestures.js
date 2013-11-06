@@ -27,8 +27,10 @@
       longTapTimeout = null;
       if (touch.last) {
          try {
-            touch.el.trigger('longtap');
-            touch = {};
+            if (touch && touch.el) {
+               touch.el.trigger('longtap');
+               touch = {};
+            }
          } catch(err) { }
       }
    }
@@ -68,11 +70,11 @@
             body.on('MSHoldVisual', function (e) {
                e.preventDefault();
             });
-               touch.el = $(parentIfText(e.target));
-               touchTimeout && clearTimeout(touchTimeout);
-               touch.x1 = e.pageX;
-               touch.y1 = e.pageY;
-               twoTouches = false;
+            touch.el = $(parentIfText(e.target));
+            touchTimeout && clearTimeout(touchTimeout);
+            touch.x1 = e.pageX;
+            touch.y1 = e.pageY;
+            twoTouches = false;
          } else {
             if ($.eventStart === 'mousedown') {
                touch.el = $(parentIfText(e.target));
@@ -144,9 +146,11 @@
             if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > $.gestureLength) ||
             (touch.y2 && Math.abs(touch.y1 - touch.y2) > $.gestureLength))  {
                swipeTimeout = setTimeout(function() {
-                  touch.el.trigger('swipe');
-                  touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
-                  touch = {};
+                  if (touch && touch.el) {
+                     touch.el.trigger('swipe');
+                     touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
+                     touch = {};
+                  }
                }, 0);
 
             // Normal tap:
@@ -156,19 +160,25 @@
                tapTimeout = setTimeout(function() {
 
                   // Trigger universal 'tap' with the option to cancelTouch():
-                  touch.el.trigger('tap');
+                  if (touch && touch.el) {
+                     touch.el.trigger('tap');
+                  }
 
                   // Trigger double tap immediately:
-                  if (touch.isDoubleTap) {
-                     touch.el.trigger('doubletap');
-                     touch = {};
+                  if (touch && touch.isDoubleTap) {
+                     if (touch && touch.el) {
+                        touch.el.trigger('doubletap');
+                        touch = {};
+                     }
                   } else {
                      // Trigger single tap after singleTapDelay:
                      touchTimeout = setTimeout(function(){
                         touchTimeout = null;
-                        touch.el.trigger('singletap');
-                        touch = {};
-                        return false;
+                        if (touch && touch.el) {
+                           touch.el.trigger('singletap');
+                           touch = {};
+                           return false;
+                        }
                      }, singleTapDelay);
                   }
 
