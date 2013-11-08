@@ -16,15 +16,14 @@
       },
       
       unique : function() {
-         if (!this.length) return [];
-          var o = {}, i, l = this.length, r = [];
-          for(i=0; i<l;i+=1) o[this[i]] = this[i];
-          for(i in o) {
-            if (o.hasOwnProperty(i)) {
-               r.push(o[i]);
+         var ret = [];
+         var sort = this.sort();
+         sort.forEach(function(ctx, idx) {
+            if (ret.indexOf(ctx) === -1) {
+               ret.push(ctx);
             }
-         }
-         return r;
+         });
+         return ret.length ? ret : [];
       },
       
       eq : function ( index ) {
