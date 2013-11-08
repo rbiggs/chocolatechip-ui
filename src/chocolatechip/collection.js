@@ -908,7 +908,7 @@
                });
             }
          });
-         return ret.length ? ret : this;
+         return ret.length ? ret.unique() : this;
       },
       
       bind : function( event, callback, capturePhase ) {
