@@ -187,6 +187,13 @@
          } else { return; }
       });
       body.on('touchcancel', cancelAll);
+
+      // Define navigationend event for Navigation lists:
+      $('body').on('webkitTransitionEnd transitionend', 'article', function(e) {
+         if (e.target.nodeName === 'ARTICLE' && e.target.classList.contains('current')) {
+            $(e.target).trigger("navigationend");
+         }
+      });
    });
 
    ['swipe', 'swipeleft', 'swiperight', 'swipeup', 'swipedown', 'doubletap', 'tap', 'singletap', 'longtap'].forEach(function(method){       

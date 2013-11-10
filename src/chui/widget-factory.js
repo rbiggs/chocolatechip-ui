@@ -280,3 +280,26 @@
       }
       
    });
+
+   $.extend($.UISlideout, {
+      // The argument is an array of objects consisting of a key/value.
+      // The key will be the id of the article to be shown.
+      // The value is the title for the list item.
+      // [{music:'Music'},{docs:'Documents'},{recipes:'Recipes'}]
+
+      populate: function( args ) {
+         var slideout = $('.slide-out');
+         if (!slideout[0]) return;
+         if (!$.isArray(args)) {
+            return;
+         } else {
+            slideout.find('section').append('<ul class="list"></ul>');
+            var list = slideout.find('ul');
+            args.forEach(function(ctx) {
+               for (var key in ctx) {
+                  list.append('<li data-show-article="' + key + '"><h3>' + ctx[key] + '</h3></li>');
+               }
+            });
+         }
+      }
+   });
