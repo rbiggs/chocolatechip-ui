@@ -31,7 +31,7 @@
          }
          var request = new XMLHttpRequest();
          var type = o.type || 'get';
-         var async  = o.async || false;      
+         var async  = o.async || true;      
          var params = o.data || null;
          request.queryString = params;
          request.open(type, o.url, async);
