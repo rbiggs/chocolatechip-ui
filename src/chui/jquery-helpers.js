@@ -1,5 +1,8 @@
    if (window && window.jQuery && $ === window.jQuery) {
       $.extend($, {
+         uuidNum : function ( ) {
+            return Math.floor(((1 + Math.random()) * 0x100000000));
+         },
          make : function ( string ) {
             return $(string);
          },
