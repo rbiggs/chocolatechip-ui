@@ -5,10 +5,10 @@
       // Topic: string defining topic: /some/topic
       // Data: a string, number, array or object.
       subscribe : function (topic, callback) {
+         var token = ($.uuidNum());
          if (!$.subscriptions[topic]) {
             $.subscriptions[topic] = [];
          }
-         var token = ($.uuidNum());
          $.subscriptions[topic].push({
             token: token,
             callback: callback

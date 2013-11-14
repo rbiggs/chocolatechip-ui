@@ -3,8 +3,9 @@
       UuidSeed : 0,
 
       Uuid : function() {
+         var date;
          $.UuidSeed++;
-         var date = Date.now() + $.UuidSeed;
+         date = Date.now() + $.UuidSeed;
          return date.toString(36);
       },
       
@@ -48,14 +49,14 @@
       UIGoBackToArticle : function ( articleID ) {
          var historyIndex = $.UINavigationHistory.indexOf(articleID);
          var currentArticle = $('article.current');
-         $.publish('chui/navigateBack/leave', currentArticle[0].id);
          var destination = $(articleID);
-         $.publish('chui/navigateBack/enter', destination[0].id);
-         currentArticle[0].scrollTop = 0;
-         destination[0].scrollTop = 0;
          var currentToolbar;
          var destinationToolbar;
          var prevArticles = $.UINavigationHistory.splice(historyIndex+1);
+         $.publish('chui/navigateBack/leave', currentArticle[0].id);
+         $.publish('chui/navigateBack/enter', destination[0].id);
+         currentArticle[0].scrollTop = 0;
+         destination[0].scrollTop = 0;
          if (prevArticles.length) {
             prevArticles.forEach(function(ctx) {
                $(ctx).removeClass('previous').addClass('next');
@@ -93,13 +94,13 @@
       UIGoBack : function () {
          var histLen = $.UINavigationHistory.length;
          var currentArticle = $('article.current');
-         $.publish('chui/navigateBack/leave', currentArticle[0].id);
          var destination = $($.UINavigationHistory[histLen-2]);
+         var currentToolbar;
+         var destinationToolbar;
+         $.publish('chui/navigateBack/leave', currentArticle[0].id);
          $.publish('chui/navigateBack/enter', destination[0].id);
          currentArticle[0].scrollTop = 0;
          destination[0].scrollTop = 0;
-         var currentToolbar;
-         var destinationToolbar;
          if (window && window.jQuery && $ === window.jQuery) {
             if (currentArticle.next().hasClass('toolbar')) {
                currentToolbar = currentArticle.next('.toolbar');
@@ -138,16 +139,16 @@
          if ($.isNavigating) return;
          $.isNavigating = true;
          var current = $('article.current');
+         var currentNav = current.prev();
+         var destinationNav = destination.prev();
+         var currentToolbar;
+         var destinationToolbar;
          $.publish('chui/navigate/leave', current[0].id);
          $.UINavigationHistory.push(destination);
          destination = $(destination);    
          $.publish('chui/navigate/enter', destination[0].id);
          current[0].scrollTop = 0;
          destination[0].scrollTop = 0;     
-         var currentNav = current.prev();
-         var destinationNav = destination.prev();
-         var currentToolbar;
-         var destinationToolbar;
          if (window && window.jQuery && $ === window.jQuery) {
             if (current.next().hasClass('toolbar')) {
                currentToolbar = current.next('.toolbar');
@@ -256,6 +257,7 @@
             });         
          };
          if (list[0].classList.contains('deletable')) return;
+            var height = $('li').eq(1)[0].clientHeight;
             deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
             editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
             deletionIndicator = '<span class="deletion-indicator"></span>';
@@ -268,7 +270,6 @@
             }
             list.find('li').prepend(deletionIndicator);
             list.find('li').append(deleteButton);
-            var height = $('li').eq(1)[0].clientHeight;
             $('li').find('.delete').each(function(ctx, idx) {
                if (window && window.jQuery && $ === window.jQuery) ctx = idx;
                if ($.isiOS || $.isSafari) $(ctx).css({height: height + 'px'});
@@ -284,6 +285,7 @@
       ///////////////////////
       UIPaging : function ( ) {
          var currentArticle = $('.segmented.paging').closest('nav').next();
+         var sections = currentArticle.children().length;
          if (window && window.jQuery && $ === window.jQuery) {
             if ($('.segmented.paging').hasClass('horizontal')) {
                currentArticle.addClass('horizontal');
@@ -299,21 +301,20 @@
          }
          currentArticle.children().eq(0).addClass('current');
          currentArticle.children().eq(0).siblings().addClass('next');
-         var sections = currentArticle.children().length;
          
          $('.segmented.paging').on($.eventStart, '.button:first-of-type', function() {
+            var currentSection;
             $(this).next().removeClass('selected');
             $(this).addClass('selected');
-            var currentSection;
             currentSection = $('section.current');
             if (currentSection.index() === 0) return;
             currentSection.removeClass('current').addClass('next');
             currentSection.prev().removeClass('previous').addClass('current');
          });
          $('.segmented.paging').on($.eventStart, '.button:last-of-type', function() {
+            var currentSection;
             $(this).prev().removeClass('selected');
             $(this).addClass('selected');
-            var currentSection;
             if (this.classList.contains('disabled')) return;
             currentSection = $('section.current');
             if (currentSection.index() === sections -1) return;
@@ -323,13 +324,13 @@
       },
       
       UISlideout : function ( position ) {
+         var slideoutButton = $.make("<a class='button slide-out-button' href='javascript:void(null)'></a>");
+         var slideOut = '<div class="slide-out"><section></section></div>';
          $('article').removeClass('next');
          $('article').removeClass('current');
          $('article').prev().removeClass('next');
          $('article').prev().removeClass('current');
          position = position || 'left';
-         var slideoutButton = $.make("<a class='button slide-out-button' href='javascript:void(null)'></a>");
-         var slideOut = '<div class="slide-out"><section></section></div>';
          $.body.append(slideOut);
          $.body.addClass('slide-out-app');
          $('article:first-of-type').addClass('show');
