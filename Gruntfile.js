@@ -137,6 +137,19 @@ module.exports = function(grunt) {
         files: {
           'demo/index-win.html': ['src/demo/index.html']
         }
+      },
+      tests : {
+        options: {
+          banner: "<!doctype html>\n<html>\n   <head>\n      <meta charset='UTF-8' />\n      <meta http-equiv='content-type' content='text/html; charset=utf-8' />\n      <title>QUnit ChocolateChipJS</title>\n      <link rel='stylesheet' href='../qunit/qunit.css'>\n      <script src='../../chui/chocolatechip-<%= pkg.version %>.js'></script>\n      <script src='../qunit/qunit.js'></script>\n  </head>\n"
+        },
+        files: [
+          {
+            expand: true,
+            cwd: 'src/tests/',
+            src: ['**/*.html'],
+            dest: 'tests/'
+          }
+        ]
       }
     },
     // Minify JavaScript files:
@@ -240,6 +253,26 @@ module.exports = function(grunt) {
             cwd: 'src/', 
             src: ['index.html'], 
             dest: 'examples-win/'
+          }
+        ]
+      },
+      tests: {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/tests/',
+            src: ['**/*.js'],
+            dest: 'tests/'
+          }
+        ]
+      },
+      qunit : {
+        files : [
+          {
+            expand: true,
+            cwd: 'src/tests/qunit/',
+            src: ['*.css'],
+            dest: 'tests/qunit/'
           }
         ]
       }

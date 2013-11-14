@@ -55,14 +55,14 @@ test('[].eq:', function() {
 });
 // 4
 test('[].index:', function() {
-   var haystack = $('div');
+   var haystack = $('#qunit-fixture').children();
    var needle = $('#setEvent2');
    var a = ['a','b','c'];
    equal([].index().length, 0, 'Should have length of 0.');
    equal($.isArray([].index()), true, 'Should return an array.');
-   equal(haystack.index(needle), 4, 'Needle should have an index of 4.');
-   equal(haystack.index(), 1, 'If no index value provided, should return the index of first node in relation to its siblings, which in this case is 1.');
-   equal($('span').index(), 0, 'Should return position of first span as 0.')
+   equal(haystack.index(needle), 3, 'Needle should have an index of 3.');
+   equal(needle.index(), 3, 'If no index value provided, should return the index of first node in relation to its siblings, which in this case is 3.');
+   equal($('#qunit-fixture > span').index(), 0, 'Should return position of first span as 0.')
    equal(a.index('a'), 0, '"a" should have index of 0.');
    equal(a.index('b'), 1, '"a" should have index of 1.');
    equal(a.index('c'), 2, '"a" should have index of 2.');
@@ -193,8 +193,8 @@ test('[].children:', function() {
    equal(elem.children()[2].hasAttribute('disabled'), true, 'Should have attribute "disabled".');
    equal($.isArray(elem.children().children()), true, 'Should return an array.');
    equal(elem.children().children().length, 0, 'Array should have lenght of 0.');
-   equal($.isArray($('body').children('span')), true, 'Should return an array.');
-   equal($('body').children('span').length, 1, 'Array should have a length of 1.');
+   equal($.isArray($('#qunit-fixture').children('span')), true, 'Should return an array.');
+   equal($('#qunit-fixture').children('span').length, 1, 'Array should have a length of 1.');
    equal($.isArray(elem.children('li')), true, 'Should return an array.');
    equal(elem.children('li').length, 3, 'Should return array with length of 3.');
 });
@@ -237,8 +237,8 @@ test('[].siblings:', function() {
    equal($.isArray(item.siblings()), true, 'Should return an array.');
    equal($.isArray(elem.siblings()), true, 'Should return an array.');
    equal(item.siblings().length, 2, 'Should return an array with length of 2.');
-   equal(elem.siblings().length, 2, 'Should return an array with length of 2.');
-   equal(div.siblings().length, 2, 'Should return an array with length of 2.');
+   equal(elem.siblings().length, 3, 'Should return an array with length of 3.');
+   equal(div.siblings().length, 3, 'Should return an array with length of 3.');
    equal(div.siblings('ul').length, 1, 'Should return an array with length of 1.');
    equal(div.siblings('div').length, 1, 'Should return an array with length of 1.');
    equal(item.siblings('[disabled]').length, 1, 'Should return an array with length of 1.');
