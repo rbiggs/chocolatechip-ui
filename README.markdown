@@ -99,6 +99,9 @@ You can create custom builds of ChocolateChip-UI for just the platform you're in
     // Windows Phone 8 examples for use with jQuery:
     grunt win_examples_chui 
 
+    // To build just the tests:
+    grunt chocolatechipjs tests
+
 ##Test
 
 ChocolateChip uses QUnit for tests. To run the tests, you first have to build the framework running **grunt** in the command line. Grunt does not run the tests automatically. You can run each test by opening the html files in the test folder in a browser.

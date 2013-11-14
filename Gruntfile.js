@@ -346,4 +346,6 @@ module.exports = function(grunt) {
   grunt.registerTask('ios_examples_chui', ['less:ios', 'concat:ios', 'cssmin:ios', 'concat:chui', 'concat:example_ios', 'concat:demo_ios', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_ios']);
   // Windows Phone 8 examples for use with jQuery:
   grunt.registerTask('win_examples_chui', ['less:win', 'concat:win', 'cssmin:win', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
+
+  grunt.registerTask('tests', ['concat:tests', 'copy:tests', 'copy:qunit']);
 };
