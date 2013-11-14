@@ -35,11 +35,11 @@
          var params = o.data || null;
          request.queryString = params;
          request.open(type, o.url, async);
-           if (!!o.headers) {  
+         if (!!o.headers) {  
              for (var prop in o.headers) { 
-                 if(o.headers.hasOwnProperty(prop)) { 
-                     request.setRequestHeader(prop, o.headers[prop]);
-                 }
+                if(o.headers.hasOwnProperty(prop)) { 
+                  request.setRequestHeader(prop, o.headers[prop]);
+                }
              }
          }
          if (o.dataType) {
@@ -58,7 +58,7 @@
                } else {
                   request.handleResp(request.responseText);
                }
-            } else {
+            } else if(request.status >= 400) {
                if (!!error) {
                   error(request);
                }
