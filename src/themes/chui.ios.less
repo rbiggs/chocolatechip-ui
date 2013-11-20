@@ -41,13 +41,13 @@
 .flexBlock () {
    /* New syntax */
    display: -webkit-flex;
-   -wekbit-flex-direction: column;
+   -webkit-flex-direction: column;
    -webkit-justify-content: center;
    -webkit-align-item: start;
    /* Old syntax */   
    display: -webkit-box;
    -webkit-box-orient: vertical;
-   -wekbit-box-align: center;
+   -webkit-box-align: center;
    -webkit-box-pack: start;
    /* No prefix */
    display: flex;
@@ -58,7 +58,7 @@
 .flexBlockHorizontal () {
    /* new flex box */
    display: -webkit-flex;
-   -wekbit-flex-direction: row;
+   -webkit-flex-direction: row;
    -webkit-justify-content: start;
    -webkit-align-item: center;
    /* old flex box */
@@ -70,7 +70,7 @@
  .flexBlockCentered () {
    /* new flex box */
    display: -webkit-flex;
-   -wekbit-flex-direction: column;
+   -webkit-flex-direction: column;
    -webkit-justify-content: center;
    -webkit-align-item: center;
    /* old flex box */
@@ -315,7 +315,7 @@ article > section,
    -webkit-box-align: start;
    /* New syntax */
    display: -webkit-flex;
-   -wekbit-flex-direction: column;
+   -webkit-flex-direction: column;
    -webkit-justify-content: start;
    -webkit-align-item: start;
 }
@@ -328,7 +328,7 @@ article > section,
    -webkit-box-align: start;
    /* New syntax */
    display: -webkit-flex;
-   -wekbit-flex-direction: row;
+   -webkit-flex-direction: row;
    -webkit-box-orient: horizontal;
    -webkit-justify-content: start;
 }
@@ -933,7 +933,7 @@ a.button, a.button.back::before {
    display: -webkit-inline-box;
    -webkit-box-orient: horizontal;
    display: -webkit-inline-flex;
-   -wekbit-flex-direction: row;
+   -webkit-flex-direction: row;
    .sizing;
 }
 .segmented > .button {
@@ -1301,7 +1301,7 @@ body.splitlayout {
    -webkit-box-align: stretch;
    /* New syntax */
    display: -webkit-flex;
-   -wekbit-flex-direction: row;
+   -webkit-flex-direction: row;
    -webkit-justify-content: start;
    -webkit-align-item: stretch;
 }
@@ -1335,8 +1335,8 @@ body.splitlayout {
    left: 320px !important;
    bottom: 0;
    left: 0;
-   -wekbit-box-flex: 1;
-   -wekbit-flex: 1;
+   -webkit-box-flex: 1;
+   -webkit-flex: 1;
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
    .splitlayout > article.master {
