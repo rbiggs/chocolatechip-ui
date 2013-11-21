@@ -154,14 +154,6 @@ module.exports = function(grunt) {
     },
     // Minify JavaScript files:
     uglify: {
-      chui: {
-        options: {
-          banner: '/*\nChocolateChip-UI\nChUI.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        files: {
-          'chui/chui-<%= pkg.version %>.min.js': ['chui/chui-<%= pkg.version %>.js']
-        }
-      },
       chocolatechip: {
         options: {
           banner: '/*\nChocolateChip-UI\nChocolateChip.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'

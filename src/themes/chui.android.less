@@ -47,16 +47,16 @@
 @inputBorderColor: #888;
 /* End Colors */
 .flexBlock () {
-   /* New syntax */
-   display: -webkit-flex;
-   -wekbit-flex-direction: column;
-   -webkit-justify-content: center;
-   -webkit-align-item: start;
    /* Old syntax */
    display: -webkit-box;
    -wekbit-box-align: center;
    -webkit-box-pack: start;
    -webkit-box-orient: vertical;
+   /* New syntax */
+   display: -webkit-flex;
+   -wekbit-flex-direction: column;
+   -webkit-justify-content: center;
+   -webkit-align-items: start;
 }
 .flexBlockCentered () {
    /* old flex box */
@@ -68,14 +68,15 @@
    display: -webkit-flex;
    -wekbit-flex-direction: column;
    -webkit-justify-content: center;
-   -webkit-align-item: center;
+   -webkit-align-items: center;
  }
 .flexBlockHorizontal () {
    /* Old syntax */
    display: -webkit-box;
-   -webkit-align-item: start;
+   -webkit-align-items: start;
    -webkit-box-pack: start;
-   -webkit-box-align: start;   
+   -webkit-box-align: start;
+   /* new flex box */   
    display: -webkit-flex;
    -wekbit-flex-direction: row;
    -webkit-box-orient: horizontal;
@@ -91,7 +92,7 @@
    display: -webkit-flex;
    -wekbit-flex-direction: row;
    -webkit-justify-content: start;
-   -webkit-align-item: center;
+   -webkit-align-items: center;
 }
 .transition(@prop: all, @duration: .25s, @ease:ease-out) {
    -webkit-transition: @arguments;
@@ -246,7 +247,7 @@ article > section > :last-child::after {
    display: -webkit-flex;
    -wekbit-flex-direction: column;
    -webkit-justify-content: start;
-   -webkit-align-item: start;
+   -webkit-align-items: start;
    /* Old syntax */
    display: -webkit-box;
    -webkit-box-orient: vertical;
@@ -916,11 +917,9 @@ div.horizontal.centered > .segmented {
 .segmented.paging.horizontal > .button:first-of-type::before {
    content: '‹';
    margin-left: -2px !important;
-   margin-top: 4px;
 }
 .segmented.paging.horizontal > .button:last-of-type::before {
    content: '›';
-   margin-top: 4px;
 }
 .segmented.paging.vertical > .button:first-of-type::before {
    content: '‹';
@@ -1261,7 +1260,7 @@ body.splitlayout {
    display: -webkit-flex;
    -wekbit-flex-direction: row;
    -webkit-justify-content: start;
-   -webkit-align-item: stretch;
+   -webkit-align-items: stretch;
 }
 .splitlayout > nav {
    background-color: @navBkgnd;

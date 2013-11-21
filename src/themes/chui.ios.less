@@ -39,45 +39,45 @@
 /* End Colors */
 
 .flexBlock () {
-   /* New syntax */
-   display: -webkit-flex;
-   -webkit-flex-direction: column;
-   -webkit-justify-content: center;
-   -webkit-align-item: start;
    /* Old syntax */   
    display: -webkit-box;
    -webkit-box-orient: vertical;
    -webkit-box-align: center;
    -webkit-box-pack: start;
+   /* New syntax */
+   display: -webkit-flex;
+   -webkit-flex-direction: column;
+   -webkit-justify-content: center;
+   -webkit-align-items: start;
    /* No prefix */
    display: flex;
    flex-direction: column;
    justify-content: center;
-   align-item: start;
+   align-items: start;
 }
 .flexBlockHorizontal () {
-   /* new flex box */
-   display: -webkit-flex;
-   -webkit-flex-direction: row;
-   -webkit-justify-content: start;
-   -webkit-align-item: center;
    /* old flex box */
    display: -webkit-box;
    -webkit-box-orient: horizontal;
    -webkit-box-pack: start;
    -webkit-box-align: center;
- }
- .flexBlockCentered () {
    /* new flex box */
    display: -webkit-flex;
-   -webkit-flex-direction: column;
-   -webkit-justify-content: center;
-   -webkit-align-item: center;
+   -webkit-flex-direction: row;
+   -webkit-justify-content: start;
+   -webkit-align-items: center;
+ }
+ .flexBlockCentered () {
    /* old flex box */
    display: -webkit-box;
    -webkit-box-orient: vertical;
    -webkit-box-pack: center;
    -webkit-box-align: center;
+   /* new flex box */
+   display: -webkit-flex;
+   -webkit-flex-direction: column;
+   -webkit-justify-content: center;
+   -webkit-align-items: center;
  }
 .transition(@prop: all, @duration: .25s, @ease:ease-out) {
   -webkit-transition: @arguments;
@@ -317,13 +317,13 @@ article > section,
    display: -webkit-flex;
    -webkit-flex-direction: column;
    -webkit-justify-content: start;
-   -webkit-align-item: start;
+   -webkit-align-items: start;
 }
 
 .horizontal {
    /* Old syntax */
    display: -webkit-box;
-   -webkit-align-item: start;
+   -webkit-align-items: start;
    -webkit-box-pack: start;
    -webkit-box-align: start;
    /* New syntax */
@@ -334,7 +334,7 @@ article > section,
 }
 .horizontal.centered {
    -webkit-justify-content: center;
-   -webkit-align-item: center;
+   -webkit-align-items: center;
    -webkit-box-pack: center;
    -webkit-box-align: stretch;
 }
@@ -793,7 +793,7 @@ nav > a.button {
 a.button.back, a.button.backTo {
    text-align: left;
    padding: 0 0 0 20px !important;
-   margin-top: 3px !important;
+   /*margin-top: 3px !important;*/
    line-height: 28px;
    color: @appTint;
    border: none;
@@ -802,7 +802,10 @@ a.button.back, a.button.backTo {
    text-overflow: ellipsis;
    display: inline-block !important;
    height: 30px;
-   margin-top: 8px;
+   /*margin-top: 8px;*/
+}
+.isDesktopSafari a.button.back {
+   margin-top: 8px !important;
 }
 .isiOS a.button.back, .isiOS a.button.backTo {
    display: -webkit-box;
@@ -1303,7 +1306,7 @@ body.splitlayout {
    display: -webkit-flex;
    -webkit-flex-direction: row;
    -webkit-justify-content: start;
-   -webkit-align-item: stretch;
+   -webkit-align-items: stretch;
 }
 .splitlayout > nav {
    background-color: @navBkgnd;
