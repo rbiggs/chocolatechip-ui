@@ -1,3 +1,4 @@
+
 /* Colors */
 @appBkColor: #000;
 @appTint: #007aff;
@@ -58,9 +59,9 @@ body {
 body * {
    -ms-user-select: none;
 }
-/* ============================== */
-/* Article (view) styles          */
-/* ============================== */
+/* ==============================
+   Article (view) styles
+   ============================== */
 article {
    position: absolute;
    top: 45pt; right: 0;
@@ -72,9 +73,9 @@ article {
    -ms-scroll-chaining: none;
    .flexVertical;
 }
-/* ============================== */
-/* Article navigation states      */
-/* ============================== */
+/* ==============================
+   Article navigation states
+   ============================== */
 .current {
    transform: translate3d(0,0,0);
    opacity: 1;
@@ -159,7 +160,17 @@ body.slide-out-app > nav.show  {
    display: block !important;
    z-index: 100;
 }
-/* Scrollers */
+.slideout-header {
+   background-color: @appBkColor !important;
+}
+.slideout-header h2 {
+   margin-left: 0;
+   color: @textColor !important;
+   margin-top: 20px !important;
+}
+/* ==============================
+   Scrollers
+   ============================== */
 article > section,
 .scroller-vertical,
 .scroller-horizontal {
@@ -202,9 +213,9 @@ article > section > :last-child:not(a)::after {
    -ms-flex-align: stretch;
    -ms-flex-direction: row;
 }
-/* ============================== */
-/* Nav bars                       */
-/* ============================== */
+/* ============================== 
+   Nav bars
+   ============================== */
 #global-nav {
    background-color: @navBkgnd;
    overflow: hidden;
@@ -275,9 +286,9 @@ nav > a.button.align-flush {
    top: 0;
 }
 
-/* ============================== */
-/* Lists                          */
-/* ============================== */
+/* ==============================
+   Lists
+   ============================== */
 nav > h1, h2, h3, h4, h5, section h2, p, li,
 .list > li > p {
    color: @textColor;
@@ -332,23 +343,27 @@ h2 + .list {
    margin-top: 5pt;
 }
 .list > li[data-goto]:hover, 
-.list > li[data-goto].touched {
+.list > li[data-goto].touched,
+.list > li[data-show-article]:hover,
+.list > li[data-show-article].touched {
    cursor: pointer;
    border: solid 1px @listBorderColor;
    background-color: @appTint;
    color: @selectedListColor !important;
 }
 .list > li[data-goto]:hover *,
-.list > li[data-goto].touched * {
+.list > li[data-goto].touched *,
+.list > li[data-show-article]:hover *,
+.list > li[data-show-article].touched * {
    color: @selectedListColor;
 }
 .list + .button.action {
    margin-top: 40px;
 }
 
-/* ============================== */
-/* list title & subtitle          */
-/* ============================== */
+/* ==============================
+   list title & subtitle
+   ============================== */
 .list > li > h3, 
 .list > li > h4 {
    width: 80%;
@@ -380,9 +395,9 @@ section > p,
 .list > li p + p {
    margin-top: 5px;
 }
-/* ============================== */
-/* List detail                    */
-/* ============================== */
+/* ==============================
+   List detail
+   ============================== */
 .list > li > p {
    margin: 5px 0px;
    font-size: 13pt;
@@ -407,9 +422,9 @@ section h2.normal-case {
 section h2.wrap {
    white-space: normal;
 }
-/* ============================== */
-/* comp List Items                */
-/* ============================== */
+/* ==============================
+   comp List Items
+   ============================== */
 li.comp {
    display: -ms-flexbox;
    -ms-flex-direction: row;
@@ -506,9 +521,9 @@ p {
       text-overflow: ellipsis;
    }
 }
-/* ============================== */
-/* Switched List Items            */
-/* ============================== */
+/* ==============================
+   Switched List Items
+   ============================== */
 li.switched {
    display: -ms-flexbox;
    -ms-flex-direction: row-reverse;
@@ -643,9 +658,9 @@ li.selected > .deletion-indicator::before {
 li.selected > .button.delete {
    transform: translate3d(0,0,0);
 }
-/* ============================== */
-/* Buttons                        */
-/* ============================== */
+/* ==============================
+   Buttons
+   ============================== */
 a.button {
    cursor: pointer;
    text-decoration: none;
@@ -1475,6 +1490,27 @@ option {
    color: @optionColor;
    padding: 5px;
 }
+
+/* ==============================
+   Icon Styles
+   ============================== */
+/*
+   Put a class or id on each icon.
+   The use a png or svg image as 
+   a background image. Apply a
+   background color too.
+   See page article of demo
+   paging control for example.
+*/
+.icon {
+   height: 40px;
+   width: 40px;
+   background-repeat: no-repeat;
+   background-position: center center;
+   background-size: auto 70%;
+   border-radius: 0;
+}
+
 /* ==============================
    Media Query Adjustments
    ============================== */
@@ -1549,26 +1585,6 @@ option {
    .busy.align-flush {
       position: static;
    }
-}
-
-/* ==============================
-   Icon Styles
-   ============================== */
-/*
-   Put a class or id on each icon.
-   The use a png or svg image as 
-   a background image. Apply a
-   background color too.
-   See page article of demo
-   paging control for example.
-*/
-.icon {
-   height: 40px;
-   width: 40px;
-   background-repeat: no-repeat;
-   background-position: center center;
-   background-size: auto 70%;
-   border-radius: 0;
 }
 
 /* For normal phones in portrait mode: */

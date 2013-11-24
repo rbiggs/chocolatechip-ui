@@ -297,7 +297,11 @@
             var list = slideout.find('ul');
             args.forEach(function(ctx) {
                for (var key in ctx) {
-                  list.append('<li data-show-article="' + key + '"><h3>' + ctx[key] + '</h3></li>');
+                  if (key === 'header') {
+                     list.append('<li class="slideout-header"><h2>'+ctx[key]+'</h2></li>');
+                  } else {
+                     list.append('<li data-show-article="' + key + '"><h3>' + ctx[key] + '</h3></li>');
+                  }
                }
             });
          }

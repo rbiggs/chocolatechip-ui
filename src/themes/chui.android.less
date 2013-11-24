@@ -217,6 +217,14 @@ body.slide-out-app > nav.show  {
    display: block !important;
    z-index: 100;
 }
+.slideout-header {
+   background-color: @appBkColor !important;
+   border-bottom: none !important;
+}
+.slideout-header h2 {
+   margin-left: 0;
+   color: @listTitleColor !important;
+}
 /* ==============================
    Scrollers
    ============================== */
@@ -236,6 +244,7 @@ article > section,
    padding-top: 10px;
    padding-bottom: 100px;
    min-height: 100%;
+   width: 100%;
 }
 article > section > :last-child::after {
    margin-bottom: 100px;
