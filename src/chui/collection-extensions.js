@@ -328,12 +328,12 @@
             return this;
          };
          // Create Busy control for appropriate OS:
-         if ($.isiOS || $.isSafari) {
-            iOSBusy(options);
-         } else if ($.isWin) {
+         if ($.isWin) {
             winBusy(options);
          } else if ($.isAndroid || $.isChrome) {
             androidBusy(options);
+         } else if ($.isiOS || $.isSafari) {
+            iOSBusy(options);
          }
       },
       

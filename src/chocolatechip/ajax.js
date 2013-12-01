@@ -36,11 +36,11 @@
          request.queryString = params;
          request.open(type, o.url, async);
          if (!!o.headers) {  
-             for (var prop in o.headers) { 
-                if(o.headers.hasOwnProperty(prop)) { 
+            for (var prop in o.headers) { 
+               if(o.headers.hasOwnProperty(prop)) { 
                   request.setRequestHeader(prop, o.headers[prop]);
-                }
-             }
+               }
+            }
          }
          if (o.dataType) {
             request.setRequestHeader('Content-Type', dataTypes[o.dataType]);
@@ -76,35 +76,35 @@
       
       // Parameters: url, data, success, dataType.
       get : function ( url, data, success, dataType ) {
-          if (!url) {
-             return;
-          }
-          if (!data) {
-             return;
-          }
-          if (typeof data === 'function' && !dataType) {
-             if (typeof success === 'string') {
-                dataType = success;
-             }
-             $.ajax({url : url, type: 'GET', success : data, dataType : dataType});
-          } else if (typeof data === 'object' && typeof success === 'function') {
-             $.ajax({url : url, type: 'GET', data : data, dataType : dataType});
-          }
+         if (!url) {
+            return;
+         }
+         if (!data) {
+            return;
+         }
+         if (typeof data === 'function' && !dataType) {
+            if (typeof success === 'string') {
+               dataType = success;
+            }
+            $.ajax({url : url, type: 'GET', success : data, dataType : dataType});
+         } else if (typeof data === 'object' && typeof success === 'function') {
+            $.ajax({url : url, type: 'GET', data : data, dataType : dataType});
+         }
       },
       
       // Parameters: url, data, success.
       getJSON : function ( url, data, success ) {
-          if (!url) {
+         if (!url) {
              return;
-          }
-          if (!data) {
-             return;
-          }
-          if (typeof data === 'function' && !success) {
-             $.ajax({url : url, type: 'GET', success : data, dataType : 'json'});
-          } else if (typeof data === 'object' && typeof success === 'function') {
-             $.ajax({url : url, type: 'GET', data : data, dataType : 'json'});
-          }
+         }
+         if (!data) {
+            return;
+         }
+         if (typeof data === 'function' && !success) {
+            $.ajax({url : url, type: 'GET', success : data, dataType : 'json'});
+         } else if (typeof data === 'object' && typeof success === 'function') {
+            $.ajax({url : url, type: 'GET', data : data, dataType : 'json'});
+         }
       },
 
       // Parameters: url, callback.
@@ -123,19 +123,19 @@
       
       // Parameters: url, data, success, dataType.
       post : function ( url, data, success, dataType ) {
-          if (!url) {
-             return;
-          }
-          if (!data) {
-             return;
-          }
-          if (typeof data === 'function' && !dataType) {
-             if (typeof success === 'string') {
-                dataType = success;
-             }
-             $.ajax({url : url, type: 'POST', success : data, dataType : dataType});
-          } else if (typeof data === 'object' && typeof success === 'function') {
-             $.ajax({url : url, type: 'POST', data : data, dataType : dataType});
-          }
+         if (!url) {
+            return;
+         }
+         if (!data) {
+            return;
+         }
+         if (typeof data === 'function' && !dataType) {
+            if (typeof success === 'string') {
+               dataType = success;
+            }
+            $.ajax({url : url, type: 'POST', success : data, dataType : dataType});
+         } else if (typeof data === 'object' && typeof success === 'function') {
+            $.ajax({url : url, type: 'POST', data : data, dataType : dataType});
+         }
       }
    });

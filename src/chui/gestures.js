@@ -19,8 +19,8 @@
    }
 
    function swipeDirection(x1, x2, y1, y2) {
-      var xDelta = Math.abs(x1 - x2), yDelta = Math.abs(y1 - y2);
-      return xDelta >= yDelta ? (x1 - x2 > 0 ? 'left' : 'right') : (y1 - y2 > 0 ? 'up' : 'down');
+      return Math.abs(x1 - x2) >=
+      Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'left' : 'right') : (y1 - y2 > 0 ? 'up' : 'down');
    }
 
    function longTap() {
@@ -49,7 +49,7 @@
       touch = {};
    }
 
-   $(document).ready(function(){
+   $(function(){
       var now;
       var delta;
       var body = $(document.body);
@@ -60,7 +60,7 @@
          if (e.originalEvent) e = e.originalEvent;
          
          // Handle MSPointer Events:
-         if (window.navigator.msPointerEnabled) {
+         if (window.navigator.msPointerEnabled  || window.navigator.pointerEnabled) {
             if (window && window.jQuery && $ === window.jQuery) {
                if (e.originalEvent && !e.originalEvent.isPrimary) return;
             } else {
@@ -84,10 +84,7 @@
                twoTouches = false;
             } else {
                // User to detect two or more finger gestures:
-               if (e.touches.length === 2) {
-                  console.log('two fingers'); 
-               // One finger touch:
-               } else if (e.touches.length === 1) {
+               if (e.touches.length === 1) {
                   touch.el = $(parentIfText(e.touches[0].target));
                   touchTimeout && clearTimeout(touchTimeout);
                   touch.x1 = e.touches[0].pageX;
