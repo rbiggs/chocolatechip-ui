@@ -98,8 +98,8 @@
          isWebkit : navigator.userAgent.match(/webkit/),
          isMobile : /mobile/img.test(navigator.userAgent),
          isDesktop : !(/mobile/img.test(navigator.userAgent)),
-         isSafari : (!/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent),
-         isChrome : /chrome/i.test(navigator.userAgent),
-         isNativeAndroid : /android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent)
+         isSafari : (!/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent)),
+         isChrome : /Chrome/img.test(navigator.userAgent),
+         isNativeAndroid : (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent))
       });
    }
