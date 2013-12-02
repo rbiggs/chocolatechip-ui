@@ -212,7 +212,7 @@
                deleteSlide = '140px';
             }
             $(function() {
-               $.body.on('singletap', '.edit', function() {
+               list.on('singletap', '.edit', function() {
                   var $this = this;
                   setTimeout(function() {
                      $this.classList.remove('edit');
@@ -221,7 +221,7 @@
                      $(list).addClass('showIndicators');
                   });
                });
-               $.body.on('singletap', '.done', function() {
+               list.on('singletap', '.done', function() {
                   var $this = this;
                   setTimeout(function() {
                      $this.classList.remove('done');
@@ -231,7 +231,7 @@
                      $(list).find('li').removeClass('selected');
                   });
                });
-               $.body.on('singletap', '.deletion-indicator', function() {
+               list.on('singletap', '.deletion-indicator', function() {
                   if ($(this).closest('li')[0].classList.contains('selected')) {
                      $(this).closest('li').removeClass('selected');
                      return;
@@ -245,7 +245,7 @@
                      $(this).removeClass('selected');
                   });
                }
-               $(list).on('singletap', '.delete', function() {
+               list.on('singletap', '.delete', function() {
                   var $this = this;
                   $(this).siblings().css({'-webkit-transform': 'translate3d(-1000%,0,0)', '-webkit-transition': 'all 1s ease-out'});
                   setTimeout(function() {
