@@ -359,55 +359,60 @@
       
       insert : function ( content, position ) {
          if (!this.length) return [];
-         var __insert = function (node, content, position ) {
-         var c = '';
-         if (typeof content === 'string') {
-            c = $.make(content);
-         } else if (content && content.nodeType === 1) {
-            c = [];
-            c.push(content);
-         } else if (content instanceof Array) {
-            c = content;
-         } else {
-            c = [];
-         }
-         var i = 0;
-         var len = c.length;
-         if (!position || position > (node.children.length + 1) || position === 'last') {
-            while (i < len) {
-               node.appendChild(c[i]);
-               i++;
+         var __insert = function (node, content, position) {
+            if (node instanceof Array) {
+               node = node[0];
             }
-         } else if (position === 1 || position === 'first') {
-            if (node.children) {
-               if (node.firstElementChild) {
-                  while (i < len) {
-                     node.insertBefore(c[i], node.firstChild);
-                     i++;
-                  }
-               } else {
-                  while (i < len) {
-                     node.insertBefore(c[i], node.firstChild);
-                     i++;
+            var c = [];
+            if (typeof content === 'string') {
+               c = $.make(content);
+            } else if (content && content.nodeType === 1) {
+               c.push(content);
+            } else if (content instanceof Array) {
+               c = content;
+            }
+            var i = 0;
+            var len = c.length;
+            if (!position || position > (node.children.length + 1) || position === 'last') {
+               while (i < len) {
+                  node.appendChild(c[i]);
+                  i++;
+               }
+            } else if (position === 1 || position === 'first') {
+               if (node.children) {
+                  if (node.firstElementChild) {
+                     while (i < len) {
+                        node.insertBefore(c[i], node.firstChild);
+                        i++;
+                     }
+                  } else {
+                     while (i < len) {
+                        node.insertBefore(c[i], node.firstChild);
+                        i++;
+                     }
                   }
                }
+            } else {
+               while (i < len) {
+                  node.insertBefore(c[i], node.childNodes[position]);
+                     i++;
+               }
             }
-         } else {
-            while (i < len) {
-               node.insertBefore(c[i], node.children[position - 1]);
-               i++;
-            }
-         }
-         return node;
-      };
-      var cnt = content;
-      if (typeof cnt === 'string') {
+            return node;
+         };
+         var cnt = content;
+         if (typeof cnt === 'string') {
             this.each(function(node) {
                __insert(node, content, position);
             });
          } else if (cnt instanceof Array) {
             this.each(function(node, idx) {
-               __insert(node, cnt[idx], position);
+               if (position === 1 || position === 'first') {
+                  cnt = cnt.reverse();
+               }
+               cnt.each(function(n, i) {
+                  __insert(node, n, position);
+               });
             });
          } else if (cnt.nodeType === 1) {
             this.each(function(node) {

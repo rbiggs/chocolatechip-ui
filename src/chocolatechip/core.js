@@ -7,9 +7,18 @@
       slice : Array.prototype.slice,
       
       make : function ( HTMLString ) {
+         var ret = [];
          var temp = document.createElement('div');
          temp.innerHTML = HTMLString;
-         return $.slice.apply(temp.childNodes);
+         temp = $.slice.apply(temp.childNodes);
+         temp.forEach(function(ctx) {
+            if (ctx.nodeType === 1) {
+               ret.push(ctx);
+            } else if (ctx.nodeType === 3 && ctx.nodeValue.trim().length !== 0) {
+               ret.push(ctx);
+            }
+         });
+         return ret;
       },
       
       html : function ( HTMLString ) {
