@@ -141,11 +141,12 @@
          var current = $('article.current');
          var currentNav = current.prev();
          destination = $(destination);    
+         var destinationID = destination[0].id;
          var destinationNav = destination.prev();
          var currentToolbar;
          var destinationToolbar;
          $.publish('chui/navigate/leave', current[0].id);
-         $.UINavigationHistory.push(destination);
+         $.UINavigationHistory.push(destinationID);
          $.publish('chui/navigate/enter', destination[0].id);
          current[0].scrollTop = 0;
          destination[0].scrollTop = 0;     

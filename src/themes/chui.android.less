@@ -73,13 +73,14 @@
 .flexBlockHorizontal () {
    /* Old syntax */
    display: -webkit-box;
-   -webkit-align-items: start;
+   -webkit-box-orient: horizontal;
    -webkit-box-pack: start;
    -webkit-box-align: start;
    /* new flex box */   
    display: -webkit-flex;
    -wekbit-flex-direction: row;
-   -webkit-box-orient: horizontal;
+   -webkit-box-align: start;
+   -webkit-align-items: start;
    -webkit-justify-content: start;
 }
 .flexBlockHorizontalCentered () {
@@ -306,13 +307,11 @@ nav > h1 {
 }
 nav > a.button {
    position: relative;
-   top: 8px;
 }
 nav > h1 + a.button {
    margin: 0;
    position: absolute;
    right: 16px;
-   top: 8px !important;
 }
 
 /* ==============================
@@ -727,7 +726,6 @@ a.button.backTo {
    font-size: 0;
    border: none;
    background: none !important;
-   top: 7px;
    box-shadow: none;
 }
 .isChrome a.button.back,
