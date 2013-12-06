@@ -775,6 +775,23 @@ li.selected > .button.delete {
 .list.deletable > li.selected {
    .transform(translate3d(-80px,0,0));
 }
+.list > li[data-goto] .deletion-indicator {
+  position: absolute;
+  left: -40px;
+  margin-left: 0px;
+}
+.list.showIndicators li[data-goto] {
+  padding-left: 40px;
+}
+
+li[data-goto] > .deletion-indicator + div + aside {
+  margin: -20px;
+  position: relative;
+  right: 15px;
+}
+.list.showIndicators li[data-goto] .deletion-indicator {
+  left: 10px;
+}
 /* ============================== 
    Buttons
    ============================== */

@@ -124,6 +124,7 @@
          if (!this.hasAttribute('data-goto')) return;
          if (!this.getAttribute('data-goto')) return;
          if (!document.getElementById(this.getAttribute('data-goto'))) return;
+         if ($(this).parent()[0].classList.contains('deletable')) return;
          var destinationHref = '#' + this.getAttribute('data-goto');
          $(destinationHref).addClass('navigable');
          var destination = $(destinationHref);

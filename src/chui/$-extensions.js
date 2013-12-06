@@ -59,8 +59,8 @@
          destination[0].scrollTop = 0;
          if (prevArticles.length) {
             prevArticles.forEach(function(ctx) {
-               $(ctx).removeClass('previous').addClass('next');
-               $(ctx).prev().removeClass('previous').addClass('next');
+               $('#' + ctx).removeClass('previous').addClass('next');
+               $('#' + ctx).prev().removeClass('previous').addClass('next');
             });
          }
          if (window && window.jQuery && $ === window.jQuery) {
@@ -216,6 +216,7 @@
             $(function() {
                $.body.on('singletap', '.edit', function() {
                   var $this = this;
+                  list.addClass('deletable');
                   setTimeout(function() {
                      $this.classList.remove('edit');
                      $this.classList.add('done');
@@ -225,6 +226,7 @@
                });
                $.body.on('singletap', '.done', function() {
                   var $this = this;
+                  list.removeClass('deletable');
                   setTimeout(function() {
                      $this.classList.remove('done');
                      $this.classList.add('edit');
@@ -276,8 +278,6 @@
                if ($.isiOS || $.isSafari) $(ctx).css({height: height + 'px'});
             });
             setupDeletability(callback);
-         
-         list.addClass('deletable');
          return list;
       },
       

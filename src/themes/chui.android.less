@@ -745,6 +745,21 @@ a.button.backTo::before {
    top: 8px;
    .transition;
 }
+.button.back, .button.backTo {
+   margin-right: 30px !important;
+}
+.button.back::after, .button.backTo::after {
+   position: absolute;
+   top: 2px;
+   right: -26px;
+   content: '';
+   display: block;
+   height: 26px;
+   width: 26px;
+   /* user your own app icon for this: */
+   background: transparent url(../images/icons/ChUI-Logo.png) no-repeat;
+   background-size: 100% 100%;
+}
 body.isNativeAndroidBrowser a.button.back,
 body.isNativeAndroidBrowser a.button.backTo {
    top: 0;
