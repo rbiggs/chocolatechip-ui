@@ -281,12 +281,14 @@
       
    });
 
+   /////////////////////////////////////////////////////////////////
+   // Method to populate a slideout with actionable items.
+   // The argument is an array of objects consisting of a key/value.
+   // The key will be the id of the article to be shown.
+   // The value is the title for the list item.
+   // [{music:'Music'},{docs:'Documents'},{recipes:'Recipes'}]
+   /////////////////////////////////////////////////////////////////
    $.extend($.UISlideout, {
-      // The argument is an array of objects consisting of a key/value.
-      // The key will be the id of the article to be shown.
-      // The value is the title for the list item.
-      // [{music:'Music'},{docs:'Documents'},{recipes:'Recipes'}]
-
       populate: function( args ) {
          var slideout = $('.slide-out');
          if (!slideout[0]) return;

@@ -327,7 +327,12 @@
             currentSection.next().removeClass('next').addClass('current');
          });
       },
-      
+
+      ////////////////////////////////////////////////
+      // Create Slideout with toggle button.
+      // Use $.UISlideout.populate to polate slideout.
+      // See widget-factor.js for details.
+      ////////////////////////////////////////////////
       UISlideout : function ( position ) {
          var slideoutButton = $.make("<a class='button slide-out-button' href='javascript:void(null)'></a>");
          var slideOut = '<div class="slide-out"><section></section></div>';
