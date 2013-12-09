@@ -1,12 +1,12 @@
    <script>
        $(function() {
-           $.UIDeletable({
-              list: '.list', 
-              callback: function(item) {
-                 var text = $(item).siblings('h3').text();
-                 $('#response').html('You deleted: <strong>' + text + '</strong>');
-              }
-           });
+         $.UIDeletable({
+            list: '#list1', 
+            callback: function(item) {
+               var text = $(item).siblings('h3').text();
+               $('#response').html('You deleted: <strong>' + text + '</strong>');
+            }
+         });
       });
    </script>
    <style type="text/css">
@@ -21,20 +21,20 @@
    </nav>
    <article id='main'>
       <section>
-         <ul class='list'>
-            <li class='nav'>
+         <ul class='list' id='list1'>
+            <li>
                <h3>People</h3>
             </li>
-            <li class='nav'>
+            <li>
                <h3>Places</h3>
             </li>
-            <li class='nav'>
+            <li>
                <h3>Things</h3>
             </li>
-            <li class='nav'>
+            <li>
                <h3>Animals</h3>
             </li>
-            <li class='nav'>
+            <li>
                <h3>Food</h3>
             </li>
          </ul>

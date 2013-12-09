@@ -1,20 +1,20 @@
    <script>
-       $(function() {
-          $('.list').UISelectList({
-             selected: 2,
-             callback: function() {
-                $("#response").html($(this).text());
-             }
-          });
-          if (window.jQuery) {
+      $(function() {
+         $('.list').UISelectList({
+            selected: 2,
+            callback: function() {
+               $("#response").html($(this).text());
+            }
+         });
+         if (window.jQuery) {
             $('li').each(function(idx, ctx) {
                if ($(ctx).hasClass('selected')) {
                   $("#response").html($(ctx).text());
                }
             });
-          } else {
+         } else {
             $("#response").html($('li').hasClass('selected').text());
-          }
+         }
       });
    </script>
 </head>

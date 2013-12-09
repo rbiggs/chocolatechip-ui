@@ -1,24 +1,24 @@
   <style>
-       form li > label {
-          display: block;
-          -webkit-box-sizing: border-box;
-          width: 110px !important;
-          text-align: right;
-          font-weight: bold;
-          padding-right: 10px;
-          font-size: 14px;
-          line-height: 22px;
-          color: #586B96;
-       }
+      form li > label {
+         display: block;
+         -webkit-box-sizing: border-box;
+         width: 110px !important;
+         text-align: right;
+         font-weight: bold;
+         padding-right: 10px;
+         font-size: 14px;
+         line-height: 22px;
+         color: #586B96;
+      }
       form li > h3 {
          width: auto;
       }
-       form li > label > span.warning {
-          color: red;
-       }
-       form button[type=submit] {
-          display: none;
-       }
+      form li > label > span.warning {
+         color: red;
+      }
+      form button[type=submit] {
+         display: none;
+      }
 
    </style>
    <script>
@@ -28,13 +28,13 @@
       function submitForm() {
          var formData = $.form2JSON('#userForm');
          var data = JSON.stringify(formData);
-          window.location = 'form-target.html?' + data;
+         window.location = 'form-target.html?' + data;
       }
       $(function() {
-          $('.button.done').on('click', function() {
-              $('#userForm')[0].submit();
-          });
-          $('#selectList').UISelectList({ selected: 0, name:'user.job' });     
+         $('.button.done').on('click', function() {
+            $('#userForm')[0].submit();
+         });
+         $('#selectList').UISelectList({ selected: 0, name:'user.job' });     
       });
    </script>
 </head>
@@ -59,10 +59,10 @@
                 </li>
                 <li class='comp'>
                    <div>
-                       <h3>Last name:</h3>
+                     <h3>Last name:</h3>
                   </div>
                   <aside>
-                      <input type='text' name='user.name.last' placeholder='Doe'>
+                     <input type='text' name='user.name.last' placeholder='Doe'>
                   </aside>
                 </li>
                 <li class='comp'>
@@ -70,7 +70,7 @@
                      <h3>Phone:</h3>
                    </div>
                   <aside>
-                      <input type='text' name='user.phone' placeholder='000-0000'>
+                     <input type='text' name='user.phone' placeholder='000-0000'>
                   </aside>
                 </li>
                 <li class='comp'>
@@ -78,7 +78,7 @@
                      <h3>Email:</h3>
                   </div>
                   <aside>
-                      <input type='text' name='user.email' placeholder='me@me.com'>
+                     <input type='text' name='user.email' placeholder='me@me.com'>
                   </aside>
                 </li>
             </ul>

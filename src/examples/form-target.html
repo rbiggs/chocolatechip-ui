@@ -1,7 +1,7 @@
    <script>
       /* Local JavaScript Here */
       $(function() {
-          var user_data = window.location.href.slice(window.location.href.indexOf('?') + 1);
+         var user_data = window.location.href.slice(window.location.href.indexOf('?') + 1);
          user_data = unescape(user_data);
          window.data = JSON.parse(user_data);
          console.dir(data);
@@ -22,31 +22,31 @@
             if (firstName || lastName) {
                userTmpl += "<li><h3>Name: ";
             }
-             if (firstName) {
-                 userTmpl += firstName;
-             }
-             if (lastName) {
-                 userTmpl += " " + lastName;
-             }
-             userTmpl += "</h3></li>";
+            if (firstName) {
+               userTmpl += firstName;
+            }
+            if (lastName) {
+               userTmpl += " " + lastName;
+            }
+            userTmpl += "</h3></li>";
             if (email) {
-                userTmpl += "<li><h4>Email: " + data.user.email  + "</h4></li>";
+               userTmpl += "<li><h4>Email: " + data.user.email  + "</h4></li>";
             }
             if (phone) {
-                userTmpl += "<li><p>Phone: " + data.user.phone + "</p></li>";
+               userTmpl += "<li><p>Phone: " + data.user.phone + "</p></li>";
             }
             if (message) {
-                userTmpl += "<li><p>Message: " + message + "</p></li>";
+               userTmpl += "<li><p>Message: " + message + "</p></li>";
             }
             if (foods.length) {
-                userTmpl += "<li><p>Favorite foods:<ol>";
-                data.user.favoriteFood.forEach(function(food) {
-                    userTmpl += "<li>" + food + "</li>";
-                });
-                userTmpl += "</ol></p></li>";
+               userTmpl += "<li><p>Favorite foods:<ol>";
+               data.user.favoriteFood.forEach(function(food) {
+                  userTmpl += "<li>" + food + "</li>";
+               });
+               userTmpl += "</ol></p></li>";
             }
             if (job) {
-                userTmpl += "<li><p>Job: " + job + "</p></li>";
+               userTmpl += "<li><p>Job: " + job + "</p></li>";
             }
             
          // Insert the results of the parsed template into the tableview."
