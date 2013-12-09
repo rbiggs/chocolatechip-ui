@@ -207,7 +207,7 @@
          var button;
          // Windows uses an icon for the delete button:
          if ($.isWin) deleteLabel = '';
-                  if (list[0].classList.contains('deletable')) return;
+         if (list[0].classList.contains('deletable')) return;
          var height = $('li').eq(1)[0].clientHeight;
          deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
          editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
@@ -237,6 +237,7 @@
             $(function() {
                button.on('singletap', function() {
                   var $this = this;
+                  if (list[0].classList.contains('deletable')) return;
                   if (this.classList.contains('edit')) {
                      list.addClass('deletable');
                      setTimeout(function() {
