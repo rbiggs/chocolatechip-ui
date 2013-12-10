@@ -109,3 +109,5 @@ ChocolateChip uses QUnit for tests. To run the tests, you first have to build th
 ###Note
 
 You do not need Nodejs to use ChocolateChip-UI. Nodejs is only used to build the framework and examples from the source files.
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/2f123684cf50f62013c044733bfc36fb "githalytics.com")](http://githalytics.com/sourcebitsllc/chocolatechip-ui)
