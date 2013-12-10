@@ -36,7 +36,7 @@ module.exports = function(grunt) {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChocolateChip.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        src: ["src/chocolatechip/start.js","src/chocolatechip/returnResult.js","src/chocolatechip/selectors.js","src/chocolatechip/extend.js","src/chocolatechip/core.js","src/chocolatechip/plugin.js","src/chocolatechip/cache.js","src/chocolatechip/collection.js","src/chocolatechip/domready.js","src/chocolatechip/string.js","src/chocolatechip/form.js", "src/chocolatechip/ajax.js","src/chocolatechip/feature-detection.js","src/chocolatechip/templates.js","src/chocolatechip/pubsub.js","src/chocolatechip/expose-chocolatechip.js","src/chocolatechip/end.js"],
+        src: ["src/chocolatechip/start.js","src/chocolatechip/returnResult.js","src/chocolatechip/selectors.js","src/chocolatechip/extend.js","src/chocolatechip/core.js","src/chocolatechip/plugin.js","src/chocolatechip/cache.js","src/chocolatechip/collection.js","src/chocolatechip/domready.js","src/chocolatechip/string.js","src/chocolatechip/form.js", "src/chocolatechip/ajax.js","src/chocolatechip/feature-detection.js","src/chocolatechip/templates.js","src/chocolatechip/pubsub.js","src/chocolatechip/deferred.js","src/chocolatechip/expose-chocolatechip.js","src/chocolatechip/end.js"],
         dest: 'chui/chocolatechip-<%= pkg.version %>.js'
       },
       // Concat the ChUIJS files together:
@@ -288,7 +288,8 @@ module.exports = function(grunt) {
           laxbreak: true,
           multistr: true,
           scripturl: true,
-          '-W030': true
+          '-W030': true,
+          '-W083': false
       },
       chocolatechip: ['chui/chocolatechip-<%= pkg.version %>.js'],
       chui: ['chui/chui-<%= pkg.version %>.js']
