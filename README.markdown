@@ -51,8 +51,16 @@ If you've modified ChocolateChipJS or ChUIJS to address a bug or add a feature, 
 
 You can create custom builds of ChocolateChip-UI for just the platform you're interested in. Here are some examples of the command-line options (You need to have run **npm install** in the directory first):
 
-    // Build everything:
+    // Build everything running on ChocolateChip.js:
     grunt
+
+    // Build everything running on jQuery 2.0.3:
+    /* This points to the CDN version of jQuery. If you want a 
+    different url or wish to use a local copy, open package.json
+    and change the value of "jquery": "url" to the value that
+    suits your purposes. Then run grunt chuijquery and enjoy.
+    */
+    grunt chuijquery
 
     // Build only ChocolateChipJS:
     grunt chocolatechipjs 
