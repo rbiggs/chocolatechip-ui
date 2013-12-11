@@ -18,7 +18,19 @@ ChocolateChip-UI uses Gruntjs to build. This is a Node package, so you'll first 
 
 This will install all the dependencies for the Grunt build proces and then run the Grunt build script. This will create the following folders: **chui**, **data**, **demo**, **examples-android**, **examples-ios**, **examples-win**, **images** and **node\_modules**. You do not need **node\_modules** in your final project. The node modules are there to enable the build process with Gruntjs. **Data** and **images** are used by the examples and demo files. All you really need is what's in the **chui** folder. If you want to create a custom build, then just run **npm install**, then any of the custom build patterns listed below.
 
-If you're going to use jQuery instead of ChocolateChipJS, then don't bother including ChocolateChipJS in your project and instead include jQuery however you want. Use version 2.0.3 or later.
+By default the grunt script builds everything into the same directory as the repository. You can change this so that it builds to a project directory of your choice. Just update the value of projectPath in the package.json file. By default, the value is empty, so it builds into the same directory.  Possible values on a Mac are, assuming your username is 'joe':
+
+    // Build the project in a folder called 'MyProject' on your desktop:
+    projectPath: "/Users/joe/Desktop/MyProject/"
+
+For Windows, you would do this:
+
+    // Build the project in a folder called 'MyProject' on your desktop:
+    projectPath: "C:\Users\joe\Desktop\MyProject\"
+
+**Note** If your username is not "joe", the above examples will not work. Please change the word "joe" with the username you use on your computer.
+
+If you're going to use jQuery instead of ChocolateChipJS, then don't bother including ChocolateChipJS in your project and instead include jQuery however you want. Use version 2.0.3 or later. See Custom Builds below for information on how to build ChocolateChip-UI for jQuery.
 
 If your development stack supports LESS, you can grab the LESS files in the **src/themes** folder to use directly. The LESS files have all their color values at the top of each file as LESS variables. This makes it easy for you to modify the color scheme of the themes. After modifying the LESS, you can regenerate new CSS as follows:
 

@@ -12,21 +12,21 @@ module.exports = function(grunt) {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n<%= pkg.title %>\nChUI.iOS.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        files: { 'chui/chui.ios-<%= pkg.version %>.css': 'src/themes/chui.ios.less'}
+        files: { '<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css': 'src/themes/chui.ios.less'}
       },
       // Process Android LESS file into CSS:
       android : {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n<%= pkg.title %>\nChUI.Android.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        files : { 'chui/chui.android-<%= pkg.version %>.css': 'src/themes/chui.android.less'}
+        files : { '<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css': 'src/themes/chui.android.less'}
       },
       // Process Windows LESS file into CSS:
       win : {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n<%= pkg.title %>\nChUI.Win.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        files : { 'chui/chui.win-<%= pkg.version %>.css': 'src/themes/chui.win.less'}
+        files : { '<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css': 'src/themes/chui.win.less'}
       }
     },
     // Concat JavaScript files and Examples:
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChocolateChip.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
         src: ["src/chocolatechip/start.js","src/chocolatechip/returnResult.js","src/chocolatechip/selectors.js","src/chocolatechip/extend.js","src/chocolatechip/core.js","src/chocolatechip/plugin.js","src/chocolatechip/cache.js","src/chocolatechip/collection.js","src/chocolatechip/domready.js","src/chocolatechip/string.js","src/chocolatechip/form.js", "src/chocolatechip/ajax.js","src/chocolatechip/feature-detection.js","src/chocolatechip/templates.js","src/chocolatechip/pubsub.js","src/chocolatechip/deferred.js","src/chocolatechip/expose-chocolatechip.js","src/chocolatechip/end.js"],
-        dest: 'chui/chocolatechip-<%= pkg.version %>.js'
+        dest: '<%= pkg.project_path %>chui/chocolatechip-<%= pkg.version %>.js'
       },
       // Concat the ChUIJS files together:
       chui: {
@@ -45,29 +45,29 @@ module.exports = function(grunt) {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
         src: ['src/chui/start.js', 'src/chui/event-init.js','src/chui/jquery-helpers.js','src/chui/$-extensions.js','src/chui/collection-extensions.js','src/chui/widget-factory.js','src/chui/load-init.js','src/chui/end.js','src/chui/gestures.js'],
-        dest: 'chui/chui-<%= pkg.version %>.js'
+        dest: '<%= pkg.project_path %>chui/chui-<%= pkg.version %>.js'
       },
       // The following concats are just to attach a banner to the LESS output:
       ios: {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.iOS.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        src: ['chui/chui.ios-<%= pkg.version %>.css'],
-        dest : 'chui/chui.ios-<%= pkg.version %>.css'
+        src: ['<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css'],
+        dest : '<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css'
       },
       android: {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.Android.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        src: ['chui/chui.android-<%= pkg.version %>.css'],
-        dest: 'chui/chui.android-<%= pkg.version %>.css'
+        src: ['<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css'],
+        dest: '<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css'
       },
       win: {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.Win.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        src: ['chui/chui.win-<%= pkg.version %>.css'],
-        dest: 'chui/chui.win-<%= pkg.version %>.css'
+        src: ['<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css'],
+        dest: '<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css'
       },
       // Concat iOS examples:
       example_ios: {
@@ -79,7 +79,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/examples/',
             src: ['**/*'],
-            dest: 'examples-ios/'
+            dest: '<%= pkg.project_path %>examples-ios/'
           }
         ]
       },
@@ -93,7 +93,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/examples/',
             src: ['**/*'],
-            dest: 'examples-android/'
+            dest: '<%= pkg.project_path %>examples-android/'
           }
         ]
       },
@@ -107,7 +107,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/examples/',
             src: ['**/*'],
-            dest: 'examples-win/'
+            dest: '<%= pkg.project_path %>examples-win/'
           }
         ]
       },
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
           banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo iOS</title>\n   <link rel="stylesheet" href="../chui/chui.ios-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          'demo/index-ios.html': ['src/demo/index.html']
+          '<%= pkg.project_path %>demo/index-ios.html': ['src/demo/index.html']
         }
       },
       // Concat Android version of demo:
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
           banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.android-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          'demo/index-android.html': ['src/demo/index.html']
+          '<%= pkg.project_path %>demo/index-android.html': ['src/demo/index.html']
         }
       },
       // Concat Windows Phone 8 version of demo:
@@ -135,7 +135,7 @@ module.exports = function(grunt) {
           banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.win-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          'demo/index-win.html': ['src/demo/index.html']
+          '<%= pkg.project_path %>demo/index-win.html': ['src/demo/index.html']
         }
       },
       tests : {
@@ -147,7 +147,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/tests/',
             src: ['**/*.html'],
-            dest: 'tests/'
+            dest: '<%= pkg.project_path %>tests/'
           }
         ]
       },
@@ -160,7 +160,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/examples/',
             src: ['**/*'],
-            dest: 'examples-ios/'
+            dest: '<%= pkg.project_path %>examples-ios/'
           }
         ]
       },
@@ -173,7 +173,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/examples/',
             src: ['**/*'],
-            dest: 'examples-android/'
+            dest: '<%= pkg.project_path %>examples-android/'
           }
         ]
       },
@@ -187,7 +187,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/examples/',
             src: ['**/*'],
-            dest: 'examples-win/'
+            dest: '<%= pkg.project_path %>examples-win/'
           }
         ]
       },
@@ -197,7 +197,7 @@ module.exports = function(grunt) {
           banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo iOS</title>\n   <link rel="stylesheet" href="../chui/chui.ios-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          'demo/index-ios.html': ['src/demo/index.html']
+          '<%= pkg.project_path %>demo/index-ios.html': ['src/demo/index.html']
         }
       },
       // Concat Android version of demo:
@@ -206,7 +206,7 @@ module.exports = function(grunt) {
           banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.android-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          'demo/index-android.html': ['src/demo/index.html']
+          '<%= pkg.project_path %>demo/index-android.html': ['src/demo/index.html']
         }
       },
       // Concat Windows Phone 8 version of demo:
@@ -215,7 +215,7 @@ module.exports = function(grunt) {
           banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.win-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          'demo/index-win.html': ['src/demo/index.html']
+          '<%= pkg.project_path %>demo/index-win.html': ['src/demo/index.html']
         }
       }
 
@@ -226,7 +226,7 @@ module.exports = function(grunt) {
         options: {
           banner: '/*\nChocolateChip-UI\nChocolateChip.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        files: {'chui/chocolatechip-<%= pkg.version %>.min.js': ['chui/chocolatechip-<%= pkg.version %>.js']
+        files: {'<%= pkg.project_path %>chui/chocolatechip-<%= pkg.version %>.min.js': ['chui/chocolatechip-<%= pkg.version %>.js']
         }
       },
       chui: {
@@ -234,7 +234,7 @@ module.exports = function(grunt) {
           banner: '/*\nChocolateChip-UI\nChUI.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
         files: {
-          'chui/chui-<%= pkg.version %>.min.js': ['chui/chui-<%= pkg.version %>.js']
+          '<%= pkg.project_path %>chui/chui-<%= pkg.version %>.min.js': ['chui/chui-<%= pkg.version %>.js']
         }
       }
     },
@@ -244,19 +244,19 @@ module.exports = function(grunt) {
         options: {
           banner: '/*\nChocolateChip-UI\nChUI-Android.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/'
         },
-        files: {'chui/chui.android-<%= pkg.version %>.min.css': 'chui/chui.android-<%= pkg.version %>.css'}
+        files: {'<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.min.css': '<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css'}
       },
       ios: {
         options: {
           banner: '/*\nChocolateChip-UI\nChUI-iOS.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/'
         },
-        files: {'chui/chui.ios-<%= pkg.version %>.min.css': 'chui/chui.ios-<%= pkg.version %>.css'}
+        files: {'<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.min.css': '<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css'}
       },
       win: {
         options: {
           banner: '/*\nChocolateChip-UI\nChUI-Win.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/'
         },
-        files: {'chui/chui.win-<%= pkg.version %>.min.css': 'chui/chui.win-<%= pkg.version %>.css'}
+        files: {'<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.min.css': '<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css'}
       }
     },
     // Copy files out of src directory:
@@ -268,7 +268,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/images/', 
             src: ['**/*.{png,jpg,svg}'], 
-            dest:'images/' 
+            dest:'<%= pkg.project_path %>images/' 
           }
         ]
       },
@@ -279,7 +279,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/data/',
             src: ['**/*'],
-            dest: 'data/'
+            dest: '<%= pkg.project_path %>data/'
           }
         ]
       },
@@ -290,7 +290,7 @@ module.exports = function(grunt) {
             expand: true, 
             cwd: 'src/', 
             src: ['index.html'], 
-            dest: 'examples-ios/'
+            dest: '<%= pkg.project_path %>examples-ios/'
           }
         ],
       },
@@ -301,7 +301,7 @@ module.exports = function(grunt) {
             expand: true, 
             cwd: 'src/', 
             src: ['index.html'], 
-            dest: 'examples-android/'
+            dest: '<%= pkg.project_path %>examples-android/'
           }
         ]
       },
@@ -312,7 +312,7 @@ module.exports = function(grunt) {
             expand: true, 
             cwd: 'src/', 
             src: ['index.html'], 
-            dest: 'examples-win/'
+            dest: '<%= pkg.project_path %>examples-win/'
           }
         ]
       },
@@ -322,7 +322,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/tests/',
             src: ['**/*.js'],
-            dest: 'tests/'
+            dest: '<%= pkg.project_path %>tests/'
           }
         ]
       },
@@ -332,7 +332,7 @@ module.exports = function(grunt) {
             expand: true,
             cwd: 'src/tests/qunit/',
             src: ['*.css'],
-            dest: 'tests/qunit/'
+            dest: '<%= pkg.project_path %>tests/qunit/'
           }
         ]
       }
@@ -359,8 +359,8 @@ module.exports = function(grunt) {
           '-W030': true,
           '-W083': false
       },
-      chocolatechip: ['chui/chocolatechip-<%= pkg.version %>.js'],
-      chui: ['chui/chui-<%= pkg.version %>.js']
+      chocolatechip: ['<%= pkg.project_path %>chui/chocolatechip-<%= pkg.version %>.js'],
+      chui: ['<%= pkg.project_path %>chui/chui-<%= pkg.version %>.js']
     }
   });
 

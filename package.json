@@ -28,5 +28,6 @@
   },
   "jquery": {
     "url": "http://code.jquery.com/jquery-2.0.3.min.js"
-  }
+  },
+  "projectPath": ""
 }
