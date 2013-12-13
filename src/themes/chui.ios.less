@@ -48,12 +48,12 @@
    display: -webkit-flex;
    -webkit-flex-direction: column;
    -webkit-justify-content: center;
-   -webkit-align-items: start;
+   -webkit-align-items: flex-start;
    /* No prefix */
    display: flex;
    flex-direction: column;
    justify-content: center;
-   align-items: start;
+   align-items: flex-start;
 }
 .flexBlockHorizontal () {
    /* old flex box */
@@ -64,8 +64,12 @@
    /* new flex box */
    display: -webkit-flex;
    -webkit-flex-direction: row;
-   -webkit-justify-content: start;
+   -webkit-justify-content: flex-start;
    -webkit-align-items: center;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: center;
  }
  .flexBlockCentered () {
    /* old flex box */
@@ -78,6 +82,10 @@
    -webkit-flex-direction: column;
    -webkit-justify-content: center;
    -webkit-align-items: center;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
  }
 .transition(@prop: all, @duration: .25s, @ease:ease-out) {
   -webkit-transition: @arguments;
@@ -268,7 +276,7 @@ article {
 .button.slide-out-button::before {
    .pseudoBlock('');
    .size(35px,35px);
-   .imageMask(#000, 'data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><rect x="25.833" y="20" width="64.167" height="7.666"/><rect x="25.833" y="46.136" width="64.167" height="7.667"/><rect x="25.833" y="72.271" width="64.167" height="7.666"/><rect x="9.833" y="20" width="7.667" height="7.666"/><rect x="9.833" y="46" width="7.667" height="7.666"/><rect x="9.833" y="72.271" width="7.667" height="7.666"/></svg>');
+   .imageMask(#000, 'data:image/svg+xml;utf8,%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%22100px%22%20height%3D%22100px%22%20viewBox%3D%220%200%20100%20100%22%20enable-background%3D%22new%200%200%20100%20100%22%20xml%3Aspace%3D%22preserve%22%3E%3Crect%20x%3D%2225.833%22%20y%3D%2220%22%20width%3D%2264.167%22%20height%3D%227.666%22%2F%3E%3Crect%20x%3D%2225.833%22%20y%3D%2246.136%22%20width%3D%2264.167%22%20height%3D%227.667%22%2F%3E%3Crect%20x%3D%2225.833%22%20y%3D%2272.271%22%20width%3D%2264.167%22%20height%3D%227.666%22%2F%3E%3Crect%20x%3D%229.833%22%20y%3D%2220%22%20width%3D%227.667%22%20height%3D%227.666%22%2F%3E%3Crect%20x%3D%229.833%22%20y%3D%2246%22%20width%3D%227.667%22%20height%3D%227.666%22%2F%3E%3Crect%20x%3D%229.833%22%20y%3D%2272.271%22%20width%3D%227.667%22%20height%3D%227.666%22%2F%3E%3C%2Fsvg%3E');
 }
 body.slide-out-app > article,
 body.slide-out-app > nav:not(:first-of-type) {
@@ -324,8 +332,12 @@ article > section,
    /* New syntax */
    display: -webkit-flex;
    -webkit-flex-direction: column;
-   -webkit-justify-content: start;
-   -webkit-align-items: start;
+   -webkit-justify-content: flex-start;
+   -webkit-align-items: flex-start;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
 }
 
 .horizontal {
@@ -338,13 +350,19 @@ article > section,
    display: -webkit-flex;
    -webkit-flex-direction: row;
    -webkit-box-orient: horizontal;
-   -webkit-justify-content: start;
+   -webkit-justify-content: flex-start;
+   display: flex;
+   flex-direction: row;
+   box-orient: horizontal;
+   justify-content: flex-start;
 }
 .horizontal.centered {
-   -webkit-justify-content: center;
-   -webkit-align-items: center;
    -webkit-box-pack: center;
    -webkit-box-align: stretch;
+   -webkit-justify-content: center;
+   -webkit-align-items: center;
+   justify-content: center;
+   align-items: center;
 }
 /* ==============================
    Nav bars
@@ -562,6 +580,12 @@ section > h2 {
    content: none;
 }
 li.comp {
+   display: -webkit-flex;
+   -webkit-flex-direction: row;
+   -webkit-align-items: stretch;
+   display: flex;
+   flex-direction: row;
+   align-items: stretch;
    display: -webkit-box;
    -webkit-box-orient: horizontal;
    -webkit-box-align: stretch;
@@ -600,6 +624,10 @@ li.comp > aside {
    display: -webkit-box;
    -webkit-box-pack: center;
    -webkit-box-align: center;
+   -webkit-justify-content: center;
+   -webkit-align-items: center;
+   justify-content: center;
+   align-items: center;
    padding: 0 0 10px 0;
 }
 li.comp > aside:first-child {
@@ -706,7 +734,7 @@ li.switched h3 {
 .list.select li.selected::after {
    .pseudoBlock('');
    .size(20px,20px);
-   .imageMask(@appTint, 'data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="32" height="26" viewBox="0 0 32 26" id="svg2"><defs id="defs8" /><g transform="translate(0.13135593,-0.34322034)" id="Page-1" style="fill:none;stroke:none"><g id="Artboard-1" style="stroke:#000000;stroke-width:5"><path d="m 10.500868,22.761362 11.023688,0 0,-27.9582975" transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,10.899977,-8.7504466)" id="Rectangle-1" /></g></g></svg>');
+   .imageMask(@appTint, 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20width%3D%2232%22%20height%3D%2226%22%20viewBox%3D%220%200%2032%2026%22%20id%3D%22svg2%22%3E%3Cdefs%20id%3D%22defs8%22%20%2F%3E%3Cg%20transform%3D%22translate(0.13135593%2C-0.34322034)%22%20id%3D%22Page-1%22%20style%3D%22fill%3Anone%3Bstroke%3Anone%22%3E%3Cg%20id%3D%22Artboard-1%22%20style%3D%22stroke%3A%23000000%3Bstroke-width%3A5%22%3E%3Cpath%20d%3D%22m%2010.500868%2C22.761362%2011.023688%2C0%200%2C-27.9582975%22%20transform%3D%22matrix(0.70710678%2C0.70710678%2C-0.70710678%2C0.70710678%2C10.899977%2C-8.7504466)%22%20id%3D%22Rectangle-1%22%20%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
    float: right;
    margin-top: -20px;
    color: @appTint;
@@ -843,7 +871,7 @@ a.button.back::before,
 a.button.backTo::before {
    .pseudoBlock('');
    border: solid 1px transparent;
-   .imageMask(@appTint, 'data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="21" height="35" viewBox="0 0 21 35" id="svg2"><defs id="defs8" /><g transform="translate(-2.1355929,0.0677963)" id="Page-1" style="fill:none;stroke:none"><path d="M 21.353814,1.2365445 5.0903576,17.5 21.353814,33.763456" id="Rectangle-1" style="stroke:#000;stroke-width:3" /></g></svg>');
+   .imageMask(@appTint, 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20width%3D%2221%22%20height%3D%2235%22%20viewBox%3D%220%200%2021%2035%22%20id%3D%22svg2%22%3E%3Cdefs%20id%3D%22defs8%22%20%2F%3E%3Cg%20transform%3D%22translate(-2.1355929%2C0.0677963)%22%20id%3D%22Page-1%22%20style%3D%22fill%3Anone%3Bstroke%3Anone%22%3E%3Cpath%20d%3D%22M%2021.353814%2C1.2365445%205.0903576%2C17.5%2021.353814%2C33.763456%22%20id%3D%22Rectangle-1%22%20style%3D%22stroke%3A%23000%3Bstroke-width%3A3%22%20%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
    -webkit-mask-position: left center;
    .size(20px,20px);
    margin-right: 7px;
@@ -904,6 +932,10 @@ a.button, a.button.back::before {
    -webkit-animation-timing-function: ease-in-out;
    -webkit-animation-fill-mode: forwards;
    -webkit-animation-name: switchAnimationOff;
+   animation-duration: .65s;
+   animation-timing-function: ease-in-out;
+   animation-fill-mode: forwards;
+   animation-name: switchAnimationOff;
 }
 .switch > em {
    display: block;
@@ -912,11 +944,15 @@ a.button, a.button.back::before {
    background-color: @switchThumbBkgnd;
    border-radius: 50%;
    -webkit-transition: -webkit-transform .1s ease-in-out;
-   transition: -webkit-transform .1s ease-in-out;
    -webkit-animation-duration: .45s;
    -webkit-animation-timing-function: ease-in-out;
    -webkit-animation-fill-mode: forwards;
    -webkit-animation-name: switchThumbAnimationOff;
+   transition: -webkit-transform .1s ease-in-out;
+   animation-duration: .45s;
+   animation-timing-function: ease-in-out;
+   animation-fill-mode: forwards;
+   animation-name: switchThumbAnimationOff;
 }
 .switch > input {
    display: none;
@@ -925,6 +961,7 @@ a.button, a.button.back::before {
    border-color: @switchOnColor;
    box-shadow: inset 0 0 0 15px @switchOnColor;
    -webkit-animation-name: none;
+   animation-name: none;
 }
 .switch.on > em {
    -webkit-transform: translate3d(23px,0,0);
@@ -933,6 +970,12 @@ a.button, a.button.back::before {
    -webkit-animation-timing-function: ease-in-out;
    -webkit-animation-fill-mode: forwards;
    -webkit-animation-name: switchThumbAnimation;
+   transform: translate3d(23px,0,0);
+   transition-duration: .2s;
+   animation-duration: .45s;
+   animation-timing-function: ease-in-out;
+   animation-fill-mode: forwards;
+   animation-name: switchThumbAnimation;
    
 }
 @-webkit-keyframes switchAnimationOff {
@@ -954,6 +997,25 @@ a.button, a.button.back::before {
    50% { width: 27px; }   
    100% { width: 27px; }   
 }
+@keyframes switchAnimationOff {
+   0% { box-shadow: inset 0 0 0 15px @switchBorder; }
+   49.999% { box-shadow: inset 0 0 0 0 @switchBorder; }
+   50% { box-shadow: inset 0 0 0 0 #fff; }
+   100% { box-shadow: inset 0 0 0 15px #fff; }
+}
+
+@keyframes switchThumbAnimation {
+   0% { width: 27px; }
+   1% { width: 40px; }
+   50% { width: 27px; }   
+   100% { width: 27px; }   
+}
+@keyframes switchThumbAnimationOff {
+   0% { width: 27px; }
+   5% { width: 45px; }
+   50% { width: 27px; }   
+   100% { width: 27px; }   
+}
 /* ==============================
    Segmented Control
    ============================== */
@@ -962,6 +1024,9 @@ a.button, a.button.back::before {
    -webkit-box-orient: horizontal;
    display: -webkit-inline-flex;
    -webkit-flex-direction: row;
+   .sizing;
+   display: inline-flex;
+   flex-direction: row;
    .sizing;
 }
 .segmented > .button {
@@ -996,8 +1061,10 @@ a.button, a.button.back::before {
 div.horizontal.centered > .segmented {
    display: -webkit-box;
    display: -webkit-flex;
+   display: flex;
    margin: 10px 15px;
    -webkit-flex: 1;
+   flex: 1;
 }
 .segmented.align-flush {
    position: absolute;
@@ -1033,22 +1100,24 @@ div.horizontal.centered > .segmented {
    background-color: @appTint;
 }
 .segmented.paging.horizontal > .button:first-of-type::before {
-      -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px"  viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"> <g id="g4"> </g> <g id="layer2"> <path id="path7" d="M28.038,8.381l2.674,2.599L18.545,23.146l12.086,12.086l-2.593,2.679L17.909,27.782l-4.636-4.636l4.636-4.636  L28.038,8.381z"/> </g> </svg> ');
+      -webkit-mask-image: url('data:image/svg+xml;utf8,%3Csvg%20version%3D%221.1%22%20id%3D%22svg2%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2248px%22%20height%3D%2248px%22%20viewBox%3D%220%200%2048%2048%22%20enable-background%3D%22new%200%200%2048%2048%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%20id%3D%22g4%22%3E%3C%2Fg%3E%3Cg%20id%3D%22layer2%22%3E%3Cpath%20id%3D%22path7%22%20d%3D%22M28.038%2C8.381l2.674%2C2.599L18.545%2C23.146l12.086%2C12.086l-2.593%2C2.679L17.909%2C27.782l-4.636-4.636l4.636-4.636%20L28.038%2C8.381z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 .segmented.paging.horizontal > .button:last-of-type::before {
-   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><g id="g4"></g><g id="layer2"><path id="path7" d="M15.946,37.911l-2.674-2.599l12.167-12.167L13.354,11.06l2.593-2.679L26.075,18.51l4.636,4.636l-4.636,4.636L15.946,37.911z"/></g></svg>');
+   -webkit-mask-image: url('data:image/svg+xml;utf8,%3Csvg%20version%3D%221.1%22%20id%3D%22svg2%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2248px%22%20height%3D%2248px%22%20viewBox%3D%220%200%2048%2048%22%20enable-background%3D%22new%200%200%2048%2048%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%20id%3D%22g4%22%3E%3C%2Fg%3E%3Cg%20id%3D%22layer2%22%3E%3Cpath%20id%3D%22path7%22%20d%3D%22M15.946%2C37.911l-2.674-2.599l12.167-12.167L13.354%2C11.06l2.593-2.679L26.075%2C18.51l4.636%2C4.636l-4.636%2C4.636L15.946%2C37.911z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 .segmented.paging.vertical > .button:first-of-type::before {
-   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"> <g id="g4"> </g> <g id="layer2"> <path id="path7" d="M7.227,17.101l2.599-2.674l12.167,12.167l12.086-12.086l2.679,2.593L26.628,27.229l-4.636,4.636l-4.636-4.636 L7.227,17.101z"/> </g> </svg>');
+   -webkit-mask-image: url('data:image/svg+xml;utf8,%3Csvg%20version%3D%221.1%22%20id%3D%22svg2%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2248px%22%20height%3D%2248px%22%20viewBox%3D%220%200%2048%2048%22%20enable-background%3D%22new%200%200%2048%2048%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%20id%3D%22g4%22%3E%3C%2Fg%3E%3Cg%20id%3D%22layer2%22%3E%3Cpath%20id%3D%22path7%22%20d%3D%22M7.227%2C17.101l2.599-2.674l12.167%2C12.167l12.086-12.086l2.679%2C2.593L26.628%2C27.229l-4.636%2C4.636l-4.636-4.636%20L7.227%2C17.101z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 .segmented.paging.vertical > .button:last-of-type::before {
-   -webkit-mask-image: url('data:image/svg+xml;utf8,<svg version="1.1" id="svg2" xmlns:svg="http://www.w3.org/2000/svg"    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><g id="g4"></g><g id="layer2"><path id="path7" d="M36.757,29.191l-2.599,2.674L21.992,19.698L9.905,31.784l-2.679-2.593l10.129-10.129l4.636-4.636l4.636,4.636 L36.757,29.191z"/></g></svg>');
+   -webkit-mask-image: url('data:image/svg+xml;utf8,%3Csvg%20version%3D%221.1%22%20id%3D%22svg2%22%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2248px%22%20height%3D%2248px%22%20viewBox%3D%220%200%2048%2048%22%20enable-background%3D%22new%200%200%2048%2048%22%20xml%3Aspace%3D%22preserve%22%3E%3Cg%20id%3D%22g4%22%3E%3C%2Fg%3E%3Cg%20id%3D%22layer2%22%3E%3Cpath%20id%3D%22path7%22%20d%3D%22M36.757%2C29.191l-2.599%2C2.674L21.992%2C19.698L9.905%2C31.784l-2.679-2.593l10.129-10.129l4.636-4.636l4.636%2C4.636%20L36.757%2C29.191z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E');
 }
 article.paging {
    overflow: hidden !important;
    overflow-y: scroll !important;
    -webkit-box-orient: vertical !important;
    -webkit-direction: column !important;
+   box-orient: vertical !important;
+   direction: column !important;
 }
 article.paging > section {
    position: absolute;
@@ -1116,6 +1185,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
    .flexBlockHorizontal;
    display: -webkit-inline-flex;
    display: -webkit-inline-box;
+   display: flex;
    padding: 1px;
 }
 stepper > input {
@@ -1163,18 +1233,32 @@ stepper > input {
 
 /* ==============================
    Busy Control
-   ============================== */ 
+   ============================== */
 @-webkit-keyframes busyAnim {
-   0% { .transform(rotate(0deg)); }
-   100% { .transform(rotate(360deg)); }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes busyAnim {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 .busy {
    display: block;
    position: relative;
    .size(20px,20px);
+  -webkit-animation: busyAnim 100s linear infinite;
+  animation: busyAnim 2s linear infinite;
    margin-left: auto;
    margin-right: auto;
-   .imageMask(#000, "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 42 42'><style> @-webkit-keyframes busyAnim { 0% { opacity: 0.11111111111111116; } 100% { opacity: 5; } } #tine1 { -webkit-animation: busyAnim 1.250s 1.125s infinite linear; } #tine2 { -webkit-animation: busyAnim 1.250s 1s infinite linear; } #tine3 { -webkit-animation: busyAnim 1.250s .875s infinite linear; } #tine4 { -webkit-animation: busyAnim 1.250s .750s infinite linear; } #tine5 { -webkit-animation: busyAnim 1.250s .625s infinite linear; } #tine6 { -webkit-animation: busyAnim 1.250s .500s infinite linear; } #tine7 { -webkit-animation: busyAnim 1.250s .375s infinite linear; } #tine8 { -webkit-animation: busyAnim 1.250s .250s infinite linear; } #tine9 { -webkit-animation: busyAnim 1.250s .125s infinite linear; } #tine10 { -webkit-animation: busyAnim 1.250s 0s infinite linear; }<\/style><g transform='translate(21,21)'><g stroke-width='4' stroke-linecap='round' stroke='rgb(0, 0, 0)'>  <line id='tine1' x1='0' y1='11' x2='0' y2='18' transform='rotate(0, 0, 0)' opacity='1'></line>  <line id='tine2' x1='0' y1='11' x2='0' y2='18' transform='rotate(-36, 0, 0)' opacity='1'></line>  <line id='tine3' x1='0' y1='11' x2='0' y2='18' transform='rotate(-72, 0, 0)' opacity='1'></line>  <line id='tine4' x1='0' y1='11' x2='0' y2='18' transform='rotate(-108, 0, 0)' opacity='1'></line>  <line id='tine5' x1='0' y1='11' x2='0' y2='18' transform='rotate(-144, 0, 0)' opacity='1'></line>  <line id='tine6' x1='0' y1='11' x2='0' y2='18' transform='rotate(-180, 0, 0)' opacity='1'></line>  <line id='tine7' x1='0' y1='11' x2='0' y2='18' transform='rotate(-216, 0, 0)' opacity='1'></line>  <line id='tine8' x1='0' y1='11' x2='0' y2='18' transform='rotate(-252, 0, 0)' opacity='1'></line>  <line id='tine9' x1='0' y1='11' x2='0' y2='18' transform='rotate(-288, 0, 0)' opacity='1'></line>  <line id='tine10' x1='0' y1='11' x2='0' y2='18' transform='rotate(-324, 0, 0)' opacity='1'></line> </g> </g></svg>");
+   .imageMask(#000, "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2042%2042%27%3E%3Cg%20transform%3D%27translate(21%2C21)%27%3E%3Cg%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%20stroke%3D%27rgb(0%2C%200%2C%200)%27%3E%3Cline%20id%3D%27tine1%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(0%2C%200%2C%200)%27%20opacity%3D%271%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine2%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-36%2C%200%2C%200)%27%20opacity%3D%27.9%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine3%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-72%2C%200%2C%200)%27%20opacity%3D%27.8%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine4%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-108%2C%200%2C%200)%27%20opacity%3D%27.7%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine5%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-144%2C%200%2C%200)%27%20opacity%3D%27.6%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine6%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-180%2C%200%2C%200)%27%20opacity%3D%27.5%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine7%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-216%2C%200%2C%200)%27%20opacity%3D%27.4%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine8%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-252%2C%200%2C%200)%27%20opacity%3D%271%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine9%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-288%2C%200%2C%200)%27%20opacity%3D%271%27%3E%3C%2Fline%3E%3Cline%20id%3D%27tine10%27%20x1%3D%270%27%20y1%3D%2711%27%20x2%3D%270%27%20y2%3D%2718%27%20transform%3D%27rotate(-324%2C%200%2C%200)%27%20opacity%3D%271%27%3E%3C%2Fline%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E");
 }
 .busy.align-flush {
    position: absolute;
@@ -1197,6 +1281,7 @@ stepper > input {
    margin-right: auto;
    .transition;
    -webkit-trasform-origin: center center;
+   trasform-origin: center center;
 }
 .popup.closed {
    .transform(scale(0));
@@ -1210,13 +1295,19 @@ stepper > input {
    .flexBlockHorizontal;
    -webkit-box-orient: vertical;
    -webkit-flex-flow: column;
+   flex-flow: column;
 }
 .popup header,
 .popup footer {
    display: -webkit-box;
    display: -webkit-flex;
+   display: flex;
    -webkit-box-align: stretch;
    -webkit-box-pack: justify;
+   -webkit-align-items: stretch;
+   -webkit-justify-content: space-around;
+   align-items: stretch;
+   justify-content: space-around;
 }
 .popup header > h1 {
    position: static;
@@ -1330,8 +1421,12 @@ body.splitlayout {
    /* New syntax */
    display: -webkit-flex;
    -webkit-flex-direction: row;
-   -webkit-justify-content: start;
+   -webkit-justify-content: flex-start;
    -webkit-align-items: stretch;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start;
+   align-items: stretch;
 }
 .splitlayout > nav {
    background-color: @navBkgnd;
@@ -1365,6 +1460,7 @@ body.splitlayout {
    left: 0;
    -webkit-box-flex: 1;
    -webkit-flex: 1;
+   flex: 1;
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
    .splitlayout > article.master {
@@ -1390,6 +1486,8 @@ body.splitlayout {
    .flexBlockHorizontal;
    -webkit-box-pack: center;
    -webkit-justify-content: center;
+   box-pack: center;
+   justify-content: center;
    height: 50px;
    position: absolute;
    left: 0;
@@ -1444,7 +1542,7 @@ body.hasTabBar article {
    background-color: @appTint;
 }
 .tabbar > .button.more > .icon {
-   .imageMask(@tabbarButton,'data:image/svg+xml;utf8,<svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 48 48" enable-background="new 0 0 48 48" xml:space="preserve"><circle cx="10" cy="23" r="5.172"/><circle cx="24" cy="23" r="5.172"/><circle cx="38" cy="23" r="5.172"/></svg> ');
+   .imageMask(@tabbarButton,'data:image/svg+xml;utf8,%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_2%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20width%3D%2248px%22%20height%3D%2248px%22%20viewBox%3D%220%200%2048%2048%22%20enable-background%3D%22new%200%200%2048%2048%22%20xml%3Aspace%3D%22preserve%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2223%22%20r%3D%225.172%22%2F%3E%3Ccircle%20cx%3D%2224%22%20cy%3D%2223%22%20r%3D%225.172%22%2F%3E%3Ccircle%20cx%3D%2238%22%20cy%3D%2223%22%20r%3D%225.172%22%2F%3E%3C%2Fsvg%3E');
 }
 
 /* ==============================
@@ -1485,6 +1583,8 @@ article.current.blurred {
 article.current.blurred.removeBlurSlow {
    -webkit-filter: blur(0px);
    -webkit-transition-duration: .35s;
+   filter: blur(0px);
+   transition-duration: .35s;
 }
 .sheet .button {
    color: @actionButton;
@@ -1501,6 +1601,7 @@ article.current.blurred.removeBlurSlow {
    border-color: @sheetButtonTouched;
    opacity: 1 !important;
    -webkit-transition: none;
+   transition: none;
 }
 .sheet > section > .list {
    border: none;
@@ -1522,10 +1623,9 @@ div.handle {
    color: @sheetHandle;
    cursor: pointer;
    height: 20pt;
-   .imageMask(@sheetHandle, 'data:image/svg+xml;utf8,<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1" width="76" height="27" viewBox="0 0 76 27" id="svg2"><defs id="defs8" /><g transform="translate(-283.79661,-123.77966)" id="Page-1" style="fill:none;stroke:none"><g transform="translate(254,108)" id="Artboard-1" style="stroke:#000;stroke-width:12;stroke-linecap:round;stroke-linejoin:round"><path d="m 36.25,26.242187 31.394531,7.972657 30.53125,-8.425782" id="Path-1" /></g></g></svg>');
+   .imageMask(@sheetHandle, 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3Asvg%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20version%3D%221.1%22%20width%3D%2276%22%20height%3D%2227%22%20viewBox%3D%220%200%2076%2027%22%20id%3D%22svg2%22%3E%3Cdefs%20id%3D%22defs8%22%20%2F%3E%3Cg%20transform%3D%22translate(-283.79661%2C-123.77966)%22%20id%3D%22Page-1%22%20style%3D%22fill%3Anone%3Bstroke%3Anone%22%3E%3Cg%20transform%3D%22translate(254%2C108)%22%20id%3D%22Artboard-1%22%20style%3D%22stroke%3A%23000%3Bstroke-width%3A12%3Bstroke-linecap%3Around%3Bstroke-linejoin%3Around%22%3E%3Cpath%20d%3D%22m%2036.25%2C26.242187%2031.394531%2C7.972657%2030.53125%2C-8.425782%22%20id%3D%22Path-1%22%20%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
    margin: 10px auto 0;
 }
-
 /* ==============================
    Icon Styles
    ============================== */

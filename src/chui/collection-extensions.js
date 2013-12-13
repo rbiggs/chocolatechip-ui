@@ -292,7 +292,7 @@
          var color = options.color || '#000';
          var size = options.size || '80px';
          var position = (options && options.position === 'right') ? 'align-flush' : null;
-         var duration = options.duration || '1s';
+         var duration = options.duration || '2s';
          var spinner;
          // For iOS:
          var iOSBusy = function() {

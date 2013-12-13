@@ -237,7 +237,6 @@
             $(function() {
                button.on('singletap', function() {
                   var $this = this;
-                  if (list[0].classList.contains('deletable')) return;
                   if (this.classList.contains('edit')) {
                      list.addClass('deletable');
                      setTimeout(function() {
