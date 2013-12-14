@@ -1310,6 +1310,9 @@ body.hasTabBar > article {
   padding: 4px 10px 4px 0;
   border: none !important;
 }
+.tabbar > .button > label {
+  font-size: 10pt !important;
+}
 .tabbar > .button:hover,
 .tabbar > .button.selected {
    color: @appTint !important;
@@ -1319,6 +1322,9 @@ body.hasTabBar > article {
 .tabbar > .button.more {
    font-size: 0;
    width: 40px;
+}
+.tabbar > .button.more > label {
+   display: none !important;
 }
 .tabbar > .button.more::before {
    font-family: "Segoe UI Symbol";
