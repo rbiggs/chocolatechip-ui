@@ -59,8 +59,8 @@
          destination[0].scrollTop = 0;
          if (prevArticles.length) {
             prevArticles.forEach(function(ctx) {
-               $('#' + ctx).removeClass('previous').addClass('next');
-               $('#' + ctx).prev().removeClass('previous').addClass('next');
+               $(ctx).removeClass('previous').addClass('next');
+               $(ctx).prev().removeClass('previous').addClass('next');
             });
          }
          if (window && window.jQuery && $ === window.jQuery) {
