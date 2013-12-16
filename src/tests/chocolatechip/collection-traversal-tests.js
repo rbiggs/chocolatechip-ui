@@ -10,13 +10,14 @@ test('[].each:', function() {
    var lastValue = 0;
    var lastIndex = 0;
    a.each(function(ctx, idx) {
-      total += idx;
+      total += 1;
       if (idx === a.length -1) {
          lastValue = a[idx];
          lastIndex = idx;
       }
       equal(a[idx], idx+1, 'Should return correct context.');
    });
+   equal(total, 5, 'Total number of iterations should be 5.');
    result = b.each(function(ctx, idx) {
       console.log('Nothing in this array!');
    });

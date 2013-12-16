@@ -6,10 +6,8 @@
          var l = this.length;
          ctx = arguments[1];
          for (i = 0; i < l; i++) {
-            if (i in this) {
-               if (this.hasOwnProperty(i)) {
-                  fn.call(ctx, this[i], i, this);
-               }
+            if (i in this && this.hasOwnProperty(i)) {
+              fn.call(ctx, this[i], i, this);
             }
          }
          return this;

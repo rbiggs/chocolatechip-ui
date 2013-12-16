@@ -1,10 +1,29 @@
    $.extend({
  
-      version : '3.0.5',
+      version : '3.0.8',
       
       libraryName : 'ChocolateChip',
       
       slice : Array.prototype.slice,
+
+      each : function ( collection, callback ) {
+         var i;
+         var key;
+         if (collection.length) {
+            for (i = 0; i < collection.length; i++) {
+              if (callback.call(collection[i], collection[i], i) === false) {
+                  return collection;
+               }
+            }
+         } else {
+            for (key in collection) {
+               if (callback.call(collection[key], collection[key], key) === false) {
+                  return collection;
+               }
+            }
+         }
+         return collection;
+      },
       
       make : function ( HTMLString ) {
          var ret = [];
