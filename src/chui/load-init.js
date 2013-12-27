@@ -103,7 +103,8 @@
       });
       $.body.on('singletap', '.button', function() {
          var $this = $(this);
-         if ($this.parent()[0].classList.contains('tabbar')) return;
+         if ($this.parent('.tabbar')[0]) return;
+         if ($this.parent('.segmented')[0]) return;
          $this.addClass('selected');
          setTimeout(function() {
             $this.removeClass('selected');
