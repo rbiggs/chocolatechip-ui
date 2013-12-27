@@ -306,10 +306,10 @@
          currentArticle.children().eq(0).siblings().addClass('next');
          var sections = function() {
              return currentArticle.children().length;
-         }
+         };
 
          $('.segmented.paging').on($.eventStart, '.button:first-of-type', function() {
-            if (sections() === 1) return
+            if (sections() === 1) return;
             var me = $(this);
             me.next().removeClass('selected');
             me.addClass('selected');
@@ -329,7 +329,7 @@
             }, 250);
          });
          $('.segmented.paging').on($.eventStart, '.button:last-of-type', function() {
-            if (sections() === 1) return
+            if (sections() === 1) return;
             var me = $(this);
             me.prev().removeClass('selected');
             me.addClass('selected');
