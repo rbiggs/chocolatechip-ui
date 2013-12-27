@@ -289,13 +289,12 @@
       ///////////////////////
       UIPaging : function ( ) {
          var currentArticle = $('.segmented.paging').closest('nav').next();
-         var sections = currentArticle.children().length;
          if (window && window.jQuery && $ === window.jQuery) {
             if ($('.segmented.paging').hasClass('horizontal')) {
                currentArticle.addClass('horizontal');
             } else if ($('.segmented.paging').hasClass('vertical')) {
                currentArticle.addClass('vertical');
-            }        
+            }
          } else {
             if ($('.segmented.paging').hasClass('horizontal')[0]) {
                currentArticle.addClass('horizontal');
@@ -305,25 +304,50 @@
          }
          currentArticle.children().eq(0).addClass('current');
          currentArticle.children().eq(0).siblings().addClass('next');
-         
+         var sections = function() {
+             return currentArticle.children().length;
+         }
+
          $('.segmented.paging').on($.eventStart, '.button:first-of-type', function() {
+            if (sections() === 1) return
+            var me = $(this);
+            me.next().removeClass('selected');
+            me.addClass('selected');
             var currentSection;
-            $(this).next().removeClass('selected');
-            $(this).addClass('selected');
             currentSection = $('section.current');
-            if (currentSection.index() === 0) return;
-            currentSection.removeClass('current').addClass('next');
-            currentSection.prev().removeClass('previous').addClass('current');
+            if (currentSection.index() === 0)  {
+                currentSection.removeClass('current');
+                currentArticle.children().eq(sections() - 1).addClass('current').removeClass('next');
+                currentArticle.children().eq(sections() - 1).siblings().removeClass('next').addClass('previous');
+            } else {
+                currentSection.removeClass('current').addClass('next');
+                currentSection.prev().removeClass('previous').addClass('current');
+            }
+
+            setTimeout(function() {
+                me.removeClass('selected');
+            }, 250);
          });
          $('.segmented.paging').on($.eventStart, '.button:last-of-type', function() {
+            if (sections() === 1) return
+            var me = $(this);
+            me.prev().removeClass('selected');
+            me.addClass('selected');
             var currentSection;
-            $(this).prev().removeClass('selected');
-            $(this).addClass('selected');
             if (this.classList.contains('disabled')) return;
             currentSection = $('section.current');
-            if (currentSection.index() === sections -1) return;
-            currentSection.removeClass('current').addClass('previous');
-            currentSection.next().removeClass('next').addClass('current');
+            if (currentSection.index() === sections() - 1) {
+                // start again!
+                currentSection.removeClass('current');
+                currentArticle.children().eq(0).addClass('current').removeClass('previous');
+                currentArticle.children().eq(0).siblings().removeClass('previous').addClass('next');
+            } else {
+                currentSection.removeClass('current').addClass('previous');
+                currentSection.next().removeClass('next').addClass('current');
+            }
+            setTimeout(function() {
+                me.removeClass('selected');
+            }, 250);
          });
       },
 
