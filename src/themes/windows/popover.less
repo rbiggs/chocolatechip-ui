@@ -1,0 +1,41 @@
+/* ==============================
+   Popover Control
+   =========================== */
+.popover {
+  min-width: 200px;
+  background-color: @appBkColor;
+  height: 250px;
+  max-height: 300px;
+  position: absolute;
+  z-index: 111111;
+  margin-top: 10px;
+  transform: scaleY(0);
+  transition: all 0.15s ease-in-out;
+  transform-origin: 50% 0%;
+  box-shadow: 0 0 5px 3px lighten(@popupButtonBorder, 30%);
+  border: solid 2px @popupButtonBorder;
+
+  &.open {
+    transform: scaleY(1);
+  }
+
+  & header {
+    display: none;
+  }
+
+  & > section {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    padding-bottom: 0;
+    position: absolute;
+    top: 4px;
+    bottom: 4px;
+    width: 100%;
+    padding-bottom: 20px;
+  }
+
+  & > ul.list, & > ul.list > li {
+    margin: 0 !important;
+  }
+}

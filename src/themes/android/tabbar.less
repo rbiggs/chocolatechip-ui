@@ -1,0 +1,84 @@
+/* ==============================
+   Tab Bar
+   =========================== */
+
+@tabbarMoreSVG: escape("<svg version='1.1' id='Layer_2' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><circle cx='10' cy='23' r='5.172'/><circle cx='24' cy='23' r='5.172'/><circle cx='38' cy='23' r='5.172'/></svg>");
+
+@parsedTabbarMoreSVG: "@{imageMaskRoot}@{tabbarMoreSVG}";
+
+body.hasTabBar article {
+  top: 77px !important;
+
+  & .previous:not(.navigable), & .next:not(.navigable) {
+    display: none;
+    -webkiit-transform: none;
+  }
+}
+
+.tabbar {
+  /* Old syntax */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: center;
+  box-sizing: border-box;
+  height: 30px;
+  position: absolute;
+  left: 0;
+  top: 47px;
+  right: 0;
+  border-top: solid 1px @tabbarColor;
+  background-color: @tabbarColor;
+}
+.tabbar > .button {
+  color: @buttonTextHoverColor !important;
+  background-color: @tabbarColor !important;
+  position: relative;
+  display: block !important;
+  .flex;
+  margin: 0;
+  height: 100%;
+  text-align: center;
+  line-height: 17px;
+  padding: 4px 10px;
+  border: none;
+  border-bottom: solid 4px @tabbarColor;
+  border-right: solid 1px @tabbarButtonBorder;
+  box-shadow: none;
+
+  &:last-of-type {
+    border-right: none;
+  }
+
+  &:hover {
+    opacity: 1 !important;
+    box-shadow: none !important;
+    border-bottom: solid 4px darken(@appTint,20%);
+    background-color: desaturate(darken(@appTint,25%), 35%) !important;    
+  }
+
+  &.selected {
+    color: @buttonTextColor !important;
+    opacity: 1 !important;
+    box-shadow: none !important;
+    border-bottom: solid 4px darken(@appTint,20%);
+  }
+
+  &.more {
+    font-size: 0;
+    border-left: solid 1px @tabbarButtonBorder;
+    .flexBlockCentered;
+
+    &::before {
+      content: '';
+      display: block;
+      height: 30px;
+      .imageMask (#fff, @parsedTabbarMoreSVG);
+      -webkit-mask-position: center -5px !important;
+    }
+  }
+
+  & > span, & > .icon {
+    display: block;
+    .flex;
+  }
+}

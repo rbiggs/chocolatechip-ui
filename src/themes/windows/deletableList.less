@@ -1,0 +1,102 @@
+/* ============================== 
+   Deletable Lists
+   =========================== */
+.deletion-indicator {
+  display: -ms-flexbox;
+  box-sizing: border-box;
+  padding: 2px 5px 13px 1px;
+  height: 24px;
+  width: 24px;
+  background-color: @appBkColor;
+  border: solid 2px @buttonBorder;
+  position: absolute;
+  top: 5px;
+  left: -50px;
+  transition: all .25s ease-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 6px 2px @buttonBorder !important;
+    color: @selectedListItem !important;    
+  }
+}
+
+li.selected > .deletion-indicator {
+  box-shadow: 0 0 6px 2px @buttonBorder !important;
+  color: @selectedListItem !important;
+
+  &::before {
+    font-family: "Segoe UI Symbol";
+    font-weight: normal;
+    font-size: 13pt;
+    text-align: left;
+    content: '\E008';
+    color: @selectedListItem;
+    display: block;
+    margin: -2px 0 0 -4px;
+  }  
+}
+
+.list.showIndicators {
+
+  & .deletion-indicator {
+    margin-left: 55px;
+  }
+
+  & li {
+    padding-left: 32px;
+  }
+}
+
+.button.delete {
+  float: right;
+  color: @buttonTextColor;
+  text-align: center;
+  box-sizing: border-box;
+  width: 32px;
+  height: 30px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: -ms-flexbox;
+  -ms-flex-pack: center;
+  -ms-flex-align: center;
+  -ms-flex-direction: row;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  transition: all .25s ease-out;
+  transform: translate3d(140px,0,0);
+  cursor: pointer;
+  font-weight: 200;
+  border: solid 2px @buttonBorder;
+  border-radius: 50%;
+  padding: 0;
+  overflow: hidden;
+
+  &:hover {
+    border-color: @buttonBorder !important;
+
+    &::before {
+      color: @buttonTextHoverColor;
+    }
+  }
+  
+  &::before {
+    font-family: "Segoe UI Symbol";
+    font-weight: normal;
+    content: "\E107";
+    vertical-align: 50%;
+    font-size: 14pt;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    margin-top: 8px;
+  }
+}
+
+li.selected > .button.delete {
+  transform: translate3d(0,0,0);
+}

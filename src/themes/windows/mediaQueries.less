@@ -1,0 +1,114 @@
+/* ==============================
+   Media Queries for landscape 
+   & portrait layouts
+   =========================== */
+@media only screen and (device-width : 480px) and (orientation : portrait) {
+  @-ms-viewport {
+    width: 240px;
+  }
+  /*
+    IMPORTANT! Define width for html and body
+    to prevent horizontal scrolling when viewport is resized.
+  */
+  html, body {
+    width: 240px;
+    height: 400px;
+  }
+  /*h1.buttonOnRight {
+    width: 60%;
+  
+  }*/
+  nav > .button {
+    -ms-flex: 1;
+  }
+  nav > h1 {
+    -ms-flex: 2;
+  }
+}
+/* ==============================
+   Media Query Adjustments
+   =========================== */
+/* For small, narrow phones in portrait mode: */
+@media only screen and (device-width : 480px) and (orientation : portrait) {
+  .popover {
+    width: 200px;
+  }
+  .popup {
+    padding: 20px 10px;
+  }
+  .popup header > h1 {
+    font-size: 14pt;
+  }
+  .splitlayout > nav:first-of-type {
+    width: 150px;
+  }
+  .splitlayout > nav:last-of-type {
+    left: 150px;
+  }
+  .splitlayout > article.master {
+    width: 150px !important;
+  }
+  .splitlayout > article.detail {
+    left: 150px !important;
+  }
+  .tabbar {
+    display: -ms-flexbox;
+  }
+  .tabbar > .button {
+    font-size: 9pt;
+    -ms-flex: 1;
+  }
+  .busy.align-flush {
+    position: static;
+  }
+  .switch {
+    height: 18px;
+    width: 40px;
+  }
+  .switch > em {
+    width: 12px;
+    height: 18px;
+  }
+  .switch:before {
+    height: 15px;
+  }
+  .switch.on > em {
+    -ms-transform: translate3d(28px,0,0);
+  }
+  .switch.on:before {
+    width: 26px;
+  }  
+}
+/* For small, narrow phones in landscape mode: */
+@media only screen and (device-width : 480px) and (orientation : landscape) {
+  @-ms-viewport {
+    width: 480px;
+  }  
+  .splitlayout > nav:first-of-type {
+    width: 200px;
+  }
+  .splitlayout > nav:last-of-type {
+    left: 200px;
+  }
+  .splitlayout > article.master {
+    width: 200px !important;
+  }
+  .splitlayout > article.detail {
+    left: 200px !important;
+  }
+  .busy.align-flush {
+    position: static;
+  }
+}
+/* For normal phones in portrait mode: */
+@media only screen and (device-width : 768px) and (orientation : portrait) {
+  @-ms-viewport {
+    width: 384px;
+  }
+}
+/* For normal phones in landscape mode: */
+@media only screen and (device-width : 768px) and (orientation : landscape) {
+  @-ms-viewport {
+    width: 512px;
+  }
+}

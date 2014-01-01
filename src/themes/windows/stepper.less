@@ -1,0 +1,63 @@
+/* ==============================
+   Stepper Control
+   =========================== */ 
+.stepper {
+  display: -ms-inline-flexbox;
+  -ms-flex-direction: row;
+  -ms-flex-pack: center;
+  -ms-flex-align: start;
+  padding: 1px;
+
+  & > input {
+    margin: 0;
+    display: none;
+  }
+
+  & > label {
+    display: block;
+    box-sizing: border-box;
+    border: solid 2px @buttonBorder;
+    width: 36px;
+    height: 32px;
+    box-sizing: border-box;
+    font: bold 14pt/20pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
+    text-align: center;
+    background-color: @buttonBorder;
+    color: @stepperLabelColor;
+  }
+
+  & > .button {
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12pt;
+    line-height: 18pt;
+    cursor: pointer !important;
+    margin: 0;
+    overflow:hidden;
+    box-sizing: border-box;
+    height: 32px;
+    padding: 1px 10px;
+    box-shadow: none;
+
+    &:first-of-type {
+      border-right: none;
+
+      &::before {
+        font-family: "Segoe UI Symbol";
+        font-weight: normal;
+        content: '\E109'
+      } 
+    }
+
+    &:last-of-type {
+      border-left: none;
+
+      &::before {
+        font-family: "Segoe UI Symbol";
+        font-weight: normal;
+        content: '\E108'
+      }
+    }
+  }
+}

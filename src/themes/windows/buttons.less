@@ -1,0 +1,77 @@
+/* ==============================
+   Buttons
+   =========================== */
+a.button {
+  cursor: pointer;
+  text-decoration: none;
+  font-size:  13pt;
+  transition: all .35s ease-out;
+  display: block;
+  width: auto;
+  box-sizing: border-box;
+  height: 30px;
+  height: auto;
+  position: relative;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  border: solid 2px @buttonBorder;
+  color: @buttonTextColor;
+  padding: 5px 10px;
+  overflow: hidden;
+  text-align: center;
+
+  &.align-flush {
+    position: absolute;
+    right: 16px;
+    top: 16px !important;
+  }
+
+  &:hover, &.selected {
+    color: @buttonTextHoverColor;
+    background-color: @appTint;
+    border-color: @buttonBorderHover !important;
+  }
+
+  &.back, &.backTo {
+    display: inline-block;
+    min-width: 0;
+    min-height: 0;
+    background-clip: border-box;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border-width: 2px;
+    border-style: solid;
+    border-color: @buttonBorderHover !important;
+    padding: 0;
+    text-align: center;
+    width: 41px;
+    height: 41px;
+    font-size: 0;
+    line-height: 30px !important; /* line-height must match the content box height. */
+    vertical-align: baseline;
+    overflow: hidden;
+
+    &::before {
+      font-family: "Segoe UI Symbol";
+      font-weight: normal;
+      content: "\E0D5";
+      vertical-align: 50%;
+      font-size: 14pt;
+      display: block;
+      margin-left: -3px;      
+    }
+  }
+
+  &.action {
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    height: auto;
+    min-width: 200px;
+    max-width: 300px;
+  }
+}

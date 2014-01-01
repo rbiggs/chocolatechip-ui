@@ -1,0 +1,85 @@
+/* ==============================
+   Popup Control
+   =========================== */
+.popup {
+  display: block;
+  .sizing;
+  width: 300px;
+  border-radius: 10px;
+  padding: 0px;
+  background-color: @popupBkgnd;
+  position: absolute;
+  z-index: 10000;
+  margin-left: auto;
+  margin-right: auto;
+  .transition;
+  -webkit-trasform-origin: center center;
+  trasform-origin: center center;
+
+  &.closed {
+    .transform(scale(0));
+  }
+
+  &.opened {
+    display: block;
+    opacity: 1;
+    .transform(scale(1));
+  }
+
+  & > .panel {
+    .flexBlockHorizontal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+
+    & > p {
+      padding: 0 15px;
+      margin-top: 0;
+      text-align: center;
+    }
+
+    & .button {
+      border-top: solid 1px @popupButton;
+    }
+  }
+
+  & header, & footer {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: stretch;
+    -webkit-box-pack: justify;
+    -webkit-align-items: stretch;
+    -webkit-justify-content: space-around;
+    align-items: stretch;
+    justify-content: space-around;
+  }
+
+  & header > h1 {
+    position: static;
+    text-align: center;
+    margin: 0 15px;
+    width: 100%;
+    line-height: 32pt;
+    font-size: 16pt;
+    font-weight: bold;
+  }
+
+  & footer {
+    width: 100%;
+    padding: 0;
+
+    & > .button {
+      display: block !important;
+      .flex;
+      height: 100%;
+      line-height: 30pt;
+      max-width: 320px !important;
+      font-weight: bold;
+      
+      & + .button {
+        border-left: solid 1px @popupButton;
+      }
+    }
+  }
+}

@@ -1,0 +1,156 @@
+  <style>
+    form li > label {
+      display: block;
+      -webkit-box-sizing: border-box;
+      width: 110px !important;
+      text-align: right;
+      font-weight: bold;
+      padding-right: 10px;
+      font-size: 14px;
+      line-height: 22px;
+      color: #586B96;
+    }
+    form li > h3 {
+      width: auto;
+    }
+    form li > label > span.warning {
+      color: red;
+    }
+    form button[type=submit] {
+      display: none;
+    }
+
+  </style>
+  <script>
+  /*
+    This example uses the ChocolateChipJS method $.form2JSON. Since this is specific to ChocolateChip, this example will not work with jQuery. There are existing jQuery plugins that do the same thing which you can find by searching for "jQuery plugin form to JSON".
+  */
+    function submitForm() {
+      var formData = $.form2JSON('#userForm');
+      var data = JSON.stringify(formData);
+      window.location = 'form-target.html?' + data;
+    }
+    $(function() {
+      $('.button.done').on('click', function() {
+        $('#userForm')[0].submit();
+      });
+      $('#selectList').UISelectList({ selected: 0, name:'user.job' });    
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <a class='button cancel'>Cancel</a>
+    <h1>Submit JSON</h1>
+    <a class='button done align-flush'>Done</a>
+  </nav>
+  <article class='current'>
+    <section>
+      <form id='userForm' action='javascript:submitForm()'>
+        <h2>Personal Info</h2>
+        <ul class='list'>
+          <li class='comp'>
+            <div>
+              <h3>First name:</h3>
+            </div>
+            <aside>
+              <input type='text' name='user.name.first' placeholder='John'>
+             </aside>
+           </li>
+           <li class='comp'>
+             <div>
+              <h3>Last name:</h3>
+            </div>
+            <aside>
+              <input type='text' name='user.name.last' placeholder='Doe'>
+            </aside>
+           </li>
+           <li class='comp'>
+             <div>
+              <h3>Phone:</h3>
+             </div>
+            <aside>
+              <input type='text' name='user.phone' placeholder='000-0000'>
+            </aside>
+           </li>
+           <li class='comp'>
+             <div>
+              <h3>Email:</h3>
+            </div>
+            <aside>
+              <input type='text' name='user.email' placeholder='me@me.com'>
+            </aside>
+           </li>
+        </ul>
+        <h2>Favorite Food:</h2>
+        <ul class='list'>
+          <li class='comp'>
+            <div>
+              <h3>Salad:</h3>
+             </div>
+            <aside>
+              <span class='switch on' id='sleepSwitch'>
+                <input type='checkbox' name='user.favoriteFood[]' value='salad'>
+              </span>
+            </aside>
+          </li>
+          <li class='comp'>
+            <div>
+              <h3>Pizza:</h3>
+             </div>
+            <aside>
+              <span class='switch' id='vacationSwitch'>
+                <input type='checkbox' name='user.favoriteFood[]' value='pizza'>
+              </span>
+            </aside>
+          </li>
+          <li class='comp'>
+            <div>
+              <h3>Chicken:</h3>
+             </div>
+            <aside>
+              <span class='switch' id='breakfastSwtich'>
+                <input type='checkbox' name='user.favoriteFood[]' value='chicken'>
+              </span>
+            </aside>
+          </li>
+        </ul>
+        <h2>Feedback</h2>
+        <ul class='list'>
+          <li class='comp'>
+            <div>
+              <h3>Message:</h3>
+             </div>
+            <aside>
+                <input type='text' name='user.message' placeholder='Say someting:'>
+            </aside>
+          </li>
+        </ul>
+        <h2>Choose one of the following:</h2>
+        <ul class='list' id='selectList'>  
+          <li>
+            <h3>Web developer</h3> 
+            <input type='radio' name='user.job' value='Web developer'>
+          </li>
+          <li>
+            <h3>Rocket scientist</h3> 
+            <input type='radio' name='user.job' value='Rocket scientist'>
+          </li>
+          <li>
+            <h3>Cook</h3> 
+            <input type='radio' name='user.job' value='Cook'>
+          </li>
+          <li>
+            <h3>Banker</h3> 
+            <input type='radio' name='user.job' value='Banker'>
+          </li>
+          <li>
+            <h3>Janitor</h3> 
+            <input type='radio' name='user.job' value='Janitor'>
+          </li>
+        </ul>
+      </form>
+    </section>
+  </article>
+</body>
+</html>

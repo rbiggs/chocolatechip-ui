@@ -1,0 +1,93 @@
+/* ============================== 
+   Buttons
+   =========================== */
+@backButtonSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='21' height='35' viewBox='0 0 21 35' id='svg2'><defs id='defs8' /><g transform='translate(-2.1355929,0.0677963)' id='Page-1' style='fill:none;stroke:none'><path d='M 21.353814,1.2365445 5.0903576,17.5 21.353814,33.763456' id='Rectangle-1' style='stroke:#000;stroke-width:3' /></g></svg>");
+@parsedBackButtonSVG: "@{imageMaskRoot}@{backButtonSVG}";
+
+a.button {
+  cursor: pointer;
+  text-decoration: none;
+  font-size:  13pt;
+  .transition(all, .35s);
+  display: block;
+  .sizing;
+  .size(auto,auto);
+  padding: 8px 0px;
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  text-align: center;
+  color: @appTint;
+  border-color: @appTint;
+  background-color: @buttonBkgnd;
+
+  &:hover {
+    cursor: pointer;
+    opacity: .5 !important;
+  }
+
+  &.back, &.backTo {
+    text-align: left;
+    padding: 0 0 0 20px !important;
+    line-height: 28px;
+    color: @appTint;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block !important;
+    height: 30px;
+
+    &::before {
+      .pseudoBlock('');
+      border: solid 1px transparent;
+      .imageMask(@appTint, @parsedBackButtonSVG);
+      -webkit-mask-position: left center;
+      .size(20px,20px);
+      margin-right: 7px;
+      position: absolute;
+      left: -4px;
+      top: 2px;
+    }
+  }
+
+  &.action {
+    color: @actionButton;
+    border: solid 1px @actionButton;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    .sizing;
+    .size(auto,auto);
+    min-width: 200px;
+    max-width: 300px
+  }
+}
+
+nav > a.button {
+  max-width: 100px;
+}
+
+.button.align-flush,
+.toolbar > .button.align-flush {
+  position: absolute;
+  right: 15px;
+  margin-right: 0 !important;
+  z-index: 100;
+  top: 0px;
+}
+
+.isDesktopSafari a.button.back {
+  margin-top: 8px !important;
+}
+
+.isiOS a.button.back, 
+.isiOS a.button.backTo,
+.isSafari6 a.button.back,
+.isSafari6 a .button.backTo {
+  display: -webkit-box;
+  margin-top: 0;
+}

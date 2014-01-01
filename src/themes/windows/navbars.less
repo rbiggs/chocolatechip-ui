@@ -1,0 +1,88 @@
+/* ============================== 
+   Nav bars
+   =========================== */
+#global-nav {
+  background-color: @navBkgnd;
+  overflow: hidden;
+}
+nav {
+  height: 45pt;
+  line-height: 50pt;
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  -ms-flex-pack: start;
+  -ms-flex-align: center;
+  -ms-flex-direction: row;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: opacity .5s ease-in, transform .35s ease-out;
+  padding: 5px 15px;
+  vertical-align: middle;
+
+  & > h1 {
+    text-align: left;
+    display: inline-block;
+    margin: 0 0 0 10px;
+    font-size: x-large;
+    font-family: SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
+    font-weight: normal;
+    padding: 2px 10px 20px 0px;
+    -ms-touch-action: none;
+    position: relative;
+    z-index: -1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & a.button {
+    position: relative;
+    line-height: 20pt;
+    padding: 0 10px;
+
+    &:first-of-type {
+      line-height: 14pt;
+      padding: 4px 10px;
+      position: relative;
+      top: -2px;
+      margin-left: 10px;
+    }
+
+    &:hover {
+      border-color: @buttonBorderHover !important;
+    }
+
+    &.align-flush {
+      position: absolute;
+      right: 10px;
+      top: 0;
+    }
+  }
+}
+
+nav > h1 + a.button {
+  margin-top: -4px;
+  float: right;
+
+  &:first-of-type {
+    margin-top: -4px;
+    float: right;
+  }
+}
+
+.slide-out-app > nav {
+
+  & > h1 {
+    margin-left: 80px !important;
+  }
+
+  &#global-nav > a.button:first-of-type{
+    top: 8px
+  }
+}

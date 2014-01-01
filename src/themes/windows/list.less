@@ -1,0 +1,151 @@
+/* ==============================
+   Lists
+   =========================== */
+nav > h1, h2, h3, h4, h5, section h2, p, li,
+.list > li > p {
+  color: @textColor;
+}
+.list {
+  list-style: none;
+  margin: 10px 20px 0;
+  padding: 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  & > li {
+    padding: 5px;
+    transition: all .3s ease-out;
+    position: relative;
+    background-color: @listBkColor;
+    font-size: initial;
+    border: solid 1px transparent;
+    -ms-user-select: none;
+
+    &.show-detail::after {
+      content: 'i';
+      display: block;
+      height: 20px;
+      width: 22px;
+      border-radius: 20px;
+      border: solid 1px @textColor;
+      color: @textColor;
+      font: bold 14px/0 SegoeWP, SegoeUI, serif;
+      box-sizing: border-box;
+      padding: 10px 8px;
+      position: absolute;
+      top: 10px;
+      right: 16px;
+    }
+
+    & + .button.action {
+      margin-top: 40px;
+    }
+  }
+}
+
+.list > li[data-goto],
+.list > li[data-show-article] {
+  
+  &:hover {
+    cursor: pointer;
+    border: solid 1px @listBorderColor;
+    background-color: @appTint;
+    color: @selectedListColor !important;   
+    
+    & * {
+      color: @selectedListColor;
+    } 
+  }
+}
+
+/* ==============================
+   List footer
+   =========================== */
+.list ~ p {
+  margin: 10px 25px 0;
+
+  & + p {
+    margin-top: 5pt;
+  }
+}
+
+/* ==============================
+   List title & subtitle
+   =========================== */
+.list > li {
+
+  & > h3, &  > h4 {
+    width: 80%;
+    font-weight: 200;
+    margin: 0;   
+  }
+
+  & h3 {
+    font-size: 16pt;
+    line-height: 18pt;
+    margin-bottom: 4px;
+  }
+
+  & h4 {
+    line-height: 14pt;
+    color: @listSubtitleColor;
+  }
+
+  & > h4, & > div > h4 {
+    font-size: 12pt;
+    line-height: 15pt;
+    margin: 0;
+  }
+}
+
+.list + h2 {
+  margin-top: 10px;
+}
+
+h2 + .list {
+  margin-top: 0;
+  border-top: solid 2px @titledList;
+  padding-top: 5px;
+}
+
+section h2 {
+  font: normal 11pt/12pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
+  margin: 0px 20px 0px 20px;
+  padding-left: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 5px;
+
+  &.normal-case {
+    text-transform: none;
+  }
+
+  &.wrap {
+    white-space: normal;
+  }
+}
+
+/* ==============================
+   List detail
+   =========================== */
+section > p,
+.list > li > p,
+.list > li > div > p {
+  font-size: 13pt;
+  line-height: 16pt;
+  margin: 0;
+}
+
+.list > li p + p {
+  margin-top: 5px;
+}
+
+.list > li > p {
+  margin: 5px 0px;
+  font-size: 13pt;
+  line-height: 16pt;
+  color: @listDetialColor;
+}

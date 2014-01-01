@@ -1,0 +1,36 @@
+/* ==============================
+   Form Styles
+   =========================== */
+input[type=text], input[type=email], input[type=password], input[type=text], input[type=url], input[type=number], textarea {
+  -webkit-appearance: none;
+  border: none;
+  background-color: transparent;
+  /* Create the bracket around inputs: */
+  background-image: 
+    -webkit-linear-gradient(left, @inputBorderColor, @inputBorderColor),
+    -webkit-linear-gradient(left, @inputBorderColor, @inputBorderColor),
+    -webkit-linear-gradient(left, @inputBorderColor, @inputBorderColor);
+  background-image: 
+    linear-gradient(left, @inputBorderColor, @inputBorderColor),
+    linear-gradient(left, @inputBorderColor, @inputBorderColor),
+    linear-gradient(left, @inputBorderColor, @inputBorderColor);
+  background-size: 1px 4px, 1px 4px, 100% 1px;
+  background-position: bottom left, bottom right, bottom left;
+  background-repeat: no-repeat;
+  margin:  0;
+  padding-left: 5px;
+  color: @inputBorderColor;
+}
+
+input:focus, textarea:focus {
+  outline: none !important;
+  /* Create the bracket around inputs: */
+  background-image: 
+    -webkit-linear-gradient(left, @appTint, @appTint),
+    -webkit-linear-gradient(left, @appTint, @appTint),
+    -webkit-linear-gradient(left, @appTint, @appTint);
+  background-image: 
+    linear-gradient(left, @appTint, @appTint),
+    linear-gradient(left, @appTint, @appTint),
+    linear-gradient(left, @appTint, @appTint);
+}

@@ -1,0 +1,85 @@
+/* ==============================
+   Split Layout
+   =========================== */
+body.splitlayout {  
+  /* Old syntax */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: stretch;
+  /* New syntax */
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: flex-start;
+  -webkit-align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+
+  & > nav {
+    background-color: @navBkgnd;
+    border-bottom: solid 1px #a7a7aa;
+
+    &:first-of-type {
+      width: 320px;
+      right: auto;
+      border-right: solid 1px @splitLayoutBorders !important;
+    }
+
+    &:last-of-type {
+      left: 320px;
+    }
+
+    & h1 {
+      z-index: auto;
+      text-align: center;
+    }
+  }
+
+  & > article {
+    
+    &.master {
+      top: 45px;
+      left: 0;
+      bottom: 0;
+      right: 320px;
+      .sizing;
+      width: 320px;
+      border-right: solid 1px @splitLayoutBorders !important;
+    }
+
+    &.detail {
+      top: 45px;
+      left: 320px !important;
+      bottom: 0;
+      left: 0;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+    }
+  }
+}
+
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+  .splitlayout > article {
+    &.master {
+      right: 260px !important;
+      width: 260px;
+    }
+
+    &.detail {
+      left: 260px !important;
+    }
+  }
+
+  .splitlayout > nav {
+    &:first-of-type {
+      width: 260px !important;
+    }
+
+    &:last-of-type {
+      left: 260px !important;
+    }
+  }
+}

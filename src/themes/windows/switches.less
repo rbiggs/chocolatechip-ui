@@ -1,0 +1,66 @@
+/* ==============================
+   Switch
+   =========================== */
+.switch {
+  position: relative;
+  height: 25px;
+  width: 60px;
+  border: 2px solid @switchBorder;
+  background-color: @switchBkgnd;
+  display: -ms-flexbox;
+  -ms-flex-direction: row;
+  -ms-flex-pack: justify;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 28px;
+  cursor: pointer;
+  -ms-user-select: none;
+  animation-duration: .65s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-name: switchAnimationOff;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 3;
+    top: 0px;
+    border: solid 1px @switchBorder;
+    background-color: @switchOnBkgnd;
+    height: 19px;
+    width: 0;
+    transition: all .15s ease-in-out;
+  }
+
+  &.on {
+
+    &:before {
+      width: 54px;
+    }
+    
+    & > em {
+      -ms-transform: translate3d(48px,0,0);
+    }
+  }
+
+  & > em {
+    display: block;
+    position: relative;
+    z-index: 3;
+    top: -2px;
+    left: -3px;
+    background-color: @switchThumbBkgnd;
+    width: 12px;
+    height: 25px;
+    pointer-events: none;
+    -ms-transform: translate3d(-1px,0,0);
+    -ms-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+    -ms-touch-action: none;
+  }
+
+  & > input {
+    display: none;
+  }
+}

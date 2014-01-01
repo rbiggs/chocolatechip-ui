@@ -1,0 +1,93 @@
+/* ==============================
+   Slide Out
+   =========================== */
+.slide-out {
+  position: absolute;
+  top: 52pt;
+  left: 0;
+  bottom: 0;
+  background-color: @appBkColor;
+  z-index: 111111111;
+  width: 100%;
+  visibility: hidden;
+  transform: translate3d(-100%,0,0);
+  transition: all .25s ease-out;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  -ms-flex-pack: start;
+  -ms-flex-align: stretch;
+  -ms-flex-direction: column;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-direction: column;
+
+  &.open {
+    visibility: visible;
+    transform: translate3d(0,0,0);
+  }
+
+  & > section {
+    -ms-flex: 1;
+    padding-bottom: 100px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    & > ul.list {
+      margin-top: 20px;
+    }
+  }
+}
+
+.button.slide-out-button {
+  position: absolute;
+  z-index: 1111111;
+  top: 5px;
+  left: 15px;
+  height: 35px;
+  width: 35px;
+  box-sizing: border-box;
+  margin-left: -5px !important;
+
+  &::before {
+    content: '\E179';
+    display: block;
+    height: 35px;
+    width: 35px;
+    color: @buttonTextColor;
+    font-family: "Segoe UI Symbol";
+    font-weight: normal;
+    font-size: 14pt;
+    text-align: left;
+    display: block;
+    margin: 2px 0 0 -5px;
+  }
+}
+
+.button.slide-out-button:hover::before {
+  color: @buttonTextHoverColor;
+}
+
+body.slide-out-app > article,
+body.slide-out-app > nav:not(:first-of-type) {
+  display: none !important;
+}
+
+body.slide-out-app > article.show,
+body.slide-out-app > nav.show  {
+  display: block !important;
+  z-index: 100;
+}
+
+.slideout-header {
+  background-color: @appBkColor !important;
+
+  & h2 {
+    margin-left: 0;
+    color: @textColor !important;
+    margin-top: 20px !important;
+  }
+}

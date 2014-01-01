@@ -1,0 +1,126 @@
+/* ==============================
+   Comp List Items
+   =========================== */
+.list > li.comp::before {
+  content: none;
+}
+
+li.comp {
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  -webkit-align-items: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  padding-bottom: 0;
+
+  & > div {
+    -webkit-box-flex: 1;
+    border-bottom: solid 1px @listBorder;
+    padding: 0 0 10px 0;
+    margin-left: 0;
+
+    & > h3, & > h4 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: HelveticaNeue, Helvetica, Sans-serif;
+      font-weight: 200;
+      margin: 0;        
+    }
+
+    & + aside {
+      margin-right: -15px;
+    }
+  }
+
+  & > aside {
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 10px 0;
+      &:first-child {
+      -webkit-box-align: start;
+    }
+
+    & > label, &> span {
+      display: inline-block;
+      margin-left: 6px;
+    }
+
+    & > .nav {
+      display: block;
+      .size(12px,12px);
+
+      &::after {
+        .pseudoBlock('');
+        .size(6px,6px);
+        border-right: solid 2px @listBorder;
+        border-top: solid 2px @listBorder;
+        .transform(rotate(45deg) translate3d(4px,0,0));
+      }
+    }
+
+    & > .show-detail {
+      display: inline-block;
+      margin-bottom: -4px;
+
+      &::after {
+        .pseudoBlock('i');
+        .size(20px,22px);
+        border-radius: 20px;
+        border: solid 1px @appTint;
+        color: @appTint;
+        font: bold 14px/0 'Times', serif;
+        .sizing;
+        padding: 10px 8px;
+        float: right;
+        margin: 0px 10px 0 0 !important;
+      }
+    }
+
+    &:first-child {
+      margin-right: 10px;
+    }
+
+    &:last-child {
+      padding: 0 10px 10px 10px;
+      border-bottom: solid 1px @listBorder;
+    }
+
+    & > span.counter, & > span.date-time {
+      font-weight: normal;
+      color: @listDetail;
+      font-size: 12pt;
+    }
+  }
+
+  &:last-of-type > aside:last-child {
+    border: none;
+  }
+
+  &:last-of-type > div {
+    border: none;
+  }
+
+  &.wrap > div > h3, &.wrap > div > h4 {
+    white-space: wrap;
+    overflow: visible;
+  }
+}
+
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+  li.comp > aside > h4 {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

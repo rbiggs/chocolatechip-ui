@@ -1,0 +1,93 @@
+/* ==============================
+   Stepper Control
+   =========================== */ 
+.stepper {
+  display: -webkit-inline-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  -webkit-box-align: start;
+  display: -webkit-inline-flex;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: center;
+  -webkit-align-items: flex-start;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1px;
+
+  & > input {
+    margin: 0;
+    display: none;
+  }
+
+  & > label {
+    display: block;
+    -webkit-box-sizing: border-box;
+    border: solid 1px @buttonBorderColor;
+    .size(30px, 40px);
+    font: bold 16px/30px Helvetica;
+    text-align: center;
+    background-color: @stepperLabelBkgnd;
+  }
+
+  & > .button {
+    display: inline-box;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20pt;
+    cursor: pointer !important;
+    margin: 0;
+    box-shadow: none;
+    border: solid 1px @buttonBorderColor;
+    border-top: solid 3px @buttonTopColor;
+    padding: 1px 10px !important;
+
+    &:hover {
+      border-top: solid 3px #a1e4ff;
+      box-shadow: none !important;
+    }
+
+    &:first-of-type {
+      border-right: none;
+    }
+
+    &:last-of-type {
+      border-left: none;
+    }
+  }
+}
+/*stepper > input {
+  margin: 0;
+  display: none;
+}*/
+/*.stepper > label {
+  display: block;
+  -webkit-box-sizing: border-box;
+  border: solid 1px @buttonBorderColor;
+  .size(30px, 40px);
+  font: bold 16px/30px Helvetica;
+  text-align: center;
+  background-color: @stepperLabelBkgnd;
+}*/
+/*.stepper > .button {
+  display: inline-box;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20pt;
+  cursor: pointer !important;
+  margin: 0;
+  box-shadow: none;
+  border: solid 1px @buttonBorderColor;
+  border-top: solid 3px @buttonTopColor;
+  padding: 1px 10px !important;
+}*/
+/*.stepper > .button:hover {
+  border-top: solid 3px #a1e4ff;
+}
+.stepper > .button:first-of-type {
+  border-right: none;
+}
+.stepper > .button:last-of-type {
+  border-left: none;
+}*/

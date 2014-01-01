@@ -1,0 +1,119 @@
+/* ==============================
+   Comp List Items
+   =========================== */
+li.comp {
+  display: -ms-flexbox;
+  -ms-flex-direction: row;
+  -ms-flex-align: stretch;
+  padding-bottom: 0;
+
+  & > div {
+    -ms-flex: 1;
+    padding: 0 0 10px 0;
+
+    & + aside {
+      margin-right: -20px;
+    }
+  }
+
+  & > h3, & > h4 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
+    font-weight: 200;
+
+    & > h3 {
+      margin: 0;
+      min-width: 40%
+    }
+
+    & > h4 {
+      margin: 0;
+    }
+  }
+
+  &.wrap > div {
+
+    & > h3, & > h4 {
+      white-space: normal;
+      overflow: visible;      
+    }
+  }
+
+  & > aside {
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 10px 0;
+
+    &:first-child {
+      -ms-flex-align: start;
+      margin-right: 10px;
+    }
+
+    &:last-child {
+      padding: 0 20px 10px 10px;
+    }
+
+    & > label, & > span {
+      display: inline-block;
+      margin-left: 5px;
+    }
+
+    & > .nav {
+      display: none;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    & > .show-detail::after {
+      content: 'i';
+      display: block;
+      height: 20px;
+      width: 22px;
+      border-radius: 20px;
+      border: solid 1px @textColor;
+      color: @textColor;
+      font: bold 14px/0 SegoeWP, SegoeUI, Times, serif;
+      box-sizing: border-box;
+      padding: 10px 8px;
+      float: right;
+      margin: -20px 0 0 0;
+    }
+  }
+}
+
+li.comp:last-of-type > aside:last-child {
+  border: none;
+}
+
+.list > li > aside > h4 {
+  margin: 0;
+  font-weight: normal;
+  color: @listAsideColor;
+}
+
+aside > span.counter, aside > span.date-time {
+  font-weight: normal;
+  color: @listAsideColor;
+  font-size: 12pt;
+}
+
+p {
+  color: @listDetialColor;
+}
+
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+  li.comp > aside > h4 {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,0 +1,86 @@
+/* ==============================
+   Sheet Control
+   =========================== */
+.sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255,255,255,.85);
+  transition: all .25s ease-in;
+  transform: translate3d(0,-100%,0);
+  visibility: hidden;
+
+  &.opened {
+    visibility: visible;
+    transform: translate3d(0,0,0);
+  }
+
+  & .button {
+    width: auto;
+    margin: 0 auto;
+    padding: 10px 20px;
+    height: auto;
+    background-color: @buttonTextColor;
+    border-color: @appBkColor;
+    color: @appBkColor;
+
+    &:hover, &.selected {
+      color: @buttonTextColor;
+      background-color: @appTint;
+      border-color: @appBkColor !important;
+    }
+  }
+
+  & > section {
+    position: absolute;
+    top: 36px;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    right: 0;
+
+    & > .list {
+      border: none;
+      background-color: transparent !important;
+
+      & > li {
+        border-bottom: solid 1px lighten(@appBkColor, 30%);
+        background-color: transparent !important;
+      }
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+}
+
+.sheet > div.handle {
+  display: -ms-flexbox;
+  box-sizing: border-box;
+  -ms-flex-pack: center;
+  -ms-flex-align: center;
+  -ms-flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-directions: column;
+  text-align: center;
+  margin: 0 auto;
+  color: @appBkColor;
+  cursor: pointer;
+  height: 28pt;
+
+  &::before {
+    content: '\E0A0';
+    font-family: "Segoe UI Symbol";
+    font-weight: normal;
+    font-size: 24pt;
+    text-align: left;
+    color: @appBkColor;
+    display: block;
+    margin-bottom: 10px
+  }
+}

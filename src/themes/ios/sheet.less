@@ -1,0 +1,100 @@
+/* ==============================
+   Sheet Control
+   =========================== */
+@sheetHandleSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='76' height='27' viewBox='0 0 76 27' id='svg2'><defs id='defs8' /><g transform='translate(-283.79661,-123.77966)' id='Page-1' style='fill:none;stroke:none'><g transform='translate(254,108)' id='Artboard-1' style='stroke:#000;stroke-width:12;stroke-linecap:round;stroke-linejoin:round'><path d='m 36.25,26.242187 31.394531,7.972657 30.53125,-8.425782' id='Path-1' /></g></g></svg>");
+
+@parsedSheetHandleSVG: "@{imageMaskRoot}@{sheetHandleSVG}";
+
+@sheetHandleFlatSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='76' height='27' viewBox='0 0 76 27' id='svg2'><defs id='defs8' /><g transform='translate(-283.79661,-123.77966)' id='Page-1' style='fill:none;stroke:none'><g transform='translate(254,108)' id='Artboard-1' style='stroke:#000;stroke-width:12;stroke-linecap:round;stroke-linejoin:round'><path d='m 36.25,26.242187 31.394531,0 30.53125,0' id='Path-1' /></g></g></svg>");
+
+@parsedSheetHandleFlatSVG: "@{imageMaskRoot}@{sheetHandleFlatSVG}";
+
+.sheet {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: @sheetBkgnd;
+  .transition(all, .25s, ease-in);
+  .transform(translate3d(0,100%,0));
+  visibility: hidden;
+
+  & div.handle {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    color: @sheetHandle;
+    cursor: pointer;
+    height: 20pt;
+    .imageMask(@sheetHandle, @parsedSheetHandleFlatSVG);
+    margin: 10px auto 0;
+  }
+
+  &.opened {
+    visibility: visible;
+    .transform(translate3d(0,0,0));
+
+    & div.handle {
+      .imageMask(@sheetHandle, @parsedSheetHandleSVG);
+    }
+  }
+
+  & .button {
+    color: @actionButton;
+    border: solid 1px @actionButton;
+    border-radius: 20px;
+    .size(auto,auto);
+    margin: 0 auto;
+    padding: 10px 20px;
+
+    &:hover, &.selected {
+      color: @sheetButtonTouched;
+      border-color: @sheetButtonTouched;
+      opacity: 1 !important;
+      -webkit-transition: none;
+      transition: none;
+    }
+  }
+
+  & > section {
+    position: absolute;
+    top: 36px;
+    left: 0;
+    bottom: 0;
+    height: auto;
+    right: 0;
+
+    & > h2 {
+      text-align: center;
+    }
+
+    & > .list {
+      border: none;
+      background-color: transparent !important;
+
+      & > li {
+        border-bottom: solid 1px @sheetListBorder;
+        background-color: transparent !important;
+
+        &::before {
+          content: none;
+        }
+      }
+    }
+  }
+}
+
+article.current.blurred {
+  -webkit-filter: blur(20px);
+  -webkit-transition-duration: .15s;
+  filter: blur(20px);
+  transition-duration: .15s;
+
+  &.removeBlurSlow {
+    -webkit-filter: blur(0px);
+    -webkit-transition-duration: .35s;
+    filter: blur(0px);
+    transition-duration: .35s;
+  }
+}

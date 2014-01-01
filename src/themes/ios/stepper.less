@@ -1,0 +1,54 @@
+/* ==============================
+   Stepper Control
+   =========================== */ 
+.stepper {
+  .flexBlockHorizontal;
+  display: -webkit-inline-flex;
+  display: -webkit-inline-box;
+  display: flex;
+  padding: 1px;
+  
+  & > input {
+    margin: 0;
+    display: none;
+  }
+
+  & > label {
+    display: block;
+    .sizing;
+    border: solid 1px @appTint;
+    .size(30px,40px);
+    font: bold 16px/30px Helvetica;
+    text-align: center;
+    background-color: @stepperLabel;
+  }
+
+  & > .button {
+    display: inline-box;
+    .sizing;
+    background-color: @stepperButton;
+    .size(30px,33px);
+    border: solid 1px @appTint;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 20pt;
+    line-height: 16pt;
+    cursor: pointer !important;
+    overflow: hidden;
+    padding: 0;
+    .sizing;
+
+    &:first-of-type {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right: none;
+    }
+
+    &:last-of-type {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+    }
+  }
+}

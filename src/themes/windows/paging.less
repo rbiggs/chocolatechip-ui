@@ -1,0 +1,126 @@
+/* ==============================
+   Segmented Paging Control
+   =========================== */
+.segmented.paging > .button {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  justify-content: center;
+  background-color: @pagingButtonBkgnd;
+  font-size: 20pt;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: block;
+  border: solid 2px @buttonBorder;
+  box-shadow: none;
+  position: relative;
+  box-sizing: border-box;
+
+  &:first-of-type {
+    margin-right: 10px !important;
+  }
+
+  &:hover, &.selected {
+    color: @appTint;
+    box-shadow: none;
+    border-color: @buttonBorder;
+    background-color: @buttonBorder;
+    color: @buttonTextHoverColor;
+    opacity: 1;
+
+    &::before {
+      background-color: @appTint;
+      color: @buttonTextHoverColor;
+    }
+  }
+
+  &::before {
+    content: '';
+    display: block;
+    -ms-flex: 1;
+    height: 38px;
+    width: 38px;
+    font-family: "Segoe UI Symbol";
+    font-weight: normal;
+    line-height: 20pt;
+    vertical-align: 50%;
+    font-size: 24pt;
+    color: @buttonTextColor;
+  }
+}
+
+nav .segmented.paging > a.button {
+  border-radius: 50%;
+}
+
+.segmented.paging {
+
+  &.horizontal > .button {
+
+    &:first-of-type::before {
+      content: '\E09E';
+      margin-left: -2px;
+    }
+
+    &:last-of-type::before {
+      content: '\E09F';
+    }
+  }
+
+  &.vertical > .button {
+
+    &:first-of-type::before {
+      content: '\E0A0';
+    }
+
+    &:last-of-type::before {
+      content: '\E0A1';
+    }
+  }
+}
+
+article.paging {
+  
+    & > section {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    opacity: 1;
+    padding: 0 0 100px 0 !important;
+    transition: all .15s ease-out;
+  }
+
+  &.horizontal > section {
+
+    &.previous {
+      transform: translate3d(-100%,0,0);
+    }
+
+    &.current {
+      transform: translate3d(0,0,0);
+    }
+
+    &.next {
+      transform: translate3d(100%,0,0);
+    }
+  }
+
+  &.vertical > section {
+
+    &.previous {
+      transform: translate3d(0,-100%,0);
+    }
+
+    &.current {
+      transform: translate3d(0,0,0);
+    }
+
+    &.next {
+      transform: translate3d(0,-100%,0);
+    }
+  }
+}

@@ -1,0 +1,51 @@
+/* ============================== 
+   Select List
+   =========================== */
+.list.select li {
+
+  &:hover {
+    background-color: @appTint;
+  }
+
+  &:hover {
+    background-color: @appTint;
+
+    &::after {
+      background-color: @appTint;
+      .transition(all, 0.125s,  ease-in-out);
+      opacity: 1;
+      box-shadow: 0 0 0 3px @appTint, inset 0 0px 0px 3px #fff;
+    }
+  }
+
+  &.selected {
+    color: @selectedListItem;
+
+    &::after {
+      background-color: @appTint;
+      .transition(all, 0.125s,  ease-in-out);
+      opacity: 1;
+      box-shadow: 0 0 0 3px @appTint, inset 0 0px 0px 3px #fff;
+    }
+  }
+
+  &.selected *, &:hover * {
+    color: @selectedListItem;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    float: right;
+    margin-top: -25px;
+    .size(20px, 20px);
+    .transition(all, 0.125s,  ease-in-out);
+    opacity: 1;
+    border: solid 2px #525252;
+    border-radius: 15px;
+  }
+
+  & > input {
+    display: none;
+  }
+}

@@ -1,0 +1,44 @@
+/* ==============================
+   Typography
+   =========================== */
+.ellipsis {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.fontDef(@size, @weight, @lineHeight) {
+  font-size: @size;
+  font-weight: @weight;
+  line-height: @lineHeight;
+}
+
+h1, .type-xx-large {
+  .fontDef(42pt,200,1.1429);
+  /* 64px when font-size is 42pt */
+}
+
+h2, .type-x-large {
+  .fontDef(20pt,200,1.2);
+  /* 32px when font-size is 20pt */
+}
+
+h3, .type-large {
+  .fontDef(11pt,600,1.3636);
+  /* 20px when font-size is 11pt */
+}
+
+h4, .type-medium, code, pre, samp {
+  .fontDef(11pt,400,1.3636);
+  /* 20px when font-size is 11pt */
+}
+
+body, h5, .type-small, legend {
+  .fontDef(11pt,300,1.3636);
+  /* 20px when font-size is 11pt */
+}
+
+h6, caption, figcaption, small, .type-xx-small {
+  .fontDef(9pt,400,1.6667); 
+  /* 20px when font-size is 9pt */
+}

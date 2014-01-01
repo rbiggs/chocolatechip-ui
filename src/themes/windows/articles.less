@@ -1,0 +1,29 @@
+/* ==============================
+   Article (view) styles
+   =========================== */
+article {
+  position: absolute;
+  top: 45pt; right: 0;
+  bottom: 0; left: 0;
+  transition: opacity .5s ease-out, transform .35s ease-out;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -ms-scroll-chaining: none;
+  .flexVertical;
+}
+/* ==============================
+  Article navigation states
+  ============================== */
+.current {
+  transform: translate3d(0,0,0);
+  opacity: 1;
+}
+.next {
+  transform: translate3d(105%,0,0);
+  opacity: 0;
+}
+.previous {
+  transform: translate3d(-100%,0,0);
+  opacity: 0;
+}

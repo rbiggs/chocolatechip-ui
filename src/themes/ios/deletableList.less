@@ -1,0 +1,97 @@
+/* ============================== 
+   Deletable Lists
+   =========================== */
+.list {
+  & li {
+
+    & > .deletion-indicator {
+      display: -webkit-inline-box;
+      .flexJustify(center, center);
+      .flexAlign(center, center);
+      .deletionIndicator;
+      border-radius: 50%;
+      .size(20px,20px);
+      float: left;
+      margin-right: 6px;
+      .transition;
+      margin-left: -40px;
+      cursor: pointer;
+      position: relative;
+      z-index: 100;
+      &::before {
+        .pseudoBlock('—');
+        font-size: 12pt;
+        margin-top: -1px;
+      } 
+    }
+
+    & > .button.delete {
+      float: right;
+      .deleteButton;
+      text-align: center;
+      .sizing;
+      width: 80px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      .flexBlockCentered;
+      .transition;
+      .transform(translate3d(80px,0,0));
+      cursor: pointer;
+      font-family: 'HelveticaNeue-Light';
+      font-weight: 200;
+    }
+  }
+
+  &.deletable {
+    
+    & > li {
+      .transition;
+      .transform(translate3d(0,0,0));
+
+      &.selected {
+
+        & h3, & h4, & p {
+          position: relative;
+          .transform(translate3d(0,0,0));
+          .transition(all, 1s);         
+        }
+
+        & > .button.delete {
+          .transform(translate3d(80px,0,0));
+        }
+      }
+
+      &.selected {
+        .transform(translate3d(-80px,0,0));
+      }
+    }
+  }
+
+  &.showIndicators {
+
+    & .deletion-indicator {
+      margin-left: 0;
+    }
+
+    & > li[data-goto] {
+      padding-left: 40px;
+
+      & .deletion-indicator {
+        left: 10px;
+      }
+    }
+  }
+
+  & > li[data-goto] > .deletion-indicator {
+    position: absolute;
+    left: -40px;
+    margin-left: 0px;
+
+    & + div + aside {
+      margin: -20px;
+      position: relative;
+      right: 15px;
+    }
+  }
+}

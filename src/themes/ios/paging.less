@@ -1,0 +1,107 @@
+/* ==============================
+   Segmented Paging Control
+   =========================== */
+.segmented.paging > .button {
+  border: none;
+  background: none;
+  color: @appTint;
+  .size(40px,40px);
+  position: relative;
+  border-radius: 0 !important;
+  
+  &:hover &.selected {
+    opacity: .5 !important;
+    color: @appTint;    
+  }
+
+  &::before {
+    .pseudoBlock('');
+    .size(35px,35px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: 50% 50%;
+    background-color: @appTint;
+  }
+}
+
+@pagingHorizPrevSVG: escape("<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><g id='g4'></g><g id='layer2'><path id='path7' d='M28.038,8.381l2.674,2.599L18.545,23.146l12.086,12.086l-2.593,2.679L17.909,27.782l-4.636-4.636l4.636-4.636 L28.038,8.381z'/></g></svg>");
+
+@parsedPagingHorizPrevSVG: "@{imageMaskRoot}@{pagingHorizPrevSVG}";
+
+.segmented.paging.horizontal > .button:first-of-type::before {
+    -webkit-mask-image: url(@parsedPagingHorizPrevSVG);
+}
+
+@pagingHorizNextSVG: escape("<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><g id='g4'></g><g id='layer2'><path id='path7' d='M15.946,37.911l-2.674-2.599l12.167-12.167L13.354,11.06l2.593-2.679L26.075,18.51l4.636,4.636l-4.636,4.636L15.946,37.911z'/></g></svg>");
+
+@parsedPagingHorizNextSVG: "@{imageMaskRoot}@{pagingHorizNextSVG}";
+
+.segmented.paging.horizontal > .button:last-of-type::before {
+  -webkit-mask-image: url(@parsedPagingHorizNextSVG);
+}
+
+@pagingVertPrevSVG: escape("<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><g id='g4'></g><g id='layer2'><path id='path7' d='M7.227,17.101l2.599-2.674l12.167,12.167l12.086-12.086l2.679,2.593L26.628,27.229l-4.636,4.636l-4.636-4.636 L7.227,17.101z'/></g></svg>");
+
+@parsedPagingVertPrevSVG: "@{imageMaskRoot}@{pagingVertPrevSVG}";
+
+.segmented.paging.vertical > .button:first-of-type::before {
+  -webkit-mask-image: url(@parsedPagingVertPrevSVG);
+}
+
+@pagingVertNextSVG: escape("<svg version='1.1' id='svg2' xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><g id='g4'></g><g id='layer2'><path id='path7' d='M36.757,29.191l-2.599,2.674L21.992,19.698L9.905,31.784l-2.679-2.593l10.129-10.129l4.636-4.636l4.636,4.636 L36.757,29.191z'/></g></svg>");
+
+@parsedPagingVertNextSVG: "@{imageMaskRoot}@{pagingVertNextSVG}";
+
+.segmented.paging.vertical > .button:last-of-type::before {
+  -webkit-mask-image: url(@parsedPagingVertNextSVG);
+}
+
+article.paging {
+  overflow: hidden !important;
+  overflow-y: scroll !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-direction: column !important;
+  box-orient: vertical !important;
+  direction: column !important;
+
+  & > section {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    opacity: 1;
+    padding: 0 0 100px 0 !important;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    .transition(all, .15s);
+  }
+}
+
+/* Scaling needed to fix overflow bug in mobile Safari: */
+article.paging.horizontal > section.previous {
+  .transform(translate3d(-100%,0,0));
+}
+
+article.paging.horizontal > section.current {
+  .transform(translate3d(0,0,0) scale(1,1));
+}
+
+article.paging.horizontal > section.next {
+  .transform(translate3d(100%,0,0) scale(0,1));
+}
+
+article.paging.vertical > section.previous {
+  .transform(translate3d(0,-100%,0));
+}
+
+article.paging.vertical > section.current {
+  .transform(translate3d(0,0,0));
+}
+
+article.paging.vertical > section.next {
+  .transform(translate3d(0,-100%,0));
+}

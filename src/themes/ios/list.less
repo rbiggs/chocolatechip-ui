@@ -1,0 +1,189 @@
+/* ==============================
+   Lists (Basic)
+   =========================== */
+.list {
+  list-style: none;
+  margin: 0 0 10px 0;
+  padding: 0;
+  .listBorder;
+  background-color: @listBkColor;
+  overflow: hidden;
+  width: 100%;
+
+  & > li {
+    padding: 13px 15px 13px 15px;
+    .transition(all, .3s);
+    position: relative;
+    background-color: @listBkColor;
+    font-size: 12pt;
+
+    &::before {
+      .pseudoBlock('');
+      position: absolute;
+      bottom: 0px;
+      left: 15px;
+      right: 0px;
+      border-bottom: solid 1px @listBorder;
+    }
+
+    &:last-of-type::before {
+      border-bottom: none;
+    }
+
+    &.nav::after {
+      .pseudoBlock('');
+      .size(6px,6px);
+      border-right: solid 2px @listNavIndicator;
+      border-top: solid 2px @listNavIndicator;
+      .transform(rotate(45deg));
+      float: right;
+      position: absolute;
+      top: 16px;
+      right: 15px;
+      .transition(all, .4s);
+    }
+
+    &.show-detail::after {
+      .pseudoBlock('i');
+      .size(20px,22px);
+      border-radius: 20px;
+      border: solid 1px @appTint;
+      color: @appTint;
+      font: bold 14px/0 'Times', serif;
+      .sizing;
+      padding: 10px 8px;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+    }
+  }
+
+  & + p, & + p + p {
+    color: @listDetail;
+    font-family: HelveticaNeue, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  & ~ p {
+    margin: 0 15px;
+
+    & + p {
+      margin-top: 5pt;
+    }
+  }
+
+}
+
+/* ==============================
+   List Footer
+  ============================ */
+.list {
+  & + p, & + p + p {
+    color: @listDetail;
+    font-family: HelveticaNeue, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  & ~ p {
+    margin: 0 15px;
+
+    & + p {
+      margin-top: 5pt;
+    }
+  }
+}
+
+/* ==============================
+   List Hover & Selected States
+  ============================ */
+.list > li[data-goto]:hover, 
+.list > li[data-show-article]:hover,
+.list.select > li:hover,
+.list.select > li.selected {
+  background-color: @selectedListItem;
+  cursor: pointer;
+}
+
+/* ==============================
+  List title & subtitle
+  ============================ */
+.list {
+  & > li {
+
+    & > h3, > h4 {
+      width: 80%;
+      font-weight: 200;
+      margin: 0;
+    }
+
+    & h3 {
+      line-height: 18pt;
+    }
+
+    & h4 {
+      line-height: 14pt;
+      color: @listDetail;
+    }
+
+    & > h4, & > div > h4 {
+      font-size: 11pt;
+      margin: 0;
+    }
+
+    & > aside > h4 {
+      margin: 0;
+      font-weight: normal;
+      color: @listDetail;
+    }
+  }
+}
+
+/* ==============================
+  List detail
+  ============================ */
+.list {
+  & h3, & h4, & p {
+    pointer-events: none;
+  }
+
+  & > li {
+
+    & > p {
+      margin: 6px 0px;
+      color: @listDetail;
+
+      & + p {
+        margin-top: 6px;
+      }
+    }
+
+    &.comp > div > p {
+      font-size: 10pt;
+      margin: 0;
+      color: @listDetail;
+    }
+  }
+}
+/* ==============================
+  List header
+  ============================ */
+section {
+  & h2 {
+    font: normal 11pt/12pt HelveticaNeue, Sans-serif;
+    color: @listTitle;
+    margin: 26px 0 6px 15px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: @listDetail;
+
+    &.normal-case {
+      text-transform: none;
+    }
+
+    &.wrap {
+      white-space: normal;
+    }
+  }
+}

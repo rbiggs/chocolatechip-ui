@@ -1,0 +1,59 @@
+/* ==============================
+   Segmented Control
+   =========================== */
+.segmented {
+  display: -ms-flexbox;
+  -ms-flex-direction: row;
+  -ms-flex-pack: center;
+  -ms-flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex: 1;
+  box-sizing: border-box;
+  margin: 0px 10px;
+
+  & > .button {
+    display: -ms-flexbox;
+    -ms-flex-direction: column !important;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    border: solid 2px @buttonBorder;
+    border-left: none;
+    text-align: center;
+    font-size: 9pt;
+    box-sizing: border-box;
+    height: 30px;
+    cursor: pointer;
+    margin: 0px !important;
+    padding: 0px 10px;
+    transition: none;
+
+    &:first-of-type {
+      border-left: solid 2px @buttonBorder;
+    }
+
+    &:hover, &.selected {
+      color: @buttonTextHoverColor !important;
+      background-color: @appTint !important;
+      opacity: 1 !important;
+      box-shadow: none;
+      border-color: @buttonBorder !important;
+    }
+  }
+}
+
+div.horizontal.centered > .segmented {
+  display: -ms-flexbox;
+  margin: 10px 16px;
+}
+
+.segmented.align-flush {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}

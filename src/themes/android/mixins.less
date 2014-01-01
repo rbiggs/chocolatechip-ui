@@ -1,0 +1,105 @@
+.flexBlock () {
+  /* New syntax */
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  /* Old syntax */
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: start;
+  -webkit-box-orient: vertical;
+}
+
+.flexBlockCentered () {
+  /* old flex box */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  /* new flex box */
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+
+.flexBlockHorizontal () {
+  /* Old syntax */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: start;
+  /* new flex box */  
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -webkit-justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  box-align: start;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.flexBlockHorizontalCentered () {
+  /* old flex box */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: center;
+  -webkit-box-pack: start;
+  /* new flex box */
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  -webkit-align-items: center;
+  -webkit-justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.transition(@prop: all, @duration: .25s, @ease:ease-out) {
+  -webkit-transition: @arguments;
+  transition: @arguments;
+}
+
+.transform(...) {
+  -webkit-transform: @arguments;
+  transform: @arguments;
+}
+
+@imageMaskRoot: "data:image/svg+xml;utf8,";
+
+.imageMask (@bkcolor, @dataUrl) {
+  background-color: @bkcolor;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: 90% 90%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-image: url(@dataUrl);
+}
+
+.flex() {
+  -webkit-box-flex: 1 !important;
+  -webkit-flex: 1 !important;
+  webkit-flex: 1 !important;
+}
+
+.size(@height, @width) {
+  height: @height;
+  width: @width;
+}
+
+.overflowYScroll() {
+  overflow-x: hidden;
+  overflow-y: auto;
+}

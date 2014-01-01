@@ -1,0 +1,31 @@
+/* ==============================
+   Switched List Items
+   =========================== */
+.list > li.switched {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  
+  & h3 {
+    width: auto;
+    font-size: 15px;
+    line-height: 26px;
+    color: @appTint;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & > h4 {
+    width: 48%;
+    text-align: right;
+    margin-right: 10px;
+    font-size: 19px;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 50%;
+    color: @switchedSubtitle !important;
+  }
+}

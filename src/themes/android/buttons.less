@@ -1,0 +1,111 @@
+/* ==============================
+   Buttons                
+   =========================== */
+a.button {
+  box-shadow: none; 
+  border: none;
+  border-top: solid 2px @buttonTopColor;
+  background-color: @buttonBorderColor;
+  color: @buttonTextColor;
+  display: inline-block;
+  padding: 5px 10px 2px 10px !important;
+  font-size: 12px;
+  height: 30px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  margin: 0px 10px;
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 1px 2px @buttonBoxShadow;
+  padding: 6px 10px;
+
+  &.no-border {
+    border: none !important;
+  }
+
+  &.back, &.backTo {
+    text-align: left;
+    padding: 0 0 0 20px;
+    margin: 3px 30px 0 0;
+    line-height: 28px;
+    color: @appTint;
+    font-size: 0;
+    border: none;
+    background: none !important;
+    box-shadow: none;
+  }
+
+  &.back::before, &.backTo::before {
+    content: '';
+    display: block;
+    .size(10px, 10px);
+    border-top: solid 2.5px @backButtonColor;
+    border-left: solid 2.5px @backButtonColor;
+    .transform(rotate(-45deg) skew(-10deg, -10deg));
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    .transition;
+  }
+
+  &.back::after, &.backTo::after {
+    position: absolute;
+    top: 2px;
+    right: -26px;
+    content: '';
+    display: block;
+    height: 26px;
+    width: 26px;
+    /* user your own app icon for this: */
+    background: transparent url(../images/icons/ChUI-Logo.png) no-repeat;
+    background-size: 100% 100%;
+  }
+
+  &:hover, &.selected, &.show-popover:hover, &.show-popover.selected {
+    cursor: pointer;
+    background-color: @appTint !important;
+    border-color: @appTint;
+    color: @buttonTextColor;
+    box-shadow: 0 0 3px 3px @buttonHoverColor;    
+  }
+
+  &.back:hover, &.backTo:hover {
+    border: none;
+    box-shadow: none;
+    background-color: @appTint !important;
+
+    &::before {
+      border-top: solid 2.5px @backButtonHoverColor;
+      border-left: solid 2.5px @backButtonHoverColor;
+    }
+  }
+
+  &.show-popover:hover::after, &.show-popover.selected::after {
+    border-right: solid 6px @spinnerIndicatorColor;
+    border-bottom: solid 6px @spinnerIndicatorColor;
+  }
+}
+body {
+
+  &.isChrome {
+
+    & a.button.back, & a.button.backTo {
+      top: 6px;
+    }
+  }
+
+  &.isNativeAndroidBrowser {
+
+    & a.button.back, & a.button.backTo {
+      top: 0;
+       bottom: 0;
+    }
+    & a.button.back::before {
+      top: 8px;
+    }
+  }    
+}

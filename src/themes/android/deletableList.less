@@ -1,0 +1,78 @@
+/* ============================== 
+   Deletable Lists
+   =========================== */
+@selectListIndicatorSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='100' height='100' viewBox='0 0 100 100' id='svg3080'><defs id='defs3086' /><g id='Page-1' style='fill:none;stroke:none'><g id='Artboard-1' style='fill:#29addd'><path d='m 34.864907,56.030239 0,18.88388 45,0 0,-100 -18.539881,0 0,81.11612 -26.460119,0 z m 0,0' transform='matrix(0.81915204,0.57357644,-0.57357644,0.81915204,16.748369,-11.174682)' id='Rectangle-1' /></g></g></svg>");
+
+@parsedSelectListIndicatorSVG: "@{imageMaskRoot}@{selectListIndicatorSVG}";
+
+.deletion-indicator {
+  display: -webkit-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 2px 5px 13px 1px;
+  .size(24px, 24px);
+  border: solid 2px @buttonBorderColor;
+  position: absolute;
+  top: 14px;
+  left: -40px;
+  .transition;
+  cursor: pointer;
+}
+.isDesktopChrome .deletion-indicator:hover,
+li.selected > .deletion-indicator {
+  box-shadow: 0 0 6px 2px @deletionIndicatorColor !important;
+  color: @deletionIndicatorColor !important;
+}
+li.selected > .deletion-indicator::before {
+  content: '';
+  display: block;
+  .size(24px, 24px);
+  .imageMask (@deletionIndicatorColor, @parsedSelectListIndicatorSVG);
+  display: block !important;
+  margin: -5px 0 0 -8px !important;
+  font-size: 24pt;
+}
+.isAndroid li.selected > .deletion-indicator::before {
+  margin: -6px 0 0 -2px !important;
+}
+.isDesktopChrome li.selected > .deletion-indicator::before {
+  margin: -7px 0 0 -2px !important;
+}
+.list.showIndicators {
+
+  & .deletion-indicator {
+    margin-left: 40px;
+  }
+
+  & li {
+    padding-left: 32px;
+  }
+}
+
+.button.delete {
+  float: right;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .transition;
+  display: none;
+  cursor: pointer;
+  font-weight: 200;
+  margin-right: 0 !important;
+}
+li.selected > .button.delete {
+  display: block;
+}

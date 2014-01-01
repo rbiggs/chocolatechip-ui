@@ -1,26 +1,28 @@
-   <script>
-      $(function() {
-         $('#showModalBusyIndicator').on($.eventStart, function(e) {
-            e.preventDefault();
-            $.UIPopup({empty: true});
-            $('.popup').UIBusy({'color':'orange', 'size': '80px'})
-            setTimeout(function() {
-               $('.popup').UIPopupClose()
-            },5000);
-         });
+  <script>
+    $(function() {
+      $('#showModalBusyIndicator').on($.eventStart, function(e) {
+        e.preventDefault();
+        $.UIPopup({empty: true});
+        $('.popup').UIBusy({'color':'orange', 'size': '80px'})
+        setTimeout(function() {
+          $('.popup').UIPopupClose()
+        },5000);
       });
-   </script>
+    });
+  </script>
 </head>
 <body>
-   <nav>
-      <h1>Busy Control</h1>
-   </nav>
-   <article id='main' class="current">
+  <nav>
+    <h1>Busy Control</h1>
+  </nav>
+  <article id='main' class="current">
+    <section>
       <ul class='list'>
-         <li>
-            <a class='button' id='showModalBusyIndicator' href='#'>Show Activity Indicator</a>
-         </li>
+        <li>
+          <a class='button' id='showModalBusyIndicator' href='#'>Show Activity Indicator</a>
+        </li>
       </ul>
-   </article>
+    </section>
+  </article>
 </body>
 </html>

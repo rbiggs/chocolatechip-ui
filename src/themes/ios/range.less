@@ -1,0 +1,27 @@
+/* ==============================
+   Range Control
+   =========================== */
+input[type="range"] {
+  -webkit-appearance: none !important;  
+  outline: none;
+  display: block;
+  .size(4px,auto);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  background-color: @rangeInput;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    display: block;
+    .size(27px,27px);
+    .rangeInputThumb;
+    border-radius: 50%;
+    -webkit-transition: -webkit-transform .1s ease-in-out;
+    transition: -webkit-transform .1s ease-in-out;
+    
+    &:hover {
+      background-color: @rangeInputThumbHover;
+    }
+  }
+}

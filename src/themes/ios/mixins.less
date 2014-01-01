@@ -1,0 +1,145 @@
+.flexBlock () {
+  /* Old syntax */  
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: center;
+  -webkit-box-pack: start;
+  /* New syntax */
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: flex-start;
+  /* No prefix */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flexBlockHorizontal () {
+  /* old flex box */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: start;
+  -webkit-box-align: center;
+  /* new flex box */
+  display: -webkit-flex;
+  -webkit-flex-direction: row;
+  -webkit-justify-content: flex-start;
+  -webkit-align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+ }
+
+ .flexBlockCentered () {
+  /* old flex box */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  /* new flex box */
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .flexDirection(@direction1, @direction2) {
+  -webkit-box-orient: @direction1;
+  -webkit-flex-direction: @direction2;
+  flex-direction: @direction2;
+ }
+
+ .flexJustify (@justify1, @justify2) {
+  -webkit-box-pack: @justify1;
+  -webkit-justify-content: @justify2;
+  justify-content: @justify2;
+ }
+
+ .flexAlign (@align1, @align2) {
+  -webkit-box-align: @align1;
+  -webkit-align-items: @align2;
+  align-items: @align2;
+ }
+
+.transition(@prop: all, @duration: .25s, @ease:ease-out) {
+  -webkit-transition: @arguments;
+  transition: @arguments;
+}
+
+.transform(...) {
+  -webkit-transform: @arguments;
+  transform: @arguments;
+}
+
+.flex() {
+  -webkit-box-flex: 1 !important;
+  -webkit-flex: 1 !important;
+}
+
+@imageMaskRoot: "data:image/svg+xml;utf8,";
+
+.imageMask (@bkcolor, @dataUrl) {
+  background-color: @bkcolor;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: 90% 90%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-image: url(@dataUrl);
+}
+
+.overflowYScroll () {
+  overflow-x: hidden;
+  overflow-y: auto;  
+}
+
+.sizing() {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.size(@height, @width) {
+  height: @height;
+  width: @width;
+}
+
+.pseudoBlock(@content) {
+  display: block;
+  content: @content;
+}
+
+.nav(@bkgd:@navBkgnd, @border:#a7a7aa) {
+  background-color: @bkgd;
+  border-bottom: solid 1px @border;  
+}
+
+.toolbarStylz (@bkgd:@toolbarBkgnd, @border:#a7a7aa) {
+  background-color: @bkgd;
+  border-top: solid 1px @border;
+}
+
+.listBorder (@BrColor: @listBorder) {
+  border-top: solid 1px @BrColor;
+  border-bottom: solid 1px @BrColor;
+}
+
+.deletionIndicator(@color: #fff, @brColor: #ff3b30) {
+  color: @color;
+  border: solid 1px @brColor;
+  background-color: @brColor;
+}
+
+.rangeInputThumb() {
+  box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.25);
+  background-color: #fff;
+}
+
+.deleteButton() {
+  background-color: #ff0000;
+  color: #fff;
+}

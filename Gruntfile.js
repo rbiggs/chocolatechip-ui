@@ -7,333 +7,222 @@ module.exports = function(grunt) {
       options: {
         concat: false
       },
+      // Process Android LESS file into CSS:
+      android: {
+        files: { '<%= pkg.projectPath %>chui/chui-android-<%= pkg.version %>.css': 'src/themes/android/main.less'}
+      },
       // Process iOS LESS file into CSS:
       ios: {
-        options: {
-          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n<%= pkg.title %>\nChUI.iOS.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        files: { '<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css': 'src/themes/chui.ios.less'}
-      },
-      // Process Android LESS file into CSS:
-      android : {
-        options: {
-          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n<%= pkg.title %>\nChUI.Android.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        files : { '<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css': 'src/themes/chui.android.less'}
+        files: { '<%= pkg.projectPath %>chui/chui-ios-<%= pkg.version %>.css': 'src/themes/ios/main.less'}
       },
       // Process Windows LESS file into CSS:
-      win : {
-        options: {
-          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n<%= pkg.title %>\nChUI.Win.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        files : { '<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css': 'src/themes/chui.win.less'}
+      win: {
+        files: { '<%= pkg.projectPath %>chui/chui-win-<%= pkg.version %>.css': 'src/themes/windows/main.less'}
       }
     },
     // Concat JavaScript files and Examples:
     concat: {
-      // Concat the ChocolateChipJS files together:
-      chocolatechip: {      
-        options: {
-          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChocolateChip.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        src: ["src/chocolatechip/start.js","src/chocolatechip/returnResult.js","src/chocolatechip/selectors.js","src/chocolatechip/extend.js","src/chocolatechip/core.js","src/chocolatechip/plugin.js","src/chocolatechip/cache.js","src/chocolatechip/collection.js","src/chocolatechip/domready.js","src/chocolatechip/string.js","src/chocolatechip/form.js", "src/chocolatechip/ajax.js","src/chocolatechip/feature-detection.js","src/chocolatechip/templates.js","src/chocolatechip/pubsub.js","src/chocolatechip/deferred.js","src/chocolatechip/expose-chocolatechip.js","src/chocolatechip/end.js"],
-        dest: '<%= pkg.project_path %>chui/chocolatechip-<%= pkg.version %>.js'
-      },
-      // Concat the ChUIJS files together:
-      chui: {
-        options: {
-          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        src: ['src/chui/start.js', 'src/chui/event-init.js','src/chui/jquery-helpers.js','src/chui/$-extensions.js','src/chui/collection-extensions.js','src/chui/widget-factory.js','src/chui/load-init.js','src/chui/end.js','src/chui/gestures.js'],
-        dest: '<%= pkg.project_path %>chui/chui-<%= pkg.version %>.js'
-      },
-      // The following concats are just to attach a banner to the LESS output:
-      ios: {
-        options: {
-          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.iOS.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        src: ['<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css'],
-        dest : '<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css'
-      },
       android: {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.Android.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        src: ['<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css'],
-        dest: '<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css'
+        src: ['<%= pkg.projectPath %>chui/chui-android-<%= pkg.version %>.css'],
+        dest: '<%= pkg.projectPath %>chui/chui-android-<%= pkg.version %>.css'
+
+      },
+      ios: {
+        options: {
+          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.iOS.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
+        },
+        src: ['<%= pkg.projectPath %>chui/chui-ios-<%= pkg.version %>.css'],
+        dest: '<%= pkg.projectPath %>chui/chui-ios-<%= pkg.version %>.css'
       },
       win: {
         options: {
           banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.Win.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
         },
-        src: ['<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css'],
-        dest: '<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css'
+         src: ['<%= pkg.projectPath %>chui/chui-win-<%= pkg.version %>.css'],
+        dest: '<%= pkg.projectPath %>chui/chui-win-<%= pkg.version %>.css'
+      },
+      // Concat the ChUIJS files together:
+      chui: {
+        options: {},
+        src: [
+          'src/chui/utils.js', 
+          'src/chui/events.js', 
+          'src/chui/detectors.js', 
+          'src/chui/gestures.js', 
+          'src/chui/desktop.js', 
+          'src/chui/layout.js', 
+          'src/chui/pubsub.js', 
+          'src/chui/navigation.js', 
+          'src/chui/buttons.js', 
+          'src/chui/blockui.js', 
+          'src/chui/center.js', 
+          'src/chui/busy.js', 
+          'src/chui/popup.js', 
+          'src/chui/popover.js', 
+          'src/chui/segmented.js', 
+          'src/chui/togglePanel.js', 
+          'src/chui/paging.js', 
+          'src/chui/deletableList.js', 
+          'src/chui/selectList.js', 
+          'src/chui/sheet.js', 
+          'src/chui/slideout.js', 
+          'src/chui/stepper.js', 
+          'src/chui/switch.js', 
+          'src/chui/tabbar.js', 
+          'src/chui/templates.js'
+        ],
+        dest: '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
+      },
+      wrap: {
+        options: {
+          banner: '/*\n    pO\\\n   6  /\\\n     /OO\\\n    /OOOO\\\n  /OOOOOOOO\\\n ((OOOOOOOO))\n  \\:~=++=~:/\n\n<%= pkg.title %>\nChUI.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
+        },
+        src: [
+          'src/chui/start.js', 
+          '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js', 
+          'src/chui/end.js'
+        ],
+        dest: '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
+      },
+
+      // Concat Android examples:
+      examples_android: {
+        options: {
+          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="msapplication-tap-highlight" content="no">\n  <title>ChocolateChip-UI Android</title>\n  <link rel="stylesheet" href="../chui/chui-android-<%= pkg.version %>.css">\n  <script src="<%= pkg.jquery.url %>"></script>\n  <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
+        },
+        files: [{
+          expand: true,
+          cwd: 'src/examples/',
+          src: ['**/*'],
+          dest: '<%= pkg.projectPath %>examples-android/'
+        }]
       },
       // Concat iOS examples:
-      example_ios: {
+      examples_ios: {
         options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI iOS</title>\n   <link rel="stylesheet" href="../chui/chui.ios-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
+          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="msapplication-tap-highlight" content="no">\n  <title>ChocolateChip-UI iOS</title>\n  <link rel="stylesheet" href="../chui/chui-ios-<%= pkg.version %>.css">\n  <script src="<%= pkg.jquery.url %>"></script>\n  <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
-        files: [
-          {
-            expand: true,
-            cwd: 'src/examples/',
-            src: ['**/*'],
-            dest: '<%= pkg.project_path %>examples-ios/'
-          }
-        ]
+        files: [{
+          expand: true,
+          cwd: 'src/examples/',
+          src: ['**/*'],
+          dest: '<%= pkg.projectPath %>examples-ios/'
+        }]
       },
-      // Concat Android examples:
-      example_android: {
+      // Concat iOS examples:
+      examples_win: {
         options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Android</title>\n   <link rel="stylesheet" href="../chui/chui.android-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
+          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="msapplication-tap-highlight" content="no">\n  <title>ChocolateChip-UI Win</title>\n  <link rel="stylesheet" href="../chui/chui-win-<%= pkg.version %>.css">\n  <script src="<%= pkg.jquery.url %>"></script>\n  <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
-        files: [
-          {
-            expand: true,
-            cwd: 'src/examples/',
-            src: ['**/*'],
-            dest: '<%= pkg.project_path %>examples-android/'
-          }
-        ]
-      },
-      // Concat Windows Phone 8 examples:
-      example_win: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Win</title>\n   <link rel="stylesheet" href="../chui/chui.win-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: [
-          {
-            expand: true,
-            cwd: 'src/examples/',
-            src: ['**/*'],
-            dest: '<%= pkg.project_path %>examples-win/'
-          }
-        ]
-      },
-      // Concat iOS version of demo:
-      demo_ios: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo iOS</title>\n   <link rel="stylesheet" href="../chui/chui.ios-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: {
-          '<%= pkg.project_path %>demo/index-ios.html': ['src/demo/index.html']
-        }
+        files: [{
+          expand: true,
+          cwd: 'src/examples/',
+          src: ['**/*'],
+          dest: '<%= pkg.projectPath %>examples-win/'
+        }]
       },
       // Concat Android version of demo:
       demo_android: {
         options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.android-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
+          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="msapplication-tap-highlight" content="no">\n  <title>ChocolateChip-UI Demo Android</title>\n  <link rel="stylesheet" href="../chui/chui-android-<%= pkg.version %>.css">\n  <script src="<%= pkg.jquery.url %>"></script>\n  <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          '<%= pkg.project_path %>demo/index-android.html': ['src/demo/index.html']
+          '<%= pkg.projectPath %>demo/index-android.html': ['src/demo/index.html']
+        }
+      },
+      // Concat iOS version of demo:
+      demo_ios: {
+        options: {
+          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="msapplication-tap-highlight" content="no">\n  <title>ChocolateChip-UI Demo iOS</title>\n  <link rel="stylesheet" href="../chui/chui-ios-<%= pkg.version %>.css">\n  <script src="<%= pkg.jquery.url %>"></script>\n  <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
+        },
+        files: {
+          '<%= pkg.projectPath %>demo/index-ios.html': ['src/demo/index.html']
         }
       },
       // Concat Windows Phone 8 version of demo:
       demo_win: {
         options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.win-<%= pkg.version %>.css">\n   <script src="../chui/chocolatechip-<%= pkg.version %>.js"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
+          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n  <meta name="apple-mobile-web-app-capable" content="yes">\n  <meta name="mobile-web-app-capable" content="yes">\n  <meta name="msapplication-tap-highlight" content="no">\n  <title>ChocolateChip-UI Demo Windows</title>\n  <link rel="stylesheet" href="../chui/chui-win-<%= pkg.version %>.css">\n  <script src="<%= pkg.jquery.url %>"></script>\n  <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
         },
         files: {
-          '<%= pkg.project_path %>demo/index-win.html': ['src/demo/index.html']
-        }
-      },
-      tests : {
-        options: {
-          banner: "<!doctype html>\n<html>\n   <head>\n      <meta charset='UTF-8' />\n      <meta http-equiv='content-type' content='text/html; charset=utf-8' />\n      <title>QUnit ChocolateChipJS</title>\n      <link rel='stylesheet' href='../qunit/qunit.css'>\n      <script src='../../chui/chocolatechip-<%= pkg.version %>.js'></script>\n      <script src='../qunit/qunit.js'></script>\n  </head>\n"
-        },
-        files: [
-          {
-            expand: true,
-            cwd: 'src/tests/',
-            src: ['**/*.html'],
-            dest: '<%= pkg.project_path %>tests/'
-          }
-        ]
-      },
-      jquery_example_ios: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI iOS</title>\n   <link rel="stylesheet" href="../chui/chui.ios-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: [
-          {
-            expand: true,
-            cwd: 'src/examples/',
-            src: ['**/*'],
-            dest: '<%= pkg.project_path %>examples-ios/'
-          }
-        ]
-      },
-      jquery_example_android: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Android</title>\n   <link rel="stylesheet" href="../chui/chui.android-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: [
-          {
-            expand: true,
-            cwd: 'src/examples/',
-            src: ['**/*'],
-            dest: '<%= pkg.project_path %>examples-android/'
-          }
-        ]
-      },
-      // Concat Windows Phone 8 examples:
-      jquery_example_win: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Win</title>\n   <link rel="stylesheet" href="../chui/chui.win-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: [
-          {
-            expand: true,
-            cwd: 'src/examples/',
-            src: ['**/*'],
-            dest: '<%= pkg.project_path %>examples-win/'
-          }
-        ]
-      },
-            // Concat iOS version of demo:
-      jquery_demo_ios: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo iOS</title>\n   <link rel="stylesheet" href="../chui/chui.ios-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: {
-          '<%= pkg.project_path %>demo/index-ios.html': ['src/demo/index.html']
-        }
-      },
-      // Concat Android version of demo:
-      jquery_demo_android: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.android-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: {
-          '<%= pkg.project_path %>demo/index-android.html': ['src/demo/index.html']
-        }
-      },
-      // Concat Windows Phone 8 version of demo:
-      jquery_demo_win: {
-        options: {
-          banner: '<!DOCTYPE html>\n<html lang="en">\n<head>\n   <meta charset="utf-8">\n   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">\n   <meta name="apple-mobile-web-app-capable" content="yes">\n   <meta name="mobile-web-app-capable" content="yes">\n   <meta name="msapplication-tap-highlight" content="no">\n   <title>ChocolateChip-UI Demo Android</title>\n   <link rel="stylesheet" href="../chui/chui.win-<%= pkg.version %>.css">\n   <script src="<%= pkg.jquery.url %>"></script>\n   <script src="../chui/chui-<%= pkg.version %>.js"></script>\n'
-        },
-        files: {
-          '<%= pkg.project_path %>demo/index-win.html': ['src/demo/index.html']
-        }
-      }
-
-    },
-    // Minify JavaScript files:
-    uglify: {
-      chocolatechip: {
-        options: {
-          banner: '/*\nChocolateChip-UI\nChocolateChip.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        files: {'<%= pkg.project_path %>chui/chocolatechip-<%= pkg.version %>.min.js': ['chui/chocolatechip-<%= pkg.version %>.js']
-        }
-      },
-      chui: {
-        options: {
-          banner: '/*\nChocolateChip-UI\nChUI.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n'
-        },
-        files: {
-          '<%= pkg.project_path %>chui/chui-<%= pkg.version %>.min.js': ['chui/chui-<%= pkg.version %>.js']
+          '<%= pkg.projectPath %>demo/index-win.html': ['src/demo/index.html']
         }
       }
     },
-    // Minnify CSS files:
     cssmin: {
       android: {
         options: {
           banner: '/*\nChocolateChip-UI\nChUI-Android.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/'
         },
-        files: {'<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.min.css': '<%= pkg.project_path %>chui/chui.android-<%= pkg.version %>.css'}
+        files: {'<%= pkg.projectPath %>chui/chui-android-<%= pkg.version %>.min.css': '<%= pkg.projectPath %>chui/chui-android-<%= pkg.version %>.css'}
       },
       ios: {
         options: {
           banner: '/*\nChocolateChip-UI\nChUI-iOS.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/'
         },
-        files: {'<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.min.css': '<%= pkg.project_path %>chui/chui.ios-<%= pkg.version %>.css'}
+        files: {'<%= pkg.projectPath %>chui/chui-ios-<%= pkg.version %>.min.css': '<%= pkg.projectPath %>chui/chui-ios-<%= pkg.version %>.css'}
       },
       win: {
         options: {
           banner: '/*\nChocolateChip-UI\nChUI-Win.css\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/'
         },
-        files: {'<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.min.css': '<%= pkg.project_path %>chui/chui.win-<%= pkg.version %>.css'}
+        files: {'<%= pkg.projectPath %>chui/chui-win-<%= pkg.version %>.min.css': '<%= pkg.projectPath %>chui/chui-win-<%= pkg.version %>.css'}
       }
     },
     // Copy files out of src directory:
     copy: {
       // Copy out images:
       images: {
-        files: [
-          { 
-            expand: true,
-            cwd: 'src/images/', 
-            src: ['**/*.{png,jpg,svg}'], 
-            dest:'<%= pkg.project_path %>images/' 
-          }
-        ]
+        files: [{ 
+          expand: true,
+          cwd: 'src/images/', 
+          src: ['**/*.{png,jpg,svg}'], 
+          dest:'<%= pkg.projectPath %>images/' 
+        }]
       },
       // Copy out data files:
       data: {
+        files: [{
+          expand: true,
+          cwd: 'src/data/',
+          src: ['**/*'],
+          dest: '<%= pkg.projectPath %>data/'
+        }]
+      },
+      // Copy out index for Android examples:
+      index_android: {
         files: [
-          {
-            expand: true,
-            cwd: 'src/data/',
-            src: ['**/*'],
-            dest: '<%= pkg.project_path %>data/'
-          }
+         {
+          expand: true, 
+          cwd: 'src/', 
+          src: ['index.html'], 
+          dest: '<%= pkg.projectPath %>examples-android/'
+         }
         ]
       },
       // Copy out index for iOS examples:
       index_ios : {
         files: [
-          {
-            expand: true, 
-            cwd: 'src/', 
-            src: ['index.html'], 
-            dest: '<%= pkg.project_path %>examples-ios/'
-          }
+         {
+          expand: true, 
+          cwd: 'src/', 
+          src: ['index.html'], 
+          dest: '<%= pkg.projectPath %>examples-ios/'
+         }
         ],
-      },
-      // Copy out index for Android examples:
-      index_android: {
-        files: [
-          {
-            expand: true, 
-            cwd: 'src/', 
-            src: ['index.html'], 
-            dest: '<%= pkg.project_path %>examples-android/'
-          }
-        ]
       },
       // Copy out index for Windows Phone 8 examples:
       index_win:  {
         files: [
-          {
-            expand: true, 
-            cwd: 'src/', 
-            src: ['index.html'], 
-            dest: '<%= pkg.project_path %>examples-win/'
-          }
-        ]
-      },
-      tests: {
-        files: [
-          {
-            expand: true,
-            cwd: 'src/tests/',
-            src: ['**/*.js'],
-            dest: '<%= pkg.project_path %>tests/'
-          }
-        ]
-      },
-      qunit : {
-        files : [
-          {
-            expand: true,
-            cwd: 'src/tests/qunit/',
-            src: ['*.css'],
-            dest: '<%= pkg.project_path %>tests/qunit/'
-          }
+         {
+          expand: true, 
+          cwd: 'src/', 
+          src: ['index.html'], 
+          dest: '<%= pkg.projectPath %>examples-win/'
+         }
         ]
       }
     },
@@ -341,26 +230,109 @@ module.exports = function(grunt) {
     // Rules to follow for linting:
     jshint: {
       options: {
-          curly: false,
-          browser: true,
-          eqeqeq: true,
-          forin: false,
-          immed: false,
-          expr: false,
-          indent: false,
-          noempty: true,
-          plusplus: false,
-          unused: false,
-          boss: true,
-          evil: true,
-          laxbreak: true,
-          multistr: true,
-          scripturl: true,
-          '-W030': true,
-          '-W083': false
+        curly: false,
+        browser: true,
+        eqeqeq: true,
+        forin: false,
+        immed: false,
+        expr: false,
+        indent: false,
+        noempty: true,
+        plusplus: false,
+        unused: false,
+        boss: true,
+        evil: true,
+        laxbreak: true,
+        multistr: true,
+        scripturl: true,
+        '-W030': true,
+        '-W083': false
       },
-      chocolatechip: ['<%= pkg.project_path %>chui/chocolatechip-<%= pkg.version %>.js'],
-      chui: ['<%= pkg.project_path %>chui/chui-<%= pkg.version %>.js']
+      chui: ['<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js']
+    },
+    // Minify JavaScript files:
+    uglify: {
+      options: {
+        preserveComments: false,
+        sourceMap: "<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.min.map",
+        sourceMappingURL: "chui-<%= pkg.version %>.min.map",
+        report: "min",
+        beautify: {
+          ascii_only: true
+        },
+        banner: '/*\nChocolateChip-UI\nChUI.js\nCopyright <%= grunt.template.today("yyyy") %> Sourcebits www.sourcebits.com\nLicense: <%= pkg.licences[0].type %>\nVersion: <%= pkg.version %>\n*/\n',
+        compress: {
+          hoist_funs: false,
+          loops: false,
+          unused: false
+        }
+      },
+      chui: {
+        files: {
+          '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.min.js': '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js' 
+        }
+      }
+    },
+    // Replace individual closures with one close for all:
+    'string-replace': {
+      dist: {
+        files: {
+          '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js': '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
+        },
+        options: {
+          replacements: [{
+            pattern: /\(function\(\$\) {\n^.*\'use strict\';/img,
+            replacement: ''
+          },
+          {
+            pattern: /\}\)\(window\.jQuery\);/img,
+            replacement: ''
+          }]
+        }
+      },
+      newlines: {
+        files: {
+          '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js': '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
+        },
+        options: {
+          replacements: [{            
+            pattern: /\n\n\n/img,
+            replacement: '\n\n'
+          }]
+        }
+      }
+    },
+    // Watch files for changes:
+    watch: {
+      scripts: {
+        options: {
+          spawn: false
+        },
+        files: ['src/chui/*.js'],
+        tasks: ['chuijs']
+      },
+      css: {
+        options: {
+          spawn: false
+        },
+        files: ['src/themes/*.less'],
+        tasks: ['themes']
+      },
+      html: {
+        options: {
+          spawn: false
+        },
+        files: ['src/examples/*.html', 'src/demo/*.html'],
+        tasks: [
+          'concat:example_android', 
+          'concat:demo_android', 
+          'concat:example_ios', 
+          'concat:demo_android', 
+          'concat:example_win', 
+          'concat:demo_android', 
+          'copy'
+        ]
+      }
     }
   });
 
@@ -371,59 +343,94 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-string-replace');
+
   // Default build:
-  grunt.registerTask('default', ['less', 'concat:chocolatechip', 'concat:chui', 'concat:ios', 'concat:android', 'concat:win', 'concat:example_ios', 'concat:example_android', 'concat:example_win', 'concat:demo_ios', 'concat:demo_android', 'concat:demo_win', 'concat:tests', 'uglify', 'cssmin', 'copy', 'jshint']);
+  grunt.registerTask('default', [
+    'chuijs',
+    'themes', 
+    'android_examples',
+    'ios_examples',
+    'win_examples'
+  ]);
 
-  // Only ChocolateChipJS:
-  grunt.registerTask('chocolatechipjs', ['concat:chocolatechip', 'uglify:chocolatechip']);
+  // Build all three themes with ChUI.js:
+  grunt.registerTask('chui', [
+    'chuijs', 
+    'themes'
+  ]);
 
-  // Only ChUIJS (for use with jQuery):
-  grunt.registerTask('chuijs', ['concat:chui', 'uglify:chui']);
+  // Build just ChUI.js:
+  grunt.registerTask('chuijs', [
+    'concat:chui', 
+    'string-replace:dist',
+    'string-replace:newlines',
+    'concat:wrap', 
+    'jshint', 
+    'uglify'
+  ]);
 
-  // Build ChUIJS with Android theme (for use with jQuery):
-  grunt.registerTask('chui_android', ['less:android', 'cssmin:android', 'concat:chui', 'uglify:chui']);
+  // Build Android theme:
+  grunt.registerTask('android', [
+    'less:android', 
+    'concat:android', 
+    'cssmin:android'
+  ]);
 
-  // Build ChUIJS with iOS theme (for use with jQuery):
-  grunt.registerTask('chui_ios', ['less:ios', 'cssmin:ios', 'concat:chui', 'uglify:chui']);
+  // Build iOS theme:
+  grunt.registerTask('ios', [
+    'less:ios', 
+    'concat:ios', 
+    'cssmin:ios'
+  ]);
 
-  // Build ChUIJS with Windows Phone 8 theme (for use with jQuery):
-  grunt.registerTask('chui_win', ['less:win', 'cssmin:win', 'concat:chui', 'uglify:chui']);
+  // Build Windows theme:
+  grunt.registerTask('win', [
+    'less:win', 
+    'concat:win', 
+    'cssmin:win'
+  ]);
 
-  // Build ChUIJS with all three themes (Anrdoid, iOS, Windows):
-  grunt.registerTask('chui', ['less', 'cssmin', 'concat:chui', 'uglify:chui']);
+  // Build all three themes:
+  grunt.registerTask('themes', [
+    'less', 
+    'concat:android', 
+    'concat:ios', 
+    'concat:win', 
+    'cssmin'
+  ]);
 
-  // Android theme with ChocolateChipJS:
-  grunt.registerTask('android', ['less:android', 'cssmin:android', 'concat:chocolatechip', 'concat:chui', 'uglify:chocolatechip', 'uglify:chui']);
+  // Build Android examples:
+  grunt.registerTask('android_examples', [
+    'android', 
+    'chuijs',
+    'concat:examples_android', 
+    'concat:demo_android', 
+    'copy:images', 
+    'copy:data', 
+    'copy:index_android'
+  ]);
 
-  // iOS theme with ChocolateChipJS:
-  grunt.registerTask('ios', ['less:ios', 'cssmin:ios', 'concat:chocolatechip', 'concat:chui', 'uglify:chocolatechip', 'uglify:chui']);
+  // Build iOS examples:
+  grunt.registerTask('ios_examples', [
+    'ios', 
+    'chuijs',  
+    'concat:examples_ios', 
+    'concat:demo_ios', 
+    'copy:images', 
+    'copy:data', 
+    'copy:index_ios'
+  ]);
 
-  // Windows Phone 8 theme with ChocolateChipJS:
-  grunt.registerTask('windows', ['less:win', 'cssmin:win', 'concat:chocolatechip', 'concat:chui', 'uglify:chocolatechip', 'uglify:chui']);
-
-  // Android examples with ChocolateChipJS:
-  grunt.registerTask('android_examples', ['less:android', 'concat:android', 'cssmin:android', 'concat:chocolatechip', 'concat:chui', 'concat:example_android', 'concat:demo_android', 'uglify:chocolatechip', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_android']);
-
-  // iOS examples with ChocolateChipJS:
-  grunt.registerTask('ios_examples', ['less:ios', 'concat:ios', 'cssmin:ios', 'concat:chocolatechip', 'concat:chui', 'concat:example_ios', 'concat:demo_ios', 'uglify:chocolatechip', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_ios']);
-
-  // Windows Phone 8 examples with ChocolateChipJS:
-  grunt.registerTask('win_examples', ['less:win', 'concat:win', 'cssmin:win', 'concat:chocolatechip', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chocolatechip', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
-
-  // Android examples for use with jQuery:
-  grunt.registerTask('android_examples_chui', ['less:android', 'concat:android', 'cssmin:android', 'concat:chui', 'concat:example_android', 'concat:demo_android', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_android']);
-
-  // iOS examples for use with jQuery:
-  grunt.registerTask('ios_examples_chui', ['less:ios', 'concat:ios', 'cssmin:ios', 'concat:chui', 'concat:example_ios', 'concat:demo_ios', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_ios']);
-
-  // Windows Phone 8 examples for use with jQuery:
-  grunt.registerTask('win_examples_chui', ['less:win', 'concat:win', 'cssmin:win', 'concat:chui', 'concat:example_win', 'concat:demo_win', 'uglify:chui', 'copy:images', 'copy:data', 'copy:index_win']);
-
-  // Build only the unit test:
-  grunt.registerTask('tests', ['concat:tests', 'copy:tests', 'copy:qunit']);
-
-  // Build jQuery version of ChUI & examples:
-  grunt.registerTask('chuijquery', ['less', 'concat:chui', 'concat:ios', 'concat:android', 'concat:win', 'concat:jquery_example_ios', 'concat:jquery_example_android', 'concat:jquery_example_win', 'concat:jquery_demo_ios', 'concat:jquery_demo_android', 'concat:jquery_demo_win', 'uglify:chui', 'cssmin', 'copy:images', 'copy:data', 'copy:index_ios', 'copy:index_android', 'copy:index_win', 'jshint:chui']);
-
+  // Build Windows Phone 8 examples:
+  grunt.registerTask('win_examples', [
+    'win',  
+    'chuijs', 
+    'concat:examples_win', 
+    'concat:demo_win', 
+    'copy:images', 
+    'copy:data', 
+    'copy:index_win'
+  ]);
 };

@@ -1,0 +1,109 @@
+/* ==============================
+   Switches
+   =========================== */
+.switch {
+  display: inline-block;
+  .size(32px,54px);
+  .sizing;
+  border: solid 2px @switchBorder;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: inset 0  0 0 15px @switchInsetShadow;
+  cursor: pointer;
+  -webkit-animation-duration: .65s;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-name: switchAnimationOff;
+  animation-duration: .65s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-name: switchAnimationOff;
+  
+  & > em {
+    display: block;
+    .size(27px,27px);
+    box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.25);
+    background-color: @switchThumbBkgnd;
+    border-radius: 50%;
+    -webkit-transition: -webkit-transform .1s ease-in-out;
+    -webkit-animation-duration: .45s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-name: switchThumbAnimationOff;
+    transition: -webkit-transform .1s ease-in-out;
+    animation-duration: .45s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-name: switchThumbAnimationOff;
+  }
+
+  & > input {
+    display: none;
+  }
+
+  &.on {
+    border-color: @switchOnColor;
+    box-shadow: inset 0 0 0 15px @switchOnColor;
+    -webkit-animation-name: none;
+    animation-name: none;
+
+    & > em {
+      -webkit-transform: translate3d(23px,0,0);
+      -webkit-transition-duration: .2s;
+      -webkit-animation-duration: .45s;
+      -webkit-animation-timing-function: ease-in-out;
+      -webkit-animation-fill-mode: forwards;
+      -webkit-animation-name: switchThumbAnimation;
+      transform: translate3d(23px,0,0);
+      transition-duration: .2s;
+      animation-duration: .45s;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: forwards;
+      animation-name: switchThumbAnimation;
+      
+    }
+  }
+}
+
+
+@-webkit-keyframes switchAnimationOff {
+  0% { box-shadow: inset 0 0 0 15px @switchBorder; }
+  49.999% { box-shadow: inset 0 0 0 0 @switchBorder; }
+  50% { box-shadow: inset 0 0 0 0 #fff; }
+  100% { box-shadow: inset 0 0 0 15px #fff; }
+}
+
+@-webkit-keyframes switchThumbAnimation {
+  0% { width: 27px; }
+  1% { width: 40px; }
+  50% { width: 27px; }  
+  100% { width: 27px; }  
+}
+
+@-webkit-keyframes switchThumbAnimationOff {
+  0% { width: 27px; }
+  5% { width: 45px; }
+  50% { width: 27px; }  
+  100% { width: 27px; }  
+}
+
+@keyframes switchAnimationOff {
+  0% { box-shadow: inset 0 0 0 15px @switchBorder; }
+  49.999% { box-shadow: inset 0 0 0 0 @switchBorder; }
+  50% { box-shadow: inset 0 0 0 0 #fff; }
+  100% { box-shadow: inset 0 0 0 15px #fff; }
+}
+
+@keyframes switchThumbAnimation {
+  0% { width: 27px; }
+  1% { width: 40px; }
+  50% { width: 27px; }  
+  100% { width: 27px; }  
+}
+
+@keyframes switchThumbAnimationOff {
+  0% { width: 27px; }
+  5% { width: 45px; }
+  50% { width: 27px; }  
+  100% { width: 27px; }  
+}

@@ -1,0 +1,135 @@
+/* ==============================
+   Lists                 
+   =========================== */
+.list {
+  list-style: none;
+  margin: 16px 16px 0;
+  padding: 0;
+  background-color: @appBkColor;
+
+  & > li {
+    padding: 13px 9px 13px 9px;
+    .transition(all, .3s);
+    position: relative;
+    background-color: @appBkColor;
+    font-size: 12pt;
+    border-bottom: solid 1px @listBorderColor;
+
+    &.show-detail::after {
+      content: 'i';
+      display: block;
+      .size(20px, 22px);
+      border-radius: 20px;
+      border: solid 1px @showDetailColor;
+      color: @showDetailColor;
+      font: bold 14px/0 Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 10px 8px;
+      position: absolute;
+      top: 10px;
+      right: 16px;
+    }
+  }
+}
+
+h2 + .list {
+  margin-top: 0;
+  border-top: none;
+}
+
+/* ==============================
+   List Footer
+   =========================== */
+.list ~ p {
+  margin: 10px 16px 0;
+
+  & + p {
+    margin-top: 5pt;
+  }
+}
+
+.list > li[data-goto]:hover, 
+.list > li[data-goto].touched,
+li[data-show-article]:hover,
+li[data-show-article].touched,
+.list.select > li:hover {
+  cursor: pointer;
+  background-color: @appTint;
+}
+
+/* ==============================
+   list title & subtitle      
+   ============================ */
+.list > li {
+
+  & > h3, & > h4 {
+    width: 80%;
+    font-weight: 200;
+    margin: 0;
+  }
+
+  & h3 {
+    font-size: 16pt;
+    line-height: 20pt;
+    margin-bottom: 2px;
+  }
+
+  & h4 {
+    line-height: 14pt;
+    color: @subTextColor;
+  }
+
+  & > h4, & > div > h4, & > p, & > div > p {
+    font-size: 13pt;
+    line-height: 16pt;
+    margin: 0;
+  }
+
+  & > p, & > div > p {
+    font-size: 13pt;
+    line-height: 16pt;
+
+    & + p {
+      margin-top: 6px;
+    }
+  }
+
+  & + .button.action {
+    margin-top: 40px;
+  }   
+}
+
+/* ==============================
+   List detail             
+   ============================ */
+.list > li > p {
+  margin: 6px 0px;
+  font-size: 13pt;
+  line-height: 16pt;
+  color: @listAsideColor;
+}
+
+/* ==============================
+   List title
+   =========================== */
+section h2 {
+  font: normal 11pt/12pt Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+  color: @listTitleColor;
+  margin: 26px 16px 6px 16px;
+  padding-left: 9px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: solid 3px @listBorderColor;
+  padding-bottom: 6px;
+
+  &.normal-case {
+    text-transform: none;
+  }
+
+  &.normal-case {
+    text-transform: none;
+  }
+}

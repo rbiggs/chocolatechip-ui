@@ -1,0 +1,62 @@
+/* ==============================
+   Nav Bars
+   =========================== */
+#global-nav {
+  .nav;
+  overflow: hidden;
+}
+
+nav {
+  height: 45px;
+  .sizing;
+  .flexBlockHorizontal;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  .transition(all, .15s);
+  padding: 0 15px;
+  vertical-align: middle;
+
+  & > h1 {
+    text-align: center;
+    display: inline-block;
+    .flex;
+    font: normal 12pt/14pt HelveticaNeue, Sans-serif;
+    position: absolute;
+    top: 0;
+    left: 100px;
+    right: 100px;
+    z-index: -1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    & + a.button {
+      margin: 0;
+      position: absolute;
+      right: 15px;
+      top: 3px;
+    }
+  }
+
+  & > a.button + h1 {
+    left: 120px;
+    right: 120px;
+  }
+}
+
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+  nav > a.button + h1 {
+    left: 115px;
+    right: 115px;
+  }
+}
+
+@media only screen and (max-device-width : 320px) and (orientation : landscape) {
+  nav > a.button + h1 {
+    left: 150px;
+    right: 150px;
+  }
+}

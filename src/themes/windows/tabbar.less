@@ -1,0 +1,58 @@
+/* ==============================
+   Tab Bar
+   =========================== */
+.tabbar {
+  height: 47px;
+  padding: 1px 0;
+  display: block;
+  box-sizing: border-box;
+  font-size: 10px;
+  text-align: left;
+  position: absolute;
+  top: 45pt;
+  left: 25px;
+  right: 20px;
+  overflow: hidden;
+
+  & > .button {
+    position: relative;
+    display: inline-block !important;
+    margin: 0;
+    height: 30px;
+    text-align: left;
+    color: @textColor;
+    border-color: @popupButtonBorder;
+    padding: 4px 10px 4px 0;
+    border: none !important;
+
+    &:hover, &.selected {
+      color: @appTint !important;
+      opacity: 1 !important;
+      background-color: transparent;
+    }
+
+    &.more {
+      font-size: 0;
+      width: 40px;
+
+      &::before {
+        font-family: "Segoe UI Symbol";
+        font-weight: normal;
+        content: '\E10C';
+        font-size: 20pt;
+      }
+      
+      & > label {
+        display: none !important;
+      }
+    }
+
+    & > label {
+      font-size: 10pt !important;
+    }
+  }
+}
+
+body.hasTabBar > article {
+  top: 95px !important;
+}

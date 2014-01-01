@@ -1,0 +1,32 @@
+/* ==============================
+   Switched List Items
+   =========================== */
+li.switched {
+  display: -ms-flexbox;
+  -ms-flex-direction: row-reverse;
+  -ms-flex-pack: start;
+
+  & h3 {
+    width: auto;
+    font-size: 13pt;
+    line-height: 24pt;
+    color: @listSubtitleColor;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -ms-flex: 1;
+  }
+
+  & h4 {
+    width: auto;
+    text-align: right;
+    margin-right: 10px;
+    font-size: 14pt;
+    line-height: 24pt;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: @listTitleColor;
+    max-width: 50%;
+  }
+}

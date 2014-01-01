@@ -1,0 +1,44 @@
+/* ==============================
+   Nav bars               
+   =========================== */
+#global-nav {
+  background-color: @navBkgnd;
+  overflow: hidden;
+  border-bottom: solid 1px @navBorderColor;
+  box-shadow: 0 1px 1px @navBorderColor;
+}
+nav {
+  height: 50px;
+  box-sizing: border-box;
+  .flexBlockHorizontalCentered;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  .transition(opacity, .5s, ease-in);
+  padding: 0 16px;
+  vertical-align: middle;
+
+  & > h1 {
+    text-align: left;
+    display: inline-block;
+    margin: 0 20px 0 0;
+    .flex;
+    font: normal 16pt/36pt Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+    position: relative;
+    z-index: -1;
+    white-space: nowrap;
+    overflow: hidden;
+
+    & + a.button {
+      margin: 8px 0 0 0;
+      position: absolute;
+      right: 16px;
+    }
+  }
+
+  & > a.button {
+    position: relative;
+  }
+}

@@ -1,0 +1,50 @@
+/* ==============================
+   Popover Control
+   =========================== */
+.popover {
+   width: 280px;
+   background-color: @popover;
+   border-radius: 10px;
+   height: 250px;
+   max-height: 300px;
+   position: absolute;
+   padding-bottom: 10px;
+   z-index: 111111;
+
+   &::before {
+    .pseudoBlock('');
+    .size(15px,15px);
+    background-color: @popoverHeader;
+    -webkit-transform: rotate(45deg);
+    margin: 0 auto;
+    position: absolute;
+    top: -7px;
+    left: 49%;
+    z-index: -1;
+  }
+
+  & header {
+    background-color: @popoverHeader;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1px 10px;
+    .sizing;
+    width: 100%;
+    & h1 {
+      font-size: 12pt;
+      text-align: center;
+    }
+  }
+  
+  & > section {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0;
+    position: absolute;
+    top: 40px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+  }
+}

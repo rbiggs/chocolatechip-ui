@@ -1,0 +1,134 @@
+/* ==============================
+   Comp List Items          
+   =========================== */
+li.comp {
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  -display: flex;
+  -webkit-direction: row;
+  -webkit-align-items: stretch;
+  display: flex;
+  direction: row;
+  align-items: stretch;
+  padding-bottom: 0;
+
+  &.wrap > div > h3, &.wrap > div > h4 {
+    white-space: wrap;
+    overflow: visible;
+  }
+
+  & > div {
+    .flex;
+    padding: 0 0 10px 0;
+
+    &:first-child {
+      padding: 8px 0 10px 0;
+      min-width: 48%;
+
+      & + aside > h4 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 60%;
+        &:nth-child(1) {
+          max-width: 100% !important;
+        }
+      }
+    }
+
+    & > div > h3, & > div > h4 {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-family: Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+      font-weight: 200;
+    }
+
+    & > h3 {
+      line-height: 20pt;
+      margin: 0 0 10px 0;
+    }
+
+    & > h4 {
+      margin: 0;
+    }
+  }
+
+  & > aside {
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    -webkit-justify-content: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 10px 0;
+
+    &:first-child {
+      -webkit-box-align: start;
+      -webkit-align-items: flex-start;
+      align-items: flex-start;
+      margin-right: 10px;
+      padding: 0 16px 10px 10px;
+    }
+
+    & > h4 {
+      margin: 0;
+      font-weight: normal;
+      color: @listAsideColor;
+    } 
+
+    & > label, & > span {
+      display: inline-block;
+      margin-left: 6px;
+    }
+
+    & > .nav {
+      display: none;
+
+      &::after {
+        display: none;
+      }
+    }
+
+    & > .show-detail {
+      display: inline-block;
+      margin-bottom: -4px;
+
+      &::after {
+        content: 'i';
+        display: block;
+        .size(20px, 22px);
+        border-radius: 20px;
+        border: solid 1px @showDetailColor;
+        color: @showDetailColor;
+        font: bold 14px/0 Roboto, Times, serif;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 10px 8px;
+        float: right;
+        margin: -20px 0 0 0;
+      }
+    }
+  }
+
+  &:last-of-type > aside:last-child {
+    border: none;
+  }
+}
+
+p {
+  color: @subTextColor;
+  font-size: 13pt;
+  line-height: 16pt;
+}
+
+@media only screen and (max-device-width : 320px) and (orientation : portrait) {
+  li.comp > aside > h4 {
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

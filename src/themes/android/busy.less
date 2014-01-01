@@ -1,0 +1,60 @@
+/* ==============================
+   Busy Control
+   =========================== */ 
+@busyBaseSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1'  x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><g id='left'><linearGradient id='SVGID_1_' gradientUnits='userSpaceOnUse' x1='15' y1='-68' x2='383' y2='-68' gradientTransform='matrix(-1 0 0 -1 398 224)'><stop offset='0' style='stop-color:#1D1D1B'/><stop offset='1' style='stop-color:#FFFFFF'/></linearGradient><path fill='url(#SVGID_1_)' d='M199,384C97.542,384,15,301.458,15,200h20c0,90.43,73.57,164,164,164s164-73.57,164-164h20 C383,301.458,300.458,384,199,384z'/></g></svg>");
+
+@parseBusyBaseSVG: "@{imageMaskRoot}@{busyBaseSVG}";
+
+@busyRingSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' x='0px' y='0px' width='400px' height='400px' viewBox='0 0 400 400' enable-background='new 0 0 400 400' xml:space='preserve'><g id='right'><linearGradient id='SVGID_2_' gradientUnits='userSpaceOnUse' x1='15' y1='108' x2='383' y2='108' gradientTransform='matrix(-1 0 0 1 398 0)'><stop offset='0' style='stop-color:#1D1D1B'/><stop offset='1' style='stop-color:#FFFFFF'/></linearGradient><path fill='url(#SVGID_2_)' d='M383,200h-20c0-90.43-73.57-164-164-164S35,109.57,35,200H15C15,98.542,97.542,16,199,16 S383,98.542,383,200z'/></g></svg>");
+
+@parsedBusyRingSVG: "@{imageMaskRoot}@{busyRingSVG}";
+
+@-webkit-keyframes activityIndicatorAnimLeft {
+   0% { .transform(rotate(0deg)); }
+   100% { .transform(rotate(360deg)); }
+}   
+
+@-webkit-keyframes activityIndicatorAnimRight {
+   0% { .transform(rotate(0deg)); }
+   100% { .transform(rotate(-360deg)); }
+}
+@-webkit-keyframes activityIndicatorAnimLeft {
+   0% { .transform(rotate(0deg)); }
+   100% { .transform(rotate(360deg)); }
+}   
+
+@-webkit-keyframes activityIndicatorAnimRight {
+   0% { .transform(rotate(0deg)); }
+   100% { .transform(rotate(-360deg)); }
+}
+
+.busy {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  .size(20px, 20px);
+  background-size: 100% 100%;
+
+  &.align-flush {
+    position: absolute;
+    right: 15px;
+  }
+
+  & > div:first-child, & > div + div {
+      .size(100%, 100%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: 100%;
+      background-repeat:no-repeat;
+      background-position:center;
+      background-image: url(@parseBusyBaseSVG);
+      -webkit-animation: activityIndicatorAnimLeft 2s infinite linear;
+     }
+
+  & > div + div {
+    background-image: url(@parsedBusyRingSVG);
+    -webkit-animation: activityIndicatorAnimRight 5.5s infinite linear;
+  }
+}

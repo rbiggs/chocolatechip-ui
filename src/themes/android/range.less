@@ -1,0 +1,29 @@
+/* ==============================
+   Range Control
+   =========================== */
+input[type="range"] {
+  -webkit-appearance: none !important;  
+  outline: none;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  .size(2px, auto);
+  border-radius: 2px;
+  background: @rangeBkgnd;
+  padding: 0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  display: block;
+  .size(30px, 30px);
+  border-radius: 20px;  
+  margin: 0;
+  background-color: transparent;
+  background-image: 
+    -webkit-radial-gradient(darken(@appTint,16%) 4px, rgba(red(darken(@appTint, 8%)), green(darken(@appTint, 8%)), blue(darken(@appTint, 8%)),.8) 4px);
+  border: solid 1px darken(@appTint,16%);
+}
+input[type="range"]:focus::-webkit-slider-thumb, input[type="range"]::-webkit-slider-thumb:hover {
+  background-image:
+  -webkit-radial-gradient(darken(@appTint,16%) 4px, rgba(red(@appTint),green(@appTint),blue(@appTint),.5) 4px);
+}

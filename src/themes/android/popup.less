@@ -1,0 +1,80 @@
+/* ==============================
+   Popup Control
+   =========================== */
+.popup {
+  display: block;
+  -webkit-box-sizeing: border-box;
+  width: 320px;
+  padding: 0px;
+  background-color: @popupBkgnd;
+  position: absolute;
+  z-index: 10000;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 6px 4px @popoverHighlight;
+
+  &.opened {
+    display: block;
+    opacity: 1;
+    .transition(all, 0.5s, ease-in-out);
+  }
+}
+
+.popup > .panel {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+
+  & > header, & >  footer {
+    display: -webkit-box;
+    -webkit-box-align: stretch;
+    -webkit-box-pack: justify;
+  }
+
+  & > header > h1 {
+    position: static;
+    text-align: center;
+    margin: 0 15px;
+    line-height: 32pt;
+    font-weight: bold;
+  }
+
+  & > p {
+    padding: 0 15px;
+    text-align: center;
+  }
+
+  & .button {
+    border-top: solid 1px @buttonBorderColor;
+  }
+
+  & > footer {
+    width: 320px;
+    padding: 0;
+
+    & > .button {
+      display: block !important;
+      .flex;
+      box-sizing: border-box;
+      height: 100%;
+      line-height: 30pt;
+      background-color: @popupBkgnd;
+      color: @buttonTextColor;
+      font-size: 12pt;
+      padding-top: 4px;
+      max-width: 320px !important;
+      font-weight: bold;
+      margin: 0 !important;
+
+      &:hover {
+        box-shadow: none;
+        background-color: @popoverHighlight;
+      }
+    }
+
+    & + .button {
+      border-left: solid 1px @buttonBorderColor;
+    }
+  }
+}

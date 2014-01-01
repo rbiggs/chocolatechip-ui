@@ -1,0 +1,108 @@
+/* ==============================
+   Popup Control
+   =========================== */
+.popup {
+  display: -ms-flexbox;
+  -ms-flex-direction: column;
+  width: 100%;
+  background-color: #fafafa;
+  padding: 20px 10px;
+  transform: scaleY(1);
+  transition: all 0.25s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all .25s ease-in;
+  transform-origin: top center;
+
+  &.closed {
+    transform: scaleY(0);
+  }
+
+  &.opened {
+    display: block;
+    transform: scaleY(1);
+    transition: all 0.25s  ease-in-out;
+  }
+
+  & * {
+    color: @appBkColor;
+  }
+
+  & > .panel {
+    display: block !important;
+    color: #fff;
+    font: normal 16px/22px Helvetica, Arial, Sans-serif;
+    padding: 0 0 10px 0;
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+
+    & > p {
+      padding: 0 20px;
+    }
+  }
+  
+  & header, & footer {
+    box-sizing: border-box;
+    display: -ms-flexbox !important;
+    -ms-flex-direction: row;
+    -ms-flex-pack: distribute;
+    -ms-flex-align: center;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: auto !important
+  }
+
+  & footer {
+    height: auto;
+    position: relative;
+    bottom: -10px;
+    padding: 0;
+    height: 42px;
+
+    & > .button {
+      -ms-flex: 1;
+      display: block;
+      box-sizing: border-box;
+      max-width: 100%;
+      text-align: center;
+      box-shadow: none;
+      margin: 10px 0px !important;
+      height: 42px !important;
+      font-size: 18px;
+      line-height: 32px;
+      padding: 8px 20px;
+      border-color: @popupButtonBorder;
+      background-color: @popupButtonBkgnd;
+      color: @popupButtonColor;
+      font: bold 16px/20px Helvetica, sans-serif;
+      border-right: none;
+      text-align: center;
+
+      &:last-of-type {
+        border-right: solid 2px @popupButtonBorder;
+      }
+
+      &:hover {
+        background-color: @appTint;
+        border-color: @popupButtonBorder !important;
+        color: @popupButtonHoverColor;
+      }
+    }
+
+    & + .button {
+      border-right: solid 2px @popupButtonBorder;
+    }
+  }
+}
+
+@media only screen and (max-device-width : 240px) and (orientation : portrait) {
+  
+}

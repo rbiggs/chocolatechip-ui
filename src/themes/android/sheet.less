@@ -1,0 +1,127 @@
+/* ==============================
+   Sheet Control
+   =========================== */
+@sheetHandleSVG: escape("<svg width='100px' height='100px' viewBox='0 0 100 100' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:sketch='http://www.bohemiancoding.com/sketch/ns'><g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' sketch:type='MSPage'><g id='Artboard-1' sketch:type='MSArtboardGroup' fill='#000000'><path d='M51,39.1317773 L9.17415422,64.2632809 L4.53881154,56.5487752 L50.8258458,28.7367191 L51,29.0265604 L51.1741542,28.7367191 L97.4611885,56.5487752 L92.8258458,64.2632809 L51,39.1317773 Z' id='Rectangle-2' sketch:type='MSShapeGroup'></path></g></g></svg>");
+
+@parsedSheetHandleSVG: "@{imageMaskRoot}@{sheetHandleSVG}";
+
+.sheet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: @sheetBkgnd;
+  .transition(all, .25s, ease-in);
+  .transform(translate3d(0,-100%,0));
+  display: none;
+
+  &.opened {
+    .transform(translate3d(0,0,0));
+
+    & > section.scroller-vertical {
+      top: 36px;
+      padding: 10px 0 100px 0 !important;
+    }
+  }
+
+  & > section {
+
+    &.scroller-vertical {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      height: auto;
+      right: 0;
+      padding: 0 !important;
+    }
+    
+    & > .list {
+      border: none;
+      background-color: transparent !important;
+
+      & > li {
+        background-color: transparent !important;
+        border-bottom: solid 1px @listBorderColor;
+
+        &::before {
+          content: none;
+        }
+      }
+    }
+  }
+
+  & .button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px !important;
+    .size(auto, auto);
+  }
+
+  & div.handle {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    background-color: @sheetHandle;
+    cursor: pointer;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    height: 29pt;
+    .imageMask(@sheetHandle, @parsedSheetHandleSVG);
+    margin: 10px auto 0;
+
+    &:hover {
+      background-color: @appTint;
+    }
+  }
+}
+
+/*.sheet > section.scroller-vertical {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  right: 0;
+  padding: 0 !important;
+}*/
+/*.sheet.opened > section.scroller-vertical {
+  top: 36px;
+  padding: 10px 0 100px 0 !important;
+}*/
+/*.sheet .button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px !important;
+  .size(auto, auto);
+}*/
+/*.sheet > section > .list {
+  border: none;
+}*/
+/*.sheet > section > .list,
+.sheet > section > .list > li {
+  background-color: transparent !important;
+}*/
+/*.sheet > section > .list > li {
+  border-bottom: solid 1px @listBorderColor;
+}*/
+/*.sheet > section > .list > li::before {
+  content: none;
+}*/
+/*div.handle {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+  background-color: @sheetHandle;
+  cursor: pointer;
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  height: 29pt;
+  .imageMask(@sheetHandle, @parsedSheetHandleSVG);
+  margin: 10px auto 0;
+
+  &:hover {
+    background-color: @appTint;
+  }
+}*/

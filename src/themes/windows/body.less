@@ -1,0 +1,22 @@
+/* ==============================
+   Body
+   =========================== */
+html {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0; right: 0;
+  bottom: 0; left: 0;
+  overflow: hidden;
+  font: normal 14px/18px SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
+  -ms-touch-action: none;
+}
+body:extend(html) {
+  /* Change background color for your app: */
+  background-color: @appBkColor;
+  font: normal 10pt/13pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
+  -ms-user-select: none;
+}
+body * {
+  -ms-user-select: none;
+}
