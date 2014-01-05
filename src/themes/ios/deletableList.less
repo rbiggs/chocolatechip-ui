@@ -50,6 +50,7 @@
       .transform(translate3d(0,0,0));
 
       &.selected {
+        margin-right: 80px;
 
         & h3, & h4, & p {
           position: relative;
@@ -60,10 +61,6 @@
         & > .button.delete {
           .transform(translate3d(80px,0,0));
         }
-      }
-
-      &.selected {
-        .transform(translate3d(-80px,0,0));
       }
     }
   }
