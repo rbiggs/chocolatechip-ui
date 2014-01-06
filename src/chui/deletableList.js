@@ -81,11 +81,11 @@
             }
           });
           $(list).on('singletap', '.deletion-indicator', function() {
-            if ($(this).closest('li')[0].classList.contains('selected')) {
-              $(this).closest('li').removeClass('selected');
+            if ($(this).parent('li').hasClass('selected')) {
+              $(this).parent('li').removeClass('selected');
               return;
             } else {
-              $(this).closest('li').addClass('selected');
+              $(this).parent('li').addClass('selected');
             }
           });
         
