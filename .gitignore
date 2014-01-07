@@ -1,48 +1,14 @@
-<<<<<<< HEAD
-# osx noise
 .DS_Store
-profile
-
-# xcode noise
-build/*
-*.mode1
-*.mode1v3
-*.mode2v3
-*.perspective
-*.perspectivev3
-*.pbxuser
-*.xcworkspace
-xcuserdata
-
-# svn & cvs
 .svn
-CVS
-=======
-.DS_Store
-snippets/.DS_Store
-icons/.DS_Store
-examples/images/.DS_Store
-examples/icons/.DS_Store
-examples/.DS_Store
->>>>>>> Development
-.gitignore
-.gitignore
-examples.zip
-chocolatechip-ui.zip
-
-chui/chui-old.js
-
-libs/zepto-old.js
-
-chui/iPhoneAccessibility.pdf
-
-icons/add-2.svg
-
-chui/iscroll-2.js
-
-config.pyc
-
-examples-ios-chocolatechip/listTest.html
-
-libs/zepto.min-old.js
-
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+chui
+data
+demo
+examples-android
+examples-ios
+examples-win
+node_modules
+images
