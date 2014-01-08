@@ -31,9 +31,9 @@
           }
         }
         return false;
-      });          
+      });
     },
-  
+
     publish : function ( topic, args ) {
       if (!$.subscriptions[topic]) {
         return false;
@@ -45,6 +45,7 @@
         }
         return true;
       });
-    },
+      return true;
+   }
   });
 })(window.jQuery);

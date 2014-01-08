@@ -27,7 +27,7 @@
         $.UIHideSheet();
       });
     },
-  
+
     UIShowSheet : function ( ) {
       $('article.current').addClass('blurred');
       if ($.isAndroid || $.isChrome) {
@@ -39,14 +39,14 @@
         $('.sheet').addClass('opened');
       }
     },
-  
+
     UIHideSheet : function ( ) {
       $('.sheet').removeClass('opened');
-      $('article.current').addClass('removeBlurSlow'); 
+      $('article.current').addClass('removeBlurSlow');
       setTimeout(function() {
         $('article').removeClass('blurred');
-        $('article').removeClass('removeBlurSlow'); 
+        $('article').removeClass('removeBlurSlow');
       },500);
-    },
+    }
   });
 })(window.jQuery);
