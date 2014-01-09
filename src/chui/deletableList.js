@@ -48,11 +48,9 @@
       list.find('li').append(deleteButton);
       $('li').find('.delete').each(function(ctx, idx) {
         if (window && window.jQuery && $ === window.jQuery) ctx = idx;
-        if ($.isiOS || $.isSafari) $(ctx).css({height: height + 'px'});
       });
       var setupDeletability = function(callback, list, button) {
         var deleteSlide;
-        console.dir(button);
         if ($.isiOS) {
           deleteSlide = '100px';
         } else if ($.isAndroid) {
