@@ -69,23 +69,32 @@
       var currentArticle = $('article.current');
       var destination = $(articleID);
       var currentToolbar;
-      var destinationToolbar;
-      var prevArticles = $.UINavigationHistory.splice(historyIndex+1);
+      var destinationToolbar;      
+      if ($.UINavigationHistory.length === 0) {
+        destination = $('article:first-of-type');
+        $.UINavigationHistory.push('#' + destination[0].id);
+      }
+      var prevArticles;
+      if ($.UINavigationHistory.length > 1) {
+        prevArticles = $.UINavigationHistory.splice(historyIndex+1);
+      } else {
+        prevArticles = $('article.previous');
+      }
       $.publish('chui/navigateBack/leave', currentArticle[0].id);
       $.publish('chui/navigateBack/enter', destination[0].id);
       currentArticle[0].scrollTop = 0;
       destination[0].scrollTop = 0;
       if (prevArticles.length) {
-        prevArticles.forEach(function(ctx) {
+        $.each(prevArticles, function(_, ctx) {
           $(ctx).removeClass('previous').addClass('next');
           $(ctx).prev().removeClass('previous').addClass('next');
         });
       }
       currentToolbar = currentArticle.next().hazClass('toolbar');
       destinationToolbar = destination.next().hazClass('toolbar');
-      destination.removeClass('previous').addClass('current');
-      destination.prev().removeClass('previous').addClass('current');
-      destinationToolbar.removeClass('previous').addClass('current');
+      destination.removeClass('previous next').addClass('current');
+      destination.prev().removeClass('previous next').addClass('current');
+      destinationToolbar.removeClass('previous next').addClass('current');
       currentArticle.removeClass('current').addClass('next');
       currentArticle.prev().removeClass('current').addClass('next');
       currentToolbar.removeClass('current').addClass('next');
@@ -103,6 +112,10 @@
       var destination = $($.UINavigationHistory[histLen-2]);
       var currentToolbar;
       var destinationToolbar;
+      if (histLen === 0) {
+        destination = $('article:first-of-type');
+        $.UINavigationHistory.push('#' + destination[0].id);
+      }
       $.publish('chui/navigateBack/leave', currentArticle[0].id);
       $.publish('chui/navigateBack/enter', destination[0].id);
       currentArticle[0].scrollTop = 0;
@@ -116,9 +129,8 @@
       currentArticle.prev().removeClass('current').addClass('next');
       currentToolbar.removeClass('current').addClass('next');
       $.UISetHashOnUrl($.UINavigationHistory[histLen-2]);
-      if ($.UINavigationHistory[histLen-1] !== $('article').eq(0)[0].id) {
-        $.UINavigationHistory.pop();
-      }
+      if ($.UINavigationHistory.length === 1) return;
+      $.UINavigationHistory.pop();
     },
 
     isNavigating : false,
