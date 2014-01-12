@@ -103,4 +103,17 @@ While editing your project, you may find yourself making changes to the LESS fil
 
 You do not need Nodejs to use ChocolateChip-UI. Nodejs is only used to build the framework and examples from the source files.
 
+##Contributing Code
+###Avoiding Carriage Returns in Commits
+
+ChocolateChip-UI uses Unix linefeeds (LF) for new lines. Github for Windows adds carriage returns to linefeeds (CRLF). If you try to check in such files, Git will flag every line with changed new lines, which means practically everything. To avoid this we've added a .gitattributes file to the repository. This will prevent Github from converting the new lines on Windows. 
+
+If you are editing the source code on Windows, depending on the text editor you are using, or if you do a copy/paste, you may inadvertently introduce Windows carriage returns. Also some Grunt actions, such as concatenation with banners, automatically create newlines with carriage returns on Windows. When these carriage returns are added to the source code, they will show up as a changes at commit time. You can avoid this. Navigate to the ChocolateChip-UI repository in the command prompt, then execute these two Git commands:
+
+    git config core.eol lf
+    git config core.autocrlf input
+
+core.eol tells Git to always checkout this repository with LF. 
+core.autocrlf tells Git to convert CRLF to LF on commit.
+
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/2f123684cf50f62013c044733bfc36fb "githalytics.com")](http://githalytics.com/sourcebitsllc/chocolatechip-ui)

@@ -291,6 +291,17 @@ module.exports = function(grunt) {
           }]
         }
       },
+      removeCarriageReturns: {
+        files: {
+          '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js': '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
+        },
+        options: {
+          replacements: [{            
+            pattern: /\r/img,
+            replacement: ''
+          }]
+        }
+      },
       newlines: {
         files: {
           '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js': '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
@@ -365,6 +376,7 @@ module.exports = function(grunt) {
   // Build just ChUI.js:
   grunt.registerTask('chuijs', [
     'concat:chui', 
+    'string-replace:removeCarriageReturns',
     'string-replace:dist',
     'string-replace:newlines',
     'concat:wrap', 
