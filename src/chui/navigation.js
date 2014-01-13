@@ -148,6 +148,7 @@
       var destinationNav = destination.prev();
       var currentToolbar;
       var destinationToolbar;
+      var navigationClass = 'next previous';
       $.publish('chui/navigate/leave', current[0].id);
       $.UINavigationHistory.push(destinationID);
       $.publish('chui/navigate/enter', destination[0].id);
@@ -158,9 +159,9 @@
       current.removeClass('current').addClass('previous');
       currentNav.removeClass('current').addClass('previous');
       currentToolbar.removeClass('current').addClass('previous');
-      destination.removeClass('next').addClass('current');
-      destinationNav.removeClass('next').addClass('current');
-      destinationToolbar.removeClass('next').addClass('current');
+      destination.removeClass(navigationClass).addClass('current');
+      destinationNav.removeClass(navigationClass).addClass('current');
+      destinationToolbar.removeClass(navigationClass).addClass('current');
     
       $.UISetHashOnUrl(destination[0].id);
       setTimeout(function() {
