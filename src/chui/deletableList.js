@@ -29,6 +29,7 @@
       var editButton;
       var deletionIndicator;
       var button;
+      var swipe = 'swiperight';
       // Windows uses an icon for the delete button:
       if ($.isWin) deleteLabel = '';
       if (list[0].classList.contains('deletable')) return;
@@ -88,13 +89,16 @@
           });
         
           if ($.isiOS || $.isSafari) {
-            $(list).on('swiperight', 'li', function() {
+            if ($('html').attr('dir') === 'rtl') swipe = 'swipeleft';
+            $(list).on(swipe, 'li', function() {
               $(this).removeClass('selected');
             });
           }
           $(list).on('singletap', '.delete', function() {
             var $this = this;
-            $(this).siblings().css({'-webkit-transform': 'translate3d(-1000%,0,0)', '-webkit-transition': 'all 1s ease-out'});
+            var direction = '-1000%';
+            if ($('html').attr('dir') === 'rtl') direction = '1000%';
+            $(this).siblings().css({'-webkit-transform': 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out'});
             setTimeout(function() {
               callback.call(callback, $this);
               $($this).parent().remove();

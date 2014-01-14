@@ -99,6 +99,20 @@ While editing your project, you may find yourself making changes to the LESS fil
     // Watch the html source files:
     grunt watch:html
 
+##Right-to-left Language Support
+
+For languages that are right-to-left, such as Arabic, Farse, Urdu and Hebrew, ChocolateChip-UI provides full support. All you have to do is add the following to your document:
+
+    &lt;html dir="rtl"&gt;
+
+You can also add the appropriate lang attribute value for the language you are using. When ChocolateChip-UI see the dir="rtl" value on the HTML tag it automatically adjust the layouts and user interaction to suit the right-to-left format. This includes correct right-to-left navigation direction, reverse back buttons, etc.
+
+You can also build out right-to-left examples from the source. Just run this in your terminal:
+
+    grunt rtl
+
+The folders with right-to-left examples for Android, iOS and Windows will be created.
+
 ###Note
 
 You do not need Nodejs to use ChocolateChip-UI. Nodejs is only used to build the framework and examples from the source files.
