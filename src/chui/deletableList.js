@@ -30,6 +30,7 @@
       var deletionIndicator;
       var button;
       var swipe = 'swiperight';
+      if ($('html').attr('dir') === 'rtl') swipe = 'swipeleft';
       // Windows uses an icon for the delete button:
       if ($.isWin) deleteLabel = '';
       if (list[0].classList.contains('deletable')) return;
@@ -89,7 +90,6 @@
           });
         
           if ($.isiOS || $.isSafari) {
-            if ($('html').attr('dir') === 'rtl') swipe = 'swipeleft';
             $(list).on(swipe, 'li', function() {
               $(this).removeClass('selected');
             });
