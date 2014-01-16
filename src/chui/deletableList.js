@@ -48,9 +48,6 @@
       }
       list.find('li').prepend(deletionIndicator);
       list.find('li').append(deleteButton);
-      $('li').find('.delete').each(function(ctx, idx) {
-        if (window && window.jQuery && $ === window.jQuery) ctx = idx;
-      });
       var setupDeletability = function(callback, list, button) {
         var deleteSlide;
         if ($.isiOS) {
