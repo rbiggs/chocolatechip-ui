@@ -1,0 +1,218 @@
+  <style>
+    .col {
+      padding: 20px 10px;
+      border: solid 1px #ccc;
+      background-color: #fff;
+      color: #000;
+      padding: 10px;
+      text-align: center;
+    }
+    .col p {
+      margin: 0;
+    }
+    .fixed1 {
+      -webkit-box-flex: none;
+      -webkit-flex: none;
+      -ms-flex: none;
+      flex: none;
+      width: 400px;
+      background-color: #eee !important;
+    }
+    .fixed2 {
+      -webkit-box-flex: none;
+      -webkit-flex: none;
+      -ms-flex: none;
+      flex: none;
+      width: 300px;
+      background-color: #eee !important;
+    }
+
+    @media all and (max-width: 599px) {
+      .fixed1, .fixed2 {
+        width: auto;
+      }
+    }
+    .isWindows .grid > .col > p {
+      color: #000 !important;
+    }
+    .isWindows h2 {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+    $(function() {
+
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>Grids</h1>
+  </nav>
+  <article id='main'>
+    <section>
+  <h2>Column flex values should total 10 to fit on row.</h2>
+  <div class="grid">
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-3"><p>3</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-3"><p>3</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-4"><p>4</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-5"><p>5</p></div>
+    <div class="col flex-5"><p>5</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-6"><p>6</p></div>
+    <div class="col flex-4"><p>4</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-7"><p>7</p></div>
+    <div class="col flex-3"><p>3</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-8"><p>8</p></div>
+    <div class="col flex-2"><p>2</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-9"><p>9</p></div>
+    <div class="col flex-1"><p>1</p></div>
+  </div>
+
+  <div class="grid">
+    <div class="col flex-10"><p>10</p></div>
+  </div>
+
+  <h2>Grid with flex wrap</h2>
+  <div class="grid wrap">
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-4"><p>4</p></div>
+    <div class="col flex-5"><p>5</p></div>
+    <div class="col flex-3"><p>3</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+  </div>
+  <p>The above grid has a total flex value of 20 so it wraps onto the another row.</p>
+
+  <h2>Equal Height Columns</h2>
+  <div class="grid">
+    <div class="col flex-3">
+      <p>3</p>
+      <p>All three columns will become taller when any one of them has more content than the others</p>
+      <p>All three columns will become taller when any one of them has more content than the others</p>
+      <p>All three columns will become taller when any one of them has more content than the others</p>
+    </div>
+    <div class="col flex-2">
+      <p>2</p>
+      <p>All three columns will become taller when any one of them has more content than the others</p>
+      <p>All three columns will become taller when any one of them has more content than the others</p></div>
+    <div class="col flex-5">
+      <p>5</p>
+      <p>All three columns will become taller when any one of them has more content than the others</p></div>
+  </div>
+
+  <h2>Multples of 6 with 5px gutter</h2>
+  <div class="grid gutter-5">
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+    <div class="col flex-2"><p>2</p></div>
+  </div>
+
+  <div class="grid gutter-5">
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-1"><p>1</p></div>
+  </div>
+
+  <div class="grid gutter-5">
+    <div class="col flex-3"><p>3</p></div>
+    <div class="col flex-1"><p>1</p></div>
+    <div class="col flex-2"><p>2</p></div>
+  </div>
+
+  <h2>Centered Grids</h2>
+
+  <div class="grid center gutter-5">
+    <div class="col flex-8"><p>Centered: 8</p></div>
+  </div>
+
+  <div class="grid center gutter-5">
+    <div class="col flex-6"><p>Centered: 6</p></div>
+  </div>
+
+  <div class="grid center gutter-5">
+    <div class="col flex-3"><p>Centered: 3</p></div>
+  </div>
+
+  <div class="grid center gutter-5">
+    <div class="col flex-4"><p>Centered: 4</p></div>
+    <div class="col flex-4"><p>Centered: 4</p></div>
+  </div>
+
+  <div class="grid center gutter-5">
+    <div class="col flex-3"><p>Centered: 3</p></div>
+    <div class="col flex-2"><p>Centered: 2</p></div>
+  </div>
+
+  <div class="grid center gutter-5">
+    <div class="col flex-2"><p>Centered: 2</p></div>
+    <div class="col flex-3"><p>Centered: 3</p></div>
+  </div>
+
+  <h2>Fixed Width Columns</h2>
+  <div class="grid wrap gutter-10">
+    <div class="col fixed1">
+      <p>Fixed Width Column</p>
+    </div>
+    <div class="col"><p>Dynamic Width Column</p></div>
+  </div>
+
+  <div class="grid wrap gutter-10">
+    <div class="col"><p>Dynamic Width Column</p></div>
+    <div class="col fixed2">
+      <p>Fixed Width Column</p>
+    </div>
+  </div>
+    </section>
+  </article>
+</body>
+</html>
