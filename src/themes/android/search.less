@@ -1,0 +1,47 @@
+section > div.searchBar {
+  -webkit-box-sizing: border-box;
+  background-color: transparent;
+  padding: 5px 10px;
+}
+
+input[type="search"] {
+  display: block;
+  padding: 7px 0 7px 5px;
+  -webkit-appearance: none;
+  -webkit-transtion: all .5s ease-out;
+  background-image:
+    -webkit-linear-gradient(left, #888888, #888888), 
+    -webkit-linear-gradient(left, #888888, #888888), 
+    -webkit-linear-gradient(left, #888888, #888888);
+  background-image:
+    linear-gradient(left, #888888, #888888), 
+    linear-gradient(left, #888888, #888888), 
+    linear-gradient(left, #888888, #888888);
+  text-align: left;
+  background-repeat: no-repeat;
+  -webkit-user-select: ignore;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  border: none;
+  background-color: transparent;
+  /* Create the bracket around inputs: */
+  background-size: 2px 4px, 2px 4px, 100% 2px;
+  background-position: bottom left, bottom right, bottom left;
+  background-repeat: no-repeat;
+
+  &:focus {
+    text-align: left;
+    outline: none;
+    outline: none !important;
+    /* Create the bracket around inputs: */
+
+    background-image: 
+      -webkit-linear-gradient(left, #81cfeb, #81cfeb), 
+      -webkit-linear-gradient(left, #81cfeb, #81cfeb), 
+      -webkit-linear-gradient(left, #81cfeb, #81cfeb);
+    background-image: 
+      linear-gradient(left, #81cfeb, #81cfeb), 
+      linear-gradient(left, #81cfeb, #81cfeb), 
+      linear-gradient(left, #81cfeb, #81cfeb);
+  }
+}

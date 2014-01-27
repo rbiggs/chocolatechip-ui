@@ -18,3 +18,5 @@ rtl-examples-android
 rtl-examples-ios
 rtl-examples-win
 rtl-demo
+!src/**
+src/**/.DS_Store

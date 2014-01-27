@@ -73,7 +73,8 @@ module.exports = function(grunt) {
           'src/chui/switch.js', 
           'src/chui/scroll.js', 
           'src/chui/tabbar.js', 
-          'src/chui/templates.js'
+          'src/chui/templates.js', 
+          'src/chui/search.js'
         ],
         dest: '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
       },
@@ -292,9 +293,9 @@ module.exports = function(grunt) {
       rtl_images: {
         files: [{ 
           expand: true,
-          cwd: 'src/rtl_images/', 
+          cwd: 'src/rtl-images/', 
           src: ['**/*.{png,jpg,svg}'], 
-          dest:'<%= pkg.projectPath %>rtl_images/' 
+          dest:'<%= pkg.projectPath %>rtl-images/' 
         }]
       }
     },

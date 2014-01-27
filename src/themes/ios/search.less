@@ -1,0 +1,29 @@
+.searchBar {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  height: 45px;
+  background-color: #c9c9ce;
+  padding: 5px 10px;
+}
+input[type="search"] {
+  display: block;
+  background-color: #fff;
+  padding: 7px 0 7px 10px;
+  border-radius: 5px;
+  border-color: transparent;
+  width: 100%;
+  -webkit-appearance: none;
+  padding-left: 20px;
+  -webkit-transtion: all .5s ease-out;
+  background-image: url("data:image/svg+xml;utf8,<svg version='1.1' id='Layer_2' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><path d='M42.71,38.482L32.478,28.208c1.598-2.385,2.532-5.249,2.532-8.329c0-8.273-6.73-15.004-15.004-15.004 S5.001,11.606,5.001,19.879c0,8.274,6.731,15.004,15.004,15.004c3.055,0,5.896-0.923,8.27-2.497l10.236,10.279 c0.858,0.861,2.19,0.927,2.977,0.143l1.354-1.349C43.629,40.678,43.569,39.345,42.71,38.482z M10.001,19.879    c0-5.517,4.488-10.004,10.004-10.004S30.01,14.363,30.01,19.879c0,5.516-4.487,10.004-10.004,10.004S10.001,25.396,10.001,19.879z' fill='#bbb' /></svg>");
+  background-position: 5px center;
+  text-align: left;
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  -webkit-user-select: ignore;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+  &:focus {
+    outline: none;
+  }
+}
