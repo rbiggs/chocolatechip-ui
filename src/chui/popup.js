@@ -79,7 +79,7 @@
     // Close Popup
     //////////////
     UIPopupClose : function ( ) {
-      if (!this[0].classList.contains('popup')) return;
+      if (!this && !this.classList.contains('popup')) return;
       $(this).UIUnblock();
       $(this).remove();
     }
