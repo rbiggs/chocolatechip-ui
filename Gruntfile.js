@@ -17,7 +17,7 @@ module.exports = function(grunt) {
       },
       // Process Windows LESS file into CSS:
       win: {
-        files: { '<%= pkg.projectPath %>chui/chui-win-<%= pkg.version %>.css': 'src/themes/windows/main.less'}
+        files: { '<%= pkg.projectPath %>chui/chui-win-<%= pkg.version %>.css': 'src/themes/win/main.less'}
       }
     },
     // Concat JavaScript files and Examples:
