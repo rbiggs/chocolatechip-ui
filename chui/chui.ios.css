@@ -17,7 +17,7 @@ WAML makes coding a Web app logical and straightforward, the way it was meant to
 
 Copyright 2011 Robert Biggs: www.chocolatechip-ui.com
 License: BSD
-Version: 2.1.1
+Version: 2.1
 
 */
 html, body {
@@ -76,11 +76,11 @@ view[ui-navigation-status='upcoming'] {
 	-webkit-transform: translate3d(100%,0,0);
 }
 view[ui-navigation-status='current'] {
-	-webkit-transform: translateX(0);
-	-webkit-transform: translate3d(0,0,0);
+	-webkit-transform: translateX(0); 
+	-webkit-transform: translate3d(0,0,0);  
 }
 view[ui-navigation-status='traversed'] {
-	-webkit-transform: translateX(-100%);
+	-webkit-transform: translateX(-100%); 
 	-webkit-transform: translate3d(-100%,0,0);
 }
 view[ui-navigation-status="upcoming"],
@@ -131,8 +131,11 @@ subview[ui-associations='withToolBar withTabBar'] {
 *[ui-background-style=striped] {
 	background: #cbd2d8;
 	background-image:
-		-webkit-linear-gradient(0deg, #cbd2d8 60%, #c9cdd8 60%); 
-	background-size: 8px 100%;
+		-webkit-linear-gradient(0deg, #c5ccd4 75%, transparent 75%); 
+	background-size: 5px 100%;
+	/*background-image:
+		-webkit-linear-gradient(0deg, #cbd2d8 60%, #c9ccd8 75%); 
+	background-size: 8px 100%;*/
 }
 *[ui-background-style=vertical-striped] {
 	background-image: 
@@ -1045,7 +1048,7 @@ uibutton[ui-kind='rounded-rectangle'][ui-implements=attention].disabled.touched 
 
 uibuttonn[ui-kind='rounded-rectangle'][ui-implements=attention].touched,
 uibuttonn[ui-implements=attention][ui-kind='rounded-rectangle'].touched{
-    border-color:a7abae !important;
+    border-color:#a7abae !important;
 }
 
 /* End Rounded Rectangle UIButton Styles */
@@ -1065,7 +1068,7 @@ uibutton[ui-kind=action] {
 actionsheet > uibutton[ui-kind=action], 
 actionsheet > uibutton[ui-kind=action].disabled, 
 actionsheet > uibutton[ui-kind=action].disabled {
-    webkit-box-shadow: none;
+    -webkit-box-shadow: none;
 }
 uibutton[ui-kind=action],
 uibutton[ui-kind=action].disabled.touched {
@@ -1293,7 +1296,7 @@ navbar, toolbar {
 	border-bottom: 1px solid #2d3642; 
 }
 navbar {
-	-webkit-box-pack: center;
+	-webkit-box-pack: center; 
 	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
 navbar h1 {
@@ -1462,7 +1465,7 @@ tablecell[ui-usage=icon][ui-implements=add]:after {
 	margin-top: -25px;
 }
 tablecell[ui-usage=image][ui-implements=disclosure]:after, 
-tablecell[ui-implements=disclosure][ui-usage=image][:after, 
+tablecell[ui-implements=disclosure][ui-usage=image]:after, 
 tablecell[ui-usage=image][ui-implements=detail-disclosure]:after, 
 tablecell[ui-usage=image][ui-implements=add]:after, 
 tablecell[ui-implements=detail-disclosure][ui-usage=image]:after, 
@@ -1585,7 +1588,7 @@ tablecell[ui-usage=image] > img + celltitle {
 }
 
 tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > celltitle, 
-tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle, {
+tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=image] > cellsubtitle {
     width: 75%;
 }
 tableview[ui-tablecell-order=stacked] > tablecell[ui-usage=icon] > img + celltitle,
@@ -2628,7 +2631,7 @@ expander > header:after {
 	-webkit-mask-repeat: no-repeat;
 	background-position: 5px 5px;
 	-webkit-mask-position: 50% 50%;
-	s-webkit-mask-size: 20px 20px;
+	-webkit-mask-size: 20px 20px;
 	-webkit-box-sizing: border-box;
 	background-color: #fff;
 	cursor: pointer;
@@ -3208,7 +3211,7 @@ view[ui-transition=cube] > *,
 subview[ui-transition=cube] > * {
   -webkit-transition-property: -webkit-transform, opacity;
 }
-,
+
 view[ui-transition=cube][ui-transition-state=initial] > *,
 subview[ui-transition=cube][ui-transition-state=initial] > * {
   -webkit-transition-duration: 0;
@@ -3219,8 +3222,8 @@ subview[ui-transition=cube][ui-transition-state=final] > * {
   -webkit-transition-duration: 1000ms;
 }
 
-view[ui-transition=cube][ui-transition-state='slowmode final' > *,
-subview[ui-transition=cube][ui-transition-state='slowmode final' > * {
+view[ui-transition=cube][ui-transition-state='slowmode final'] > *,
+subview[ui-transition=cube][ui-transition-state='slowmode final'] > * {
   -webkit-transition-duration: 5000ms;
 }
 
@@ -3557,11 +3560,20 @@ splitview rootview > panel > view > subview {
 	position: relative;
 }
 rootview view[ui-navigation-status=upcoming] {
-	-webkit-transform: translate3d(100%,0%,0%);
+	-webkit-transform: translate3d(100%,0%,0%); 
 }
 rootview view[ui-navigation-status=current] {
-	-webkit-transform: translate3d(0%,0%, 0%);
+	-webkit-transform: translate3d(0%,0%, 0%); 
 }
 rootview view[ui-navigation-status=traversed] {
-	-webkit-transform: translate3d(0%, 0%, 0%);
+	-webkit-transform: translate3d(-100%, 0%, 0%); 
+}
+
+subview.selected {
+  z-index: 100000;
+  -webkit-transform: translate3d(0,0,0);
+}
+
+subview.unselected {
+  -webkit-transform: translate3d(100%,0,0);
 }
