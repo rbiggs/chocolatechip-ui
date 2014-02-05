@@ -467,7 +467,9 @@ When using Zepto, make sure you have the following modules included in your buil
 							container = $(that.attr('ui-segmented-container'));
 							containerChildren.eq(oldSelection).css('display','none');
 							containerChildren.eq(uisi).css('display','block');
-							containerChildren.eq(selectedSegment.attr('ui-child-position')).css('display','none');
+							if (!that.attr('ui-selected-segment') == $(button).attr('id')) {
+								containerChildren.eq(selectedSegment.attr('ui-child-position')).css('display','none');
+							}
 							container.closest('scrollpanel').data('ui-scroller').refresh();
 						}
 					}
