@@ -57,7 +57,7 @@ var htmlHeader = ['<!DOCTYPE html>',
 '  <title>ChocolateChip-UI <%= osName %></title>',
 '  <link rel="stylesheet" href="../chui/chui-<%= osType %>-<%= pkg.version %>.css">',
 '  <script src="<%= pkg.jquery.url %>"></script>',
-'  <script src="../chui/chui-<%= pkg.version %>.js"></script>'].join('\n');
+'  <script src="../chui/chui-<%= pkg.version %>.js"></script>'].join('\n') + '\n';
 
 // Process, minify and output LESS:
 gulp.task('less', function () {
