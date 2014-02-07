@@ -46,6 +46,11 @@
       };
 
       $(this).on($.eventStart, function() {
+        if ($('.mask')[0]) {
+          $.UIPopoverClose();
+          $('body').UIUnblock();
+          return;
+        }
         var $this = this;
         $(this).addClass('selected');
         setTimeout(function() {
