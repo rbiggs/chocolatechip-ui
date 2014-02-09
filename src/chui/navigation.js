@@ -131,6 +131,7 @@
       $.UISetHashOnUrl($.UINavigationHistory[histLen-2]);
       if ($.UINavigationHistory.length === 1) return;
       $.UINavigationHistory.pop();
+      triggerNavigationEvent(destination);
     },
 
     isNavigating : false,
