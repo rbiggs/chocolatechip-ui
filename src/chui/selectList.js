@@ -27,7 +27,7 @@
       if (!list) return [];
       list.classList.add('select');
       $(list).find('li').forEach(function(ctx, idx) {
-    	var value = ctx.getAttribute("data-select-value") !== null ? ctx.getAttribute("data-select-value") : "";
+    	  var value = ctx.getAttribute("data-select-value") !== null ? ctx.getAttribute("data-select-value") : "";
         ctx.setAttribute('role', 'radio');
         if (options && options.selected === idx) {
           ctx.setAttribute('aria-checked', 'true');
