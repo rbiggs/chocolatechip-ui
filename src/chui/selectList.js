@@ -1,11 +1,11 @@
 (function($) {
-  'use strict'; 
+  'use strict';
 
   $.fn.extend({
     /////////////////////////
-    // Initialize Select List 
+    // Initialize Select List
     /////////////////////////
-    /* 
+    /*
     // For default selection use zero-based integer:
     options = {
       name : name // used on radio buttons as group name, defaults to uuid.
@@ -19,7 +19,7 @@
     }
     */
     UISelectList : function (options) {
-      var name = (options && options.name) ? options.name : $.Uuid(); 
+      var name = (options && options.name) ? options.name : $.Uuid();
       var list = this[0];
       if (list && !$(list).hasClass('select')) {
         this.addClass('select');
@@ -27,18 +27,19 @@
       if (!list) return [];
       list.classList.add('select');
       $(list).find('li').forEach(function(ctx, idx) {
+    	var value = ctx.getAttribute("data-select-value") !== null ? ctx.getAttribute("data-select-value") : "";
         ctx.setAttribute('role', 'radio');
         if (options && options.selected === idx) {
           ctx.setAttribute('aria-checked', 'true');
           ctx.classList.add('selected');
           if (!$(ctx).find('input')[0]) {
-            $(ctx).append('<input type="radio" checked="checked" name="' + name + '">');
+            $(ctx).append('<input type="radio" checked="checked" name="' + name + '" value="' + value +'">');
           } else {
-            $(ctx).find('input').attr('checked','checked');
+            $(ctx).find('input').attr('checked','checked').attr('value', value);
           }
         } else {
           if (!$(ctx).find('input')[0]) {
-            $(ctx).append('<input type="radio" name="' + name + '">');
+            $(ctx).append('<input type="radio" name="' + name + '" value="' + value +'">');
           }
         }
       });
