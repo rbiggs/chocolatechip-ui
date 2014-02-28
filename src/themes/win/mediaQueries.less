@@ -14,15 +14,63 @@
     width: 240px;
     height: 400px;
   }
-  /*h1.buttonOnRight {
-    width: 60%;
-  
-  }*/
   nav > .button {
-    -ms-flex: 1;
+    -ms-flex: none;
   }
   nav > h1 {
     -ms-flex: 2;
+  }
+  nav > h1 {
+    font-size: large;
+  }
+  .list > li h3 {
+    font-size: 14pt;
+  }
+  a.button.back,
+  a.button.backTo {
+    width: 30px;
+    height: 30px;
+    line-height: 18px !important;
+    /* line-height must match the content box height. */
+
+    vertical-align: baseline;
+    overflow: hidden;
+  }
+  a.button.back::before,
+  a.button.backTo::before {
+    vertical-align: 52%;
+    font-size: 11pt;
+    margin-left: -6px;
+  }
+  .segmented.paging > .button {
+    font-size: 20pt;
+    width: 30px;
+    height: 30px;
+  }
+  .segmented.paging > .button::before {
+    height: 30px;
+    width: 30px;
+    line-height: 20pt;
+    vertical-align: 50%;
+    font-size: 20pt;
+    margin: -4px 0 0 0;
+  }
+  .popover {
+     height: 200px;
+  }
+  .switch:before {
+     height: 12px !important;
+  }
+  .stepper > label {
+    width: 28px;
+    height: 26px;
+    font: bold 14pt/20pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
+  }
+  .stepper > .button {
+    font-size: 10pt;
+    line-height: 14pt;
+    height: 26px;
+    padding: 1px 6px;
   }
 }
 /* ==============================
@@ -73,11 +121,30 @@
     height: 15px;
   }
   .switch.on > em {
-    -ms-transform: translate3d(28px,0,0);
+    -ms-transform: translate3d(28px, 0, 0);
   }
   .switch.on:before {
     width: 26px;
-  }  
+  }
+  .tabbar > .button > label {
+    font-size: 8pt !important;
+  }
+  .tabbar > .button.more::before {
+    font-size: 8pt;
+  }
+  .button.slide-out-button {
+    top: 5px;
+    left: 15px;
+    height: 28px;
+    width: 28px;
+    margin-left: -5px !important;
+  }
+  .button.slide-out-button::before {
+    height: 28px;
+    width: 28px;
+    font-size: 10pt;
+    margin: -1px 0 0 -6px;
+  }
 }
 /* For small, narrow phones in landscape mode: */
 @media only screen and (device-width : 480px) and (orientation : landscape) {
