@@ -1,0 +1,62 @@
+  <style>
+    #carousel {
+      width:320px;
+      height:300px;
+    }
+    p {
+      padding: 0 40px;
+    }
+    .carousel-track img {
+      display: block;
+      height: auto;
+      width: 300px;
+      max-height: 300px;
+      pointer-events: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    } 
+
+    #stuff {
+      padding: 20px;
+    }
+  </style>
+  <script>
+    var panels = [
+      "<h2>Panel 1</h2><h2></h2><img src='../images/myPictures/american-football-63109_640.jpg'>",
+      "<h2>Panel 2</h2><img src='../images/myPictures/couple-168191_640.jpg'>",
+      "<h2>Panel 3</h2><img src='../images/myPictures/daisy-75190_640.jpg'>",
+      "<h2>Panel 4</h2><img src='../images/myPictures/dependent-100343_640.jpg'>",
+      "<h2>Panel 5</h2><img src='../images/myPictures/dreamy-20100_640.jpg'>",
+      "<h2>Panel 6</h2><img src='../images/myPictures/girl-102831_640.jpg'>",
+      "<h2>Panel 7</h2><img src='../images/myPictures/lacrosse-165576_640.jpg'>",
+      "<h2>Panel 8</h2><img src='../images/myPictures/hot-air-balloon-4761_640.jpg'>",
+      "<h2>Panel 9</h2><img src='../images/myPictures/piercing-123240_640.jpg'>",
+      "<h2>Panel 10</h2><img src='../images/myPictures/portrait-53899_640.jpg'>",
+      "<h2>Panel 11</h2><img src='../images/myPictures/quarterback-67701_640.jpg'>",
+      "<h2>Panel 12</h2><img src='../images/myPictures/rugby-78193_640.jpg'>",
+      "<h2>Panel 13</h2><img src='../images/myPictures/africa-139343_640.jpg'>",
+      "<h2>Panel 14</h2><img src='../images/myPictures/baby-19295_640.jpg'>",
+      "<h2>Panel 15</h2><img src='../images/myPictures/baby-20339_640.jpg'>",
+      "<h2>Panel 16</h2><img src='../images/myPictures/utah-95032_640.jpg'>",
+      "<h2>Panel 17</h2><img src='../images/myPictures/germany-70567_640.jpg'>",
+      "<h2>Panel 18</h2><img src='../images/myPictures/mountain-91385_640.jpg'>",
+      "<h2>Panel 19</h2><ol><li>Milk</li><li>Fruit</li><li>Vegetables</li><li>Cheese</li><li>Bread</li></ol>",
+      "<h2>Panel 20</h2><p>The quality of mercy is not strained; It droppeth as the gentle rain from heaven upon the place beneath. It is twice blest; It blesseth him that gives and him that takes.</p>"
+      ];
+
+    $(function() {
+      $.UISetupCarousel({ target: '#carousel', panels: panels, loop: false });
+    });
+  </script>
+</head>
+<body>
+  <nav class="current">
+      <h1>Swipable Carousel</h1>
+  </nav>
+  <article id="main" class="current">
+    <section> 
+      <div id="carousel"></div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, ullam quam accusantium sunt cum nemo animi eius odit cupiditate praesentium illo commodi rerum modi dolores impedit beatae dolorem eligendi. Quasi!</p>        </section>
+  </article>
+</body>
+</html>
