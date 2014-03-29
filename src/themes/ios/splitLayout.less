@@ -17,7 +17,7 @@ body.splitlayout {
   justify-content: flex-start;
   align-items: stretch;
 
-  & > nav {
+  > nav {
     background-color: @navBkgnd;
     border-bottom: solid 1px #a7a7aa;
 
@@ -31,13 +31,13 @@ body.splitlayout {
       left: 320px;
     }
 
-    & h1 {
+    h1 {
       z-index: auto;
       text-align: center;
     }
   }
 
-  & > article {
+  > article {
     
     &.master {
       top: 45px;
@@ -63,7 +63,7 @@ body.splitlayout {
 
 html[dir=rtl] {
   body.splitlayout { 
-    & > nav {
+    > nav {
       &:first-of-type {
         right: 0;
         left: 320px;
@@ -77,7 +77,7 @@ html[dir=rtl] {
       }
     }
 
-    & > article {
+    > article {
       &.master {
         left: 320px !important;
         right: 0 !important;

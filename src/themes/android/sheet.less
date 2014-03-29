@@ -19,13 +19,13 @@
   &.opened {
     .transform(translate3d(0,0,0));
 
-    & > section.scroller-vertical {
+    > section.scroller-vertical {
       top: 36px;
       padding: 10px 0 100px 0 !important;
     }
   }
 
-  & > section {
+  > section {
 
     &.scroller-vertical {
       position: absolute;
@@ -37,11 +37,11 @@
       padding: 0 !important;
     }
     
-    & > .list {
+    > .list {
       border: none;
       background-color: transparent !important;
 
-      & > li {
+      > li {
         background-color: transparent !important;
         border-bottom: solid 1px @listBorderColor;
 
@@ -52,14 +52,14 @@
     }
   }
 
-  & .button {
+  .button {
     display: block;
     margin: 0 auto;
     padding: 10px 20px !important;
     .size(auto, auto);
   }
 
-  & div.handle {
+  div.handle {
     display: block;
     text-align: center;
     margin: 0 auto;
@@ -78,7 +78,7 @@
 }
 
 html[dir=rtl] {
-  & .sheet > section > h2 {
+  .sheet > section > h2 {
     font-weight: bold !important;
     font-size: 16pt !important;
     line-height: 20pt !important;

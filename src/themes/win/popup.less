@@ -31,11 +31,11 @@
     transition: all 0.25s  ease-in-out;
   }
 
-  & * {
+  * {
     color: @appBkColor;
   }
 
-  & > .panel {
+  > .panel {
     display: block !important;
     color: #fff;
     font: normal 16px/22px Helvetica, Arial, Sans-serif;
@@ -44,12 +44,12 @@
     height: 100%;
     margin: 0 auto;
 
-    & > p {
+    > p {
       padding: 0 20px;
     }
   }
   
-  & header, & footer {
+  header, & footer {
     box-sizing: border-box;
     display: -ms-flexbox !important;
     -ms-flex-direction: row;
@@ -62,14 +62,14 @@
     height: auto !important
   }
 
-  & footer {
+  footer {
     height: auto;
     position: relative;
     bottom: -10px;
     padding: 0;
     height: 42px;
 
-    & > .button {
+    > .button {
       -ms-flex: 1;
       display: block;
       box-sizing: border-box;
@@ -99,7 +99,7 @@
       }
     }
 
-    & + .button {
+    + .button {
       border-right: solid 2px @popupButtonBorder;
     }
   }

@@ -7,16 +7,16 @@
 
 body.hasTabBar {
 
-  & nav {
+  nav {
     background-color: @navBkgnd;
     border-bottom: solid 1px #a7a7aa;
   }
 
-  & article {
+  article {
     bottom: 50px;
   }
 
-  & .previous:not(.navigable), & .next:not(.navigable) {
+  .previous:not(.navigable), .next:not(.navigable) {
     display: none;
     -webkiit-transform: none;
   }
@@ -37,7 +37,7 @@ body.hasTabBar {
   border-top: solid 1px @tabbarButton;
   background-color: @tabbarBkgnd;
 
-  & > .button {
+  > .button {
     height: 100%;
     position: relative;
     padding: 0;
@@ -51,12 +51,12 @@ body.hasTabBar {
       color: @appTint !important;
       opacity: 1 !important;
 
-      & > .icon {
+      > .icon {
         background-color: @appTint;
       }
     }
 
-    & > .icon {
+    > .icon {
       margin: 0 auto;
       background-color: @tabbarButton;
       content: '';

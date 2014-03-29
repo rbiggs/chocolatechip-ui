@@ -40,11 +40,11 @@ li.selected > .deletion-indicator {
 
 .list.showIndicators {
 
-  & .deletion-indicator {
+  .deletion-indicator {
     margin-left: 55px;
   }
 
-  & li {
+  li {
     padding-left: 32px;
   }
 }
@@ -103,40 +103,40 @@ li.selected > .button.delete {
 }
 
 html[dir=rtl] {
-  & .deletion-indicator {
+  .deletion-indicator {
     right: -50px !important;
     left: auto;
   }
-  & li.selected > .deletion-indicator::before {
+  li.selected > .deletion-indicator::before {
     margin: -2px 18px 0 0;
   }
 
-  & .list.showIndicators li {
+  .list.showIndicators li {
     padding-left: 0;
     padding-right: 32px;
   }
 
-  & .button.delete {
+  .button.delete {
     float: left
   }
 
-  & .list > li {
-    & > .deletion-indicator {
+  .list > li {
+    > .deletion-indicator {
       float: right;
       margin-right: auto;
       margin-left: -20px;
       right: -40px;
     }
 
-    & > .button.delete {
+    > .button.delete {
       transform: translate3d(-80px, 0, 0);
       left: 0;
       right: auto;
     }
   }
 
-  & .list.showIndicators > li {
-    & > .deletion-indicator {
+  .list.showIndicators > li {
+    > .deletion-indicator {
       right: 0px !important;
       margin-left: 10px;
     }
@@ -144,7 +144,7 @@ html[dir=rtl] {
       margin-right: 0;
       margin-left: 80px;
 
-      & > .button.delete {
+      > .button.delete {
         transform: translate3d(-80px,0,0);
       }
     }

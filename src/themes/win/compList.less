@@ -10,7 +10,7 @@ li.comp {
   align-items: stretch;
   padding-bottom: 0;
 
-  & > div {
+  > div {
     -ms-flex: 1;
     padding: 0 0 10px 0;
 
@@ -19,32 +19,32 @@ li.comp {
     }
   }
 
-  & > h3, & > h4 {
+  > h3, > h4 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-family: SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
     font-weight: 200;
 
-    & > h3 {
+    > h3 {
       margin: 0;
       min-width: 40%
     }
 
-    & > h4 {
+    > h4 {
       margin: 0;
     }
   }
 
   &.wrap > div {
 
-    & > h3, & > h4 {
+    > h3, > h4 {
       white-space: normal;
       overflow: visible;      
     }
   }
 
-  & > aside {
+  > aside {
     display: -ms-flexbox;
     -ms-flex-pack: center;
     -ms-flex-align: center;
@@ -62,12 +62,12 @@ li.comp {
       padding: 0 20px 10px 10px;
     }
 
-    & > label, & > span {
+    > label, & > span {
       display: inline-block;
       margin-left: 5px;
     }
 
-    & > .nav {
+    > .nav {
       display: none;
 
       &::after {
@@ -75,7 +75,7 @@ li.comp {
       }
     }
 
-    & > .show-detail::after {
+    > .show-detail::after {
       content: 'i';
       display: block;
       height: 20px;
@@ -114,14 +114,14 @@ p {
 
 html[dir=rtl] {
   li.comp {
-    & > aside {
+    > aside {
       &:first-child {
         margin-right: auto;
         margin-left: 10px;
       }
     }
 
-    & > aside > span.counter, & > aside > span.date-time {
+    > aside > span.counter, & > aside > span.date-time {
       margin-right: 10px !important;
       margin-left: 0 !important;
       display: inline-block !important;

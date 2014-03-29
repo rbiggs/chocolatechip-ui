@@ -12,11 +12,11 @@
   z-index: 111111;
   margin-top: 10px;
 
-  & header {
+  header {
     display: none;
   }
 
-  & > section {
+  > section {
     .overflowYScroll;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 0;
@@ -27,7 +27,7 @@
     padding-bottom: 20px;
   }
 
-  & .list > li {
+  .list > li {
 
     &:hover, &.selected {
       background-color: @appTint !important;
@@ -79,7 +79,7 @@ nav > h1 + .button.show-popover.align-flush {
 }
 
 html[dir=rtl] {
-  & .button.show-popover {
+  .button.show-popover {
     padding: 6px 10px 2px 20px !important;
 
     &::after {

@@ -78,24 +78,24 @@ li.selected > .button.delete {
 }
 
 html[dir=rtl] {
-  & .list.showIndicators {
-    & .deletion-indicator {
+  .list.showIndicators {
+    .deletion-indicator {
       margin-left: auto;
       margin-right: 40px;
     }
 
-    & li {
+    li {
       padding-left: 0;
       padding-right: 32px;
       
-      & > .button.delete {
+      > .button.delete {
         float: left !important;
         left: 0;
         right: auto;
       }
     }
   }
-  & .deletion-indicator {
+  .deletion-indicator {
     right: -40px;
     left: auto;
   }

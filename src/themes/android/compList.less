@@ -18,7 +18,7 @@ li.comp {
     overflow: visible;
   }
 
-  & > div {
+  > div {
     .flex;
     padding: 0 0 10px 0;
 
@@ -26,7 +26,7 @@ li.comp {
       padding: 8px 0 10px 0;
       min-width: 48%;
 
-      & + aside > h4 {
+      + aside > h4 {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -37,7 +37,7 @@ li.comp {
       }
     }
 
-    & > div > h3, & > div > h4 {
+    > div > h3, & > div > h4 {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -45,17 +45,17 @@ li.comp {
       font-weight: 200;
     }
 
-    & > h3 {
+    > h3 {
       line-height: 20pt;
       margin: 0 0 10px 0;
     }
 
-    & > h4 {
+    > h4 {
       margin: 0;
     }
   }
 
-  & > aside {
+  > aside {
     display: -webkit-box;
     -webkit-box-pack: center;
     -webkit-box-align: center;
@@ -73,18 +73,18 @@ li.comp {
       padding: 0 16px 10px 10px;
     }
 
-    & > h4 {
+    > h4 {
       margin: 0;
       font-weight: normal;
       color: @listAsideColor;
     } 
 
-    & > label, & > span {
+    > label, > span {
       display: inline-block;
       margin-left: 6px;
     }
 
-    & > .nav {
+    > .nav {
       display: none;
 
       &::after {
@@ -92,7 +92,7 @@ li.comp {
       }
     }
 
-    & > .show-detail {
+    > .show-detail {
       display: inline-block;
       margin-bottom: -4px;
 
@@ -128,11 +128,11 @@ html[dir=rtl] {
   li.comp {
     padding: 13px 0 13px 9px;
     
-    & > aside:first-child {
+    > aside:first-child {
       margin-right: 0;
       padding: 0 0 10px 10px;
     }
-    & aside > span.counter, & aside > span.date-time {
+    aside > span.counter, aside > span.date-time {
       margin-right: 5px;
       margin-left: 0px;
       white-space: nowrap;

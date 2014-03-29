@@ -7,7 +7,7 @@
   padding: 0;
   background-color: @appBkColor;
 
-  & > li {
+  > li {
     padding: 13px 9px 13px 9px;
     .transition(all, .3s);
     position: relative;
@@ -44,7 +44,7 @@ h2 + .list {
 .list ~ p {
   margin: 10px 16px 0;
 
-  & + p {
+  + p {
     margin-top: 5pt;
   }
 }
@@ -63,39 +63,39 @@ li[data-show-article].touched,
    ============================ */
 .list > li {
 
-  & > h3, & > h4 {
+  > h3, & > h4 {
     width: 80%;
     font-weight: 200;
     margin: 0;
   }
 
-  & h3 {
+  h3 {
     font-size: 16pt;
     line-height: 20pt;
     margin-bottom: 2px;
   }
 
-  & h4 {
+  h4 {
     line-height: 14pt;
     color: @subTextColor;
   }
 
-  & > h4, & > div > h4, & > p, & > div > p {
+  > h4, > div > h4, > p, > div > p {
     font-size: 13pt;
     line-height: 16pt;
     margin: 0;
   }
 
-  & > p, & > div > p {
+  > p, > div > p {
     font-size: 13pt;
     line-height: 16pt;
 
-    & + p {
+    + p {
       margin-top: 6px;
     }
   }
 
-  & + .button.action {
+  + .button.action {
     margin-top: 40px;
   }   
 }
@@ -135,11 +135,11 @@ section h2 {
 }
 
 html[dir=rtl] {
-  & li {
+  li {
     padding: 13px 0 13px 9px;
   }
 
-  & li.show-detail::after { 
+  li.show-detail::after { 
     left: 16px;
     right: auto;
   }

@@ -7,7 +7,7 @@ body.splitlayout {
   -ms-flex-direction: row;
   -ms-flex-align: stretch;
 
-  & > nav {
+  > nav {
     background-color: @toolbarBkgnd !important;
     border-bottom: solid 1px lighten(@appBkColor, 20%);
 
@@ -20,13 +20,13 @@ body.splitlayout {
       left: 320px;
     }
 
-    & h1 {
+    h1 {
       z-index: auto;
       text-align: center;
     }
   }
 
-  & > article {
+  > article {
 
     &.master {
       top:60px;
@@ -37,7 +37,7 @@ body.splitlayout {
       width: 320px;
       border-right: solid 1px lighten(@appBkColor, 15%) !important;
 
-      & > section {
+      > section {
         padding-bottom: 100px;
         height: 100%;        
       }
@@ -51,7 +51,7 @@ body.splitlayout {
       -ms-flex: 1;
       overflow: hidden;
 
-      & > section {
+      > section {
         padding-bottom: 100px;
         height: 100%;
       }
@@ -66,7 +66,7 @@ body.splitlayout {
 
 html[dir=rtl] {
   body.splitlayout { 
-    & > nav {
+    > nav {
       &:first-of-type {
         right: 0;
         left: 320px;
@@ -80,7 +80,7 @@ html[dir=rtl] {
       }
     }
 
-    & > article {
+    > article {
       &.master {
         left: 320px !important;
         right: 0 !important;

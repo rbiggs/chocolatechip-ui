@@ -82,7 +82,7 @@ nav .segmented.paging > a.button {
 
 article.paging {
   
-    & > section {
+    > section {
     position: absolute;
     width: 100%;
     left: 0;
@@ -126,8 +126,8 @@ article.paging {
 }
 
 html[dir=rtl] {
-  & .segmented.paging.horizontal > .button,
-  & .segmented.paging.vertical > .button {
+  .segmented.paging.horizontal > .button,
+  .segmented.paging.vertical > .button {
 
     &:first-of-type::before, &:last-of-type::before {
       transform: rotate(-180deg);

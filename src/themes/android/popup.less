@@ -26,13 +26,13 @@
   -webkit-box-pack: center;
   -webkit-box-align: center;
 
-  & > header, & >  footer {
+  > header, >  footer {
     display: -webkit-box;
     -webkit-box-align: stretch;
     -webkit-box-pack: justify;
   }
 
-  & > header > h1 {
+  > header > h1 {
     position: static;
     text-align: center;
     margin: 0 15px;
@@ -40,20 +40,20 @@
     font-weight: bold;
   }
 
-  & > p {
+  > p {
     padding: 0 15px;
     text-align: center;
   }
 
-  & .button {
+  .button {
     border-top: solid 1px @buttonBorderColor;
   }
 
-  & > footer {
+  > footer {
     width: 320px;
     padding: 0;
 
-    & > .button {
+    > .button {
       display: block !important;
       .flex;
       box-sizing: border-box;
@@ -73,7 +73,7 @@
       }
     }
 
-    & + .button {
+    + .button {
       border-left: solid 1px @buttonBorderColor;
     }
   }

@@ -27,14 +27,14 @@ div.toolbar  {
 
 .splitlayout {
 
-  & > .master + .toolbar {
+  > .master + .toolbar {
     left: 0;
     width: 320px;
     border-right: solid 1px lighten(@appBkColor, 20%) !important;
     background-color: @toolbarBkgnd;
   }
 
-  & > .detail + .toolbar {
+  > .detail + .toolbar {
     left: 320px;
     background-color: @toolbarBkgnd;
   }
@@ -60,9 +60,9 @@ div.toolbar {
 }
 
 html[dir=rtl] {
-  & .splitlayout {
+  .splitlayout {
 
-    & > .master + .toolbar {
+    > .master + .toolbar {
       right: 0;
       left: 320px;
       width: 320px;
@@ -70,7 +70,7 @@ html[dir=rtl] {
       border-left: solid 1px lighten(@appBkColor, 20%) !important;
     }
 
-    & > .detail + .toolbar  {
+    > .detail + .toolbar  {
       right: 320px;
       left: 0;
     }

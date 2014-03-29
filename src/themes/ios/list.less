@@ -10,7 +10,7 @@
   overflow: hidden;
   width: 100%;
 
-  & > li {
+  > li {
     padding: 13px 15px 13px 15px;
     .transition(all, .3s);
     position: relative;
@@ -58,16 +58,16 @@
     }
   }
 
-  & + p, & + p + p {
+  + p, & + p + p {
     color: @listDetail;
     font-family: HelveticaNeue, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
-  & ~ p {
+  ~ p {
     margin: 0 15px;
 
-    & + p {
+    + p {
       margin-top: 5pt;
     }
   }
@@ -78,16 +78,16 @@
    List Footer
   ============================ */
 .list {
-  & + p, & + p + p {
+  + p, + p + p {
     color: @listDetail;
     font-family: HelveticaNeue, Helvetica, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 
-  & ~ p {
+  ~ p {
     margin: 0 15px;
 
-    & + p {
+    + p {
       margin-top: 5pt;
     }
   }

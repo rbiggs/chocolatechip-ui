@@ -19,7 +19,7 @@
   animation-fill-mode: forwards;
   animation-name: switchAnimationOff;
   
-  & > em {
+  > em {
     display: block;
     .size(27px,27px);
     box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.25);
@@ -37,7 +37,7 @@
     animation-name: switchThumbAnimationOff;
   }
 
-  & > input {
+  > input {
     display: none;
   }
 
@@ -47,7 +47,7 @@
     -webkit-animation-name: none;
     animation-name: none;
 
-    & > em {
+    > em {
       -webkit-transform: translate3d(23px,0,0);
       -webkit-transition-duration: .2s;
       -webkit-animation-duration: .45s;
@@ -109,7 +109,7 @@
 }
 
 html[dir=rtl] .switch {
-  & > em {
+  > em {
     -webkit-transform: translate3d(-23px,0,0);
     transform: translate3d(-23px,0,0);
   }

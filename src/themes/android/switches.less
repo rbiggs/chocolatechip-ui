@@ -35,7 +35,7 @@
     box-shadow: 0 0 2px 2px @appTint;
   }
 
-  & > em {
+  > em {
     display: block;
     position: relative;
     z-index: 30;
@@ -52,7 +52,7 @@
   &.on {
     border-color: @switchOnColor;
 
-    & > em {
+    > em {
       .transform(translate3d(36px,0,0));
       background-color: @appTint;
       border: solid 1px @appTint;
@@ -61,7 +61,7 @@
     }
   }
 
-  & > input {
+  > input {
     display: none;
   }
 }
@@ -71,11 +71,11 @@ html[dir=rtl] {
 
     &.on {
     
-      & > em {
+      > em {
         .transform(translate3d(-36px,0,0));
       }
     }
-    & > em {
+    > em {
       .transform(translate3d(2px,0,0));
     }
   }

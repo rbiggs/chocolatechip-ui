@@ -12,12 +12,12 @@
   align-items: center;
   padding: 1px;
 
-  & > input {
+  > input {
     margin: 0;
     display: none;
   }
 
-  & > label {
+  > label {
     display: block;
     box-sizing: border-box;
     border: solid 2px @buttonBorder;
@@ -30,7 +30,7 @@
     color: @stepperLabelColor;
   }
 
-  & > .button {
+  > .button {
     display: inline-block;
     text-align: center;
     font-weight: bold;
@@ -67,7 +67,7 @@
 }
 
 html[dir=rtl] {
-  & .stepper > .button {
+  .stepper > .button {
     &:first-of-type {
       border-right: solid 2px @buttonBorder;
     }

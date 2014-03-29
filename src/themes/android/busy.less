@@ -41,7 +41,7 @@
     right: 15px;
   }
 
-  & > div:first-child, & > div + div {
+  > div:first-child, & > div + div {
       .size(100%, 100%);
       position: absolute;
       top: 0;
@@ -53,7 +53,7 @@
       -webkit-animation: activityIndicatorAnimLeft 2s infinite linear;
      }
 
-  & > div + div {
+  > div + div {
     background-image: url(@parsedBusyRingSVG);
     -webkit-animation: activityIndicatorAnimRight 5.5s infinite linear;
   }
