@@ -33,21 +33,29 @@
       if ($('html').attr('dir') === 'rtl') swipe = 'swipeleft';
       // Windows uses an icon for the delete button:
       if ($.isWin) deleteLabel = '';
-      if (list[0].classList.contains('deletable')) return;
       var height = $('li').eq(1)[0].clientHeight;
       deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
       editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
       deletionIndicator = '<span class="deletion-indicator"></span>';
       if (placement === 'left') {
-        list.closest('article').prev().prepend(editButton);
+        if (!list[0].classList.contains('deletable')) {
+          list.closest('article').prev().prepend(editButton);
+        }
       } else {
-        list.closest('article').prev().append(editButton);
-        list.closest('article').prev().find('h1').addClass('buttonOnRight');
-        list.closest('article').prev().find('.edit').addClass('align-flush');
-        button = list.closest('article').prev().find('.edit');
+        if (!list[0].classList.contains('deletable')) {
+          list.closest('article').prev().append(editButton);
+          list.closest('article').prev().find('h1').addClass('buttonOnRight');
+          list.closest('article').prev().find('.edit').addClass('align-flush');
+          button = list.closest('article').prev().find('.edit');
+        }
       }
-      list.find('li').prepend(deletionIndicator);
-      list.find('li').append(deleteButton);
+      list.find('li').each(function(_, ctx) {
+        if (!$(ctx).has('.deletion-indicator')[0]) {
+          $(ctx).prepend(deletionIndicator);
+          $(ctx).append(deleteButton);
+        }
+      });
+      list.addClass('deletable');
       var setupDeletability = function(callback, list, button) {
         var deleteSlide;
         if ($.isiOS) {
@@ -59,7 +67,6 @@
           button.on('singletap', function() {
             var $this = this;
             if (this.classList.contains('edit')) {
-              list.addClass('deletable');
               setTimeout(function() {
                 $this.classList.remove('edit');
                 $this.classList.add('done');
@@ -67,7 +74,6 @@
                 $(list).addClass('showIndicators');
               });
             } else if (this.classList.contains('done')) {
-              list.removeClass('deletable');
               setTimeout(function() {
                 $this.classList.remove('done');
                 $this.classList.add('edit');
