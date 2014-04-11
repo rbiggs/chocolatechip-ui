@@ -222,13 +222,18 @@
     // Handle navigation list items:
     ////////////////////////////////
     $('body').on('singletap doubletap', 'li', function() {
+      var $this = $(this);
       if ($.isNavigating) return;
       if (!this.hasAttribute('data-goto')) return;
       if (!this.getAttribute('data-goto')) return;
       if (!document.getElementById(this.getAttribute('data-goto'))) return;
       if ($(this).parent()[0].classList.contains('deletable')) return;
-      var destinationHref = '#' + this.getAttribute('data-goto');
       $(destinationHref).addClass('navigable');
+      $this.addClass('selected');
+      var destinationHref = '#' + this.getAttribute('data-goto');
+      setTimeout(function() {
+        $this.removeClass('selected');
+      }, 500);
       var destination = $(destinationHref);
       $.UIGoToArticle(destination);
     });

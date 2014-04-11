@@ -72,12 +72,12 @@ a.button {
     background-repeat: no-repeat;
   }
 
-  &:hover, &.selected, &.show-popover:hover, &.show-popover.selected {
+  .isDesktop &:hover, &.selected, .isDesktop &.show-popover:hover, &.show-popover.selected {
     cursor: pointer;
     background-color: @appTint !important;  
   }
 
-  &.back:hover, &.backTo:hover {
+  .isDesktop &.back:hover, .isDesktop &.backTo:hover {
     border: none;
     box-shadow: none;
     background-color: @appTint !important;
@@ -90,7 +90,7 @@ a.button {
     }
   }
 
-  &.show-popover:hover::after, &.show-popover.selected::after {
+  .isDesktop &.show-popover:hover::after, &.show-popover.selected::after {
     border-right: solid 6px @spinnerIndicatorColor;
     border-bottom: solid 6px @spinnerIndicatorColor;
   }

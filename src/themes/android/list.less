@@ -49,11 +49,11 @@ h2 + .list {
   }
 }
 
-.list > li[data-goto]:hover, 
+.isDesktop .list > li[data-goto]:hover, 
 .list > li[data-goto].touched,
-li[data-show-article]:hover,
+.isDesktop li[data-show-article]:hover,
 li[data-show-article].touched,
-.list.select > li:hover {
+.isDesktop .list.select > li:hover {
   cursor: pointer;
   background-color: @appTint;
 }

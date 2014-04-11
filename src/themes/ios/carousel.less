@@ -71,6 +71,10 @@
       background-color: @appTint;
       cursor: pointer;
     }
+    .isDesktop &:hover {
+      background-color: @appTint;
+      cursor: pointer;    
+    }
 
     &:last-of-type {
       margin-right: 0;
@@ -88,8 +92,4 @@ html[dir=rtl] {
       margin-left: 0;
     }
   }
-}
-.isiOS isDesktopSafari .pagination > li:hover {
-  background-color: @appTint;
-  cursor: pointer;  
 }

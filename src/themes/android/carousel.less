@@ -78,12 +78,13 @@
     &:last-of-type {
       margin-right: 0;
     }
+    .isDesktop &:hover {
+      background-color: @appTint;
+      cursor: pointer; 
+    }
   }
 }
-.isiOS isDesktopChrome .pagination > li:hover {
-  background-color: @appTint;
-  cursor: pointer;  
-}
+
 html[dir=rtl] {
   .pagination > li {
     margin-right: 0;

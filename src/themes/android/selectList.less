@@ -3,11 +3,7 @@
    =========================== */
 .list.select li {
 
-  &:hover {
-    background-color: @appTint;
-  }
-
-  &:hover {
+  .isDesktop &:hover {
     background-color: @appTint;
 
     &::after {
@@ -29,7 +25,7 @@
     }
   }
 
-  &.selected *, &:hover * {
+  &.selected *, .isDesktop &:hover * {
     color: @selectedListItem;
   }
 
