@@ -35,7 +35,7 @@
           if (!$(ctx).find('input')[0]) {
             $(ctx).append('<input type="radio" checked="checked" name="' + name + '" value="' + value +'">');
           } else {
-            $(ctx).find('input').attr('checked','checked').attr('value', value);
+            $(ctx).find('input').prop('checked',true).attr('value', value);
           }
         } else {
           if (!$(ctx).find('input')[0]) {
@@ -50,7 +50,7 @@
         $(item).siblings('li').find('input').removeAttr('checked');
         $(item).addClass('selected');
         item.setAttribute('aria-checked', true);
-        $(item).find('input').attr('checked','checked');
+        $(item).find('input').prop('checked',true);
         if (options && options.callback) {
           options.callback.apply(this, arguments);
         }
