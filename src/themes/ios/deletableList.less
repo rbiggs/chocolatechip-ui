@@ -5,21 +5,21 @@
   & li {
 
     & > .deletion-indicator {
-      display: -webkit-inline-box;
-      .flexJustify(center, center);
-      .flexAlign(center, center);
-      .deletionIndicator;
+      #flex > .display(inline-flex);
+      #flex > .justify-content(center);
+      #flex > .align-items(center);
+      .deletion-indicator;
       border-radius: 50%;
       .size(20px,20px);
       float: left;
       margin-right: 6px;
-      .transition;
+      .transition(all 0.25s ease-out);
       margin-left: -40px;
       cursor: pointer;
       position: relative;
       z-index: 100;
       &::before {
-        .pseudoBlock('—');
+        .pseudo-block('—');
         font-size: 12pt;
         margin-top: -1px;
       } 
@@ -27,16 +27,19 @@
 
     & > .button.delete {
       float: right;
-      .deleteButton;
+      .delete-button;
       text-align: center;
-      .sizing;
+      .box-sizing(border-box);
       width: 80px;
       position: absolute;
       right: 0;
       top: 0;
       bottom: 0;
-      .flexBlockCentered;
-      .transition;
+      #flex > .display(flex);
+      #flex > .flex-direction(column);
+      #flex > .justify-content(center);
+      #flex > .align-items(center);
+      .transition(all 0.25s ease-out);
       .transform(translate3d(80px,0,0));
       cursor: pointer;
       font-family: 'HelveticaNeue-Light';
@@ -47,16 +50,17 @@
   &.deletable {
     
     & > li {
-      .transition;
+      .transition(all 0.25s ease-out);
       .transform(translate3d(0,0,0));
 
       &.selected {
         margin-right: 80px;
+        background-color: @listBkColor;
 
         & h3, & h4, & p {
           position: relative;
           .transform(translate3d(0,0,0));
-          .transition(all, 1s);         
+          .transition(all 0.25s ease-out);         
         }
 
         & > .button.delete {

@@ -6,19 +6,14 @@
 }
 
 li.comp {
-  display: -webkit-flex;
-  -webkit-flex-direction: row;
-  -webkit-align-items: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-align: stretch;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .align-items(stretch);
+
   padding-bottom: 0;
 
   > div {
-    -webkit-box-flex: 1;
+    #flex > .flex(1);
     border-bottom: solid 1px @listBorder;
     padding: 0 0 10px 0;
     margin-left: 0;
@@ -60,7 +55,7 @@ li.comp {
       .size(12px,12px);
 
       &::after {
-        .pseudoBlock('');
+        .pseudo-block('');
         .size(6px,6px);
         border-right: solid 2px @listBorder;
         border-top: solid 2px @listBorder;
@@ -73,13 +68,13 @@ li.comp {
       margin-bottom: -4px;
 
       &::after {
-        .pseudoBlock('i');
-        .size(20px,22px);
+        .pseudo-block('i');
+        .size(22px,20px);
         border-radius: 20px;
         border: solid 1px @appTint;
         color: @appTint;
         font: bold 14px/0 'Times', serif;
-        .sizing;
+        .box-sizing(border-box);
         padding: 10px 8px;
         float: right;
         margin: 0px 10px 0 0 !important;

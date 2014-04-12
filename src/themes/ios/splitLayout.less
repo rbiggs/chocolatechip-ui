@@ -2,20 +2,10 @@
    Split Layout
    =========================== */
 body.splitlayout {  
-  /* Old syntax */
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: start;
-  -webkit-box-align: stretch;
-  /* New syntax */
-  display: -webkit-flex;
-  -webkit-flex-direction: row;
-  -webkit-justify-content: flex-start;
-  -webkit-align-items: stretch;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(stretch);
 
   > nav {
     background-color: @navBkgnd;
@@ -44,7 +34,7 @@ body.splitlayout {
       left: 0;
       bottom: 0;
       right: 320px;
-      .sizing;
+      .box-sizing(border-box);
       width: 320px;
       border-right: solid 1px @splitLayoutBorders !important;
     }
@@ -54,9 +44,7 @@ body.splitlayout {
       left: 320px !important;
       bottom: 0;
       left: 0;
-      -webkit-box-flex: 1;
-      -webkit-flex: 1;
-      flex: 1;
+      #flex > .flex(1);
     }
   }
 }

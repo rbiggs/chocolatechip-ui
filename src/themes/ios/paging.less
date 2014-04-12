@@ -1,28 +1,35 @@
 /* ==============================
    Segmented Paging Control
    =========================== */
-.segmented.paging > .button {
-  border: none;
-  background: none;
-  color: @appTint;
-  .size(40px,40px);
-  position: relative;
-  border-radius: 0 !important;
-  
-  .isDesktop &:hover, &.selected {
-    opacity: .5 !important;
-    color: @appTint;    
-  }
+.segmented.paging,
+.segmented.paging.vertical {
+  #flex > .flex-direction(row) !important;
 
-  &::before {
-    .pseudoBlock('');
-    .size(35px,35px);
-    position: absolute;
-    top: 0;
-    left: 0;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: 50% 50%;
-    background-color: @appTint;
+  > .button {
+    border: none;
+    background: none !important;
+    color: @appTint;
+    .size(40px,40px);
+    .box-sizing(border-box);
+    position: relative;
+    border-radius: 0 !important;
+    
+    .isDesktop &:hover, &.selected {
+      opacity: .5 !important;
+      color: @appTint; 
+      background-color: transparent !important;   
+    }
+
+    &::before {
+      .pseudo-block('');
+      .size(35px,35px);
+      position: absolute;
+      top: 0;
+      left: 0;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: 50% 50%;
+      background-color: @appTint;
+    }
   }
 }
 
@@ -77,7 +84,7 @@ article.paging {
     padding: 0 0 100px 0 !important;
     overflow-x: hidden;
     overflow-y: scroll;
-    .transition(all, .15s);
+    .transition(all 0.15s ease-out);
   }
 }
 

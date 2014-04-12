@@ -3,7 +3,7 @@
    =========================== */
 .popup {
   display: block;
-  .sizing;
+  .box-sizing(border-box);
   width: 300px;
   border-radius: 10px;
   padding: 0px;
@@ -12,7 +12,7 @@
   z-index: 10000;
   margin-left: auto;
   margin-right: auto;
-  .transition;
+  .transition(all 0.25s ease-out);
   -webkit-trasform-origin: center center;
   trasform-origin: center center;
 
@@ -27,10 +27,10 @@
   }
 
   > .panel {
-    .flexBlockHorizontal;
-    -webkit-box-orient: vertical;
-    -webkit-flex-flow: column;
-    flex-flow: column;
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(center);
+    #flex > .align-items(flex-start);
 
     > p {
       padding: 0 15px;
@@ -44,22 +44,18 @@
   }
 
   header, footer {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: stretch;
-    -webkit-box-pack: justify;
-    -webkit-align-items: stretch;
-    -webkit-justify-content: space-around;
-    align-items: stretch;
-    justify-content: space-around;
+    #flex > .display(flex);
+    #flex > .flex-direction(row);
+    #flex > .justify-content(space-around);
+    #flex > .align-items(stretch);
+    width: 100% !important;
   }
 
   header > h1 {
     position: static;
     text-align: center;
     margin: 0 15px;
-    width: 100%;
+    width: 100% !important;
     line-height: 32pt;
     font-size: 16pt;
     font-weight: bold;
@@ -71,7 +67,7 @@
 
     > .button {
       display: block !important;
-      .flex;
+      #flex > .flex(1) !important;
       height: 100%;
       line-height: 30pt;
       max-width: 320px !important;

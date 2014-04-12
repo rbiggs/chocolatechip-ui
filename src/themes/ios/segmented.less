@@ -1,15 +1,10 @@
 /* ==============================
    Segmented Control
    =========================== */
-.segmented {
-  display: -webkit-inline-box;
-  -webkit-box-orient: horizontal;
-  display: -webkit-inline-flex;
-  -webkit-flex-direction: row;
-  .sizing;
-  display: inline-flex;
-  flex-direction: row;
-  .sizing;
+.segmented:not(.paging) {
+  #flex > .display(flex-inline);
+  #flex > .flex-direction(row);
+  .box-sizing(border-box);
   
   > .button {
     border: solid 1px @appTint;
@@ -21,8 +16,11 @@
     -webkit-transition: none;
     transition: none;
     font-size: 10pt;
-    .flexBlockCentered;
-    .flex;
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
+    #flex > .flex(1) !important;
     text-align: center;
 
     &:first-of-type {
@@ -45,12 +43,9 @@
 }
 
 div.horizontal.centered > .segmented {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
+  #flex > .display(flex);
+  #flex > .flex(1);
   margin: 10px 15px;
-  -webkit-flex: 1;
-  flex: 1;
 }
 
 .segmented.align-flush {

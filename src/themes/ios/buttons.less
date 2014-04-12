@@ -2,16 +2,14 @@
    Buttons
    =========================== */
 @backButtonSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='21' height='35' viewBox='0 0 21 35' id='svg2'><defs id='defs8' /><g transform='translate(-2.1355929,0.0677963)' id='Page-1' style='fill:none;stroke:none'><path d='M 21.353814,1.2365445 5.0903576,17.5 21.353814,33.763456' id='Rectangle-1' style='stroke:#000;stroke-width:3' /></g></svg>");
-@parsedBackButtonSVG: "@{imageMaskRoot}@{backButtonSVG}";
 
 a.button {
   cursor: pointer;
   text-decoration: none;
   font-size:  13pt;
-  .transition(all, .35s);
+  .transition(all 0.35s ease-out);
   display: block;
-  .sizing;
-  .size(auto,auto);
+  .box-sizing(auto);
   padding: 8px 0px;
   position: relative;
   white-space: nowrap;
@@ -41,9 +39,9 @@ a.button {
     height: 30px;
 
     &::before {
-      .pseudoBlock('');
+      .pseudo-block('');
       border: solid 1px transparent;
-      .imageMask(@appTint, @parsedBackButtonSVG);
+      .imageMask(@appTint, @backButtonSVG);
       -webkit-mask-position: left center;
       .size(20px,20px);
       margin-right: 7px;
@@ -60,7 +58,7 @@ a.button {
     display: block;
     margin: 0 auto;
     padding: 10px 20px;
-    .sizing;
+    .box-sizing(border-box);
     .size(auto,auto);
     min-width: 200px;
     max-width: 300px

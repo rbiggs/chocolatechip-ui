@@ -8,21 +8,24 @@
 
 nav {
   height: 45px;
-  .sizing;
-  .flexBlockHorizontal;
+  .box-sizing(border-box);
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(center);
+  #flex > .align-items(flex-start);
   text-align: center;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  .transition(all, .15s);
+  .transition(all 0.15s ease-out);
   padding: 0 15px;
   vertical-align: middle;
 
   > h1 {
     text-align: center;
     display: inline-block;
-    .flex;
+    #flex > .flex(1) !important;
     font: normal 12pt/14pt HelveticaNeue, Sans-serif;
     position: absolute;
     top: 0;

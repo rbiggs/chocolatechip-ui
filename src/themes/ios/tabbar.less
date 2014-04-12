@@ -3,8 +3,6 @@
    =========================== */
 @tabbarMoreSVG: escape("<svg version='1.1' id='Layer_2' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><circle cx='10' cy='23' r='5.172'/><circle cx='24' cy='23' r='5.172'/><circle cx='38' cy='23' r='5.172'/></svg>");
 
-@parsedTabbarMoreSVG: "@{imageMaskRoot}@{tabbarMoreSVG}";
-
 body.hasTabBar {
 
   nav {
@@ -23,17 +21,16 @@ body.hasTabBar {
 }
 
 .tabbar {
-  .flexBlockHorizontal;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  box-pack: center;
-  justify-content: center;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(center);  
   height: 50px;
   position: absolute;
   left: 0;
   bottom: 0;
   right: 0;
-  .sizing;
+  .box-sizing(border-box);
   border-top: solid 1px @tabbarButton;
   background-color: @tabbarBkgnd;
 
@@ -41,8 +38,11 @@ body.hasTabBar {
     height: 100%;
     position: relative;
     padding: 0;
-    .flex;
-    .flexBlockCentered;
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
+    #flex > .flex(1) !important;
     color: @tabbarButton;
     font-size: 9pt;
     padding: 1px;
@@ -66,7 +66,7 @@ body.hasTabBar {
     }
 
     &.more > .icon {
-      .imageMask(@tabbarButton,@parsedTabbarMoreSVG);
+      .imageMask(@tabbarButton,@tabbarMoreSVG);
     }
   }
 }

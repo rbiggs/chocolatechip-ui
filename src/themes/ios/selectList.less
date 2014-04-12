@@ -3,8 +3,6 @@
    =========================== */
 @selectListIndicatorSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='32' height='26' viewBox='0 0 32 26' id='svg2'><defs id='defs8' /><g transform='translate(0.13135593,-0.34322034)' id='Page-1' style='fill:none;stroke:none'><g id='Artboard-1' style='stroke:#000000;stroke-width:5'><path d='m 10.500868,22.761362 11.023688,0 0,-27.9582975' transform='matrix(0.70710678,0.70710678,-0.70710678,0.70710678,10.899977,-8.7504466)' id='Rectangle-1' /></g></g></svg>");
 
-@parsedSelectListIdicatorSVG: "@{imageMaskRoot}@{selectListIndicatorSVG}";
-
 .list.select li {
 
   > input {
@@ -14,9 +12,9 @@
   &.selected {
     
     &::after {
-      .pseudoBlock('');
+      .pseudo-block('');
       .size(20px,20px);
-      .imageMask(@appTint, @parsedSelectListIdicatorSVG);
+      .imageMask(@appTint, @selectListIndicatorSVG);
       float: right;
       margin-top: -20px;
       background-color: @appTint;

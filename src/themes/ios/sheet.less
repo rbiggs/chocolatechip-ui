@@ -3,11 +3,7 @@
    =========================== */
 @sheetHandleSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='76' height='27' viewBox='0 0 76 27' id='svg2'><defs id='defs8' /><g transform='translate(-283.79661,-123.77966)' id='Page-1' style='fill:none;stroke:none'><g transform='translate(254,108)' id='Artboard-1' style='stroke:#000;stroke-width:12;stroke-linecap:round;stroke-linejoin:round'><path d='m 36.25,26.242187 31.394531,7.972657 30.53125,-8.425782' id='Path-1' /></g></g></svg>");
 
-@parsedSheetHandleSVG: "@{imageMaskRoot}@{sheetHandleSVG}";
-
 @sheetHandleFlatSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='76' height='27' viewBox='0 0 76 27' id='svg2'><defs id='defs8' /><g transform='translate(-283.79661,-123.77966)' id='Page-1' style='fill:none;stroke:none'><g transform='translate(254,108)' id='Artboard-1' style='stroke:#000;stroke-width:12;stroke-linecap:round;stroke-linejoin:round'><path d='m 36.25,26.242187 31.394531,0 30.53125,0' id='Path-1' /></g></g></svg>");
-
-@parsedSheetHandleFlatSVG: "@{imageMaskRoot}@{sheetHandleFlatSVG}";
 
 .sheet {
   position: absolute;
@@ -16,7 +12,7 @@
   bottom: 0;
   right: 0;
   background-color: @sheetBkgnd;
-  .transition(all, .25s, ease-in);
+  .transition(all .25s ease-in);
   .transform(translate3d(0,100%,0));
   visibility: hidden;
 
@@ -27,7 +23,7 @@
     color: @sheetHandle;
     cursor: pointer;
     height: 20pt;
-    .imageMask(@sheetHandle, @parsedSheetHandleFlatSVG);
+    .imageMask(@sheetHandle, @sheetHandleFlatSVG);
     margin: 10px auto 0;
   }
 
@@ -36,7 +32,7 @@
     .transform(translate3d(0,0,0));
 
     & div.handle {
-      .imageMask(@sheetHandle, @parsedSheetHandleSVG);
+      .imageMask(@sheetHandle, @sheetHandleSVG);
     }
   }
 

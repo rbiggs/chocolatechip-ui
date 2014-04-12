@@ -2,10 +2,10 @@
    Stepper Control
    =========================== */ 
 .stepper {
-  .flexBlockHorizontal;
-  display: -webkit-inline-flex;
-  display: -webkit-inline-box;
-  display: flex;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(center);
+  #flex > .align-items(flex-start);
   padding: 1px;
   
   > input {
@@ -15,9 +15,9 @@
 
   > label {
     display: block;
-    .sizing;
+    .box-sizing(border-box);
     border: solid 1px @appTint;
-    .size(30px,40px);
+    .size(40px, 30px);
     font: bold 16px/30px Helvetica;
     text-align: center;
     background-color: @stepperLabel;
@@ -25,9 +25,9 @@
 
   > .button {
     display: inline-box;
-    .sizing;
+    .box-sizing(border-box);
     background-color: @stepperButton;
-    .size(30px,33px);
+    .size(33px,30px);
     border: solid 1px @appTint;
     border-radius: 4px;
     text-align: center;
@@ -37,7 +37,7 @@
     cursor: pointer !important;
     overflow: hidden;
     padding: 0;
-    .sizing;
+    .box-sizing(border-box);
 
     &:first-of-type {
       border-top-right-radius: 0;

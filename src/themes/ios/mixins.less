@@ -90,7 +90,7 @@
   -webkit-mask-position: 50% 50%;
   -webkit-mask-size: 90% 90%;
   -webkit-mask-repeat: no-repeat;
-  -webkit-mask-image: url(@dataUrl);
+  -webkit-mask-image: url("@{imageMaskRoot}@{dataUrl}");
 }
 
 .overflowYScroll () {
@@ -103,7 +103,7 @@
   box-sizing: border-box;
 }
 
-.size(@height, @width) {
+.size(@width, @height) {
   height: @height;
   width: @width;
 }
@@ -139,7 +139,7 @@
   background-color: #fff;
 }
 
-.deleteButton() {
-  background-color: #ff0000;
-  color: #fff;
+.delete-button(@color: #fff, @bgColor: #ff0000) {
+  background-color: @bgColor;
+  color: @color;
 }

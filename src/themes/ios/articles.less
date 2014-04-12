@@ -8,12 +8,15 @@ article {
   .transition (all, .15s);
   .overflowYScroll;
   -webkit-overflow-scrolling: touch;
-  .flexBlock
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(center);
+  #flex > .align-items(flex-start);
 }
 
 @media only screen and (min-width : 768px) {
   article {
-    .transition (all, .25s)
+    .transition (all 0.25s ease-out)
   }
 }
 /* ==============================

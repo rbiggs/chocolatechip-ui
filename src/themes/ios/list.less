@@ -5,20 +5,20 @@
   list-style: none;
   margin: 0 0 10px 0;
   padding: 0;
-  .listBorder;
+  .list-border;
   background-color: @listBkColor;
   overflow: hidden;
   width: 100%;
 
   > li {
     padding: 13px 15px 13px 15px;
-    .transition(all, .3s);
+    .transition(all 0.3s ease-out);
     position: relative;
     background-color: @listBkColor;
     font-size: 12pt;
 
     &::before {
-      .pseudoBlock('');
+      .pseudo-block('');
       position: absolute;
       bottom: 0px;
       left: 15px;
@@ -31,7 +31,7 @@
     }
 
     &.nav::after {
-      .pseudoBlock('');
+      .pseudo-block('');
       .size(6px,6px);
       border-right: solid 2px @listNavIndicator;
       border-top: solid 2px @listNavIndicator;
@@ -40,17 +40,17 @@
       position: absolute;
       top: 16px;
       right: 15px;
-      .transition(all, .4s);
+      .transition(all 0.4s ease-out);
     }
 
     &.show-detail::after {
-      .pseudoBlock('i');
-      .size(20px,22px);
+      .pseudo-block('i');
+      .size(22px,20px);
       border-radius: 20px;
       border: solid 1px @appTint;
       color: @appTint;
       font: bold 14px/0 'Times', serif;
-      .sizing;
+      .box-sizing(border-box);
       padding: 10px 8px;
       position: absolute;
       top: 10px;

@@ -1,0 +1,340 @@
+
+#flex {
+  /* .display(<flex> | <inline-flex>) */
+  .display(...) {
+
+    @process_oldwebkit: ~`(function(value){return value="flex"==value||"inline-flex"==value?"-webkit-box":8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_moz: ~`(function(value){return value="flex"==value||"inline-flex"==value?"-moz-box":8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_webkit: ~`(function(value){return value="flex"==value||"inline-flex"==value?"-webkit-"+value:8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_ms: ~`(function(value){return value="flex"==value?"-ms-flexbox":"inline-flex"==value?"-ms-inline-flexbox":8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process: ~`(function(value){return"flex"!=value&&"inline-flex"!=value&&(value=8121991),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+    .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process_oldwebkit)) and not (iscolor(@process_oldwebkit)) and not (isnumber(@process_oldwebkit)) and not (iskeyword(@process_oldwebkit)) and not (isurl(@process_oldwebkit)) and not (ispixel(@process_oldwebkit)) and not (ispercentage(@process_oldwebkit)) and not (isem(@process_oldwebkit)) { display: @process_oldwebkit; }
+      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process_oldwebkit)) and not (iscolor(@process_oldwebkit)) and not (isnumber(@process_oldwebkit)) and not (iskeyword(@process_oldwebkit)) and not (isurl(@process_oldwebkit)) and not (ispixel(@process_oldwebkit)) and not (ispercentage(@process_oldwebkit)) and not (isem(@process_oldwebkit)) {} 
+      .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) { display: @process_moz; }
+      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {} 
+      .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process_webkit)) and not (iscolor(@process_webkit)) and not (isnumber(@process_webkit)) and not (iskeyword(@process_webkit)) and not (isurl(@process_webkit)) and not (ispixel(@process_webkit)) and not (ispercentage(@process_webkit)) and not (isem(@process_webkit)) { display: @process_webkit; }
+      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process_webkit)) and not (iscolor(@process_webkit)) and not (isnumber(@process_webkit)) and not (iskeyword(@process_webkit)) and not (isurl(@process_webkit)) and not (ispixel(@process_webkit)) and not (ispercentage(@process_webkit)) and not (isem(@process_webkit)) {} 
+      .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) { display: @process_ms; }
+      .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) {} 
+      .inception (@signal, @arguments) when (@signal = 5) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { display: @process; }
+      .inception (@signal, @arguments) when (@signal = 5) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception(@signal, @arguments);
+    }
+    .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+    .result(@arguments, 1, true, @oldwebkit_local);
+    .result(@arguments, 2, @moz, @moz_local);
+    .result(@arguments, 3, @webkit, @webkit_local);
+    .result(@arguments, 4, @ms, @ms_local);
+    .result(@arguments, 5, @w3c, @w3c_local);
+  }
+
+  /* .flex-direction(row | row-reverse | column | column-reverse) */
+  .flex-direction(...) {
+
+    @process_oldestwebkit: ~`(function(value){return value="row"==value||"column"==value?"normal":"row-reverse"==value||"column-reverse"==value?"reverse":8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_oldermoz: ~`(function(value){return value="row"==value||"column"==value?"normal":"row-reverse"==value||"column-reverse"==value?"reverse":8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_olderwebkit: ~`(function(value){return value="row"==value||"row-reverse"==value?"horizontal":"column"==value||"column-reverse"==value?"vertical":8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_moz: ~`(function(value){return value="row"==value||"row-reverse"==value?"horizontal":"column"==value||"column-reverse"==value?"vertical":8121991})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process: ~`(function(value){return value=value||"row"})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+    .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process_oldestwebkit)) and not (iscolor(@process_oldestwebkit)) and not (isnumber(@process_oldestwebkit)) and not (iskeyword(@process_oldestwebkit)) and not (isurl(@process_oldestwebkit)) and not (ispixel(@process_oldestwebkit)) and not (ispercentage(@process_oldestwebkit)) and not (isem(@process_oldestwebkit)) { -webkit-box-direction: @process_oldestwebkit; }
+      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process_oldestwebkit)) and not (iscolor(@process_oldestwebkit)) and not (isnumber(@process_oldestwebkit)) and not (iskeyword(@process_oldestwebkit)) and not (isurl(@process_oldestwebkit)) and not (ispixel(@process_oldestwebkit)) and not (ispercentage(@process_oldestwebkit)) and not (isem(@process_oldestwebkit)) {} 
+      .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_oldermoz)) and not (iscolor(@process_oldermoz)) and not (isnumber(@process_oldermoz)) and not (iskeyword(@process_oldermoz)) and not (isurl(@process_oldermoz)) and not (ispixel(@process_oldermoz)) and not (ispercentage(@process_oldermoz)) and not (isem(@process_oldermoz)) { -moz-box-direction: @process_oldermoz; }
+      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_oldermoz)) and not (iscolor(@process_oldermoz)) and not (isnumber(@process_oldermoz)) and not (iskeyword(@process_oldermoz)) and not (isurl(@process_oldermoz)) and not (ispixel(@process_oldermoz)) and not (ispercentage(@process_oldermoz)) and not (isem(@process_oldermoz)) {} 
+      .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process_olderwebkit)) and not (iscolor(@process_olderwebkit)) and not (isnumber(@process_olderwebkit)) and not (iskeyword(@process_olderwebkit)) and not (isurl(@process_olderwebkit)) and not (ispixel(@process_olderwebkit)) and not (ispercentage(@process_olderwebkit)) and not (isem(@process_olderwebkit)) { -webkit-box-orient: @process_olderwebkit; }
+      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process_olderwebkit)) and not (iscolor(@process_olderwebkit)) and not (isnumber(@process_olderwebkit)) and not (iskeyword(@process_olderwebkit)) and not (isurl(@process_olderwebkit)) and not (ispixel(@process_olderwebkit)) and not (ispercentage(@process_olderwebkit)) and not (isem(@process_olderwebkit)) {} 
+      .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) { -moz-box-orient: @process_moz; }
+      .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {} 
+      .inception (@signal, @arguments) when (@signal = 5) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -webkit-flex-direction: @process; }
+      .inception (@signal, @arguments) when (@signal = 5) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 6) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -ms-flex-direction: @process; }
+      .inception (@signal, @arguments) when (@signal = 6) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 7) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { flex-direction: @process; }
+      .inception (@signal, @arguments) when (@signal = 7) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception(@signal, @arguments);
+    }
+    .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+    .result(@arguments, 1, true, @oldestwebkit_local);
+    .result(@arguments, 3, true, @olderwebkit_local);
+    .result(@arguments, 4, @moz, @moz_local);
+    .result(@arguments, 5, @webkit, @webkit_local);
+    .result(@arguments, 6, @ms, @ms_local);
+    .result(@arguments, 7, @w3c, @w3c_local);
+  }
+
+  /* .justify-content(flex-start | flex-end | center | space-between | space-around)  */
+  .justify-content(...) {
+
+    @process: ~`(function(value){return value=value||"flex-start"})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_moz: ~`(function(value){return value=value||"start","flex-start"==value?value="start":"flex-end"==value?value="end":("space-between"==value||"space-around"==value)&&(value="justify"),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_ms: ~`(function(value){return value=value||"start","flex-start"==value?value="start":"flex-end"==value?value="end":"space-between"==value?value="justify":"space-around"==value&&(value="distribute"),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+    .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -webkit-box-pack: @process; }
+      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) { -moz-box-pack: @process_moz; }
+      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {} 
+      .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) { -webkit-justify-content: @process_ms; }
+      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) {} 
+      .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -ms-flex-pack: @process; }
+      .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 5) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { justify-content: @process; }
+      .inception (@signal, @arguments) when (@signal = 5) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception(@signal, @arguments);
+    }
+    .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+    .result(@arguments, 1, true, @oldestwebkit_local);
+    .result(@arguments, 2, @moz, @moz_local);
+    .result(@arguments, 3, @webkit, @webkit_local);
+    .result(@arguments, 4, @ms, @ms_local);
+    .result(@arguments, 5, @w3c, @w3c_local);
+
+  }
+
+  /* .align-content(flex-start | flex-end | center | space-between | space-around | stretch) */
+  .align-content(...) {
+
+    @process: ~`(function(value){return value=value||"stretch"})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_ms: ~`(function(value){return value=value||"stretch","flex-start"==value?value="start":"flex-end"==value?value="end":"space-between"==value?value="justify":"space-around"==value&&(value="distribute"),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+    .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -webkit-align-content: @process; }
+      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) { -ms-flex-line-pack: @process_ms; }
+      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) {} 
+      .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { align-content: @process; }
+      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception(@signal, @arguments);
+    }
+    .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+    .result(@arguments, 1, @webkit, @webkit_local);
+    .result(@arguments, 2, @ms, @ms_local);
+    .result(@arguments, 3, @w3c, @w3c_local);
+
+  }
+
+  /* .align-items(flex-start | flex-end | center | baseline | stretch) */
+  .align-items(...) {
+
+    @process_olderwebkit: ~`(function(value){return value=value||"stretch","flex-start"==value?value="start":"flex-end"==value&&(value="end"),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_moz: ~`(function(value){return value=value||"stretch","flex-start"==value?value="start":"flex-end"==value&&(value="end"),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process: ~`(function(value){return value=value||"stretch"})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_ms: ~`(function(value){return value=value||"stretch","flex-start"==value?value="start":"flex-end"==value&&(value="end"),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+    .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process_olderwebkit)) and not (iscolor(@process_olderwebkit)) and not (isnumber(@process_olderwebkit)) and not (iskeyword(@process_olderwebkit)) and not (isurl(@process_olderwebkit)) and not (ispixel(@process_olderwebkit)) and not (ispercentage(@process_olderwebkit)) and not (isem(@process_olderwebkit)) { -webkit-box-align: @process_olderwebkit; }
+      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process_olderwebkit)) and not (iscolor(@process_olderwebkit)) and not (isnumber(@process_olderwebkit)) and not (iskeyword(@process_olderwebkit)) and not (isurl(@process_olderwebkit)) and not (ispixel(@process_olderwebkit)) and not (ispercentage(@process_olderwebkit)) and not (isem(@process_olderwebkit)) {} 
+      .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) { -moz-box-align: @process_moz; }
+      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {} 
+      .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -webkit-align-items: @process; }
+      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) { -ms-flex-align: @process_ms; }
+      .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) {} 
+      .inception (@signal, @arguments) when (@signal = 5) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { align-items: @process; }
+      .inception (@signal, @arguments) when (@signal = 5) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception(@signal, @arguments);
+    }
+    .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+    .result(@arguments, 1, true, @olderwebkit_local);
+    .result(@arguments, 2, @moz, @moz_local);
+    .result(@arguments, 3, @webkit, @webkit_local);
+    .result(@arguments, 4, @ms, @ms_local);
+    .result(@arguments, 5, @w3c, @w3c_local);
+
+  }
+
+  /* .flex(none | [ <flex-grow> <flex-shrink> | <flex-basis> ]) */
+  .flex(...) {
+
+    @process_olderwebkit: ~`(function(value){return value=value.match(/^\d+/)[0]||"0"})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process_moz: ~`(function(value){return value=value.match(/^\d+/)[0]||"0"})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+    @process: ~`(function(value){return value=value||"0 1 auto",/^[^, ]*,/.test(value)&&(value=value.replace(/(?:,)(?![^(]*\))/g,"")),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+    .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process_olderwebkit)) and not (iscolor(@process_olderwebkit)) and not (isnumber(@process_olderwebkit)) and not (iskeyword(@process_olderwebkit)) and not (isurl(@process_olderwebkit)) and not (ispixel(@process_olderwebkit)) and not (ispercentage(@process_olderwebkit)) and not (isem(@process_olderwebkit)) { -webkit-box-flex: @process_olderwebkit; }
+      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process_olderwebkit)) and not (iscolor(@process_olderwebkit)) and not (isnumber(@process_olderwebkit)) and not (iskeyword(@process_olderwebkit)) and not (isurl(@process_olderwebkit)) and not (ispixel(@process_olderwebkit)) and not (ispercentage(@process_olderwebkit)) and not (isem(@process_olderwebkit)) {} 
+      .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) { -moz-box-flex: @process_moz; }
+      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {} 
+      .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -webkit-flex: @process; }
+      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -ms-flex: @process; }
+      .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception (@signal, @arguments) when (@signal = 5) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { flex: @process; }
+      .inception (@signal, @arguments) when (@signal = 5) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+      .inception(@signal, @arguments);
+    }
+    .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+    .result(@arguments, 1, true, @olderwebkit_local);
+    .result(@arguments, 2, @moz, @moz_local);
+    .result(@arguments, 3, @webkit, @webkit_local);
+    .result(@arguments, 4, @ms, @ms_local);
+    .result(@arguments, 5, @w3c, @w3c_local);
+
+  }
+}
+
+/* .transition([ none | <single-transition-property> ] | <time> | <timing-function> | <time>) */
+.transition(...) {
+
+  @process_webkit: ~`(function(value){value=value||"all 0 ease 0";var prefixedProperties=["background-size","border-radius","border-bottom-left-radius","border-bottom-right-radius","border-top-left-radius","border-top-right-radius","box-shadow","column","transform","filter"],prefix="-webkit-",valueRegex=/(?:\d)(?:ms|s)/gi,numWithoutValue=/(?:\s|^)(\.?\d+\.?\d*)(?![^(]*\)|\w|%)/gi;return/^[^, ]*,/.test(value)&&(value=value.replace(/(?:,)(?![^(]*\))/g,"")),prefixedProperties.forEach(function(property){-1!==value.indexOf(property)&&(value=value.replace(new RegExp(property,"g"),function(match){return prefix+match}))}),valueRegex.test(value)||"0"===value||(value=value.replace(numWithoutValue,function(match){return match+=parseFloat(match,10)>10?"ms":"s"})),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+  @process_moz: ~`(function(value){value=value||"all 0 ease 0";var prefixedProperties=["background-size","box-shadow","column","transform","filter"],prefix="-moz-",valueRegex=/(?:\d)(?:ms|s)/gi,numWithoutValue=/(?:\s|^)(\.?\d+\.?\d*)(?![^(]*\)|\w|%)/gi;return/^[^, ]*,/.test(value)&&(value=value.replace(/(?:,)(?![^(]*\))/g,"")),prefixedProperties.forEach(function(property){-1!==value.indexOf(property)&&(value=value.replace(new RegExp(property,"g"),function(match){return prefix+match}))}),valueRegex.test(value)||"0"===value||(value=value.replace(numWithoutValue,function(match){return match+=parseFloat(match,10)>10?"ms":"s"})),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+  @process: ~`(function(value){value=value||"all 0 ease 0";var prefixes=["-webkit-","-moz-","-o-",""],prefixedProperties=["column","transform","filter"],valueRegex=/(?:\d)(?:ms|s)/gi,numWithoutValue=/(?:\s|^)(\.?\d+\.?\d*)(?![^(]*\)|\w|%)/gi;/^[^, ]*,/.test(value)&&(value=value.replace(/(?:,)(?![^(]*\))/g,""));var subSplit=value.split(/(?:,)(?![^(]*\))/g);return subSplit.forEach(function(css,index){prefixedProperties.forEach(function(property){-1!==css.indexOf(property)&&(subSplit[index]="",prefixes.forEach(function(vendor,i){subSplit[index]+=css.trim().replace(new RegExp(property,"g"),function(match){return vendor+match}),i<prefixes.length-1&&(subSplit[index]+=",")}))})}),value=subSplit.join(","),valueRegex.test(value)||"0"===value||(value=value.replace(numWithoutValue,function(match){return match+=parseFloat(match,10)>10?"ms":"s"})),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+  .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+    .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process_webkit)) and not (iscolor(@process_webkit)) and not (isnumber(@process_webkit)) and not (iskeyword(@process_webkit)) and not (isurl(@process_webkit)) and not (ispixel(@process_webkit)) and not (ispercentage(@process_webkit)) and not (isem(@process_webkit)) { -webkit-transition: @process_webkit; }
+    .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process_webkit)) and not (iscolor(@process_webkit)) and not (isnumber(@process_webkit)) and not (iskeyword(@process_webkit)) and not (isurl(@process_webkit)) and not (ispixel(@process_webkit)) and not (ispercentage(@process_webkit)) and not (isem(@process_webkit)) {} 
+    .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) { -moz-transition: @process_moz; }
+    .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {} 
+    .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { transition: @process; }
+    .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception(@signal, @arguments);
+  }
+  .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+  .result(@arguments, 1, @webkit, @webkit_local);
+  .result(@arguments, 2, @moz, @moz_local);
+  .result(@arguments, 4, @w3c, @w3c_local);
+
+}
+
+/* .transform(none | <transform-function>+)  */
+.transform(...) {
+
+  @process: ~`(function(value){value=value||"none";var functions={translate:"px",rotate:"deg",rotate3d:"deg",skew:"deg"};/^\w*\(?[a-z0-9.]*\)?/.test(value)&&(value=value.replace(/(?:,)(?![^(]*\))/g,""));for(var i in functions)value.indexOf(i)>=0&&(value=value.replace(new RegExp(i+"[\\w]?\\([a-z0-9, %]*\\)"),function(match){var regex=/(\d+\.?\d*)(?!\w|%)/g;return"rotate3d"==i&&(regex=/,\s*\d+$/),match.replace(regex,function(innerMatch){return innerMatch+functions[i]})}));return value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+  .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+    .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -webkit-transform: @process; }
+    .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -moz-transform: @process; }
+    .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -o-transform: @process; }
+    .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -ms-transform: @process; }
+    .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception (@signal, @arguments) when (@signal = 5) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { transform: @process; }
+    .inception (@signal, @arguments) when (@signal = 5) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception(@signal, @arguments);
+  }
+  .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+  .result(@arguments, 1, @webkit, @webkit_local);
+  .result(@arguments, 2, @moz, @moz_local);
+  .result(@arguments, 4, @ms, @ms_local);
+  .result(@arguments, 5, @w3c, @w3c_local);
+
+}
+
+@imageMaskRoot: "data:image/svg+xml;utf8,";
+
+.imageMask (@bkcolor, @dataUrl) {
+  background-color: @bkcolor;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: 90% 90%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-image: url("@{imageMaskRoot}@{dataUrl}");
+}
+
+.overflowYScroll () {
+  overflow-x: hidden;
+  overflow-y: auto;  
+}
+
+/* .box-sizing(content-box | padding-box | border-box) */
+.box-sizing(...) {
+
+  @process: ~`(function(value){return value=value||"content-box"})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
+
+  .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
+    .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -webkit-box-sizing: @process; }
+    .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { -moz-box-sizing: @process; }
+    .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { box-sizing: @process; }
+    .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+    .inception(@signal, @arguments);
+  }
+  .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
+
+  .result(@arguments, 1, @webkit, @webkit_local);
+  .result(@arguments, 2, @moz, @moz_local);
+  .result(@arguments, 3, @w3c, @w3c_local);
+
+}
+
+/* .size(<width>, [<height>])  */
+.size(@width, @height) {
+  @unit: 'px';
+  .process(@width, @height) when (ispixel(@width)), (isem(@width)), (ispercentage(@width)), (iskeyword(@width)) {
+    .kittens(@height) when (ispixel(@height)), (isem(@height)), (ispercentage(@height)), (iskeyword(@height)) {
+      width: @width;
+      height: @height;
+    }
+    .kittens(@height) when not (ispixel(@height)) and not (isem(@height)) and not (ispercentage(@height)) and not (iskeyword(@height)) {
+      width: @width;
+      height: ~`@{height} + @{unit}`;
+    }
+    .kittens(@height);
+  }
+
+  .process(@width, @height) when (ispixel(@height)), (isem(@height)), (ispercentage(@height)), (iskeyword(@height)) {
+    .kittens(@width) when (ispixel(@width)), (isem(@width)), (ispercentage(@width)), (iskeyword(@width)) {}
+    .kittens(@width) when not (ispixel(@width)) and not (isem(@width)) and not (ispercentage(@width)) and not (iskeyword(@width)) {
+      width: ~`@{width} + @{unit}`;
+      height: @height;
+    }
+    .kittens(@width);
+  }
+
+  .process(@width, @height) when not (ispixel(@width)) and not (isem(@width)) and not (ispercentage(@width)) and not (iskeyword(@width)) and not (ispixel(@height)) and not (isem(@height)) and not (ispercentage(@height)) and not (iskeyword(@height))  {
+    width: ~`@{width} + @{unit}`;
+    height: ~`@{height} + @{unit}`;
+  }
+
+  .process(@width, @height);
+
+}
+
+.pseudo-block(@content) {
+  display: block;
+  content: @content;
+}
+
+.nav(@bkgd:@navBkgnd, @border:#a7a7aa) {
+  background-color: @bkgd;
+  border-bottom: solid 1px @border;  
+}
+
+.toolbar-styles (@bkgd:@toolbarBkgnd, @border:#a7a7aa) {
+  background-color: @bkgd;
+  border-top: solid 1px @border;
+}
+
+.list-border (@BrColor: @listBorder) {
+  border-top: solid 1px @BrColor;
+  border-bottom: solid 1px @BrColor;
+}
+
+.deletion-indicator(@color: #fff, @brColor: #ff3b30) {
+  color: @color;
+  border: solid 1px @brColor;
+  background-color: @brColor;
+}
+
+.rangeInputThumb(@color: #fff) {
+  box-shadow: 0 0 2px rgba(0,0,0,.5), 0 5px 6px rgba(0,0,0,0.25);
+  background-color: @color;
+}
+
+.delete-button(@color: #fff, @bgColor: #ff0000) {
+  background-color: @bgColor;
+  color: @color;
+}
