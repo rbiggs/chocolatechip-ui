@@ -9,7 +9,7 @@
 
   > li {
     padding: 13px 9px 13px 9px;
-    .transition(all, .3s);
+    .transition(all .3s ease-out);
     position: relative;
     background-color: @appBkColor;
     font-size: 12pt;
@@ -18,13 +18,12 @@
     &.show-detail::after {
       content: 'i';
       display: block;
-      .size(20px, 22px);
+      .size(22px, 20px);
       border-radius: 20px;
       border: solid 1px @showDetailColor;
       color: @showDetailColor;
       font: bold 14px/0 Roboto, SegoeWP, HelveticaNeue, Sans-serif;
-      -webkit-box-sizing: border-box;
-      box-sizing: border-box;
+      .box-sizing(border-box);
       padding: 10px 8px;
       position: absolute;
       top: 10px;

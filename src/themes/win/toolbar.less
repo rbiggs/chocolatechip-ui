@@ -12,14 +12,10 @@ div.toolbar  {
   border-top: solid 1px lighten(@appBkColor, 20%);
   overflow: hidden;
   box-sizing: border-box;
-  display: -ms-flexbox;
-  -ms-flex-pack: start;
-  -ms-flex-align: center;
-  -ms-flex-direction: row;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(center);
   -webkit-transition: all .15s ease-out;
   transition: all .15s ease-out;
   -webkit-transform: translate3d(0,0,0);

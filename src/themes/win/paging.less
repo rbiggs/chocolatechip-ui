@@ -2,10 +2,8 @@
    Segmented Paging Control
    =========================== */
 .segmented.paging > .button {
-  display: -ms-flexbox;
-  -ms-flex-align: center;
-  display: flex;
-  justify-content: center;
+  #flex > .display(flex);
+  #flex > .justify-content(center);
   background-color: @pagingButtonBkgnd;
   font-size: 20pt;
   padding: 0;
@@ -38,7 +36,7 @@
   &::before {
     content: '';
     display: block;
-    -ms-flex: 1;
+    #flex > .flex(1);
     height: 38px;
     width: 38px;
     font-family: "Segoe UI Symbol";

@@ -2,12 +2,9 @@
    Switched List Items
    =========================== */
 li.switched {
-  display: -ms-flexbox;
-  -ms-flex-direction: row-reverse;
-  -ms-flex-pack: start;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-start;
+  #flex > .display(flex);
+  #flex > .flex-direction(row-reverse);
+  #flex > .justify-content(flex-start);
 
   h3 {
     width: auto;
@@ -17,7 +14,7 @@ li.switched {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    -ms-flex: 1;
+    #flex > .flex(1);
   }
 
   h4 {

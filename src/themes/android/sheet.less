@@ -12,7 +12,7 @@
   bottom: 0;
   right: 0;
   background-color: @sheetBkgnd;
-  .transition(all, .25s, ease-in);
+  .transition(all .25s ease-in);
   .transform(translate3d(0,-100%,0));
   display: none;
 
@@ -68,7 +68,7 @@
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
     height: 29pt;
-    .imageMask(@sheetHandle, @parsedSheetHandleSVG);
+    .image-mask(@sheetHandle, @parsedSheetHandleSVG);
     margin: 10px auto 0;
 
     .isDesktop &:hover {

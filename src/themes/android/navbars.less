@@ -9,14 +9,18 @@
 }
 nav {
   height: 50px;
-  box-sizing: border-box;
-  .flexBlockHorizontalCentered;
+  .box-sizing(border-box);
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(center);
+  display: flex;
   text-align: center;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  .transition(opacity, .5s, ease-in);
+  .transition(opacity .5s ease-in);
   padding: 0 10px;
   vertical-align: middle;
 
@@ -24,7 +28,7 @@ nav {
     text-align: left;
     display: inline-block;
     margin: 0 20px 0 10px;
-    .flex;
+    #flex > .flex(1) !important;
     font: normal 16pt/36pt Roboto, SegoeWP, HelveticaNeue, Sans-serif;
     position: relative;
     z-index: -1;
@@ -34,6 +38,7 @@ nav {
     + a.button {
       margin: 8px 0 0 0;
       position: absolute;
+      top: 0;
       right: 16px;
     }
   }

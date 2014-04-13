@@ -5,7 +5,7 @@
   width: 100%;
   height: 100%;
   margin: 10px auto;
-  box-sizing: border-box;
+  .box-sizing(border-box);
   background-color: #ccc;
 }
 .carousel-track {
@@ -13,19 +13,15 @@
   padding: 0;
   
   > li {
-    box-sizing: border-box;
+    .box-sizing(border-box);
     list-style: none;
     margin: 0;
     padding: 0;
     position: relative;
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: vertical;
-    flex-direction: column;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    -webkit-box-align: center;
-    align-items: center;
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(flex-start);
+    #flex > .align-items(center);
     overflow: hidden;
     border-left: solid 1px #999;
     padding-bottom: 10px;
@@ -45,15 +41,9 @@
   height: 10px;
   padding: 0;
   margin: 0 auto;
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: justify;
-  display: -webkit-flex;
-  -webkit-flex-direction: row;
-  -webkit-justify-content: space-around;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(space-around);
 
   &::after {
     content: '';

@@ -15,14 +15,10 @@
   overflow-x: hidden;
   overflow-y: auto;
   box-sizing: border-box;
-  display: -ms-flexbox;
-  -ms-flex-pack: start;
-  -ms-flex-align: stretch;
-  -ms-flex-direction: column;
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex-direction: column;
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(stretch);
 
   &.open {
     visibility: visible;
@@ -30,7 +26,7 @@
   }
 
   > section {
-    -ms-flex: 1;
+    #flex > .flex(1);
     padding-bottom: 100px;
     overflow-x: hidden;
     overflow-y: auto;

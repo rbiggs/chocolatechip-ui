@@ -3,20 +3,13 @@
    =========================== */
 .switch {
   display: inline-block;
-  .size(24px, 70px);
+  .size(70px, 24px);
   border: 1px solid @switchBorder;
   background-color: @switchBkgnd;
-  display: -webkit-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack:justify;
-  display: -webkit-flex;
-  -webkit-flex-direction: row;
-  -webkit-justify-content: space-around;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  #flex > .display(inline-flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(space-around);
+  .box-sizing(border-box);
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
   cursor: pointer;
@@ -42,11 +35,11 @@
     top: -1px;
     border: solid 1px @switchThumbBorder;
     border-top: solid 3px @buttonTopColor;
-    .size(22px, 30px);
+    .size(30px, 22px);
     background-color: @switchThumbBkgnd;
     pointer-events: none;
      .transform(translate3d(-1px,0,0));
-    .transition(all, .1s, ease-in-out);
+    .transition(all .1s ease-in-out);
   }
 
   &.on {

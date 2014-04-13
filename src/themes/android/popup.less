@@ -16,7 +16,7 @@
   &.opened {
     display: block;
     opacity: 1;
-    .transition(all, 0.5s, ease-in-out);
+    .transition(all 0.5s ease-in-out);
   }
 }
 
@@ -55,8 +55,8 @@
 
     > .button {
       display: block !important;
-      .flex;
-      box-sizing: border-box;
+      #flex > .flex(1) !important;
+      .box-sizing(border-box);
       height: 100%;
       line-height: 30pt;
       background-color: @popupBkgnd;

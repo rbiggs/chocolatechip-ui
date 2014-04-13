@@ -3,12 +3,19 @@
    =========================== */
 article {
   position: absolute;
-  top: 52px; right: 0;
-  bottom: 0; left: 0;
-  .transition(all, .15s);
-  .overflowYScroll;
+  top: 52px; 
+  right: 0;
+  bottom: 0; 
+  left: 0;
+  padding-top: 1px;
+  .transition(all .15s ease-out);
+  .overflow-y-scroll;
   -webkit-overflow-scrolling: touch;
-  .flexBlock;
+  #flex > .display(flex);
+  display: -webkit-box;
+  #flex > .flex-direction(column);
+  #flex > .justify-content(center);
+  #flex > .align-items(flex-start);
 }
 /* ==============================
    Article navigation states    

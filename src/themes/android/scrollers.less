@@ -3,9 +3,9 @@
    =========================== */
 .scroller-vertical,
 .scroller-horizontal {
-  .flex;
+  #flex > .flex(1) !important;
   padding-bottom: 100px;
-  .overflowYScroll;
+  .overflow-y-scroll;
   -webkit-overflow-scrolling: touch;
 }
 .scroller-horizontal {
@@ -27,25 +27,21 @@ article > section,
    Horizontal Panels
    =========================== */
 .vertical, li.comp > aside.vertical {
-  /* Old syntax */
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: start;
-  -webkit-box-align: start;
-  /* New syntax */
-  display: -webkit-flex;
-  -webkit-flex-direction: column;
-  -webkit-justify-content: flex-start;
-  -webkit-align-items: flex-start;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(flex-start);
 }
 
 .horizontal {
-  .flexBlockHorizontal;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(flex-start);
 }
 .horizontal.centered {
-  .flexBlockHorizontalCentered;
+  #flex > .display(flexd);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(center);
 }

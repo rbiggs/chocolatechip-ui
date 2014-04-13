@@ -2,8 +2,7 @@
    Deletable Lists
    =========================== */
 .deletion-indicator {
-  display: -ms-flexbox;
-  displaY: flex;
+  #flex > .display(flex);
   box-sizing: border-box;
   padding: 2px 5px 13px 1px;
   height: 24px;
@@ -59,14 +58,10 @@ li.selected > .deletion-indicator {
   position: absolute;
   right: 0;
   top: 0;
-  display: -ms-flexbox;
-  -ms-flex-pack: center;
-  -ms-flex-align: center;
-  -ms-flex-direction: row;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(center);
+  #flex > .align-items(center);
   transition: all .25s ease-out;
   transform: translate3d(140px,0,0);
   cursor: pointer;

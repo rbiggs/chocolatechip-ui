@@ -19,7 +19,7 @@ li.comp {
   }
 
   > div {
-    .flex;
+    #flex > .flex(1) !important;
     padding: 0 0 10px 0;
 
     &:first-child {
@@ -56,12 +56,10 @@ li.comp {
   }
 
   > aside {
-    display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-    -webkit-justify-content: center;
-    -webkit-align-items: center;
-    justify-content: center;
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
     align-items: center;
     padding: 0 0 10px 0;
 
@@ -99,13 +97,12 @@ li.comp {
       &::after {
         content: 'i';
         display: block;
-        .size(20px, 22px);
+        .size(22px, 20px);
         border-radius: 20px;
         border: solid 1px @showDetailColor;
         color: @showDetailColor;
         font: bold 14px/0 Roboto, Times, serif;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
+        .box-sizing(border-box);
         padding: 10px 8px;
         float: right;
         margin: -20px 0 0 0;

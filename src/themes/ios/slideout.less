@@ -14,7 +14,7 @@
   visibility: hidden;
   .transform(translate3d(-100%,0,0));
   .transition(all 0.25s ease-out);
-  .overflowYScroll;
+  .overflow-y-scroll;
   -webkit-overflow-scrolling: touch;
   #flex > .display(flex);
   #flex > .flex-direction(column);
@@ -30,7 +30,7 @@
 .slide-out > section {
   #flex > .flex(1);
   padding-bottom: 100px;
-  .overflowYScroll;
+  .overflow-y-scroll;
 }
 
 .button.slide-out-button {
@@ -45,7 +45,7 @@
   &::before {
     .pseudo-block('');
     .size(35px,35px);
-    .imageMask(#000, @slideOutButtonSVG);
+    .image-mask(#000, @slideOutButtonSVG);
   }
 }
 

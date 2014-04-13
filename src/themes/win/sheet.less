@@ -58,15 +58,10 @@
 }
 
 .sheet > div.handle {
-  display: -ms-flexbox;
-  box-sizing: border-box;
-  -ms-flex-pack: center;
-  -ms-flex-align: center;
-  -ms-flex-direction: column;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-directions: column;
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(center);
+  #flex > .align-items(center);
   text-align: center;
   margin: 0 auto;
   color: @appBkColor;

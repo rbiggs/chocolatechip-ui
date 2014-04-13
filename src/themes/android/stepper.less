@@ -2,18 +2,10 @@
    Stepper Control
    =========================== */ 
 .stepper {
-  display: -webkit-inline-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack: center;
-  -webkit-box-align: start;
-  display: -webkit-inline-flex;
-  -webkit-flex-direction: row;
-  -webkit-justify-content: center;
-  -webkit-align-items: flex-start;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
+  #flex > .display(inline-flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(center);
+  #flex > .align-items(flex-start);
   padding: 1px;
 
   > input {
@@ -23,9 +15,9 @@
 
   > label {
     display: block;
-    -webkit-box-sizing: border-box;
+    .box-sizing(border-box);
     border: solid 1px @buttonBorderColor;
-    .size(30px, 40px);
+    .size(40px, e0px);
     font: bold 16px/30px Helvetica;
     text-align: center;
     background-color: @stepperLabelBkgnd;

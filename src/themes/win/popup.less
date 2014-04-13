@@ -2,10 +2,8 @@
    Popup Control
    =========================== */
 .popup {
-  display: -ms-flexbox;
-  -ms-flex-direction: column;
-  display: flex;
-  flex-direction: column;
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
   width: 100%;
   background-color: #fafafa;
   padding: 20px 10px;
@@ -51,14 +49,10 @@
   
   header, & footer {
     box-sizing: border-box;
-    display: -ms-flexbox !important;
-    -ms-flex-direction: row;
-    -ms-flex-pack: distribute;
-    -ms-flex-align: center;
-    display: flex !important;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    #flex > .display(flex) !important;
+    #flex > .flex-direction(row);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
     height: auto !important
   }
 
@@ -70,7 +64,7 @@
     height: 42px;
 
     > .button {
-      -ms-flex: 1;
+      #flex > .flex(1);
       display: block;
       box-sizing: border-box;
       max-width: 100%;

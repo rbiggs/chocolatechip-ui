@@ -7,15 +7,14 @@
 
 .deletion-indicator {
   display: -webkit-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  .box-sizing(border-box);
   padding: 2px 5px 13px 1px;
   .size(24px, 24px);
   border: solid 2px @buttonBorderColor;
   position: absolute;
   top: 14px;
   left: -40px;
-  .transition;
+  .transition(all .25s ease-out);
   cursor: pointer;
 }
 .isDesktop .deletion-indicator:hover,
@@ -25,10 +24,9 @@ li.selected > .deletion-indicator {
 }
 li.selected > .deletion-indicator::before {
   content: '';
-  display: block;
-  .size(24px, 24px);
-  .imageMask (@deletionIndicatorColor, @parsedSelectListIndicatorSVG);
   display: block !important;
+  .size(24px, 24px);
+  .image-mask (@deletionIndicatorColor, @selectListIndicatorSVG);
   margin: -5px 0 0 -8px !important;
   font-size: 24pt;
 }
@@ -52,22 +50,16 @@ li.selected > .deletion-indicator::before {
 .button.delete {
   float: right;
   text-align: center;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  .box-sizing(border-box);
   width: 100px;
   position: absolute;
   right: 0;
   top: 10px;
-  display: -webkit-box;
-  -webkit-box-align: center;
-  -webkit-box-pack: center;
-  display: -webkit-flex;
-  -webkit-align-items: center;
-  -webkit-justify-content: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .transition;
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(center);
+  #flex > .align-items(center);
+  .transition(all .25s ease-out);
   display: none;
   cursor: pointer;
   font-weight: 200;

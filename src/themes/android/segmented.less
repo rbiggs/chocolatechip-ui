@@ -2,18 +2,13 @@
    Segmented Control
    =========================== */
 .segmented {
-  display: -webkit-inline-box;
-  -webkit-box-orient: horizontal;
-  -webkit-box-pack:center;
-  display: -webkit-inline-flex;
-  -webkit-flex-direction: row;
-  -webkit-justify-content: center;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
-  box-sizing: border-box;
+  #flex > .display(inline-flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(center);
+
+  .box-sizing(border-box);
   margin: 0px 10px;
-  .flex;
+  #flex > .flex(1) !important;
 
   &.align-flush{
     position: absolute;
@@ -22,7 +17,10 @@
   }
 
   > .button {
-    .flexBlockCentered;
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
     border: solid 1px @buttonBorderColor;
     text-align: center !important;
     border-left: none;
@@ -30,8 +28,7 @@
     border-top: solid 3px @buttonTopColor;
     box-shadow: none;
     font-size: 13px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+    .box-sizing(border-box);
     height: 30px;
     cursor: pointer;
     margin: 0px !important;
@@ -51,9 +48,8 @@
 }
 
 div.horizontal.centered > .segmented {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: flex;
+  #flex > .display(flex);
+  #flex > .flex(1) !important;
   margin: 10px 16px;
   width: 100%;
 }

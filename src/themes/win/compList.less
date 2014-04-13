@@ -2,16 +2,13 @@
    Comp List Items
    =========================== */
 li.comp {
-  display: -ms-flexbox;
-  -ms-flex-direction: row;
-  -ms-flex-align: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .align-items(stretch);
   padding-bottom: 0;
 
   > div {
-    -ms-flex: 1;
+    #flex > .flex(1) !important;
     padding: 0 0 10px 0;
 
     & + aside {
@@ -45,16 +42,13 @@ li.comp {
   }
 
   > aside {
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
-    -ms-flex-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    #flex > .display(flex);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
     padding: 0 0 10px 0;
 
     &:first-child {
-      -ms-flex-align: start;
+      #flex > .align-items(start);
       margin-right: 10px;
     }
 

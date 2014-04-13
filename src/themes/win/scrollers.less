@@ -10,8 +10,7 @@ article > section,
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
   box-sizing: border-box;
-  -ms-flex: 1;
-  flex: 1;
+  #flex > .flex(1);
 }
 .scroller-horizontal {
   overflow-y: hidden;
@@ -34,21 +33,14 @@ article > section {
   Horizontal Panels
   ============================== */
 .horizontal {
-  display: -ms-flexbox;
-  -ms-flex-pack: start;
-  -ms-flex-align: stretch;
-  -ms-flex-direction: row;
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
+  #flex > .display(flex);
+  #flex > .flex-direction(row);
+  #flex > .justify-content(flex-start);
+  #flex > .align-items(stretch);
   &.centered {
-    display: -ms-flexbox;
-    -ms-flex-pack: center;
-    -ms-flex-align: stretch;
-    -ms-flex-direction: row;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+    #flex > .display(flex);
+    #flex > .flex-direction(row);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
   }
 }

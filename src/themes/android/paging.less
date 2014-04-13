@@ -32,7 +32,7 @@
   background: none;
   box-shadow: none;
   position: relative;
-  box-sizing: border-box;
+  .box-sizing(border-box);
 
   &::before {
     content: '';
@@ -97,7 +97,7 @@ article.paging > section {
   top: 0;
   opacity: 1;
   padding: 0 0 100px 0 !important;
-  .transition(all, .15s);
+  .transition(all .15s ease-out);
 }
 article {
 
@@ -138,8 +138,7 @@ article {
 html[dir=rtl] {
 
   .segmented.paging.horizontal {
-    -webkit-flex-direction: row-reverse;
-    flex-direction: row-reverse;
+    #flex > .flex-direction(row-reverse);
 
     .button:first-child {
       -webkit-box-ordinal-group: 2;
