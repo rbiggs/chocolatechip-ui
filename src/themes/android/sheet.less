@@ -1,9 +1,7 @@
 /* ==============================
    Sheet Control
    =========================== */
-@sheetHandleSVG: escape("<svg width='100px' height='100px' viewBox='0 0 100 100' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:sketch='http://www.bohemiancoding.com/sketch/ns'><g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' sketch:type='MSPage'><g id='Artboard-1' sketch:type='MSArtboardGroup' fill='#000000'><path d='M51,39.1317773 L9.17415422,64.2632809 L4.53881154,56.5487752 L50.8258458,28.7367191 L51,29.0265604 L51.1741542,28.7367191 L97.4611885,56.5487752 L92.8258458,64.2632809 L51,39.1317773 Z' id='Rectangle-2' sketch:type='MSShapeGroup'></path></g></g></svg>");
-
-@parsedSheetHandleSVG: "@{imageMaskRoot}@{sheetHandleSVG}";
+@sheetHandleSVG: escape('<svg width="94px" height="37px" viewBox="0 0 94 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(1.000000, 1.000000)" id="Artboard-1" fill="@{sheetHandle}"><path d="M46,10.1317773 L4.17415422,35.2632809 L-0.46118846,27.5487752 L45.8258458,-0.2632809 L46,0.0265604 L46.1741542,-0.2632809 L92.4611885,27.5487752 L87.8258458,35.2632809 L46,10.1317773 L46,10.1317773 Z" id="Rectangle-2"></path></g></g></svg>');
 
 .sheet {
   position: absolute;
@@ -63,12 +61,15 @@
     display: block;
     text-align: center;
     margin: 0 auto;
-    background-color: @sheetHandle;
     cursor: pointer;
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
     height: 29pt;
-    .image-mask(@sheetHandle, @parsedSheetHandleSVG);
+    background-color: rgba(0,0,0,.001);
+    background-image: url("@{imageMaskRoot}@{sheetHandleSVG}");
+    background-position: 50% 50%;
+    background-size: 40% 40%;
+    background-repeat: no-repeat;
     margin: 10px auto 0;
 
     .isDesktop &:hover {

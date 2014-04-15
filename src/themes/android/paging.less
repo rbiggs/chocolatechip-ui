@@ -46,11 +46,15 @@
     background-color: @appTint;
   }
 
+  &.selected::before {
+    background-color: @buttonTextHoverColor;
+  }
+
   .isDesktop &:hover {
     background-color: @buttonTextHoverColor;
 
     &::before {
-      background-color: #fff;
+      background-color: @buttonTextHoverColor;
     }
   }
 }

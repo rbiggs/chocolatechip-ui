@@ -2,10 +2,8 @@
    Tab Bar
    =========================== */
 
-@tabbarMoreSVG: escape("<svg version='1.1' id='Layer_2' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><circle cx='10' cy='23' r='5.172'/><circle cx='24' cy='23' r='5.172'/><circle cx='38' cy='23' r='5.172'/></svg>");
-
-@parsedTabbarMoreSVG: "@{imageMaskRoot}@{tabbarMoreSVG}";
-
+@tabbarMoreSVG: escape('<svg width="39px" height="11px" viewBox="0 0 39 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="more" fill="@{buttonTextHoverColor}"><circle id="Oval" cx="5.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="19.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="33.172" cy="5.172" r="5.172"></circle></g></g></svg>');
+@tabbarMoreSVGSelected: escape('<svg width="39px" height="11px" viewBox="0 0 39 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="more" fill="@{buttonTextColor}"><circle id="Oval" cx="5.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="19.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="33.172" cy="5.172" r="5.172"></circle></g></g></svg>');
 body.hasTabBar article {
   top: 77px !important;
 
@@ -74,9 +72,14 @@ body.hasTabBar article {
     &::before {
       content: '';
       display: block;
-      height: 30px;
-      .image-mask (#fff, @parsedTabbarMoreSVG);
-      -webkit-mask-position: center -5px !important;
+      height: 20px;
+      background-image: url("@{imageMaskRoot}@{tabbarMoreSVG}");
+      background-position: 50% 50%;
+      background-size: 40% 40%;
+      background-repeat: no-repeat;
+    }
+    &.selected::before {
+      background-image: url("@{imageMaskRoot}@{tabbarMoreSVGSelected}");
     }
   }
 
