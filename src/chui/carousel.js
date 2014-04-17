@@ -80,7 +80,7 @@
           if (options.pagination) {
             pagination = document.createElement('ul');
             pagination.className = 'pagination';
-            for (var k = 0; k < panels.length; k++) {
+            for (var k = 0; k < options.panels.length; k++) {
               li = document.createElement('li');
               if (k === 0) {
                 li.className = 'selected';
@@ -327,25 +327,25 @@
         options.loop = options.loop || false;
         var carousel = new UICarousel({
           target: options.target,
-          panels: panels.length,
+          panels: options.panels.length,
           loop: options.loop,
           pagination: options.pagination
         }); 
         $(options.target).data('carousel', carousel);
         // Reverse array of data if RTL:
-        if ($.isRTL) panels = reverseList(panels);
+        if ($.isRTL) options.panels = reverseList(options.panels);
         var panel;
         // Load initial data:
         for (var i = 0; i < 3; i++) {
-          panel = i === 0 ? panels.length - 1 : i - 1;
-          carousel.carouselPanels[i].innerHTML = panels[panel];
+          panel = i === 0 ? options.panels.length - 1 : i - 1;
+          carousel.carouselPanels[i].innerHTML = options.panels[panel];
         }
         var index = 0;
         var pagination = $(options.target).next('.pagination');
         carousel.onSlide(function () {
           for (var i = 0; i < 3; i++) {
             var upcoming = $(carousel.carouselPanels[i]).data('upcomingPanelIndex');
-            carousel.carouselPanels[i].innerHTML = panels[upcoming];
+            carousel.carouselPanels[i].innerHTML = options.panels[upcoming];
           }
           index = $('.carousel-panel-active').data('upcomingPanelIndex');
           pagination.find('li').removeClass('selected');
@@ -355,7 +355,7 @@
             if (index < 1) {
               pagination.find('li').eq(0).addClass('selected');
             } else {
-              pagination.find('li').eq(panels.length - index).addClass('selected');
+              pagination.find('li').eq(options.panels.length - index).addClass('selected');
             }
           } else {
             pagination.find('li').eq(index).addClass('selected');
