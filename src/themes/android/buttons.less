@@ -73,13 +73,13 @@ a.button {
 
   .isDesktop &:hover, &.selected, .isDesktop &.show-popover:hover, &.show-popover.selected {
     cursor: pointer;
-    background-color: @appTint !important;  
+    background-color: @appTint;  
   }
 
   .isDesktop &.back:hover, .isDesktop &.backTo:hover {
     border: none;
     box-shadow: none;
-    background-color: @appTint !important;
+    background-color: @appTint;
 
     &::before {
       background: transparent url('@{imageMaskRoot} @{backButtonSVGHover}');

@@ -75,7 +75,14 @@ a.button {
     max-width: 300px;
   }
 }
-
+@media only screen and (device-width : 480px) and (orientation : portrait) {
+  &.back, &.backTo {
+    &::before {
+      width: 41px;
+      height: 41px;
+    }
+  }
+}
 html[dir=rtl] {
   .button {
     &.back, &.backTo {

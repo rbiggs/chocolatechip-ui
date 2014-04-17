@@ -17,7 +17,7 @@
     display: block;
     .box-sizing(border-box);
     border: solid 1px @buttonBorderColor;
-    .size(40px, e0px);
+    .size(40px, 30px);
     font: bold 16px/30px Helvetica;
     text-align: center;
     background-color: @stepperLabelBkgnd;
@@ -48,4 +48,7 @@
       border-left: none;
     }
   }
+}
+body:not(.isDesktop) .stepper > .button:last-of-type {
+  padding-top: 4px !important;
 }

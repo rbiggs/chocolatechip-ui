@@ -5,19 +5,19 @@
 
 @parsedPagingHorizPrevSVG: "@{imageMaskRoot}@{pagingHorizPrevSVG}";
 
-@pagingHorizNextSVG: escape('<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="36" height="65" viewBox="0 0 36 65" id="svg2"><g transform="translate(-0.55084746,-0.82627119)" id="Page-1" style="fill:none;stroke:none"><path d="M 29.148437,65.297852 2.0800781,33.855469 29.757812,1.7607422 35.9375,8.1572266 13.439453,33.299805 35.709961,59.214844 29.148437,65.297852 z" transform="matrix(-1,0,0,-1,38,67)" id="Path-1" style="fill:#000000;stroke:@{appTint}" /></g></svg>');
+@pagingHorizNextSVG: escape('<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" width="36" height="65" viewBox="0 0 36 65" id="svg2"><g transform="translate(-0.55084746,-0.82627119)" id="Page-1" style="fill:none;stroke:none"><path d="M 29.148437,65.297852 2.0800781,33.855469 29.757812,1.7607422 35.9375,8.1572266 13.439453,33.299805 35.709961,59.214844 29.148437,65.297852 z" transform="matrix(-1,0,0,-1,38,67)" id="Path-1" style="fill:@{appTint};stroke:@{appTint}" /></g></svg>');
 
 @parsedPagingHorizNextSVG: "@{imageMaskRoot}@{pagingHorizNextSVG}";
 
-@pagingVertPrevSVG: escape('<svg width="67px" height="37px" viewBox="0 0 67 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Artboard-1" stroke="#000000" fill="#000000"><g id="android-up" transform="translate(1.000000, 1.000000)"><g id="Page-1"><g id="Artboard-1"><path d="M42.4404295,48.800782 L15.3720701,17.3583992 L43.0498045,-14.7363274 L49.229492,-8.33984299 L26.7314451,16.8027351 L49.0019529,42.7177742 L42.4404295,48.800782 L42.4404295,48.800782 Z" id="Path-1" transform="translate(32.372070, 17.263673) rotate(90.000000) translate(-32.372070, -17.263673) "></path></g></g></g></g></g></svg>');
+@pagingVertPrevSVG: escape('<svg width="67px" height="37px" viewBox="0 0 67 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Artboard-1" stroke="@{appTint}" fill="@{appTint}"><g id="android-up" transform="translate(1.000000, 1.000000)"><g id="Page-1"><g id="Artboard-1"><path d="M42.4404295,48.800782 L15.3720701,17.3583992 L43.0498045,-14.7363274 L49.229492,-8.33984299 L26.7314451,16.8027351 L49.0019529,42.7177742 L42.4404295,48.800782 L42.4404295,48.800782 Z" id="Path-1" transform="translate(32.372070, 17.263673) rotate(90.000000) translate(-32.372070, -17.263673) "></path></g></g></g></g></g></svg>');
 
 @parsedPagingVertPrevSVG: "@{imageMaskRoot}@{pagingVertPrevSVG}";
 
-@pagingVertNextSVG: escape('<svg width="67px" height="38px" viewBox="0 0 67 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" ><g id="Artboard-1" transform="translate(1.000000, 1.000000)" stroke="#000000" fill="#000000"><path d="M42.78125,50.9814453 L15.7128906,19.5390625 L43.390625,-12.5556641 L49.5703125,-6.15917969 L27.0722656,18.9833984 L49.3427734,44.8984375 L42.78125,50.9814453 Z" id="Path-1" transform="translate(32.632812, 19.183594) rotate(-90.000000) translate(-32.632812, -19.183594) "></path></g></g></svg>');
+@pagingVertNextSVG: escape('<svg width="67px" height="38px" viewBox="0 0 67 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" ><g id="Artboard-1" transform="translate(1.000000, 1.000000)" stroke="@{appTint}" fill="@{appTint}"><path d="M42.78125,50.9814453 L15.7128906,19.5390625 L43.390625,-12.5556641 L49.5703125,-6.15917969 L27.0722656,18.9833984 L49.3427734,44.8984375 L42.78125,50.9814453 Z" id="Path-1" transform="translate(32.632812, 19.183594) rotate(-90.000000) translate(-32.632812, -19.183594) "></path></g></g></svg>');
 
 @parsedPagingVertNextSVG: "@{imageMaskRoot}@{pagingVertNextSVG}";
 
-.segmented.paging > .button {
+.segmented.paging > a.button {
   display: -webkit-box;
   -webkit-box-align: center;
   -webkit-align-items: center;
@@ -26,11 +26,10 @@
   font-size: 20pt;
   color: @buttonTextColor;
   padding: 0;
-  .size(40px, 40px);
   display: block;
   border: solid 1px transparent;
   background: none;
-  box-shadow: none;
+  box-shadow: none !important;
   position: relative;
   .box-sizing(border-box);
 
@@ -43,11 +42,13 @@
     left: 0;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-position: 50% 50%;
-    background-color: @appTint;
   }
 
-  &.selected::before {
-    background-color: @buttonTextHoverColor;
+  &.selected {
+    border: none !important;
+    &::before {
+      background-color: @buttonTextHoverColor;
+    }
   }
 
   .isDesktop &:hover {
@@ -61,33 +62,57 @@
 
 .segmented.paging {
 
-  &.horizontal > .button {
+  &.horizontal > a.button {
+    border: none !important;
+    background-color: none !important;
+    margin: 0 4px !important;
+    .size(20px, 40px);
 
     &:first-of-type::before {
-      -webkit-mask-image: url(@parsedPagingHorizPrevSVG);
+      background-image: url(@parsedPagingHorizPrevSVG);
+      background-position: 50% 50%;
+      background-size: 90% 90%;
+      background-repeat: no-repeat;
       left: 0;
-      -webkit-mask-size: auto 100%;
     }
 
     &:last-of-type::before {
-      -webkit-mask-image: url(@parsedPagingHorizNextSVG);
+      background-image: url(@parsedPagingHorizNextSVG);
+      background-position: 50% 50%;
+      background-size: 90% 90%;
+      background-repeat: no-repeat;
       left: 2px;
-      -webkit-mask-size: auto 100%;
     }
   }
 
-  &.vertical > .button {
+  &.vertical {
+    #flex > .flex-direction(row);
 
-    &:first-of-type::before {
-      -webkit-mask-image: url(@parsedPagingVertPrevSVG);
-      left: 2px;
-      -webkit-mask-size: 100% auto;
-    }
+    > a.button {
+      margin: 0 4px !important;
+      .size(40px, 40px);
 
-    &:last-of-type::before {
-      -webkit-mask-image: url(@parsedPagingVertNextSVG);
-      left: 2px;
-      -webkit-mask-size: 100% auto;
+      &:first-of-type::before {
+        background-image: url(@parsedPagingVertPrevSVG);
+        background-position: 50% 50%;
+        background-size: 90% 90%;
+        background-repeat: no-repeat;
+        left: 2px;
+      }
+
+      &:last-of-type::before {
+        background-image: url(@parsedPagingVertNextSVG);
+        background-position: 50% 50%;
+        background-size: 90% 90%;
+        background-repeat: no-repeat;
+        left: 2px;
+      }
+
+      .isDesktop &:hover,
+      .isDesktop &.selected {
+        border: none !important;
+        background: none !important;
+      }
     }
   }
 }

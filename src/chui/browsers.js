@@ -9,16 +9,6 @@
   }
 
   'use strict';
-  $.extend({
-    UIDesktopCompat : function ( ) {
-      if ($.isDesktop && $.isSafari) {
-        $('body').addClass('isiOS').addClass('isDesktopSafari isDesktop');
-      } else if ($.isDesktop && $.isChrome) {
-        $('body').addClass('isAndroid').addClass('isDesktopChrome isDesktop');
-      }
-    }
-  });
-
   /////////////////////////////
   // Determine browser version:
   /////////////////////////////
@@ -50,6 +40,8 @@
     if ($.isSafari && parseInt($.browserVersion(), 10) === 6) {
       $.body.addClass('isSafari6');
     }
-    $.UIDesktopCompat();
+    if ($.isNativeAndroid) {
+      $.body.addClass('isNativeAndroidBrowser')
+    }
   });
 })(window.jQuery);

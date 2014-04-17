@@ -68,12 +68,15 @@
     background-color: rgba(0,0,0,.001);
     background-image: url("@{imageMaskRoot}@{sheetHandleSVG}");
     background-position: 50% 50%;
-    background-size: 40% 40%;
+    background-size: auto 40%;
     background-repeat: no-repeat;
     margin: 10px auto 0;
 
     .isDesktop &:hover {
       background-color: @appTint;
+    }
+    .isNativeAndroidBrowser & {
+      background-size: 20% auto;
     }
   }
 }
