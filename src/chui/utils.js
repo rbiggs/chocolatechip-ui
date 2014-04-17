@@ -18,7 +18,7 @@
 
     ////////////////////////////
     // Version of each that uses
-    // regular paramater order:
+    // regular parameter order:
     ////////////////////////////
     forEach : function ( obj, callback, args ) {
       function isArraylike( obj ) {

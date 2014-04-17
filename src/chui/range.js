@@ -1,0 +1,32 @@
+(function($) {
+  'use strict'; 
+
+  $.fn.extend({
+    UIRange : function () {
+      if ($.isWin) return;
+      if (!this.nodeName === 'INPUT') return;
+      var input = $(this);    
+      var newPlace;  
+      var width = input.width();
+      var newPoint = (input.val() - input.attr("min")) / (input.attr("max") - input.attr("min"));
+      var offset = -1.3;
+      if (newPoint < 0) { 
+        newPlace = 0; 
+      } else if (newPoint > 1) { 
+        newPlace = width; 
+      } else { 
+        newPlace = width * newPoint + offset; offset -= newPoint; 
+      }
+      input.css({'background-size': Math.round(newPlace) + 'px 10px'})         
+    }
+  });
+  $(function() {
+    $('input[type=range]').each(function(_, ctx) {
+      $(ctx).UIRange();
+    });
+    $('body').on('input', 'input[type=range]', function() {
+      $(this).UIRange();
+    });
+  });
+
+})(window.jQuery);
