@@ -36,7 +36,7 @@
   &::before {
     content: '';
     display: block;
-    .size(35px,35px);
+    .size(20px,35px);
     position: absolute;
     top: 2px;
     left: 0;
@@ -47,15 +47,14 @@
   &.selected {
     border: none !important;
     &::before {
-      background-color: @buttonTextHoverColor;
+      opacity: .5;
     }
   }
 
   .isDesktop &:hover {
-    background-color: @buttonTextHoverColor;
 
     &::before {
-      background-color: @buttonTextHoverColor;
+      opacity: .5;
     }
   }
 }
@@ -90,7 +89,7 @@
 
     > a.button {
       margin: 0 4px !important;
-      .size(40px, 40px);
+      .size(20px, 40px);
 
       &:first-of-type::before {
         background-image: url(@parsedPagingVertPrevSVG);
