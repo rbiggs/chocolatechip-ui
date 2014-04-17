@@ -75,7 +75,8 @@ module.exports = function(grunt) {
           'src/chui/tabbar.js', 
           'src/chui/templates.js', 
           'src/chui/search.js',
-          'src/chui/carousel.js'
+          'src/chui/carousel.js',
+          'src/chui/range.js'
         ],
         dest: '<%= pkg.projectPath %>chui/chui-<%= pkg.version %>.js'
       },
