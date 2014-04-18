@@ -31,3 +31,8 @@ input[type="range"]:focus::-webkit-slider-thumb, .isDesktop input[type="range"]:
   background-image:
   -webkit-radial-gradient(darken(@appTint,16%) 4px, rgba(red(@appTint),green(@appTint),blue(@appTint),.5) 4px);
 }
+html[dir=rtl] {
+  input[type="range"] {
+    background-position: right center;
+  }
+}
