@@ -4,7 +4,7 @@
   $.fn.extend({
     UIRange : function () {
       if ($.isWin) return;
-      if (!this.nodeName === 'INPUT') return;
+      if (this.nodeName !== 'INPUT') return;
       var input = $(this);    
       var newPlace;  
       var width = input.width();
@@ -17,7 +17,7 @@
       } else { 
         newPlace = width * newPoint + offset; offset -= newPoint; 
       }
-      input.css({'background-size': Math.round(newPlace) + 'px 10px'})         
+      input.css({'background-size': Math.round(newPlace) + 'px 10px'});         
     }
   });
   $(function() {
