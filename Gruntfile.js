@@ -51,6 +51,7 @@ module.exports = function(grunt) {
           'src/chui/utils.js', 
           'src/chui/events.js', 
           'src/chui/detectors.js', 
+          'src/chui/browsers.js', 
           'src/chui/gestures.js', 
           'src/chui/desktop.js', 
           'src/chui/layout.js', 
