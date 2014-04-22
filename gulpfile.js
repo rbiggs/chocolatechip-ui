@@ -15,7 +15,7 @@ var gulp = require('gulp')
 ,   footer = require('gulp-footer');
 
 //Add Trailing slash to projectPath if not exists.
-if pkg.projectPath != ""
+if (pkg.projectPath !== "")
   pkg.projectPath = pkg.projectPath.replace(/\/?$/, '/');
 
 // Define values for file headers:
