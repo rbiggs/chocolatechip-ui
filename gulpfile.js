@@ -15,7 +15,8 @@ var gulp = require('gulp')
 ,   footer = require('gulp-footer');
 
 //Add Trailing slash to projectPath if not exists.
-pkg.projectPath = pkg.projectPath.replace(/\/?$/, '/');
+if (pkg.projectPath !== "")  //if projectPath is empty dnt add a /
+  pkg.projectPath = pkg.projectPath.replace(/\/?$/, '/');
 
 // Define values for file headers:
 var chui = ['ChUI-Android.css','ChUI-iOS.css','ChUI-Win.css','ChUI.js']
@@ -62,9 +63,7 @@ var htmlHeader = ['<!DOCTYPE html>',
 '  <script src="<%= pkg.jquery.url %>"></script>',
 '  <script src="../chui/chui-<%= pkg.version %>.js"></script>'].join('\n') + '\n';
 
-// Process, minify and output LESS:
-gulp.task('less', function () {
-  osTypes.forEach(function(ctx, idx) {
+var less_for=function (ctx, idx) {
     gulp.src('src/themes/' + ctx + '/main.less')
       .pipe(less())
       .pipe(rename('chui-' + ctx + '-' + pkg.version + '.css'))
@@ -73,7 +72,11 @@ gulp.task('less', function () {
       .pipe(header(chuiHeaderMin, { pkg : pkg, chuiName: chui[idx] }))
       .pipe(rename('chui-' + ctx + '-' + pkg.version + '.min.css'))
       .pipe(gulp.dest(pkg.projectPath + './chui/'));;   
-  });
+}
+
+// Process, minify and output LESS:
+gulp.task('less', function () {
+  osTypes.forEach(less_for);
 });
 
 // Concat, minify and output JavaScript:
@@ -184,7 +187,12 @@ gulp.task('default', ['less','js','jshint','copy','examples']);
 
 gulp.task('chui', ['less','js','jshint']);
 
+gulp.task('chuijs', ['js','jshint']);
 
+gulp.task('android', function() {
+  console.log("Bring back Android!");
+
+});
 // Watch LESS files and generate CSS:
 gulp.task('watch', function() {
   gulp.watch('src/themes/**/*.less', ['less']);
