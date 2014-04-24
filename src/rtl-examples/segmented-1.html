@@ -1,5 +1,8 @@
   <script>
     $(function() {
+      // Init Segmented Control:
+      $('.segmented').UISegmented({selected: 0});
+      // Init panel toggling:
       $('.segmented').UIPanelToggle('#toggle-panels',function(){$.noop;});
     });
   </script>

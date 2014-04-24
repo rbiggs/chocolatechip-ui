@@ -6,18 +6,23 @@
   </style>
   <script>
     $(function() {
+      // Define options for toggle panels:
       var segmentedOptions = {
         id: 'mySegmented',
         labels : ['جبار حبك','بنت أصول','أعمل عاقلة'],
         selected: 2
       };
+      // Define callback for Segmented Control:
       var segmentedResponse = function(e) {
         e.stopPropagation();
         $('#output').find('h3 > span').html(($(this).index() + 1));
       };
+      // Create Segmented Control:
       var newSegmented = $.UICreateSegmented(segmentedOptions);
       $('#segmentedPanel').append(newSegmented);
+      // Init Segmented Control:
       $('.segmented').UISegmented({callback:segmentedResponse});
+      // Init panel toggling:
       $('.segmented').UIPanelToggle('#toggle-panels',function(){$.noop;});
       var selectedPanel = $('.segmented').find('.selected').index();
       $('#output').find('span').html(selectedPanel + 1);

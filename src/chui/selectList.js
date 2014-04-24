@@ -21,10 +21,6 @@
     UISelectList : function (options) {
       var name = (options && options.name) ? options.name : $.Uuid();
       var list = this[0];
-      if (list && !$(list).hasClass('select')) {
-        this.addClass('select');
-      }
-      if (!list) return [];
       list.classList.add('select');
       $(list).find('li').forEach(function(ctx, idx) {
         var value = ctx.getAttribute("data-select-value") !== null ? ctx.getAttribute("data-select-value") : "";
