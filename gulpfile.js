@@ -63,18 +63,20 @@ var htmlHeader = ['<!DOCTYPE html>',
 '  <script src="<%= pkg.jquery.url %>"></script>',
 '  <script src="../chui/chui-<%= pkg.version %>.js"></script>'].join('\n') + '\n';
 
-// Process, minify and output LESS:
-gulp.task('less', function () {
-  osTypes.forEach(function(ctx, idx) {
-    gulp.src('src/themes/' + ctx + '/main.less')
+var less_for = function (os, idx) {
+    gulp.src('src/themes/' + os + '/main.less')
       .pipe(less())
-      .pipe(rename('chui-' + ctx + '-' + pkg.version + '.css'))
+      .pipe(rename('chui-' + os + '-' + pkg.version + '.css'))
       .pipe(header(chuiHeader, { pkg : pkg, chuiName: chui[idx] }))
       .pipe(gulp.dest(pkg.projectPath + 'chui/')).pipe(minifyCSS({}))
       .pipe(header(chuiHeaderMin, { pkg : pkg, chuiName: chui[idx] }))
-      .pipe(rename('chui-' + ctx + '-' + pkg.version + '.min.css'))
+      .pipe(rename('chui-' + os + '-' + pkg.version + '.min.css'))
       .pipe(gulp.dest(pkg.projectPath + './chui/'));;   
-  });
+}
+
+// Process, minify and output LESS:
+gulp.task('less', function () {
+  osTypes.forEach(less_for);
 });
 
 // Concat, minify and output JavaScript:
@@ -132,33 +134,6 @@ gulp.task('js', function () {
     .pipe(gulp.dest(pkg.projectPath + 'chui/'));;
 });
 
-// Create examples & demos (ltr or rtl):
-gulp.task('examples', function() {
-  var langDir = '';
-  var rtl = gutils.env.dir === 'rtl';
-  var dir = 'ltr';
-  var prefix = '';
-  if (rtl) {
-    prefix = 'rtl-';
-    dir = 'rtl';
-    langDir =  ' dir="rtl"';
-    // Copy out rtl images:
-    gulp.src('src/rtl-images/**/*')
-      .pipe(gulp.dest(pkg.projectPath +'rtl-images/'));
-    // Copy out regular images & data:`
-    gulp.run('copy');
-  }
-  osTypes.forEach(function(ctx, idx) {
-    gulp.src('src/' + prefix + 'examples/**/*')
-      .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir }))
-      .pipe(gulp.dest(pkg.projectPath + prefix + 'examples-' + ctx + '/'));
-    gulp.src('src/' + prefix + 'demo/*.html')
-      .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir }))
-      .pipe(rename(prefix + 'demo-' + ctx + '.html'))
-      .pipe(gulp.dest(pkg.projectPath + prefix + 'demo/'));
-  });
-});
-
 // Copy out media:
 gulp.task('copy', function() {
   gulp.src('src/images/**/*')
@@ -174,12 +149,9 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-/* Define default task:
-To build, just enter gulp in terminal.
-To build right-to-left examples, use:
-
-  gulp --dir rtl
-
+/* 
+   Define default task:
+   To build, just enter gulp in terminal.
 */
 gulp.task('default', ['less','js','jshint','copy','examples']);
 
@@ -190,3 +162,84 @@ gulp.task('chui', ['less','js','jshint']);
 gulp.task('watch', function() {
   gulp.watch('src/themes/**/*.less', ['less']);
 });
+
+// Generate only JavaScript
+gulp.task('chuijs', ['js','jshint']);
+
+// Generate all three themes - same as less following ChUI grunt conventions, easy docs
+gulp.task('themes', ['less']);
+
+// Generate only Android CSS
+gulp.task('android', function () {
+  less_for('android', 0); // 0 for position of element on chui var
+});
+
+// Generate only iOS CSS
+gulp.task('ios', function () {
+  less_for('ios', 1);
+});
+
+// Generate only Windows CSS
+gulp.task('win', function () {
+  less_for('win', 2);
+});
+
+
+var generate_examples = function (os) {
+
+  return (function() {
+
+    var langDir = '';
+    var rtl = gutils.env.dir === 'rtl';
+    var dir = 'ltr';
+    var prefix = '';
+
+    var examples_for = function (os, idx) {
+
+      gulp.src('src/' + prefix + 'examples/**/*')
+        .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir }))
+        .pipe(gulp.dest(pkg.projectPath + prefix + 'examples-' + os + '/'));
+      gulp.src('src/' + prefix + 'demo/*.html')
+        .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir }))
+        .pipe(rename(prefix + 'demo-' + os + '.html'))
+        .pipe(gulp.dest(pkg.projectPath + prefix + 'demo/'));
+
+    };
+
+    if (rtl) {
+      prefix = 'rtl-';
+      dir = 'rtl';
+      langDir =  ' dir="rtl"';
+      // Copy out rtl images:
+      gulp.src('src/rtl-images/**/*')
+        .pipe(gulp.dest(pkg.projectPath +'rtl-images/'));
+    }
+    
+    if (os === 'android') {
+      examples_for('android',0);
+    } else if(os === 'ios') {
+      examples_for('ios',1);
+    } else if(os ==='win') {
+      examples_for('win',2);
+    } else {
+      osTypes.forEach(examples_for);
+    }
+  });
+};
+
+/*
+To build right-to-left examples, use:
+  gulp --dir rtl
+  or enter --dir rtl after the following commands
+*/
+//generate only android example & demo
+gulp.task('android_examples', ['chuijs','android','copy'], generate_examples('android'));
+
+//generate only ios example & demo
+gulp.task('ios_examples', ['chuijs','ios','copy'], generate_examples('ios'));
+
+//generate only windows example & demo
+gulp.task('win_examples', ['chuijs','win','copy'], generate_examples('win'));
+
+// Create examples & demos (ltr or rtl):
+gulp.task('examples', ['copy'], generate_examples());
