@@ -9,26 +9,17 @@
       if (this.hasClass('paging')) return;
       var callback = (options && options.callback) ? options.callback : $.noop;
       var selected;
-      if (options && options.selected) selected = options.selected;
+      if (options && options.selected >= 0) selected = options.selected;
       if (options && options.callback) {
         callback = options.callback;
       }
       this.find('a').each(function(idx, ctx) {
         $(ctx).find('a').attr('role','radio');
-        if (selected === 0 && idx === 0) {
-          ctx.setAttribute('aria-checked', 'true');
-          ctx.classList.add('selected');
-        }
         if (idx === selected) {
           ctx.setAttribute('aria-checked', 'true');
           ctx.classList.add('selected');
         }
       });
-      if (!selected) {
-        if (!this.find('.selected')[0]) {
-          this.children().eq(0).addClass('selected');
-        }
-      }
       this.on('singletap', '.button', function(e) {
         var $this = $(this);
         if (this.parentNode.classList.contains('paging')) return;
@@ -74,12 +65,5 @@
       _segmented.push('</div>');
       return _segmented.join('');
     }
-  });
-
-  $(function() {
-    /////////////////////////////////////
-    // Handle Existing Segmented Buttons:
-    /////////////////////////////////////
-    $('.segmented').UISegmented();
   });
 })(window.jQuery);
