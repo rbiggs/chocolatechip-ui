@@ -29,6 +29,7 @@
       $(list).find('li').forEach(function(ctx, idx) {
         var value = ctx.getAttribute("data-select-value") !== null ? ctx.getAttribute("data-select-value") : "";
         ctx.setAttribute('role', 'radio');
+        $(ctx).removeClass('selected').find('input').removeAttr('chekced');
         if (options && options.selected === idx) {
           ctx.setAttribute('aria-checked', 'true');
           ctx.classList.add('selected');
