@@ -149,19 +149,8 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-/* 
-   Define default task:
-   To build, just enter gulp in terminal.
-*/
-gulp.task('default', ['less','js','jshint','copy','examples']);
-
-gulp.task('chui', ['less','js','jshint']);
 
 
-// Watch LESS files and generate CSS:
-gulp.task('watch', function() {
-  gulp.watch('src/themes/**/*.less', ['less']);
-});
 
 // Generate only JavaScript
 gulp.task('chuijs', ['js','jshint']);
@@ -183,7 +172,6 @@ gulp.task('ios', function () {
 gulp.task('win', function () {
   less_for('win', 2);
 });
-
 
 var generate_examples = function (os) {
 
@@ -227,19 +215,53 @@ var generate_examples = function (os) {
   });
 };
 
-/*
-To build right-to-left examples, use:
-  gulp --dir rtl
-  or enter --dir rtl after the following commands
+/* 
+   Define default task:
+   To build, just enter gulp in terminal.
 */
-//generate only android example & demo
+gulp.task('default', ['less','js','jshint','copy', 'android_examples','ios_examples', 'win_examples']);
+
+gulp.task('chui', ['less','js','jshint']);
+
+/*
+To build all examples for Android, iOS and Windows Phone,
+just run gulp.
+
+To build the right-to-left examples for Android, iOS
+and Windows Phone, run:
+  gulp --dir rtl
+
+To create OS-specific builds, run the following commands.
+To create their right-to-left version, run the command followed by --dir rtl.
+*/
+
+// Generate only android example & demo
 gulp.task('android_examples', ['chuijs','android','copy'], generate_examples('android'));
 
-//generate only ios example & demo
+// Generate only ios example & demo
 gulp.task('ios_examples', ['chuijs','ios','copy'], generate_examples('ios'));
 
-//generate only windows example & demo
+// Generate only windows example & demo
 gulp.task('win_examples', ['chuijs','win','copy'], generate_examples('win'));
 
-// Create examples & demos (ltr or rtl):
-gulp.task('examples', ['copy'], generate_examples());
+
+
+// Watch LESS files and generate CSS:
+gulp.task('watch', function() {
+  gulp.watch('src/themes/**/*.less', ['less']);
+});
+
+// Watch Android LESS files and generate CSS:
+gulp.task('watch_android', function() {
+  gulp.watch('src/themes/android/*.less', ['android']);
+});
+
+// Watch iOS LESS files and generate CSS:
+gulp.task('watch_ios', function() {
+  gulp.watch('src/themes/ios/*.less', ['ios']);
+});
+
+// Watch Windows LESS files and generate CSS:
+gulp.task('watch_win', function() {
+  gulp.watch('src/themes/win/*.less', ['win']);
+});
