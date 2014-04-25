@@ -157,12 +157,6 @@ gulp.task('default', ['less','js','jshint','examples']);
 
 gulp.task('chui', ['less','js','jshint']);
 
-
-// Watch LESS files and generate CSS:
-gulp.task('watch', function() {
-  gulp.watch('src/themes/**/*.less', ['less']);
-});
-
 // Generate only JavaScript
 gulp.task('chuijs', ['js','jshint']);
 
@@ -265,4 +259,5 @@ gulp.task('watch:html', function() {
     gulp.watch(['src/examples/*.html', 'src/demo/*.html'], ['examples']);
 });
 
+//Watch All - html js & less
 gulp.task('watch', ['watch:less', 'watch:scripts', 'watch:html']);
