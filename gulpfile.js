@@ -153,7 +153,7 @@ gulp.task('jshint', function() {
    Define default task:
    To build, just enter gulp in terminal.
 */
-gulp.task('default', ['less','js','jshint','copy','examples']);
+gulp.task('default', ['less','js','jshint','examples']);
 
 gulp.task('chui', ['less','js','jshint']);
 
