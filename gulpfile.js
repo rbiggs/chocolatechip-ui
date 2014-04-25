@@ -243,3 +243,24 @@ gulp.task('win_examples', ['chuijs','win','copy'], generate_examples('win'));
 
 // Create examples & demos (ltr or rtl):
 gulp.task('examples', ['copy'], generate_examples());
+
+// Watch LESS files and generate CSS:
+gulp.task('watch:less', function() {
+  gulp.watch('src/themes/**/*.less', ['less']);
+});
+
+// Watch JS file and generate ChUI JS:
+gulp.task('watch:scripts', function() {
+  gulp.watch('src/chui/*.js', ['chuijs']);
+});
+
+// Watch html files and generate  examples & demo files
+gulp.task('watch:html', function() {
+  var rtl = gutils.env.dir === 'rtl';
+  if (rtl) //build rtl on --dir rtl
+    gulp.watch(['src/rtl-examples/*.html', 'src/rtl-demo/*.html'], ['examples']);
+  else
+    gulp.watch(['src/examples/*.html', 'src/demo/*.html'], ['examples']);
+});
+
+gulp.task('watch', ['watch:less', 'watch:scripts', 'watch:html']);
