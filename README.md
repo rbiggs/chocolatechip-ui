@@ -10,16 +10,125 @@ Please visit [ChocolateChip-UI's Website](http://chocolatechip-ui.com) for docum
 
 ##Building 
 
-ChocolateChip-UI uses Gruntjs to build. This is a Node package, so you'll first need to have [Node installed](http://http://nodejs.org). After installing Nodejs, or if you already have it installed, on Mac OS X use the terminal to cd to the directory. On Windows you can use the Windows command prompt to do this. Once you are in the folder, run the following command in your terminal. 
-On Mac OS X, you'll need to run the command with **sudo** to avoid installation errors: 
+ChocolateChip-UI uses Gulpjs or Gruntjs to build. This is a Node package, so you'll first need to have [Node installed](http://http://nodejs.org). After installing Nodejs, or if you already have it installed, on Mac OS X use the terminal to cd to the directory. On Windows you can use the Windows command prompt to do this. Once you are in the folder, run the following command in your terminal. 
+
+###Gulpjs
+
+On Mac OS X, you'll need to run the command in your terminal with **sudo** to avoid installation errors:
 
 ```shell
+sudo npm install -g gulp
+``` 
+
+
+For Windows, just runt this:
+
+```shell
+npm install -g gulp
+```
+
+Enter your password when it requests. After you should see a number of Nodejs modules being installed in a folder called **node\_modules**. You do not need **node\_modules** in your final project. The node modules are there to enable the build process with Gruntjs.
+
+Now that you have the node modules install, you can just type `gulp` in the terminal and hit return/enter. This will kick off the build process, which will produce the following directories:
+
+```
+chui/
+data/
+demo/
+examples-android/
+examples-ios/
+examples-win/
+images/
+node_modules/
+```
+
+If you're starting a new project, you only need the files in the **chui** folder. If you want to create a custom build, then just run any of the tasks:
+
+```
+gulp js android
+```
+
+```
+gulp js ios
+```
+
+```
+gulp js win
+```
+
+These will build the ChUI JavaScript file, normal and minified, as well as the OS theme normal and minified.
+
+You can also build out just the examples for a particular platform:
+
+
+```
+gulp android_examples
+```
+
+```
+gulp ios_examples
+```
+
+```
+gulp win_examples
+```
+
+This will include the ChUI JavaScript, the theme and all the examples for that platform.
+
+If you intend to customize a theme for branding purposes, you should do so in the LESS files in the source. But instead of having to rebuild the theme each time, you can ask Gulp to watch the theme. That means every time you make a change and save a file, Gulp will rebuild the theme for you.
+
+To watch all there themes, run:
+
+```
+gulp watch
+```
+
+To watch specific platform theme, run one of these:
+
+```
+gulp watch_android
+```
+
+```
+gulp watch_ios
+```
+
+```
+gulp watch_win
+```
+
+You could also build a theme and watch it all at once:
+
+```
+gulp js android && gulp watch_android
+```
+
+```
+gulp js ios && gulp watch_ios
+```
+
+```
+gulp js win && gulp watch_win
+```
+
+
+
+
+
+
+###Gruntjs
+
+On Mac OS X, you'll need to run the command with **sudo** to avoid installation errors: 
+
+```
+shell
 sudo npm install -g grunt-cli
 ``` 
 
 For Windows, just runt this:
 
-```shell
+```
+shell
 npm install -g grunt-cli
 ```
 
