@@ -29,10 +29,14 @@
       var editButton;
       var deletionIndicator;
       var button;
-      var swipe = 'swiperight';
+      var dispelDeletable = 'swiperight';
+      var enableDeletable = 'swipeleft';
       var dir = $('html').attr('dir')
       dir = dir ? dir.toLowerCase() : '';
-      if (dir === 'rtl') swipe = 'swipeleft';
+      if (dir === 'rtl') {
+        dispelDeletable = 'swipeleft';
+        enableDeletable = 'swiperight';
+      }
       // Windows uses an icon for the delete button:
       if ($.isWin) deleteLabel = '';
       var height = $('li').eq(1)[0].clientHeight;
@@ -95,8 +99,11 @@
           });
         
           if ($.isiOS || $.isSafari) {
-            $(list).on(swipe, 'li', function() {
+            $(list).on(dispelDeletable, 'li', function() {
               $(this).removeClass('selected');
+            });
+            $(list).on(enableDeletable, 'li', function() {
+              $(this).addClass('selected');
             });
           }
           $(list).on('singletap', '.delete', function() {

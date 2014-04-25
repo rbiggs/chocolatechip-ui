@@ -112,13 +112,38 @@ html[dir=rtl] {
     }
 
     & > .button.delete {
-      -webkit-transform: translate3d(-80px, 0, 0);
+      .transform(translate3d(-80px,0,0));
       left: 0;
       right: auto;
     }
   }
 
-  .list.showIndicators > li {
+  &.deletable.showIndicators > li {
+    margin-right: 0px;
+  }
+  .list.deletable > li {
+    &.selected {
+      margin-right: 0 !important;
+
+      & > .button.delete {
+        .transform(translate3d(0,0,0)) !important;
+      }
+    }
+  & > .button.delete {
+      .transform(translate3d(-80px,0,0)) !important;
+    }
+  }
+
+  .list.showIndicators > li,
+  .list.deletable.showIndicators > li  {
+    &.selected {
+      margin-right: 0;
+
+      & > .button.delete {
+        .transform(translate3d(0,0,0)) !important;
+      }
+    }
+
     & > .deletion-indicator {
       right: 0px !important;
       margin-left: 10px;
@@ -127,14 +152,6 @@ html[dir=rtl] {
     & > .button.delete {
       right: auto;
       left: 0 !important;
-    }
-    &.selected {
-      margin-right: 0;
-      margin-left: 80px;
-
-      & > .button.delete {
-        .transform(translate3d(-80px,0,0));
-      }
     }
   }
 }
