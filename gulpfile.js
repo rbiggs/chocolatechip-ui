@@ -246,7 +246,9 @@ gulp.task('examples', ['copy'], generate_examples());
 
 // Watch LESS files and generate CSS:
 gulp.task('watch:less', function() {
-  gulp.watch('src/themes/**/*.less', ['less']);
+  gulp.watch('src/themes/android/*.less', ['android']);
+  gulp.watch('src/themes/ios/*.less', ['ios']);
+  gulp.watch('src/themes/win/*.less', ['win']);
 });
 
 // Watch JS file and generate ChUI JS:
