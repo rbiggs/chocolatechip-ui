@@ -31,7 +31,7 @@
       var button;
       var dispelDeletable = 'swiperight';
       var enableDeletable = 'swipeleft';
-      var dir = $('html').attr('dir')
+      var dir = $('html').attr('dir');
       dir = dir ? dir.toLowerCase() : '';
       if (dir === 'rtl') {
         dispelDeletable = 'swipeleft';
