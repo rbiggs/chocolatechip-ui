@@ -222,17 +222,23 @@ var generate_examples = function (os) {
 };
 
 /*
-To build right-to-left examples, use:
+To build all examples for Android, iOS and Windows Phone,
+just run gulp.
+
+To build the right-to-left examples for Android, iOS
+and Windows Phone, run:
   gulp --dir rtl
-  or enter --dir rtl after the following commands
+
+To create OS-specific builds, run the following commands.
+To create their right-to-left version, run the command followed by --dir rtl.
 */
-//generate only android example & demo
+// Generate only android example & demo
 gulp.task('android_examples', ['chuijs','android','copy'], generate_examples('android'));
 
-//generate only ios example & demo
+// Generate only ios example & demo
 gulp.task('ios_examples', ['chuijs','ios','copy'], generate_examples('ios'));
 
-//generate only windows example & demo
+// Generate only windows example & demo
 gulp.task('win_examples', ['chuijs','win','copy'], generate_examples('win'));
 
 // Create examples & demos (ltr or rtl):
