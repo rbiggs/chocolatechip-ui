@@ -32,9 +32,9 @@
     ////////////////////////////////////////////////
     // Manage location.hash for client side routing:
     ////////////////////////////////////////////////
-    UITrackHashNavigation : function ( url, delimeter ) {
+    UITrackHashNavigation : function ( url, delimiter ) {
       url = url || true;
-      $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimeter);
+      $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimiter);
     },
 
     /////////////////////////////////////////////////////

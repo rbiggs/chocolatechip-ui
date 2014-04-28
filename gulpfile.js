@@ -149,8 +149,13 @@ gulp.task('jshint', function() {
     .pipe(jshint.reporter('default'));
 });
 
+/* 
+   Define default task:
+   To build, just enter gulp in terminal.
+*/
+gulp.task('default', ['less','js','jshint','examples']);
 
-
+gulp.task('chui', ['less','js','jshint']);
 
 // Generate only JavaScript
 gulp.task('chuijs', ['js','jshint']);
@@ -160,18 +165,19 @@ gulp.task('themes', ['less']);
 
 // Generate only Android CSS
 gulp.task('android', function () {
-  less_for('android', 0); // 0 for position of element on chui var
+  less_for('android', osTypes.indexOf('android')); // 0 for position of element on chui var
 });
 
 // Generate only iOS CSS
 gulp.task('ios', function () {
-  less_for('ios', 1);
+  less_for('ios', osTypes.indexOf('ios'));
 });
 
 // Generate only Windows CSS
 gulp.task('win', function () {
-  less_for('win', 2);
+  less_for('win', osTypes.indexOf('win'));
 });
+
 
 var generate_examples = function (os) {
 
@@ -203,25 +209,13 @@ var generate_examples = function (os) {
         .pipe(gulp.dest(pkg.projectPath +'rtl-images/'));
     }
     
-    if (os === 'android') {
-      examples_for('android',0);
-    } else if(os === 'ios') {
-      examples_for('ios',1);
-    } else if(os ==='win') {
-      examples_for('win',2);
-    } else {
+    if( os === undefined )
       osTypes.forEach(examples_for);
-    }
+    else
+      examples_for(os, osTypes.indexOf(os));
+      
   });
 };
-
-/* 
-   Define default task:
-   To build, just enter gulp in terminal.
-*/
-gulp.task('default', ['less','js','jshint','copy', 'android_examples','ios_examples', 'win_examples']);
-
-gulp.task('chui', ['less','js','jshint']);
 
 /*
 To build all examples for Android, iOS and Windows Phone,
@@ -234,7 +228,6 @@ and Windows Phone, run:
 To create OS-specific builds, run the following commands.
 To create their right-to-left version, run the command followed by --dir rtl.
 */
-
 // Generate only android example & demo
 gulp.task('android_examples', ['chuijs','android','copy'], generate_examples('android'));
 
@@ -244,24 +237,29 @@ gulp.task('ios_examples', ['chuijs','ios','copy'], generate_examples('ios'));
 // Generate only windows example & demo
 gulp.task('win_examples', ['chuijs','win','copy'], generate_examples('win'));
 
-
+// Create examples & demos (ltr or rtl):
+gulp.task('examples', ['copy'], generate_examples());
 
 // Watch LESS files and generate CSS:
-gulp.task('watch', function() {
-  gulp.watch('src/themes/**/*.less', ['less']);
-});
-
-// Watch Android LESS files and generate CSS:
-gulp.task('watch_android', function() {
+gulp.task('watch:less', function() {
   gulp.watch('src/themes/android/*.less', ['android']);
-});
-
-// Watch iOS LESS files and generate CSS:
-gulp.task('watch_ios', function() {
   gulp.watch('src/themes/ios/*.less', ['ios']);
-});
-
-// Watch Windows LESS files and generate CSS:
-gulp.task('watch_win', function() {
   gulp.watch('src/themes/win/*.less', ['win']);
 });
+
+// Watch JS file and generate ChUI JS:
+gulp.task('watch:scripts', function() {
+  gulp.watch('src/chui/*.js', ['chuijs']);
+});
+
+// Watch html files and generate  examples & demo files
+gulp.task('watch:html', function() {
+  var rtl = gutils.env.dir === 'rtl';
+  if (rtl) //build rtl on --dir rtl
+    gulp.watch(['src/rtl-examples/*.html', 'src/rtl-demo/*.html'], ['examples']);
+  else
+    gulp.watch(['src/examples/*.html', 'src/demo/*.html'], ['examples']);
+});
+
+//Watch All - html js & less
+gulp.task('watch', ['watch:less', 'watch:scripts', 'watch:html']);
