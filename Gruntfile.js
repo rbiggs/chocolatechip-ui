@@ -398,12 +398,33 @@ module.exports = function(grunt) {
         files: ['src/chui/*.js'],
         tasks: ['chuijs']
       },
-      css: {
+      less: {
         options: {
           spawn: false
         },
         files: ['src/themes/*.less'],
         tasks: ['themes']
+      },
+      android: {
+        options: {
+          spawn: false
+        },
+        files: ['src/themes/android/*.less'],
+        tasks: ['android']
+      },
+      ios: {
+        options: {
+          spawn: false
+        },
+        files: ['src/themes/ios/*.less'],
+        tasks: ['ios']
+      },
+      win: {
+        options: {
+          spawn: false
+        },
+        files: ['src/themes/win/*.less'],
+        tasks: ['win']
       },
       html: {
         options: {
@@ -411,16 +432,18 @@ module.exports = function(grunt) {
         },
         files: ['src/examples/*.html', 'src/demo/*.html'],
         tasks: [
-          'concat:example_android', 
+          'concat:examples_android', 
           'concat:demo_android', 
-          'concat:example_ios', 
-          'concat:demo_android', 
-          'concat:example_win', 
-          'concat:demo_android', 
-          'copy'
+          'concat:examples_ios', 
+          'concat:demo_ios', 
+          'concat:examples_win', 
+          'concat:demo_win', 
+          'copy',
         ]
       }
     }
+
+
   });
 
   // Tasks:
@@ -429,6 +452,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-string-replace');
