@@ -2,7 +2,7 @@
   'use strict';
 
   //////////////////////////////////
-  // Initialize a swipable carousel:
+  // Initialize a swipeable carousel:
   //////////////////////////////////
   $(function() {
     var UICarousel = (function () {
@@ -218,7 +218,7 @@
           if (this.stepsX < 10 && this.stepsY < 10) {
             return;
           }
-          // If scrolling verticallly, cancel:
+          // If scrolling vertically, cancel:
           if (!this.directionLocked && this.stepsY > this.stepsX) {
             this.initiated = false;
             return;

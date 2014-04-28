@@ -157,12 +157,6 @@ gulp.task('default', ['less','js','jshint','examples']);
 
 gulp.task('chui', ['less','js','jshint']);
 
-
-// Watch LESS files and generate CSS:
-gulp.task('watch', function() {
-  gulp.watch('src/themes/**/*.less', ['less']);
-});
-
 // Generate only JavaScript
 gulp.task('chuijs', ['js','jshint']);
 
@@ -171,17 +165,17 @@ gulp.task('themes', ['less']);
 
 // Generate only Android CSS
 gulp.task('android', function () {
-  less_for('android', 0); // 0 for position of element on chui var
+  less_for('android', osTypes.indexOf('android')); // 0 for position of element on chui var
 });
 
 // Generate only iOS CSS
 gulp.task('ios', function () {
-  less_for('ios', 1);
+  less_for('ios', osTypes.indexOf('ios'));
 });
 
 // Generate only Windows CSS
 gulp.task('win', function () {
-  less_for('win', 2);
+  less_for('win', osTypes.indexOf('win'));
 });
 
 
@@ -216,11 +210,11 @@ var generate_examples = function (os) {
     }
     
     if (os === 'android') {
-      examples_for('android',0);
+      examples_for('android', osTypes.indexOf('android'));
     } else if(os === 'ios') {
-      examples_for('ios',1);
+      examples_for('ios', osTypes.indexOf('ios'));
     } else if(os ==='win') {
-      examples_for('win',2);
+      examples_for('win', osTypes.indexOf('win'));
     } else {
       osTypes.forEach(examples_for);
     }
@@ -265,4 +259,5 @@ gulp.task('watch:html', function() {
     gulp.watch(['src/examples/*.html', 'src/demo/*.html'], ['examples']);
 });
 
+//Watch All - html js & less
 gulp.task('watch', ['watch:less', 'watch:scripts', 'watch:html']);

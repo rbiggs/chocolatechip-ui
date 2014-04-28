@@ -184,7 +184,7 @@
 
     ////////////////////////////
     // Version of each that uses
-    // regular paramater order:
+    // regular parameter order:
     ////////////////////////////
     forEach : function ( callback, args ) {
       return $.forEach( this, callback, args );
