@@ -209,15 +209,11 @@ var generate_examples = function (os) {
         .pipe(gulp.dest(pkg.projectPath +'rtl-images/'));
     }
     
-    if (os === 'android') {
-      examples_for('android', osTypes.indexOf('android'));
-    } else if(os === 'ios') {
-      examples_for('ios', osTypes.indexOf('ios'));
-    } else if(os ==='win') {
-      examples_for('win', osTypes.indexOf('win'));
-    } else {
+    if( os === undefined )
       osTypes.forEach(examples_for);
-    }
+    else
+      examples_for(os, osTypes.indexOf(os));
+      
   });
 };
 
