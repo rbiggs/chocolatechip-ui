@@ -209,10 +209,11 @@ var generate_examples = function (os) {
         .pipe(gulp.dest(pkg.projectPath +'rtl-images/'));
     }
     
-    if( os === undefined )
+    if (os === undefined) {
       osTypes.forEach(examples_for);
-    else
+    } else {
       examples_for(os, osTypes.indexOf(os));
+    }
       
   });
 };
