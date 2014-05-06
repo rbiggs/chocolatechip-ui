@@ -10,6 +10,8 @@ Please visit [ChocolateChip-UI's Website](http://chocolatechip-ui.com) for docum
 
 ##Building 
 
+If you do not want to build the framework from scratch, you can use the pre-compiled version in the dist folder. This is just the framework, minus examples, demos, etc.
+
 ChocolateChip-UI uses Gulpjs or Gruntjs to build. This is a Node package, so you'll first need to have [Node installed](http://http://nodejs.org). After installing Nodejs, or if you already have it installed, on Mac OS X use the terminal to cd to the directory. On Windows you can use the Windows command prompt to do this. Once you are in the folder, run the following command in your terminal. 
 
 ###Gulpjs
