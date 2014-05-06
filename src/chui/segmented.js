@@ -6,13 +6,16 @@
     // Initialize Segmented Control
     ///////////////////////////////
     UISegmented : function ( options ) {
+      /*
+        var options = {
+          selected: 0,
+          callback: function() { alert('Boring!'); }
+        }
+      */
       if (this.hasClass('paging')) return;
       var callback = (options && options.callback) ? options.callback : $.noop;
       var selected;
       if (options && options.selected >= 0) selected = options.selected;
-      if (options && options.callback) {
-        callback = options.callback;
-      }
       this.find('a').each(function(idx, ctx) {
         $(ctx).find('a').attr('role','radio');
         if (idx === selected) {
@@ -41,10 +44,11 @@
         options = {
           id : '#myId',
           className : 'special' || '',
-          labels : ['first','second','third'],
-          selected : 0 based number of selected button
+          labels : ['first','second','third']
         }
       */
+      var segmented;
+      var id = (options && options.id) ? options.id : $.Uuid();
       var className = (options && options.className) ? options.className : '';
       var labels = (options && options.labels) ? options.labels : [];
       var selected = (options && options.selected) ? options.selected : 0;
@@ -53,17 +57,15 @@
       _segmented.push('">');
       labels.forEach(function(ctx, idx) {
         _segmented.push('<a role="radio" class="button');
-        if (selected === idx) {
-          _segmented.push(' selected" aria-checked="true"');
-        } else {
-          _segmented.push('"');
-        }
+        _segmented.push('"');
         _segmented.push('>');
         _segmented.push(ctx);
         _segmented.push('</a>');
       });
       _segmented.push('</div>');
-      return _segmented.join('');
+      segmented = $(_segmented.join(''));
+      segmented.attr('id', id);
+      return segmented;
     }
   });
 })(window.jQuery);

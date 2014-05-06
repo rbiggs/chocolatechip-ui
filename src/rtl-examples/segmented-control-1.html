@@ -1,0 +1,41 @@
+  <script>
+    $(function() {
+      // Define callback for Segmented Control:
+      var segmentedResponse = function(e) {
+        e.stopPropagation();
+        $('#output').find('h3 > span').html(($(this).index() + 1));
+      };
+
+      // Init Segmented Control:
+      $('.segmented').UISegmented({
+        selected: 0, callback: segmentedResponse
+      });
+
+      // Find the default selected segment and set the output value to that:
+      var selectedPanel = $('.segmented').find('.selected').index();
+      $('#output').find('span').html(selectedPanel + 1);
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>زر مجزأ</h1>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      <div class='horizontal centered'>
+        <div class='segmented'>
+          <a class='button'>لليلة</a>
+          <a class='button'>أعمل عاقلة</a>
+          <a class='button'>بنت أصول</a>
+        </div>
+      </div>
+      <ul class='list' id='output'>
+        <li>
+          <h3>االذي حددته: <span></span>.</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>
