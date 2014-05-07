@@ -1310,19 +1310,12 @@ Version: 3.5.4
     ///////////////////////
       UIPaging : function ( ) {
         var currentArticle = $('.segmented.paging').closest('nav').next();
-        if (window && window.jQuery && $ === window.jQuery) {
-          if ($('.segmented.paging').hasClass('horizontal')) {
-            currentArticle.addClass('horizontal');
-          } else if ($('.segmented.paging').hasClass('vertical')) {
-            currentArticle.addClass('vertical');
-          }
-        } else {
-          if ($('.segmented.paging').hasClass('horizontal')[0]) {
-            currentArticle.addClass('horizontal');
-          } else if ($('.segmented.paging').hasClass('vertical')[0]) {
-            currentArticle.addClass('vertical');
-          }
+        if ($('.segmented.paging').hasClass('horizontal')) {
+          currentArticle.addClass('horizontal');
+        } else if ($('.segmented.paging').hasClass('vertical')) {
+          currentArticle.addClass('vertical');
         }
+        
         currentArticle.children().eq(0).addClass('current');
         currentArticle.children().eq(0).siblings().addClass('next');
         var sections = function() {
@@ -1356,7 +1349,7 @@ Version: 3.5.4
           if (this.classList.contains('disabled')) return;
           currentSection = $('section.current');
           if (currentSection.index() === sections() - 1) {
-              // start again!
+            // start again!
             currentSection.removeClass('current');
             currentArticle.children().eq(0).addClass('current').removeClass('previous');
             currentArticle.children().eq(0).siblings().removeClass('previous').addClass('next');
