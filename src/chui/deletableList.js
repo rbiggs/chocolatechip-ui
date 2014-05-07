@@ -1,6 +1,42 @@
 (function($) {
   'use strict'; 
- 
+  $.fn.extend({
+    ////////////////////////////
+    // Initialize Deletable List
+    // Directly on the list
+    ////////////////////////////
+    UIDeletable : function ( options ) {
+      /*
+        options = {
+          list: selector,
+          editLabel : labelName || Edit,
+          doneLabel : labelName || Done,
+          deleteLabel : labelName || Delete,
+          placement: left || right,
+          callback : callback
+        }
+      */
+      // Cache a reference to the list:
+      var $this = this;
+      // If no options, do nothing:
+      if (!options) {
+        return;
+      }
+      // If a list was provided, 
+      // do older initialization:
+      if (options && options.list) {
+        return $.UIDeletable(options);
+      // Otherwise pass in reference to list
+      // and initialize with it:
+      } else if (options && !options.list) {
+        $.extend(options, {
+          list: $this
+        });
+        return $.UIDeletable(options);
+      }
+    }
+  });
+
   $.extend({
     ////////////////////////////
     // Initialize Deletable List
