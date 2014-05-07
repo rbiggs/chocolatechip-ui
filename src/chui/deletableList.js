@@ -99,12 +99,6 @@
       });
       list.addClass('deletable');
       var setupDeletability = function(callback, list, button) {
-        var deleteSlide;
-        if ($.isiOS) {
-          deleteSlide = '100px';
-        } else if ($.isAndroid) {
-          deleteSlide = '140px';
-        }
         $(function() {
           button.on('singletap', function() {
             var $this = this;
