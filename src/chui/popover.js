@@ -114,9 +114,9 @@
     /////////////////////////////////////////////////
     // Reposition popovers on window resize:
     /////////////////////////////////////////////////
-    window.onresize = function() {
+    $(window).on('resize', function() {
       $.UIAlignPopover();
-    };
+    });
     var events = $.eventStart + ' singletap ' + $.eventEnd;
     $('body').on(events, '.mask', function(e) {
       if (!$('.popover')[0]) {

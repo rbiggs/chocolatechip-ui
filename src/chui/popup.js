@@ -97,8 +97,8 @@
     /////////////////////////////////////////////////
     // Reposition popups on window resize:
     /////////////////////////////////////////////////
-    window.onresize = function() {
+    $(window).on('resize', function() {
       $.UICenterPopup();
-    };
+    });
   });
 })(window.jQuery);
