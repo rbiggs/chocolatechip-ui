@@ -23,16 +23,10 @@
       var cancelButton = options.cancelButton ? '<a href="javascript:void(null)" class="button cancel" role="button">' + options.cancelButton + '</a>' : '';
       var continueButton = options.continueButton  ? '<a href="javascript:void(null)" class="button continue" role="button">' + options.continueButton + '</a>' : '';
       var callback = options.callback || $.noop;
-      var padding = options.empty ? ' style="padding: 40px 0;" ' : '';
+      var padding = options.empty ? ' noTitle' : '';
       var panelOpen, panelClose;
-      if (options.empty) {
-        panelOpen = '';
-        panelClose = '';
-      } else {
-        panelOpen = '<div class="panel">';
-        panelClose = '</div>';
-      }
-      var popup = '<div class="popup closed" role="alertdialog" id="' + id + '"' + padding + '>' + panelOpen + title + message + '<footer>' + cancelButton + continueButton + '</footer>' + panelClose + '</div>';
+
+      var popup = $.concat('<div class="popup closed', padding, '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
     
       $('body').append(popup);
       if (callback && continueButton) {

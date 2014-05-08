@@ -26,6 +26,10 @@
     .transform(scale(1));
   }
 
+  &.noTitle {
+    padding-top: 20px;
+  }
+
   > .panel {
     #flex > .display(flex);
     #flex > .flex-direction(column);
@@ -36,10 +40,6 @@
       padding: 0 15px;
       margin-top: 0;
       text-align: center;
-    }
-
-    .button {
-      border-top: solid 1px @popupButton;
     }
   }
 
@@ -72,6 +72,7 @@
       line-height: 30pt;
       max-width: 320px !important;
       font-weight: bold;
+      border-top: solid 1px @popupButton;
       
       + .button {
         border-left: solid 1px @popupButton;
