@@ -4,7 +4,7 @@
   $.fn.extend({
     UIRange : function () {
       if ($.isWin) return;
-      if (this.nodeName !== 'INPUT') return;
+      if (this[0].nodeName !== 'INPUT') return;
       var input = $(this);    
       var newPlace;  
       var width = input.width();
