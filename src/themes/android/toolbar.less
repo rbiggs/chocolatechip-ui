@@ -42,15 +42,15 @@ article.has-toolbar {
 div.toolbar {
 
   &.current {
-    .transform(translate3d(0,0,0)) !important;
+    .transform(scale3d(1,1,1)) !important;
   }
 
   &.next {
-    .transform(translate3d(101%,0,0)) !important;
+    .transform(scale3d(0,0,0)) !important;
   }
 
   &.previous {
-    .transform(translate3d(-101%,0,0)) !important;
+    .transform(scale3d(0,0,0)) !important;
   }
 }
 

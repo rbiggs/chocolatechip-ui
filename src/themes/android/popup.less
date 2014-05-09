@@ -21,15 +21,15 @@
 }
 
 .popup > .panel {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-box-pack: center;
-  -webkit-box-align: center;
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(center);
+  #flex > .align-items(center);
 
   > header, >  footer {
-    display: -webkit-box;
-    -webkit-box-align: stretch;
-    -webkit-box-pack: justify;
+    #flex > .display(flex);
+    #flex > .justify-content(space-between);
+    #flex > .align-items(stretch);
   }
 
   > header > h1 {
