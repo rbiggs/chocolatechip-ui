@@ -50,15 +50,9 @@
         $('nav.current').removeClass('current').addClass('next');
         id = $('article').eq(index)[0].id;
         $.publish('chui/navigate/enter', id);
-        if (window && window.jQuery) {
-          $('article').each(function(idx, ctx) {
-            $(ctx).scrollTop(0);
-          });
-        } else {
-          $('article').eq(index).siblings('article').forEach(function(ctx) {
-            ctx.scrollTop = 0;
-          });
-        }
+        $('article').each(function(idx, ctx) {
+          $(ctx).scrollTop(0);
+        });
       
         $.UISetHashOnUrl('#'+id);
         if ($.UINavigationHistory[0] === ('#' + id)) {

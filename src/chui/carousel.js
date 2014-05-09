@@ -80,7 +80,7 @@
           if (options.pagination) {
             pagination = document.createElement('ul');
             pagination.className = 'pagination';
-            for (var k = 0; k < options.panels.length; k++) {
+            for (var k = 0; k < panels.length; k++) {
               li = document.createElement('li');
               if (k === 0) {
                 li.className = 'selected';
