@@ -16,25 +16,36 @@
     @process: ~`(function(value){return"flex"!=value&&"inline-flex"!=value&&(value=8121991),value})((function(){var args="@{arguments}";return args=args.replace(/^\[|\]$/g,"")})())`;
 
     .result (@arguments, @signal, @boolean, @local_boolean) when (@boolean = true) and (@local_boolean = true) {
-      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process_oldwebkit)) and not (iscolor(@process_oldwebkit)) and not (isnumber(@process_oldwebkit)) and not (iskeyword(@process_oldwebkit)) and not (isurl(@process_oldwebkit)) and not (ispixel(@process_oldwebkit)) and not (ispercentage(@process_oldwebkit)) and not (isem(@process_oldwebkit)) {} 
+
       .inception (@signal, @arguments) when (@signal = 2) and (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) { display: @process_moz; }
-      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {} 
-      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process_oldwebkit)) and not (iscolor(@process_oldwebkit)) and not (isnumber(@process_oldwebkit)) and not (iskeyword(@process_oldwebkit)) and not (isurl(@process_oldwebkit)) and not (ispixel(@process_oldwebkit)) and not (ispercentage(@process_oldwebkit)) and not (isem(@process_oldwebkit)) { display: @process_oldwebkit; }
-      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process_webkit)) and not (iscolor(@process_webkit)) and not (isnumber(@process_webkit)) and not (iskeyword(@process_webkit)) and not (isurl(@process_webkit)) and not (ispixel(@process_webkit)) and not (ispercentage(@process_webkit)) and not (isem(@process_webkit)) {} 
+
+      .inception (@signal, @arguments) when (@signal = 2) and not (isstring(@process_moz)) and not (iscolor(@process_moz)) and not (isnumber(@process_moz)) and not (iskeyword(@process_moz)) and not (isurl(@process_moz)) and not (ispixel(@process_moz)) and not (ispercentage(@process_moz)) and not (isem(@process_moz)) {}  
+
       .inception (@signal, @arguments) when (@signal = 3) and (isstring(@process_webkit)) and not (iscolor(@process_webkit)) and not (isnumber(@process_webkit)) and not (iskeyword(@process_webkit)) and not (isurl(@process_webkit)) and not (ispixel(@process_webkit)) and not (ispercentage(@process_webkit)) and not (isem(@process_webkit)) { display: @process_webkit; }
+
+      .inception (@signal, @arguments) when (@signal = 3) and not (isstring(@process_webkit)) and not (iscolor(@process_webkit)) and not (isnumber(@process_webkit)) and not (iskeyword(@process_webkit)) and not (isurl(@process_webkit)) and not (ispixel(@process_webkit)) and not (ispercentage(@process_webkit)) and not (isem(@process_webkit)) {}
+
+      .inception (@signal, @arguments) when (@signal = 1) and (isstring(@process_oldwebkit)) and not (iscolor(@process_oldwebkit)) and not (isnumber(@process_oldwebkit)) and not (iskeyword(@process_oldwebkit)) and not (isurl(@process_oldwebkit)) and not (ispixel(@process_oldwebkit)) and not (ispercentage(@process_oldwebkit)) and not (isem(@process_oldwebkit)) { display: @process_oldwebkit; }
+      
+      .inception (@signal, @arguments) when (@signal = 1) and not (isstring(@process_oldwebkit)) and not (iscolor(@process_oldwebkit)) and not (isnumber(@process_oldwebkit)) and not (iskeyword(@process_oldwebkit)) and not (isurl(@process_oldwebkit)) and not (ispixel(@process_oldwebkit)) and not (ispercentage(@process_oldwebkit)) and not (isem(@process_oldwebkit)) {} 
+
       .inception (@signal, @arguments) when (@signal = 4) and (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) { display: @process_ms; }
+
       .inception (@signal, @arguments) when (@signal = 4) and not (isstring(@process_ms)) and not (iscolor(@process_ms)) and not (isnumber(@process_ms)) and not (iskeyword(@process_ms)) and not (isurl(@process_ms)) and not (ispixel(@process_ms)) and not (ispercentage(@process_ms)) and not (isem(@process_ms)) {} 
+
       .inception (@signal, @arguments) when (@signal = 5) and (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) { display: @process; }
+
       .inception (@signal, @arguments) when (@signal = 5) and not (isstring(@process)) and not (iscolor(@process)) and not (isnumber(@process)) and not (iskeyword(@process)) and not (isurl(@process)) and not (ispixel(@process)) and not (ispercentage(@process)) and not (isem(@process)) {} 
+
       .inception(@signal, @arguments);
     }
     .result (@arguments, @signal, @boolean, @local_boolean) when not (@boolean = true), not (@local_boolean = true) {}
 
-    .result(@arguments, 1, true, @oldwebkit_local);
     .result(@arguments, 2, @moz, @moz_local);
-    .result(@arguments, 3, @webkit, @webkit_local);
     .result(@arguments, 4, @ms, @ms_local);
     .result(@arguments, 5, @w3c, @w3c_local);
+    .result(@arguments, 3, @webkit, @webkit_local);
+    .result(@arguments, 1, true, @oldwebkit_local);
   }
 
   .flex-direction(...) {
