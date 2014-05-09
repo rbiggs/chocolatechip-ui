@@ -32,6 +32,7 @@
       tabbar += '</div>';
       $('body').append(tabbar);
       $('nav').removeClass('current').addClass('next');
+      $('#global-nav').removeClass('next');
       $('nav').eq(selected).removeClass('next').addClass('current');
       $('article').removeClass('current').addClass('next');
       $('article').eq(selected-1).removeClass('next').addClass('current');
