@@ -3,12 +3,12 @@
    6  /\
      /OO\
     /OOOO\
-  /OOOOOOOO\
- ((OOOOOOOO))
-  \:~=++=~:/
+   /OOOOOO\
+  (OOOOOOOO)
+   \:~==~:/
 
 ChocolateChip-UI
-ChUI.Win.css
+ChUI-Win.css
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
 Version: 3.5.4
@@ -39,7 +39,6 @@ body {
 }
 body {
   /* Change background color for your app: */
-
   background-color: #000000;
   font: normal 10pt/13pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
   -ms-user-select: none;
@@ -200,7 +199,6 @@ a.button.backTo {
   font-size: 0;
   line-height: 30px !important;
   /* line-height must match the content box height. */
-
   vertical-align: baseline;
   overflow: hidden;
 }
@@ -472,8 +470,8 @@ li.comp {
   padding-bottom: 0;
 }
 li.comp > div {
-  -ms-flex: 1;
-  flex: 1;
+  -ms-flex: 1 !important;
+  flex: 1 !important;
   padding: 0 0 10px 0;
 }
 li.comp > div + aside {
@@ -747,8 +745,8 @@ html[dir=rtl] .grid {
 .segmented > .button {
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
+  -ms-flex-direction: column !important;
+  flex-direction: column !important;
   -ms-flex-pack: center;
   justify-content: center;
   -ms-flex-align: center;
@@ -1075,7 +1073,8 @@ html[dir=rtl] body.splitlayout > article.detail {
 }
 /* ==============================
    Busy Control
-   =========================== */.busy {
+   =========================== */
+.busy {
   width: 150px;
   display: block;
   margin-left: auto;
@@ -1177,8 +1176,8 @@ nav > .busy {
 .popup header,
 .popup footer {
   box-sizing: border-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-flexbox !important;
+  display: flex !important;
   -ms-flex-direction: row;
   flex-direction: row;
   -ms-flex-pack: center;
@@ -1227,9 +1226,6 @@ nav > .busy {
 html[dir=rtl] .popup footer > .button:first-of-type {
   border-right: solid 2px #000000;
   border-left: solid 2px #000000;
-}
-@media only screen and (max-device-width: 240px) and (orientation: portrait) {
-  
 }
 /* ============================== 
    Deletable Lists
@@ -1683,7 +1679,8 @@ html[dir=rtl] .button.slide-out-button::before {
 }
 /* ==============================
    Stepper Control
-   =========================== */.stepper {
+   =========================== */
+.stepper {
   -ms-flex-align: start;
   display: flex;
   display: -ms-inline-flexbox;
@@ -1918,9 +1915,9 @@ body.hasTabBar > article {
     width: 240px;
   }
   /*
-      IMPORTANT! Define width for html and body
-      to prevent horizontal scrolling when viewport is resized.
-    */
+    IMPORTANT! Define width for html and body
+    to prevent horizontal scrolling when viewport is resized.
+  */
   html,
   body,
   body {
@@ -1947,7 +1944,6 @@ body.hasTabBar > article {
     height: 30px;
     line-height: 18px !important;
     /* line-height must match the content box height. */
-  
     vertical-align: baseline;
     overflow: hidden;
   }
