@@ -23,10 +23,14 @@ select {
 
     &::-ms-value {
       background-color: transparent;
+      color: @buttonBorder;
     }
 
     &::-ms-expand {
-      border: solid 2px @appTint;
+      border: solid 2px @appTint; 
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
     }
   }
 
@@ -39,11 +43,21 @@ select {
     background-color: transparent;
     padding: 0 2px;
   }
+
+  option {
+    &:hover, &:focus, &:checked {
+      background-color: @appTint;
+    }
+  }
 }
 
 option {
   color: @optionColor;
   padding: 5px;
+}
+
+.select-box-label {
+  display: none;
 }
 
 html[dir=rtl] {

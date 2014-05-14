@@ -6,3 +6,55 @@ input[type=text], input[type=email], input[type=password], input[type=text], inp
     box-shadow: none;
     border: none;
 }
+
+.isiOS:not(.isDesktop) .select-box > select {
+  opacity: .01;
+  height: 1px;
+  width: 1px;
+  -wekbit-appearance: none;
+  position: absolute;
+}
+.isDesktop {
+  .select-box > select {
+    max-width: 120px;
+  }
+  
+  .select-box-label {
+    display: none !important;
+  }
+}
+
+.select-box-label {
+  border: solid 1px @selectBoxColor;
+  border-radius: 3px;
+  padding: 2px 30px 2px 10px;
+  font-size: 11px;
+  background-image: -webkit-linear-gradient(top, @selectBoxColor, @selectBoxColor);
+  background-position: top right;
+  background-size: 20px 100%;
+  background-repeat: no-repeat;
+  height: 20px;
+  box-sizing: border-box;
+  min-width: 100px;
+  max-width: 160px;
+  width: auto;
+  cursor: pointer;
+  display: inline-block;
+  overflow-x: hidden;  
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 10px;
+    width: 1px;
+    border-top: solid 7px #fff;
+    border-left: solid 5px transparent;
+    border-right: solid 5px transparent;
+    position: absolute;
+    top: 6px;
+    right: 4px;    
+  }
+}
