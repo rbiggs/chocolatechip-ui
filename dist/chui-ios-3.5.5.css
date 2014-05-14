@@ -362,8 +362,8 @@ nav {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   display: flex;
-  display: -webkit-flex;
   display: -webkit-box;
+  display: -webkit-flex;
   -webkit-box-orient: vertical;
   -webkit-flex-direction: column;
   flex-direction: column;
@@ -1531,8 +1531,8 @@ html[dir=rtl] body.splitlayout > article.detail {
   top: 0;
   bottom: 0;
   display: flex;
-  display: -webkit-flex;
   display: -webkit-box;
+  display: -webkit-flex;
   -webkit-box-orient: vertical;
   -webkit-flex-direction: column;
   flex-direction: column;
