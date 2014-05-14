@@ -21,11 +21,10 @@
       &::before {
         .pseudo-block('—');
         font-size: 12pt;
-        position: absolute;
+        margin-top: -2px;
+        padding: 6px 4px;
         min-width: 20px;
         text-align:center;
-        .size(10px, 10px);
-        margin-top: -1px;
       } 
     }
 
@@ -40,7 +39,6 @@
       top: 0;
       bottom: 0;
       #flex > .display(flex);
-      display: -webkit-flex;
       #flex > .flex-direction(column);
       #flex > .justify-content(center);
       #flex > .align-items(center);
