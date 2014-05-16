@@ -145,10 +145,7 @@ gulp.task('copy', function() {
     .pipe(gulp.dest(pkg.projectPath + 'images/'));
   gulp.src('src/data/**/*')
     .pipe(gulp.dest(pkg.projectPath + 'data/'));
-  gulp.src('src/index.html')
-    .pipe(gulp.dest(pkg.projectPath + 'examples-android/'))
-    .pipe(gulp.dest(pkg.projectPath + 'examples-ios/'))
-    .pipe(gulp.dest(pkg.projectPath + 'examples-win/'));
+  
 });
 
 // JSHint:
@@ -216,6 +213,15 @@ var generate_examples = function (os) {
       // Copy out rtl images:
       gulp.src('src/rtl-images/**/*')
         .pipe(gulp.dest(pkg.projectPath +'rtl-images/'));
+      gulp.src('src/index.html')
+        .pipe(gulp.dest(pkg.projectPath + 'rtl-examples-android/'))
+        .pipe(gulp.dest(pkg.projectPath + 'rtl-examples-ios/'))
+        .pipe(gulp.dest(pkg.projectPath + 'rtl-examples-win/'));
+    } else {
+      gulp.src('src/index.html')
+        .pipe(gulp.dest(pkg.projectPath + 'examples-android/'))
+        .pipe(gulp.dest(pkg.projectPath + 'examples-ios/'))
+        .pipe(gulp.dest(pkg.projectPath + 'examples-win/'));
     }
     
     if (os === undefined) {

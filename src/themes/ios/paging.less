@@ -13,6 +13,7 @@
     .box-sizing(border-box);
     position: relative;
     border-radius: 0 !important;
+    border: none !important;
     
     .isDesktop &:hover, &.selected {
       opacity: .5 !important;
@@ -53,7 +54,8 @@
 
 @parsedPagingVertPrevSVG: "@{imageMaskRoot}@{pagingVertPrevSVG}";
 
-.segmented.paging.vertical > .button:first-of-type::before {
+.segmented.paging.vertical > .button:first-of-type::before,
+html[dir=rtl] .segmented.paging.vertical > .button:last-of-type::before {
   -webkit-mask-image: url(@parsedPagingVertPrevSVG);
 }
 
@@ -61,7 +63,8 @@
 
 @parsedPagingVertNextSVG: "@{imageMaskRoot}@{pagingVertNextSVG}";
 
-.segmented.paging.vertical > .button:last-of-type::before {
+.segmented.paging.vertical > .button:last-of-type::before,
+html[dir=rtl] .segmented.paging.vertical > .button:first-of-type::before {
   -webkit-mask-image: url(@parsedPagingVertNextSVG);
 }
 
@@ -118,16 +121,11 @@ html[dir=rtl] {
     -webkit-flex-direction: row-reverse;
     flex-direction: row-reverse;
     .button:first-child {
-      -webkit-box-ordinal-group: 2;
-      -webkit-order: 2;
-      order: 2;
       border: none !important;
     }
 
     .button:last-child {
-      -webkit-box-ordinal-group: 1;
-      -webkit-order: 1;
-      order: 1;
+      border: none !important;
     }
   }
   
