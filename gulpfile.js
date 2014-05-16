@@ -145,6 +145,10 @@ gulp.task('copy', function() {
     .pipe(gulp.dest(pkg.projectPath + 'images/'));
   gulp.src('src/data/**/*')
     .pipe(gulp.dest(pkg.projectPath + 'data/'));
+  gulp.src('src/index.html')
+    .pipe(gulp.dest(pkg.projectPath + 'examples-android/'))
+    .pipe(gulp.dest(pkg.projectPath + 'examples-ios/'))
+    .pipe(gulp.dest(pkg.projectPath + 'examples-win/'));
 });
 
 // JSHint:
