@@ -271,10 +271,11 @@ gulp.task('watch:scripts', function() {
 // Watch html files and generate  examples & demo files
 gulp.task('watch:html', function() {
   var rtl = gutils.env.dir === 'rtl';
-  if (rtl) //build rtl on --dir rtl
+  if (rtl) { // build rtl on --dir rtl
     gulp.watch(['src/rtl-examples/*.html', 'src/rtl-demo/*.html'], ['examples']);
-  else
+  } else {
     gulp.watch(['src/examples/*.html', 'src/demo/*.html'], ['examples']);
+  }
 });
 
 //Watch All - html js & less
