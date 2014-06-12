@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   $.fn.extend({
     //////////////////////////////
     // Center an Element on Screen
@@ -38,4 +35,3 @@
       $this.css({left: tmpLeft, top: tmpTop});
     }
   });
-})(window.jQuery);

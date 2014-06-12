@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   $.fn.extend({
     ////////////////////////////////////////////
     // Allow Segmented Control to toggle panels
@@ -31,4 +28,3 @@
       });
     }
   });
-})(window.jQuery);

@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   //////////////////////////////////
   // Initialize a swipeable carousel:
   //////////////////////////////////
@@ -37,8 +34,9 @@
         })(),
         
         UICarousel = function ( options ) {
+          if (!options) return;
           var ul, li, className;
-          this.wrapper = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
+          this.carouselContainer = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
           this.options = {
             panels: options.panels || 3,
             snapThreshold: null,
@@ -50,13 +48,13 @@
           }
           // Include user's options:
           for (var i in options) this.options[i] = options[i];
-          this.wrapper.style.overflow = 'hidden';
-          this.wrapper.style.position = 'relative';
+          this.carouselContainer.style.overflow = 'hidden';
+          this.carouselContainer.style.position = 'relative';
           this.carouselPanels = [];
           ul = document.createElement('ul');
           ul.className = 'carousel-track';
           ul.style.cssText = 'position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
-          this.wrapper.appendChild(ul);
+          this.carouselContainer.appendChild(ul);
           this.track = ul;
           this.refreshSize();
           var whichPanelIndex;
@@ -72,9 +70,9 @@
           }
           className = this.carouselPanels[1].className;
           this.carouselPanels[1].className = !className ? 'carousel-panel-active' : className + ' carousel-panel-active';
-          this.wrapper.addEventListener(startEvent, this, false);
-          this.wrapper.addEventListener(moveEvent, this, false);
-          this.wrapper.addEventListener(endEvent, this, false);
+          this.carouselContainer.addEventListener(startEvent, this, false);
+          this.carouselContainer.addEventListener(moveEvent, this, false);
+          this.carouselContainer.addEventListener(endEvent, this, false);
           this.track.addEventListener(transitionEndEvent, this, false);
           var pagination;
           if (options.pagination) {
@@ -87,7 +85,11 @@
               }
               pagination.appendChild(li);
             }
-            $(this.wrapper).after(pagination);
+            if (window.$chocolatechipjs) {
+              this.carouselContainer.insertAdjacentElement('afterEnd', pagination)
+            } else {
+              $(this.carouselContainer).after(pagination);
+            }
           }
         };
       UICarousel.prototype = {
@@ -97,25 +99,25 @@
         customEvents: [],
         
         onSlide: function (fn) {
-          this.wrapper.addEventListener('carousel-panel-move', fn, false);
+          this.carouselContainer.addEventListener('carousel-panel-move', fn, false);
           this.customEvents.push(['move', fn]);
         },
         destroy: function () {
           while ( this.customEvents.length ) {
-            this.wrapper.removeEventListener('carousel-panel-' + this.customEvents[0][0], this.customEvents[0][1], false);
+            this.carouselContainer.removeEventListener('carousel-panel-' + this.customEvents[0][0], this.customEvents[0][1], false);
             this.customEvents.shift();
           }
           // Remove event listeners:
-          this.wrapper.removeEventListener(startEvent, this, false);
-          this.wrapper.removeEventListener(moveEvent, this, false);
-          this.wrapper.removeEventListener(endEvent, this, false);
+          this.carouselContainer.removeEventListener(startEvent, this, false);
+          this.carouselContainer.removeEventListener(moveEvent, this, false);
+          this.carouselContainer.removeEventListener(endEvent, this, false);
           this.track.removeEventListener(transitionEndEvent, this, false);
         },
         refreshSize: function () {
-          this.wrapperWidth = this.wrapper.clientWidth;
-          this.wrapperHeight = this.wrapper.clientHeight;
-          this.panelWidth = this.wrapperWidth;
-          this.maxX = -this.options.panels * this.panelWidth + this.wrapperWidth;
+          this.carouselContainerWidth = this.carouselContainer.clientWidth;
+          this.carouselContainerHeight = this.carouselContainer.clientHeight;
+          this.panelWidth = this.carouselContainerWidth;
+          this.maxX = -this.options.panels * this.panelWidth + this.carouselContainerWidth;
           this.snapThreshold = this.options.snapThreshold === null ?
             Math.round(this.panelWidth * 0.15) :
             /%/.test(this.options.snapThreshold) ?
@@ -125,12 +127,13 @@
         
         updatePanelCount: function (n) {
           this.options.panels = n;
-          this.maxX = -this.options.panels * this.panelWidth + this.wrapperWidth;
+          this.maxX = -this.options.panels * this.panelWidth + this.carouselContainerWidth;
         },
         
         goToPanel: function (p) {
           this.carouselPanels[this.currentPanel].className = this.carouselPanels[this.currentPanel].className.replace(/(^|\s)carousel-panel-active(\s|$)/, '');
           p = p < 0 ? 0 : p > this.options.panels-1 ? this.options.panels - 1 : p;
+          console.log('p: ' , p);
           this.panel = p;
           this.track.style[transitionDuration] = '0s';
           this.getPosition(-p * this.panelWidth);
@@ -253,7 +256,7 @@
           var panelMove;
           var pageFlipIndex;
           var className;
-          this.carouselPanels[this.currentPanel].className = this.carouselPanels[this.currentPanel].className.replace(/(^|\s)carousel-panel-active(\s|$)/, '');
+          this.carouselPanels[this.currentPanel].className = '';
           // Slide the panel:
           if (this.directionX > 0) {
             this.panel = -Math.ceil(this.x / this.panelWidth);
@@ -276,6 +279,9 @@
           className = this.carouselPanels[panelMove].className;
           pageFlipIndex = pageFlipIndex - Math.floor(pageFlipIndex / this.options.panels) * this.options.panels;
           $(this.carouselPanels[panelMove]).data('upcomingPanelIndex', pageFlipIndex);
+
+          //console.log('pageFlipIndex: ', pageFlipIndex)
+
           // Index to be loaded in the newly moved panel:
           var newX = -this.panel * this.panelWidth;
           this.track.style[transitionDuration] = Math.floor(500 * Math.abs(this.x - newX) / this.panelWidth) + 'ms';
@@ -297,7 +303,7 @@
         event: function (type) {
           var ev = document.createEvent("Event");
           ev.initEvent('carousel-panel-' + type, true, true);
-          this.wrapper.dispatchEvent(ev);
+          this.carouselContainer.dispatchEvent(ev);
         }
       };
       function prefixStyle (style) {
@@ -330,22 +336,22 @@
           panels: options.panels.length,
           loop: options.loop,
           pagination: options.pagination
-        }); 
+        });
         $(options.target).data('carousel', carousel);
         // Reverse array of data if RTL:
         if ($.isRTL) options.panels = reverseList(options.panels);
         var panel;
         // Load initial data:
         for (var i = 0; i < 3; i++) {
-          panel = i === 0 ? options.panels.length - 1 : i - 1;
-          carousel.carouselPanels[i].innerHTML = options.panels[panel];
+          panel = (i === 0) ? options.panels.length - 1 : i - 1;
+          carousel.carouselPanels[i].innerHTML = options.panels[Number(panel)];
         }
         var index = 0;
         var pagination = $(options.target).next('.pagination');
         carousel.onSlide(function () {
           for (var i = 0; i < 3; i++) {
             var upcoming = $(carousel.carouselPanels[i]).data('upcomingPanelIndex');
-            carousel.carouselPanels[i].innerHTML = options.panels[upcoming];
+            carousel.carouselPanels[i].innerHTML = options.panels[Number(upcoming)];
           }
           index = $('.carousel-panel-active').data('upcomingPanelIndex');
           pagination.find('li').removeClass('selected');
@@ -362,8 +368,8 @@
           }
         }); 
         $(options.target).on('mousedown', 'img', function() {return false;});
-        var width = $(options.target).width();
-        pagination.width(width);
+        var width = $(options.target).css('width');
+        pagination.css('width', width);
         pagination.on('click', 'li', function() {
           $(this).siblings('li').removeClass('selected');
           $(this).addClass('selected');
@@ -390,4 +396,3 @@
       }
     });
   });
-})(window.jQuery);

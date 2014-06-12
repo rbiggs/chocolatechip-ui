@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   //////////////////////////////////
   // Flag if native Android browser:
   //////////////////////////////////
@@ -44,4 +41,3 @@
       $.body.addClass('isNativeAndroidBrowser');
     }
   });
-})(window.jQuery);

@@ -1,5 +1,3 @@
-(function($) {
-  'use strict';
   /////////////////////////
   // Create a search input:
   /////////////////////////
@@ -25,4 +23,3 @@
       }
     }
   });
-})(window.jQuery);

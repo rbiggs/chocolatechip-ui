@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   $.extend({
     ///////////////
     // Create Popup
@@ -25,7 +22,6 @@
       var callback = options.callback || $.noop;
       var padding = options.empty ? ' noTitle' : '';
       var panelOpen, panelClose;
-
       var popup = $.concat('<div class="popup closed', padding, '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
     
       $('body').append(popup);
@@ -67,7 +63,6 @@
         }
     }
   });
-
   $.fn.extend({
     //////////////
     // Close Popup
@@ -87,7 +82,6 @@
         $(this).closest('.popup').UIPopupClose();
       }
     });
-
     /////////////////////////////////////////////////
     // Reposition popups on window resize:
     /////////////////////////////////////////////////
@@ -95,4 +89,3 @@
       $.UICenterPopup();
     });
   });
-})(window.jQuery);

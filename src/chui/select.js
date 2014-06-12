@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   // Widget to enable styled select boxes (pickers):
   $.extend({
     UISelectBox: function() {
@@ -11,7 +8,7 @@
           element.dispatchEvent(event);
       };
       if (!$.isDesktop && $.isiOS) {
-        $('.select-box-label').each(function(_, ctx) {
+        $('.select-box-label').forEach(function(ctx) {
           var label = $(ctx);
           var select = label.prev();
           if (!select[0].id) {
@@ -32,7 +29,7 @@
             element.dispatchEvent(event);
         };
         if (!$.isDesktop) {
-          $('.select-box-label').each(function(_, ctx) {
+          $('.select-box-label').forEach(function(ctx) {
             if (!ctx.id) {
               $(ctx).prev().attr('id', $.Uuid());
             }
@@ -55,4 +52,3 @@
   $(function() {
     $.UISelectBox();
   });
-})(window.jQuery);

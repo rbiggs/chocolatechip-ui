@@ -1,6 +1,3 @@
-(function($) {
-  'use strict'; 
-
   $(function() { 
     $.body = $('body');
 
@@ -36,4 +33,3 @@
     //////////////////////////////////////////
     $('.toolbar').prev('article').addClass('has-toolbar');
   });
-})(window.jQuery);

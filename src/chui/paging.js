@@ -1,15 +1,12 @@
-(function($) {
-  'use strict'; 
- 
   $.extend({
     ///////////////////////
     // Setup Paging Control
     ///////////////////////
       UIPaging : function ( ) {
         var currentArticle = $('.segmented.paging').closest('nav').next();
-        if ($('.segmented.paging').hasClass('horizontal')) {
+        if ($('.segmented.paging').hazClass('horizontal').length) {
           currentArticle.addClass('horizontal');
-        } else if ($('.segmented.paging').hasClass('vertical')) {
+        } else if ($('.segmented.paging').hazClass('vertical').length) {
           currentArticle.addClass('vertical');
         }
         
@@ -18,7 +15,6 @@
         var sections = function() {
           return currentArticle.children().length;
         };
-
         $('.segmented.paging').on($.eventStart, '.button:first-of-type', function() {
           if (sections() === 1) return;
           var $this = $(this);
@@ -34,7 +30,6 @@
             currentSection.removeClass('current').addClass('next');
             currentSection.prev().removeClass('previous').addClass('current');
           }
-
           setTimeout(function() {
             $this.removeClass('selected');
           }, 250);
@@ -62,4 +57,3 @@
         });
       }
   });
-})(window.jQuery);

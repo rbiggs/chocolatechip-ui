@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
- 
   $.fn.extend({
     ///////////////////////////////
     // Initialize Segmented Control
@@ -12,11 +9,10 @@
           callback: function() { alert('Boring!'); }
         }
       */
-      if (this.hasClass('paging')) return;
+      if ($(this).hazClass('paging').length) return;
       var callback = (options && options.callback) ? options.callback : $.noop;
-      var selected;
-      if (options && options.selected >= 0) selected = options.selected;
-      this.find('a').each(function(idx, ctx) {
+      var selected = (options && options.selected > 0) ? options.selected : 0;
+      this.find('a').forEach(function(ctx, idx) {
         $(ctx).find('a').attr('role','radio');
         if (idx === selected) {
           ctx.setAttribute('aria-checked', 'true');
@@ -34,7 +30,6 @@
       });
     }
   });
-
   $.extend({ 
     ///////////////////////////
     // Create Segmented Control
@@ -44,7 +39,8 @@
         options = {
           id : '#myId',
           className : 'special' || '',
-          labels : ['first','second','third']
+          labels : ['first','second','third'],
+          selected: 0
         }
       */
       var segmented;
@@ -68,4 +64,3 @@
       return segmented;
     }
   });
-})(window.jQuery);

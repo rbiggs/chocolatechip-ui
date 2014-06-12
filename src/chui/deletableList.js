@@ -1,5 +1,3 @@
-(function($) {
-  'use strict'; 
   $.fn.extend({
     ////////////////////////////
     // Initialize Deletable List
@@ -36,7 +34,6 @@
       }
     }
   });
-
   $.extend({
     ////////////////////////////
     // Initialize Deletable List
@@ -91,8 +88,8 @@
           button = list.closest('article').prev().find('.edit');
         }
       }
-      list.find('li').each(function(_, ctx) {
-        if (!$(ctx).has('.deletion-indicator')[0]) {
+      list.find('li').forEach(function(ctx) {
+        if (!$(ctx).has('.deletion-indicator').length) {
           $(ctx).prepend(deletionIndicator);
           $(ctx).append(deleteButton);
         }
@@ -120,7 +117,7 @@
             }
           });
           $(list).on('singletap', '.deletion-indicator', function() {
-            if ($(this).parent('li').hasClass('selected')) {
+            if ($(this).parent('li').hazClass('selected').length) {
               $(this).parent('li').removeClass('selected');
               return;
             } else {
@@ -151,4 +148,3 @@
       return setupDeletability(callback, list, button);
     }
   });
-})(window.jQuery);

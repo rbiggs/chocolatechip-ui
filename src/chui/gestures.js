@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   //////////////////////////////////////////////////////
   // Swipe Gestures for ChocolateChip-UI.
   // Includes mouse gestures for desktop compatibility.
@@ -12,16 +9,13 @@
   var longTapDelay = 750;
   var singleTapDelay = 150;
   var longTapTimeout;
-
   function parentIfText(node) {
     return 'tagName' in node ? node : node.parentNode;
   }
-
   function swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >=
     Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'left' : 'right') : (y1 - y2 > 0 ? 'up' : 'down');
   }
-
   function longTap() {
     longTapTimeout = null;
     if (touch.last) {
@@ -33,12 +27,10 @@
       } catch(err) { }
     }
   }
-
   function cancelLongTap() {
     if (longTapTimeout) clearTimeout(longTapTimeout);
     longTapTimeout = null;
   }
-
   function cancelAll() {
     if (touchTimeout) clearTimeout(touchTimeout);
     if (tapTimeout) clearTimeout(tapTimeout);
@@ -47,7 +39,6 @@
     touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
     touch = {};
   }
-
   $(function(){
     var now;
     var delta;
@@ -127,10 +118,8 @@
           }
         }
       }
-
       if ($.isAndroid) {
         $.gestureLength = 10;
-
         if (!!touch.el) {
           // Swipe detection:
           if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > $.gestureLength) ||
@@ -143,18 +132,14 @@
                 touch = {};
               }
             }, 0);
-
           // Normal tap:
           } else if ('last' in touch) {
-
             // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
             tapTimeout = setTimeout(function() {
-
             // Trigger universal 'tap' with the option to cancelTouch():
             if (touch && touch.el) {
               touch.el.trigger('tap');
             }
-
             // Trigger double tap immediately:
             if (touch && touch.isDoubleTap) {
               if (touch && touch.el) {
@@ -172,12 +157,10 @@
               }
               }, singleTapDelay);
             }
-
             }, 0);
           }
         } else { return; }  
       }
-
     });
     body.on($.eventEnd, function(e) {
       if (window.navigator.msPointerEnabled) {
@@ -199,18 +182,14 @@
               touch = {};
             }
           }, 0);
-
         // Normal tap:
         } else if ('last' in touch) {
-
           // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
           tapTimeout = setTimeout(function() {
-
             // Trigger universal 'tap' with the option to cancelTouch():
             if (touch && touch.el) {
               touch.el.trigger('tap');
             }
-
             // Trigger double tap immediately:
             if (touch && touch.isDoubleTap) {
               if (touch && touch.el) {
@@ -228,15 +207,12 @@
                 }
               }, singleTapDelay);
             }
-
           }, 0);
         }
       } else { return; }
     });
     body.on('touchcancel', cancelAll);
-
   });
-
   ['swipe', 'swipeleft', 'swiperight', 'swipeup', 'swipedown', 'doubletap', 'tap', 'singletap', 'longtap'].forEach(function(method){ 
     // Add gesture events to ChocolateChipJS:
     $.fn.extend({
@@ -245,4 +221,3 @@
       }
     });
   });
-})(window.jQuery);

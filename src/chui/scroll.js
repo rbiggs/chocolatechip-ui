@@ -1,5 +1,3 @@
-(function($) {
-  'use strict';
   document.addEventListener('touchstart', function (e) {
     var parent = e.target,
       i = 0;
@@ -19,4 +17,3 @@
       }
     }
   });
-})(window.jQuery);

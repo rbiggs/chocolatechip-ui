@@ -1,6 +1,3 @@
-(function($) {
-  'use strict'; 
-
   $.fn.extend({
     UIRange : function () {
       if ($.isWin) return;
@@ -21,12 +18,10 @@
     }
   });
   $(function() {
-    $('input[type=range]').each(function(_, ctx) {
+    $('input[type=range]').forEach(function(ctx) {
       $(ctx).UIRange();
     });
     $('body').on('input', 'input[type=range]', function() {
       $(this).UIRange();
     });
   });
-
-})(window.jQuery);

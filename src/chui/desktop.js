@@ -1,6 +1,3 @@
-(function($) {
-  'use strict';
-
   /////////////////////////////////////////
   // Set classes for desktop compatibility:
   /////////////////////////////////////////
@@ -13,8 +10,6 @@
       }
     }
   });
-
   $(function() {
     $.UIDesktopCompat();
   });
-})(window.jQuery);

@@ -1,6 +1,3 @@
-(function($) {
-  'use strict'; 
- 
   $.fn.extend({
     /////////////////////////
     // Block Screen with Mask
@@ -21,4 +18,3 @@
       return this;
     }
   });
-})(window.jQuery);
