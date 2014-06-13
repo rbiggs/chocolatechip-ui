@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.fn.extend({
     ////////////////////////////
     // Initialize Deletable List
@@ -148,3 +150,4 @@
       return setupDeletability(callback, list, button);
     }
   });
+})(window.$);

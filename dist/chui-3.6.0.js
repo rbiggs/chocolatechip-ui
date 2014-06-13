@@ -20,6 +20,7 @@ if(window.jQuery) {
   window.CHUIJSLIB = window.$chocolatechipjs;
 }
 (function($) {
+
   $.extend({
     ///////////////
     // Create Uuid:
@@ -238,6 +239,7 @@ if(window.jQuery) {
     }
   });
 
+
   $.extend({
     eventStart : null,
     eventEnd : null,
@@ -277,6 +279,8 @@ if(window.jQuery) {
       $.eventCancel = 'mouseout';
     }
   });
+
+
   $.extend({
     isiPhone : /iphone/img.test(navigator.userAgent),
     isiPad : /ipad/img.test(navigator.userAgent),
@@ -301,14 +305,15 @@ if(window.jQuery) {
     isChrome : /Chrome/img.test(navigator.userAgent),
     isNativeAndroid : (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent))
   });
+
+
   //////////////////////////////////
   // Flag if native Android browser:
   //////////////////////////////////
   if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) ) && (!/Chrome/img.test(navigator.userAgent))) {
     document.body.classList.add('isNativeAndroidBrowser');
   }
-
-  'use strict';
+  
   /////////////////////////////
   // Determine browser version:
   /////////////////////////////
@@ -344,6 +349,8 @@ if(window.jQuery) {
       $.body.addClass('isNativeAndroidBrowser');
     }
   });
+
+
   //////////////////////////////////////////////////////
   // Swipe Gestures for ChocolateChip-UI.
   // Includes mouse gestures for desktop compatibility.
@@ -567,6 +574,8 @@ if(window.jQuery) {
       }
     });
   });
+
+
   /////////////////////////////////////////
   // Set classes for desktop compatibility:
   /////////////////////////////////////////
@@ -582,6 +591,8 @@ if(window.jQuery) {
   $(function() {
     $.UIDesktopCompat();
   });
+
+
   $(function() { 
     $.body = $('body');
 
@@ -617,6 +628,8 @@ if(window.jQuery) {
     //////////////////////////////////////////
     $('.toolbar').prev('article').addClass('has-toolbar');
   });
+
+
   $.extend({
     subscriptions : {},
 
@@ -664,6 +677,8 @@ if(window.jQuery) {
       return true;
    }
   });
+
+
   ////////////////////////////////////
   // Create custom navigationend event
   ////////////////////////////////////
@@ -908,6 +923,8 @@ if(window.jQuery) {
       e.preventDefault();
     });
   });
+
+
   $(function() {
     ///////////////////////////////////
     // Initialize singletap on buttons:
@@ -923,6 +940,7 @@ if(window.jQuery) {
       }, 500);
     });
   });
+
 
   $.fn.extend({
     /////////////////////////
@@ -944,6 +962,8 @@ if(window.jQuery) {
       return this;
     }
   });
+
+
   $.fn.extend({
     //////////////////////////////
     // Center an Element on Screen
@@ -981,6 +1001,8 @@ if(window.jQuery) {
       $this.css({left: tmpLeft, top: tmpTop});
     }
   });
+
+
   $.fn.extend({
     ////////////////////////
     // Create Busy indicator
@@ -1043,6 +1065,8 @@ if(window.jQuery) {
       }
     }
   });
+
+
   $.extend({
     ///////////////
     // Create Popup
@@ -1134,6 +1158,8 @@ if(window.jQuery) {
       $.UICenterPopup();
     });
   });
+
+
   $.fn.extend({ 
     /////////////////
     // Create Popover
@@ -1257,6 +1283,8 @@ if(window.jQuery) {
       }
     });
   });
+
+
   $.fn.extend({
     ///////////////////////////////
     // Initialize Segmented Control
@@ -1323,6 +1351,8 @@ if(window.jQuery) {
       return segmented;
     }
   });
+
+
   $.fn.extend({
     ////////////////////////////////////////////
     // Allow Segmented Control to toggle panels
@@ -1353,6 +1383,8 @@ if(window.jQuery) {
       });
     }
   });
+
+
   $.extend({
     ///////////////////////
     // Setup Paging Control
@@ -1412,6 +1444,8 @@ if(window.jQuery) {
         });
       }
   });
+
+
   $.fn.extend({
     ////////////////////////////
     // Initialize Deletable List
@@ -1563,6 +1597,7 @@ if(window.jQuery) {
     }
   });
 
+
   $.fn.extend({
     /////////////////////////
     // Initialize Select List
@@ -1616,6 +1651,8 @@ if(window.jQuery) {
       });
     }
   });
+
+
   $.extend({
     ///////////////////////////////////////////////
     // UISheet: Create an Overlay for Buttons, etc.
@@ -1662,6 +1699,8 @@ if(window.jQuery) {
       },500);
     }
   });
+
+
   $.extend({
     ////////////////////////////////////////////////
     // Create Slideout with toggle button.
@@ -1752,6 +1791,8 @@ if(window.jQuery) {
       }
     }
   });
+
+
   $.fn.extend({
     /////////////////
     // Create stepper
@@ -1838,6 +1879,8 @@ if(window.jQuery) {
       stepper.find('input')[0].value = defaultValue;
     }
   });
+
+
   $.fn.extend({
     ////////////////////////////
     // Initialize Switch Control
@@ -1919,6 +1962,8 @@ if(window.jQuery) {
     //////////////////////////
     $('.switch').UISwitch();
   });
+
+
   document.addEventListener('touchstart', function (e) {
     var parent = e.target,
       i = 0;
@@ -1938,6 +1983,8 @@ if(window.jQuery) {
       }
     }
   });
+
+
   $.extend({
     ///////////////////////////////////////////
     // Creates a Tab Bar for Toggling Articles:
@@ -2015,6 +2062,8 @@ if(window.jQuery) {
       });
     }
   });
+
+
   $.extend({
   /////////////////////////////
   // Templating:
@@ -2036,6 +2085,8 @@ if(window.jQuery) {
       return template;
     }
   });
+
+
   /////////////////////////
   // Create a search input:
   /////////////////////////
@@ -2061,6 +2112,8 @@ if(window.jQuery) {
       }
     }
   });
+
+
   //////////////////////////////////
   // Initialize a swipeable carousel:
   //////////////////////////////////
@@ -2460,6 +2513,7 @@ if(window.jQuery) {
     });
   });
 
+
   $.fn.extend({
     UIRange : function () {
       if ($.isWin) return;
@@ -2487,6 +2541,8 @@ if(window.jQuery) {
       $(this).UIRange();
     });
   });
+
+
   // Widget to enable styled select boxes (pickers):
   $.extend({
     UISelectBox: function() {
@@ -2541,4 +2597,5 @@ if(window.jQuery) {
   $(function() {
     $.UISelectBox();
   });
+
 })(window.CHUIJSLIB);

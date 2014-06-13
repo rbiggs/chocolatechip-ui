@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.fn.extend({
     ///////////////////////////////
     // Initialize Segmented Control
@@ -64,3 +66,4 @@
       return segmented;
     }
   });
+})(window.$);

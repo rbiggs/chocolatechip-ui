@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.fn.extend({ 
     /////////////////
     // Create Popover
@@ -121,3 +123,4 @@
       }
     });
   });
+})(window.$);

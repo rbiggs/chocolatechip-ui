@@ -134,6 +134,8 @@ gulp.task('js', function () {
   ])
 
 
+    .pipe(replace(/^\(function\(\$\) \{\n  \"use strict\";/img, ''))
+    .pipe(replace(/^\}\)\(window.\$\);/img, ''))
     .pipe(concat("chui-" + pkg.version + ".js"))
     .pipe(header(chuijs_start))
     .pipe(footer(chuijs_end))

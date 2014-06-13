@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   ////////////////////////////////////
   // Create custom navigationend event
   ////////////////////////////////////
@@ -242,3 +244,4 @@
       e.preventDefault();
     });
   });
+})(window.$);

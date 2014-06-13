@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     ///////////////////////////////////////////
     // Creates a Tab Bar for Toggling Articles:
@@ -75,3 +77,4 @@
       });
     }
   });
+})(window.$);

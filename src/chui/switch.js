@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.fn.extend({
     ////////////////////////////
     // Initialize Switch Control
@@ -79,3 +81,4 @@
     //////////////////////////
     $('.switch').UISwitch();
   });
+})(window.$);

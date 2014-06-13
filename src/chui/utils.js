@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     ///////////////
     // Create Uuid:
@@ -215,3 +217,4 @@
       }
     }
   });
+})(window.$);

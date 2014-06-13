@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     ////////////////////////////////////////////////
     // Create Slideout with toggle button.
@@ -88,3 +90,4 @@
       }
     }
   });
+})(window.$);

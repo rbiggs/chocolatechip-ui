@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     ///////////////
     // Create Popup
@@ -89,3 +91,4 @@
       $.UICenterPopup();
     });
   });
+})(window.$);

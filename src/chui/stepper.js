@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.fn.extend({
     /////////////////
     // Create stepper
@@ -84,3 +86,4 @@
       stepper.find('input')[0].value = defaultValue;
     }
   });
+})(window.$);

@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   // Widget to enable styled select boxes (pickers):
   $.extend({
     UISelectBox: function() {
@@ -52,3 +54,4 @@
   $(function() {
     $.UISelectBox();
   });
+})(window.$);

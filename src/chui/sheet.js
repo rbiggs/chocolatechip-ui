@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     ///////////////////////////////////////////////
     // UISheet: Create an Overlay for Buttons, etc.
@@ -44,3 +46,4 @@
       },500);
     }
   });
+})(window.$);

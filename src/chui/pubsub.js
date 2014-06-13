@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     subscriptions : {},
 
@@ -45,3 +47,4 @@
       return true;
    }
   });
+})(window.$);

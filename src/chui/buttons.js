@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $(function() {
     ///////////////////////////////////
     // Initialize singletap on buttons:
@@ -13,3 +15,4 @@
       }, 500);
     });
   });
+})(window.$);

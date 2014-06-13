@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.fn.extend({
     ////////////////////////
     // Create Busy indicator
@@ -60,3 +62,4 @@
       }
     }
   });
+})(window.$);

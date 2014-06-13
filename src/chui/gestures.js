@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   //////////////////////////////////////////////////////
   // Swipe Gestures for ChocolateChip-UI.
   // Includes mouse gestures for desktop compatibility.
@@ -221,3 +223,4 @@
       }
     });
   });
+})(window.$);

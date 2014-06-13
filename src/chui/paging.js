@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     ///////////////////////
     // Setup Paging Control
@@ -57,3 +59,4 @@
         });
       }
   });
+})(window.$);

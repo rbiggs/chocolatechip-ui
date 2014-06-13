@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.fn.extend({
     UIRange : function () {
       if ($.isWin) return;
@@ -25,3 +27,4 @@
       $(this).UIRange();
     });
   });
+})(window.$);

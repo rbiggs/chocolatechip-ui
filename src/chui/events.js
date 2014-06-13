@@ -1,3 +1,5 @@
+(function($) {
+  "use strict";
   $.extend({
     eventStart : null,
     eventEnd : null,
@@ -37,3 +39,4 @@
       $.eventCancel = 'mouseout';
     }
   });
+})(window.$);
