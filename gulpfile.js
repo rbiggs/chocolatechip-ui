@@ -10,8 +10,6 @@ var gulp = require('gulp')
 ,   replace = require('gulp-replace')
 ,   minifyCSS = require('gulp-minify-css')
 ,   uglify = require('gulp-uglify')
-,   jshint = require('gulp-jshint')
-,   header = require('gulp-header')
 ,   footer = require('gulp-footer');
 
 //Add Trailing slash to projectPath if not exists.
