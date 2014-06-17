@@ -10,8 +10,6 @@ var gulp = require('gulp')
 ,   replace = require('gulp-replace')
 ,   minifyCSS = require('gulp-minify-css')
 ,   uglify = require('gulp-uglify')
-,   jshint = require('gulp-jshint')
-,   header = require('gulp-header')
 ,   footer = require('gulp-footer');
 
 //Add Trailing slash to projectPath if not exists.
@@ -73,12 +71,13 @@ var less_for = function (os, idx) {
       .pipe(less())
       .pipe(rename('chui-' + os + '-' + pkg.version + '.css'))
       .pipe(header(chuiHeader, { pkg : pkg, chuiName: chui[idx] }))
-      .pipe(gulp.dest(pkg.projectPath + 'chui/')).pipe(minifyCSS({}))
-      .pipe(gulp.dest(pkg.projectPath + 'dist/')).pipe(minifyCSS({}))
+      .pipe(gulp.dest(pkg.projectPath + 'chui/'))
+      .pipe(gulp.dest(pkg.projectPath + 'dist/'))
+      .pipe(minifyCSS({}))
       .pipe(header(chuiHeaderMin, { pkg : pkg, chuiName: chui[idx] }))
       .pipe(rename('chui-' + os + '-' + pkg.version + '.min.css'))
-      .pipe(gulp.dest(pkg.projectPath + './chui/'))
-      .pipe(gulp.dest(pkg.projectPath + './dist/')); 
+      .pipe(gulp.dest(pkg.projectPath + 'chui/'))
+      .pipe(gulp.dest(pkg.projectPath + 'dist/')); 
 }
 
 // Process, minify and output LESS:
@@ -142,12 +141,12 @@ gulp.task('js', function () {
     //.pipe(replace(/\}\)\(\);\n\}\)\(window.CHUIJSLIB\);/, '})(window.CHUIJSLIB);'))
     .pipe(header(chuiHeader, { pkg : pkg, chuiName: chui[3] }))
     .pipe(gulp.dest(pkg.projectPath + 'chui/'))
-    .pipe(gulp.dest(pkg.projectPath + './dist/'))
+    .pipe(gulp.dest(pkg.projectPath + 'dist/'))
     .pipe(uglify())
     .pipe(header(chuiHeaderMin, { pkg : pkg, chuiName: chui[3] }))
     .pipe(rename("chui-" + pkg.version + ".min.js"))
     .pipe(gulp.dest(pkg.projectPath + 'chui/'))
-    .pipe(gulp.dest(pkg.projectPath + './dist/'));
+    .pipe(gulp.dest(pkg.projectPath + 'dist/'));
 });
 
 // Copy out media:
