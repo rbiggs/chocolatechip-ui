@@ -52,7 +52,6 @@
         $('nav').eq(index+1).removeClass('next').addClass('current');
 
         id = $('article').eq(index)[0].id;
-        console.log('The id is: ' + id)
         $.publish('chui/navigate/enter', id);
         $('article').forEach(function(ctx) {
           if (window.jQuery) {
@@ -61,7 +60,6 @@
             ctx.scrollTop = 0;
           }
         });
-        console.log(id);
         $.UISetHashOnUrl('#'+id);
         if ($.UINavigationHistory[0] === ('#' + id)) {
           $.UINavigationHistory = [$.UINavigationHistory[0]];
