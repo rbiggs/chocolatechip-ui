@@ -1,14 +1,6 @@
 (function($) {
-  'use strict';
-
-  //////////////////////////////////
-  // Flag if native Android browser:
-  //////////////////////////////////
-  if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) ) && (!/Chrome/img.test(navigator.userAgent))) {
-    document.body.classList.add('isNativeAndroidBrowser');
-  }
-
-  'use strict';
+  "use strict";
+  
   /////////////////////////////
   // Determine browser version:
   /////////////////////////////
@@ -30,6 +22,10 @@
     // os-specific styles:
     ////////////////////////////////
     $.body = $('body');
+  
+    if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) ) && (!/Chrome/img.test(navigator.userAgent))) {
+      $.body.addClass('isNativeAndroidBrowser');
+    }
     if ($.isWin) {
       $.body.addClass('isWindows');
     } else if ($.isiOS) {
@@ -44,4 +40,4 @@
       $.body.addClass('isNativeAndroidBrowser');
     }
   });
-})(window.jQuery);
+})(window.$);
