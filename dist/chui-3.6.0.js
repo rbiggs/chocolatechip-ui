@@ -1715,19 +1715,13 @@ if(window.jQuery) {
     };
     */
     UISlideout : function ( options ) {
-      var position, dynamic, callback = $.noop;
-      if (options && options.position)  {
-        position = options.position;
-      } else {
-        position = 'left';
-      }
-      if (options && options.dynamic) {
-        dynamic = options.dynamic;
-      } else {
-        dynamic = false;
-      }
-      if (options && options.callback) {
-        callback = options.callback;
+      var settings = {
+        callback : $.noop,
+        position: 'left',
+        dynamic: false
+      };
+      if (options && !$.isEmptyObject(options)) {
+        $.extend(settings, options);
       }
       var slideoutButton = $("<a class='button slide-out-button' href='javascript:void(null)'></a>");
       var slideOut = '<div class="slide-out"><section></section></div>';
@@ -1743,7 +1737,7 @@ if(window.jQuery) {
       $('.slide-out-button').on($.eventStart, function() {
         $('.slide-out').toggleClass('open');
       });
-      if (!dynamic) {
+      if (!settings.dynamic) {
         $('.slide-out').on('singletap', 'li', function() {
           var whichArticle = '#' + $(this).attr('data-show-article');
           $.UINavigationHistory[0] = whichArticle;
@@ -1757,8 +1751,9 @@ if(window.jQuery) {
           $(whichArticle).prev().addClass('show');
         });
       } else {
-        $('.slide-out').on('singletap', 'li', function() {
-          callback(this);
+        $('.slide-out').on('singletap', 'li', function(e) {
+          settings.callback(e, this);
+          $('.slide-out').toggleClass('open');
         });
       }
     }
