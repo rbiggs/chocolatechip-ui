@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.extend({
     subscriptions : {},
 
@@ -48,4 +47,4 @@
       return true;
    }
   });
-})(window.jQuery);
+})(window.$);

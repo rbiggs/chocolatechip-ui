@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.fn.extend({
     ////////////////////////
     // Create Busy indicator
@@ -63,4 +62,4 @@
       }
     }
   });
-})(window.jQuery);
+})(window.$);

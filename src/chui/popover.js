@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-  
+  "use strict";
   $.fn.extend({ 
     /////////////////
     // Create Popover
@@ -44,7 +43,6 @@
           popover.css({'left': left + 'px', 'top': (calcTop + 20) + 'px'});
         }
       };
-
       $(this).on($.eventStart, function() {
         if ($('.mask')[0]) {
           $.UIPopoverClose();
@@ -80,7 +78,6 @@
       });
     }
   });
-
   $.extend({
     ///////////////////////////////////////
     // Align the Popover Before Showing it:
@@ -100,7 +97,6 @@
       }
     }
   });
-
   $.extend({
     UIPopoverClose : function ( ) {
       $('body').UIUnblock();
@@ -127,4 +123,4 @@
       }
     });
   });
-})(window.jQuery);
+})(window.$);

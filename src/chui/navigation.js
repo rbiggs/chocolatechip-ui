@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   ////////////////////////////////////
   // Create custom navigationend event
   ////////////////////////////////////
@@ -12,7 +11,6 @@
     } else if ('-webkit-transition' in document.body.style){
       transition = '-webkit-transition-duration';
     }
-
     function determineDurationType (duration) {
       if (/m/.test(duration)) {
         return parseFloat(duration); 
@@ -20,14 +18,12 @@
         return parseFloat(duration) * 100;
       }
     }
-
     tansitionDuration = determineDurationType($('article').eq(0).css(transition));
     
     setTimeout(function() {
       $(target).trigger({type: 'navigationend'});
     }, tansitionDuration);
   }
-
   $.extend({
     ////////////////////////////////////////////////
     // Manage location.hash for client side routing:
@@ -36,7 +32,6 @@
       url = url || true;
       $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimiter);
     },
-
     /////////////////////////////////////////////////////
     // Set the hash according to where the user is going:
     /////////////////////////////////////////////////////
@@ -60,7 +55,6 @@
         window.history.replaceState('Object', 'Title', hash);
       }
     },
-
     //////////////////////////////////////
     // Navigate Back to Non-linear Article
     //////////////////////////////////////
@@ -85,7 +79,7 @@
       currentArticle[0].scrollTop = 0;
       destination[0].scrollTop = 0;
       if (prevArticles.length) {
-        $.each(prevArticles, function(_, ctx) {
+        $.forEach(prevArticles, function(ctx) {
           $(ctx).removeClass('previous').addClass('next');
           $(ctx).prev().removeClass('previous').addClass('next');
         });
@@ -102,7 +96,6 @@
       $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
       triggerNavigationEvent(destination);
     },
-
     ////////////////////////////////////
     // Navigate Back to Previous Article
     ////////////////////////////////////
@@ -133,7 +126,6 @@
       $.UINavigationHistory.pop();
       triggerNavigationEvent(destination);
     },
-
     isNavigating : false,
   
     ///////////////////////////////
@@ -168,12 +160,9 @@
       setTimeout(function() {
         $.isNavigating = false;
       }, 500);
-
       triggerNavigationEvent(destination);
-
     }
   });
-
   ///////////////////
   // Init navigation:
   ///////////////////
@@ -184,11 +173,10 @@
     $.extend({
       UINavigationHistory : ["#" + $('article').eq(0).attr('id')]
     });
-
     ///////////////////////////////////////////////////////////
     // Make sure that navs and articles have navigation states:
     ///////////////////////////////////////////////////////////
-    $('nav:not(#global-nav)').each(function(idx, ctx) {
+    $('nav:not(#global-nav)').forEach(function(ctx, idx) {
       // Prevent if splitlayout for tablets:
       if ($('body')[0].classList.contains('splitlayout')) return;
       if (idx === 0) {
@@ -198,7 +186,7 @@
       }
     });
   
-    $('article').each(function(idx, ctx) {
+    $('article').forEach(function(ctx, idx) {
       // Prevent if splitlayout for tablets:
       if ($('body')[0].classList.contains('splitlayout')) return;
       if ($('body')[0].classList.contains('slide-out-app')) return;
@@ -208,7 +196,6 @@
         ctx.classList.add('next'); 
       }
     }); 
-
       ///////////////////////////
     // Initialize Back Buttons:
     ///////////////////////////
@@ -228,17 +215,16 @@
       if (!this.getAttribute('data-goto')) return;
       if (!document.getElementById(this.getAttribute('data-goto'))) return;
       if ($(this).parent()[0].classList.contains('deletable')) return;
-      $(destinationHref).addClass('navigable');
       $this.addClass('selected');
       var destinationHref = '#' + this.getAttribute('data-goto');
+      $(destinationHref).addClass('navigable');
       setTimeout(function() {
         $this.removeClass('selected');
       }, 500);
       var destination = $(destinationHref);
       $.UIGoToArticle(destination);
     });
-
-    $('li[data-goto]').each(function(idx, ctx) {
+    $('li[data-goto]').forEach(function(ctx) {
       $(ctx).closest('article').addClass('navigable');
       var navigable =  '#' + ctx.getAttribute('data-goto');
       $(navigable).addClass('navigable');
@@ -251,7 +237,6 @@
     if ($('article').eq(1)[0]) {
       $.UISetHashOnUrl($('article').eq(0)[0].id);
     }
-
     /////////////////////////////////////////////////////////
     // Stop rubber banding when dragging down on nav:
     /////////////////////////////////////////////////////////
@@ -259,4 +244,4 @@
       e.preventDefault();
     });
   });
-})(window.jQuery);
+})(window.$);

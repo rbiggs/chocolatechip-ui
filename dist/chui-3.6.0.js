@@ -11,10 +11,16 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.5.5
+Version: 3.6.0
 */
+window.CHUIJSLIB;
+if(window.jQuery) {
+  window.CHUIJSLIB = window.jQuery;
+} else if (window.$chocolatechipjs) {
+  window.CHUIJSLIB = window.$chocolatechipjs;
+}
 (function($) {
-  'use strict';
+
   $.extend({
     ///////////////
     // Create Uuid:
@@ -22,6 +28,7 @@ Version: 3.5.5
     Uuid : function() {
       return Date.now().toString(36);
     },
+
     ///////////////////////////
     // Concat array of strings:
     ///////////////////////////
@@ -35,8 +42,8 @@ Version: 3.5.5
     forEach : function ( obj, callback, args ) {
       function isArraylike( obj ) {
         var length = obj.length,
-          type = jQuery.type( obj );
-        if ( type === "function" || jQuery.isWindow( obj ) ) {
+          type = typeof obj;
+        if ( type === "function" || obj === window ) {
           return false;
         }
         if ( obj.nodeType === 1 && length ) {
@@ -85,26 +92,46 @@ Version: 3.5.5
       }
     }
   });
+
   $.fn.extend({
+    
+    ///////////////////////////////////
+    // forEach method for jQuery to
+    // preserve normal parameter order.
+    ///////////////////////////////////
+    forEach : function( callback, args ) {
+      var $this = this;
+      return $.forEach( $this, callback, args );
+    },
+
     //////////////////////
     // Return element that 
     // matches selector:
     //////////////////////
     iz : function ( selector ) {
-      var ret = $();
-      this.forEach(function(ctx) {
-        if ($(ctx).is(selector)) {
-          ret.push(ctx);
-        }
-      });
-      return ret;
+      if (window.jQuery) {
+        var ret = $();
+        this.forEach(function(ctx) {
+          if ($(ctx).is(selector)) {
+            ret.push(ctx);
+          }
+        });
+        return ret;
+
+      } else if (window.$chocolatechipjs) {
+        return this.is(selector);
+      }
     },
     //////////////////////////////
     // Return element that doesn't 
     // match selector:
     //////////////////////////////
     iznt : function ( selector ) {
-      return this.not(selector);
+      if (window.jQuery) {
+        return this.not(selector);
+      } else if (window.$chocolatechipjs) {
+        return this.isnt(selector);
+      }
     },
  
     ///////////////////////////////////
@@ -120,73 +147,99 @@ Version: 3.5.5
     // don't match selector:
     ///////////////////////////////////
     haznt : function ( selector ) {
-      var ret = $();
-      this.forEach(function(ctx) {
-        if (!$(ctx).has(selector)[0]) {
-          ret.push(ctx);
-        }
-      });
-      return ret;
+      if (window.jQuery) {
+        var ret = $();
+        this.forEach(function(ctx) {
+          if (!$(ctx).has(selector)[0]) {
+            ret.push(ctx);
+          }
+        });
+        return ret;        
+      } else if (window.$chocolatechipjs) {
+        return this.hasnt(selector);
+      }
     },
     //////////////////////////////////////
     // Return element that has class name:
     //////////////////////////////////////
     hazClass : function ( className ) {
-      var ret = $();
-      this.forEach(function(ctx) {
-        if ($(ctx).hasClass(className)) {
-          ret.push(ctx);
-        }
-      });
-      return ret;
+      if (window.jQuery) {
+        var ret = $();
+        this.forEach(function(ctx) {
+          if ($(ctx).hasClass(className)) {
+            ret.push(ctx);
+          }
+        });
+        return ret;
+      } else if(window.$chocolatechipjs) {
+        return this.hasClass(className);
+      }
     },
     //////////////////////////////
     // Return element that doesn't 
     // have class name:
     //////////////////////////////
     hazntClass : function ( className ) {
-      var ret = $();
-      this.forEach(function(ctx) {
-        if (!$(ctx).hasClass(className)) {
-          ret.push(ctx);
-        }
-      });
-      return ret;
+      if (window.jQuery) {
+        var ret = $();
+        this.forEach(function(ctx) {
+          if (!$(ctx).hasClass(className)) {
+            ret.push(ctx);
+          }
+        });
+        return ret;
+      } else if (window.$chocolatechipjs) {
+        var ret = [];
+        this.forEach(function(ctx) {
+          if (ctx.classList.contains(className)) {
+            ret.push(ctx);
+          }
+        })
+        return ret;
+      }
     },
     /////////////////////////////////////
     // Return element that has attribute:
     /////////////////////////////////////
     hazAttr : function ( property ) {
-      var ret = $();
-      this.forEach(function(ctx){
-        if ($(ctx).attr(property)) {
-          ret.push(ctx);
-        }
-      });
-      return ret;
+      if (window.jQuery) {
+        var ret = $();
+        this.forEach(function(ctx){
+          if ($(ctx).attr(property)) {
+            ret.push(ctx);
+          }
+        });
+        return ret;
+      } else if (window.$chocolatechipjs) {
+        var ret = []
+
+        return ret;
+      }
     },
     //////////////////////////
     // Return element that 
     // doesn't have attribute:
     //////////////////////////
     hazntAttr : function ( property ) {
-      var ret = $();
-      this.forEach(function(ctx){
-        if (!$(ctx).attr(property)) {
-          ret.push(ctx);
-        }
-      });
-      return ret;
-    },
-    ////////////////////////////
-    // Version of each that uses
-    // regular parameter order:
-    ////////////////////////////
-    forEach : function ( callback, args ) {
-      return $.forEach( this, callback, args );
+      if (window.jQuery) {
+        var ret = $();
+        this.forEach(function(ctx){
+          if (!$(ctx).attr(property)) {
+            ret.push(ctx);
+          }
+        });
+        return ret;
+      } else if (window.$chocolatechipjs) {
+        var ret = []
+          if (!ctx.hasAttribute(property)){
+            ret.push(ctx);
+          }
+        return ret;        
+      }
     }
-  }); 
- 
+  });
+
+
   $.extend({
     eventStart : null,
     eventEnd : null,
@@ -195,6 +248,7 @@ Version: 3.5.5
     // Define min-length for gesture detection:
     gestureLength : 30 
   });
+
   $(function() {
     //////////////////////////
     // Setup Event Variables:
@@ -225,8 +279,8 @@ Version: 3.5.5
       $.eventCancel = 'mouseout';
     }
   });
- 
- 
+
+
   $.extend({
     isiPhone : /iphone/img.test(navigator.userAgent),
     isiPad : /ipad/img.test(navigator.userAgent),
@@ -251,13 +305,15 @@ Version: 3.5.5
     isChrome : /Chrome/img.test(navigator.userAgent),
     isNativeAndroid : (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent))
   });
+
+
   //////////////////////////////////
   // Flag if native Android browser:
   //////////////////////////////////
   if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) ) && (!/Chrome/img.test(navigator.userAgent))) {
     document.body.classList.add('isNativeAndroidBrowser');
   }
-  'use strict';
+  
   /////////////////////////////
   // Determine browser version:
   /////////////////////////////
@@ -272,6 +328,7 @@ Version: 3.5.5
       return m[1];
     }
   });
+
   $(function() {
     ////////////////////////////////
     // Added classes for client side
@@ -292,6 +349,8 @@ Version: 3.5.5
       $.body.addClass('isNativeAndroidBrowser');
     }
   });
+
+
   //////////////////////////////////////////////////////
   // Swipe Gestures for ChocolateChip-UI.
   // Includes mouse gestures for desktop compatibility.
@@ -515,6 +574,8 @@ Version: 3.5.5
       }
     });
   });
+
+
   /////////////////////////////////////////
   // Set classes for desktop compatibility:
   /////////////////////////////////////////
@@ -530,15 +591,18 @@ Version: 3.5.5
   $(function() {
     $.UIDesktopCompat();
   });
- 
+
+
   $(function() { 
     $.body = $('body');
+
     //////////////////////
     // Add the global nav:
     //////////////////////
     if (!$.body[0].classList.contains('splitlayout')) {
       $('body').prepend("<nav id='global-nav'></nav>");
     }
+
     /////////////////////////////////////////////////
     // Fix Split Layout to display properly on phone:
     /////////////////////////////////////////////////
@@ -547,6 +611,7 @@ Version: 3.5.5
         $('meta[name=viewport]').attr('content','width=device-width, initial-scale=0.45, maximum-scale=2, user-scalable=yes');
       }
     }
+
     /////////////////////////////////////////////////////////
     // Add class to nav when button on right.
     // This allows us to adjust the nav h1 for small screens.
@@ -556,14 +621,18 @@ Version: 3.5.5
         ctx.classList.add('buttonOnRight');
       }
     });
+
     //////////////////////////////////////////
     // Get any toolbars and adjust the bottom 
     // of their corresponding articles:
     //////////////////////////////////////////
     $('.toolbar').prev('article').addClass('has-toolbar');
   });
+
+
   $.extend({
     subscriptions : {},
+
     // Topic: string defining topic: /some/topic
     // Data: a string, number, array or object.
     subscribe : function (topic, callback) {
@@ -577,6 +646,7 @@ Version: 3.5.5
       });
       return token;
     },
+
     unsubscribe : function ( token ) {
       setTimeout(function() {
         for (var m in $.subscriptions) {
@@ -592,6 +662,7 @@ Version: 3.5.5
         return false;
       });
     },
+
     publish : function ( topic, args ) {
       if (!$.subscriptions[topic]) {
         return false;
@@ -606,6 +677,8 @@ Version: 3.5.5
       return true;
    }
   });
+
+
   ////////////////////////////////////
   // Create custom navigationend event
   ////////////////////////////////////
@@ -685,7 +758,7 @@ Version: 3.5.5
       currentArticle[0].scrollTop = 0;
       destination[0].scrollTop = 0;
       if (prevArticles.length) {
-        $.each(prevArticles, function(_, ctx) {
+        $.forEach(prevArticles, function(ctx) {
           $(ctx).removeClass('previous').addClass('next');
           $(ctx).prev().removeClass('previous').addClass('next');
         });
@@ -782,7 +855,7 @@ Version: 3.5.5
     ///////////////////////////////////////////////////////////
     // Make sure that navs and articles have navigation states:
     ///////////////////////////////////////////////////////////
-    $('nav:not(#global-nav)').each(function(idx, ctx) {
+    $('nav:not(#global-nav)').forEach(function(ctx, idx) {
       // Prevent if splitlayout for tablets:
       if ($('body')[0].classList.contains('splitlayout')) return;
       if (idx === 0) {
@@ -792,7 +865,7 @@ Version: 3.5.5
       }
     });
   
-    $('article').each(function(idx, ctx) {
+    $('article').forEach(function(ctx, idx) {
       // Prevent if splitlayout for tablets:
       if ($('body')[0].classList.contains('splitlayout')) return;
       if ($('body')[0].classList.contains('slide-out-app')) return;
@@ -821,16 +894,16 @@ Version: 3.5.5
       if (!this.getAttribute('data-goto')) return;
       if (!document.getElementById(this.getAttribute('data-goto'))) return;
       if ($(this).parent()[0].classList.contains('deletable')) return;
-      $(destinationHref).addClass('navigable');
       $this.addClass('selected');
       var destinationHref = '#' + this.getAttribute('data-goto');
+      $(destinationHref).addClass('navigable');
       setTimeout(function() {
         $this.removeClass('selected');
       }, 500);
       var destination = $(destinationHref);
       $.UIGoToArticle(destination);
     });
-    $('li[data-goto]').each(function(idx, ctx) {
+    $('li[data-goto]').forEach(function(ctx) {
       $(ctx).closest('article').addClass('navigable');
       var navigable =  '#' + ctx.getAttribute('data-goto');
       $(navigable).addClass('navigable');
@@ -850,6 +923,8 @@ Version: 3.5.5
       e.preventDefault();
     });
   });
+
+
   $(function() {
     ///////////////////////////////////
     // Initialize singletap on buttons:
@@ -864,8 +939,9 @@ Version: 3.5.5
         $this.removeClass('selected');
       }, 500);
     });
-  }); 
- 
+  });
+
+
   $.fn.extend({
     /////////////////////////
     // Block Screen with Mask
@@ -876,6 +952,7 @@ Version: 3.5.5
       $('article.current').attr('aria-hidden',true);
       return this;
     },
+
     //////////////////////////
     // Remove Mask from Screen
     //////////////////////////
@@ -885,6 +962,8 @@ Version: 3.5.5
       return this;
     }
   });
+
+
   $.fn.extend({
     //////////////////////////////
     // Center an Element on Screen
@@ -896,6 +975,7 @@ Version: 3.5.5
       var position;
       if ($this.css('position') !== 'absolute') position = 'relative';
       else position = 'absolute';
+
       var height, width, parentHeight, parentWidth;
       if (position === 'absolute') {
         height = $this[0].clientHeight;
@@ -921,6 +1001,8 @@ Version: 3.5.5
       $this.css({left: tmpLeft, top: tmpTop});
     }
   });
+
+
   $.fn.extend({
     ////////////////////////
     // Create Busy indicator
@@ -983,6 +1065,8 @@ Version: 3.5.5
       }
     }
   });
+
+
   $.extend({
     ///////////////
     // Create Popup
@@ -1073,7 +1157,9 @@ Version: 3.5.5
     $(window).on('resize', function() {
       $.UICenterPopup();
     });
-  });  
+  });
+
+
   $.fn.extend({ 
     /////////////////
     // Create Popover
@@ -1196,7 +1282,9 @@ Version: 3.5.5
         $.UIPopoverClose();
       }
     });
-  }); 
+  });
+
+
   $.fn.extend({
     ///////////////////////////////
     // Initialize Segmented Control
@@ -1208,11 +1296,10 @@ Version: 3.5.5
           callback: function() { alert('Boring!'); }
         }
       */
-      if (this.hasClass('paging')) return;
+      if ($(this).hazClass('paging').length) return;
       var callback = (options && options.callback) ? options.callback : $.noop;
-      var selected;
-      if (options && options.selected >= 0) selected = options.selected;
-      this.find('a').each(function(idx, ctx) {
+      var selected = (options && options.selected > 0) ? options.selected : 0;
+      this.find('a').forEach(function(ctx, idx) {
         $(ctx).find('a').attr('role','radio');
         if (idx === selected) {
           ctx.setAttribute('aria-checked', 'true');
@@ -1239,7 +1326,8 @@ Version: 3.5.5
         options = {
           id : '#myId',
           className : 'special' || '',
-          labels : ['first','second','third']
+          labels : ['first','second','third'],
+          selected: 0
         }
       */
       var segmented;
@@ -1263,6 +1351,8 @@ Version: 3.5.5
       return segmented;
     }
   });
+
+
   $.fn.extend({
     ////////////////////////////////////////////
     // Allow Segmented Control to toggle panels
@@ -1293,17 +1383,17 @@ Version: 3.5.5
       });
     }
   });
- 
- 
+
+
   $.extend({
     ///////////////////////
     // Setup Paging Control
     ///////////////////////
       UIPaging : function ( ) {
         var currentArticle = $('.segmented.paging').closest('nav').next();
-        if ($('.segmented.paging').hasClass('horizontal')) {
+        if ($('.segmented.paging').hazClass('horizontal').length) {
           currentArticle.addClass('horizontal');
-        } else if ($('.segmented.paging').hasClass('vertical')) {
+        } else if ($('.segmented.paging').hazClass('vertical').length) {
           currentArticle.addClass('vertical');
         }
         
@@ -1354,7 +1444,8 @@ Version: 3.5.5
         });
       }
   });
- 
+
+
   $.fn.extend({
     ////////////////////////////
     // Initialize Deletable List
@@ -1445,8 +1536,8 @@ Version: 3.5.5
           button = list.closest('article').prev().find('.edit');
         }
       }
-      list.find('li').each(function(_, ctx) {
-        if (!$(ctx).has('.deletion-indicator')[0]) {
+      list.find('li').forEach(function(ctx) {
+        if (!$(ctx).has('.deletion-indicator').length) {
           $(ctx).prepend(deletionIndicator);
           $(ctx).append(deleteButton);
         }
@@ -1474,7 +1565,7 @@ Version: 3.5.5
             }
           });
           $(list).on('singletap', '.deletion-indicator', function() {
-            if ($(this).parent('li').hasClass('selected')) {
+            if ($(this).parent('li').hazClass('selected').length) {
               $(this).parent('li').removeClass('selected');
               return;
             } else {
@@ -1505,6 +1596,8 @@ Version: 3.5.5
       return setupDeletability(callback, list, button);
     }
   });
+
+
   $.fn.extend({
     /////////////////////////
     // Initialize Select List
@@ -1558,6 +1651,8 @@ Version: 3.5.5
       });
     }
   });
+
+
   $.extend({
     ///////////////////////////////////////////////
     // UISheet: Create an Overlay for Buttons, etc.
@@ -1604,6 +1699,8 @@ Version: 3.5.5
       },500);
     }
   });
+
+
   $.extend({
     ////////////////////////////////////////////////
     // Create Slideout with toggle button.
@@ -1618,19 +1715,13 @@ Version: 3.5.5
     };
     */
     UISlideout : function ( options ) {
-      var position, dynamic, callback = $.noop;
-      if (options && options.position)  {
-        position = options.position;
-      } else {
-        position = 'left';
-      }
-      if (options && options.dynamic) {
-        dynamic = options.dynamic;
-      } else {
-        dynamic = false;
-      }
-      if (options && options.callback) {
-        callback = options.callback;
+      var settings = {
+        callback : $.noop,
+        position: 'left',
+        dynamic: false
+      };
+      if (options && !$.isEmptyObject(options)) {
+        $.extend(settings, options);
       }
       var slideoutButton = $("<a class='button slide-out-button' href='javascript:void(null)'></a>");
       var slideOut = '<div class="slide-out"><section></section></div>';
@@ -1646,7 +1737,7 @@ Version: 3.5.5
       $('.slide-out-button').on($.eventStart, function() {
         $('.slide-out').toggleClass('open');
       });
-      if (!dynamic) {
+      if (!settings.dynamic) {
         $('.slide-out').on('singletap', 'li', function() {
           var whichArticle = '#' + $(this).attr('data-show-article');
           $.UINavigationHistory[0] = whichArticle;
@@ -1660,8 +1751,9 @@ Version: 3.5.5
           $(whichArticle).prev().addClass('show');
         });
       } else {
-        $('.slide-out').on('singletap', 'li', function() {
-          callback(this);
+        $('.slide-out').on('singletap', 'li', function(e) {
+          settings.callback(e, this);
+          $('.slide-out').toggleClass('open');
         });
       }
     }
@@ -1694,6 +1786,8 @@ Version: 3.5.5
       }
     }
   });
+
+
   $.fn.extend({
     /////////////////
     // Create stepper
@@ -1780,6 +1874,8 @@ Version: 3.5.5
       stepper.find('input')[0].value = defaultValue;
     }
   });
+
+
   $.fn.extend({
     ////////////////////////////
     // Initialize Switch Control
@@ -1861,10 +1957,12 @@ Version: 3.5.5
     //////////////////////////
     $('.switch').UISwitch();
   });
- 
+
+
   document.addEventListener('touchstart', function (e) {
     var parent = e.target,
       i = 0;
+
     for (i = 0; i < 10; i += 1) {
       if (parent !== null) {
         if (parent.className !== undefined) {
@@ -1880,6 +1978,8 @@ Version: 3.5.5
       }
     }
   });
+
+
   $.extend({
     ///////////////////////////////////////////
     // Creates a Tab Bar for Toggling Articles:
@@ -1915,24 +2015,33 @@ Version: 3.5.5
       $('nav').eq(selected).removeClass('next').addClass('current');
       $('article').removeClass('current').addClass('next');
       $('article').eq(selected-1).removeClass('next').addClass('current');
-      $('body').find('.tabbar').on('singletap', '.button', function() {
+      $('.tabbar').on('singletap', '.button', function() {
         var $this = this;
         var index;
         var id;
         $.publish('chui/navigate/leave', $('article.current')[0].id);
+
         $this.classList.add('selected');
-        $(this).siblings('a').removeClass('selected');
+        $($this).siblings('a').removeClass('selected');
         index = $(this).index();
         $('article.previous').removeClass('previous').addClass('next');
         $('nav.previous').removeClass('previous').addClass('next');
         $('article.current').removeClass('current').addClass('next');
         $('nav.current').removeClass('current').addClass('next');
+        $('article').eq(index).removeClass('next').addClass('current');
+        $('nav').eq(index+1).removeClass('next').addClass('current');
+
         id = $('article').eq(index)[0].id;
+        console.log('The id is: ' + id)
         $.publish('chui/navigate/enter', id);
-        $('article').each(function(idx, ctx) {
-          $(ctx).scrollTop(0);
+        $('article').forEach(function(ctx) {
+          if (window.jQuery) {
+            $(ctx).scrollTop(0);
+          } else if (window.$chocolatechipjs) {
+            ctx.scrollTop = 0;
+          }
         });
-      
+        console.log(id);
         $.UISetHashOnUrl('#'+id);
         if ($.UINavigationHistory[0] === ('#' + id)) {
           $.UINavigationHistory = [$.UINavigationHistory[0]];
@@ -1945,11 +2054,11 @@ Version: 3.5.5
         } else {
           $.UINavigationHistory[1] = '#'+id;
         }
-        $('article').eq(index).removeClass('next').addClass('current');
-        $('nav').eq(index+1).removeClass('next').addClass('current');
       });
     }
   });
+
+
   $.extend({
   /////////////////////////////
   // Templating:
@@ -1970,7 +2079,10 @@ Version: 3.5.5
         "return p.join('');");
       return template;
     }
-  });  /////////////////////////
+  });
+
+
+  /////////////////////////
   // Create a search input:
   /////////////////////////
   /*
@@ -1995,6 +2107,8 @@ Version: 3.5.5
       }
     }
   });
+
+
   //////////////////////////////////
   // Initialize a swipeable carousel:
   //////////////////////////////////
@@ -2031,8 +2145,9 @@ Version: 3.5.5
         })(),
         
         UICarousel = function ( options ) {
+          if (!options) return;
           var ul, li, className;
-          this.wrapper = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
+          this.carouselContainer = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
           this.options = {
             panels: options.panels || 3,
             snapThreshold: null,
@@ -2044,13 +2159,13 @@ Version: 3.5.5
           }
           // Include user's options:
           for (var i in options) this.options[i] = options[i];
-          this.wrapper.style.overflow = 'hidden';
-          this.wrapper.style.position = 'relative';
+          this.carouselContainer.style.overflow = 'hidden';
+          this.carouselContainer.style.position = 'relative';
           this.carouselPanels = [];
           ul = document.createElement('ul');
           ul.className = 'carousel-track';
           ul.style.cssText = 'position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
-          this.wrapper.appendChild(ul);
+          this.carouselContainer.appendChild(ul);
           this.track = ul;
           this.refreshSize();
           var whichPanelIndex;
@@ -2066,9 +2181,9 @@ Version: 3.5.5
           }
           className = this.carouselPanels[1].className;
           this.carouselPanels[1].className = !className ? 'carousel-panel-active' : className + ' carousel-panel-active';
-          this.wrapper.addEventListener(startEvent, this, false);
-          this.wrapper.addEventListener(moveEvent, this, false);
-          this.wrapper.addEventListener(endEvent, this, false);
+          this.carouselContainer.addEventListener(startEvent, this, false);
+          this.carouselContainer.addEventListener(moveEvent, this, false);
+          this.carouselContainer.addEventListener(endEvent, this, false);
           this.track.addEventListener(transitionEndEvent, this, false);
           var pagination;
           if (options.pagination) {
@@ -2081,7 +2196,11 @@ Version: 3.5.5
               }
               pagination.appendChild(li);
             }
-            $(this.wrapper).after(pagination);
+            if (window.$chocolatechipjs) {
+              this.carouselContainer.insertAdjacentElement('afterEnd', pagination)
+            } else {
+              $(this.carouselContainer).after(pagination);
+            }
           }
         };
       UICarousel.prototype = {
@@ -2091,25 +2210,25 @@ Version: 3.5.5
         customEvents: [],
         
         onSlide: function (fn) {
-          this.wrapper.addEventListener('carousel-panel-move', fn, false);
+          this.carouselContainer.addEventListener('carousel-panel-move', fn, false);
           this.customEvents.push(['move', fn]);
         },
         destroy: function () {
           while ( this.customEvents.length ) {
-            this.wrapper.removeEventListener('carousel-panel-' + this.customEvents[0][0], this.customEvents[0][1], false);
+            this.carouselContainer.removeEventListener('carousel-panel-' + this.customEvents[0][0], this.customEvents[0][1], false);
             this.customEvents.shift();
           }
           // Remove event listeners:
-          this.wrapper.removeEventListener(startEvent, this, false);
-          this.wrapper.removeEventListener(moveEvent, this, false);
-          this.wrapper.removeEventListener(endEvent, this, false);
+          this.carouselContainer.removeEventListener(startEvent, this, false);
+          this.carouselContainer.removeEventListener(moveEvent, this, false);
+          this.carouselContainer.removeEventListener(endEvent, this, false);
           this.track.removeEventListener(transitionEndEvent, this, false);
         },
         refreshSize: function () {
-          this.wrapperWidth = this.wrapper.clientWidth;
-          this.wrapperHeight = this.wrapper.clientHeight;
-          this.panelWidth = this.wrapperWidth;
-          this.maxX = -this.options.panels * this.panelWidth + this.wrapperWidth;
+          this.carouselContainerWidth = this.carouselContainer.clientWidth;
+          this.carouselContainerHeight = this.carouselContainer.clientHeight;
+          this.panelWidth = this.carouselContainerWidth;
+          this.maxX = -this.options.panels * this.panelWidth + this.carouselContainerWidth;
           this.snapThreshold = this.options.snapThreshold === null ?
             Math.round(this.panelWidth * 0.15) :
             /%/.test(this.options.snapThreshold) ?
@@ -2119,12 +2238,13 @@ Version: 3.5.5
         
         updatePanelCount: function (n) {
           this.options.panels = n;
-          this.maxX = -this.options.panels * this.panelWidth + this.wrapperWidth;
+          this.maxX = -this.options.panels * this.panelWidth + this.carouselContainerWidth;
         },
         
         goToPanel: function (p) {
           this.carouselPanels[this.currentPanel].className = this.carouselPanels[this.currentPanel].className.replace(/(^|\s)carousel-panel-active(\s|$)/, '');
           p = p < 0 ? 0 : p > this.options.panels-1 ? this.options.panels - 1 : p;
+          console.log('p: ' , p);
           this.panel = p;
           this.track.style[transitionDuration] = '0s';
           this.getPosition(-p * this.panelWidth);
@@ -2247,7 +2367,7 @@ Version: 3.5.5
           var panelMove;
           var pageFlipIndex;
           var className;
-          this.carouselPanels[this.currentPanel].className = this.carouselPanels[this.currentPanel].className.replace(/(^|\s)carousel-panel-active(\s|$)/, '');
+          this.carouselPanels[this.currentPanel].className = '';
           // Slide the panel:
           if (this.directionX > 0) {
             this.panel = -Math.ceil(this.x / this.panelWidth);
@@ -2270,6 +2390,9 @@ Version: 3.5.5
           className = this.carouselPanels[panelMove].className;
           pageFlipIndex = pageFlipIndex - Math.floor(pageFlipIndex / this.options.panels) * this.options.panels;
           $(this.carouselPanels[panelMove]).data('upcomingPanelIndex', pageFlipIndex);
+
+          //console.log('pageFlipIndex: ', pageFlipIndex)
+
           // Index to be loaded in the newly moved panel:
           var newX = -this.panel * this.panelWidth;
           this.track.style[transitionDuration] = Math.floor(500 * Math.abs(this.x - newX) / this.panelWidth) + 'ms';
@@ -2291,7 +2414,7 @@ Version: 3.5.5
         event: function (type) {
           var ev = document.createEvent("Event");
           ev.initEvent('carousel-panel-' + type, true, true);
-          this.wrapper.dispatchEvent(ev);
+          this.carouselContainer.dispatchEvent(ev);
         }
       };
       function prefixStyle (style) {
@@ -2324,22 +2447,22 @@ Version: 3.5.5
           panels: options.panels.length,
           loop: options.loop,
           pagination: options.pagination
-        }); 
+        });
         $(options.target).data('carousel', carousel);
         // Reverse array of data if RTL:
         if ($.isRTL) options.panels = reverseList(options.panels);
         var panel;
         // Load initial data:
         for (var i = 0; i < 3; i++) {
-          panel = i === 0 ? options.panels.length - 1 : i - 1;
-          carousel.carouselPanels[i].innerHTML = options.panels[panel];
+          panel = (i === 0) ? options.panels.length - 1 : i - 1;
+          carousel.carouselPanels[i].innerHTML = options.panels[Number(panel)];
         }
         var index = 0;
         var pagination = $(options.target).next('.pagination');
         carousel.onSlide(function () {
           for (var i = 0; i < 3; i++) {
             var upcoming = $(carousel.carouselPanels[i]).data('upcomingPanelIndex');
-            carousel.carouselPanels[i].innerHTML = options.panels[upcoming];
+            carousel.carouselPanels[i].innerHTML = options.panels[Number(upcoming)];
           }
           index = $('.carousel-panel-active').data('upcomingPanelIndex');
           pagination.find('li').removeClass('selected');
@@ -2356,8 +2479,8 @@ Version: 3.5.5
           }
         }); 
         $(options.target).on('mousedown', 'img', function() {return false;});
-        var width = $(options.target).width();
-        pagination.width(width);
+        var width = $(options.target).css('width');
+        pagination.css('width', width);
         pagination.on('click', 'li', function() {
           $(this).siblings('li').removeClass('selected');
           $(this).addClass('selected');
@@ -2383,7 +2506,9 @@ Version: 3.5.5
         });
       }
     });
-  }); 
+  });
+
+
   $.fn.extend({
     UIRange : function () {
       if ($.isWin) return;
@@ -2404,13 +2529,16 @@ Version: 3.5.5
     }
   });
   $(function() {
-    $('input[type=range]').each(function(_, ctx) {
+    $('input[type=range]').forEach(function(ctx) {
       $(ctx).UIRange();
     });
     $('body').on('input', 'input[type=range]', function() {
       $(this).UIRange();
     });
-  });  // Widget to enable styled select boxes (pickers):
+  });
+
+
+  // Widget to enable styled select boxes (pickers):
   $.extend({
     UISelectBox: function() {
       var showSelectBox = function (element) {
@@ -2420,7 +2548,7 @@ Version: 3.5.5
           element.dispatchEvent(event);
       };
       if (!$.isDesktop && $.isiOS) {
-        $('.select-box-label').each(function(_, ctx) {
+        $('.select-box-label').forEach(function(ctx) {
           var label = $(ctx);
           var select = label.prev();
           if (!select[0].id) {
@@ -2441,7 +2569,7 @@ Version: 3.5.5
             element.dispatchEvent(event);
         };
         if (!$.isDesktop) {
-          $('.select-box-label').each(function(_, ctx) {
+          $('.select-box-label').forEach(function(ctx) {
             if (!ctx.id) {
               $(ctx).prev().attr('id', $.Uuid());
             }
@@ -2465,4 +2593,4 @@ Version: 3.5.5
     $.UISelectBox();
   });
 
-})(window.jQuery);
+})(window.CHUIJSLIB);

@@ -8,13 +8,16 @@ var gulp = require('gulp')
 ,   replace = require('gulp-replace')
 ,   minifyCSS = require('gulp-minify-css')
 ,   uglify = require('gulp-uglify')
-,   jshint = require('gulp-jshint')
-,   header = require('gulp-header')
 ,   footer = require('gulp-footer');
 
 //Add Trailing slash to projectPath if not exists.
 if (pkg.projectPath !== "")
   pkg.projectPath = pkg.projectPath.replace(/\/?$/, '/');
+
+var whichLib = pkg.jquery.url;
+var pkgVersion = pkg.version;
+if (gutils.env.chocolatechipjs) whichLib = "../chui/chocolatechip-" + pkgVersion + ".js";
+
 
 // Define values for file headers:
 var chui = ['ChUI-Android.css','ChUI-iOS.css','ChUI-Win.css','ChUI.js']
@@ -58,7 +61,7 @@ var htmlHeader = ['<!DOCTYPE html>',
 '  <meta name="msapplication-tap-highlight" content="no">',
 '  <title>ChocolateChip-UI <%= osName %></title>',
 '  <link rel="stylesheet" href="../chui/chui-<%= osType %>-<%= pkg.version %>.css">',
-'  <script src="<%= pkg.jquery.url %>"></script>',
+'  <script src="<%= whichLib %>"></script>',
 '  <script src="../chui/chui-<%= pkg.version %>.js"></script>'].join('\n') + '\n';
 
 var less_for = function (os, idx) {
@@ -83,10 +86,15 @@ gulp.task('less', function () {
 // Concat, minify and output JavaScript:
 gulp.task('js', function () {
   var chuijs_start = [
-    '\(function\(\$\) {',
-    '  \'use strict\';'
+    'window.CHUIJSLIB;',
+    'if(window.jQuery) {',
+    '  window.CHUIJSLIB = window.jQuery;',
+    '} else if (window.$chocolatechipjs) {',
+    '  window.CHUIJSLIB = window.$chocolatechipjs;',
+    '}',
+    '(function($) {\n'
   ].join('\n');
-  var chuijs_end = '\n\}\)\(window\.jQuery\);';
+  var chuijs_end = '\n\}\)\(window\.CHUIJSLIB\);';
 
   gulp.src([
     'src/chui/utils.js', 
@@ -121,13 +129,14 @@ gulp.task('js', function () {
     'src/chui/range.js',
     'src/chui/select.js'
   ])
+
+
+    .pipe(replace(/^\(function\(\$\) \{\n  \"use strict\";/img, ''))
+    .pipe(replace(/^\}\)\(window.\$\);/img, ''))
     .pipe(concat("chui-" + pkg.version + ".js"))
-    .pipe(replace(/\(function\(\$\) {\n^.*\'use strict\';/img, ''))
-    .pipe(replace(/\}\)\(window\.jQuery\);/img, ''))
-    .pipe(replace(/\n\n\n/img, ''))
-    .pipe(replace(/\n\n/img, '\n'))
     .pipe(header(chuijs_start))
     .pipe(footer(chuijs_end))
+    //.pipe(replace(/\}\)\(\);\n\}\)\(window.CHUIJSLIB\);/, '})(window.CHUIJSLIB);'))
     .pipe(header(chuiHeader, { pkg : pkg, chuiName: chui[3] }))
     .pipe(gulp.dest(pkg.projectPath + 'chui/'))
     .pipe(gulp.dest(pkg.projectPath + 'dist/'))
@@ -196,10 +205,10 @@ var generate_examples = function (os) {
     var examples_for = function (os, idx) {
 
       gulp.src('src/' + prefix + 'examples/**/*')
-        .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir }))
+        .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir, whichLib: whichLib }))
         .pipe(gulp.dest(pkg.projectPath + prefix + 'examples-' + os + '/'));
       gulp.src('src/' + prefix + 'demo/*.html')
-        .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir }))
+        .pipe(header(htmlHeader, { pkg : pkg, osType : osTypes[idx], osName : osNames[idx], dir : prefix[dir], langDir : langDir, whichLib: whichLib }))
         .pipe(rename(prefix + 'demo-' + os + '.html'))
         .pipe(gulp.dest(pkg.projectPath + prefix + 'demo/'));
 
@@ -279,3 +288,13 @@ gulp.task('watch:html', function() {
 
 //Watch All - html js & less
 gulp.task('watch', ['watch:less', 'watch:scripts', 'watch:html']);
+
+var chocolatechipjs_start = '(function() {\n';
+var chocolatechipjs_end = '\n})(window.CHUIJSLIB);';
+
+gulp.task('chocolatechipjs', function() {
+  gulp.src([
+    "src/chocolatechipjs/chocolatechip-*.js"
+  ])
+  .pipe(gulp.dest(pkg.projectPath + 'chui/'))
+});

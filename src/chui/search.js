@@ -1,5 +1,5 @@
 (function($) {
-  'use strict';
+  "use strict";
   /////////////////////////
   // Create a search input:
   /////////////////////////
@@ -25,4 +25,4 @@
       }
     }
   });
-})(window.jQuery);
+})(window.$);

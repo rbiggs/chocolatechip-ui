@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.fn.extend({
     /////////////////////////
     // Initialize Select List
@@ -54,4 +53,4 @@
       });
     }
   });
-})(window.jQuery);
+})(window.$);

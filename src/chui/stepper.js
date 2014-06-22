@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.fn.extend({
     /////////////////
     // Create stepper
@@ -75,7 +74,6 @@
       });
     }
   });
-
   $.extend({
     ///////////////////////////////////////////
     // Pass the id of the stepper to reset.
@@ -88,4 +86,4 @@
       stepper.find('input')[0].value = defaultValue;
     }
   });
-})(window.jQuery);
+})(window.$);

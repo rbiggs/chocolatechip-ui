@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.extend({
   /////////////////////////////
   // Templating:
@@ -22,4 +21,4 @@
       return template;
     }
   });
-})(window.jQuery);
+})(window.$);

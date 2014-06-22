@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.extend({
     ////////////////////////////////////////////////
     // Create Slideout with toggle button.
@@ -63,7 +62,6 @@
       }
     }
   });
-
   $.extend($.UISlideout, {
     /////////////////////////////////////////////////////////////////
     // Method to populate a slideout with actionable items.
@@ -92,4 +90,4 @@
       }
     }
   });
-})(window.jQuery);
+})(window.$);

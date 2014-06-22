@@ -1,8 +1,6 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.fn.extend({
-
     ////////////////////////////
     // Initialize Switch Control
     ////////////////////////////
@@ -53,7 +51,6 @@
       });
     }
   });
-
   $.extend({
     ////////////////////////
     // Create Switch Control
@@ -78,11 +75,10 @@
       return $(_switch);
     }
   });
-
   $(function() {
     //////////////////////////
     // Handle Existing Switches:
     //////////////////////////
     $('.switch').UISwitch();
   });
-})(window.jQuery); 
+})(window.$);

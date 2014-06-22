@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.extend({
     ///////////////////////////////////////////
     // Creates a Tab Bar for Toggling Articles:
@@ -36,24 +35,31 @@
       $('nav').eq(selected).removeClass('next').addClass('current');
       $('article').removeClass('current').addClass('next');
       $('article').eq(selected-1).removeClass('next').addClass('current');
-      $('body').find('.tabbar').on('singletap', '.button', function() {
+      $('.tabbar').on('singletap', '.button', function() {
         var $this = this;
         var index;
         var id;
         $.publish('chui/navigate/leave', $('article.current')[0].id);
+
         $this.classList.add('selected');
-        $(this).siblings('a').removeClass('selected');
+        $($this).siblings('a').removeClass('selected');
         index = $(this).index();
         $('article.previous').removeClass('previous').addClass('next');
         $('nav.previous').removeClass('previous').addClass('next');
         $('article.current').removeClass('current').addClass('next');
         $('nav.current').removeClass('current').addClass('next');
+        $('article').eq(index).removeClass('next').addClass('current');
+        $('nav').eq(index+1).removeClass('next').addClass('current');
+
         id = $('article').eq(index)[0].id;
         $.publish('chui/navigate/enter', id);
-        $('article').each(function(idx, ctx) {
-          $(ctx).scrollTop(0);
+        $('article').forEach(function(ctx) {
+          if (window.jQuery) {
+            $(ctx).scrollTop(0);
+          } else if (window.$chocolatechipjs) {
+            ctx.scrollTop = 0;
+          }
         });
-      
         $.UISetHashOnUrl('#'+id);
         if ($.UINavigationHistory[0] === ('#' + id)) {
           $.UINavigationHistory = [$.UINavigationHistory[0]];
@@ -66,9 +72,7 @@
         } else {
           $.UINavigationHistory[1] = '#'+id;
         }
-        $('article').eq(index).removeClass('next').addClass('current');
-        $('nav').eq(index+1).removeClass('next').addClass('current');
       });
     }
   });
-})(window.jQuery);
+})(window.$);

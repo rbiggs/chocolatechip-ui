@@ -1,6 +1,5 @@
 (function($) {
-  'use strict';
-
+  "use strict";
   $.extend({
     ///////////////////////////////////////////////
     // UISheet: Create an Overlay for Buttons, etc.
@@ -27,7 +26,6 @@
         $.UIHideSheet();
       });
     },
-
     UIShowSheet : function ( ) {
       $('article.current').addClass('blurred');
       if ($.isAndroid || $.isChrome) {
@@ -39,7 +37,6 @@
         $('.sheet').addClass('opened');
       }
     },
-
     UIHideSheet : function ( ) {
       $('.sheet').removeClass('opened');
       $('article.current').addClass('removeBlurSlow');
@@ -49,4 +46,4 @@
       },500);
     }
   });
-})(window.jQuery);
+})(window.$);
