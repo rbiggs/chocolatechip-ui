@@ -7,7 +7,9 @@ var gulp = require('gulp')
 ,   gutils = require('gulp-util')
 ,   replace = require('gulp-replace')
 ,   minifyCSS = require('gulp-minify-css')
+,   jshint = require('gulp-jshint')
 ,   uglify = require('gulp-uglify')
+,   header = require('gulp-header')
 ,   footer = require('gulp-footer');
 
 //Add Trailing slash to projectPath if not exists.

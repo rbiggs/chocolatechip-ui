@@ -307,12 +307,6 @@ if(window.jQuery) {
   });
 
 
-  //////////////////////////////////
-  // Flag if native Android browser:
-  //////////////////////////////////
-  if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) ) && (!/Chrome/img.test(navigator.userAgent))) {
-    document.body.classList.add('isNativeAndroidBrowser');
-  }
   
   /////////////////////////////
   // Determine browser version:
@@ -335,6 +329,10 @@ if(window.jQuery) {
     // os-specific styles:
     ////////////////////////////////
     $.body = $('body');
+  
+    if ((/android/img.test(navigator.userAgent)) && (/webkit/img.test(navigator.userAgent) ) && (!/Chrome/img.test(navigator.userAgent))) {
+      $.body.addClass('isNativeAndroidBrowser');
+    }
     if ($.isWin) {
       $.body.addClass('isWindows');
     } else if ($.isiOS) {
@@ -1715,13 +1713,19 @@ if(window.jQuery) {
     };
     */
     UISlideout : function ( options ) {
-      var settings = {
-        callback : $.noop,
-        position: 'left',
-        dynamic: false
-      };
-      if (options && !$.isEmptyObject(options)) {
-        $.extend(settings, options);
+      var position, dynamic, callback = $.noop;
+      if (options && options.position)  {
+        position = options.position;
+      } else {
+        position = 'left';
+      }
+      if (options && options.dynamic) {
+        dynamic = options.dynamic;
+      } else {
+        dynamic = false;
+      }
+      if (options && options.callback) {
+        callback = options.callback;
       }
       var slideoutButton = $("<a class='button slide-out-button' href='javascript:void(null)'></a>");
       var slideOut = '<div class="slide-out"><section></section></div>';
@@ -1737,7 +1741,7 @@ if(window.jQuery) {
       $('.slide-out-button').on($.eventStart, function() {
         $('.slide-out').toggleClass('open');
       });
-      if (!settings.dynamic) {
+      if (!dynamic) {
         $('.slide-out').on('singletap', 'li', function() {
           var whichArticle = '#' + $(this).attr('data-show-article');
           $.UINavigationHistory[0] = whichArticle;
@@ -1751,9 +1755,8 @@ if(window.jQuery) {
           $(whichArticle).prev().addClass('show');
         });
       } else {
-        $('.slide-out').on('singletap', 'li', function(e) {
-          settings.callback(e, this);
-          $('.slide-out').toggleClass('open');
+        $('.slide-out').on('singletap', 'li', function() {
+          callback(this);
         });
       }
     }
@@ -2032,7 +2035,6 @@ if(window.jQuery) {
         $('nav').eq(index+1).removeClass('next').addClass('current');
 
         id = $('article').eq(index)[0].id;
-        console.log('The id is: ' + id)
         $.publish('chui/navigate/enter', id);
         $('article').forEach(function(ctx) {
           if (window.jQuery) {
@@ -2041,7 +2043,6 @@ if(window.jQuery) {
             ctx.scrollTop = 0;
           }
         });
-        console.log(id);
         $.UISetHashOnUrl('#'+id);
         if ($.UINavigationHistory[0] === ('#' + id)) {
           $.UINavigationHistory = [$.UINavigationHistory[0]];
