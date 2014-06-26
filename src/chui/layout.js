@@ -34,5 +34,9 @@
     // of their corresponding articles:
     //////////////////////////////////////////
     $('.toolbar').prev('article').addClass('has-toolbar');
+
+    if ($.isiOS && $.isStandalone) {
+      $.body[0].classList.add('isStandalone');
+    }
   });
 })(window.$);

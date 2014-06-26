@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-iOS.css
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.0
+Version: 3.6.1
 */
 /* 
   Flex parameters:
@@ -125,6 +125,15 @@ article {
   -webkit-box-align: start;
   -webkit-align-items: flex-start;
   align-items: flex-start;
+}
+.hide-navbars article {
+  top: 0;
+}
+.isStandalone article {
+  top: 65px;
+}
+.isStandalone .hide-navbars article {
+  top: 20px;
 }
 @media only screen and (min-width: 768px) {
   article {
@@ -401,6 +410,13 @@ nav > h1 + a.button {
 nav > a.button + h1 {
   left: 120px;
   right: 120px;
+}
+.isStandalone nav {
+  top: 20px;
+}
+.isStandalone #global-nav {
+  height: 65px;
+  top: 0;
 }
 @media only screen and (max-device-width: 320px) and (orientation: portrait) {
   nav > a.button + h1 {

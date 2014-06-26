@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-Android.css
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.0
+Version: 3.6.1
 */
 /* 
   Flex parameters:
@@ -74,6 +74,9 @@ article {
   -moz-box-align: start;
   -webkit-align-items: flex-start;
   align-items: flex-start;
+}
+.hide-navbars article {
+  top: 0;
 }
 /* ==============================
    Article navigation states    

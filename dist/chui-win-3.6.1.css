@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-Win.css
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.0
+Version: 3.6.1
 */
 /* 
   Flex parameters:
@@ -68,6 +68,9 @@ article {
   justify-content: flex-start;
   -ms-flex-align: stretch;
   align-items: stretch;
+}
+.hide-navbars article {
+  top: 0;
 }
 /* ==============================
   Article navigation states

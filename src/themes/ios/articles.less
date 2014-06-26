@@ -13,7 +13,15 @@ article {
   #flex > .justify-content(center);
   #flex > .align-items(flex-start);
 }
-
+.hide-navbars article {
+  top: 0;
+}
+.isStandalone article {
+  top: 65px;
+}
+.isStandalone .hide-navbars article {
+  top: 20px;
+}
 @media only screen and (min-width : 768px) {
   article {
     .transition (all 0.25s ease-out)
