@@ -74,7 +74,7 @@
       }
       // Windows uses an icon for the delete button:
       if ($.isWin) deleteLabel = '';
-      var height = $('li').eq(1)[0].clientHeight;
+      var height = $('li').eq(0)[0].clientHeight;
       deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
       editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
       deletionIndicator = '<span class="deletion-indicator"></span>';
@@ -87,6 +87,8 @@
           list.closest('article').prev().append(editButton);
           list.closest('article').prev().find('h1').addClass('buttonOnRight');
           list.closest('article').prev().find('.edit').addClass('align-flush');
+          button = list.closest('article').prev().find('.edit');
+        } else {
           button = list.closest('article').prev().find('.edit');
         }
       }
@@ -118,6 +120,7 @@
               });            
             }
           });
+          $(list).off('singletap', '.deletion-indicator');
           $(list).on('singletap', '.deletion-indicator', function() {
             if ($(this).parent('li').hazClass('selected').length) {
               $(this).parent('li').removeClass('selected');
