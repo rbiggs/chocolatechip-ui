@@ -61,17 +61,7 @@
           }
         });
         $.UISetHashOnUrl('#'+id);
-        if ($.UINavigationHistory[0] === ('#' + id)) {
-          $.UINavigationHistory = [$.UINavigationHistory[0]];
-        } else if ($.UINavigationHistory.length === 1) {
-          if ($.UINavigationHistory[0] !== ('#' + id)) {
-            $.UINavigationHistory.push('#'+id);
-          }
-        } else if($.UINavigationHistory.length === 3) {
-          $.UINavigationHistory.pop();
-        } else {
-          $.UINavigationHistory[1] = '#'+id;
-        }
+        $.UINavigationHistory = ['#'+id];
       });
     }
   });
