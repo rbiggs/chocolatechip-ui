@@ -11,7 +11,7 @@
   border: solid 2px @buttonBorderColor;
   position: absolute;
   top: 14px;
-  left: -40px;
+  left: -32px;
   .transition(all .25s ease-out);
   cursor: pointer;
 }
@@ -44,7 +44,7 @@ li.selected > .deletion-indicator::before {
   }
 
   & li {
-    padding-left: 32px;
+    padding-left: 38px;
   }
 }
 
@@ -61,6 +61,7 @@ li.selected > .deletion-indicator::before {
   #flex > .justify-content(center);
   #flex > .align-items(center);
   .transition(all .25s ease-out);
+  .transform(translate3d(-16px,0,0));
   display: none;
   cursor: pointer;
   font-weight: 200;
