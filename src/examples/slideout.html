@@ -1,34 +1,53 @@
   <style>
-    .image-grid {
-      list-style: none:
-      margin: 0;
-      padding: 0;
-      position: relative;
-      left: 15px;
+    .grid > .col {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% auto;
+      background-color: #000;
+      -webkit-transition: all .125s ease-out;
+      transition: all .125s ease-out;
     }
-    .image-grid > li {
-      list-style: none:
-      margin: 0;
-      padding: 0;
+    @media only screen and (min-width: 320px) {
+      .grid > .col {
+        height: 100px;
+        background-size: auto 100%;
+      }
     }
-    .image-grid::after {
-      content: '';
-      display: block;
-      clear: both;
+    @media only screen and (min-width: 480px) {
+      .grid > .col {
+        height: 150px;
+        background-size: auto 100%;
+      }
     }
-    .image-grid > li {
-      float: left;
-      height: 100px;
-      width: 30%;
-      border: solid 1px #666;
-      box-sizing: border-box;
-      overflow: hidden;
-      position: relative;
-      display: block;
+    @media only screen and (min-width: 640px) {
+      .grid > .col {
+        height: 200px;
+        background-size: auto 100%;
+      }
     }
-    .image-grid > li > img {
-      display: block;
-      width: 150%;
+    @media only screen and (min-width: 768px) {
+      .grid > .col {
+        height: 250px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 1024px) {
+      .grid > .col {
+        height: 300px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 1200px) {
+      .grid > .col {
+        height: 350px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 1400px) {
+      .grid > .col {
+        height: 500px;
+        background-size: auto 100%;
+      }
     }
   </style>
   <script>
@@ -103,62 +122,51 @@
   </nav>
   <article id='pictures'>
     <section>
-      <ul class='image-grid'>
-        <li>
-          <img src='../images/myPictures/american-football-63109_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/couple-168191_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/daisy-75190_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/dependent-100343_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/dreamy-20100_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/girl-102831_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/lacrosse-165576_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/hot-air-balloon-4761_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/piercing-123240_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/portrait-53899_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/quarterback-67701_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/rugby-78193_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/africa-139343_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/baby-19295_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/baby-20339_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/utah-95032_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/germany-70567_640.jpg'>
-        </li>
-        <li>
-          <img src='../images/myPictures/mountain-91385_640.jpg'>
-        </li>
-      </ul>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-01.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-02.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-03.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-04.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-05.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-06.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-07.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-08.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-09.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-10.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-11.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-12.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-13.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-14.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-15.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-16.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-17.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-18.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-19.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-20.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-21.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-22.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-23.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-24.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-25.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-26.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-27.jpg')"></div>
+      </div>
     </section>
   </article>
   <nav>
