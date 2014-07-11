@@ -20,11 +20,14 @@
   }
 }
 
-.popup > .panel {
-  #flex > .display(flex);
-  #flex > .flex-direction(column);
-  #flex > .justify-content(center);
-  #flex > .align-items(center);
+.popup {
+  > .panel {
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(center);
+    #flex > .align-items(center);
+    padding: 4px 16px;
+  }
 
   > header, >  footer {
     #flex > .display(flex);
@@ -47,13 +50,14 @@
 
   .button {
     border-top: solid 1px @buttonBorderColor;
+    box-shadow: none;
   }
 
   > footer {
     width: 320px;
     padding: 0;
 
-    > .button {
+    .button {
       display: block !important;
       #flex > .flex(1) !important;
       .box-sizing(border-box);
@@ -67,14 +71,13 @@
       font-weight: bold;
       margin: 0 !important;
 
+      + .button {
+        border-left: solid 1px @buttonBorderColor;
+      }
       .isDesktop &:hover {
         box-shadow: none;
         background-color: @popoverHighlight;
       }
-    }
-
-    + .button {
-      border-left: solid 1px @buttonBorderColor;
     }
   }
 }

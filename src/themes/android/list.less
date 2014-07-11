@@ -3,12 +3,12 @@
    =========================== */
 .list {
   list-style: none;
-  margin: 16px 16px 0;
+  margin: 16px 0 0;
   padding: 0;
   background-color: @appBkColor;
 
   > li {
-    padding: 13px 9px 13px 9px;
+    padding: 13px 16px 13px 16px;
     .transition(all .3s ease-out);
     position: relative;
     background-color: @appBkColor;
@@ -40,6 +40,10 @@ h2 + .list {
 /* ==============================
    List Footer
    =========================== */
+p {
+  font-family: 'Roboto Regular', 'HeveletcaNeue', Helvetica, sans-serif;
+
+}
 .list ~ p {
   margin: 10px 16px 0;
 
@@ -64,19 +68,23 @@ li[data-show-article].touched,
 
   > h3, & > h4 {
     width: 80%;
-    font-weight: 200;
+    font-weight: 400 !important;
     margin: 0;
   }
 
   h3 {
+    font-family: 'Roboto Thin', 'HeveletcaNeue Light', Helvetica, sans-serif;
     font-size: 16pt;
     line-height: 20pt;
     margin-bottom: 2px;
+    font-weight: 400 !important;
   }
 
   h4 {
+    font-family: 'Roboto Regular', 'HeveletcaNeue', Helvetica, sans-serif;
     line-height: 14pt;
     color: @subTextColor;
+    font-weight: 400 !important;
   }
 
   > h4, > div > h4, > p, > div > p {
@@ -113,10 +121,10 @@ li[data-show-article].touched,
    List title
    =========================== */
 section h2 {
-  font: normal 11pt/12pt Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+  font: normal 11pt/12pt 'Roboto Regular', SegoeWP, HelveticaNeue, Sans-serif;
   color: @listTitleColor;
-  margin: 26px 16px 6px 16px;
-  padding-left: 9px;
+  margin: 26px 0 6px 0;
+  padding-left: 16px;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
