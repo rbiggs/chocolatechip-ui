@@ -53,8 +53,14 @@
 
     &::before {
       opacity: .5;
+      left: 2px;
+      top: 2px;
+      border: transparent !important;
     }
   }
+}
+.segmented.paging.horizontal > a.button:hover::before {
+  left: 0 !important;
 }
 
 .segmented.paging {
@@ -80,7 +86,6 @@
       background-position: 50% 50%;
       background-size: 90% 90%;
       background-repeat: no-repeat;
-      left: 2px;
     }
   }
 
@@ -89,27 +94,26 @@
 
     > a.button {
       margin: 0 4px !important;
-      .size(20px, 40px);
+      .size(40px, 40px);
 
-      &:first-of-type::before {
-        background-image: url(@parsedPagingVertPrevSVG);
+      &::before {
         background-position: 50% 50%;
         background-size: 90% 90%;
         background-repeat: no-repeat;
         left: 2px;
+        .size(40px, 40px);
+      }
+
+      &:first-of-type::before {
+        background-image: url(@parsedPagingVertPrevSVG);
       }
 
       &:last-of-type::before {
         background-image: url(@parsedPagingVertNextSVG);
-        background-position: 50% 50%;
-        background-size: 90% 90%;
-        background-repeat: no-repeat;
-        left: 2px;
       }
 
       .isDesktop &:hover,
       .isDesktop &.selected {
-        border: none !important;
         background: none !important;
       }
     }
@@ -167,12 +171,29 @@ html[dir=rtl] {
 
   .segmented.paging.horizontal {
     #flex > .flex-direction(row-reverse);
+    display: -webkit-flex;
 
-    .button:first-child {
-      -webkit-box-ordinal-group: 2;
-      -webkit-order: 2;
-      order: 2;
+    .button {
+      &:first-child {
+        -webkit-box-ordinal-group: 2;
+        -webkit-order: 2;
+        order: 2;
+        float: right;
+      }
+      &:last-child {
+        -webkit-box-ordinal-group: 1;
+        -webkit-order: 1;
+        order: 1;
+      }
     }
+  }
+
+
+  .isDesktop .segmented.paging.vertical .button:hover::before {
+    opacity: .5;
+    left: 2px;
+    top: 2px;
+    border: transparent !important;
   }
 
   article {

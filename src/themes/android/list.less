@@ -111,7 +111,7 @@ li[data-show-article].touched,
    List detail             
    ============================ */
 .list > li > p {
-  margin: 6px 0px;
+  margin: 6px 16px;
   font-size: 13pt;
   line-height: 16pt;
   color: @listAsideColor;
@@ -142,8 +142,11 @@ section h2 {
 }
 
 html[dir=rtl] {
+  section h2 {
+  padding-right: 16px;
+  }
   li {
-    padding: 13px 0 13px 9px;
+    padding: 13px 16px 13px 16px;
   }
 
   li.show-detail::after { 

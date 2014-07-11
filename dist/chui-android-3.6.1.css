@@ -396,6 +396,7 @@ nav > a.button {
 }
 html[dir=rtl] nav > h1 {
   text-align: right;
+  margin-right: 8px;
 }
 /* ==============================
    Lists                 
@@ -503,7 +504,7 @@ li[data-show-article].touched,
    List detail             
    ============================ */
 .list > li > p {
-  margin: 6px 0px;
+  margin: 6px 16px;
   font-size: 13pt;
   line-height: 16pt;
   color: #666666;
@@ -529,8 +530,11 @@ section h2.normal-case {
 section h2.normal-case {
   text-transform: none;
 }
+html[dir=rtl] section h2 {
+  padding-right: 16px;
+}
 html[dir=rtl] li {
-  padding: 13px 0 13px 9px;
+  padding: 13px 16px 13px 16px;
 }
 html[dir=rtl] li.show-detail::after {
   left: 16px;
@@ -663,7 +667,7 @@ p {
   line-height: 16pt;
 }
 html[dir=rtl] li.comp {
-  padding: 13px 0 13px 9px;
+  padding: 13px 16px 13px 16px;
 }
 html[dir=rtl] li.comp > aside:first-child {
   margin-right: 0;
@@ -964,6 +968,12 @@ html[dir=rtl] .segmented.align-flush {
 }
 .isDesktop .segmented.paging > a.button:hover::before {
   opacity: .5;
+  left: 2px;
+  top: 2px;
+  border: transparent !important;
+}
+.segmented.paging.horizontal > a.button:hover::before {
+  left: 0 !important;
 }
 .segmented.paging.horizontal > a.button {
   border: none !important;
@@ -986,7 +996,6 @@ html[dir=rtl] .segmented.paging.horizontal > a.button:first-of-type::before {
   background-position: 50% 50%;
   background-size: 90% 90%;
   background-repeat: no-repeat;
-  left: 2px;
 }
 .segmented.paging.vertical {
   -webkit-box-orient: horizontal;
@@ -996,26 +1005,25 @@ html[dir=rtl] .segmented.paging.horizontal > a.button:first-of-type::before {
 }
 .segmented.paging.vertical > a.button {
   margin: 0 4px !important;
-  width: 20px;
+  width: 40px;
+  height: 40px;
+}
+.segmented.paging.vertical > a.button::before {
+  background-position: 50% 50%;
+  background-size: 90% 90%;
+  background-repeat: no-repeat;
+  left: 2px;
+  width: 40px;
   height: 40px;
 }
 .segmented.paging.vertical > a.button:first-of-type::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2267px%22%20height%3D%2237px%22%20viewBox%3D%220%200%2067%2037%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20id%3D%22Artboard-1%22%20stroke%3D%22%2381cfeb%22%20fill%3D%22%2381cfeb%22%3E%3Cg%20id%3D%22android-up%22%20transform%3D%22translate%281.000000,%201.000000%29%22%3E%3Cg%20id%3D%22Page-1%22%3E%3Cg%20id%3D%22Artboard-1%22%3E%3Cpath%20d%3D%22M42.4404295,48.800782%20L15.3720701,17.3583992%20L43.0498045,-14.7363274%20L49.229492,-8.33984299%20L26.7314451,16.8027351%20L49.0019529,42.7177742%20L42.4404295,48.800782%20L42.4404295,48.800782%20Z%22%20id%3D%22Path-1%22%20transform%3D%22translate%2832.372070,%2017.263673%29%20rotate%2890.000000%29%20translate%28-32.372070,%20-17.263673%29%20%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-position: 50% 50%;
-  background-size: 90% 90%;
-  background-repeat: no-repeat;
-  left: 2px;
 }
 .segmented.paging.vertical > a.button:last-of-type::before {
   background-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2267px%22%20height%3D%2238px%22%20viewBox%3D%220%200%2067%2038%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%20%3E%3Cg%20id%3D%22Artboard-1%22%20transform%3D%22translate%281.000000,%201.000000%29%22%20stroke%3D%22%2381cfeb%22%20fill%3D%22%2381cfeb%22%3E%3Cpath%20d%3D%22M42.78125,50.9814453%20L15.7128906,19.5390625%20L43.390625,-12.5556641%20L49.5703125,-6.15917969%20L27.0722656,18.9833984%20L49.3427734,44.8984375%20L42.78125,50.9814453%20Z%22%20id%3D%22Path-1%22%20transform%3D%22translate%2832.632812,%2019.183594%29%20rotate%28-90.000000%29%20translate%28-32.632812,%20-19.183594%29%20%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  background-position: 50% 50%;
-  background-size: 90% 90%;
-  background-repeat: no-repeat;
-  left: 2px;
 }
 .isDesktop .segmented.paging.vertical > a.button:hover,
 .isDesktop .segmented.paging.vertical > a.button.selected {
-  border: none !important;
   background: none !important;
 }
 article.paging > section {
@@ -1066,11 +1074,24 @@ html[dir=rtl] .segmented.paging.horizontal {
   -moz-box-orient: horizontal;
   -webkit-flex-direction: row-reverse;
   flex-direction: row-reverse;
+  display: -webkit-flex;
 }
 html[dir=rtl] .segmented.paging.horizontal .button:first-child {
   -webkit-box-ordinal-group: 2;
   -webkit-order: 2;
   order: 2;
+  float: right;
+}
+html[dir=rtl] .segmented.paging.horizontal .button:last-child {
+  -webkit-box-ordinal-group: 1;
+  -webkit-order: 1;
+  order: 1;
+}
+html[dir=rtl] .isDesktop .segmented.paging.vertical .button:hover::before {
+  opacity: .5;
+  left: 2px;
+  top: 2px;
+  border: transparent !important;
 }
 html[dir=rtl] article.paging.horizontal > section.previous {
   -webkit-transform: translate3d(100%, 0, 0);
@@ -1437,10 +1458,15 @@ html[dir=rtl] .button.show-popover::after {
   border-top: solid 6px transparent;
   border-right: solid 6px transparent;
 }
-.isDesktop html[dir=rtl] .button.show-popover:hover::after {
-  border-color: #ffffff;
-  border-top-color: transparent;
-  border-right-color: transparent;
+html[dir=rtl] .button.show-popover + .button {
+  -webkit-box-ordinal-group: 1;
+  -webkit-order: 1;
+}
+html[dir=rtl] .isDesktop .button.show-popover:hover::after {
+  border-left: solid 6px #ffffff !important;
+  border-bottom: solid 6px #ffffff;
+  border-top: solid 6px transparent;
+  border-right: solid 6px transparent;
 }
 /* ==============================
    Popup Control

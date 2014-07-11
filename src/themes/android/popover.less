@@ -91,11 +91,16 @@ html[dir=rtl] {
       border-top: solid 6px transparent;
       border-right: solid 6px transparent;
     }
-
-    .isDesktop &:hover::after {
-      border-color: @buttonTextHoverColor;
-      border-top-color: transparent;
-      border-right-color: transparent;
+    + .button {
+      -webkit-box-ordinal-group: 1;
+      -webkit-order: 1
     }
+  }
+
+  .isDesktop .button.show-popover:hover::after {
+    border-left: solid 6px @buttonTextHoverColor !important;
+    border-bottom: solid 6px @buttonTextHoverColor;
+    border-top: solid 6px transparent;
+    border-right: solid 6px transparent;
   }
 }
