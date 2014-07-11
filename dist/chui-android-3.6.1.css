@@ -38,8 +38,8 @@ body {
 }
 body {
   /* Change background color for your app: */
-  background-color: #f2f0f0;
-  font: normal 14px/18px Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+  background-color: #fafafa;
+  font: 100 14px/18px Roboto, SegoeWP, HelveticaNeue, Sans-serif;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -202,7 +202,7 @@ a.button {
   border: none;
   border-top: solid 2px #e5e5e5;
   background-color: #cbcbcb;
-  color: #000000;
+  color: #2d2d2d;
   display: inline-block;
   padding: 5px 10px 2px 10px !important;
   font-size: 12px;
@@ -279,10 +279,11 @@ a.button.show-popover.selected {
 }
 .isDesktop a.button.back:hover::before,
 .isDesktop a.button.backTo:hover::before {
-  background: transparent url('data:image/svg+xml;utf8, %3Csvg%20width%3D%2244px%22%20height%3D%2289px%22%20viewBox%3D%220%200%2044%2089%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20xmlns%3Asketch%3D%22http%3A//www.bohemiancoding.com/sketch/ns%22%3E%3Ctitle%3EUntitled%206%3C/title%3E%3Cdescription%3ECreated%20with%20Sketch%20%28http%3A//www.bohemiancoding.com/sketch%29%3C/description%3E%3Cdefs%3E%3C/defs%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%20sketch%3Atype%3D%22MSPage%22%3E%3Cg%20id%3D%22android-back-2%22%20sketch%3Atype%3D%22MSLayerGroup%22%20transform%3D%22translate%281.000000,%200.000000%29%22%20stroke%3D%22%23ffffff%22%20fill%3D%22%23ffffff%22%3E%3Cg%20id%3D%22Page-1%22%20transform%3D%22translate%28-0.500000,%200.500000%29%22%20sketch%3Atype%3D%22MSShapeGroup%22%3E%3Cg%20id%3D%22Artboard-1%22%3E%3Cpath%20d%3D%22M42.570309,0%20L24.004334,0%20L0,43.624031%20L24.186044,88%20L42.570307,88%20L18.873981,43.624031%20L42.570309,0%20L42.570309,0%20Z%22%20id%3D%22Path-1%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+  background: transparent url('data:image/svg+xml;utf8, %3Csvg%20width%3D%2244px%22%20height%3D%2289px%22%20viewBox%3D%220%200%2044%2089%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%20xmlns%3Asketch%3D%22http%3A//www.bohemiancoding.com/sketch/ns%22%3E%3Ctitle%3EUntitled%206%3C/title%3E%3Cdescription%3ECreated%20with%20Sketch%20%28http%3A//www.bohemiancoding.com/sketch%29%3C/description%3E%3Cdefs%3E%3C/defs%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%20sketch%3Atype%3D%22MSPage%22%3E%3Cg%20id%3D%22android-back-2%22%20sketch%3Atype%3D%22MSLayerGroup%22%20transform%3D%22translate%281.000000,%200.000000%29%22%20stroke%3D%22%23666666%22%20fill%3D%22%23666666%22%3E%3Cg%20id%3D%22Page-1%22%20transform%3D%22translate%28-0.500000,%200.500000%29%22%20sketch%3Atype%3D%22MSShapeGroup%22%3E%3Cg%20id%3D%22Artboard-1%22%3E%3Cpath%20d%3D%22M42.570309,0%20L24.004334,0%20L0,43.624031%20L24.186044,88%20L42.570307,88%20L18.873981,43.624031%20L42.570309,0%20L42.570309,0%20Z%22%20id%3D%22Path-1%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
   background-size: auto 50%;
   background-position: 3px center;
   background-repeat: no-repeat;
+  opacity: .5;
 }
 .isDesktop a.button.show-popover:hover::after,
 a.button.show-popover.selected::after {
@@ -334,7 +335,7 @@ html[dir=rtl] a.button.align-flush {
    Nav bars               
    =========================== */
 #global-nav {
-  background-color: #e2e2e2;
+  background-color: #eaeaea;
   overflow: hidden;
   border-bottom: solid 1px #acacac;
   box-shadow: 0 1px 1px #acacac;
@@ -401,17 +402,17 @@ html[dir=rtl] nav > h1 {
    =========================== */
 .list {
   list-style: none;
-  margin: 16px 16px 0;
+  margin: 16px 0 0;
   padding: 0;
-  background-color: #f2f0f0;
+  background-color: #fafafa;
 }
 .list > li {
-  padding: 13px 9px 13px 9px;
+  padding: 13px 16px 13px 16px;
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
   position: relative;
-  background-color: #f2f0f0;
+  background-color: #fafafa;
   font-size: 12pt;
   border-bottom: solid 1px #b6b6b6;
 }
@@ -439,6 +440,9 @@ h2 + .list {
 /* ==============================
    List Footer
    =========================== */
+p {
+  font-family: 'Roboto Regular', 'HeveletcaNeue', Helvetica, sans-serif;
+}
 .list ~ p {
   margin: 10px 16px 0;
 }
@@ -459,17 +463,21 @@ li[data-show-article].touched,
 .list > li > h3,
 .list > li > h4 {
   width: 80%;
-  font-weight: 200;
+  font-weight: 400 !important;
   margin: 0;
 }
 .list > li h3 {
+  font-family: 'Roboto Thin', 'HeveletcaNeue Light', Helvetica, sans-serif;
   font-size: 16pt;
   line-height: 20pt;
   margin-bottom: 2px;
+  font-weight: 400 !important;
 }
 .list > li h4 {
+  font-family: 'Roboto Regular', 'HeveletcaNeue', Helvetica, sans-serif;
   line-height: 14pt;
   color: #707070;
+  font-weight: 400 !important;
 }
 .list > li > h4,
 .list > li > div > h4,
@@ -504,10 +512,10 @@ li[data-show-article].touched,
    List title
    =========================== */
 section h2 {
-  font: normal 11pt/12pt Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+  font: normal 11pt/12pt 'Roboto Regular', SegoeWP, HelveticaNeue, Sans-serif;
   color: #4d4d4d;
-  margin: 26px 16px 6px 16px;
-  padding-left: 9px;
+  margin: 26px 0 6px 0;
+  padding-left: 16px;
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
@@ -573,12 +581,14 @@ li.comp > div > div > h4 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: Roboto, SegoeWP, HelveticaNeue, Sans-serif;
+  font-family: 'Roboto Thin', SegoeWP, HelveticaNeue, Sans-serif;
   font-weight: 200;
 }
 li.comp > div > h3 {
+  font-family: 'Roboto Thin', SegoeWP, HelveticaNeue, Sans-serif;
   line-height: 20pt;
   margin: 0 0 10px 0;
+  font-weight: 200;
 }
 li.comp > div > h4 {
   margin: 0;
@@ -606,7 +616,7 @@ li.comp > aside:first-child {
   -webkit-align-items: flex-start;
   align-items: flex-start;
   margin-right: 10px;
-  padding: 0 16px 10px 10px;
+  padding: 0 0px 10px 0px;
 }
 li.comp > aside > h4 {
   margin: 0;
@@ -924,7 +934,7 @@ html[dir=rtl] .segmented.align-flush {
   align-items: center;
   border: none;
   font-size: 20pt;
-  color: #000000;
+  color: #2d2d2d;
   padding: 0;
   display: block;
   border: solid 1px transparent;
@@ -1114,7 +1124,7 @@ html[dir=rtl] article.paging.horizontal > section.current {
   transform: translate3d(0, 0, 0);
   padding: 0 16px;
   vertical-align: middle;
-  background-color: #e2e2e2;
+  background-color: #eaeaea;
   overflow: hidden;
   border-top: solid 1px #acacac;
 }
@@ -1176,7 +1186,7 @@ body.splitlayout {
   align-items: stretch;
 }
 .splitlayout > nav {
-  background-color: #e2e2e2;
+  background-color: #eaeaea;
   border-bottom: solid 1px #a7a7aa;
 }
 .splitlayout > nav:first-of-type {
@@ -1470,9 +1480,10 @@ html[dir=rtl] .button.show-popover::after {
   -moz-box-align: center;
   -webkit-align-items: center;
   align-items: center;
+  padding: 4px 16px;
 }
-.popup > .panel > header,
-.popup > .panel > footer {
+.popup > header,
+.popup > footer {
   display: -moz-box;
   display: flex;
   display: -webkit-flex;
@@ -1485,25 +1496,26 @@ html[dir=rtl] .button.show-popover::after {
   -webkit-align-items: stretch;
   align-items: stretch;
 }
-.popup > .panel > header > h1 {
+.popup > header > h1 {
   position: static;
   text-align: center;
   margin: 0 15px;
   line-height: 32pt;
   font-weight: bold;
 }
-.popup > .panel > p {
+.popup > p {
   padding: 0 15px;
   text-align: center;
 }
-.popup > .panel .button {
+.popup .button {
   border-top: solid 1px #cbcbcb;
+  box-shadow: none;
 }
-.popup > .panel > footer {
+.popup > footer {
   width: 320px;
   padding: 0;
 }
-.popup > .panel > footer > .button {
+.popup > footer .button {
   display: block !important;
   -webkit-box-flex: 1 !important;
   -moz-box-flex: 1 !important;
@@ -1515,19 +1527,19 @@ html[dir=rtl] .button.show-popover::after {
   height: 100%;
   line-height: 30pt;
   background-color: #e3e3e3;
-  color: #000000;
+  color: #2d2d2d;
   font-size: 12pt;
   padding-top: 4px;
   max-width: 320px !important;
   font-weight: bold;
   margin: 0 !important;
 }
-.isDesktop .popup > .panel > footer > .button:hover {
+.popup > footer .button + .button {
+  border-left: solid 1px #cbcbcb;
+}
+.isDesktop .popup > footer .button:hover {
   box-shadow: none;
   background-color: #a4dcf1;
-}
-.popup > .panel > footer + .button {
-  border-left: solid 1px #cbcbcb;
 }
 /* ============================== 
    Deletable Lists
@@ -1759,6 +1771,9 @@ input[type="search"]:focus {
   background-size: auto 70%;
   border-radius: 50%;
 }
+li > aside > span.icon {
+  margin-left: 0;
+}
 /* ==============================
    Range Control
    =========================== */
@@ -1933,7 +1948,7 @@ html[dir=rtl] .sheet > section > h2 {
   top: 52px;
   left: 0;
   bottom: 0;
-  background-color: #f2f0f0;
+  background-color: #fafafa;
   z-index: 111111111;
   width: 100%;
   visibility: hidden;
@@ -2013,7 +2028,7 @@ body.slide-out-app > nav:not(:first-of-type) {
   display: none !important;
 }
 .slideout-header {
-  background-color: #f2f0f0 !important;
+  background-color: #fafafa !important;
   border-bottom: none !important;
 }
 .slideout-header h2 {
@@ -2262,7 +2277,7 @@ body.hasTabBar article .next:not(.navigable) {
   background-color: #4a8ba3 !important;
 }
 .tabbar > .button.selected {
-  color: #000000 !important;
+  color: #2d2d2d !important;
   opacity: 1 !important;
   box-shadow: none !important;
   border-bottom: solid 4px #29addd;
@@ -2296,7 +2311,7 @@ body.hasTabBar article .next:not(.navigable) {
   background-repeat: no-repeat;
 }
 .tabbar > .button.more.selected::before {
-  background-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2239px%22%20height%3D%2211px%22%20viewBox%3D%220%200%2039%2011%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20id%3D%22more%22%20fill%3D%22%23000000%22%3E%3Ccircle%20id%3D%22Oval%22%20cx%3D%225.172%22%20cy%3D%225.172%22%20r%3D%225.172%22%3E%3C/circle%3E%3Ccircle%20id%3D%22Oval%22%20cx%3D%2219.172%22%20cy%3D%225.172%22%20r%3D%225.172%22%3E%3C/circle%3E%3Ccircle%20id%3D%22Oval%22%20cx%3D%2233.172%22%20cy%3D%225.172%22%20r%3D%225.172%22%3E%3C/circle%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2239px%22%20height%3D%2211px%22%20viewBox%3D%220%200%2039%2011%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20id%3D%22more%22%20fill%3D%22%232d2d2d%22%3E%3Ccircle%20id%3D%22Oval%22%20cx%3D%225.172%22%20cy%3D%225.172%22%20r%3D%225.172%22%3E%3C/circle%3E%3Ccircle%20id%3D%22Oval%22%20cx%3D%2219.172%22%20cy%3D%225.172%22%20r%3D%225.172%22%3E%3C/circle%3E%3Ccircle%20id%3D%22Oval%22%20cx%3D%2233.172%22%20cy%3D%225.172%22%20r%3D%225.172%22%3E%3C/circle%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 .tabbar > .button > span,
 .tabbar > .button > .icon {
