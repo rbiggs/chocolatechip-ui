@@ -21,28 +21,34 @@
     #flex > .flex-direction(column);
     #flex > .justify-content(center);
     #flex > .align-items(center);
-    border: solid 1px @buttonBorderColor;
+    border: solid 1px @switchBorder;
     text-align: center !important;
     border-left: none;
-    border-right: solid 1px @tabbarColor;
-    border-top: solid 3px @buttonTopColor;
+    border-right: solid 1px @switchBorder;
     box-shadow: none;
     font-size: 13px;
     .box-sizing(border-box);
     height: 30px;
     cursor: pointer;
     margin: 0px !important;
-    padding: 4px 10px 0px !important;
+    padding: 6px 10px 0px !important;
+    border-radius: 0;
 
     &:first-of-type {
-      border-left: solid 1px @tabbarColor;
+      border-left: solid 1px @switchBorder;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px
+    }
+
+    &:last-of-type {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px
     }
 
     .isDesktop &:hover, &.selected {
       background-color: @appTint;
       opacity: 1 !important;
-      box-shadow: none;
-      border-top: solid 3px #a1e4ff;      
+      box-shadow: none;     
     }
   }
 }
@@ -58,5 +64,20 @@ html[dir=rtl] {
   .segmented.align-flush {
     left: 15px;
     right: auto;
+  }
+  .segmented:not(.paging) > .button {
+    border-radius: 0px;
+
+    &:first-child {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-left: none;
+    }
+
+    &:last-child {
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+      border-left: solid 1px @switchBorder;
+    }
   }
 }

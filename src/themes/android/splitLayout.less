@@ -25,7 +25,7 @@ body.splitlayout {
 
     h1 {
       z-index: auto;
-      text-align: center;
+      text-align: left;
     }
   }
 
@@ -68,6 +68,10 @@ html[dir=rtl] {
       &:last-of-type {
         left: 0;
         right: 320px;
+      }
+
+      > h1 {
+        text-align: right;
       }
     }
 

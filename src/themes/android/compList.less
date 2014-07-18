@@ -85,10 +85,15 @@ li.comp {
     }
 
     > .nav {
-      display: none;
+      display: block;
+      .size(12px,12px);
 
       &::after {
-        display: none;
+        .pseudo-block('');
+        .size(7px,7px);
+        border-right: solid 3px @showDetailColor;
+        border-top: solid 3px @showDetailColor;
+        .transform(rotate(45deg) translate3d(2px,-2px,0));
       }
     }
 
@@ -131,10 +136,31 @@ html[dir=rtl] {
       margin-right: 0;
       padding: 0 0 10px 10px;
     }
+    > aside:last-child {
+      margin-right: 10px;
+    }
     aside > span.counter, aside > span.date-time {
       margin-right: 5px;
-      margin-left: 0px;
+      margin-left: 5px;
       white-space: nowrap;
+    }
+    aside > span.nav {
+      margin-left: 4px;
+      margin-right: 0;
+    }
+    aside > span.nav::after {
+    right: auto;
+      left: 16px;
+      border: none;
+      border-left: solid 3px @showDetailColor;
+      border-bottom: solid 3px @showDetailColor;
+    }
+    aside > h4 {
+      margin-left: 5px;
+      width: 90%;
+    }
+    div > h3 + h4 {
+      text-align: right !important;
     }
   }
 }
