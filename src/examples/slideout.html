@@ -19,6 +19,14 @@
         background-size: auto 100%;
       }
     }
+    @media only screen and (max-width: 599px) {
+      .grid {
+        -wekbit-flex-direction: horizontal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+      }
+    }
     @media only screen and (min-width: 640px) {
       .grid > .col {
         height: 200px;
