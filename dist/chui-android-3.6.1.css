@@ -1714,7 +1714,7 @@ html[dir=rtl] .popup > footer .button:first-child + .button {
 }
 .isDesktop .deletion-indicator:hover,
 li.selected > .deletion-indicator {
-  box-shadow: 0 0 6px 2px #29addd !important;
+  box-shadow: 0 0 3px 1px #29addd !important;
   color: #29addd !important;
 }
 li.selected > .deletion-indicator::before {
@@ -2593,6 +2593,7 @@ html[dir=rtl] .tabbar > .button:last-child {
   width: 10px;
   background-color: #666;
   margin-right: 5px;
+  border-radius: 50%;
 }
 .pagination > li.selected {
   background-color: #81cfeb;
