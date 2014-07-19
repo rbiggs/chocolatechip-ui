@@ -2,7 +2,7 @@
    Tab Bar
    =========================== */
 
-@tabbarMoreSVG: escape('<svg width="39px" height="11px" viewBox="0 0 39 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="more" fill="@{buttonTextHoverColor}"><circle id="Oval" cx="5.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="19.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="33.172" cy="5.172" r="5.172"></circle></g></g></svg>');
+@tabbarMoreSVG: escape('<svg width="39px" height="11px" viewBox="0 0 39 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="more" fill="@{buttonTextColor}"><circle id="Oval" cx="5.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="19.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="33.172" cy="5.172" r="5.172"></circle></g></g></svg>');
 @tabbarMoreSVGSelected: escape('<svg width="39px" height="11px" viewBox="0 0 39 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="more" fill="@{buttonTextColor}"><circle id="Oval" cx="5.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="19.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="33.172" cy="5.172" r="5.172"></circle></g></g></svg>');
 body.hasTabBar article {
   top: 77px !important;
@@ -28,7 +28,7 @@ body.hasTabBar article {
   background-color: @tabbarColor;
 }
 .tabbar > .button {
-  color: @buttonTextHoverColor !important;
+  color: @buttonTextColor !important;
   background-color: @tabbarColor !important;
   position: relative;
   display: block !important;
@@ -37,9 +37,9 @@ body.hasTabBar article {
   height: 100%;
   text-align: center;
   line-height: 17px;
-  padding: 4px 10px;
+  padding: 6px 10px 4px;
   border: none;
-  border-bottom: solid 4px @tabbarColor;
+  border-bottom: solid 3px @tabbarColor;
   border-right: solid 1px @tabbarButtonBorder;
   box-shadow: none;
 
@@ -50,15 +50,15 @@ body.hasTabBar article {
   .isDesktop &:hover {
     opacity: 1 !important;
     box-shadow: none !important;
-    border-bottom: solid 4px darken(@appTint,20%);
-    background-color: desaturate(darken(@appTint,25%), 35%) !important;    
+    border-bottom: solid 3px @appTint;
+    background-color: @appTint !important;    
   }
 
   &.selected {
     color: @buttonTextColor !important;
     opacity: 1 !important;
     box-shadow: none !important;
-    border-bottom: solid 4px darken(@appTint,20%);
+    border-bottom: solid 3px @appTint;
   }
 
   &.more {
@@ -86,5 +86,14 @@ body.hasTabBar article {
   > span, & > .icon {
     display: block;
     #flex > .flex(1) !important;
+  }
+}
+
+html[dir=rtl] {
+  .tabbar > .button:first-child {
+    border-right: none !important;
+  }
+  .tabbar > .button:last-child {
+    border-right: solid 1px @tabbarButtonBorder !important;
   }
 }

@@ -25,30 +25,54 @@
 
   > .button {
     display: inline-box;
+    .size(30px, 30px);
+    .box-sizing(border-box);
     text-align: center;
     font-weight: bold;
-    font-size: 20pt;
+    font-size: 16pt;
     cursor: pointer !important;
     margin: 0;
     box-shadow: none;
     border: solid 1px @buttonBorderColor;
-    border-top: solid 3px @buttonTopColor;
-    padding: 1px 10px !important;
+    padding: 0 !important;
+    border-radius: 0;
 
     .isDesktop &:hover {
-      border-top: solid 3px #a1e4ff;
       box-shadow: none !important;
     }
 
     &:first-of-type {
       border-right: none;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
     }
 
     &:last-of-type {
       border-left: none;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
     }
   }
 }
 body:not(.isDesktop) .stepper > .button:last-of-type {
   padding-top: 4px !important;
+}
+
+html[dir=rtl] {
+  .stepper > .button {
+
+    &:first-of-type {
+      border-left: none;
+      border-radius: 0;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+
+    &:last-of-type {
+      border-right: none;
+      border-radius: 0;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+  }
 }

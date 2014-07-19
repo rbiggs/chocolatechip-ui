@@ -10,6 +10,7 @@
   #flex > .flex-direction(row);
   #flex > .justify-content(space-around);
   .box-sizing(border-box);
+  border-radius: 2px;
   -webkit-tap-highlight-color: transparent;
   overflow: hidden;
   cursor: pointer;
@@ -34,7 +35,7 @@
     z-index: 30;
     top: -1px;
     border: solid 1px @switchThumbBorder;
-    border-top: solid 3px @buttonTopColor;
+    border-top: solid 1px @buttonTopColor;
     .size(30px, 22px);
     background-color: @switchThumbBkgnd;
     pointer-events: none;
@@ -49,7 +50,7 @@
       .transform(translate3d(36px,0,0));
       background-color: @appTint;
       border: solid 1px @appTint;
-      border-top: solid 3px @switchOnTop;
+      border-top: solid 1px @switchOnTop;
       border-left-color: @switchOnColor;
     }
   }
@@ -66,6 +67,8 @@ html[dir=rtl] {
     
       > em {
         .transform(translate3d(-36px,0,0));
+        border-left-color: @appTint;
+        border-right-color: @switchOnColor;
       }
     }
     > em {

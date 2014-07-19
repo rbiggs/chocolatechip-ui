@@ -81,3 +81,17 @@
     }
   }
 }
+
+html[dir=rtl] {
+  .popup > footer .button {
+    border-top: solid 1px @buttonBorderColor;
+
+    &:first-child {
+      border-left: solid 1px @buttonBorderColor;
+
+      & + .button {
+        border-left: none;
+      }
+    }
+  }
+}
