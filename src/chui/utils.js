@@ -4,8 +4,11 @@
     ///////////////
     // Create Uuid:
     ///////////////
+    UuidBit : 1,
+
     Uuid : function() {
-      return Date.now().toString(36);
+      this.UuidBit++
+      return Date.now().toString(36) + this.UuidBit;
     },
 
     ///////////////////////////
