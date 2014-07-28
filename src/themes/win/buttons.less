@@ -30,7 +30,7 @@ a.button {
 
   &:hover, &.selected {
     color: @buttonTextHoverColor;
-    background-color: @appTint;
+    background-color: @primaryColor;
     border-color: @buttonBorderHover !important;
   }
 
@@ -61,6 +61,13 @@ a.button {
       font-size: 14pt;
       display: block;
       margin-left: -3px;      
+    }
+    &:hover {
+      background-color: contrast(@primaryColor);
+
+      &::before {
+        color: @primaryColor;
+      } 
     }
   }
 

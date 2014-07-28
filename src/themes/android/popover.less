@@ -29,8 +29,13 @@
 
   .list > li {
 
-    .isDesktop &:hover, &.selected {
-      background-color: @appTint !important;
+    .isDesktop &:hover, .isDesktop &.selected {
+      background-color: @primaryColor !important;
+      color: contrast(@primaryColor) !important;
+
+      h3, h4 {
+        color: contrast(@primaryColor) !important;
+      }
     }
   }
 }
@@ -49,7 +54,7 @@
   }
 
   &.selected {
-    background-color: @appTint;
+    background-color: @primaryColor;
   }
 }
 
@@ -64,15 +69,15 @@
   right: 2px;
   bottom: 2px;
   .size(0px, 0px);
-  border-right: solid 6px #ccc;
-  border-bottom: solid 6px #ccc;
+  border-right: solid 6px contrast(@navBkgnd);
+  border-bottom: solid 6px contrast(@navBkgnd);
   border-top: solid 6px transparent;
   border-left: solid 6px transparent;
 }
 
 nav > .button.show-popover::after {
-  border-right: solid 6px @tabbarButtonBorder;
-  border-bottom: solid 6px @tabbarButtonBorder;
+  border-right: solid 6px contrast(@navBkgnd);
+  border-bottom: solid 6px contrast(@navBkgnd);
 }
 nav > h1 + .button.show-popover.align-flush {
   margin: 8px 0 0 0 !important;
@@ -86,8 +91,8 @@ html[dir=rtl] {
       left: 2px;
       right: auto;
       border: none;
-      border-left: solid 6px #ccc;
-      border-bottom: solid 6px #ccc;
+      border-left: solid 6px contrast(@navBkgnd);
+      border-bottom: solid 6px contrast(@navBkgnd);
       border-top: solid 6px transparent;
       border-right: solid 6px transparent;
     }
@@ -98,8 +103,8 @@ html[dir=rtl] {
   }
 
   .isDesktop .button.show-popover:hover::after {
-    border-left: solid 6px @buttonTextHoverColor !important;
-    border-bottom: solid 6px @buttonTextHoverColor;
+    border-left: solid 6px contrast(@navBkgnd) !important;
+    border-bottom: solid 6px contrast(@navBkgnd);
     border-top: solid 6px transparent;
     border-right: solid 6px transparent;
   }

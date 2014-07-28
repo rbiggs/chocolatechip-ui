@@ -35,6 +35,7 @@ nav {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    color: contrast(@navBkgnd);
   }
 
   a.button {
@@ -52,6 +53,8 @@ nav {
 
     &:hover {
       border-color: @buttonBorderHover !important;
+      background-color: contrast(@navBkgnd);
+      color: @navBkgnd;
     }
 
     &.align-flush {

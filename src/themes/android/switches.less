@@ -26,7 +26,7 @@
   animation-name: switchAnimationOff;
 
   .isDesktop &:hover {
-    box-shadow: 0 0 2px 2px @appTint;
+    box-shadow: 0 0 2px 2px @primaryColor;
   }
 
   > em {
@@ -48,8 +48,8 @@
 
     > em {
       .transform(translate3d(36px,0,0));
-      background-color: @appTint;
-      border: solid 1px @appTint;
+      background-color: @primaryColor;
+      border: solid 1px @primaryColor;
       border-top: solid 1px @switchOnTop;
       border-left-color: @switchOnColor;
     }
@@ -67,7 +67,7 @@ html[dir=rtl] {
     
       > em {
         .transform(translate3d(-36px,0,0));
-        border-left-color: @appTint;
+        border-left-color: @primaryColor;
         border-right-color: @switchOnColor;
       }
     }

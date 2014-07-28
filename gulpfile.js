@@ -156,6 +156,8 @@ gulp.task('copy', function() {
     .pipe(gulp.dest(pkg.projectPath + 'images/'));
   gulp.src('src/data/**/*')
     .pipe(gulp.dest(pkg.projectPath + 'data/'));
+  gulp.src('src/pics/**/*')
+    .pipe(gulp.dest(pkg.projectPath + 'pics/'));
   
 });
 

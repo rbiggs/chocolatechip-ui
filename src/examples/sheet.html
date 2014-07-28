@@ -3,7 +3,7 @@
       // Create sheet and populate it:
       $.UISheet();
       $('.sheet').find('section').append("<ul class='list'></li>");
-      $('.sheet .list').append("<li><a class='button' href='javascript:void(null)'>Save</a></li><li><a class='button' href='javascript:void(null)'>Delete</a></li><li><a class='button' href='javascript:void(null)'>Cancel</a></li>");
+      $('.sheet .list').append("<li><a class='button action' href='javascript:void(null)'>Save</a></li><li><a class='button action' href='javascript:void(null)'>Delete</a></li><li><a class='button action' href='javascript:void(null)'>Cancel</a></li>");
       $('.sheet .list').append ('<h2 style="text-align: center; margin: 20px;">The End</h2>');
       
       $('.sheet .list').on('singletap', '.button', function() {

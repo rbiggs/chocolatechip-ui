@@ -4,14 +4,18 @@
     //////////////////////////////
     // Center an Element on Screen
     //////////////////////////////
-    UICenter : function ( ) {
+    UICenter : function ( position ) {
+      var position = position;
       if (!this[0]) return;
       var $this = $(this);
       var parent = $this.parent();
-      var position;
-      if ($this.css('position') !== 'absolute') position = 'relative';
-      else position = 'absolute';
-
+      if (position) {
+        $(this.css('position', position));
+      } else if ($this.css('position') === 'absolute') {
+        position = 'absolute'
+      } else {
+        position = 'relative';
+      }
       var height, width, parentHeight, parentWidth;
       if (position === 'absolute') {
         height = $this[0].clientHeight;
@@ -23,6 +27,7 @@
         width = parseInt($this.css('width'),10);
         parentHeight = parseInt(parent.css('height'),10);
         parentWidth = parseInt(parent.css('width'),10);
+        $(this).css({'margin-left': 'auto', 'margin-right': 'auto'});
       }
       var tmpTop, tmpLeft;
       if (parent[0].nodeName === 'body') {

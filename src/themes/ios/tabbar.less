@@ -4,11 +4,11 @@
 @tabbarMoreSVG: escape("<svg version='1.1' id='Layer_2' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='48px' height='48px' viewBox='0 0 48 48' enable-background='new 0 0 48 48' xml:space='preserve'><circle cx='10' cy='23' r='5.172'/><circle cx='24' cy='23' r='5.172'/><circle cx='38' cy='23' r='5.172'/></svg>");
 
 body.hasTabBar {
-
+/*
   nav {
     background-color: @navBkgnd;
     border-bottom: solid 1px #a7a7aa;
-  }
+  }*/
 
   article {
     bottom: 50px;
@@ -48,11 +48,11 @@ body.hasTabBar {
     padding: 1px;
 
     .isDesktop &:hover, &.selected {
-      color: @appTint !important;
+      color: @tabbarButtonSelected !important;
       opacity: 1 !important;
 
       > .icon {
-        background-color: @appTint;
+        background-color: @tabbarButtonSelected !important;
       }
     }
 

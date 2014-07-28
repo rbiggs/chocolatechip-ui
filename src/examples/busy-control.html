@@ -14,29 +14,29 @@
   </style>    
   <script>
     $(function() {
-      $('nav').find('.busy').css('top','10px');
-      $('nav').UIBusy({size: '20px', color:'#666', position: 'right'});
+      $('#mainNav').UIBusy({color:'#ccc', size: 20, position: 'align-flush'});
+      $('#mainNav').find('.busy').css('top','10px');
       
-      $('#busy1').UIBusy({'color':'rgba(200,0,0,0.75)', 'size': '50px'});
+      $('#busy1').UIBusy({'color':'rgba(200,0,0,0.75)', 'size': 50});
       $('#busy1').find('.busy').UICenter();
       
-      $('#busy2').UIBusy({size:'40px', color: 'gold'});
+      $('#busy2').UIBusy({color: 'gold', size: 100});
       $('#busy2').find('.busy').UICenter();
       
       $('#busy3').UIBusy({color: '#fff'});
       $('#busy3').find('.busy').UICenter();
       
-      $('#busy4').UIBusy({color: 'blue', size:'30px'});
+      $('#busy4').UIBusy({color: 'blue', size: 30});
       $('#busy4').find('.busy').UICenter();
       
-      $('#busy5').UIBusy({color: '#ddd', size:'50px'});
+      $('#busy5').UIBusy({color: '#ddd', size: 150});
       $('#busy5').find('.busy').UICenter();
       
     });
   </script>
 </head>
 <body>
-  <nav>
+  <nav id='mainNav'>
     <h1>Busy Control</h1>
   </nav>
   <article id="main" ui-background-style="striped" ui-navigation-status="current">

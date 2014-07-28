@@ -1,8 +1,8 @@
 /* ==============================
    Slide-Out
    =========================== */
-@slideOutButtonSVG: escape("<svg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'  width='100px' height='100px' viewBox='0 0 81 60' enable-background='new 0 0 100 100' xml:space='preserve'><rect id='Rectangle' x='8' y='0' width='64.167' height='7.666'></rect><rect id='Rectangle' x='8' y='26' width='64.167' height='7.667'></rect><rect id='Rectangle' x='8' y='52' width='64.167' height='7.666'></rect></svg>");
-
+@slideOutButtonColor: contrast(@navColor);
+@slideOutButtonSVG: escape('<svg width="81px" height="60px" viewBox="0 0 81 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="slideout" fill="@{slideOutButtonColor}"><rect id="Rectangle" x="8" y="0" width="64.167" height="7.666"></rect><rect id="Rectangle" x="8" y="26" width="64.167" height="7.667"></rect><rect id="Rectangle" x="8" y="52" width="64.167" height="7.666"></rect></g></g></svg>');
 
 .slide-out {
   position: absolute;
@@ -46,7 +46,7 @@
   &::before {
     .pseudo-block('');
     .size(35px,35px);
-    .image-mask(#000, @slideOutButtonSVG);
+    .image-mask(contrast(@navColor), @slideOutButtonSVG);
   }
 }
 
@@ -56,7 +56,7 @@ body.slide-out-app {
 
     &.show {
       display: block !important;
-      margin-top: 20px !important;
+      /*margin-top: 20px !important;*/
     }
   }
 

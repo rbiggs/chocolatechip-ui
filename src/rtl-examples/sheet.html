@@ -5,9 +5,9 @@
       $('.sheet').find('section').append('<h2>خيارات متاحة</h2>');
       $('.sheet').find('section').append("<ul class='list'></li>");
       var list = $('.sheet .list');
-      list.append('<li><a class="button" href="javascript:void(null)">حفظ</a></li>');
-      list.append('<li><a class="button" href="javascript:void(null)">حذف</a></li>');
-      list.append('<li><a class="button" href="javascript:void(null)">إلغاء</a></li>');
+      list.append('<li><a class="button action" href="javascript:void(null)">حفظ</a></li>');
+      list.append('<li><a class="button action" href="javascript:void(null)">حذف</a></li>');
+      list.append('<li><a class="button action" href="javascript:void(null)">إلغاء</a></li>');
       list.on('singletap', '.button', function() {
         $.UIHideSheet();
       });

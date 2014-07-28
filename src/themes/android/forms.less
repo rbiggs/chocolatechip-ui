@@ -7,18 +7,14 @@ input[type=text], input[type=email], input[type=password], input[type=text], inp
   background-color: transparent;
   /* Create the bracket around inputs: */
   background-image: 
-    -webkit-linear-gradient(left, @inputBorderColor, @inputBorderColor),
-    -webkit-linear-gradient(left, @inputBorderColor, @inputBorderColor),
     -webkit-linear-gradient(left, @inputBorderColor, @inputBorderColor);
   background-image: 
-    linear-gradient(left, @inputBorderColor, @inputBorderColor),
-    linear-gradient(left, @inputBorderColor, @inputBorderColor),
     linear-gradient(left, @inputBorderColor, @inputBorderColor);
-  background-size: 1px 4px, 1px 4px, 100% 1px;
-  background-position: bottom left, bottom right, bottom left;
+  background-size: 100% 1px;
+  background-position: bottom left;
   background-repeat: no-repeat;
   margin:  0;
-  padding-left: 5px;
+  padding: 0 0 2px 5px;
   color: @inputBorderColor;
   -webkit-user-modify: read-write-plaintext-only;
   -webkit-tap-highlight-color:rgba(0,0,0,0);
@@ -29,13 +25,10 @@ input:focus, textarea:focus {
   outline: none !important;
   /* Create the bracket around inputs: */
   background-image: 
-    -webkit-linear-gradient(left, @appTint, @appTint),
-    -webkit-linear-gradient(left, @appTint, @appTint),
-    -webkit-linear-gradient(left, @appTint, @appTint);
+    -webkit-linear-gradient(left, @primaryColor, @primaryColor);
   background-image: 
-    linear-gradient(left, @appTint, @appTint),
-    linear-gradient(left, @appTint, @appTint),
-    linear-gradient(left, @appTint, @appTint);
+    linear-gradient(left, @primaryColor, @primaryColor);
+  background-size: 100% 2px;
 }
 
 .isAndroid:not(.isDesktop) .select-box > select {

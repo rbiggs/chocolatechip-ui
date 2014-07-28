@@ -33,9 +33,18 @@
     bottom: 4px;
     width: 100%;
     padding-bottom: 20px;
-  }
-
-  > ul.list, & > ul.list > li {
-    margin: 0 !important;
+    
+    > ul.list, & > ul.list > li {
+      margin: 0 !important;
+    }
+    > ul.list > li:hover {
+      background-color: @primaryColor;
+      color: contrast(@primaryColor);
+    }
   }
 }
+
+.button.show-popover:hover {
+  background-color: contrast(@navBkgnd);
+  color: @navBkgnd;
+} 

@@ -2,7 +2,8 @@
    Sheet Control
    =========================== */
 @sheetHandleSVG: escape('<svg width="94px" height="37px" viewBox="0 0 94 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(1.000000, 1.000000)" id="Artboard-1" fill="@{sheetHandle}"><path d="M46,10.1317773 L4.17415422,35.2632809 L-0.46118846,27.5487752 L45.8258458,-0.2632809 L46,0.0265604 L46.1741542,-0.2632809 L92.4611885,27.5487752 L87.8258458,35.2632809 L46,10.1317773 L46,10.1317773 Z" id="Rectangle-2"></path></g></g></svg>');
-
+@sheetHandleHoverColor: contrast(@navBkgnd);
+@sheetHandleSVGHover: escape('<svg width="94px" height="37px" viewBox="0 0 94 37" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(1.000000, 1.000000)" id="Artboard-1" fill="@{sheetHandleHoverColor}"><path d="M46,10.1317773 L4.17415422,35.2632809 L-0.46118846,27.5487752 L45.8258458,-0.2632809 L46,0.0265604 L46.1741542,-0.2632809 L92.4611885,27.5487752 L87.8258458,35.2632809 L46,10.1317773 L46,10.1317773 Z" id="Rectangle-2"></path></g></g></svg>');
 .sheet {
   position: absolute;
   top: 0;
@@ -73,7 +74,8 @@
     margin: 10px auto 0;
 
     .isDesktop &:hover {
-      background-color: @appTint;
+      background-color: @primaryColor;
+      background-image: url("@{imageMaskRoot}@{sheetHandleSVGHover}");
     }
     .isNativeAndroidBrowser & {
       background-size: 20% auto;

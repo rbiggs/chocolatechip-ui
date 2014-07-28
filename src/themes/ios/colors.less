@@ -1,27 +1,62 @@
+/*
+  To create a custom theme, uncomment the second of each of the following, then adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
+*/
+@primaryColor: #007aff;
+//@primaryColor: #880e4f;
+
+@secondaryColor: @primaryColor;
+//@secondaryColor: #0277bd;
+
+@primaryColorHighlight: contrast(@primaryColor);
+
+@primaryColorText: @primaryColor;
+//@primaryColorText: @primaryColorHighlight;
+
+@navColor: #f7f7f7;
+//@navColor: @primaryColor;
+
+@barButtonTextColor: @primaryColorText;
+//@barButtonTextColor: @primaryColorHighlight;
+
+@switchOnColor: #6ee102;
+//@switchOnColor: @secondaryColor;
+
+@actionButton: #585d63;
+//@actionButton: @secondaryColor;
+
+@listNavIndicator: #c7c7cc;
+//@listNavIndicator: @secondaryColor;
+
+@tabbarButton: #929292;
+//@tabbarButton: #aaaaaa;
+
+@tabbarButtonSelected: @primaryColor;
+//@tabbarButtonSelected: contrast(@navColor);
+
+
+
+@textColor: #2d2d2d;
+@appBkColor: #fafafa;
+@bodyContentColor: #fff;
+@bodyContentHilite: #000;
+@listDetail: #7f7f7f;
+@boxShadowColor: #888;
 @appBkColor: #efeff4;
-@appTint: #007aff;
 @slideoutBkColor: #fff;
 @listBkColor: #fff;
 @listBorder: #c8c8c8;
-@listDetail: #7f7f7f;
-@listNavIndicator: #c7c7cc;
 @selectedListItem: #d9d9d9;
 @listTitle: #4d4d4d;
 @switchedSubtitle: #000;
-@actionButton: #585d63;
 @buttonBkgnd: rgba(255,255,255,.01);
 @switchBorder: #e6e6e6;
 @switchInsetShadow: #fff;
 @switchThumbBkgnd: #fff;
-@switchOnColor: #6ee102;
 @segmentedButtonBkgnd: rgba(255,255,255,.65);
-@segmentedButtonSelectedText: #fff;
 @splitLayoutBorders: #C8C8C7;
-@navColor: #f7f7f7;
 @navBkgnd: @navColor;
 @toolbarBkgnd: @navColor;
 @tabbarBkgnd: @navColor;
-@tabbarButton: #929292;
 @sheetBkgnd: rgba(156,159,164,.5);
 @sheetListBorder: @actionButton;
 @sheetHandle: #fff;
@@ -35,3 +70,7 @@
 @popupBkgnd: #e3e3e3;
 @popupButton: #b5b5b5;
 @selectBoxColor: #007aff;
+
+.attentionGrapper {
+  color: @secondaryColor !important;
+}

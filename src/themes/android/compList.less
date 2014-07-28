@@ -91,8 +91,8 @@ li.comp {
       &::after {
         .pseudo-block('');
         .size(7px,7px);
-        border-right: solid 3px @showDetailColor;
-        border-top: solid 3px @showDetailColor;
+        border-right: solid 3px @listNavIndicator;
+        border-top: solid 3px @listNavIndicator;
         .transform(rotate(45deg) translate3d(2px,-2px,0));
       }
     }
@@ -106,8 +106,8 @@ li.comp {
         display: block;
         .size(22px, 20px);
         border-radius: 20px;
-        border: solid 1px @showDetailColor;
-        color: @showDetailColor;
+        border: solid 1px @secondaryColor;
+        color: @secondaryColor;
         font: bold 14px/0 Roboto, Times, serif;
         .box-sizing(border-box);
         padding: 10px 8px;
@@ -152,8 +152,8 @@ html[dir=rtl] {
     right: auto;
       left: 16px;
       border: none;
-      border-left: solid 3px @showDetailColor;
-      border-bottom: solid 3px @showDetailColor;
+      border-left: solid 3px @listNavIndicator;
+      border-bottom: solid 3px @listNavIndicator;
     }
     aside > h4 {
       margin-left: 5px;

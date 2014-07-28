@@ -41,7 +41,7 @@
 .button.slide-out-button {
   position: absolute;
   z-index: 1111111;
-  top: 5px;
+  top: 0 !important;
   left: 15px;
   height: 35px;
   width: 35px;
@@ -64,7 +64,7 @@
 }
 
 .button.slide-out-button:hover::before {
-  color: @buttonTextHoverColor;
+  color: @navBkgnd;
 }
 
 body.slide-out-app > article,

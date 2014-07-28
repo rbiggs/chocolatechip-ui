@@ -1,8 +1,12 @@
 /* ==============================
    Segmented Paging Control
    =========================== */
+.isNativeAndroidBrowser .segmented.paging {
+  top: 0px !important;
+}
 .segmented.paging {
   > a.button {
+    top: 4px;
     background: none !important;
   }
 
@@ -17,8 +21,8 @@
       content: '';
       display: block;
       .size(16px, 16px);
-      border-left: solid 3px @appTint;
-      border-top: solid 3px @appTint;
+      border-left: solid 3px contrast(@navBkgnd);
+      border-top: solid 3px contrast(@navBkgnd);
       .transform(rotate(-45deg));
       position: absolute;
       top: 10px;
@@ -31,8 +35,8 @@
       display: block;
       .size(16px, 16px);
       margin: 0 !important;
-      border-right: solid 3px @appTint;
-      border-bottom: solid 3px @appTint;
+      border-right: solid 3px contrast(@navBkgnd);
+      border-bottom: solid 3px contrast(@navBkgnd);
       .transform(rotate(-45deg));
       position: absolute;
       top: 10px;
@@ -61,8 +65,8 @@
         content: '';
         display: block;
         .size(16px, 16px);
-        border-right: solid 3px @appTint;
-        border-bottom: solid 3px @appTint;
+        border-right: solid 3px contrast(@navBkgnd);
+        border-bottom: solid 3px contrast(@navBkgnd);
         .transform(rotate(45deg));
         position: absolute;
         top: 6px;
@@ -73,8 +77,8 @@
         content: '';
         display: block;
         .size(16px, 16px);
-        border-right: solid 3px @appTint;
-        border-top: solid 3px @appTint;
+        border-right: solid 3px contrast(@navBkgnd);
+        border-top: solid 3px contrast(@navBkgnd);
         .transform(rotate(-45deg));
         position: absolute;
         top: 17px;
@@ -85,15 +89,18 @@
 }
 
 article.paging > section {
-  position: absolute;
+  position: fixed;
   width: 100%;
+  top: 0 !important;
   left: 0;
   right: 0;
   bottom: 0;
-  top: 0;
   opacity: 1;
-  padding: 0 0 100px 0 !important;
+  padding: 10px 0 40px 0 !important;
   .transition(all .15s ease-out);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 40px;
 }
 article {
 
@@ -150,14 +157,6 @@ html[dir=rtl] {
         order: 1;
       }
     }
-  }
-
-
-  .isDesktop .segmented.paging.vertical .button:hover::before {
-    opacity: .5;
-    left: 2px;
-    top: 2px;
-    border: transparent !important;
   }
 
   article {

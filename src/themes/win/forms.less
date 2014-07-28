@@ -8,7 +8,7 @@ input:not([type=range]), textarea {
   color: @buttonBorder;
 }
 input:focus:not([type=range]) {
-  border-color: @appTint;
+  border-color: @primaryColor;
   color: @buttonBorder;
 }
 select {
@@ -19,7 +19,7 @@ select {
   padding-left: 5px;
 
   &:focus {
-    border-color: @appTint;
+    border-color: @primaryColor;
 
     &::-ms-value {
       background-color: transparent;
@@ -27,7 +27,7 @@ select {
     }
 
     &::-ms-expand {
-      border: solid 2px @appTint; 
+      border: solid 2px @primaryColor; 
       border-top: none;
       border-right: none;
       border-bottom: none;
@@ -46,7 +46,7 @@ select {
 
   option {
     &:hover, &:focus, &:checked {
-      background-color: @appTint;
+      background-color: @primaryColor;
     }
   }
 }

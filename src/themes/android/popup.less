@@ -1,18 +1,25 @@
 /* ==============================
    Popup Control
    =========================== */
+.isNativeAndroidBrowser .popup {
+  box-shadow: 0 0 6px 4px #666;
+  > .panel > header {
+    padding-top: 1px;
+  }
+}
 .popup {
   display: block;
   -webkit-box-sizeing: border-box;
   width: 320px;
-  padding: 0px;
+  padding: 1px;
   background-color: @popupBkgnd;
   position: absolute;
   z-index: 10000;
   margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 0 6px 4px @popoverHighlight;
-
+  box-shadow: 0 0 6px 4px @boxShadowColor;
+  border-radius: 3px;
+  
   &.opened {
     display: block;
     opacity: 1;
@@ -27,37 +34,29 @@
     #flex > .justify-content(center);
     #flex > .align-items(center);
     padding: 4px 16px;
-  }
 
-  > header, >  footer {
-    #flex > .display(flex);
-    #flex > .justify-content(space-between);
-    #flex > .align-items(stretch);
-  }
+    > header, >  footer {
+      #flex > .display(flex);
+      #flex > .justify-content(space-between);
+      #flex > .align-items(stretch);
+    }
 
-  > header > h1 {
-    position: static;
-    text-align: center;
-    margin: 0 15px;
-    line-height: 32pt;
-    font-weight: bold;
-  }
-
-  > p {
-    padding: 0 15px;
-    text-align: center;
-  }
-
-  .button {
-    border-top: solid 1px @buttonBorderColor;
-    box-shadow: none;
+    > header > h1 {
+      position: static;
+      text-align: center;
+      margin: 0 15px;
+      line-height: 32pt;
+      font-weight: bold;
+    }
   }
 
   > footer {
     width: 320px;
     padding: 0;
+    #flex > .display(flex);
+    #flex > .flex-direction(row) !important;
 
-    .button {
+    > .button {
       display: block !important;
       #flex > .flex(1) !important;
       .box-sizing(border-box);
@@ -77,8 +76,19 @@
       .isDesktop &:hover {
         box-shadow: none;
         background-color: @popoverHighlight;
+        color: contrast(@primaryColor);
       }
     }
+  }
+
+  > p {
+    padding: 0 15px;
+    text-align: center;
+  }
+
+  .button {
+    border-top: solid 1px @buttonBorderColor;
+    box-shadow: none;
   }
 }
 
