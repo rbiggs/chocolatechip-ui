@@ -13,6 +13,12 @@ Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
 Version: 3.6.2
 */
+/*
+  To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, say on the background of your lists, adjust the color of @listBkColor to the color you want.
+*/
+.attentionGrapper {
+  color: #007aff !important;
+}
 /* 
   Flex parameters:
   #flex > .display(<flex> | <inline-flex>);
@@ -215,6 +221,14 @@ a.button.backTo::before {
   display: block;
   margin-left: -3px;
 }
+a.button.back:hover,
+a.button.backTo:hover {
+  background-color: #ffffff;
+}
+a.button.back:hover::before,
+a.button.backTo:hover::before {
+  color: #007aff;
+}
 a.button.action {
   width: auto;
   display: block;
@@ -281,6 +295,7 @@ nav > h1 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #ffffff;
 }
 nav a.button {
   position: relative;
@@ -296,6 +311,8 @@ nav a.button:first-of-type {
 }
 nav a.button:hover {
   border-color: #ffffff !important;
+  background-color: #ffffff;
+  color: #000000;
 }
 nav a.button.align-flush {
   position: absolute;
@@ -424,7 +441,7 @@ h2 + .list {
 }
 section h2 {
   font: normal 11pt/12pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
-  margin: 0px 20px 0px 20px;
+  margin: 10px 20px 0px 20px;
   padding-left: 5px;
   white-space: nowrap;
   overflow: hidden;
@@ -805,7 +822,6 @@ html[dir=rtl] .segmented > .button:first-of-type {
   display: flex;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #000000;
   font-size: 20pt;
   padding: 0;
   width: 40px;
@@ -830,8 +846,8 @@ html[dir=rtl] .segmented > .button:first-of-type {
 }
 .segmented.paging > .button:hover::before,
 .segmented.paging > .button.selected::before {
-  background-color: #007aff;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #007aff;
 }
 .segmented.paging > .button::before {
   content: '';
@@ -1126,9 +1142,17 @@ nav > .busy {
   width: 100%;
   padding-bottom: 20px;
 }
-.popover > ul.list,
-.popover > ul.list > li {
+.popover > section > ul.list,
+.popover > section > ul.list > li {
   margin: 0 !important;
+}
+.popover > section > ul.list > li:hover {
+  background-color: #007aff;
+  color: #ffffff;
+}
+.button.show-popover:hover {
+  background-color: #ffffff;
+  color: #000000;
 }
 /* ==============================
    Popup Control
@@ -1641,7 +1665,7 @@ input[type="range"] {
 .button.slide-out-button {
   position: absolute;
   z-index: 1111111;
-  top: 5px;
+  top: 0 !important;
   left: 15px;
   height: 35px;
   width: 35px;
@@ -1661,7 +1685,7 @@ input[type="range"] {
   margin: 2px 0 0 -5px;
 }
 .button.slide-out-button:hover::before {
-  color: #ffffff;
+  color: #000000;
 }
 body.slide-out-app > article,
 body.slide-out-app > nav:not(:first-of-type) {
@@ -2138,7 +2162,7 @@ body.hasTabBar > article {
   align-items: center;
   overflow: hidden;
   border-left: solid 1px #ffffff;
-  padding-bottom: 10px;
+  padding: 1px 1px 10px;
   -ms-user-select: none;
   -ms-touch-action: none;
 }

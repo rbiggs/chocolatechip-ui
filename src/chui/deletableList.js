@@ -130,14 +130,12 @@
             }
           });
         
-          if ($.isiOS || $.isSafari) {
-            $(list).on(dispelDeletable, 'li', function() {
-              $(this).removeClass('selected');
-            });
-            $(list).on(enableDeletable, 'li', function() {
-              $(this).addClass('selected');
-            });
-          }
+          $(list).on(dispelDeletable, 'li', function() {
+            $(this).removeClass('selected');
+          });
+          $(list).on(enableDeletable, 'li', function() {
+            $(this).addClass('selected');
+          });
           $(list).on('singletap', '.delete', function() {
             var $this = this;
             var direction = '-1000%';
