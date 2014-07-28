@@ -21,7 +21,15 @@
   vertical-align: middle;
   background-color: @navBkgnd;
   overflow: hidden;
-  border-top: solid 1px @navBorderColor;
+  border-top: solid 1px @boxShadow;
+  
+  > .button {
+    color: contrast(@navBkgnd) !important;
+    
+    &:hover {
+      background-color: rgba(red(contrast(@primaryColor)), green(contrast(@primaryColor)), blue(contrast(@primaryColor)), 25%);
+    }
+  }
 }
 .splitlayout {
 

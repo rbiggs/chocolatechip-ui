@@ -5,21 +5,22 @@
   list-style: none;
   margin: 16px 0 0;
   padding: 0;
-  background-color: @appBkColor;
+  .list-border;
+  background-color: @listBkgdColor;
 
   > li {
     padding: 13px 16px 13px 16px;
     .transition(all .3s ease-out);
     position: relative;
-    background-color: @appBkColor;
+    background-color: @listBkgdColor;
     font-size: 12pt;
     border-bottom: solid 1px @listBorderColor;
 
     &.nav::after {
       .pseudo-block('');
       .size(7px, 7px);
-      border-right: solid 3px @showDetailColor;
-      border-top: solid 3px @showDetailColor;
+      border-right: solid 3px @listNavIndicator;
+      border-top: solid 3px @listNavIndicator;
       .transform(rotate(45deg));
       float: right;
       position: absolute;
@@ -33,8 +34,8 @@
       display: block;
       .size(22px, 20px);
       border-radius: 20px;
-      border: solid 1px @showDetailColor;
-      color: @showDetailColor;
+      border: solid 1px @secondaryColor;
+      color: @secondaryColor;
       font: bold 14px/0 Roboto, SegoeWP, HelveticaNeue, Sans-serif;
       .box-sizing(border-box);
       padding: 10px 8px;
@@ -43,11 +44,14 @@
       right: 16px;
     }
   }
+
+  + .button {
+    margin-top: 20px !important;
+  }
 }
 
 h2 + .list {
   margin-top: 0;
-  border-top: none;
 }
 
 /* ==============================
@@ -71,33 +75,50 @@ p {
 li[data-show-article].touched,
 .isDesktop .list.select > li:hover {
   cursor: pointer;
-  background-color: @appTint;
+  background-color: @primaryColor;
+
+  h3, h4, h5, p, div, span {
+    color: contrast(@primaryColor);
+  }
+  .nav::after {
+    border-color: contrast(@primaryColor);
+  }
+}
+.isDesktop .list > li[data-goto].nav:hover::after {
+  border-color: contrast(@primaryColor);
+}
+.isDesktop .list > li[data-goto].show-detail:hover::after,
+.isDesktop .list > li[data-goto]:hover .show-detail::after {
+  border: solid 1px contrast(@primaryColor);
+  color: contrast(@primaryColor);
 }
 
 /* ==============================
    list title & subtitle      
    ============================ */
 .list > li {
+  color: @textColor;
 
   > h3, & > h4 {
     width: 80%;
-    font-weight: 400 !important;
+    font-weight: 200;
     margin: 0;
   }
 
   h3 {
     font-family: 'Roboto Thin', 'HeveletcaNeue Light', Helvetica, sans-serif;
+    font-weight: normal;
     font-size: 16pt;
     line-height: 20pt;
     margin-bottom: 2px;
-    font-weight: 400 !important;
+    color: @textColor;
   }
 
   h4 {
     font-family: 'Roboto Regular', 'HeveletcaNeue', Helvetica, sans-serif;
+    font-weight: normal;
     line-height: 14pt;
-    color: @subTextColor;
-    font-weight: 400 !important;
+    color: @textColor;
   }
 
   > h4, > div > h4, > p, > div > p {
@@ -142,7 +163,6 @@ section h2 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-bottom: solid 3px @listBorderColor;
   padding-bottom: 6px;
 
   &.normal-case {
@@ -173,8 +193,8 @@ html[dir=rtl] {
     right: auto;
     left: 16px;
     border: none;
-    border-left: solid 3px @showDetailColor;
-    border-bottom: solid 3px @showDetailColor;
+    border-left: solid 3px @listNavIndicator;
+    border-bottom: solid 3px @listNavIndicator;
   }
   li.show-detail::after { 
     left: 16px;

@@ -10,7 +10,7 @@
 ChocolateChip.js
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.1
+Version: 3.6.2
 */
 (function() {
   'use strict';
@@ -130,7 +130,7 @@ Version: 3.6.1
 
   $.extend({
  
-    version : "3.6.1",
+    version : "3.6.2",
     
     libraryName : 'ChocolateChip',
     
@@ -1888,7 +1888,6 @@ Version: 3.6.1
       var fn = 'fn_' + $.uuidNum(),
       script = document.createElement('script'),
       head = $('head')[0];
-      console.log(fn);
       script.setAttribute('id', fn);
       var startTimeout = new Date();
       window[fn] = function(data) {

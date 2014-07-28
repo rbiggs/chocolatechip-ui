@@ -7,7 +7,7 @@
   .box-sizing(border-box);
   
   > .button {
-    border: solid 1px @appTint;
+    border: solid 1px @primaryColor;
     padding: 4px 15px;
     border-left: none;
     background-color: @segmentedButtonBkgnd;
@@ -22,9 +22,10 @@
     #flex > .align-items(center);
     #flex > .flex(1) !important;
     text-align: center;
+    color: @primaryColor;
 
     &:first-of-type {
-      border-left: solid 1px @appTint;
+      border-left: solid 1px @primaryColor;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
     }
@@ -35,8 +36,8 @@
     }
 
     .isDesktop &:hover, &.selected {
-      color: @segmentedButtonSelectedText;
-      background-color: @appTint;
+      color: contrast(@primaryColor);
+      background-color: @primaryColor;
       opacity: 1 !important;
     }
   }
@@ -73,7 +74,7 @@ html[dir=rtl] .segmented {
     }
 
     &:last-of-type {
-      border-left: solid 1px @appTint;
+      border-left: solid 1px @primaryColor;
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
       border-top-left-radius: 4px;

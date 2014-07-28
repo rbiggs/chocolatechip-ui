@@ -16,7 +16,7 @@
   > label {
     display: block;
     .box-sizing(border-box);
-    border: solid 1px @appTint;
+    border: solid 1px @secondaryColor;
     .size(40px, 30px);
     font: bold 16px/30px Helvetica;
     text-align: center;
@@ -28,7 +28,7 @@
     .box-sizing(border-box);
     background-color: @stepperButton;
     .size(33px,30px);
-    border: solid 1px @appTint;
+    border: solid 1px @secondaryColor;
     border-radius: 4px;
     text-align: center;
     font-weight: bold;
@@ -38,6 +38,7 @@
     overflow: hidden;
     padding: 0;
     .box-sizing(border-box);
+    color: @textColor;
 
     &:first-of-type {
       border-top-right-radius: 0;
@@ -58,7 +59,7 @@ html[dir=rtl] .stepper > .button {
     border-radius: 4px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-right: solid 1px @appTint;
+    border-right: solid 1px @secondaryColor;
     border-left: none;
   }
 
@@ -66,7 +67,7 @@ html[dir=rtl] .stepper > .button {
     border-radius: 4px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-left: solid 1px @appTint;
+    border-left: solid 1px @secondaryColor;
     border-right: none;
   }  
 }

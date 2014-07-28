@@ -4,7 +4,6 @@
 .segmented.paging > .button {
   #flex > .display(flex);
   #flex > .justify-content(center);
-  background-color: @pagingButtonBkgnd;
   font-size: 20pt;
   padding: 0;
   width: 40px;
@@ -20,16 +19,16 @@
   }
 
   &:hover, &.selected {
-    color: @appTint;
+    color: @primaryColor;
     box-shadow: none;
     border-color: @buttonBorder;
-    background-color: @buttonBorder;
+    background-color: contrast(@primaryColor);
     color: @buttonTextHoverColor;
     opacity: 1;
 
     &::before {
-      background-color: @appTint;
-      color: @buttonTextHoverColor;
+      background-color: contrast(@primaryColor);;
+      color: @primaryColor;
     }
   }
 

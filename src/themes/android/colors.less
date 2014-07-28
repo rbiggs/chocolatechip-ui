@@ -1,49 +1,88 @@
-@appBkColor: #fafafa;
-@appTint: #81cfeb;
-@buttonBorderColor: #cbcbcb;
-@buttonTopColor: #e5e5e5;
-@buttonTextColor: #2d2d2d;
-@buttonTextHoverColor: #fff;
-@buttonBoxShadow: #666;
-@buttonHoverColor: lighten(@appTint, 10%);
-@backButtonColor: #000;
-@backButtonHoverColor: #fff;
-@switchBorder: #979797;
-@switchBkgnd: #fafafa;
-@switchThumbBkgnd: #cecece;
-@switchThumbBorder: #919191;
-@switchOnTop: lighten(@appTint, 12%);
-@switchOnColor: darken(@appTint, 30%);
+/*
+  To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
+*/
+@primaryColor: #007aff;
+//@primaryColor: #2a36b1;
+
+@secondaryColor: @primaryColor;
+//@secondaryColor: #e65100;
+
 @navBkgnd: #eaeaea;
-@toolbarBkgnd: @navBkgnd;
-@tabbarBkgnd: @navBkgnd;
-@navBorderColor: #acacac; 
-@listNavIndicator: @buttonBoxShadow;
-@listBorderColor: #b6b6b6;
+//@navBkgnd: @primaryColor;
+
+@navbarTextColor: #2d2d2d;
+//@navbarTextColor: contrast(@primaryColor);
+
+@primaryColorHighlight: contrast(@primaryColor);
+
+@appBkColor: #fafafa;
+
+@bodyContentColor: #fff;
+
+@bodyContentHilite: #000;
+
+@textColor: #2d2d2d;
+
+@boxShadowColor: #888;
+
+@actionButtonColor: #e0e0e0;
+
+@actionButtonHoverColor: #cecece;
+
+@buttonBorderColor: #cbcbcb;
+
+@buttonTopColor: #e5e5e5;
+
+@buttonTextColor: #666;
+
+@buttonTextHoverColor: #fff;
+
+@buttonHoverColor: #cccccc;
+
+@iconButtonBkgnd: rgba(red(contrast(@primaryColor)), green(contrast(@primaryColor)), blue(contrast(@primaryColor)), 0.125);@inputColor: #aaa;
+@boxShadow: #666;
+@switchBkgnd: #fafafa;
+@listNavIndicator: lighten(@bodyContentHilite, 40%);
+@switchThumbBkgnd: #cecece;
+@switchThumbBorder: #919191; 
+@listBkgdColor: @bodyContentColor;
+@listBorder: #cbcbcb;
+@listBorderColor: #cbcbcb;
 @listTitleColor: #4d4d4d;
 @listSwitchedTitle: #33b5e5;
 @listAsideColor: #666;
 @listDetailColor: #9d9d9d;
 @showDetailColor: #999;
 @subTextColor: #707070;
-@selectedListItem: #000;
-@deletionIndicatorColor: darken(@appTint, 20);
-@deleteButtonBorderColor: desaturate(@appTint, 10);
-@spinnerIndicatorColor: #fff;
-@stepperLabelBkgnd: #fff;
-@popupBkgnd: #e3e3e3;
-@popoverHighlight: lighten(@appTint, 8%);
+@deletionIndicatorColor: darken(@primaryColor, 20);
+@deleteButtonBorderColor: desaturate(@primaryColor, 10);
+@stepperLabelBkgnd: @bodyContentColor;
+@popupBkgnd: @bodyContentColor;
+@popoverHighlight: lighten(@primaryColor, 8%);
 @popoverBkgnd: #f5f5f5;
-@popoverShadow: #000;
-@maskColor: #000;
-@spitlayoutNavBorder: #a7a7aa;
+@popoverShadow: @bodyContentHilite;
+@maskColor: rgba(red(@bodyContentHilite),green(@bodyContentHilite),blue(@bodyContentHilite),0.5);
 @splitlayoutBorders: #C8C8C7;
-@masterListSelected: #d9d9d9;
 @sheetBkgnd: rgba(240,240,240,.9);
-@sheetHandle: #999;
-@tabbarColor: @buttonBorderColor;
+@sheetHandle: @buttonTextColor;
+@tabbarColor: #cecece;
 @tabbarButtonBorder: #666;
 @rangeBkgnd: #525252;
 @inputBorderColor: #888;
-@iconColor: #000;
 @selectBoxColor: #888;
+@selectedListItem: #000;
+@iconColor: @bodyContentHilite;
+
+@switchBorder: #979797;
+@switchThumbBkgnd: #cecece;
+@switchThumbBorder: #919191;
+@switchOnTop: lighten(@primaryColor, 12%);
+@switchOnColor: darken(@primaryColor, 30%);
+
+@spitlayoutNavBorder: #a7a7aa;
+@splitlayoutBorders: #C8C8C7;
+@masterListSelected: #d9d9d9;
+
+.attentionGrapper {
+  color: @secondaryColor !important;
+}

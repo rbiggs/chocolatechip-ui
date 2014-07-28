@@ -3,7 +3,8 @@
       $('#showModalBusyIndicator').on($.eventStart, function(e) {
         e.preventDefault();
         $.UIPopup({empty: true});
-        $('.popup').UIBusy({'color':'orange', 'size': '80px'})
+        $('.popup').UIBusy({'color':'orange', 'size': 80});
+        $('.popup').find('.busy').UICenter('relative');
         setTimeout(function() {
           $('.popup').UIPopupClose()
         },5000);
