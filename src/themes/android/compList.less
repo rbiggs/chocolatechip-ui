@@ -173,3 +173,15 @@ html[dir=rtl] {
     text-overflow: ellipsis;
   }
 }
+@media only screen and (max-width: 480px) and (orientation : portrait) {
+  li.comp > div:first-child + aside > h4:nth-child(1) {
+    max-width: 45% !important;
+    flex: 1;
+  }
+  li.comp > div:first-child + aside {
+    -webkit-box-pack: end;
+    -webkit-justify-content: end;
+    justify-content: flex-end;
+    
+  }
+}
