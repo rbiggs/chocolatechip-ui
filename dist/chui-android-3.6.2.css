@@ -2357,7 +2357,7 @@ body.slide-out-app > article.show {
   display: block !important;
   z-index: 100;
 }
-body.slide-out-app > nav.show {
+body.slide-out-app > nav.show:not(:first-of-type) {
   display: block !important;
   z-index: 100;
 }
