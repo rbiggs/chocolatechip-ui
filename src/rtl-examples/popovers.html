@@ -1,57 +1,68 @@
   <script type="text/javascript">
     $(function(){
       
-          // Content for Popovers:
-          var popover1Content = "<ul class='list'><li><h3>تفاحة</h3></li><li><h3>مانجو</h3></li><li><h3>مشمش</h3></li><li><h3>موز</h3></li><li><h3>كرز</h3></li><li><h3>عنب</h3></li><li><h3>ليمون</h3></li><li><h3>خوخ</h3></li><li><h3>برقوق</h3></li><li><h3>كمثرى</h3></li><li><h3>برتقال</h3></li></ul>";
+      // Content for Popovers:
+      var popover1Content = "<ul class='list'><li><h3>تفاحة</h3></li><li><h3>مانجو</h3></li><li><h3>مشمش</h3></li><li><h3>موز</h3></li><li><h3>كرز</h3></li><li><h3>عنب</h3></li><li><h3>ليمون</h3></li><li><h3>خوخ</h3></li><li><h3>برقوق</h3></li><li><h3>كمثرى</h3></li><li><h3>برتقال</h3></li></ul>";
+      
+      var popover2Content = "<ul class='list'><li><h3>كعكة</h3></li><li><h3>أيس كريم</h3></li><li><h3>فطائر</h3></li><li><h3>كوكي</h3></li><li><h3>الكعك</h3></li><li><h3>الكريب</h3></li><li><h3>كاسترد</h3></li><li><h3>الكرمل</h3></li><li><h3>حلويات</h3></li></ul>";
           
-          var popover2Content = "<ul class='list'><li><h3>كعكة</h3></li><li><h3>أيس كريم</h3></li><li><h3>فطائر</h3></li><li><h3>كوكي</h3></li><li><h3>الكعك</h3></li><li><h3>الكريب</h3></li><li><h3>كاسترد</h3></li><li><h3>الكرمل</h3></li><li><h3>حلويات</h3></li></ul>";
-          
-        // Callback for Popovers:
-        var fillPopover1 = function(popover) {
-          // Populate Popover with content:
-          $('.popover').find('section').append(popover1Content);
-          popoverEventHandler();
-        };
+      // Callback for Popovers:
+      var fillPopover1 = function(popover) {
+        // Populate Popover with content:
+        $('.popover').find('section').append(popover1Content);
+        popoverEventHandler();
+      };
         
-        var fillPopover2 = function(popover) {
-          // Populate Popover with content:
-          $('.popover').find('section').append(popover2Content);
-          popoverEventHandler();
-        };
+      var fillPopover2 = function(popover) {
+        // Populate Popover with content:
+        $('.popover').find('section').append(popover2Content);
+        popoverEventHandler();
+      };
         
-        var popoverEventHandler = function() {
-          // Attach event to catch user interaction.
-          // Use singletap to allow user to scroll content.
-          $('.popover').on('singletap', function(e) {
-            var results;
-            if (this.id === 'fruitsPopover') {
-              results = '#fruitsChoice';
-            } else if(this.id === 'desertsPopover') {
-              results = '#desertsChoice';
-            }
-            var listItem;
-            if (e.target.nodeName === 'LI') {
-              $(results).html(e.target.textContent.trim());
-            } else {
-              listItem = $(e.target).closest('li')[0];
-              $(results).html(listItem.textContent.trim());
-            }
-            $.UIPopoverClose();
-          });
-        };
-        
-        // Initialize Popover:
-        $('#showPopover1').UIPopover({
-          id: 'fruitsPopover', 
-          title: "فاكهة", 
-          callback: fillPopover1
+      var popoverEventHandler = function(whichPopover) {
+        // Attach event to catch user interaction.
+        // Use singletap to allow user to scroll content.
+        $('.popover').on('singletap', function(e) {
+          var results;
+          if (whichPopover === 'fruitsPopover') {
+            results = '#fruitsChoice';
+          } else if(whichPopover === 'dessertsPopover') {
+            results = '#dessertsChoice';
+          }
+          var listItem;
+          if (e.target.nodeName === 'LI') {
+            $(results).html(e.target.textContent.trim());
+          } else {
+            listItem = $(e.target).closest('li')[0];
+            $(results).html(listItem.textContent.trim());
+          }
+          $.UIPopoverClose();
         });
-        // Initialize Popover:
-        $('#showPopover2').UIPopover({
-          id: 'desertsPopover', 
-          title: "حلوى", 
-          callback: fillPopover2
-        });  
+      };
+        
+      // Initialize Popover: 
+      $('#showPopover1').on('singletap', function() {
+        var trigger = this;
+        $.UIPopover({
+          title: 'فاكهة',
+          trigger: trigger,
+          content: popover1Content,
+          callback: function() {
+            popoverEventHandler('fruitsPopover');
+          }
+        });
+      });
+      $('#showPopover2').on('singletap', function() {
+        var trigger = this;
+        $.UIPopover({
+          title: 'حلوى',
+          trigger: trigger,
+          content: popover2Content,
+          callback: function() {
+            popoverEventHandler('dessertsPopover');
+          }
+        });
+      });
     });
   </script>
   <style>
@@ -83,7 +94,7 @@
          </li>
          <li>
            <h3>حلوى:</h3>
-           <h4 id="desertsChoice" class='attentionGrapper'></h4>
+           <h4 id="dessertsChoice" class='attentionGrapper'></h4>
          </li>
       </ul>
     </section>

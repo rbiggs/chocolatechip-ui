@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-Win.css
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.2
+Version: 3.6.3
 */
 /*
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, say on the background of your lists, adjust the color of @listBkColor to the color you want.
@@ -1195,10 +1195,13 @@ nav > .busy {
   padding: 0 0 10px 0;
   width: 80%;
   height: 100%;
-  margin: 0 auto;
+  margin: 0 20px;
 }
 .popup > .panel > p {
   padding: 0 20px;
+}
+.popup header > h1 {
+  font-size: 24px;
 }
 .popup header,
 .popup footer {
@@ -1217,7 +1220,8 @@ nav > .busy {
   height: auto;
   position: relative;
   bottom: -10px;
-  padding: 0;
+  left: -10px;
+  padding: 0 20px;
   height: 42px;
 }
 .popup footer > .button {

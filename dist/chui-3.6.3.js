@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.2
+Version: 3.6.3
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -1202,37 +1202,39 @@ UIBusy : function ( options ) {
   });
 
 
-  $.fn.extend({ 
+  $.extend({    
     /////////////////
     // Create Popover
     /////////////////
     /*
       id: myUniqueID,
       title: 'Great',
-      callback: myCallback
+      callback: myCallback,
     */
     UIPopover : function ( options ) {
-      if (!options) return [];
-      var triggerEl = $(this);
-      var triggerID;
-      if (this[0].id) {
-        triggerID = this[0].id;
-      } else {
-        triggerID = $.Uuid();
-        triggerEl.attr('id', triggerID);
+      options = options || {};
+      var settings = {
+        id: $.Uuid(),
+        callback: $.noop,
+        title: '',
       }
-      var id = options.id ? options.id : $.Uuid();
-      var header = options.title ? ('<header><h1>' + options.title + '</h1></header>') : '';
-      var callback = options.callback ? options.callback : $.noop;
-      var popover = '<div class="popover" id="' + id + '">' + header + '<section></section></div>';
-    
+      $.extend(settings, options);
+      if (options && options.content) {
+        settings.content = options.content;
+      } else {
+        settings.content = '';
+      }
+      var header = '<header><h1>' + settings.title + '</h1></header>';
+      var popover = '<div class="popover" id="' + settings.id + '">' + header + '<section></section></div>';
+      var popoverID = '#' + settings.id;
+      
       // Calculate position of popover relative to the button that opened it:
       var _calcPopPos = function (element) {
         var offset = $(element).offset();
         var left = offset.left;
         var calcLeft;
         var calcTop;
-        var popover = $('.popover');
+        var popover = $(popoverID);
         var popoverOffset = popover.offset();
         calcLeft = popoverOffset.left;
         calcTop = offset.top + $(element)[0].clientHeight;
@@ -1245,39 +1247,22 @@ UIBusy : function ( options ) {
           popover.css({'left': left + 'px', 'top': (calcTop + 20) + 'px'});
         }
       };
-      $(this).on($.eventStart, function() {
-        if ($('.mask')[0]) {
-          $.UIPopoverClose();
-          $('body').UIUnblock();
-          return;
-        }
-        var $this = this;
-        $(this).addClass('selected');
-        setTimeout(function() {
-          $($this).removeClass('selected');
-        }, 1000);
-        $('body').append(popover);
-        $('.popover').UIBlock('.5');
-        var event = 'singletap';
-        if ($.isWin && $.isDesktop) {
-          event = $.eventStart + ' singletap ' + $.eventEnd;
-        }
-        $('.mask').on(event, function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-        });
-        $('.popover').data('triggerEl', triggerID);
-        if ($.isWin) {
-          _calcPopPos($this);
-          $('.popover').addClass('open');
-        } else {
-          $('.popover').addClass('open');
-          setTimeout(function () {
-             _calcPopPos($this);
-          });
-        }
-        callback.call(callback, $this);
-      });
+
+      if ($('.mask')[0]) {
+        $.UIPopoverClose();
+        $('body').UIUnblock();
+        return;
+      }
+      $('body').append(popover);      
+      if ($.isWin) {
+        $(popoverID).addClass('open');
+      }
+      $(popoverID).data('triggerEl', settings.trigger);
+      $(popoverID).find('section').append(settings.content);
+      settings.callback.call(settings.callback, settings.trigger);
+      _calcPopPos(settings.trigger);
+      $('.popover').UIBlock('.5');
+      
     }
   });
   $.extend({
@@ -1288,7 +1273,7 @@ UIBusy : function ( options ) {
       var popover = $('.popover');
       if (!popover.length) return;
       var triggerID = popover.data('triggerEl');
-      var offset = $('#'+triggerID).offset();
+      var offset = $(triggerID).offset();
       var left = offset.left;
       if (($(popover).width() + offset.left) > window.innerWidth) {
         popover.css({
