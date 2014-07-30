@@ -18,15 +18,15 @@
         popoverEventHandler();
       };
         
-      var popoverEventHandler = function() {
+      var popoverEventHandler = function(whichPopover) {
         // Attach event to catch user interaction.
         // Use singletap to allow user to scroll content.
         $('.popover').on('singletap', function(e) {
           var results;
-          if (this.id === 'fruitsPopover') {
+          if (whichPopover === 'fruitsPopover') {
             results = '#fruitsChoice';
-          } else if(this.id === 'desertsPopover') {
-            results = '#desertsChoice';
+          } else if(whichPopover === 'dessertsPopover') {
+            results = '#dessertsChoice';
           }
           var listItem;
           if (e.target.nodeName === 'LI') {
@@ -38,18 +38,27 @@
           $.UIPopoverClose();
         });
       };
-      
-      // Initialize Popover:
-      $('#showPopover1').UIPopover({
-        id: 'fruitsPopover', 
-        title: "Fruits", 
-        callback: fillPopover1
+      $('#showPopover1').on('singletap', function() {
+        var trigger = this;
+        $.UIPopover({
+          title: 'Fruits',
+          trigger: trigger,
+          content: popover1Content,
+          callback: function() {
+            popoverEventHandler('fruitsPopover');
+          }
+        });
       });
-      // Initialize Popover:
-      $('#showPopover2').UIPopover({
-        id: 'desertsPopover', 
-        title: "Deserts", 
-        callback: fillPopover2
+      $('#showPopover2').on('singletap', function() {
+        var trigger = this;
+        $.UIPopover({
+          title: 'Deserts',
+          trigger: trigger,
+          content: popover2Content,
+          callback: function() {
+            popoverEventHandler('dessertsPopover');
+          }
+        });
       });
     });
   </script>
@@ -81,7 +90,7 @@
          </li>
          <li>
            <h3>Deserts:</h3>
-           <h4 id="desertsChoice" class='attentionGrapper'></h4>
+           <h4 id="dessertsChoice" class='attentionGrapper'></h4>
          </li>
       </ul>
     </section>
