@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-Win.css
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.3
+Version: 3.7.0
 */
 /*
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, say on the background of your lists, adjust the color of @listBkColor to the color you want.
@@ -1259,8 +1259,58 @@ html[dir=rtl] .popup footer > .button:first-of-type {
   border-left: solid 2px #000000;
 }
 /* ============================== 
-   Deletable Lists
+   Editable Lists
    =========================== */
+.list.editable > li,
+.list.deletable > li {
+  overflow: hidden;
+}
+.list.editable > li > .move-up,
+.list.deletable > li > .move-up,
+.list.editable > li > .move-down,
+.list.deletable > li > .move-down {
+  width: 27px;
+  height: 27px;
+  display: block !important;
+  position: relative;
+  float: right;
+  margin-top: -33px;
+  transition: all 0.25s ease-out;
+  -ms-transform: translate3d(100px, 0, 0);
+  transform: translate3d(140px, 0, 0);
+}
+.list.editable > li > .move-up::after,
+.list.deletable > li > .move-up::after,
+.list.editable > li > .move-down::after,
+.list.deletable > li > .move-down::after {
+  display: block;
+  content: '\E0A0';
+  width: 27px;
+  height: 27px;
+  position: absolute;
+  border: solid 2px #fff;
+  border-radius: 50%;
+  color: #fff;
+  z-index: 1000000;
+  font-family: "Segoe UI Symbol";
+  font-weight: normal;
+  line-height: .9;
+  font-size: 16pt;
+  text-align: center;
+}
+.list.editable > li > .move-down,
+.list.deletable > li > .move-down {
+  margin-right: 10px !important;
+  content: '\E0A1';
+}
+.list.editable > li:first-of-type > .move-up,
+.list.deletable > li:first-of-type > .move-up {
+  opacity: .35;
+}
+.list.editable > li:last-of-type > .move-down,
+.list.deletable > li:last-of-type > .move-down {
+  opacity: .35;
+}
 .deletion-indicator {
   display: -ms-flexbox;
   display: flex;
@@ -1299,6 +1349,34 @@ li.selected > .deletion-indicator::before {
 }
 .list.showIndicators li {
   padding-left: 32px;
+}
+.list.showIndicators li .move-up {
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.list.showIndicators li .move-down {
+  -ms-transform: translate3d(-36px, 0, 0);
+  transform: translate3d(-36px, 0, 0);
+}
+.list.showIndicators li > li > h3 {
+  width: 55%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.list.showIndicators li.selected > .move-up {
+  -ms-transform: translate3d(-45px, 0, 0);
+  transform: translate3d(-45px, 0, 0);
+}
+.list.showIndicators li.selected > .move-down {
+  -ms-transform: translate3d(-80px, 0, 0);
+  transform: translate3d(-80px, 0, 0);
+}
+.list.showIndicators > li > h3 {
+  width: 55%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .button.delete {
   float: right;
@@ -1362,27 +1440,50 @@ html[dir=rtl] .list.showIndicators li {
 html[dir=rtl] .button.delete {
   float: left;
 }
-html[dir=rtl] .list > li > .deletion-indicator {
+html[dir=rtl] .list.editable > li > .deletion-indicator,
+html[dir=rtl] .list.deletable > li > .deletion-indicator {
   float: right;
   margin-right: auto;
   margin-left: -20px;
   right: -40px;
 }
-html[dir=rtl] .list > li > .button.delete {
+html[dir=rtl] .list.editable > li > .button.delete,
+html[dir=rtl] .list.deletable > li > .button.delete {
   transform: translate3d(-80px, 0, 0);
   left: 0;
   right: auto;
+}
+html[dir=rtl] .list.editable > li > .move-up,
+html[dir=rtl] .list.deletable > li > .move-up {
+  float: left !important;
+  -ms-transform: translate3d(-100px, 0, 0);
+  transform: translate3d(-100px, 0, 0);
+}
+html[dir=rtl] .list.editable > li > .move-down,
+html[dir=rtl] .list.deletable > li > .move-down {
+  margin-top: -28px;
+  float: left !important;
+  -ms-transform: translate3d(-140px, 0, 0) rotate(180deg);
+  transform: translate3d(-140px, 0, 0) rotate(180deg);
 }
 html[dir=rtl] .list.showIndicators > li > .deletion-indicator {
   right: 0px !important;
   margin-left: 10px;
 }
+html[dir=rtl] .list.showIndicators > li > .move-up {
+  -ms-transform: translate3d(10px, 0, 0) !important;
+  transform: translate3d(10px, 0, 0) !important;
+}
+html[dir=rtl] .list.showIndicators > li > .move-down {
+  -ms-transform: translate3d(50px, 0, 0) rotate(180deg) !important;
+  transform: translate3d(50px, 0, 0) rotate(180deg) !important;
+}
 html[dir=rtl] .list.showIndicators > li.selected {
   margin-right: 0;
-  margin-left: 80px;
+  padding-left: 45px;
 }
 html[dir=rtl] .list.showIndicators > li.selected > .button.delete {
-  transform: translate3d(-80px, 0, 0);
+  transform: translate3d(6px, 0, 0);
 }
 /* ==============================
    Form Styles
@@ -2213,4 +2314,62 @@ html[dir=rtl] .pagination > li {
 }
 html[dir=rtl] .pagination > li:last-of-type {
   margin-left: 0;
+}
+.horizontal-scroll-panel {
+  width: 100%;
+  height: 200px;
+  background-color: #ccc;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-y: hidden !important;
+  overflow-x: auto;
+}
+.horizontal-scroll-panel > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  -webkit-padding-start: 0;
+  font-size: 0;
+}
+.horizontal-scroll-panel > ul li {
+  display: inline-block;
+  border: solid 1px #666;
+  box-shadow: 0 0 4px #666;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin-right: 20px;
+  font-size: 0;
+}
+.horizontal-scroll-panel > ul:first-of-type {
+  margin-left: 0 !important;
+}
+.horizontal-scroll-panel > ul:last-of-type {
+  margin-right: 0 !important;
+}
+body.isWindows .horizontal-scroll-panel {
+  background-color: #333;
+}
+[dir=rtl] .horizontal-scroll-panel li {
+  margin-right: 0 !important;
+  margin-left: 20px !important;
+}
+[dir=rtl] .horizontal-scroll-panel li:first-of-type {
+  margin-right: 0 !important;
+}
+[dir=rtl] .horizontal-scroll-panel li:last-of-type {
+  margin-left: 0 !important;
+}
+@media only screen and (max-device-width: 320px) {
+  .horizontal-scroll-panel {
+    height: 125px;
+    padding: 10px;
+  }
+  .horizontal-scroll-panel li {
+    height: 125px;
+    width: 125px;
+  }
 }

@@ -72,6 +72,12 @@
     .popover-buttons {
       margin-bottom: 20px;
       padding: 0 40px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-pack: distribute !important;
+      -webkit-justify-content: space-around !important;
+      justify-content: space-around !important;
     }
     /*
     .popover-buttons > .button {
@@ -251,64 +257,63 @@
        ///////////////////////
        // Setup Deletable list
        ///////////////////////
-       $.UIDeletable({
-          list: '#deletables', 
+       $('#deletables').UIEditList({
           callback: function(item) {
             var text = $(item).siblings('h3').text();
             $('#deletable-response').html('You deleted: <strong>' + text + '</strong>');
           }
         });
 
-      ///////////////////
-      // Initialize Popup
-      ///////////////////
-      $("#openPopup").bind("singletap", function() {
-        $.UIPopup({
-          id: "warning",
-          title: 'Attention Viewers!', 
-          message: 'The performance of "Merchant of Venice", Act 4 scene 1, will begin shortly. Thank you for your patience.', 
-          cancelButton: 'Skip', 
-          continueButton: 'Stay', 
-          callback: function() {
-            var popupMessageTarget = document.querySelector('#popupMessageTarget');
-            popupMessageTarget.textContent = 'Thanks for staying with us a bit longer.';
-            popupMessageTarget.className = "";
-            popupMessageTarget.className = "animatePopupMessage";
-          }
+        ///////////////////
+        // Initialize Popup
+        ///////////////////
+        $("#openPopup").bind("singletap", function() {
+          $.UIPopup({
+            id: "warning",
+            title: 'Attention Viewers!', 
+            message: 'The performance of "Merchant of Venice", Act 4 scene 1, will begin shortly. Thank you for your patience.', 
+            cancelButton: 'Skip', 
+            continueButton: 'Stay', 
+            callback: function() {
+              var popupMessageTarget = document.querySelector('#popupMessageTarget');
+              popupMessageTarget.textContent = 'Thanks for staying with us a bit longer.';
+              popupMessageTarget.className = "";
+              popupMessageTarget.className = "animatePopupMessage";
+            }
+          });
         });
-      });
       
         //////////////////////
         // Setup for Popovers:
         //////////////////////
       
-          // Content for Popovers:
-          var popover1Content = "<ul class='list'><li><h3>Apples</h3></li><li><h3>Oranges</h3></li><li><h3>Bananas</h3></li><li><h3>Pears</h3></li><li><h3>Plums</h3></li><li><h3>Cherries</h3></li><li><h3>Apricots</h3></li><li><h3>Lemons</h3></li><li><h3>Peaches</h3></li><li><h3>Pineapples</h3></li><li><h3>Strawberries</h3></li><li><h3>Guavas</h3></li><li><h3>Grapefruit</h3></li></ul>";
+        // Content for Popovers:
+        var popover1Content = "<ul class='list'><li><h3>Apples</h3></li><li><h3>Oranges</h3></li><li><h3>Bananas</h3></li><li><h3>Pears</h3></li><li><h3>Plums</h3></li><li><h3>Cherries</h3></li><li><h3>Apricots</h3></li><li><h3>Lemons</h3></li><li><h3>Peaches</h3></li><li><h3>Pineapples</h3></li><li><h3>Strawberries</h3></li><li><h3>Guavas</h3></li><li><h3>Grapefruit</h3></li></ul>";
           
-          var popover2Content = "<ul class='list'><li><h3>Cake</h3></li><li><h3>Ice cream</h3></li><li><h3>Pies</h3></li><li><h3>Tiramisu</h3></li><li><h3>Cupcakes</h3></li><li><h3>Donuts</h3></li><li><h3>Cookies</h3></li><li><h3>Cobbler</h3></li><li><h3>Crepes</h3></li><li><h3>Tarts</h3></li><li><h3>Custard</h3></li><li><h3>Pudding</h3></li><li><h3>Fudge</h3></li><li><h3>Turnovers</h3></li><li><h3>Eclairs</h3></li></ul>";
-          
+        var popover2Content = "<ul class='list'><li><h3>Cake</h3></li><li><h3>Ice cream</h3></li><li><h3>Pies</h3></li><li><h3>Tiramisu</h3></li><li><h3>Cupcakes</h3></li><li><h3>Donuts</h3></li><li><h3>Cookies</h3></li><li><h3>Cobbler</h3></li><li><h3>Crepes</h3></li><li><h3>Tarts</h3></li><li><h3>Custard</h3></li><li><h3>Pudding</h3></li><li><h3>Fudge</h3></li><li><h3>Turnovers</h3></li><li><h3>Eclairs</h3></li></ul>";
+            
         // Callback for Popovers:
         var fillPopover1 = function(popover) {
           // Populate Popover with content:
           $('.popover').find('section').append(popover1Content);
           popoverEventHandler();
         };
-        
+          
         var fillPopover2 = function(popover) {
           // Populate Popover with content:
           $('.popover').find('section').append(popover2Content);
           popoverEventHandler();
         };
-        
-        var popoverEventHandler = function() {
+          
+        var popoverEventHandler = function(whichPopover) {
           // Attach event to catch user interaction.
           // Use singletap to allow user to scroll content.
           $('.popover').on('singletap', function(e) {
             var results;
-            if (this.id === 'fruitsPopover') {
+            if (whichPopover === 'fruitsPopover') {
               results = '#fruitsChoice';
-            } else if(this.id === 'desertsPopover') {
-              results = '#desertsChoice';
+            } else if(whichPopover === 'dessertsPopover') {
+              results = '#dessertsChoice';
             }
             var listItem;
             if (e.target.nodeName === 'LI') {
@@ -320,19 +325,28 @@
             $.UIPopoverClose();
           });
         };
-        
-        // Initialize Popover:
-        $('#showPopover1').UIPopover({
-          id: 'fruitsPopover', 
-          title: "Fruits", 
-          callback: fillPopover1
+        $('#showPopover1').on('singletap', function() {
+          var trigger = this;
+          $.UIPopover({
+            title: 'Fruits',
+            trigger: trigger,
+            content: popover1Content,
+            callback: function() {
+              popoverEventHandler('fruitsPopover');
+            }
+          });
         });
-        // Initialize Popover:
-        $('#showPopover2').UIPopover({
-          id: 'desertsPopover', 
-          title: "Deserts", 
-          callback: fillPopover2
-        });      
+        $('#showPopover2').on('singletap', function() {
+          var trigger = this;
+          $.UIPopover({
+            title: 'Desserts',
+            trigger: trigger,
+            content: popover2Content,
+            callback: function() {
+              popoverEventHandler('dessertsPopover');
+            }
+          });
+        });
         
         ///////////////////////////
         // Setup Horizontal Paging:
@@ -366,7 +380,7 @@
     #switch-response,
     #deletable-response,
     #fruitsChoice,
-    #desertsChoice {
+    #dessertsChoice {
       color: #007aff;
       text-transform: capitalize;
     }
@@ -390,7 +404,7 @@
           <h3>Select List</h3>
         </li>
         <li data-goto="deletable-article" class='nav'>
-          <h3>Deletable List</h3>
+          <h3>Editable List</h3>
         </li>
         <li data-goto="popup-article" class='nav'>
           <h3>Popup</h3>
@@ -512,7 +526,7 @@
   </article>
   <nav>
     <a class='button back'>Demo</a>
-    <h1>Deletable List</h1>
+    <h1>Editable List</h1>
   </nav>
   <article id='deletable-article' class='next'>
     <section>
@@ -580,8 +594,8 @@ It droppeth as the gentle rain from heaven upon the place beneath. It is twice b
            <h4 id="fruitsChoice"></h4>
          </li>
          <li>
-           <h3>Deserts:</h3>
-           <h4 id="desertsChoice"></h4>
+           <h3>Desserts:</h3>
+           <h4 id="dessertsChoice"></h4>
          </li>
       </ul>
     </section>

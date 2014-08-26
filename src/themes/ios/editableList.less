@@ -1,0 +1,234 @@
+/* ============================== 
+   Deletable Lists
+   =========================== */
+@moveUpSVG: escape('<svg width="367px" height="367px" viewBox="0 0 367 367" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Sortable" transform="translate(13.000000, 13.000000)" stroke="@{primaryColor}" stroke-width="25"><circle id="Oval-1" cx="170.5" cy="170.5" r="170.5"></circle><path d="M55.3736267,209.778395 L172.745285,100.706186 L286.306656,209.611568" id="Path-2"></path></g></g></svg>');
+.list {
+  & li {
+
+    & > .deletion-indicator {
+      #flex > .display(inline-flex);
+      #flex > .justify-content(center);
+      #flex > .align-items(center);
+      .deletion-indicator;
+      border-radius: 50%;
+      .size(20px,20px);
+      float: left;
+      margin-right: 6px;
+      .transition(all 0.25s ease-out);
+      margin-left: -40px;
+      cursor: pointer;
+      position: relative;
+      z-index: 100;
+      &::before {
+        .pseudo-block('—');
+        font-size: 12pt;
+        position: absolute;
+        min-width: 20px;
+        text-align:center;
+        .size(10px, 10px);
+        margin-top: -1px;
+      } 
+    }
+    & > .move-up,
+    & > .move-down {
+      .size(21px, 21px);
+      display: inline-block;
+      position: relative;
+      float: right;
+      margin-top: -20px;
+      .transition(all 0.25s ease-out);
+      .transform(translate3d(100px,0,0));
+
+      &::before {
+        .pseudo-block('');
+        .size(21px, 21px);
+        position: absolute;
+        background-image: url("@{imageMaskRoot}@{moveUpSVG}");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100% 100%;
+      }
+    }
+    & > .move-down {
+      margin-right: 10px;
+      .transform(translate3d(120px,0,0) rotate(180deg));
+    }
+
+    & > .button.delete {
+      float: right;
+      .delete-button;
+      text-align: center;
+      .box-sizing(border-box);
+      width: 80px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      #flex > .display(flex);
+      display: -webkit-flex;
+      #flex > .flex-direction(column);
+      #flex > .justify-content(center);
+      #flex > .align-items(center);
+      .transition(all 0.25s ease-out);
+      .transform(translate3d(80px,0,0));
+      cursor: pointer;
+      font-family: 'HelveticaNeue-Light';
+      font-weight: 200;
+    }
+
+    &:first-of-type  > .move-up {
+      opacity: .35;
+    }
+
+    &:last-of-type  > .move-down {
+      opacity: .35;
+    }
+  }
+
+  &.editable, 
+  &.deletable {
+    
+    & > li {
+      .transition(all 0.25s ease-out);
+      .transform(translate3d(0,0,0));
+
+      &.selected {
+        margin-right: 80px;
+        background-color: @listBkColor;
+
+        & h3, & h4, & p {
+          position: relative;
+          .transform(translate3d(0,0,0));
+          .transition(all 0.25s ease-out);         
+        }
+
+        & > .button.delete {
+          .transform(translate3d(80px,0,0));
+        }
+
+        & > .deletion-indicator {
+          -webkit-transform: rotate(90deg);
+        }
+      }
+    }
+  }
+
+  &.showIndicators {
+
+    & .deletion-indicator {
+      margin-left: 0;
+    }
+    & .move-up {
+      .transform(translate3d(0,0,0));
+    }
+    & .move-down {
+      .transform(translate3d(0,0,0) rotate(180deg));
+    }
+
+    & > li[data-goto] {
+      padding-left: 40px;
+
+      & .deletion-indicator {
+        left: 10px;
+      }
+    }
+    & > li > h3 {
+      width: 55%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  & > li[data-goto] > .deletion-indicator {
+    position: absolute;
+    left: -40px;
+    margin-left: 0px;
+
+    & + div + aside {
+      margin: -20px;
+      position: relative;
+      right: 15px;
+    }
+  }
+}
+
+html[dir=rtl] {
+  .list > li {
+    & > .deletion-indicator {
+      float: right;
+      margin-right: auto;
+      margin-left: -20px;
+      right: -40px;
+    }
+
+    & > .move-up {
+      float: left !important;
+      .transform(translate3d(-100px,0,0));
+    }
+    & > .move-down {
+      float: left !important;
+      .transform(translate3d(-140px,0,0) rotate(180deg));
+    }
+
+    & > .button.delete {
+      .transform(translate3d(-80px,0,0));
+      left: 0;
+      right: auto;
+    }
+  }
+
+  &.deletable.showIndicators > li,
+  &.editable.showIndicators > li {
+    margin-right: 0px;
+  }
+  .list.deletable > li,
+  .list.editable > li {
+    &.selected {
+      margin-right: 0 !important;
+
+      & > .button.delete {
+        .transform(translate3d(0,0,0)) !important;
+      }
+    }
+  & > .button.delete {
+      .transform(translate3d(-80px,0,0)) !important;
+    }
+  }
+
+  .list.showIndicators > li,
+  .list.deletable.showIndicators > li,
+  .list.editable.showIndicators > li  {
+    &.selected {
+      margin-right: 0;
+
+      & > .button.delete {
+        .transform(translate3d(0,0,0)) !important;
+      }
+
+      & > .move-up {
+        .transform(translate3d(90px,0,0));
+      }
+      & > .move-down {
+        .transform(translate3d(100px,0,0) rotate(180deg));
+      }
+    }
+
+    & > .deletion-indicator {
+      right: 0px !important;
+      margin-left: 10px;
+    }
+
+    & > .move-up {
+      .transform(translate3d(10px,0,0));
+    }
+    & > .move-down {
+      .transform(translate3d(20px,0,0) rotate(180deg));
+    }
+
+    & > .button.delete {
+      right: auto;
+      left: 0 !important;
+    }
+  }
+}

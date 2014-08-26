@@ -1,0 +1,214 @@
+/* ============================== 
+   Deletable Lists
+   =========================== */
+@selectListIndicatorSVG: escape('<svg width="140px" height="144px" viewBox="0 0 140 144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><path d="M47.9487979,122.136928 L92.9487978,122.136928 L92.9487978,22.1369286 L81.3308475,22.1369281 L81.3308475,109.597461 L47.9487979,109.597462 L47.9487979,122.136928 Z" id="Rectangle-1" fill="@{primaryColorHighlight}" transform="translate(70.448798, 72.136929) rotate(35.000000) translate(-70.448798, -72.136929) "></path></g></svg>');
+@deleteIndicatorSVG: escape('<svg width="83px" height="108px" viewBox="0 0 83 108" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect id="Rectangle-1" fill="#3A3A3A" x="5" y="24" width="72" height="84" rx="8"></rect><path d="M-0.411132812,17.9316406 L-0.411132812,6.22558594 L20.1357422,6.48730469 L25.3134766,0.25390625 L57.4667969,0.25390625 L62.6025391,6.48730469 L82.9248047,6.48730469 L82.9248047,17.8554688 L-0.411132812,17.9316406 Z" id="Path-1" fill="#3A3A3A"></path></g></svg>');
+@moveUpSVG: escape('<svg width="367px" height="367px" viewBox="0 0 367 367" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Sortable" transform="translate(13.000000, 13.000000)" stroke="@{primaryColor}" stroke-width="25"><circle id="Oval-1" cx="170.5" cy="170.5" r="170.5"></circle><path d="M55.3736267,209.778395 L172.745285,100.706186 L286.306656,209.611568" id="Path-2"></path></g></g></svg>');
+.list.editable > li,
+.list.deletable > li {
+  overflow: hidden;
+
+  & > .move-up,
+  & > .move-down {
+    .size(21px, 21px);
+    display: inline-block;
+    position: relative;
+    float: right;
+    margin-top: -20px;
+    .transition(all 0.25s ease-out);
+    .transform(translate3d(100px,0,0));
+
+    &::before {
+      .pseudo-block('');
+      .size(21px, 21px);
+      position: absolute;
+      background-image: url("@{imageMaskRoot}@{moveUpSVG}");
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% 100%;
+    }
+  }
+  
+  & > .move-down {
+    margin-right: 10px !important;
+  }
+
+  &:first-of-type  > .move-up {
+    opacity: .35;
+  }
+
+  &:last-of-type  > .move-down {
+    opacity: .35;
+  }
+}
+.deletion-indicator {
+  display: -webkit-box;
+  .box-sizing(border-box);
+  padding: 2px 5px 13px 1px;
+  .size(24px, 24px);
+  border: solid 2px @primaryColor;
+  position: absolute;
+  top: 14px;
+  left: -32px;
+  .transition(all .25s ease-out);
+  cursor: pointer;
+}
+.isDesktop .deletion-indicator:hover,
+li.selected > .deletion-indicator {
+  color: @deletionIndicatorColor !important;
+  background-color: @primaryColor;
+  box-shadow: 0 0 3px 1px rgba(red(@primaryColor) , green(@primaryColor), blue(@primaryColor), 0.5);
+  border-color: @primaryColor;
+}
+li.selected > .deletion-indicator::before {
+  content: '';
+  display: block !important;
+  .size(22px, 22px);
+  background-image: url("@{imageMaskRoot}@{selectListIndicatorSVG}");
+  background-position: 50% 50%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  font-size: 24pt;
+  position: relative;
+  top: 1px;
+  left: -1px;
+}
+.isAndroid li.selected > .deletion-indicator::before {
+  margin: -6px 0 0 -2px !important;
+}
+.isDesktopChrome li.selected > .deletion-indicator::before {
+  margin: -7px 0 0 -2px !important;
+}
+.list.showIndicators {
+
+  & .deletion-indicator {
+    margin-left: 40px;
+  }
+
+  & li {
+    padding-left: 38px;
+    & > h3 {
+      width: 55%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    & .move-up {
+      .transform(translate3d(0,0,0));
+    }
+    & .move-down {
+      .transform(translate3d(0,0,0) rotate(180deg));
+    }
+  }
+}
+
+.list.showIndicators > li.selected {
+  & > .move-up {
+    margin-right: 60px;
+  }
+  & > .move-down {
+    margin-right: 100px;
+  }
+}
+
+.button.delete {
+  float: right;
+  text-align: center;
+  .box-sizing(border-box);
+  width: 60px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: -10px;
+  bottom: 0;
+  #flex > .display(flex);
+  #flex > .flex-direction(column);
+  #flex > .justify-content(center);
+  #flex > .align-items(center);
+  .transition(all .15s ease-out);
+  .transform(translate3d(60px,0,0));
+  visibility: hidden;
+  cursor: pointer;
+  font-weight: 200;
+  margin-right: 0 !important;
+  color: transparent;
+  background-color: lighten(@boxShadowColor, 40%);
+  background-image: url("@{imageMaskRoot}@{deleteIndicatorSVG}");
+  background-position: 50% 50%;
+  background-size: auto 20px;
+  background-repeat: no-repeat;
+  box-shadow: inset 2px 2px 2px lighten(@boxShadowColor, 20%);
+  border-radius: 0;
+  border-bottom: 1px solid lighten(@boxShadowColor, 20%);
+  border-right: 1px solid lighten(@boxShadowColor, 20%);
+  -webkit-animation-name: 'none' !important;
+  animation-name: 'none' !important;
+}
+li.selected > .button.delete {
+  display: block;
+}
+li.selected > .button.delete {
+  visibility: visible;
+  .transform(translate3d(-10px,0,0));
+}
+
+html[dir=rtl] {
+
+  .list.editable,
+  .list.deletable {
+    & li > .move-up {
+      float: left !important;
+      .transform(translate3d(-100px,0,0));
+    }
+    & li > .move-down {
+      float: left !important;
+      .transform(translate3d(-140px,0,0) rotate(180deg));
+    }
+  }
+  .list.editable.showIndicators,
+  .list.deletable.showIndicators {
+    .deletion-indicator {
+      margin-left: auto;
+      margin-right: 50px;
+    }
+
+    li {
+      padding-left: 0;
+      padding-right: 40px;
+      
+      > .button.delete {
+        float: left !important;
+        left: 0;
+        right: auto;
+        .transform(translate3d(-60px,0,0));
+        border-right: none;
+        border-left: 1px solid lighten(@boxShadowColor, 20%) !important;
+        box-shadow: inset -2px 2px 2px lighten(@boxShadowColor, 20%);
+      }
+
+      &.selected > .button.delete {
+        .transform(translate3d(-10px,0,0));
+      }
+      > .move-up {
+        .transform(translate3d(10px,0,0)) !important;
+      }
+      > .move-down {
+        .transform(translate3d(20px,0,0) rotate(180deg)) !important;
+      }
+
+      &.selected {
+        > .move-up {
+          .transform(translate3d(90px,0,0)) !important;
+        }
+        > .move-down {
+          .transform(translate3d(45px,0,0) rotate(180deg)) !important;
+        }
+      }
+    }
+  }
+  .deletion-indicator {
+    right: -40px;
+    left: auto;
+  }
+}

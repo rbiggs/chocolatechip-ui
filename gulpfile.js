@@ -118,7 +118,7 @@ gulp.task('js', function () {
     'src/chui/segmented.js', 
     'src/chui/togglePanel.js', 
     'src/chui/paging.js', 
-    'src/chui/deletableList.js', 
+    'src/chui/editableList.js', 
     'src/chui/selectList.js', 
     'src/chui/sheet.js', 
     'src/chui/slideout.js', 
@@ -130,7 +130,9 @@ gulp.task('js', function () {
     'src/chui/search.js', 
     'src/chui/carousel.js',
     'src/chui/range.js',
-    'src/chui/select.js'
+    'src/chui/select.js',
+    'src/chui/scrollPanel.js',
+    'src/chui/dataBinding.js'
   ])
 
 

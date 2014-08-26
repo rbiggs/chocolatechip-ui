@@ -1,0 +1,66 @@
+.horizontal-scroll-panel {
+  width: 100%;
+  height: 200px;
+  background-color: #ccc;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-y: hidden !important;
+  overflow-x: auto;
+
+   > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    -webkit-padding-start: 0;
+    font-size: 0;
+
+    li {
+      display: inline-block;
+      border: solid 1px #666;
+      box-shadow: 0 0 4px #666;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      margin-right: 20px;
+      font-size: 0;
+    }
+
+    &:first-of-type {
+      margin-left: 0 !important;
+    }
+
+    &:last-of-type {
+      margin-right: 0 !important;
+    }
+  }
+}
+body.isWindows .horizontal-scroll-panel {
+  background-color: #333;
+}
+
+[dir=rtl] .horizontal-scroll-panel li {
+  margin-right: 0 !important;
+  margin-left: 20px !important;
+
+  &:first-of-type {
+    margin-right: 0 !important;
+  }
+
+  &:last-of-type {
+    margin-left: 0 !important;
+  }
+}
+
+@media only screen and (max-device-width: 320px) {
+  .horizontal-scroll-panel {
+    height: 125px;
+    padding: 10px;
+  }
+  .horizontal-scroll-panel li {
+    height: 125px;
+    width: 125px;
+  }
+}

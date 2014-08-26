@@ -1,8 +1,8 @@
 {
   "framework": "ChocolateChip-UI",
   "url": "http://www.chocolatechip-ui.com",
-  "framework_current_version" : "3.6.3",
-  "comparison_data_last_update" : "3.6.2",
+  "framework_current_version" : "3.7.0",
+  "comparison_data_last_update" : "3.6.3",
 
   "ios":"true",
   "android":"true",

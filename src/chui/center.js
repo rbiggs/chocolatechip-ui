@@ -12,7 +12,7 @@
       if (position) {
         $(this.css('position', position));
       } else if ($this.css('position') === 'absolute') {
-        position = 'absolute'
+        position = 'absolute';
       } else {
         position = 'relative';
       }

@@ -80,7 +80,7 @@
           if (options.pagination) {
             pagination = document.createElement('ul');
             pagination.className = 'pagination';
-            for (var k = 0; k < panels.length; k++) {
+            for (var k = 0; k < this.options.panels.length; k++) {
               li = document.createElement('li');
               if (k === 0) {
                 li.className = 'selected';
@@ -88,7 +88,7 @@
               pagination.appendChild(li);
             }
             if (window.$chocolatechipjs) {
-              this.carouselContainer.insertAdjacentElement('afterEnd', pagination)
+              this.carouselContainer.insertAdjacentElement('afterEnd', pagination);
             } else {
               $(this.carouselContainer).after(pagination);
             }
@@ -281,9 +281,6 @@
           className = this.carouselPanels[panelMove].className;
           pageFlipIndex = pageFlipIndex - Math.floor(pageFlipIndex / this.options.panels) * this.options.panels;
           $(this.carouselPanels[panelMove]).data('upcomingPanelIndex', pageFlipIndex);
-
-          //console.log('pageFlipIndex: ', pageFlipIndex)
-
           // Index to be loaded in the newly moved panel:
           var newX = -this.panel * this.panelWidth;
           this.track.style[transitionDuration] = Math.floor(500 * Math.abs(this.x - newX) / this.panelWidth) + 'ms';

@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-iOS.css
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.3
+Version: 3.7.0
 */
 /*
   To create a custom theme, uncomment the second of each of the following, then adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -1545,6 +1545,36 @@ html[dir=rtl] body.splitlayout > article.detail {
   height: 10px;
   margin-top: -1px;
 }
+.list li > .move-up,
+.list li > .move-down {
+  width: 21px;
+  height: 21px;
+  display: inline-block;
+  position: relative;
+  float: right;
+  margin-top: -20px;
+  -webkit-transition: all 0.25s ease-out;
+  transition: all 0.25s ease-out;
+  -webkit-transform: translate3d(100px, 0, 0);
+  transform: translate3d(100px, 0, 0);
+}
+.list li > .move-up::before,
+.list li > .move-down::before {
+  display: block;
+  content: '';
+  width: 21px;
+  height: 21px;
+  position: absolute;
+  background-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%22367px%22%20height%3D%22367px%22%20viewBox%3D%220%200%20367%20367%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20id%3D%22Sortable%22%20transform%3D%22translate%2813.000000,%2013.000000%29%22%20stroke%3D%22%23007aff%22%20stroke-width%3D%2225%22%3E%3Ccircle%20id%3D%22Oval-1%22%20cx%3D%22170.5%22%20cy%3D%22170.5%22%20r%3D%22170.5%22%3E%3C/circle%3E%3Cpath%20d%3D%22M55.3736267,209.778395%20L172.745285,100.706186%20L286.306656,209.611568%22%20id%3D%22Path-2%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+.list li > .move-down {
+  margin-right: 10px;
+  -webkit-transform: translate3d(120px, 0, 0) rotate(180deg);
+  transform: translate3d(120px, 0, 0) rotate(180deg);
+}
 .list li > .button.delete {
   float: right;
   background-color: #ff0000;
@@ -1576,18 +1606,29 @@ html[dir=rtl] body.splitlayout > article.detail {
   font-family: 'HelveticaNeue-Light';
   font-weight: 200;
 }
+.list li:first-of-type > .move-up {
+  opacity: .35;
+}
+.list li:last-of-type > .move-down {
+  opacity: .35;
+}
+.list.editable > li,
 .list.deletable > li {
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+.list.editable > li.selected,
 .list.deletable > li.selected {
   margin-right: 80px;
   background-color: #ffffff;
 }
+.list.editable > li.selected h3,
 .list.deletable > li.selected h3,
+.list.editable > li.selected h4,
 .list.deletable > li.selected h4,
+.list.editable > li.selected p,
 .list.deletable > li.selected p {
   position: relative;
   -webkit-transform: translate3d(0, 0, 0);
@@ -1595,21 +1636,37 @@ html[dir=rtl] body.splitlayout > article.detail {
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
 }
+.list.editable > li.selected > .button.delete,
 .list.deletable > li.selected > .button.delete {
   -webkit-transform: translate3d(80px, 0, 0);
   transform: translate3d(80px, 0, 0);
 }
+.list.editable > li.selected > .deletion-indicator,
 .list.deletable > li.selected > .deletion-indicator {
   -webkit-transform: rotate(90deg);
 }
 .list.showIndicators .deletion-indicator {
   margin-left: 0;
 }
+.list.showIndicators .move-up {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+.list.showIndicators .move-down {
+  -webkit-transform: translate3d(0, 0, 0) rotate(180deg);
+  transform: translate3d(0, 0, 0) rotate(180deg);
+}
 .list.showIndicators > li[data-goto] {
   padding-left: 40px;
 }
 .list.showIndicators > li[data-goto] .deletion-indicator {
   left: 10px;
+}
+.list.showIndicators > li > h3 {
+  width: 55%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .list > li[data-goto] > .deletion-indicator {
   position: absolute;
@@ -1627,42 +1684,84 @@ html[dir=rtl] .list > li > .deletion-indicator {
   margin-left: -20px;
   right: -40px;
 }
+html[dir=rtl] .list > li > .move-up {
+  float: left !important;
+  -webkit-transform: translate3d(-100px, 0, 0);
+  transform: translate3d(-100px, 0, 0);
+}
+html[dir=rtl] .list > li > .move-down {
+  float: left !important;
+  -webkit-transform: translate3d(-140px, 0, 0) rotate(180deg);
+  transform: translate3d(-140px, 0, 0) rotate(180deg);
+}
 html[dir=rtl] .list > li > .button.delete {
   -webkit-transform: translate3d(-80px, 0, 0);
   transform: translate3d(-80px, 0, 0);
   left: 0;
   right: auto;
 }
-html[dir=rtl].deletable.showIndicators > li {
+html[dir=rtl].deletable.showIndicators > li,
+html[dir=rtl].editable.showIndicators > li {
   margin-right: 0px;
 }
-html[dir=rtl] .list.deletable > li.selected {
+html[dir=rtl] .list.deletable > li.selected,
+html[dir=rtl] .list.editable > li.selected {
   margin-right: 0 !important;
 }
-html[dir=rtl] .list.deletable > li.selected > .button.delete {
+html[dir=rtl] .list.deletable > li.selected > .button.delete,
+html[dir=rtl] .list.editable > li.selected > .button.delete {
   -webkit-transform: translate3d(0, 0, 0) !important;
   transform: translate3d(0, 0, 0) !important;
 }
-html[dir=rtl] .list.deletable > li > .button.delete {
+html[dir=rtl] .list.deletable > li > .button.delete,
+html[dir=rtl] .list.editable > li > .button.delete {
   -webkit-transform: translate3d(-80px, 0, 0) !important;
   transform: translate3d(-80px, 0, 0) !important;
 }
 html[dir=rtl] .list.showIndicators > li.selected,
-html[dir=rtl] .list.deletable.showIndicators > li.selected {
+html[dir=rtl] .list.deletable.showIndicators > li.selected,
+html[dir=rtl] .list.editable.showIndicators > li.selected {
   margin-right: 0;
 }
 html[dir=rtl] .list.showIndicators > li.selected > .button.delete,
-html[dir=rtl] .list.deletable.showIndicators > li.selected > .button.delete {
+html[dir=rtl] .list.deletable.showIndicators > li.selected > .button.delete,
+html[dir=rtl] .list.editable.showIndicators > li.selected > .button.delete {
   -webkit-transform: translate3d(0, 0, 0) !important;
   transform: translate3d(0, 0, 0) !important;
 }
+html[dir=rtl] .list.showIndicators > li.selected > .move-up,
+html[dir=rtl] .list.deletable.showIndicators > li.selected > .move-up,
+html[dir=rtl] .list.editable.showIndicators > li.selected > .move-up {
+  -webkit-transform: translate3d(90px, 0, 0);
+  transform: translate3d(90px, 0, 0);
+}
+html[dir=rtl] .list.showIndicators > li.selected > .move-down,
+html[dir=rtl] .list.deletable.showIndicators > li.selected > .move-down,
+html[dir=rtl] .list.editable.showIndicators > li.selected > .move-down {
+  -webkit-transform: translate3d(100px, 0, 0) rotate(180deg);
+  transform: translate3d(100px, 0, 0) rotate(180deg);
+}
 html[dir=rtl] .list.showIndicators > li > .deletion-indicator,
-html[dir=rtl] .list.deletable.showIndicators > li > .deletion-indicator {
+html[dir=rtl] .list.deletable.showIndicators > li > .deletion-indicator,
+html[dir=rtl] .list.editable.showIndicators > li > .deletion-indicator {
   right: 0px !important;
   margin-left: 10px;
 }
+html[dir=rtl] .list.showIndicators > li > .move-up,
+html[dir=rtl] .list.deletable.showIndicators > li > .move-up,
+html[dir=rtl] .list.editable.showIndicators > li > .move-up {
+  -webkit-transform: translate3d(10px, 0, 0);
+  transform: translate3d(10px, 0, 0);
+}
+html[dir=rtl] .list.showIndicators > li > .move-down,
+html[dir=rtl] .list.deletable.showIndicators > li > .move-down,
+html[dir=rtl] .list.editable.showIndicators > li > .move-down {
+  -webkit-transform: translate3d(20px, 0, 0) rotate(180deg);
+  transform: translate3d(20px, 0, 0) rotate(180deg);
+}
 html[dir=rtl] .list.showIndicators > li > .button.delete,
-html[dir=rtl] .list.deletable.showIndicators > li > .button.delete {
+html[dir=rtl] .list.deletable.showIndicators > li > .button.delete,
+html[dir=rtl] .list.editable.showIndicators > li > .button.delete {
   right: auto;
   left: 0 !important;
 }
@@ -2454,4 +2553,62 @@ html[dir=rtl] .pagination > li {
 }
 html[dir=rtl] .pagination > li:last-of-type {
   margin-left: 0;
+}
+.horizontal-scroll-panel {
+  width: 100%;
+  height: 200px;
+  background-color: #ccc;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-y: hidden !important;
+  overflow-x: auto;
+}
+.horizontal-scroll-panel > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  -webkit-padding-start: 0;
+  font-size: 0;
+}
+.horizontal-scroll-panel > ul li {
+  display: inline-block;
+  border: solid 1px #666;
+  box-shadow: 0 0 4px #666;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin-right: 20px;
+  font-size: 0;
+}
+.horizontal-scroll-panel > ul:first-of-type {
+  margin-left: 0 !important;
+}
+.horizontal-scroll-panel > ul:last-of-type {
+  margin-right: 0 !important;
+}
+body.isWindows .horizontal-scroll-panel {
+  background-color: #333;
+}
+[dir=rtl] .horizontal-scroll-panel li {
+  margin-right: 0 !important;
+  margin-left: 20px !important;
+}
+[dir=rtl] .horizontal-scroll-panel li:first-of-type {
+  margin-right: 0 !important;
+}
+[dir=rtl] .horizontal-scroll-panel li:last-of-type {
+  margin-left: 0 !important;
+}
+@media only screen and (max-device-width: 320px) {
+  .horizontal-scroll-panel {
+    height: 125px;
+    padding: 10px;
+  }
+  .horizontal-scroll-panel li {
+    height: 125px;
+    width: 125px;
+  }
 }

@@ -15,7 +15,7 @@
         id: $.Uuid(),
         callback: $.noop,
         title: '',
-      }
+      };
       $.extend(settings, options);
       if (options && options.content) {
         settings.content = options.content;
