@@ -1630,6 +1630,22 @@ if(window.jQuery) {
               $(this).parent('li').addClass('selected');
             }
           });
+        
+          // Handle swipe gestures:
+          $(list).on(dispelDeletable, 'li', function() {
+            // If no deletables, disable swipes:
+            if (!settings.deletable) return;
+            // Else reveal delete button:
+            $(this).removeClass('selected');
+          });
+          
+          $(list).on(enableDeletable, 'li', function() {
+            // If no deletables, disable swipes:
+            if (!settings.deletable) return;
+            // Else reveal delete button:
+            $(this).addClass('selected');
+          });
+
           // Move list item up:
           $(list).on('singletap', '.move-up', function(e) {
             var item = $(this).closest('li');
@@ -1643,6 +1659,7 @@ if(window.jQuery) {
               item.remove();
             }
           });
+
           // Move list item down:
           $(list).on('singletap', '.move-down', function(e) {
             var item = $(this).closest('li');
@@ -1655,20 +1672,6 @@ if(window.jQuery) {
               item.next().after(clone);
               item.remove();
             }
-          });
-        
-          // Handle swipe gestures:
-          $(list).on(dispelDeletable, 'li', function() {
-            // If no deletables, disable swipes:
-            if (!settings.deletable) return;
-            // Else reveal delete button:
-            $(this).removeClass('selected');
-          });
-          $(list).on(enableDeletable, 'li', function() {
-            // If no deletables, disable swipes:
-            if (!settings.deletable) return;
-            // Else reveal delete button:
-            $(this).addClass('selected');
           });
 
           // Handle deletion of list item:
