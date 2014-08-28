@@ -1506,7 +1506,6 @@ if(window.jQuery) {
           editLabel : labelName,
           doneLabel : labelName,
           deleteLabel : labelName,
-          //placement: "left" || "right",
           callback : callback (Tapping "Done" fires this),
           deletable: false (no deletables),
           movable: false (no movables)
@@ -1516,7 +1515,6 @@ if(window.jQuery) {
         editLabel : 'Edit',
         doneLabel : 'Done',
         deleteLabel : 'Delete',
-        //placement : 'right',
         callback : $.noop,
         deletable: true,
         movable: true
@@ -2758,7 +2756,7 @@ if(window.jQuery) {
   // Plugin to setup automatic data binding:
   //////////////////////////////////////////
   $.extend($, {
-    UIDataBinding : function () {
+    UIBindData : function () {
 
       var controllers = $('[data-controller]');
       var broadcasts = [];

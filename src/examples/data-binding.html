@@ -1,0 +1,91 @@
+  <script type="text/javascript">
+
+    $(function() {
+
+      $.UIBindData();
+
+      // Set initial state of select box:
+      $.publish('data-binding-select-value', $('select').val());
+      // Set initial state of range input:
+      $.publish('data-binding-range-output', $('input[type=range]').val());
+
+      // Define mediator to update text input
+      // when the data model is changed by
+      // its internal set function.
+      //=====================================
+      var InputTextMediator = $.subscribe('update-input-value', function(event, data) {
+        $('#myText').val(data);
+      });
+
+    });
+
+      
+    var InputTextModel = function() {
+      // Data is a simple string:
+      var private_data = null;
+      var $this = this;
+      $.subscribe('data-binding-input-value', function(event, data) {
+        private_data = data;
+      });
+      this.get = function() {
+        return private_data;
+      }
+      this.set = function(data) {
+        $.publish('data-binding-input-value', data);
+        $.publish('update-input-value', data);
+      }
+    };
+    
+    // Create an instance of InputTextModel:
+    var myText = new InputTextModel();
+
+  </script>
+  
+</head>
+<body>
+  <nav class="current">
+    <h1>Data Binding</h1>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      <ul class="list">
+        <li><lable>Enter data:</lable> 
+          <input id='myText' data-controller='input-value' type='text'></li>
+        <li>
+          <h3 data-model='input-value'></h3>
+        </li>
+      </ul>
+      <ul class="list">
+        <li>
+          <select name="changed" data-controller="select-value">
+            <option value="First Choice">First Choice</option>
+            <option value="Second Choice">Second Choice</option>
+            <option value="Third Choice">Third Choice</option>
+          </select>
+        </li>
+      </ul>
+      <p data-model="select-value">select</p>
+      
+      <ul class="list">
+        <li>
+          <input type="range" data-controller="range-output">
+        </li>
+      </ul>
+      <p data-model="range-output">range</p>
+
+      <ul class="list">
+        <li>
+          <input data-controller='radio-output' type="radio" value="One" name="radio">
+        </li>
+        <li>
+          <input data-controller='radio-output' type="radio" value="Two" name="radio">
+        </li>
+        <li>
+          <input data-controller='radio-output' type="radio" value="Three" name="radio">
+        </li>
+      </ul>
+      <p data-model="radio-output">radio</p>
+    </section>
+  </article>
+</body>
+</html>
