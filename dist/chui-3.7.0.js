@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.3
+Version: 3.7.0
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -28,7 +28,7 @@ if(window.jQuery) {
     UuidBit : 1,
 
     Uuid : function() {
-      this.UuidBit++
+      this.UuidBit++;
       return Date.now().toString(36) + this.UuidBit;
     },
 
@@ -197,7 +197,7 @@ if(window.jQuery) {
           if (ctx.classList.contains(className)) {
             ret.push(ctx);
           }
-        })
+        });
         return ret;
       }
     },
@@ -214,7 +214,7 @@ if(window.jQuery) {
         });
         return ret;
       } else if (window.$chocolatechipjs) {
-        var ret = []
+        var ret = [];
 
         return ret;
       }
@@ -233,7 +233,7 @@ if(window.jQuery) {
         });
         return ret;
       } else if (window.$chocolatechipjs) {
-        var ret = []
+        var ret = [];
           if (!ctx.hasAttribute(property)){
             ret.push(ctx);
           }
@@ -646,7 +646,7 @@ if(window.jQuery) {
 
     UIShowNavBar : function () {
       $('nav').show();
-      $.body.removeClass('hide-navbars')
+      $.body.removeClass('hide-navbars');
     }
   });
 
@@ -997,7 +997,7 @@ if(window.jQuery) {
       if (position) {
         $(this.css('position', position));
       } else if ($this.css('position') === 'absolute') {
-        position = 'absolute'
+        position = 'absolute';
       } else {
         position = 'relative';
       }
@@ -1040,7 +1040,7 @@ if(window.jQuery) {
         position: 'right'
       }
     */
-UIBusy : function ( options ) {
+    UIBusy : function ( options ) {
       var count = 1;
       options = options || {};
       var settings = {
@@ -1048,7 +1048,7 @@ UIBusy : function ( options ) {
         color: '#000',
         position: false,
         duration: '2s'
-      }
+      };
       $.extend(settings, options);
       var $this = this;
       var spinner;
@@ -1076,7 +1076,7 @@ UIBusy : function ( options ) {
         } else {
           androidActivityIndicator = '<svg id="'+ settings.id +'" class="busy' + position + '" x="0px" y="0px" viewBox="0 0 100 100"><circle stroke="url(#SVGID_1_)" cx="50" cy="50" r="28.5"/></svg>';
           $this.append(androidActivityIndicator);
-          $this.addClass('hasActivityIndicator')
+          $this.addClass('hasActivityIndicator');
           if (settings.position) {
             $('#' + settings.id).addClass(settings.position);
           }
@@ -1217,7 +1217,7 @@ UIBusy : function ( options ) {
         id: $.Uuid(),
         callback: $.noop,
         title: '',
-      }
+      };
       $.extend(settings, options);
       if (options && options.content) {
         settings.content = options.content;
@@ -1496,70 +1496,52 @@ UIBusy : function ( options ) {
 
   $.fn.extend({
     ////////////////////////////
-    // Initialize Deletable List
-    // Directly on the list
+    // Initialize Editable List,
+    // allows moving items and
+    // deleting them.
     ////////////////////////////
-    UIDeletable : function ( options ) {
+    UIEditList : function ( options ) {
       /*
         options = {
-          list: selector,
-          editLabel : labelName || Edit,
-          doneLabel : labelName || Done,
-          deleteLabel : labelName || Delete,
-          placement: left || right,
-          callback : callback
+          editLabel : labelName,
+          doneLabel : labelName,
+          deleteLabel : labelName,
+          callback : callback (Tapping "Done" fires this),
+          deletable: false (no deletables),
+          movable: false (no movables)
         }
       */
-      // Cache a reference to the list:
-      var $this = this;
-      // If no options, do nothing:
+      var settings = {
+        editLabel : 'Edit',
+        doneLabel : 'Done',
+        deleteLabel : 'Delete',
+        callback : $.noop,
+        deletable: true,
+        movable: true
+      };
       if (!options) {
         return;
       }
-      // If a list was provided, 
-      // do older initialization:
-      if (options && options.list) {
-        return $.UIDeletable(options);
-      // Otherwise pass in reference to list
-      // and initialize with it:
-      } else if (options && !options.list) {
-        $.extend(options, {
-          list: $this
-        });
-        return $.UIDeletable(options);
-      }
-    }
-  });
-  $.extend({
-    ////////////////////////////
-    // Initialize Deletable List
-    ////////////////////////////
-    UIDeletable : function ( options ) {
-      /*
-        options = {
-          list: selector,
-          editLabel : labelName || Edit,
-          doneLabel : labelName || Done,
-          deleteLabel : labelName || Delete,
-          placement: left || right,
-          callback : callback
-        }
-      */
-      if (!options || !options.list || !options instanceof Array) {
+      $.extend(settings, options);
+
+      if (!settings.deletable && !settings.movable) {
         return;
       }
-      var list = $(options.list);
-      var editLabel = options.editLabel || 'Edit';
-      var doneLabel = options.doneLabel || 'Done';
-      var deleteLabel = options.deleteLabel || 'Delete';
-      var placement = options.placement || 'right';
-      var callback = options.callback || $.noop;
+
+      var editLabel = settings.editLabel;
+      var doneLabel = settings.doneLabel;
+      var deleteLabel = settings.deleteLabel;
+      var placement = settings.placement;
+      var callback = settings.callback;
+
       var deleteButton;
       var editButton;
       var deletionIndicator;
       var button;
       var dispelDeletable = 'swiperight';
       var enableDeletable = 'swipeleft';
+      var moveUpIndicator;
+      var moveDownIndicator;
       var dir = $('html').attr('dir');
       dir = dir ? dir.toLowerCase() : '';
       if (dir === 'rtl') {
@@ -1569,51 +1551,76 @@ UIBusy : function ( options ) {
       // Windows uses an icon for the delete button:
       if ($.isWin) deleteLabel = '';
       var height = $('li').eq(0)[0].clientHeight;
-      deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
-      editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
-      deletionIndicator = '<span class="deletion-indicator"></span>';
-      if (placement === 'left') {
-        if (!list[0].classList.contains('deletable')) {
-          list.closest('article').prev().prepend(editButton);
-        }
-      } else {
-        if (!list[0].classList.contains('deletable')) {
-          list.closest('article').prev().append(editButton);
-          list.closest('article').prev().find('h1').addClass('buttonOnRight');
-          list.closest('article').prev().find('.edit').addClass('align-flush');
-          button = list.closest('article').prev().find('.edit');
-        } else {
-          button = list.closest('article').prev().find('.edit');
-        }
+
+      if (settings.deletable) {
+        deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
+        deletionIndicator = '<span class="deletion-indicator"></span>';
+        $(this).addClass('deletable');
       }
-      list.find('li').forEach(function(ctx) {
+      if (settings.movable) {
+        var moveUpIndicator = "<span class='move-up'></span>";
+        var moveDownIndicator = "<span class='move-down'></span>";
+        $(this).addClass('editable');
+      }
+      editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
+      if (!$(this).closest('article').prev().find('.edit')[0] && !$(this).closest('article').prev().find('.done')[0]) {
+        $(this).closest('article').prev().append(editButton);
+      }
+
+      button = $(this).closest('article').prev().find('.edit');
+      $(this).find('li').forEach(function(ctx) {
         if (!$(ctx).has('.deletion-indicator').length) {
-          $(ctx).prepend(deletionIndicator);
-          $(ctx).append(deleteButton);
+          if (settings.deletable) {
+            $(ctx).prepend(deletionIndicator);
+          }
+          if (settings.movable) {
+            $(ctx).append(moveUpIndicator);
+            $(ctx).append(moveDownIndicator);
+          }
+          if (settings.deletable) {
+            $(ctx).append(deleteButton);
+          }
         }
       });
-      list.addClass('deletable');
+
+      var listData = [];
+      this.find('li').each(function(_, ctx) {
+        listData.push($(ctx).attr('data-ui-value'));
+      });
+
+      // Callback to setup indicator interactions:
       var setupDeletability = function(callback, list, button) {
         $(function() {
           button.on('singletap', function() {
             var $this = this;
+
+            // When button is in "Edit" state:
             if (this.classList.contains('edit')) {
               setTimeout(function() {
                 $this.classList.remove('edit');
                 $this.classList.add('done');
-                $($this).text(doneLabel);
+                $($this).text(settings.doneLabel);
                 $(list).addClass('showIndicators');
               });
+
+            // When button is in "Done" state:
             } else if (this.classList.contains('done')) {
+              // Execute callback if edit was performed:
+              //========================================
+              if ($(list).data('list-edit')) {
+                callback.call(callback, $this);
+              }
               setTimeout(function() {
                 $this.classList.remove('done');
                 $this.classList.add('edit');
-                $($this).text(editLabel);
+                $($this).text(settings.editLabel);
                 $(list).removeClass('showIndicators');
                 $(list).find('li').removeClass('selected');
               });            
             }
           });
+
+          // Handle deletion indicators:
           $(list).off('singletap', '.deletion-indicator');
           $(list).on('singletap', '.deletion-indicator', function() {
             if ($(this).parent('li').hazClass('selected').length) {
@@ -1624,26 +1631,67 @@ UIBusy : function ( options ) {
             }
           });
         
+          // Handle swipe gestures:
           $(list).on(dispelDeletable, 'li', function() {
+            // If no deletables, disable swipes:
+            if (!settings.deletable) return;
+            // Else reveal delete button:
             $(this).removeClass('selected');
           });
+          
           $(list).on(enableDeletable, 'li', function() {
+            // If no deletables, disable swipes:
+            if (!settings.deletable) return;
+            // Else reveal delete button:
             $(this).addClass('selected');
           });
+
+          // Move list item up:
+          $(list).on('singletap', '.move-up', function(e) {
+            var item = $(this).closest('li');
+            if (item.is('li:first-child')) {
+              return;
+            } else {
+              // Mark list as edited:
+              $(list).data('list-edit', true);
+              var clone = $(this).closest('li').clone();
+              item.prev().before(clone);
+              item.remove();
+            }
+          });
+
+          // Move list item down:
+          $(list).on('singletap', '.move-down', function(e) {
+            var item = $(this).closest('li');
+            if (item.is('li:last-child')) {
+              return;
+            } else {
+              // Mark list as edited:
+              $(list).data('list-edit', true);
+              var clone = $(this).closest('li').clone();
+              item.next().after(clone);
+              item.remove();
+            }
+          });
+
+          // Handle deletion of list item:
           $(list).on('singletap', '.delete', function() {
             var $this = this;
+            // Mark list as edited:
+            $(list).data('list-edit', true);
             var direction = '-1000%';
             if ($('html').attr('dir') === 'rtl') direction = '1000%';
             $(this).siblings().css({'-webkit-transform': 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out'});
             setTimeout(function() {
-              callback.call(callback, $this);
               $($this).parent().remove();
             }, 500);
           });
         });    
       };
-      return setupDeletability(callback, list, button);
+      // Initialize the editable list:
+      return setupDeletability(settings.callback, $(this), button);
     }
+
   });
 
 
@@ -2049,44 +2097,100 @@ UIBusy : function ( options ) {
       }
       */
       if (!options) return;
+      var settings = {
+        id : $.Uuid(),
+        selected : 0
+      };
+      $.extend(settings, options);
       $('body').addClass('hasTabBar');
       if ($.isiOS6) $('body').addClass('isiOS6');
-      var id = options.id || $.Uuid();
-      var selected = options.selected || '';
-      var tabbar = '<div class="tabbar" id="' + id + '">';
+      var tabbar = '<div class="tabbar" id="' + settings.id + '">';
       var icon = ($.isiOS || $.isSafari) ? '<span class="icon"></span>' : '';
-      for (var i = 0; i < options.tabs; i++) {
-        tabbar += '<a class="button ' + options.icons[i];
-        if (selected === i+1) {
+      var articles = $('article');
+      for (var i = 0; i < settings.tabs; i++) {
+        tabbar += '<a class="button ' + settings.icons[i];
+        if (settings.selected === i+1) {
           tabbar += ' selected';
         }
-        tabbar += '">' + icon + '<label>' + options.labels[i] + '</label></a>';
+        tabbar += '">' + icon + '<label>' + settings.labels[i] + '</label></a>';
       }
       tabbar += '</div>';
       $('body').append(tabbar);
+
+      //////////////////////////////////////////////////////
+      // Add article id as history data attribute to button:
+      //////////////////////////////////////////////////////
+      $('#' + settings.id).find('.button').each(function(idx, ctx){
+        $(ctx).data('history', ['#' + articles.eq(idx)[0].id]);
+      });
       $('nav').removeClass('current').addClass('next');
       $('#global-nav').removeClass('next');
-      $('nav').eq(selected).removeClass('next').addClass('current');
+      $('nav').eq(settings.selected).removeClass('next').addClass('current');
       $('article').removeClass('current').addClass('next');
-      $('article').eq(selected-1).removeClass('next').addClass('current');
+      $('article').eq(settings.selected-1).removeClass('next').addClass('current');
+
+      // Setup events on tabs:
       $('.tabbar').on('singletap', '.button', function() {
         var $this = this;
         var index;
         var id;
         $.publish('chui/navigate/leave', $('article.current')[0].id);
 
+        //////////////////////////////////////////////////
+        // Set the data attribute for the current history:
+        //////////////////////////////////////////////////
+        $(this).siblings('.selected').data('history', $.UINavigationHistory);
+
         $this.classList.add('selected');
         $($this).siblings('a').removeClass('selected');
         index = $(this).index();
         $('article.previous').removeClass('previous').addClass('next');
         $('nav.previous').removeClass('previous').addClass('next');
-        $('article.current').removeClass('current').addClass('next');
-        $('nav.current').removeClass('current').addClass('next');
-        $('article').eq(index).removeClass('next').addClass('current');
-        $('nav').eq(index+1).removeClass('next').addClass('current');
+
+        /////////////////////////////////////////////////////////////////
+        // Update the history array with the current tabs stored history:
+        /////////////////////////////////////////////////////////////////
+        var history = $(this).data('history');
+
+        ///////////////////////////////////////////////
+        // If the history array has more than one item, 
+        // we know that it is a navigation link.
+        ///////////////////////////////////////////////
+        if (history.length > 1) {
+          $('article.current').removeClass('current').addClass('next');
+          $('nav.current').removeClass('current').addClass('next');
+
+          /////////////////////////////////////////////////
+          // Set saved state of navigation list to current:
+          /////////////////////////////////////////////////
+          $(history[history.length-1]).removeClass('next').addClass('current');
+          $(history[history.length-1]).prev().removeClass('next').addClass('current');
+
+          ////////////////////////////////////////////////////
+          // Set state for earlier screens of navigation list:
+          ////////////////////////////////////////////////////
+          var prevScreens = history.length-1;
+          for (var i = 0; i < prevScreens; i++) {
+            $(history[i]).removeClass('next').addClass('previous');
+            $(history[i]).prev().removeClass('next').addClass('previous');
+          }
+
+        ////////////////////////////////////////////////
+        // Otherwise, since the array has only one item, 
+        // we are dealing with a single tabbar panel.
+        ////////////////////////////////////////////////
+        } else {
+          $('article.current').removeClass('current').addClass('next');
+          $('nav.current').removeClass('current').addClass('next');
+          $('article').eq(index).removeClass('next').addClass('current');
+          $('nav').eq(index+1).removeClass('next').addClass('current');
+        }
 
         id = $('article').eq(index)[0].id;
         $.publish('chui/navigate/enter', id);
+
+        // Set the chosen tab article's scroll to top:
+        //============================================
         $('article').forEach(function(ctx) {
           if (window.jQuery) {
             $(ctx).scrollTop(0);
@@ -2095,7 +2199,7 @@ UIBusy : function ( options ) {
           }
         });
         $.UISetHashOnUrl('#'+id);
-        $.UINavigationHistory = ['#'+id];
+        $.UINavigationHistory = $(this).data('history');
       });
     }
   });
@@ -2231,7 +2335,7 @@ UIBusy : function ( options ) {
           if (options.pagination) {
             pagination = document.createElement('ul');
             pagination.className = 'pagination';
-            for (var k = 0; k < panels.length; k++) {
+            for (var k = 0; k < this.options.panels.length; k++) {
               li = document.createElement('li');
               if (k === 0) {
                 li.className = 'selected';
@@ -2239,7 +2343,7 @@ UIBusy : function ( options ) {
               pagination.appendChild(li);
             }
             if (window.$chocolatechipjs) {
-              this.carouselContainer.insertAdjacentElement('afterEnd', pagination)
+              this.carouselContainer.insertAdjacentElement('afterEnd', pagination);
             } else {
               $(this.carouselContainer).after(pagination);
             }
@@ -2432,9 +2536,6 @@ UIBusy : function ( options ) {
           className = this.carouselPanels[panelMove].className;
           pageFlipIndex = pageFlipIndex - Math.floor(pageFlipIndex / this.options.panels) * this.options.panels;
           $(this.carouselPanels[panelMove]).data('upcomingPanelIndex', pageFlipIndex);
-
-          //console.log('pageFlipIndex: ', pageFlipIndex)
-
           // Index to be loaded in the newly moved panel:
           var newX = -this.panel * this.panelWidth;
           this.track.style[transitionDuration] = Math.floor(500 * Math.abs(this.x - newX) / this.panelWidth) + 'ms';
@@ -2633,6 +2734,63 @@ UIBusy : function ( options ) {
   });
   $(function() {
     $.UISelectBox();
+  });
+
+
+  ///////////////////////////////////////
+  // Initialize horizontal scroll panels:
+  ///////////////////////////////////////
+  $.fn.extend({
+    UIHorizontalScrollPanel : function () {
+      return this.each(function() {
+        var scrollPanel = $(this).find('ul');
+        var panelsWidth = 0;
+        scrollPanel.find('li').each(function(_, ctx) {
+            panelsWidth += parseInt($(ctx).outerWidth(true));
+        });
+        var parentPadding = (parseInt($(this).css('padding-left')) + parseInt($(this).css('padding-right')));
+        scrollPanel.css('width', (panelsWidth + (parentPadding + parentPadding / 2)));
+      });
+    }
+  });
+
+
+  //////////////////////////////////////////
+  // Plugin to setup automatic data binding:
+  //////////////////////////////////////////
+  $.extend($, {
+    UIBindData : function () {
+
+      var controllers = $('[data-controller]');
+      var broadcasts = [];
+
+      // Define function to create broadcasts:
+      //======================================
+      var createBroadcaster = function(controller) {
+        var broadcast = 'data-binding-' + $(controller).attr('data-controller');
+        broadcasts.push(broadcast);
+      };
+
+      // Loop controllers, create broadcasts,
+      // subscribe models to broadcasts:
+      //=====================================
+      controllers.each(function(idx, ctx) {
+        var model = $(ctx).attr('data-controller');
+        createBroadcaster(ctx);
+        // Subscribe and update elements with data:
+        $.subscribe(broadcasts[idx], function(event, value) {
+          var element = '[data-model=' + model + ']';
+          $(element).text(value);
+        });
+      });
+
+      // Bind events to controllers to publish broadcasts:
+      //==================================================
+      $('body').on('input change', '[data-controller]', function(event) {
+        var broadcast = 'data-binding-' + $(this).attr('data-controller');
+        $.publish(broadcast, $(this).val());
+      });
+    }
   });
 
 })(window.CHUIJSLIB);

@@ -11,7 +11,7 @@
 
     UIShowNavBar : function () {
       $('nav').show();
-      $.body.removeClass('hide-navbars')
+      $.body.removeClass('hide-navbars');
     }
   });
 })(window.$);

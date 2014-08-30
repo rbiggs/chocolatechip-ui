@@ -11,7 +11,7 @@
         position: 'right'
       }
     */
-UIBusy : function ( options ) {
+    UIBusy : function ( options ) {
       var count = 1;
       options = options || {};
       var settings = {
@@ -19,7 +19,7 @@ UIBusy : function ( options ) {
         color: '#000',
         position: false,
         duration: '2s'
-      }
+      };
       $.extend(settings, options);
       var $this = this;
       var spinner;
@@ -47,7 +47,7 @@ UIBusy : function ( options ) {
         } else {
           androidActivityIndicator = '<svg id="'+ settings.id +'" class="busy' + position + '" x="0px" y="0px" viewBox="0 0 100 100"><circle stroke="url(#SVGID_1_)" cx="50" cy="50" r="28.5"/></svg>';
           $this.append(androidActivityIndicator);
-          $this.addClass('hasActivityIndicator')
+          $this.addClass('hasActivityIndicator');
           if (settings.position) {
             $('#' + settings.id).addClass(settings.position);
           }

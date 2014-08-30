@@ -7,7 +7,7 @@
     UuidBit : 1,
 
     Uuid : function() {
-      this.UuidBit++
+      this.UuidBit++;
       return Date.now().toString(36) + this.UuidBit;
     },
 
@@ -176,7 +176,7 @@
           if (ctx.classList.contains(className)) {
             ret.push(ctx);
           }
-        })
+        });
         return ret;
       }
     },
@@ -193,7 +193,7 @@
         });
         return ret;
       } else if (window.$chocolatechipjs) {
-        var ret = []
+        var ret = [];
 
         return ret;
       }
@@ -212,7 +212,7 @@
         });
         return ret;
       } else if (window.$chocolatechipjs) {
-        var ret = []
+        var ret = [];
           if (!ctx.hasAttribute(property)){
             ret.push(ctx);
           }
