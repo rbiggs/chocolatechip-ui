@@ -473,7 +473,7 @@ if(window.jQuery) {
         }
       }
       if ($.isAndroid) {
-        $.gestureLength = 10;
+        $.gestureLength = 50;
         if (!!touch.el) {
           // Swipe detection:
           if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > $.gestureLength) ||
@@ -2130,7 +2130,11 @@ if(window.jQuery) {
       $('article').eq(settings.selected-1).removeClass('next').addClass('current');
 
       // Setup events on tabs:
-      $('.tabbar').on('singletap', '.button', function() {
+      var tabButtonTap = 'singletap';
+      if ($.isAndroid) {
+        tabButtonTap = $.eventStart;
+      }
+      $('.tabbar').on(tabButtonTap, '.button', function() {
         var $this = this;
         var index;
         var id;
