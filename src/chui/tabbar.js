@@ -48,7 +48,11 @@
       $('article').eq(settings.selected-1).removeClass('next').addClass('current');
 
       // Setup events on tabs:
-      $('.tabbar').on('singletap', '.button', function() {
+      var tabButtonTap = 'singletap';
+      if ($.isAndroid) {
+        tabButtonTap = $.eventStart;
+      }
+      $('.tabbar').on(tabButtonTap, '.button', function() {
         var $this = this;
         var index;
         var id;
