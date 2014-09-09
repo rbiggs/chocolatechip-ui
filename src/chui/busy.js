@@ -27,7 +27,7 @@
       var iOSBusy = function() {
         var webkitAnim = {'-webkit-animation-duration': settings.duration};
         spinner = $('<span class="busy"></span>');
-        $(spinner).css({'background-color': settings.color, 'height': settings.size, 'width': settings.size});
+        $(spinner).css({'background-color': settings.color, 'height': settings.size + 'px', 'width': settings.size + 'px'});
         $(spinner).css(webkitAnim);
         $(spinner).attr('role','progressbar');
         if (settings.position) $(spinner).addClass(settings.position);

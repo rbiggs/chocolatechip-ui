@@ -43,7 +43,7 @@
           var text = $(item).siblings('h3').text();
           $('#response').html('You deleted: <strong>' + text + '</strong>');
           var tempArray = [];
-          $('#editList').find('li').each(function(_, ctx) {
+          $('#editList').find('li').forEach(function(ctx) {
             tempArray.push($(ctx).attr('data-list-item-value'));
           });
           tempArray = "'" + JSON.stringify(tempArray) + "'";

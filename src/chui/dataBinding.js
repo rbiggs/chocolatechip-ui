@@ -19,7 +19,7 @@
       // Loop controllers, create broadcasts,
       // subscribe models to broadcasts:
       //=====================================
-      controllers.each(function(idx, ctx) {
+      controllers.forEach(function(ctx, idx) {
         var model = $(ctx).attr('data-controller');
         createBroadcaster(ctx);
         // Subscribe and update elements with data:

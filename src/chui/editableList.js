@@ -90,7 +90,7 @@
       });
 
       var listData = [];
-      this.find('li').each(function(_, ctx) {
+      this.find('li').forEach(function(ctx) {
         listData.push($(ctx).attr('data-ui-value'));
       });
 
@@ -155,7 +155,7 @@
           // Move list item up:
           $(list).on('singletap', '.move-up', function(e) {
             var item = $(this).closest('li');
-            if (item.is('li:first-child')) {
+            if ((window.$chocolatechipjs && item.is('li:first-child')[0]) || window.jQuery && item.is('li:first-child')) {
               return;
             } else {
               // Mark list as edited:
@@ -169,7 +169,7 @@
           // Move list item down:
           $(list).on('singletap', '.move-down', function(e) {
             var item = $(this).closest('li');
-            if (item.is('li:last-child')) {
+            if ((window.$chocolatechipjs && item.is('li:last-child')[0]) || window.jQuery && item.is('li:last-child')) {
               return;
             } else {
               // Mark list as edited:
