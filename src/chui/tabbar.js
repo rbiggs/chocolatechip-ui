@@ -38,7 +38,7 @@
       //////////////////////////////////////////////////////
       // Add article id as history data attribute to button:
       //////////////////////////////////////////////////////
-      $('#' + settings.id).find('.button').each(function(idx, ctx){
+      $('#' + settings.id).find('.button').forEach(function(ctx, idx){
         $(ctx).data('history', ['#' + articles.eq(idx)[0].id]);
       });
       $('nav').removeClass('current').addClass('next');
@@ -57,7 +57,6 @@
         //////////////////////////////////////////////////
         // Set the data attribute for the current history:
         //////////////////////////////////////////////////
-        $(this).siblings('.selected').data('history', $.UINavigationHistory);
 
         $this.classList.add('selected');
         $($this).siblings('a').removeClass('selected');

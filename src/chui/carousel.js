@@ -17,83 +17,83 @@
             }
           }
           return false;
-        })(),
-        cssVendor = vendor ? '-' + vendor.toLowerCase() + '-' : '',
-        transform = prefixStyle('transform'),
-        transitionDuration = prefixStyle('transitionDuration'),
-        hasTouch = 'ontouchstart' in window;
-        var startEvent = $.eventStart;
-        var moveEvent = $.eventMove;
-        var endEvent = $.eventEnd;
-        var cancelEvent = $.eventCancel;
-        var transitionEndEvent = (function () {
-          if ( vendor === false ) return false;
-          var transitionEnd = {
-            '': 'transitionend',
-            'webkit': 'webkitTransitionEnd'
-            };
-          return transitionEnd[vendor];
-        })(),
-        
-        UICarousel = function ( options ) {
-          if (!options) return;
-          var ul, li, className;
-          this.carouselContainer = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
-          this.options = {
-            panels: options.panels || 3,
-            snapThreshold: null,
-            loop: options.loop || true
+        })();
+      var cssVendor = vendor ? '-' + vendor.toLowerCase() + '-' : '';
+      var transform = prefixStyle('transform');
+      var transitionDuration = prefixStyle('transitionDuration');
+      var hasTouch = 'ontouchstart' in window;
+      var startEvent = $.eventStart;
+      var moveEvent = $.eventMove;
+      var endEvent = $.eventEnd;
+      var cancelEvent = $.eventCancel;
+      var transitionEndEvent = (function () {
+        if ( vendor === false ) return false;
+        var transitionEnd = {
+          '': 'transitionend',
+          'webkit': 'webkitTransitionEnd'
           };
-          // Adjustment for RTL carousels:
-          if ($.isRTL) {
-            options.loop = true;
-          }
-          // Include user's options:
-          for (var i in options) this.options[i] = options[i];
-          this.carouselContainer.style.overflow = 'hidden';
-          this.carouselContainer.style.position = 'relative';
-          this.carouselPanels = [];
-          ul = document.createElement('ul');
-          ul.className = 'carousel-track';
-          ul.style.cssText = 'position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
-          this.carouselContainer.appendChild(ul);
-          this.track = ul;
-          this.refreshSize();
-          var whichPanelIndex;
-          for (var j = -1; j < 2; j++) {
-            li = document.createElement('li');
-            li.id = 'carousel-panel-' + (j + 1);
-            li.style.cssText = cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;width:100%;left:' + j * 100 + '%';
-            whichPanelIndex = j === -1 ? this.options.panels - 1 : j;
-            $(li).data('upcomingPanelIndex', whichPanelIndex);
-            if (!this.options.loop && j === -1) li.style.visibility = 'hidden';
-            this.track.appendChild(li);
-            this.carouselPanels.push(li);
-          }
-          className = this.carouselPanels[1].className;
-          this.carouselPanels[1].className = !className ? 'carousel-panel-active' : className + ' carousel-panel-active';
-          this.carouselContainer.addEventListener(startEvent, this, false);
-          this.carouselContainer.addEventListener(moveEvent, this, false);
-          this.carouselContainer.addEventListener(endEvent, this, false);
-          this.track.addEventListener(transitionEndEvent, this, false);
-          var pagination;
-          if (options.pagination) {
-            pagination = document.createElement('ul');
-            pagination.className = 'pagination';
-            for (var k = 0; k < this.options.panels.length; k++) {
-              li = document.createElement('li');
-              if (k === 0) {
-                li.className = 'selected';
-              }
-              pagination.appendChild(li);
-            }
-            if (window.$chocolatechipjs) {
-              this.carouselContainer.insertAdjacentElement('afterEnd', pagination);
-            } else {
-              $(this.carouselContainer).after(pagination);
-            }
-          }
+        return transitionEnd[vendor];
+      })();
+        
+      var UICarousel = function ( options ) {
+        if (!options) return;
+        var ul, li, className;
+        this.carouselContainer = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
+        this.options = {
+          panels: options.panels || 3,
+          snapThreshold: null,
+          loop: options.loop || true
         };
+        // Adjustment for RTL carousels:
+        if ($.isRTL) {
+          options.loop = true;
+        }
+        // Include user's options:
+        for (var i in options) this.options[i] = options[i];
+        this.carouselContainer.style.overflow = 'hidden';
+        this.carouselContainer.style.position = 'relative';
+        this.carouselPanels = [];
+        ul = document.createElement('ul');
+        ul.className = 'carousel-track';
+        ul.style.cssText = 'position:relative;top:0;height:100%;width:100%;' + cssVendor + 'transition-duration:0;' + cssVendor + 'transform:translateZ(0);' + cssVendor + 'transition-timing-function:ease-out';
+        this.carouselContainer.appendChild(ul);
+        this.track = ul;
+        this.refreshSize();
+        var whichPanelIndex;
+        for (var j = -1; j < 2; j++) {
+          li = document.createElement('li');
+          li.id = 'carousel-panel-' + (j + 1);
+          li.style.cssText = cssVendor + 'transform:translateZ(0);position:absolute;top:0;height:100%;width:100%;left:' + j * 100 + '%';
+          whichPanelIndex = j === -1 ? this.options.panels - 1 : j;
+          $(li).data('upcomingPanelIndex', whichPanelIndex);
+          if (!this.options.loop && j === -1) li.style.visibility = 'hidden';
+          this.track.appendChild(li);
+          this.carouselPanels.push(li);
+        }
+        className = this.carouselPanels[1].className;
+        this.carouselPanels[1].className = !className ? 'carousel-panel-active' : className + ' carousel-panel-active';
+        this.carouselContainer.addEventListener(startEvent, this, false);
+        this.carouselContainer.addEventListener(moveEvent, this, false);
+        this.carouselContainer.addEventListener(endEvent, this, false);
+        this.track.addEventListener(transitionEndEvent, this, false);
+        var pagination;
+        if (options.pagination) {
+          pagination = document.createElement('ul');
+          pagination.className = 'pagination';
+          for (var k = 0; k < this.options.panels; k++) {
+            li = document.createElement('li');
+            if (k === 0) {
+              li.className = 'selected';
+            }
+            pagination.appendChild(li);
+          }
+          if (window.$chocolatechipjs) {
+            this.carouselContainer.insertAdjacentElement('afterEnd', pagination);
+          } else {
+            $(this.carouselContainer).after(pagination);
+          }
+        }
+      };
       UICarousel.prototype = {
         currentPanel: 1,
         x: 0,
@@ -346,7 +346,7 @@
           carousel.carouselPanels[i].innerHTML = options.panels[Number(panel)];
         }
         var index = 0;
-        var pagination = $(options.target).next('.pagination');
+        var pagination = $(options.target).next('ul.pagination');
         carousel.onSlide(function () {
           for (var i = 0; i < 3; i++) {
             var upcoming = $(carousel.carouselPanels[i]).data('upcomingPanelIndex');
