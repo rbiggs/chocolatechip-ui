@@ -121,7 +121,7 @@
         }
       }
       if ($.isAndroid) {
-        $.gestureLength = 10;
+        $.gestureLength = 50;
         if (!!touch.el) {
           // Swipe detection:
           if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > $.gestureLength) ||
