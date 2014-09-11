@@ -50,8 +50,8 @@
           callback: function() {
             var popupMessageTarget = document.querySelector('#popupMessageTarget');
             popupMessageTarget.textContent = 'Thanks for staying with us a bit longer.';
-            popupMessageTarget.className = "";
-            popupMessageTarget.className = "animatePopupMessage";
+            popupMessageTarget.classList.remove("animatePopupMessage");
+            popupMessageTarget.classList.add("animatePopupMessage");
           }
         });
       });
