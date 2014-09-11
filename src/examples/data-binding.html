@@ -51,6 +51,18 @@
     
     // Create an instance of InputTextModel:
     var myText = new InputTextModel();
+    // Using `myText.set()` you can update the value
+    // of this model. That will fire two publications:
+    // 'data-binding-input-value', which will set the
+    // value of the model's private data, and
+    // 'update-input-value', which the input mediator
+    // will intercept and use to update the value of
+    // the input. Because the input is already bound 
+    // through its data-controller to an h3's data-model, 
+    // that element's value will update automatically.
+    // This effectively gives us two-way data-binding
+    // between the data model object, the input and the 
+    // elment bound to it.
 
   </script>
   
