@@ -30,8 +30,21 @@
       this.get = function() {
         return private_data;
       }
+      // Use this method to set the value
+      // of this object from anywhere
+      // at any time.
+      //==================================
       this.set = function(data) {
+        // Publish 'update-input-value' to notify
+        // that model was updated. This publication
+        // can be used by outside code to update
+        // the private value of this model.
+        //=========================================
         $.publish('data-binding-input-value', data);
+        // Publish '' to inform input that
+        // model was updated and what its
+        // new value is.
+        //================================
         $.publish('update-input-value', data);
       }
     };
