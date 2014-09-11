@@ -360,9 +360,9 @@
         $('.sheet').find('section').append('<h2>Available Options</h2>');
         $('.sheet').find('section').append("<ul class='list'></li>");
         var list = $('.sheet .list');
-        list.append('<li><a class="button" href="javascript:void(null)">Save</a></li>');
-        list.append('<li><a class="button" href="javascript:void(null)">Delete</a></li>');
-        list.append('<li><a class="button" href="javascript:void(null)">Cancel</a></li>');
+        list.append('<li><a class="button action" href="javascript:void(null)">Save</a></li>');
+        list.append('<li><a class="button action" href="javascript:void(null)">Delete</a></li>');
+        list.append('<li><a class="button action" href="javascript:void(null)">Cancel</a></li>');
         list.on('singletap', '.button', function() {
           $.UIHideSheet();
         });
@@ -579,7 +579,7 @@ It droppeth as the gentle rain from heaven upon the place beneath. It is twice b
     <section>
       <div class='horizontal centered popover-buttons'>
         <a class='button show-popover' id="showPopover1" href="javascript:void(null)">Fruits</a>
-        <a class='button show-popover' id="showPopover2" href="javascript:void(null)">Deserts</a>
+        <a class='button show-popover' id="showPopover2" href="javascript:void(null)">Desserts</a>
       </div>
       <ul class='list'>
         <li>
