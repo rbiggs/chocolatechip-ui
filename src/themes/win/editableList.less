@@ -82,7 +82,8 @@ li.selected > .deletion-indicator {
   }  
 }
 
-.list.showIndicators {
+.list.editable.showIndicators,
+.list.deletable.showIndicators {
 
     .deletion-indicator {
         margin-left: 55px;
@@ -91,27 +92,28 @@ li.selected > .deletion-indicator {
     li {
         padding-left: 32px;
 
-        & .move-up {
-            .transform(translate3d(0,0,0));
+        .move-up {
+          .transform(translate3d(0,0,0));
         }
 
-        & .move-down {
-            .transform(translate3d(-36px, 0, 0));
+        .move-down {
+          margin-top: -28px;
+          .transform(translate3d(-36px, 0, 0) rotate(180deg));
         }
 
         & > li > h3 {
-            width: 55%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+          width: 55%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
-        &.selected > .move-up {
+         &.selected > .move-up {
           .transform(translate3d(-45px, 0, 0));
         }
 
         &.selected > .move-down {
-          .transform(translate3d(-80px, 0, 0));
+          .transform(translate3d(-80px, 0, 0) rotate(180deg));
         }
     }    
     & > li > h3 {

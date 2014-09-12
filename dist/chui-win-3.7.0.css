@@ -1344,35 +1344,44 @@ li.selected > .deletion-indicator::before {
   display: block;
   margin: -2px 0 0 -4px;
 }
-.list.showIndicators .deletion-indicator {
+.list.editable.showIndicators .deletion-indicator,
+.list.deletable.showIndicators .deletion-indicator {
   margin-left: 55px;
 }
-.list.showIndicators li {
+.list.editable.showIndicators li,
+.list.deletable.showIndicators li {
   padding-left: 32px;
 }
-.list.showIndicators li .move-up {
+.list.editable.showIndicators li .move-up,
+.list.deletable.showIndicators li .move-up {
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
-.list.showIndicators li .move-down {
-  -ms-transform: translate3d(-36px, 0, 0);
-  transform: translate3d(-36px, 0, 0);
+.list.editable.showIndicators li .move-down,
+.list.deletable.showIndicators li .move-down {
+  margin-top: -28px;
+  -ms-transform: translate3d(-36px, 0, 0) rotate(180deg);
+  transform: translate3d(-36px, 0, 0) rotate(180deg);
 }
-.list.showIndicators li > li > h3 {
+.list.editable.showIndicators li > li > h3,
+.list.deletable.showIndicators li > li > h3 {
   width: 55%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.list.showIndicators li.selected > .move-up {
+.list.editable.showIndicators li.selected > .move-up,
+.list.deletable.showIndicators li.selected > .move-up {
   -ms-transform: translate3d(-45px, 0, 0);
   transform: translate3d(-45px, 0, 0);
 }
-.list.showIndicators li.selected > .move-down {
-  -ms-transform: translate3d(-80px, 0, 0);
-  transform: translate3d(-80px, 0, 0);
+.list.editable.showIndicators li.selected > .move-down,
+.list.deletable.showIndicators li.selected > .move-down {
+  -ms-transform: translate3d(-80px, 0, 0) rotate(180deg);
+  transform: translate3d(-80px, 0, 0) rotate(180deg);
 }
-.list.showIndicators > li > h3 {
+.list.editable.showIndicators > li > h3,
+.list.deletable.showIndicators > li > h3 {
   width: 55%;
   white-space: nowrap;
   overflow: hidden;
