@@ -37,7 +37,7 @@
         $('#detailTitle').text(this.textContent);
         var detail = $('.detail section');
         detail.empty();
-        detail.UIBusy({'color':'#000', 'size': '100px'});
+        detail.UIBusy({'color':'#000', 'size': '100'});
         var url = '../data/splitlayout/' + this.getAttribute('data-url') + '.html';
         // Delay 1/2 second to show busy indicator while loading.
         // Please do not do this for real world app!
