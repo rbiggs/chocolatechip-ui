@@ -2005,8 +2005,8 @@ if(window.jQuery) {
             checkbox.removeAttribute('checked');
           } else {
             ctx.classList.add('on');
-            checkbox.setAttribute('checked', 'checked');
             ctx.setAttribute('aria-checked', true);
+            $(checkbox).trigger('singletap');
           }
         });
         $(ctx).on('swipeleft', function() {
@@ -2021,8 +2021,8 @@ if(window.jQuery) {
           var checkbox = ctx.querySelector('input');
           if (!ctx.classList.contains('on')) {
             ctx.classList.add('on');
-            checkbox.setAttribute('checked', 'checked');
             ctx.setAttribute('aria-checked', true);
+            $(checkbox).trigger('singletap');
           }
         });
         $(ctx).data('ui-setup', true);
