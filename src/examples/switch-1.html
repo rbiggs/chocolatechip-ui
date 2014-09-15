@@ -1,14 +1,18 @@
   <script>
     $(function() {
-      // Bind result paragraph to switches:
-      $.UIBindData();
-      // Publish value of selected switch at load time:
-      $.publish('data-binding-switch-value', $('.switch.on').find('input').val());      
-
-      // Set response to empty when switch fipped to off:
-      $('.switch').on('singletap', function() {
-        if (!$(this).hasClass('on')) {
-          $('#response').text('');
+      // Set response to last checked switch:
+      $('.switch').each(function(ctx, idx) {
+        if (window && window.jQuery) ctx = idx;
+        if (ctx.classList.contains('on')) {
+          $('#response').html($(ctx).find('input').val());
+        }
+      });
+      
+      $('.switch').on('singletap swipeleft swiperight', function() {
+        if (this.classList.contains('on')) {
+          $('#response').html($(this).find('input').val());
+        } else {
+          $('#response').empty();
         }
       });
     });
