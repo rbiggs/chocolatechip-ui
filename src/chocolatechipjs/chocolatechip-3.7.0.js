@@ -10,7 +10,7 @@
 ChocolateChip.js
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.6.3
+Version: 3.7.0
 */
 (function() {
   'use strict';
@@ -130,7 +130,7 @@ Version: 3.6.3
 
   $.extend({
  
-    version : "3.6.3",
+    version : "3.7.0",
     
     libraryName : 'ChocolateChip',
     
@@ -672,7 +672,8 @@ Version: 3.6.3
     
     after : function ( args ) {
       if (!this.length) return [];
-      var __after = function ( node, content ) {
+      var length = this.length;
+      var __after = function ( node, content, length ) {
         var parent = node.parentNode;
         if (typeof content === 'string') {
           content = $.make(content);
@@ -680,21 +681,17 @@ Version: 3.6.3
         if (content && content.constructor === Array) {
           var i = 0, len = content.length;
           while (i < len) {
-            if (node === parent.lastChild) {
-              parent.appendChild(content[i]);
-            } else {
-              parent.insertBefore(content[i], node.nextSibling);
-            }
+            node.insertAdjacentElement('afterEnd', content[i]);
             i++;
           }
         } else if (content && content.nodeType === 1) {
-          parent.appendChild(content);
+          node.insertAdjacentElement('afterEnd',content);
         }
         return this;
       };    
     
       this.each(function(node) {
-        __after(node, args);
+        __after(node, args, length);
       });
       return this;
     },
@@ -1115,25 +1112,42 @@ Version: 3.6.3
       });
     },
     
-    prev : function ( ) {
+    prev : function ( selector ) {
       if (!this.length) return [];
       var ret = [];
-      this.each(function(node) {
-        if (node.previousElementSibling) {
-          ret.push(node.previousElementSibling);
-        }
-      });
+      if (selector && (typeof selector === 'string')) {
+        this.each(function(node) {
+          if (node.previousElementSibling && node.previousElementSibling.nodeName === selector) {
+            ret.push(node.previousElementSibling);
+          }
+        });
+      } else {
+        this.each(function(node) {
+          if (node.previousElementSibling) {
+            ret.push(node.previousElementSibling);
+          }
+        });
+        
+      }
       return ret;
     },
     
-    next : function ( ) {
+    next : function ( selector ) {
       if (!this.length) return [];
       var ret = [];
-      this.each(function(node) {
-        if (node.nextElementSibling) {
-          ret.push(node.nextElementSibling);
-        }
-      });
+      if (selector && (typeof selector === 'string')) {
+        this.each(function(node) {
+          if (node.nextElementSibling && node.nextElementSibling.nodeName === selector) {
+            ret.push(node.nextElementSibling);
+          }
+        });
+      } else {
+        this.each(function(node) {
+          if (node.nextElementSibling) {
+            ret.push(node.nextElementSibling);
+          }
+        });
+      }
       return ret;
     },
      
@@ -1747,7 +1761,7 @@ Version: 3.6.3
         async : 'synch' || 'asynch',
         user : username (string),
         password : password (string),
-        dataType : ('html', 'json', 'text', 'script', 'xml'),
+        dataType : ('html', 'json', 'text', 'script', 'xml', 'form'),
         headers : {},
         success : callbackForSuccess,
         error : callbackForError,
@@ -1755,77 +1769,86 @@ Version: 3.6.3
       }
     */
     ajax : function ( options ) {
-        // Default settings:
-        var settings = {
-          type: 'GET',
-          beforeSend: $.noop,
-          success: $.noop,
-          error: $.noop,
-          context: null,
-          async: true,
-          timeout: 0
-        };
-        $.extend(settings, options);
-        var dataTypes = {
-          script: 'text/javascript, application/javascript',
-          json:   'application/json',
-          xml:    'application/xml, text/xml',
-          html:   'text/html',
-          text:   'text/plain'
-        };
-        var xhr = new XMLHttpRequest();
-        var deferred = new $.Deferred();
-        var type = settings.type || 'get';
-        var async  = settings.async || false;      
-        var params = settings.data || null;
-        var context = options.context || deferred;
-        xhr.queryString = params;
-        xhr.timeout = settings.timeout ? settings.timeout : 0;
-        xhr.open(type, settings.url, async);
-        if (!!settings.headers) {  
-          for (var prop in settings.headers) { 
-            if(settings.headers.hasOwnProperty(prop)) { 
-              xhr.setRequestHeader(prop, settings.headers[prop]);
-            }
+      // Default settings:
+      var settings = {
+        type: 'GET',
+        beforeSend: $.noop,
+        success: $.noop,
+        error: $.noop,
+        context: null,
+        async: true,
+        timeout: 0
+      };
+      $.extend(settings, options);
+      var dataTypes = {
+        script: 'text/javascript, application/javascript',
+        json:   'application/json',
+        xml:    'application/xml, text/xml',
+        html:   'text/html',
+        text:   'text/plain',
+        form:   'application/x-www-form-urlencoded'
+      };
+      var xhr = new XMLHttpRequest();
+      var deferred = new $.Deferred();
+      var type = settings.type || 'GET';
+      var url = settings.url;
+      var async = settings.async || false;
+      var context = settings.context || deferred;
+      var params;
+      if (typeof settings.data === 'object') {
+        params = [];
+        for (var prop in settings.data) {
+          if (settings.data.hasOwnProperty(prop)) {
+            params.push(encodeURIComponent(prop)+'='+encodeURIComponent(settings.data[prop]));
           }
         }
-        if (settings.dataType) {
-          xhr.setRequestHeader('Content-Type', dataTypes[settings.dataType]);
+        params = params.join('&');
+      } else {
+        params = settings.data || null;
+      }
+      if (type !== 'POST') {
+        if (url.indexOf('?') === -1) {
+          url += '?'+params;
+        } else {
+          url += '&'+params;
         }
-        xhr.handleResp = settings.success; 
-       
+      }
+      xhr.queryString = params;
+      xhr.timeout = settings.timeout ? settings.timeout : 0;
+      xhr.open(type, url, async);
+      if (!!settings.headers) {  
+        for (var property in settings.headers) { 
+          if (settings.headers.hasOwnProperty(property)) {
+            xhr.setRequestHeader(property, settings.headers[property]);
+          }
+        }
+      }
+      if (settings.dataType) {
+        xhr.setRequestHeader('Content-Type', dataTypes[settings.dataType]);
+      }
+      xhr.handleResp = settings.success; 
+
       var handleResponse = function() {
-      if(xhr.status === 0 && xhr.readyState === 4 || xhr.status >= 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 ) {
-        if (settings.dataType) {
+        if (xhr.status === 0 && xhr.readyState === 4 || xhr.status >= 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 ) {
           if (settings.dataType === 'json') {
             xhr.handleResp(JSON.parse(xhr.responseText));
-            deferred.resolve(xhr.responseText, settings.context, xhr);
+            deferred.resolve(JSON.parse(xhr.responseText), settings.context, xhr);
           } else {
             xhr.handleResp(xhr.responseText);
             deferred.resolve(xhr.responseText, settings.context, xhr);
           }
-        } else {
-          xhr.handleResp(xhr.responseText);
-          deferred.resolve(xhr.responseText, settings.context, xhr);
-        }
-        } else if(xhr.status >= 400) {
-           if (!!error) {
-              error(xhr);
-              deferred.reject(xhr.status, settings.context, xhr);
-           }
+        } else if (xhr.status >= 400) {
+          settings.error(xhr);
+          deferred.reject(xhr.status, settings.context, xhr);
         }
       };
 
       if (async) {
-        if (settings.beforeSend !== $.noop) {
-           settings.beforeSend(xhr, settings);
-        }
+        settings.beforeSend(xhr, settings);
         xhr.onreadystatechange = handleResponse;
         xhr.send(params);
       } else {
-        if (settings.beforeSend !== $.noop) {
-           settings.beforeSend(xhr, settings);
-        }
+        settings.beforeSend(xhr, settings);
         xhr.send(params);
         handleResponse();
       }
@@ -1845,8 +1868,11 @@ Version: 3.6.3
       }
       if (typeof data === 'function' && !success) {
         return $.ajax({url : url, type: 'GET', success : data});
-      } else if (typeof data === 'object' && typeof success === 'function') {
-        return $.ajax({url : url, type: 'GET', data : data, dataType : dataType});
+      } else if (typeof data === 'string' || typeof data === 'object') {
+        if (typeof success !== 'function') {
+          success = $.noop;
+        }
+        return $.ajax({url : url, type: 'GET', data : data, success : success, dataType : dataType});
       }
     },
     
@@ -1856,12 +1882,15 @@ Version: 3.6.3
         return;
       }
       if (!data) {
-        return;
+        return $.ajax({url : url, type: 'GET', dataType : 'json'});
       }
       if (typeof data === 'function' && !success) {
-        $.ajax({url : url, type: 'GET', async: true, success : data, dataType : 'json'});
-      } else if (typeof data === 'object' && typeof success === 'function') {
-        $.ajax({url : url, type: 'GET', data : data, dataType : 'json'});
+        return $.ajax({url : url, type: 'GET', async: true, success : data, dataType : 'json'});
+      } else if (typeof data === 'string' || typeof data === 'object') {
+        if (typeof success !== 'function') {
+          success = $.noop;
+        }
+        return $.ajax({url : url, type: 'GET', async: true, data : data, success : success, dataType : 'json'});
       }
     },
 
@@ -1870,7 +1899,7 @@ Version: 3.6.3
       var options = {
         url: 'http:/whatever.com/stuff/here',
         callback: function() {
-           // do stuff here
+          // do stuff here
         },
         callbackType: 'jsonCallback=?',
         timeout: 5000
@@ -1920,14 +1949,23 @@ Version: 3.6.3
       }
       if (typeof data === 'function' && !dataType) {
         if (typeof success === 'string') {
-           dataType = success;
+          dataType = success;
+        } else {
+          dataType = 'form';
         }
-        $.ajax({url : url, type: 'POST', success : data, dataType : dataType});
-      } else if (typeof data === 'object' && typeof success === 'function') {
-        $.ajax({url : url, type: 'POST', data : data, dataType : dataType});
+        return $.ajax({url : url, type: 'POST', success : data, dataType : dataType});
+      } else if (typeof data === 'string' || typeof data === 'object') {
+        if (typeof success !== 'function') {
+          success = $.noop;
+        }
+        if (!dataType) {
+          dataType = 'form';
+        }
+        return $.ajax({url : url, type: 'POST', data : data, success : success, dataType : dataType});
       }
     }
   });
+
 
 
   $.extend($, {
