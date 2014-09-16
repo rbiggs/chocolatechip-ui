@@ -22,6 +22,7 @@
       var transform = prefixStyle('transform');
       var transitionDuration = prefixStyle('transitionDuration');
       var hasTouch = 'ontouchstart' in window;
+      if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) hasTouch = false;
       var startEvent = $.eventStart;
       var moveEvent = $.eventMove;
       var endEvent = $.eventEnd;
