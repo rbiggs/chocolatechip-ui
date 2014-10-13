@@ -14,8 +14,8 @@
   </style>    
   <script>
     $(function() {
-      $('#mainNav').UIBusy({color:'#ccc', size: 20, position: 'align-flush'});
-      $('#mainNav').find('.busy').css('top','10px');
+      $('#navBusy').UIBusy({color:'#ccc', size: 20, position: 'align-flush'});
+      $('#navBusy').find('.busy').css('top','10px');
       
       $('#busy1').UIBusy({'color':'rgba(200,0,0,0.75)', 'size': 50});
       $('#busy1').find('.busy').UICenter();
@@ -36,7 +36,7 @@
   </script>
 </head>
 <body>
-  <nav id='mainNav'>
+  <nav id='navBusy'>
     <h1>Busy Control</h1>
   </nav>
   <article id="main" ui-background-style="striped" ui-navigation-status="current">

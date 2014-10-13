@@ -112,7 +112,7 @@ li.selected > .deletion-indicator::before {
   }
 }
 
-.button.delete {
+button.delete {
   float: right;
   text-align: center;
   .box-sizing(border-box);
@@ -144,11 +144,15 @@ li.selected > .deletion-indicator::before {
   border-right: 1px solid lighten(@boxShadowColor, 20%);
   -webkit-animation-name: 'none' !important;
   animation-name: 'none' !important;
+
+  > label {
+    display: none;
+  }
 }
-li.selected > .button.delete {
+li.selected > button.delete {
   display: block;
 }
-li.selected > .button.delete {
+li.selected > button.delete {
   visibility: visible;
   .transform(translate3d(-10px,0,0));
 }
@@ -177,7 +181,7 @@ html[dir=rtl] {
       padding-left: 0;
       padding-right: 40px;
       
-      > .button.delete {
+      > button.delete {
         float: left !important;
         left: 0;
         right: auto;
@@ -187,7 +191,7 @@ html[dir=rtl] {
         box-shadow: inset -2px 2px 2px lighten(@boxShadowColor, 20%);
       }
 
-      &.selected > .button.delete {
+      &.selected > button.delete {
         .transform(translate3d(-10px,0,0));
       }
       > .move-up {

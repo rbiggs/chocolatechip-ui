@@ -66,7 +66,7 @@
     padding: 0 20px;
     height: 42px;
 
-    > .button {
+    > button {
       #flex > .flex(1);
       display: block;
       box-sizing: border-box;
@@ -96,14 +96,14 @@
       }
     }
 
-    + .button {
+    + button {
       border-right: solid 2px @popupButtonBorder;
     }
   }
 }
 
 html[dir=rtl] {
-  .popup footer > .button:first-of-type {
+  .popup footer > button:first-of-type {
     border-right: solid 2px @popupButtonBorder;
     border-left:  solid 2px @popupButtonBorder;
   }

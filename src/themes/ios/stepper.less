@@ -23,8 +23,8 @@
     background-color: @stepperLabel;
   }
 
-  > .button {
-    display: inline-box;
+  > button {
+    display: inline-block;
     .box-sizing(border-box);
     background-color: @stepperButton;
     .size(33px,30px);
@@ -40,6 +40,11 @@
     .box-sizing(border-box);
     color: @textColor;
 
+    > span {
+      display: block;
+      margin: -4px auto auto auto;
+    }
+
     &:first-of-type {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
@@ -54,7 +59,7 @@
   }
 }
 
-html[dir=rtl] .stepper > .button {
+html[dir=rtl] .stepper > button {
   &:first-of-type {
     border-radius: 4px;
     border-top-left-radius: 0;

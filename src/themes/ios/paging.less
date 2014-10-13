@@ -5,11 +5,11 @@
 .segmented.paging.vertical {
   #flex > .flex-direction(row) !important;
 
-  > .button {
+  > button {
     border: none;
     background: none !important;
     color: @primaryColor;
-    .size(40px,40px);
+    .size(30px,40px);
     .box-sizing(border-box);
     position: relative;
     border-radius: 0 !important;
@@ -38,7 +38,8 @@
 
 @parsedPagingHorizPrevSVG: "@{imageMaskRoot}@{pagingHorizPrevSVG}";
 
-.segmented.paging.horizontal > .button:first-of-type::before {
+.segmented.paging.horizontal > .button:first-of-type::before,
+.segmented.paging.horizontal > button:first-of-type::before {
     -webkit-mask-image: url(@parsedPagingHorizPrevSVG);
 }
 
@@ -46,7 +47,8 @@
 
 @parsedPagingHorizNextSVG: "@{imageMaskRoot}@{pagingHorizNextSVG}";
 
-.segmented.paging.horizontal > .button:last-of-type::before {
+.segmented.paging.horizontal > .button:last-of-type::before,
+.segmented.paging.horizontal > button:last-of-type::before {
   -webkit-mask-image: url(@parsedPagingHorizNextSVG);
 }
 
@@ -55,7 +57,9 @@
 @parsedPagingVertPrevSVG: "@{imageMaskRoot}@{pagingVertPrevSVG}";
 
 .segmented.paging.vertical > .button:first-of-type::before,
-html[dir=rtl] .segmented.paging.vertical > .button:last-of-type::before {
+html[dir=rtl] .segmented.paging.vertical > .button:last-of-type::before,
+.segmented.paging.vertical > button:first-of-type::before,
+html[dir=rtl] .segmented.paging.vertical > button:last-of-type::before {
   -webkit-mask-image: url(@parsedPagingVertPrevSVG);
 }
 
@@ -64,7 +68,9 @@ html[dir=rtl] .segmented.paging.vertical > .button:last-of-type::before {
 @parsedPagingVertNextSVG: "@{imageMaskRoot}@{pagingVertNextSVG}";
 
 .segmented.paging.vertical > .button:last-of-type::before,
-html[dir=rtl] .segmented.paging.vertical > .button:first-of-type::before {
+html[dir=rtl] .segmented.paging.vertical > .button:first-of-type::before,
+.segmented.paging.vertical > button:last-of-type::before,
+html[dir=rtl] .segmented.paging.vertical > button:first-of-type::before {
   -webkit-mask-image: url(@parsedPagingVertNextSVG);
 }
 
@@ -120,16 +126,23 @@ html[dir=rtl] {
   .segmented.paging.horizontal {
     -webkit-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    .button:first-child {
+    button:first-child {
       border: none !important;
+      &::before {
+        left: -10px;
+      }
     }
 
-    .button:last-child {
+    button:last-child {
       border: none !important;
+      
+      &::before {
+        left: -10px;
+      }
     }
   }
   
-  .segmented.paging.horizontal > .button::before {
+  .segmented.paging.horizontal > button::before {
     top: -2px;
   }
   
@@ -144,7 +157,7 @@ html[dir=rtl] {
   article.paging.horizontal > section.next {
     .transform(translate3d(-100%,0,0));
   }
-  .segmented.paging.horizontal > .button::before {
+ .segmented.paging.horizontal > button::before {
     -webkit-transform: rotate(180deg);
   }
 }

@@ -3,7 +3,7 @@
    =========================== */
 .slide-out {
   position: absolute;
-  top: 52pt;
+  top: 44pt;
   left: 0;
   bottom: 0;
   background-color: @appBkColor;
@@ -38,7 +38,7 @@
   }
 }
 
-.button.slide-out-button {
+button.slide-out-button {
   position: absolute;
   z-index: 1111111;
   top: 0 !important;
@@ -63,7 +63,7 @@
   }
 }
 
-.button.slide-out-button:hover::before {
+button.slide-out-button:hover::before {
   color: @navBkgnd;
 }
 
@@ -96,7 +96,7 @@ html[dir=rtl] {
       transform: translate3d(0,0,0);
     }
   }
-  .button.slide-out-button {
+  button.slide-out-button {
     margin-right: 10px !important;
 
     &::before {

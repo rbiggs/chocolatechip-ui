@@ -23,11 +23,15 @@
   overflow: hidden;
   border-top: solid 1px @boxShadow;
   
-  > .button {
+  > button {
     color: contrast(@navBkgnd) !important;
     
     &:hover {
       background-color: rgba(red(contrast(@primaryColor)), green(contrast(@primaryColor)), blue(contrast(@primaryColor)), 25%);
+    }
+
+    &.align-flush {
+      top: 5px !important;
     }
   }
 }

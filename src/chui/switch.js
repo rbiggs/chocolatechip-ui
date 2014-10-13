@@ -6,6 +6,13 @@
     ////////////////////////////
     UISwitch : function ( ) {
       var hasThumb = false;
+      // Abrstract swipe for left-to-right and right-to-left:
+      var swipeOn = "swiperight";
+      var swipeOff = "swipeleft"
+      if (document.documentElement.dir === "rtl") {
+        swipeOn = "swipeleft";
+        swipeOff = "swiperight";
+      }
       this.forEach(function(ctx, idx) {
         ctx.setAttribute('role','checkbox');
         if ($(ctx).data('ui-setup') === true) return;
@@ -31,7 +38,7 @@
             ctx.setAttribute('aria-checked', true);
           }
         });
-        $(ctx).on('swipeleft', function() {
+        $(ctx).on(swipeOn, function() {
           var checkbox = ctx.querySelector('input');
           if (ctx.classList.contains('on')) {
             ctx.classList.remove('on');
@@ -39,7 +46,7 @@
             checkbox.removeAttribute('checked');
           }
         });
-        $(ctx).on('swiperight', function() {
+        $(ctx).on(swipeOff, function() {
           var checkbox = ctx.querySelector('input');
           if (!ctx.classList.contains('on')) {
             ctx.classList.add('on');
@@ -61,17 +68,23 @@
           name: 'fruit.mango'
           state : 'on' || 'off' //(off is default),
           value : 'Mango' || '',
+          checked: 'on' || '',
+          style: 'traditional' || '',
           callback : callback
         }
       */
-      var id = options ? options.id : $.Uuid();
-      var name = options && options.name ? (' name="' + options.name + '"') : '';
-      var value= options && options.value ? (' value="' + options.value + '"') : '';
-      var state = (options && options.state === 'on') ? (' ' + options.state) : '';
-      var checked = (options && options.state === 'on') ? ' checked="checked"' : '';
-      var _switch = $.concat('<span class="switch', state, 
-        '" id="', id, '"><em></em>','<input type="checkbox"',
-        name, checked, value, '></span>');
+      var settings = {
+        id: $.Uuid(),
+        name: '',
+        value: '',
+        state: '',
+        checked: '',
+        style: ''
+      };
+      $.extend(settings, options);
+      var _switch = $.concat('<span class="switch', " ", settings.style, " ", settings.state, 
+        '" id="', settings.id, '"><em></em>','<input type="checkbox"',
+        settings.name, settings.checked, ' value="', settings.value, '"></span>');
       return $(_switch);
     }
   });

@@ -28,7 +28,7 @@
       if (options && options.callback) {
         callback = options.callback;
       }
-      var slideoutButton = $("<a class='button slide-out-button' href='javascript:void(null)'></a>");
+      var slideoutButton = $("<button class='slide-out-button'></button>");
       var slideOut = '<div class="slide-out"><section></section></div>';
       $('article').removeClass('next');
       $('article').removeClass('current');

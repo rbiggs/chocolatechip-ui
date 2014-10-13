@@ -21,12 +21,13 @@
       z-index: 100;
       &::before {
         .pseudo-block('—');
+        -webkit-font-smoothing: none;
         font-size: 12pt;
         position: absolute;
         min-width: 20px;
         text-align:center;
         .size(10px, 10px);
-        margin-top: -1px;
+        margin-top: -3px;
       } 
     }
     & > .move-up,
@@ -54,7 +55,7 @@
       .transform(translate3d(120px,0,0) rotate(180deg));
     }
 
-    & > .button.delete {
+    & > button.delete {
       float: right;
       .delete-button;
       text-align: center;
@@ -64,16 +65,25 @@
       right: 0;
       top: 0;
       bottom: 0;
+      margin-top: 0;
+      margin-bottom: 0;
       #flex > .display(flex);
       display: -webkit-flex;
       #flex > .flex-direction(column);
       #flex > .justify-content(center);
-      #flex > .align-items(center);
+      #flex > .align-items(stretch);
       .transition(all 0.25s ease-out);
       .transform(translate3d(80px,0,0));
       cursor: pointer;
       font-family: 'HelveticaNeue-Light';
       font-weight: 200;
+
+      > label {
+        display: block;
+        margin: auto;
+        font: -apple-system-short-headline;
+        font-weight: normal;
+      }
     }
 
     &:first-of-type  > .move-up {
@@ -102,7 +112,7 @@
           .transition(all 0.25s ease-out);         
         }
 
-        & > .button.delete {
+        & > button.delete {
           .transform(translate3d(80px,0,0));
         }
 
@@ -171,7 +181,7 @@ html[dir=rtl] {
       .transform(translate3d(-140px,0,0) rotate(180deg));
     }
 
-    & > .button.delete {
+    & > button.delete {
       .transform(translate3d(-80px,0,0));
       left: 0;
       right: auto;
@@ -187,11 +197,11 @@ html[dir=rtl] {
     &.selected {
       margin-right: 0 !important;
 
-      & > .button.delete {
+      & > button.delete {
         .transform(translate3d(0,0,0)) !important;
       }
     }
-  & > .button.delete {
+  & > button.delete {
       .transform(translate3d(-80px,0,0)) !important;
     }
   }
@@ -202,7 +212,7 @@ html[dir=rtl] {
     &.selected {
       margin-right: 0;
 
-      & > .button.delete {
+      & > button.delete {
         .transform(translate3d(0,0,0)) !important;
       }
 
@@ -226,7 +236,7 @@ html[dir=rtl] {
       .transform(translate3d(20px,0,0) rotate(180deg));
     }
 
-    & > .button.delete {
+    & > button.delete {
       right: auto;
       left: 0 !important;
     }

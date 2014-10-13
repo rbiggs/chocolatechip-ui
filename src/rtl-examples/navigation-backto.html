@@ -9,8 +9,11 @@
     });
   </script>
   <style>
-    #goToLast {
+    button.action {
       margin-right: 20px;
+    }
+    .isiOS section > button.action {
+      margin: 10px auto !important;
     }
   </style>
 </head>
@@ -26,11 +29,11 @@
         </li>
       </ul>
       <br><br>
-      <a id='goToLast' href='javascript:void(null)' class="button action">انتقل إلى القصة</a>
+      <button id='goToLast' class="action">انتقل إلى القصة</button>
     </section>
   </article>
   <nav>
-    <a href='javascript:void(null)' class="button back">رجوع</a>
+    <button class="back">رجوع</button>
     <h1>المادة الثانية</h1>
   </nav>
   <article id="article2" class='next'>
@@ -45,7 +48,7 @@
     </section>
   </article>
   <nav>
-    <a href='javascript:void(null)' id='backToMain' class='button backTo'>رجوع</a>
+    <button id='backToMain' class='backTo'>رجوع</button>
     <h1>زر الرجوع</h1>
   </nav>
   <article id="article3" class='next'>

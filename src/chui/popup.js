@@ -19,8 +19,8 @@
       var id = options.id || $.Uuid();
       var title = options.title ? '<header><h1>' + options.title + '</h1></header>' : '';
       var message = options.message ? '<p role="note">' + options.message + '</p>' : '';
-      var cancelButton = options.cancelButton ? '<a href="javascript:void(null)" class="button cancel" role="button">' + options.cancelButton + '</a>' : '';
-      var continueButton = options.continueButton  ? '<a href="javascript:void(null)" class="button continue" role="button">' + options.continueButton + '</a>' : '';
+      var cancelButton = options.cancelButton ? '<button class="cancel" role="button">' + options.cancelButton + '</button>' : '';
+      var continueButton = options.continueButton  ? '<button class="continue" role="button">' + options.continueButton + '</button>' : '';
       var callback = options.callback || $.noop;
       var padding = options.empty ? ' noTitle' : '';
       var panelOpen, panelClose;

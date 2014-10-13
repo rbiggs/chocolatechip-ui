@@ -27,7 +27,10 @@
   right: 10px;
   left: auto;
 }
-a.button {
+body.isNativeAndroidBrowser .align-flush {
+  float: right;
+}
+button {
   box-shadow: none; 
   border: none;
   color: @textColor;
@@ -69,6 +72,10 @@ a.button {
     -webkit-animation-name: focused;
     animation-name: focused;
   }
+
+  &:focus {
+    outline: none !important;
+  }
   
   &.no-border {
     border: none !important;
@@ -82,9 +89,13 @@ a.button {
     min-width: 200px;
     max-width: 300px;
     box-shadow: 0 1px 4px @boxShadow;
+    margin: 20px auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
 
     section > &.action {
-      margin-left: 16px;
+      margin: 20px auto;
     }
     .isDesktop &:hover {
       box-shadow: 0 3px 7px @boxShadow;
@@ -95,7 +106,7 @@ a.button {
   &.back, &.backTo {
     text-align: left;
     padding: 0 12px 0 12px !important;
-    margin: 0 16px 0 0;
+    margin: 0 0 0 0;
     line-height: 28px;
     color: @navBkgnd;
     font-size: 0;
@@ -140,7 +151,7 @@ body {
 
   &.isNativeAndroidBrowser {
 
-    a.button.back, a.button.backTo {
+    button.back, button.backTo {
       top: 0;
        bottom: 0;
 
@@ -148,15 +159,15 @@ body {
         top: -2px;
        }
     }
-    a.button.backTo::after {
+    button.backTo::after {
       top: 2px;
     }
-    a.button.back::before {
+    button.back::before {
       top: 8px;
     }
   }    
 }
-html[dir=rtl] a.button {
+html[dir=rtl] button {
   line-height: 12pt;
    
   &.back, &.backTo {

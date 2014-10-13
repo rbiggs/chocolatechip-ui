@@ -19,6 +19,10 @@ div.toolbar  {
   -webkit-transition: all .15s ease-out;
   transition: all .15s ease-out;
   -webkit-transform: translate3d(0,0,0);
+
+  > button {
+    margin-right: 10px;
+  }
 }
 
 .splitlayout {
@@ -70,5 +74,14 @@ html[dir=rtl] {
       right: 320px;
       left: 0;
     }
+  }
+  div.toolbar.current {
+    transform: translate3d(0, 0, 0) !important;
+  }
+  div.toolbar.next {
+    transform: translate3d(-100%, 0, 0) !important;
+  }
+  div.toolbar.previous {
+    transform: translate3d(105%, 0, 0) !important;
   }
 }

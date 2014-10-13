@@ -40,10 +40,14 @@
 body.isWindows .horizontal-scroll-panel {
   background-color: #333;
 }
-
+[dir=rtl] .horizontal-scroll-panel {
+  margin-right: -20px;
+  padding-right: 20px;
+}
 [dir=rtl] .horizontal-scroll-panel li {
   margin-right: 0 !important;
   margin-left: 20px !important;
+  padding: 0;
 
   &:first-of-type {
     margin-right: 0 !important;
@@ -53,8 +57,11 @@ body.isWindows .horizontal-scroll-panel {
     margin-left: 0 !important;
   }
 }
+[dir=rtl] body.isWindows .horizontal-scroll-panel li {
+  float: right;
+}
 
-@media only screen and (max-device-width: 320px) {
+@media only screen and (max-device-width: 480px) {
   .horizontal-scroll-panel {
     height: 125px;
     padding: 10px;

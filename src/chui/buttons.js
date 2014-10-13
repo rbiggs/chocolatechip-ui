@@ -4,7 +4,7 @@
     ///////////////////////////////////
     // Initialize singletap on buttons:
     ///////////////////////////////////
-    $('body').on('singletap', '.button', function() {
+    $('body').on('singletap', 'button', function() {
       var $this = $(this);
       if ($this.parent('.segmented')[0]) return;
       if ($this.parent('.tabbar')[0]) return;

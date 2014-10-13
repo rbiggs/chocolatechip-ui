@@ -9,7 +9,7 @@
   background-color: @listBkgdColor;
 
   > li {
-    padding: 13px 16px 13px 16px;
+    padding: 13px 10px 13px 10px;
     .transition(all .3s ease-out);
     position: relative;
     background-color: @listBkgdColor;
@@ -103,13 +103,18 @@ li[data-show-article].touched,
     width: 80%;
     font-weight: 200;
     margin: 0;
+
+    > span {
+      font-size: inherit;
+      font-weight: inherit;
+    }
   }
 
   h3 {
     font-family: 'Roboto Thin', 'HeveletcaNeue Light', Helvetica, sans-serif;
     font-weight: normal;
-    font-size: 16pt;
-    line-height: 20pt;
+    font-size: 14pt;
+    line-height: 18pt;
     margin-bottom: 2px;
     color: @textColor;
   }
@@ -117,19 +122,18 @@ li[data-show-article].touched,
   h4 {
     font-family: 'Roboto Regular', 'HeveletcaNeue', Helvetica, sans-serif;
     font-weight: normal;
-    line-height: 14pt;
     color: @textColor;
   }
 
   > h4, > div > h4, > p, > div > p {
-    font-size: 13pt;
-    line-height: 16pt;
+    font-size: 12pt;
+    line-height: 14pt;
     margin: 0;
   }
 
   > p, > div > p {
-    font-size: 13pt;
-    line-height: 16pt;
+    font-size: 12pt;
+    line-height: 14pt;
 
     + p {
       margin-top: 6px;
@@ -146,8 +150,8 @@ li[data-show-article].touched,
    ============================ */
 .list > li > p {
   margin: 6px 16px 6px 0;
-  font-size: 13pt;
-  line-height: 16pt;
+  font-size: 12pt;
+  line-height: 14pt;
   color: @listAsideColor;
 }
 
@@ -179,7 +183,7 @@ html[dir=rtl] {
   padding-right: 16px;
   }
   li {
-    padding: 13px 16px 13px 16px;
+    padding: 13px 10px 13px 10px;
 
     & > h3,
     & > h4 {

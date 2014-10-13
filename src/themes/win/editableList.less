@@ -4,6 +4,7 @@
 .list.editable > li,
 .list.deletable > li {
   overflow: hidden;
+  padding: 7px 5px;
 
   & > .move-up,
   & > .move-down {
@@ -31,6 +32,10 @@
         font-size: 16pt;
         text-align: center;
      }
+  }
+
+  & > .move-up {
+    margin-top: -32px;
   }
 
   & > .move-down {
@@ -90,7 +95,7 @@ li.selected > .deletion-indicator {
     }
 
     li {
-        padding-left: 32px;
+        padding-left: 34px;
 
         .move-up {
           .transform(translate3d(0,0,0));
@@ -184,7 +189,7 @@ html[dir=rtl] {
 
   .list.showIndicators li {
     padding-left: 0;
-    padding-right: 32px;
+    padding-right: 34px;
   }
 
   .button.delete {

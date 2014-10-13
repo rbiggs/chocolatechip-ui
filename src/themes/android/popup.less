@@ -56,7 +56,7 @@
     #flex > .display(flex);
     #flex > .flex-direction(row) !important;
 
-    > .button {
+    > button {
       display: block !important;
       #flex > .flex(1) !important;
       .box-sizing(border-box);
@@ -67,10 +67,9 @@
       font-size: 12pt;
       padding-top: 4px;
       max-width: 320px !important;
-      font-weight: bold;
       margin: 0 !important;
 
-      + .button {
+      + button {
         border-left: solid 1px @buttonBorderColor;
       }
       .isDesktop &:hover {
@@ -86,20 +85,20 @@
     text-align: center;
   }
 
-  .button {
+  button {
     border-top: solid 1px @buttonBorderColor;
     box-shadow: none;
   }
 }
 
 html[dir=rtl] {
-  .popup > footer .button {
+  .popup > footer button {
     border-top: solid 1px @buttonBorderColor;
 
     &:first-child {
       border-left: solid 1px @buttonBorderColor;
 
-      & + .button {
+      & + button {
         border-left: none;
       }
     }

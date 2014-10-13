@@ -59,7 +59,7 @@
       var height = $('li').eq(0)[0].clientHeight;
 
       if (settings.deletable) {
-        deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
+        deleteButton = $.concat('<button class="delete"><label>', deleteLabel, '</label></button');
         deletionIndicator = '<span class="deletion-indicator"></span>';
         $(this).addClass('deletable');
       }
@@ -68,7 +68,7 @@
         var moveDownIndicator = "<span class='move-down'></span>";
         $(this).addClass('editable');
       }
-      editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
+      editButton = $.concat('<button class="edit">', editLabel, '</button');
       if (!$(this).closest('article').prev().find('.edit')[0] && !$(this).closest('article').prev().find('.done')[0]) {
         $(this).closest('article').prev().append(editButton);
       }
@@ -185,9 +185,9 @@
             var $this = this;
             // Mark list as edited:
             $(list).data('list-edit', true);
-            var direction = '-1000%';
+            var direction = '-1200%';
             if ($('html').attr('dir') === 'rtl') direction = '1000%';
-            $(this).siblings().css({'-webkit-transform': 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out'});
+            $(this).siblings().css({'-webkit-transform': 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out', 'transform': 'translate3d(' + direction + ',0,0)', 'transition': 'all 1s ease-out'});
             setTimeout(function() {
               $($this).parent().remove();
             }, 500);

@@ -69,9 +69,10 @@
     width: 100%;
     padding: 0;
 
-    > .button {
+    > button {
       display: block !important;
       #flex > .flex(1) !important;
+      margin: 0;
       height: 100%;
       line-height: 30pt;
       max-width: 320px !important;
@@ -79,9 +80,20 @@
       border-top: solid 1px @popupButton;
       color: @textColor;
       
-      + .button {
+      + button {
         border-left: solid 1px @popupButton;
       }
     }
+  }
+}
+html[dir=rtl] {
+  .popup  > .panel > p {
+    box-sizing: border-box;
+    text-align: center;
+    width: 100%;
+  }
+  .popup  > footer > button + button {
+    border-right: solid 1px @popupButton;
+    border-left: none;
   }
 }

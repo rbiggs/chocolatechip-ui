@@ -55,27 +55,27 @@
           $this.removeClass('selected');
         }, 250);
       };
-      $('.segmented.paging').on($.eventStart, '.button:first-of-type', function() {
+      $('.segmented.paging').on($.eventStart, 'button:first-of-type', function() {
         pageBack($(this));
       });
-      $('.segmented.paging').on($.eventStart, '.button:last-of-type', function() {
+      $('.segmented.paging').on($.eventStart, 'button:last-of-type', function() {
         pageForward($(this));
       });
       // Handle swipe gestures for paging:
       if ($('article.paging.horizontal')[0]) {
         $('article.paging').on('swiperight', function() {
-          pageBack($('.button:first-of-type'));
+          pageBack($('button:first-of-type'));
         });
         $('article.paging').on('swipeleft', function() {
-          pageForward($('.button:last-of-type'));
+          pageForward($('button:last-of-type'));
         });
       }
       if ($('article.paging.vertical')[0]) {
         $('article.paging').on('swipeup', function() {
-          pageBack($('.button:first-of-type'));
+          pageBack($('button:first-of-type'));
         });
         $('article.paging').on('swipeudown', function() {
-          pageForward($('.button:last-of-type'));
+          pageForward($('button:last-of-type'));
         });
       }
     }
