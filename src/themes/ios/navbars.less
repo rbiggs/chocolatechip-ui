@@ -23,7 +23,7 @@ nav {
   padding: 0 15px;
   vertical-align: middle;
 
-  > .button, > div > .button {
+  > button, > div > button {
     color: @barButtonTextColor;
   }
 
@@ -42,7 +42,7 @@ nav {
     text-overflow: ellipsis;
     color: contrast(@navColor);
 
-    + a.button {
+    + button {
       margin: 0;
       position: absolute;
       right: 15px;
@@ -50,7 +50,7 @@ nav {
     }
   }
 
-  > a.button + h1 {
+  > button + h1 {
     left: 120px;
     right: 120px;
   }
@@ -63,14 +63,14 @@ nav {
   top: 0;
 }
 @media only screen and (max-device-width : 320px) and (orientation : portrait) {
-  nav > a.button + h1 {
+  nav > button + h1 {
     left: 115px;
     right: 115px;
   }
 }
 
 @media only screen and (max-device-width : 320px) and (orientation : landscape) {
-  nav > a.button + h1 {
+  nav > button + h1 {
     left: 150px;
     right: 150px;
   }

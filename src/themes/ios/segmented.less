@@ -6,9 +6,11 @@
   #flex > .flex-direction(row);
   .box-sizing(border-box);
   
-  > .button {
+  > button {
+    display: block;
     border: solid 1px @primaryColor;
     padding: 4px 15px;
+    margin: 0;
     border-left: none;
     background-color: @segmentedButtonBkgnd;
     width: auto;
@@ -63,7 +65,7 @@ html[dir=rtl] .segmented {
     top: 6px;
   }
 
-  .button {
+  button {
 
     &:first-of-type {
       border-left: none;

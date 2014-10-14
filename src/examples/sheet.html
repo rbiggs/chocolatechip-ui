@@ -3,10 +3,10 @@
       // Create sheet and populate it:
       $.UISheet();
       $('.sheet').find('section').append("<ul class='list'></li>");
-      $('.sheet .list').append("<li><a class='button action' href='javascript:void(null)'>Save</a></li><li><a class='button action' href='javascript:void(null)'>Delete</a></li><li><a class='button action' href='javascript:void(null)'>Cancel</a></li>");
+      $('.sheet .list').append("<li><button class='action'>Save</button></li><li><button class='action'>Delete</button></li><li><button class='action'>Cancel</button></li>");
       $('.sheet .list').append ('<h2 style="text-align: center; margin: 20px;">The End</h2>');
       
-      $('.sheet .list').on('singletap', '.button', function() {
+      $('.sheet .list').on('singletap', 'button', function() {
         $.UIHideSheet();
       });
       
@@ -16,11 +16,17 @@
       });
     });
   </script>
+  <style>
+    /* Fix for Native Browser on Android, ugh! */
+    body.isNativeAndroidBrowser .sheet > section > ul > li > button.action {
+      width: 100% !important;
+    }
+  </style>
 </head>
 <body>
   <nav>
     <h1>Sheet Control</h1>
-    <a class='button align-flush' id='showSheet' href='javascript:void(null)'>Show</a>
+    <button class='align-flush' id='showSheet'>Show</button>
   </nav>
   <article id='main'>
     <section>

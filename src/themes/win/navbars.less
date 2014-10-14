@@ -4,6 +4,7 @@
 #global-nav {
   background-color: @navBkgnd;
   overflow: hidden;
+  padding: 0 5px;
 }
 nav {
   height: 45pt;
@@ -24,7 +25,7 @@ nav {
   > h1 {
     text-align: left;
     display: inline-block;
-    margin: 0 0 0 10px;
+    margin: 0;
     font-size: x-large;
     font-family: SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
     font-weight: normal;
@@ -38,17 +39,21 @@ nav {
     color: contrast(@navBkgnd);
   }
 
-  a.button {
+  button {
     position: relative;
     line-height: 20pt;
     padding: 0 10px;
+
+    + h1 {
+      padding-left: 10px;
+    }
 
     &:first-of-type {
       line-height: 14pt;
       padding: 4px 10px;
       position: relative;
       top: 0;
-      margin-left: 10px;
+      margin-left: 2px;
     }
 
     &:hover {
@@ -65,7 +70,7 @@ nav {
   }
 }
 
-nav > h1 + a.button {
+nav > h1 + button {
   margin-top: -4px;
   float: right;
 
@@ -78,10 +83,10 @@ nav > h1 + a.button {
 .slide-out-app > nav {
 
   > h1 {
-    margin-left: 80px !important;
+    margin-left: 45px !important;
   }
 
-  &#global-nav > a.button:first-of-type{
+  &#global-nav > button:first-of-type{
     top: 8px
   }
 }

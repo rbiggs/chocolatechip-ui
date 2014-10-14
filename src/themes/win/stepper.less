@@ -34,7 +34,7 @@
     color: @stepperLabelColor;
   }
 
-  > .button {
+  > button {
     display: inline-block;
     text-align: center;
     font-weight: bold;
@@ -47,6 +47,10 @@
     height: 32px;
     padding: 1px 10px;
     box-shadow: none;
+
+    > span {
+      display: none;
+    }
 
     &:first-of-type {
       border-right: none;
@@ -71,7 +75,7 @@
 }
 
 html[dir=rtl] {
-  .stepper > .button {
+  .stepper > button {
     &:first-of-type {
       border-right: solid 2px @buttonBorder;
     }

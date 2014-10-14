@@ -54,8 +54,8 @@
           if (options.color) {
             $('#' + settings.id).find('circle').css('stroke', options.color);
           }
-          $('#' + settings.id).css({'height': settings.size + 'px', 'width': settings.size + 'px'});
         }
+        $('#' + settings.id).css({'height': settings.size + 'px', 'width': settings.size + 'px'});
         return $('#' + settings.id);
       };
       // For Windows 8/WP8:

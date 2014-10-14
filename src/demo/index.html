@@ -79,40 +79,8 @@
       -webkit-justify-content: space-around !important;
       justify-content: space-around !important;
     }
-    /*
-    .popover-buttons > .button {
-      display: -webkit-box;
-      display: -webkit-flex;
-      padding: 4px 15px;
-      border-left: none;
-      background-color: rgba(255,255,255,.65);
-      width: auto;
-      overflow-x: hidden;
-      -webkit-transition: none;
-      transition: none;
-      font-size: 10pt;
-      -webkit-box-align: center;
-      -webkit-box-pack: center;
-      -webkit-box-flex: 1;
-      -wekbit-flex: 1;
-      text-align: center;
-    }
-    
-    .popover-buttons > .button:first-of-type {
-      border-top-left-radius: 4px;
-      border-bottom-left-radius: 4px;
-    }
-    .popover-buttons > .button:last-of-type {
-      border-top-right-radius: 4px;
-      border-bottom-right-radius: 4px;
-    }
-    .popover-buttons > .button:hover {
-      color: #fff;
-      background-color: #007aff;
-      border-left-color: #fff !important;
-    } */
-    .isWindows section > .popover-buttons > .button:first-of-type,
-    .isWindows section > .popover-buttons > .button:last-of-type {
+    .isWindows section > .popover-buttons > button:first-of-type,
+    .isWindows section > .popover-buttons > button:last-of-type {
       background-color: #000;
       border-color: #fff;
       border-radius: 0 !important;
@@ -121,12 +89,12 @@
       border-top-right-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
     }
-    .isWindows section > .popover-buttons > .button:hover {
+    .isWindows section > .popover-buttons > button:hover {
       background-color: #fff;
       color: #000;
       border-color: #000 !important;
     }
-    .isAndroid .popover-buttons > .button {
+    .isAndroid .popover-buttons > button {
       border-radius: 0 !important;
     }
     .isWindows #switches li.comp > div {
@@ -142,17 +110,18 @@
       ////////////////////
       $('.segmented').UIPanelToggle('#toggle-panels',function(){$.noop;});
        
-       //////////////
-       // Select List
-       //////////////
-       if (window.jQuery) {
+      //////////////
+      // Select List
+      //////////////
+      if (window.jQuery) {
         if ($('.select li').is('.selected')) {
           $("#select-response").html($('.select li.selected')[0].textContent);
         }       
        } else {
         if ($('.select li').is('.selected')[0]) {
           $("#select-response").html($('.select li').is('.selected')[0].textContent);
-        }       }
+        }       
+      }
 
       // Select list callback:
       $('.list.select').UISelectList({
@@ -360,10 +329,10 @@
         $('.sheet').find('section').append('<h2>Available Options</h2>');
         $('.sheet').find('section').append("<ul class='list'></li>");
         var list = $('.sheet .list');
-        list.append('<li><a class="button action" href="javascript:void(null)">Save</a></li>');
-        list.append('<li><a class="button action" href="javascript:void(null)">Delete</a></li>');
-        list.append('<li><a class="button action" href="javascript:void(null)">Cancel</a></li>');
-        list.on('singletap', '.button', function() {
+        list.append('<li><button class="action" href="javascript:void(null)">Save</button></li>');
+        list.append('<li><button class="action" href="javascript:void(null)">Delete</button></li>');
+        list.append('<li><button class="action" href="javascript:void(null)">Cancel</button></li>');
+        list.on('singletap', 'button', function() {
           $.UIHideSheet();
         });
       // Initialize button to show sheet:
@@ -384,7 +353,7 @@
       color: #007aff;
       text-transform: capitalize;
     }
-    .sheet .button {
+    .sheet button {
       min-width: 200px;
       width: 80%;
     }
@@ -422,16 +391,16 @@
     </section>
   </article>
   <nav>
-    <a class='button back'>Demo</a>
+    <button class='back'>Demo</button>
     <h1>Segmented Control</h1>
   </nav>
   <article id='segmented-article' class='next'>
     <section>
       <div class='horizontal centered'>
         <div class='segmented'>
-          <a class='button selected'>Switch</a>
-          <a class='button'>Range</a>
-          <a class='button'>Stepper</a>
+          <button class='selected'>Switch</button>
+          <button>Range</button>
+          <button>Stepper</button>
         </div>
       </div>
       <div id="toggle-panels">
@@ -502,7 +471,7 @@
     </section>
   </article>
   <nav>
-    <a class='button back'>Demo</a>
+    <button class='back'>Demo</button>
     <h1>Select List</h1>
   </nav>
   <article id='select-article' class='next'>
@@ -525,7 +494,7 @@
     </section>
   </article>
   <nav>
-    <a class='button back'>Demo</a>
+    <button class='back'>Demo</button>
     <h1>Editable List</h1>
   </nav>
   <article id='deletable-article' class='next'>
@@ -552,9 +521,9 @@
     </section>
   </article>
   <nav>
-    <a class='button back'>Demo</a>
+    <button class='back'>Demo</button>
     <h1>Popup</h1>
-    <a href='javascript:void(null)' class='button align-flush' id="openPopup">Open</a>
+    <button class='align-flush' id="openPopup">Open</button>
   </nav>
   <article id='popup-article' class='next'>
     <section>
@@ -572,14 +541,14 @@ It droppeth as the gentle rain from heaven upon the place beneath. It is twice b
     </section>
   </article>
   <nav>
-    <a class='button back'>Demo</a>
+    <button class='back'>Demo</button>
     <h1>Popover</h1>
   </nav>
   <article id='popover-article' class='next'>
     <section>
       <div class='horizontal centered popover-buttons'>
-        <a class='button show-popover' id="showPopover1" href="javascript:void(null)">Fruits</a>
-        <a class='button show-popover' id="showPopover2" href="javascript:void(null)">Desserts</a>
+        <button class='show-popover' id="showPopover1">Fruits</button>
+        <button class='show-popover' id="showPopover2">Desserts</button>
       </div>
       <ul class='list'>
         <li>
@@ -601,9 +570,9 @@ It droppeth as the gentle rain from heaven upon the place beneath. It is twice b
     </section>
   </article>
   <nav>
-    <a class='button back' id='sheetBackButton'>Demo</a>
+    <button class='back' id='sheetBackButton'>Demo</button>
     <h1>Sheet</h1>
-    <a class='button align-flush' id='showSheet' href='javascript:void(null)'>Show</a>
+    <button class='align-flush' id='showSheet'>Show</button>
   </nav>
   <article id='sheet-article' class='next'>
     <section>
@@ -678,11 +647,11 @@ It droppeth as the gentle rain from heaven upon the place beneath. It is twice b
     </section>
   </article>
   <nav>
-    <a class='button back'>Demo</a>
+    <button class='back'>Demo</button>
     <h1>Paging</h1>
     <div class='segmented paging horizontal align-flush'>
-       <a class='button' href='javascript:void(null)' title='previous panel'></a>
-       <a class='button' href='javascript:void(null)' title='next panel'></a>
+       <button title='previous panel'></button>
+       <button title='next panel'></button>
     </div>
   </nav>
   <article id='paging-article' class='next paging'>

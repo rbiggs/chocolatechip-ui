@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2014 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.7.0
+Version: 3.8.0
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -899,7 +899,7 @@ if(window.jQuery) {
       ///////////////////////////
     // Initialize Back Buttons:
     ///////////////////////////
-    $('body').on('singletap', 'a.back', function() {
+    $('body').on('singletap', '.back', function() {
       if (this.classList.contains('back')) {
         $.UIGoBack();
       }
@@ -950,7 +950,7 @@ if(window.jQuery) {
     ///////////////////////////////////
     // Initialize singletap on buttons:
     ///////////////////////////////////
-    $('body').on('singletap', '.button', function() {
+    $('body').on('singletap', 'button', function() {
       var $this = $(this);
       if ($this.parent('.segmented')[0]) return;
       if ($this.parent('.tabbar')[0]) return;
@@ -1128,8 +1128,8 @@ if(window.jQuery) {
       var id = options.id || $.Uuid();
       var title = options.title ? '<header><h1>' + options.title + '</h1></header>' : '';
       var message = options.message ? '<p role="note">' + options.message + '</p>' : '';
-      var cancelButton = options.cancelButton ? '<a href="javascript:void(null)" class="button cancel" role="button">' + options.cancelButton + '</a>' : '';
-      var continueButton = options.continueButton  ? '<a href="javascript:void(null)" class="button continue" role="button">' + options.continueButton + '</a>' : '';
+      var cancelButton = options.cancelButton ? '<button class="cancel" role="button">' + options.cancelButton + '</button>' : '';
+      var continueButton = options.continueButton  ? '<button class="continue" role="button">' + options.continueButton + '</button>' : '';
       var callback = options.callback || $.noop;
       var padding = options.empty ? ' noTitle' : '';
       var panelOpen, panelClose;
@@ -1326,18 +1326,18 @@ if(window.jQuery) {
       if ($(this).hazClass('paging').length) return;
       var callback = (options && options.callback) ? options.callback : $.noop;
       var selected = (options && options.selected > 0) ? options.selected : 0;
-      this.find('a').forEach(function(ctx, idx) {
-        $(ctx).find('a').attr('role','radio');
+      this.find('button').forEach(function(ctx, idx) {
+        $(ctx).find('button').attr('role','radio');
         if (idx === selected) {
           ctx.setAttribute('aria-checked', 'true');
           ctx.classList.add('selected');
         }
       });
-      this.on('singletap', '.button', function(e) {
+      this.on('singletap', 'button', function(e) {
         var $this = $(this);
         if (this.parentNode.classList.contains('paging')) return;
-        $this.siblings('a').removeClass('selected');
-        $this.siblings('a').removeAttr('aria-checked');
+        $this.siblings('button').removeClass('selected');
+        $this.siblings('button').removeAttr('aria-checked');
         $this.addClass('selected');
         $this.attr('aria-checked', true);
         callback.call(this, e);
@@ -1366,11 +1366,11 @@ if(window.jQuery) {
       if (className) _segmented.push(' ' + className);
       _segmented.push('">');
       labels.forEach(function(ctx, idx) {
-        _segmented.push('<a role="radio" class="button');
+        _segmented.push('<button role="radio"');
         _segmented.push('"');
         _segmented.push('>');
         _segmented.push(ctx);
-        _segmented.push('</a>');
+        _segmented.push('</button>');
       });
       _segmented.push('</div>');
       segmented = $(_segmented.join(''));
@@ -1395,16 +1395,16 @@ if(window.jQuery) {
       }
       panels.eq(selected).siblings().css({display: 'none'});
       if (callback) callback.apply(this, arguments);
-      this.on($.eventEnd, 'a', function() {
+      this.on($.eventEnd, 'button', function() {
         panels.eq($(this).index()).css({display:'block'})
           .siblings().css('display','none');
       });
     
-      this.on('singletap', '.button', function() {
+      this.on('singletap', 'button', function() {
         var $this = $(this);
         if (this.parentNode.classList.contains('paging')) return;
-        $this.siblings('a').removeClass('selected');
-        $this.siblings('a').removeAttr('aria-checked');
+        $this.siblings('button').removeClass('selected');
+        $this.siblings('button').removeAttr('aria-checked');
         $this.addClass('selected');
         $this.attr('aria-checked', true);
       });
@@ -1467,27 +1467,27 @@ if(window.jQuery) {
           $this.removeClass('selected');
         }, 250);
       };
-      $('.segmented.paging').on($.eventStart, '.button:first-of-type', function() {
+      $('.segmented.paging').on($.eventStart, 'button:first-of-type', function() {
         pageBack($(this));
       });
-      $('.segmented.paging').on($.eventStart, '.button:last-of-type', function() {
+      $('.segmented.paging').on($.eventStart, 'button:last-of-type', function() {
         pageForward($(this));
       });
       // Handle swipe gestures for paging:
       if ($('article.paging.horizontal')[0]) {
         $('article.paging').on('swiperight', function() {
-          pageBack($('.button:first-of-type'));
+          pageBack($('button:first-of-type'));
         });
         $('article.paging').on('swipeleft', function() {
-          pageForward($('.button:last-of-type'));
+          pageForward($('button:last-of-type'));
         });
       }
       if ($('article.paging.vertical')[0]) {
         $('article.paging').on('swipeup', function() {
-          pageBack($('.button:first-of-type'));
+          pageBack($('button:first-of-type'));
         });
         $('article.paging').on('swipeudown', function() {
-          pageForward($('.button:last-of-type'));
+          pageForward($('button:last-of-type'));
         });
       }
     }
@@ -1553,7 +1553,7 @@ if(window.jQuery) {
       var height = $('li').eq(0)[0].clientHeight;
 
       if (settings.deletable) {
-        deleteButton = $.concat('<a href="javascript:void(null)" class="button delete">', deleteLabel, '</a>');
+        deleteButton = $.concat('<button class="delete"><label>', deleteLabel, '</label></button');
         deletionIndicator = '<span class="deletion-indicator"></span>';
         $(this).addClass('deletable');
       }
@@ -1562,7 +1562,7 @@ if(window.jQuery) {
         var moveDownIndicator = "<span class='move-down'></span>";
         $(this).addClass('editable');
       }
-      editButton = $.concat('<a href="javascript:void(null)" class="button edit">', editLabel, '</a>');
+      editButton = $.concat('<button class="edit">', editLabel, '</button');
       if (!$(this).closest('article').prev().find('.edit')[0] && !$(this).closest('article').prev().find('.done')[0]) {
         $(this).closest('article').prev().append(editButton);
       }
@@ -1679,9 +1679,9 @@ if(window.jQuery) {
             var $this = this;
             // Mark list as edited:
             $(list).data('list-edit', true);
-            var direction = '-1000%';
+            var direction = '-1200%';
             if ($('html').attr('dir') === 'rtl') direction = '1000%';
-            $(this).siblings().css({'-webkit-transform': 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out'});
+            $(this).siblings().css({'-webkit-transform': 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out', 'transform': 'translate3d(' + direction + ',0,0)', 'transition': 'all 1s ease-out'});
             setTimeout(function() {
               $($this).parent().remove();
             }, 500);
@@ -1826,7 +1826,7 @@ if(window.jQuery) {
       if (options && options.callback) {
         callback = options.callback;
       }
-      var slideoutButton = $("<a class='button slide-out-button' href='javascript:void(null)'></a>");
+      var slideoutButton = $("<button class='slide-out-button'></button>");
       var slideOut = '<div class="slide-out"><section></section></div>';
       $('article').removeClass('next');
       $('article').removeClass('current');
@@ -1915,9 +1915,9 @@ if(window.jQuery) {
          increaseSymbol = '';
          decreaseSymbol = '';
       }
-      var decreaseButton = '<a href="javascript:void(null)" class="button decrease">' + decreaseSymbol + '</a>';
+      var decreaseButton = '<button class="decrease"><span>' + decreaseSymbol + '</span></button>';
       var label = '<label>' + defaultValue + '</label><input type="text" value="' + defaultValue + '">';
-      var increaseButton = '<a href="javascript:void(null)" class="button increase">' + increaseSymbol + '</a>';
+      var increaseButton = '<button class="increase"><span>' + increaseSymbol + '</span></button>';
       stepper.append(decreaseButton + label + increaseButton);
       stepper.data('ui-value', {start: start, end: end, defaultValue: defaultValue});
     
@@ -1930,7 +1930,7 @@ if(window.jQuery) {
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) - 1;
-          stepper.find('.button:last-of-type').removeClass('disabled');
+          stepper.find('button:last-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
           if (currentValue === start) {
@@ -1948,7 +1948,7 @@ if(window.jQuery) {
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) + 1;
-          stepper.find('.button:first-of-type').removeClass('disabled');
+          stepper.find('button:first-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
           if (currentValue === end) {
@@ -1956,10 +1956,10 @@ if(window.jQuery) {
           }
         }
       };
-      stepper.find('.button:first-of-type').on('singletap', function() {
+      stepper.find('button:first-of-type').on('singletap', function() {
         decreaseStepperValue.call(this, stepper);
       });
-      stepper.find('.button:last-of-type').on('singletap', function() {
+      stepper.find('button:last-of-type').on('singletap', function() {
         increaseStepperValue.call(this, stepper);
       });
     }
@@ -1984,6 +1984,13 @@ if(window.jQuery) {
     ////////////////////////////
     UISwitch : function ( ) {
       var hasThumb = false;
+      // Abrstract swipe for left-to-right and right-to-left:
+      var swipeOn = "swiperight";
+      var swipeOff = "swipeleft"
+      if (document.documentElement.dir === "rtl") {
+        swipeOn = "swipeleft";
+        swipeOff = "swiperight";
+      }
       this.forEach(function(ctx, idx) {
         ctx.setAttribute('role','checkbox');
         if ($(ctx).data('ui-setup') === true) return;
@@ -2009,7 +2016,7 @@ if(window.jQuery) {
             ctx.setAttribute('aria-checked', true);
           }
         });
-        $(ctx).on('swipeleft', function() {
+        $(ctx).on(swipeOn, function() {
           var checkbox = ctx.querySelector('input');
           if (ctx.classList.contains('on')) {
             ctx.classList.remove('on');
@@ -2017,7 +2024,7 @@ if(window.jQuery) {
             checkbox.removeAttribute('checked');
           }
         });
-        $(ctx).on('swiperight', function() {
+        $(ctx).on(swipeOff, function() {
           var checkbox = ctx.querySelector('input');
           if (!ctx.classList.contains('on')) {
             ctx.classList.add('on');
@@ -2039,17 +2046,23 @@ if(window.jQuery) {
           name: 'fruit.mango'
           state : 'on' || 'off' //(off is default),
           value : 'Mango' || '',
+          checked: 'on' || '',
+          style: 'traditional' || '',
           callback : callback
         }
       */
-      var id = options ? options.id : $.Uuid();
-      var name = options && options.name ? (' name="' + options.name + '"') : '';
-      var value= options && options.value ? (' value="' + options.value + '"') : '';
-      var state = (options && options.state === 'on') ? (' ' + options.state) : '';
-      var checked = (options && options.state === 'on') ? ' checked="checked"' : '';
-      var _switch = $.concat('<span class="switch', state, 
-        '" id="', id, '"><em></em>','<input type="checkbox"',
-        name, checked, value, '></span>');
+      var settings = {
+        id: $.Uuid(),
+        name: '',
+        value: '',
+        state: '',
+        checked: '',
+        style: ''
+      };
+      $.extend(settings, options);
+      var _switch = $.concat('<span class="switch', " ", settings.style, " ", settings.state, 
+        '" id="', settings.id, '"><em></em>','<input type="checkbox"',
+        settings.name, settings.checked, ' value="', settings.value, '"></span>');
       return $(_switch);
     }
   });
@@ -2108,11 +2121,11 @@ if(window.jQuery) {
       var icon = ($.isiOS || $.isSafari) ? '<span class="icon"></span>' : '';
       var articles = $('article');
       for (var i = 0; i < settings.tabs; i++) {
-        tabbar += '<a class="button ' + settings.icons[i];
+        tabbar += '<button class="' + settings.icons[i];
         if (settings.selected === i+1) {
           tabbar += ' selected';
         }
-        tabbar += '">' + icon + '<label>' + settings.labels[i] + '</label></a>';
+        tabbar += '">' + icon + '<label>' + settings.labels[i] + '</label></button>';
       }
       tabbar += '</div>';
       $('body').append(tabbar);
@@ -2120,7 +2133,7 @@ if(window.jQuery) {
       //////////////////////////////////////////////////////
       // Add article id as history data attribute to button:
       //////////////////////////////////////////////////////
-      $('#' + settings.id).find('.button').forEach(function(ctx, idx){
+      $('#' + settings.id).find('button').forEach(function(ctx, idx){
         $(ctx).data('history', ['#' + articles.eq(idx)[0].id]);
       });
       $('nav').removeClass('current').addClass('next');
@@ -2134,7 +2147,7 @@ if(window.jQuery) {
       if ($.isAndroid) {
         tabButtonTap = $.eventStart;
       }
-      $('.tabbar').on(tabButtonTap, '.button', function() {
+      $('.tabbar').on(tabButtonTap, 'button', function() {
         var $this = this;
         var index;
         var id;
@@ -2145,7 +2158,7 @@ if(window.jQuery) {
         //////////////////////////////////////////////////
 
         $this.classList.add('selected');
-        $($this).siblings('a').removeClass('selected');
+        $($this).siblings('button').removeClass('selected');
         index = $(this).index();
         $('article.previous').removeClass('previous').addClass('next');
         $('nav.previous').removeClass('previous').addClass('next');
@@ -2280,6 +2293,7 @@ if(window.jQuery) {
       var transform = prefixStyle('transform');
       var transitionDuration = prefixStyle('transitionDuration');
       var hasTouch = 'ontouchstart' in window;
+      if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) hasTouch = false;
       var startEvent = $.eventStart;
       var moveEvent = $.eventMove;
       var endEvent = $.eventEnd;

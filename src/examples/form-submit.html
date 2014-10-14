@@ -31,7 +31,7 @@
       window.location = 'form-target.html?' + data;
     }
     $(function() {
-      $('.button.done').on('click', function() {
+      $('button.done').on('click', function() {
         $('#userForm')[0].submit();
       });
       $('#selectList').UISelectList({ selected: 0, name:'user.job' });    
@@ -40,9 +40,9 @@
 </head>
 <body>
   <nav>
-    <a class='button cancel'>Cancel</a>
+    <button class='cancel'>Cancel</button>
     <h1>Submit JSON</h1>
-    <a class='button done align-flush'>Done</a>
+    <button class='done align-flush'>Done</button>
   </nav>
   <article class='current'>
     <section>

@@ -5,12 +5,12 @@
   top: 0px !important;
 }
 .segmented.paging {
-  > a.button {
+  > button {
     top: 4px;
     background: none !important;
   }
 
-  &.horizontal > a.button {
+  &.horizontal > button {
     border: none !important;
     background-color: none !important;
     margin: 0 !important;
@@ -57,7 +57,7 @@
   &.vertical {
     #flex > .flex-direction(row);
 
-    > a.button {
+    > button {
       margin: 0 !important;
       background-color: none !important;
 
@@ -144,7 +144,7 @@ html[dir=rtl] {
     #flex > .flex-direction(row-reverse);
     display: -webkit-flex;
 
-    .button {
+    button {
       &:first-child {
         -webkit-box-ordinal-group: 2;
         -webkit-order: 2;
@@ -178,6 +178,15 @@ html[dir=rtl] {
         }
       }
 
+    }
+  }
+  .isNativeAndroidBrowser .segmented.paging.horizontal > button {
+    &:last-of-type {
+      -webkit-box-ordinal-group: 2;
+      float: left;
+    }
+    &:first-of-type {
+      -webkit-box-ordinal-group: 1;
     }
   }
 }

@@ -25,9 +25,9 @@
          increaseSymbol = '';
          decreaseSymbol = '';
       }
-      var decreaseButton = '<a href="javascript:void(null)" class="button decrease">' + decreaseSymbol + '</a>';
+      var decreaseButton = '<button class="decrease"><span>' + decreaseSymbol + '</span></button>';
       var label = '<label>' + defaultValue + '</label><input type="text" value="' + defaultValue + '">';
-      var increaseButton = '<a href="javascript:void(null)" class="button increase">' + increaseSymbol + '</a>';
+      var increaseButton = '<button class="increase"><span>' + increaseSymbol + '</span></button>';
       stepper.append(decreaseButton + label + increaseButton);
       stepper.data('ui-value', {start: start, end: end, defaultValue: defaultValue});
     
@@ -40,7 +40,7 @@
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) - 1;
-          stepper.find('.button:last-of-type').removeClass('disabled');
+          stepper.find('button:last-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
           if (currentValue === start) {
@@ -58,7 +58,7 @@
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) + 1;
-          stepper.find('.button:first-of-type').removeClass('disabled');
+          stepper.find('button:first-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
           if (currentValue === end) {
@@ -66,10 +66,10 @@
           }
         }
       };
-      stepper.find('.button:first-of-type').on('singletap', function() {
+      stepper.find('button:first-of-type').on('singletap', function() {
         decreaseStepperValue.call(this, stepper);
       });
-      stepper.find('.button:last-of-type').on('singletap', function() {
+      stepper.find('button:last-of-type').on('singletap', function() {
         increaseStepperValue.call(this, stepper);
       });
     }

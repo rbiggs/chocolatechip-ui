@@ -34,7 +34,7 @@ body.hasTabBar {
   border-top: solid 1px @tabbarButton;
   background-color: @tabbarBkgnd;
 
-  > .button {
+  > button {
     height: 100%;
     position: relative;
     padding: 0;
@@ -43,6 +43,7 @@ body.hasTabBar {
     #flex > .justify-content(center);
     #flex > .align-items(center);
     #flex > .flex(1) !important;
+    display: -webkit-flex;
     color: @tabbarButton;
     font-size: 9pt;
     padding: 1px;

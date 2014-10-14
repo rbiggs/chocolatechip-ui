@@ -9,6 +9,10 @@
   display: block;
   position: absolute;
 }
+section > .busy {
+  margin: auto;
+  left: calc(100% - 60px);
+}
 .busy  circle {
   -webkit-transform-origin: center center;
   fill: none;
@@ -47,3 +51,14 @@
 :not(.isNativeAndroidBrowser) .busy {
   -webkit-animation: spin 2s infinite linear;
 }
+html[dir=rtl] .busy.align-flush {
+  left: 10px !important;
+  right: auto !important;
+  float: left !important;
+}
+// .busy.align-flush {
+//   position: relative;
+//   right: 10px;
+//   top: 10px;
+//   bottom: auto;
+// }

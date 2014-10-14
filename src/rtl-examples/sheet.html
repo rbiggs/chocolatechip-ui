@@ -5,14 +5,14 @@
       $('.sheet').find('section').append('<h2>خيارات متاحة</h2>');
       $('.sheet').find('section').append("<ul class='list'></li>");
       var list = $('.sheet .list');
-      list.append('<li><a class="button action" href="javascript:void(null)">حفظ</a></li>');
-      list.append('<li><a class="button action" href="javascript:void(null)">حذف</a></li>');
-      list.append('<li><a class="button action" href="javascript:void(null)">إلغاء</a></li>');
-      list.on('singletap', '.button', function() {
+      list.append('<li><button class="action">حفظ</button></li>');
+      list.append('<li><button class="\action">حذف</button></li>');
+      list.append('<li><button class="action">إلغاء</button></li>');
+      list.on('singletap', 'button', function() {
         $.UIHideSheet();
       });
       
-      $('.sheet .list').on('singletap', '.button', function() {
+      $('.sheet .list').on('singletap', 'button', function() {
         $.UIHideSheet();
       });
       
@@ -22,11 +22,17 @@
       });
     });
   </script>
+  <style>
+    /* Fix for Native Browser on Android, ugh! */
+    body.isNativeAndroidBrowser .sheet > section > ul > li > button.action {
+      width: 100% !important;
+    }
+  </style>
 </head>
 <body>
   <nav>
     <h1>ورقة</h1>
-    <a class='button align-flush' id='showSheet' href='javascript:void(null)'>عرض</a>
+    <button class='align-flush' id='showSheet'>عرض</button>
   </nav>
   <article id='main'>
     <section>

@@ -26,11 +26,11 @@
       var icon = ($.isiOS || $.isSafari) ? '<span class="icon"></span>' : '';
       var articles = $('article');
       for (var i = 0; i < settings.tabs; i++) {
-        tabbar += '<a class="button ' + settings.icons[i];
+        tabbar += '<button class="' + settings.icons[i];
         if (settings.selected === i+1) {
           tabbar += ' selected';
         }
-        tabbar += '">' + icon + '<label>' + settings.labels[i] + '</label></a>';
+        tabbar += '">' + icon + '<label>' + settings.labels[i] + '</label></button>';
       }
       tabbar += '</div>';
       $('body').append(tabbar);
@@ -38,7 +38,7 @@
       //////////////////////////////////////////////////////
       // Add article id as history data attribute to button:
       //////////////////////////////////////////////////////
-      $('#' + settings.id).find('.button').forEach(function(ctx, idx){
+      $('#' + settings.id).find('button').forEach(function(ctx, idx){
         $(ctx).data('history', ['#' + articles.eq(idx)[0].id]);
       });
       $('nav').removeClass('current').addClass('next');
@@ -52,7 +52,7 @@
       if ($.isAndroid) {
         tabButtonTap = $.eventStart;
       }
-      $('.tabbar').on(tabButtonTap, '.button', function() {
+      $('.tabbar').on(tabButtonTap, 'button', function() {
         var $this = this;
         var index;
         var id;
@@ -63,7 +63,7 @@
         //////////////////////////////////////////////////
 
         $this.classList.add('selected');
-        $($this).siblings('a').removeClass('selected');
+        $($this).siblings('button').removeClass('selected');
         index = $(this).index();
         $('article.previous').removeClass('previous').addClass('next');
         $('nav.previous').removeClass('previous').addClass('next');

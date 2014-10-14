@@ -23,7 +23,7 @@
     background-color: @stepperLabelBkgnd;
   }
 
-  > .button {
+  > button {
     display: inline-box;
     .size(30px, 30px);
     .box-sizing(border-box);
@@ -36,6 +36,11 @@
     border: solid 1px @buttonBorderColor;
     padding: 0 !important;
     border-radius: 0;
+
+    > span {
+      font-size: inherit;
+      font-weight: inherit;
+    }
 
     .isDesktop &:hover {
       box-shadow: none !important;
@@ -54,12 +59,12 @@
     }
   }
 }
-body:not(.isDesktop) .stepper > .button:last-of-type {
+body:not(.isDesktop) .stepper > button:last-of-type {
   padding-top: 4px !important;
 }
 
 html[dir=rtl] {
-  .stepper > .button {
+  .stepper > button {
 
     &:first-of-type {
       border-left: none;
@@ -76,5 +81,8 @@ html[dir=rtl] {
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px;
     }
+  }
+  body.isNativeAndroidBrowser .stepper > button > span {
+    padding-right: 8px;
   }
 }

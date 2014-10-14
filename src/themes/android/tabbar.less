@@ -27,7 +27,7 @@ body.hasTabBar article {
   right: 0;
   background-color: @tabbarColor;
 }
-.tabbar > .button {
+.tabbar > button {
   color: contrast(@tabbarColor);
   background-color: @tabbarColor;
   position: relative;
@@ -92,10 +92,10 @@ body.hasTabBar article {
 }
 
 html[dir=rtl] {
-  .tabbar > .button:first-child {
+  .tabbar > button:first-child {
     border-right: none !important;
   }
-  .tabbar > .button:last-child {
+  .tabbar > button:last-child {
     border-right: solid 1px @tabbarButtonBorder !important;
   }
 }

@@ -199,7 +199,7 @@
       ///////////////////////////
     // Initialize Back Buttons:
     ///////////////////////////
-    $('body').on('singletap', 'a.back', function() {
+    $('body').on('singletap', '.back', function() {
       if (this.classList.contains('back')) {
         $.UIGoBack();
       }

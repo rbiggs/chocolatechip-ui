@@ -1,7 +1,7 @@
 /* ==============================
    Segmented Paging Control
    =========================== */
-.segmented.paging > .button {
+.segmented.paging > button {
   #flex > .display(flex);
   #flex > .justify-content(center);
   font-size: 20pt;
@@ -47,13 +47,13 @@
   }
 }
 
-nav .segmented.paging > a.button {
+nav .segmented.paging > button {
   border-radius: 50%;
 }
 
 .segmented.paging {
 
-  &.horizontal > .button {
+  &.horizontal > button {
 
     &:first-of-type::before {
       content: '\E09E';
@@ -65,7 +65,7 @@ nav .segmented.paging > a.button {
     }
   }
 
-  &.vertical > .button {
+  &.vertical > button {
 
     &:first-of-type::before {
       content: '\E0A0';
@@ -123,8 +123,8 @@ article.paging {
 }
 
 html[dir=rtl] {
-  .segmented.paging.horizontal > .button,
-  .segmented.paging.vertical > .button {
+  .segmented.paging.horizontal > button,
+  .segmented.paging.vertical > button {
 
     &:first-of-type::before, &:last-of-type::before {
       transform: rotate(-180deg);

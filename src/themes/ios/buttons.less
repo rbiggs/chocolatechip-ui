@@ -2,13 +2,15 @@
    Buttons
    =========================== */
 @backButtonSVG: escape("<svg xmlns:svg='http://www.w3.org/2000/svg' xmlns='http://www.w3.org/2000/svg' version='1.1' width='21' height='35' viewBox='0 0 21 35' id='svg2'><defs id='defs8' /><g transform='translate(-2.1355929,0.0677963)' id='Page-1' style='fill:none;stroke:none'><path d='M 21.353814,1.2365445 5.0903576,17.5 21.353814,33.763456' id='Rectangle-1' style='stroke:#000;stroke-width:3' /></g></svg>");
-
-a.button {
+button {
+  border: none;
+  background: none;
+  display: block;
   cursor: pointer;
   text-decoration: none;
+  font: -apple-system-caption1;
   font-size:  13pt;
   .transition(all 0.35s ease-out);
-  display: block;
   .box-sizing(auto);
   padding: 8px 0px;
   position: relative;
@@ -20,6 +22,7 @@ a.button {
   color: @primaryColor;
   border-color: @primaryColor;
   background-color: @buttonBkgnd;
+  -webkit-font-smoothing: antialiased;
 
   .isDesktop &:hover {
     cursor: pointer;
@@ -27,6 +30,7 @@ a.button {
   }
 
   &.back, &.backTo {
+    margin: 0;
     text-align: left;
     padding: 0 0 0 20px !important;
     line-height: 28px;
@@ -47,7 +51,7 @@ a.button {
       margin-right: 7px;
       position: absolute;
       left: -4px;
-      top: 2px;
+      top: 4px;
     }
   }
 
@@ -65,12 +69,12 @@ a.button {
   }
 }
 
-nav > a.button {
+nav > button {
   max-width: 100px;
 }
 
-.button.align-flush,
-.toolbar > .button.align-flush {
+button.align-flush
+.toolbar > button.align-flush {
   position: absolute;
   right: 15px;
   margin-right: 0 !important;
@@ -78,20 +82,27 @@ nav > a.button {
   top: 3px;
 }
 
-.isDesktopSafari a.button.back {
-  margin-top: 8px !important;
+.isDesktopSafari button.back {
+  margin-top: 2px !important;
+
+  &::before {
+    top: 3px;
+  }
+}
+.isDesktop button {
+  font: "Helvetica Neue", HelveticaNeue, sans-serif;
 }
 
-.isiOS a.button.back, 
-.isiOS a.button.backTo,
-.isSafari6 a.button.back,
-.isSafari6 a .button.backTo {
+.isiOS button.back,
+.isiOS button.backTo
+.isSafari6 button.back,
+.isSafari6 button.backTo {
   display: -webkit-box;
   margin-top: 0;
 }
 
 html[dir=rtl] {
-  a.button {
+  button {
 
     &.align-flush {
       right: auto;
@@ -109,7 +120,7 @@ html[dir=rtl] {
     }
   }
 
-  .toolbar > .button.align-flush {
+  .toolbar > button.align-flush {
     right: auto;
     left: 15px;
   }

@@ -15,12 +15,16 @@
   <script>
     $(function() {
       $('#rangeValue1').html($('#rangeControl1').val());
-      $('#rangeControl1').on('input', function() {
+      // Safari, Chrome and Firefox use "input",
+      // Windows responds to "change":
+      $('#rangeControl1').on('input change', function() {
         $('#rangeValue1').html($(this).val());
       });
       
       $('#rangeValue2').html($('#rangeControl2').val());
-      $('#rangeControl2').on('input', function() {
+      // Safari, Chrome and Firefox use "input",
+      // Windows responds to "change":
+      $('#rangeControl2').on('input change', function() {
         $('#rangeValue2').html($(this).val());
       });
     });

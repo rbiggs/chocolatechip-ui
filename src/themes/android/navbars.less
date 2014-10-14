@@ -5,6 +5,7 @@
   background-color: @navBkgnd;
   overflow: hidden;
   box-shadow: 0 1px 2px @boxShadow;
+  padding: 0 5px;
 }
 nav {
   height: 50px;
@@ -23,27 +24,31 @@ nav {
   padding: 0 10px;
   vertical-align: middle;
 
+  > button:first-child {
+    margin-left: 0;
+  }
+
   > h1 {
     text-align: left;
     display: inline-block;
     margin: 0 16px 0 8px;
     #flex > .flex(1) !important;
-    font: 100 16pt/36pt Roboto, SegoeWP, HelveticaNeue, Sans-serif !important;
+    font: 100 14pt/30pt Roboto, SegoeWP, HelveticaNeue, Sans-serif !important;
     position: relative;
     z-index: -1;
     white-space: nowrap;
     overflow: hidden;
     color: contrast(@navBkgnd);
 
-    + a.button {
-      margin: 5px 0 0 0;
+    + button {
+      margin: 5px 5px 0 0;
       position: absolute;
       top: 0;
-      right: 16px;
+      right: 10px;
     }
   }
 
-  > a.button, > div > a.button {
+  > button, > div > button {
     position: relative;
     color: contrast(@navBkgnd) !important;
 
@@ -61,4 +66,16 @@ nav {
 html[dir=rtl] nav > h1 {
   text-align: right;
   margin-right: 8px;
+
+  + button {
+    position: relative !important;
+    margin: 10px 10px 10px 10px
+  }
+}
+html[dir=rtl] body.isNativeAndroidBrowser nav > h1 + button {
+  left: 10px !important;
+  right: auto !important;
+  top: 5px !important;
+  margin-top: 0;
+  position: absolute !important;
 }

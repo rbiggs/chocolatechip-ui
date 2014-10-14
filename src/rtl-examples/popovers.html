@@ -69,13 +69,16 @@
     #choices h4 {
       font-family: SegoeWP, SegoeUI, HelveticaNeue, Roboto, Sans-serif;
     }
+    body.isNativeAndroidBrowser nav > .show-popover.align-flush {
+      top: -4px !important;
+    }
   </style>
 </head>
 <body>
   <nav>
-    <a class='button show-popover' id="showPopover1" href="javascript:void(null)">فاكهة</a>
+    <button class='show-popover' id="showPopover1">فاكهة</button>
     <h1>عنصر غطاء</h1>
-    <a class='button show-popover align-flush' id="showPopover2" href="javascript:void(null)">الحلويات</a>
+    <button class='show-popover align-flush' id="showPopover2">الحلويات</button>
   </nav>
   <article id="main" class="current">
     <section>

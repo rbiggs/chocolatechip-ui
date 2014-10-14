@@ -3,6 +3,25 @@
     input:focus:invalid {
       background-color: rgba(225,0,0,0.05);
     }
+    .horizontal.centered {
+      margin-top: 20px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orientation: horizontal;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -wekbit-box-pack: center;
+      -wekbit-justify-content: center;
+      -ms-justify-content: center;
+      justify-content: center;
+    }
+    button {
+      display: inline-block;
+      margin: auto;
+      width: auto;
+    }
   </style>
 </head>
 <body>
@@ -30,10 +49,9 @@
             </aside>
           </li>
         </ul> 
-      <div>
-        <br><br>
-        <a href="javascript:void(null)" class="button" id="loginSubmit">Login</a>
-        <a href="javascript:void(null)" class="button" id="goToForgotPassword">Forgot password?</a>
+      <div class='horizontal centered'>
+        <button id="loginSubmit">Login</button>
+        <button id="goToForgotPassword">Forgot password?</button>
       </div>
       </section>
     </article>
