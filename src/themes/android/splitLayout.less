@@ -29,6 +29,12 @@ body.splitlayout {
     }
   }
 
+  > .master + nav:not(:last-of-type) {
+    width: 320px;
+    right: auto;
+    border-right: solid 1px @splitlayoutBorders !important;
+  }
+
   > article {
 
     &.master {
@@ -73,6 +79,13 @@ html[dir=rtl] {
       > h1 {
         text-align: right;
       }
+    }
+    
+    > .master + nav:not(:last-of-type) {
+      right: 0;
+      left: 320px;
+      border-right: none;
+      border-left: solid 1px @splitlayoutBorders !important;
     }
 
     > article {

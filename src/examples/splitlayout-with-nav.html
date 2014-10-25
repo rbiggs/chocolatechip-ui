@@ -1,0 +1,117 @@
+  <script type="text/javascript">
+    var masterData = [
+      { title: "California", "data_url": 'california', region: "West"},
+      { title: "Oregon", "data_url": 'oregon', region: "West" },
+      { title: "Washington", "data_url": 'washington', region: "West" },
+      { title: "Colorado", "data_url": 'colorado', region: "West" },
+      { title: "Nevada", "data_url": 'nevada', region: "West" },
+      { title: "Arizona", "data_url": 'arizona', region: "West" },
+      { title: "New York", "data_url": 'newyork', region: "East" },
+      { title: "Massachussetts", "data_url": 'massachussetts', region: "East" },
+      { title: "Ohio", "data_url": 'ohio', region: "Midwest" },
+      { title: "Illinois", "data_url": 'illinois', region: "Midwest" },
+      { title: "Iowa", "data_url": 'iowa', region: "Midwest" },
+      { title: "Texas", "data_url": 'texas', region: "South" },
+      { title: "New Jersey", "data_url": 'newjersey', region: "East" },
+      { title: "Georgia", "data_url": 'georgia', region: "South" },
+      { title: "Florida", "data_url": 'florida', region: "South" },
+      { title: "Virginia", "data_url": 'virginia', region: "South" },
+      { title: "Nebraska", "data_url": 'nebraska', region: "Midwest" },
+      { title: "Connecticut", "data_url": 'connecticut', region: "East" }
+    ];
+    $(function() {
+      var masterTemplate = 
+      '<li data-url="[[=data.data_url]]">[[=data.title]]</li>';
+      var myTmpl8 = $.template(masterTemplate);
+      $('#master2 ul li').eq(0).addClass('selected');
+      $.get('../data/splitlayout/california.html', function(data) {
+        $('.detail section').html(data);
+      });
+      $('#master1 ul').on('singletap', 'li', function() {
+        var whichRegion = this.getAttribute('data-region');
+        var states = masterData.filter(function(state) {
+          return state.region === whichRegion
+        });
+        $('#master2 ul').empty();
+        states.forEach(function(ctx) {
+          $('#master2 ul').append(myTmpl8(ctx));
+        });
+      });
+      $('#master2 ul').on('singletap', 'li', function() {
+        $.UISetHashOnUrl('#' + $(this).attr('data-url'));
+        $(this).siblings().removeClass('selected');
+        $(this).addClass('selected');
+        $('#detailTitle').text(this.textContent);
+        var detail = $('.detail section');
+        detail.empty();
+        detail.UIBusy({'color':'#000', 'size': '100'});
+        var url = '../data/splitlayout/' + this.getAttribute('data-url') + '.html';
+        // Delay 1/2 second to show busy indicator while loading.
+        // Please do not do this for real world app!
+        setTimeout(function() {
+          $.get(url, function(data) {
+            detail.html(data);
+          });
+        }, 500);
+      });
+    });
+  </script>
+  <style>
+    // Style master list items:
+    .master .list > li.selected {
+      background-color: #d9d9d9;
+    }
+    .detail .list > li > img {
+      width: 200px;
+      min-height: 100px;
+      border: solid 1px #ccc;
+    }
+    .busy {
+      top: 50px
+    }
+  </style>
+</head>
+<body class='splitlayout'>
+  <nav class='current'>
+    <h1>Pick Region</h1>
+  </nav>
+  <article id='master1' class='master current'>
+    <section id="scroller2">
+      <ul class='list'>
+        <li data-goto="master2" data-region='West' class='nav'>
+          <h3>West Coast</h3>
+        </li>
+        <li data-goto="master2" data-region='East' class='nav'>
+          <h3>East Coast</h3>
+        </li>
+        <li data-goto="master2" data-region='Midwest' class='nav'>
+          <h3>Midwest</h3>
+        </li>
+        <li data-goto="master2" data-region='South' class='nav'>
+          <h3>South</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav class='next'>
+    <button class="back">Back</button>
+    <h1>Stuff here</h1>
+  </nav>
+  <article id='master2' class='master next'>
+    <section id="scroller2">
+      <ul class='list'>
+        <li>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav>
+    <h1 id='detailTitle'>Detail 1</h1>
+  </nav>
+  <article class='detail'>
+    <section>
+      <ul class='list'>
+    </section>
+  </article>
+</body>    
+</html>

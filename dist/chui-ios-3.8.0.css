@@ -646,7 +646,9 @@ nav > button + h1 {
   List header
   ============================ */
 section h2 {
-  font: normal 11pt/12pt HelveticaNeue, Sans-serif;
+  font-weight: normal;
+  font-size: 11pt;
+  line-height: 12pt;
   color: #4d4d4d;
   margin: 10px 0 6px 15px;
   text-transform: uppercase;
@@ -1306,6 +1308,12 @@ body.splitlayout > nav h1 {
   z-index: auto;
   text-align: center;
 }
+body.splitlayout > .master + nav:not(:last-of-type) {
+  right: auto;
+  width: 320px;
+  left: 0 !important;
+  border-right: solid 1px #c8c8c7 !important;
+}
 body.splitlayout > article.master {
   top: 45px;
   left: 0;
@@ -1316,6 +1324,11 @@ body.splitlayout > article.master {
   width: 320px;
   border-right: solid 1px #c8c8c7 !important;
 }
+body.splitlayout > article.master + nav:not(:last-of-type) {
+  right: 0;
+  border-right: none;
+  border-left: solid 1px #c8c8c7 !important;
+}
 body.splitlayout > article.detail {
   top: 45px;
   left: 320px !important;
@@ -1324,6 +1337,8 @@ body.splitlayout > article.detail {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   flex: 1;
+  z-index: 1000000;
+  background-color: #efeff4;
 }
 html[dir=rtl] body.splitlayout > nav:first-of-type {
   right: 0;
@@ -2683,6 +2698,9 @@ body.isWindows .horizontal-scroll-panel {
 }
 [dir=rtl] .horizontal-scroll-panel li:last-of-type {
   margin-left: 0 !important;
+}
+[dir=rtl] body.isWindows .horizontal-scroll-panel li {
+  float: right;
 }
 @media only screen and (max-device-width: 480px) {
   .horizontal-scroll-panel {

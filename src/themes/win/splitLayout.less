@@ -26,6 +26,12 @@ body.splitlayout {
     }
   }
 
+  > .master + nav:not(:last-of-type) {
+    width: 320px;
+    right: auto;
+    border-right: solid 1px lighten(@appBkColor, 20%) !important;
+  }
+
   > article {
 
     &.master {
@@ -79,6 +85,13 @@ html[dir=rtl] {
         right: 320px;
       }
     }
+    
+    > .master + nav:not(:last-of-type) {
+      right: 0;
+      left: 320px;
+      border-right: none;
+      border-left: solid 1px lighten(@appBkColor, 20%) !important;
+    }    
 
     > article {
       &.master {
