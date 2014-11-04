@@ -1017,6 +1017,11 @@ body.splitlayout > nav h1 {
   z-index: auto;
   text-align: center;
 }
+body.splitlayout > .master + nav:not(:last-of-type) {
+  width: 320px;
+  right: auto;
+  border-right: solid 1px #333333 !important;
+}
 body.splitlayout > article.master {
   top: 60px;
   left: 0;
@@ -1055,6 +1060,12 @@ html[dir=rtl] body.splitlayout > nav:first-of-type {
 html[dir=rtl] body.splitlayout > nav:last-of-type {
   left: 0;
   right: 320px;
+}
+html[dir=rtl] body.splitlayout > .master + nav:not(:last-of-type) {
+  right: 0;
+  left: 320px;
+  border-right: none;
+  border-left: solid 1px #333333 !important;
 }
 html[dir=rtl] body.splitlayout > article.master {
   left: 320px !important;
@@ -2391,6 +2402,9 @@ body.isWindows .horizontal-scroll-panel {
 }
 [dir=rtl] .horizontal-scroll-panel li:last-of-type {
   margin-left: 0 !important;
+}
+[dir=rtl] body.isWindows .horizontal-scroll-panel li {
+  float: right;
 }
 @media only screen and (max-device-width: 480px) {
   .horizontal-scroll-panel {

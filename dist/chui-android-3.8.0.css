@@ -549,7 +549,7 @@ html[dir=rtl] body.isNativeAndroidBrowser nav > h1 + button {
   background-color: #ffffff;
 }
 .list > li {
-  padding: 13px 16px 13px 16px;
+  padding: 13px 10px 13px 10px;
   -webkit-transition: all 0.3s ease-out;
   -moz-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
@@ -749,7 +749,7 @@ html[dir=rtl] section h2 {
   padding-right: 16px;
 }
 html[dir=rtl] li {
-  padding: 13px 16px 13px 16px;
+  padding: 13px 10px 13px 10px;
 }
 html[dir=rtl] li > h3,
 html[dir=rtl] li > h4 {
@@ -906,7 +906,7 @@ p {
   line-height: 16pt;
 }
 html[dir=rtl] li.comp {
-  padding: 13px 16px 13px 16px;
+  padding: 13px 10px 13px 10px;
 }
 html[dir=rtl] li.comp > aside:first-child {
   margin-right: 0;
@@ -1522,6 +1522,11 @@ body.splitlayout {
   z-index: auto;
   text-align: left;
 }
+.splitlayout > .master + nav:not(:last-of-type) {
+  width: 320px;
+  right: auto;
+  border-right: solid 1px #c8c8c7 !important;
+}
 .splitlayout > article.master {
   top: 50px;
   left: 0;
@@ -1558,6 +1563,12 @@ html[dir=rtl] body.splitlayout > nav:last-of-type {
 }
 html[dir=rtl] body.splitlayout > nav > h1 {
   text-align: right;
+}
+html[dir=rtl] body.splitlayout > .master + nav:not(:last-of-type) {
+  right: 0;
+  left: 320px;
+  border-right: none;
+  border-left: solid 1px #c8c8c7 !important;
 }
 html[dir=rtl] body.splitlayout > article.master {
   left: 320px !important;
@@ -2854,7 +2865,7 @@ body.hasTabBar article {
 body.hasTabBar article .previous:not(.navigable),
 body.hasTabBar article .next:not(.navigable) {
   display: none;
-  -webkiit-transform: none;
+  -webkit-transform: none;
 }
 .tabbar {
   /* Old syntax */
@@ -3108,6 +3119,9 @@ body.isWindows .horizontal-scroll-panel {
 }
 [dir=rtl] .horizontal-scroll-panel li:last-of-type {
   margin-left: 0 !important;
+}
+[dir=rtl] body.isWindows .horizontal-scroll-panel li {
+  float: right;
 }
 @media only screen and (max-device-width: 480px) {
   .horizontal-scroll-panel {

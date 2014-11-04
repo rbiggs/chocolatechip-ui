@@ -27,6 +27,13 @@ body.splitlayout {
     }
   }
 
+  > .master + nav:not(:last-of-type) {
+    right: auto;
+    width: 320px;
+    left: 0 !important;
+    border-right: solid 1px @splitLayoutBorders !important;
+  }
+
   > article {
     
     &.master {
@@ -37,6 +44,12 @@ body.splitlayout {
       .box-sizing(border-box);
       width: 320px;
       border-right: solid 1px @splitLayoutBorders !important;
+
+      + nav:not(:last-of-type) {
+        right: 0;
+        border-right: none;
+        border-left: solid 1px @splitLayoutBorders !important;
+      }
     }
 
     &.detail {
@@ -45,6 +58,8 @@ body.splitlayout {
       bottom: 0;
       left: 0;
       #flex > .flex(1);
+      z-index: 1000000;
+      background-color: @appBkColor;
     }
   }
 }
