@@ -82,6 +82,7 @@
         style: ''
       };
       $.extend(settings, options);
+      if (settings.state === 'off') settings.state = '';
       var _switch = $.concat('<span class="switch', " ", settings.style, " ", settings.state, 
         '" id="', settings.id, '"><em></em>','<input type="checkbox"',
         settings.name, settings.checked, ' value="', settings.value, '"></span>');
