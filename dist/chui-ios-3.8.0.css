@@ -380,7 +380,8 @@ button.action {
 nav > button {
   max-width: 100px;
 }
-button.align-flush .toolbar > button.align-flush {
+button.align-flush,
+.toolbar > button.align-flush {
   position: absolute;
   right: 15px;
   margin-right: 0 !important;

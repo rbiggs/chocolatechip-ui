@@ -26,15 +26,16 @@
         $.UIHideSheet();
       });
     },
-    UIShowSheet : function ( ) {
+    UIShowSheet : function ( id ) {
+      var sheet = id ? id : '.sheet';
       $('article.current').addClass('blurred');
       if ($.isAndroid || $.isChrome) {
-        $('.sheet').css('display','block');
+        $(sheet).css('display','block');
         setTimeout(function() {
-          $('.sheet').addClass('opened');
+          $(sheet).addClass('opened');
         }, 20);
       } else {
-        $('.sheet').addClass('opened');
+        $(sheet).addClass('opened');
       }
     },
     UIHideSheet : function ( ) {
