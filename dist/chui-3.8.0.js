@@ -1083,8 +1083,8 @@ if(window.jQuery) {
           if (options.color) {
             $('#' + settings.id).find('circle').css('stroke', options.color);
           }
-          $('#' + settings.id).css({'height': settings.size + 'px', 'width': settings.size + 'px'});
         }
+        $('#' + settings.id).css({'height': settings.size + 'px', 'width': settings.size + 'px'});
         return $('#' + settings.id);
       };
       // For Windows 8/WP8:
@@ -2060,6 +2060,7 @@ if(window.jQuery) {
         style: ''
       };
       $.extend(settings, options);
+      if (settings.state === 'off') settings.state = '';
       var _switch = $.concat('<span class="switch', " ", settings.style, " ", settings.state, 
         '" id="', settings.id, '"><em></em>','<input type="checkbox"',
         settings.name, settings.checked, ' value="', settings.value, '"></span>');
