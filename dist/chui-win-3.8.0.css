@@ -17,7 +17,7 @@ Version: 3.8.0
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, say on the background of your lists, adjust the color of @listBkColor to the color you want.
 */
 .attentionGrapper {
-  color: #d34057 !important;
+  color: #007aff !important;
 }
 /* 
   Flex parameters:
@@ -188,7 +188,7 @@ button.align-flush {
 button:hover,
 button.selected {
   color: #ffffff;
-  background-color: #d34057;
+  background-color: #007aff;
   border-color: #ffffff !important;
 }
 button.back,
@@ -228,7 +228,7 @@ button.backTo:hover {
 }
 button.back:hover::before,
 button.backTo:hover::before {
-  color: #d34057;
+  color: #007aff;
 }
 button.action {
   width: auto;
@@ -259,7 +259,7 @@ html[dir=rtl] button.align-flush {
    Nav bars
    =========================== */
 #global-nav {
-  background-color: #d34057;
+  background-color: #000000;
   overflow: hidden;
   padding: 0 5px;
 }
@@ -317,7 +317,7 @@ nav button:first-of-type {
 nav button:hover {
   border-color: #ffffff !important;
   background-color: #ffffff;
-  color: #d34057;
+  color: #000000;
 }
 nav button.align-flush {
   position: absolute;
@@ -395,7 +395,7 @@ li,
 .list > li[data-show-article]:hover {
   cursor: pointer;
   border: solid 1px #ffffff;
-  background-color: #d34057;
+  background-color: #007aff;
   color: #ffffff !important;
 }
 .list > li[data-goto]:hover *,
@@ -782,7 +782,7 @@ html[dir=rtl] .grid {
 .segmented > button:hover,
 .segmented > button.selected {
   color: #ffffff !important;
-  background-color: #d34057 !important;
+  background-color: #007aff !important;
   opacity: 1 !important;
   box-shadow: none;
   border-color: #ffffff !important;
@@ -831,7 +831,7 @@ html[dir=rtl] .segmented > button:first-of-type {
 }
 .segmented.paging > button:hover,
 .segmented.paging > button.selected {
-  color: #d34057;
+  color: #007aff;
   box-shadow: none;
   border-color: #ffffff;
   background-color: #ffffff;
@@ -841,7 +841,7 @@ html[dir=rtl] .segmented > button:first-of-type {
 .segmented.paging > button:hover::before,
 .segmented.paging > button.selected::before {
   background-color: #ffffff;
-  color: #d34057;
+  color: #007aff;
 }
 .segmented.paging > button::before {
   content: '';
@@ -933,7 +933,7 @@ div.toolbar {
   right: 0;
   height: 45pt;
   padding: 0 15px;
-  background-color: #dd697b;
+  background-color: #1a1a1a;
   border-top: solid 1px #333333;
   overflow: hidden;
   box-sizing: border-box;
@@ -956,11 +956,11 @@ div.toolbar > button {
   left: 0;
   width: 320px;
   border-right: solid 1px #333333 !important;
-  background-color: #dd697b;
+  background-color: #1a1a1a;
 }
 .splitlayout > .detail + .toolbar {
   left: 320px;
-  background-color: #dd697b;
+  background-color: #1a1a1a;
 }
 article.has-toolbar {
   bottom: 45pt !important;
@@ -1003,7 +1003,7 @@ body.splitlayout {
   -ms-flex-align: stretch;
 }
 body.splitlayout > nav {
-  background-color: #dd697b !important;
+  background-color: #1a1a1a !important;
   border-bottom: solid 1px #333333;
 }
 body.splitlayout > nav:first-of-type {
@@ -1164,12 +1164,12 @@ nav > .busy {
   margin: 0 !important;
 }
 .popover > section > ul.list > li:hover {
-  background-color: #d34057;
+  background-color: #007aff;
   color: #ffffff;
 }
 button.show-popover:hover {
   background-color: #ffffff;
-  color: #d34057;
+  color: #000000;
 }
 /* ==============================
    Popup Control
@@ -1264,7 +1264,7 @@ button.show-popover:hover {
   border-right: solid 2px #000000;
 }
 .popup footer > button:hover {
-  background-color: #d34057;
+  background-color: #007aff;
   border-color: #000000 !important;
   color: #ffffff;
 }
@@ -1350,11 +1350,11 @@ html[dir=rtl] .popup footer > button:first-of-type {
 }
 .deletion-indicator:hover {
   box-shadow: 0 0 6px 2px #ffffff !important;
-  color: #e693a0 !important;
+  color: #66afff !important;
 }
 li.selected > .deletion-indicator {
   box-shadow: 0 0 6px 2px #ffffff !important;
-  color: #e693a0 !important;
+  color: #66afff !important;
 }
 li.selected > .deletion-indicator::before {
   font-family: "Segoe UI Symbol";
@@ -1362,7 +1362,7 @@ li.selected > .deletion-indicator::before {
   font-size: 13pt;
   text-align: left;
   content: '\E008';
-  color: #e693a0;
+  color: #66afff;
   display: block;
   margin: -2px 0 0 -4px;
 }
@@ -1527,7 +1527,7 @@ textarea {
   color: #ffffff;
 }
 input:focus:not([type=range]) {
-  border-color: #d34057;
+  border-color: #007aff;
   color: #ffffff;
 }
 select {
@@ -1538,14 +1538,14 @@ select {
   padding-left: 5px;
 }
 select:focus {
-  border-color: #d34057;
+  border-color: #007aff;
 }
 select:focus::-ms-value {
   background-color: transparent;
   color: #ffffff;
 }
 select:focus::-ms-expand {
-  border: solid 2px #d34057;
+  border: solid 2px #007aff;
   border-top: none;
   border-right: none;
   border-bottom: none;
@@ -1562,7 +1562,7 @@ select::-ms-expand {
 select option:hover,
 select option:focus,
 select option:checked {
-  background-color: #d34057;
+  background-color: #007aff;
 }
 option {
   color: #000000;
@@ -1671,7 +1671,7 @@ input[type="range"] {
 .list.select li:hover::before,
 .list.select li.selected::before {
   background-image: radial-gradient(circle, #ffffff 5px, transparent 5px);
-  background-color: #dd697b;
+  background-color: #3395ff;
 }
 .list.select li > input {
   display: none;
@@ -1706,7 +1706,7 @@ input[type="range"] {
 .sheet button:hover,
 .sheet button.selected {
   color: #ffffff;
-  background-color: #d34057;
+  background-color: #007aff;
   border-color: #000000 !important;
 }
 .sheet > section {
@@ -1821,7 +1821,7 @@ button.slide-out-button::before {
   margin: 2px 0 0 -5px;
 }
 button.slide-out-button:hover::before {
-  color: #d34057;
+  color: #000000;
 }
 body.slide-out-app > article,
 body.slide-out-app > nav:not(:first-of-type) {
@@ -1992,7 +1992,7 @@ html[dir=rtl] li.switched h4 {
   z-index: 3;
   top: 0px;
   border: solid 1px #ffffff;
-  background-color: #d9596d;
+  background-color: #1f8aff;
   height: 19px;
   width: 0;
   transition: all 0.15s ease-in-out;
@@ -2061,7 +2061,7 @@ html[dir=rtl] .switch.on > em {
 }
 .tabbar > button:hover,
 .tabbar > button.selected {
-  color: #d34057 !important;
+  color: #007aff !important;
   opacity: 1 !important;
   background-color: transparent;
 }
@@ -2103,7 +2103,7 @@ body.hasTabBar > article {
     width: 240px;
     height: 400px;
   }
-  nav > .button {
+  nav > button {
     -ms-flex: 0;
     flex: 0;
   }
@@ -2117,8 +2117,8 @@ body.hasTabBar > article {
   .list > li h3 {
     font-size: 14pt;
   }
-  a.button.back,
-  a.button.backTo {
+  button.back,
+  button.backTo {
     width: 30px;
     height: 30px;
     line-height: 18px !important;
@@ -2126,18 +2126,18 @@ body.hasTabBar > article {
     -ms-flex: none;
     flex: none;
   }
-  a.button.back::before,
-  a.button.backTo::before {
+  button.back::before,
+  button.backTo::before {
     vertical-align: 52%;
     font-size: 11pt;
     margin-left: -17px;
   }
-  .segmented.paging > .button {
+  .segmented.paging > button {
     font-size: 20pt;
     width: 30px;
     height: 30px;
   }
-  .segmented.paging > .button::before {
+  .segmented.paging > button::before {
     height: 30px;
     width: 30px;
     line-height: 20pt;
@@ -2156,7 +2156,7 @@ body.hasTabBar > article {
     height: 26px;
     font: bold 14pt/20pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
   }
-  .stepper > .button {
+  .stepper > button {
     font-size: 10pt;
     line-height: 14pt;
     height: 26px;
@@ -2193,7 +2193,7 @@ body.hasTabBar > article {
     display: -ms-flexbox;
     display: flex;
   }
-  .tabbar > .button {
+  .tabbar > button {
     font-size: 9pt;
     -ms-flex: 1;
     flex: 1;
@@ -2218,20 +2218,20 @@ body.hasTabBar > article {
   .switch.on:before {
     width: 26px;
   }
-  .tabbar > .button > label {
+  .tabbar > button > label {
     font-size: 8pt !important;
   }
-  .tabbar > .button.more::before {
+  .tabbar > button.more::before {
     font-size: 8pt;
   }
-  .button.slide-out-button {
+  button.slide-out-button {
     top: 5px;
     left: 15px;
     height: 28px;
     width: 28px;
     margin-left: -5px !important;
   }
-  .button.slide-out-button::before {
+  button.slide-out-button::before {
     height: 28px;
     width: 28px;
     font-size: 10pt;
@@ -2336,7 +2336,7 @@ body.hasTabBar > article {
 }
 .pagination > li:hover,
 .pagination > li.selected {
-  background-color: #d34057;
+  background-color: #007aff;
   cursor: pointer;
 }
 .pagination > li:last-of-type {
