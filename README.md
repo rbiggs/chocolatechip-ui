@@ -23,7 +23,7 @@ sudo npm install -g gulp
 ``` 
 
 
-For Windows, just runt this:
+For Windows, just run this:
 
 ```shell
 npm install -g gulp
