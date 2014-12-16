@@ -10,6 +10,7 @@
   var tapTimeout;
   var longTapDelay = 750;
   var singleTapDelay = 150;
+  if ($.isAndroid) singleTapDelay = 200;
   var longTapTimeout;
   function parentIfText(node) {
     return 'tagName' in node ? node : node.parentNode;
