@@ -9,9 +9,9 @@
 
 ChocolateChip-UI
 ChUI-Android.css
-Copyright 2014 Sourcebits www.sourcebits.com
+Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.0
+Version: 3.8.1
 */
 /*
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -1783,6 +1783,7 @@ html[dir=rtl] .isDesktop .button.show-popover:hover::after {
   margin-right: auto;
   box-shadow: 0 0 6px 4px #888888;
   border-radius: 3px;
+  min-height: 100px;
 }
 .popup.opened {
   display: block;

@@ -9,9 +9,9 @@
 
 ChocolateChip-UI
 ChUI-iOS.css
-Copyright 2014 Sourcebits www.sourcebits.com
+Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.0
+Version: 3.8.1
 */
 /*
   To create a custom theme, uncomment the second of each of the following, then adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -1499,6 +1499,7 @@ html[dir=rtl] body.splitlayout > article.detail {
   transition: all 0.25s ease-out;
   -webkit-trasform-origin: center center;
   trasform-origin: center center;
+  min-height: 100px;
 }
 .popup.closed {
   -webkit-transform: scale(0);

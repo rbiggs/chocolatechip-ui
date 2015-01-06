@@ -12,19 +12,28 @@
         message: 'This is a message from me to you.',
         cancelButton: 'Cancel',
         continueButton: 'Go Ahead',
-        callback: function() { // do nothing }
+        callback: function() { // do nothing },
+        empty: true
       }
       */
       if (!options) return;
-      var id = options.id || $.Uuid();
-      var title = options.title ? '<header><h1>' + options.title + '</h1></header>' : '';
-      var message = options.message ? '<p role="note">' + options.message + '</p>' : '';
-      var cancelButton = options.cancelButton ? '<button class="cancel" role="button">' + options.cancelButton + '</button>' : '';
-      var continueButton = options.continueButton  ? '<button class="continue" role="button">' + options.continueButton + '</button>' : '';
-      var callback = options.callback || $.noop;
-      var padding = options.empty ? ' noTitle' : '';
-      var panelOpen, panelClose;
-      var popup = $.concat('<div class="popup closed', padding, '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
+      var settings = {};
+      settings.id = $.Uuid();
+      settings.content = true;
+      $.extend(settings, options);
+
+      var id = settings.id;
+      var title = settings.title ? '<header><h1>' + settings.title + '</h1></header>' : '';
+      var message = settings.message ? '<p role="note">' + options.message + '</p>' : '';
+      var cancelButton = options.cancelButton ? '<button class="cancel" role="button">' + settings.cancelButton + '</button>' : '';
+      var continueButton = settings.continueButton  ? '<button class="continue" role="button">' + settings.continueButton + '</button>' : '';
+      var callback = settings.callback || $.noop;
+      var panelOpen, panelClose, popup;
+      if (settings.empty) {
+        popup = $.concat('<div class="popup closed" role="alertdialog" id="', id, '"><div class="panel"></div></div>');
+      } else {
+        popup = $.concat('<div class="popup closed', '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
+      }
     
       $('body').append(popup);
       if (callback && continueButton) {

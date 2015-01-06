@@ -4,9 +4,16 @@
   // Plugin to setup automatic data binding:
   //////////////////////////////////////////
   $.extend($, {
-    UIBindData : function () {
-
-      var controllers = $('[data-controller]');
+    UIBindData : function (controller) {
+      var controllers;
+      // If user provides controller,
+      // only bind to that one:
+      if (controller) {
+        controllers = $('[data-controller=' + controller +']');
+      // Otherwise get all controllers:
+      } else {
+        controllers = $('[data-controller]');
+      }
       var broadcasts = [];
 
       // Define function to create broadcasts:
