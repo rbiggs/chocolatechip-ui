@@ -9,18 +9,20 @@
         id : 'starTrek',
         listClass :'enterprise',
         background: 'transparent',
+        handle: false
       }
     */
     UISheet : function ( options ) {
-      var id = $.Uuid();
-      var listClass = '';
-      var background = '';
-      if (options) {
-        id = options.id ? options.id : id;
-        listClass = options.listClass ? ' ' + options.listClass : '';
-        background = ' style="background-color:' + options.background + ';" ' || '';
-      }
-      var sheet = '<div id="' + id + '" class="sheet' + listClass + '"><div class="handle"></div><section class="scroller-vertical"></section></div>';
+      if (!options) var options = {};
+      if (options.background) options.background =  $.concat(' style="background-color:', options.background, '" ');
+      if (options.handle === false) options.handle = '';
+      var settings = {};
+      settings.id = $.Uuid();
+      settings.listClass = '';
+      settings.background = '';
+      settings.handle = '<div class="handle"></div>';
+      if (options) $.extend(settings, options);
+      var sheet = $.concat('<div id="', settings.id, '" class="sheet', settings.listClass, '"', settings.background, '>', settings.handle, '<section class="scroller-vertical"></section></div>');
       $('body').append(sheet);
       $('.sheet .handle').on($.eventStart, function() {
         $.UIHideSheet();

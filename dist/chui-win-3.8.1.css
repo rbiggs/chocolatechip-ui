@@ -9,9 +9,9 @@
 
 ChocolateChip-UI
 ChUI-Win.css
-Copyright 2014 Sourcebits www.sourcebits.com
+Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.0
+Version: 3.8.1
 */
 /*
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, say on the background of your lists, adjust the color of @listBkColor to the color you want.
@@ -1193,6 +1193,7 @@ button.show-popover:hover {
   margin-right: auto;
   transition: all 0.25s ease-in;
   transform-origin: top center;
+  min-height: 100px;
 }
 .popup.closed {
   transform: scaleY(0);
