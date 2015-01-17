@@ -131,7 +131,6 @@ gulp.task('js', function () {
     'src/chui/carousel.js',
     'src/chui/range.js',
     'src/chui/select.js',
-    'src/chui/scrollPanel.js',
     'src/chui/dataBinding.js'
   ])
 
