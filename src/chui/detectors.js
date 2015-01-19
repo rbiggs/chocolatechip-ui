@@ -22,6 +22,5 @@
     isDesktop : !(/mobile/img.test(navigator.userAgent)),
     isSafari : (!/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent)),
     isChrome : /Chrome/img.test(navigator.userAgent),
-    isNativeAndroid : (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent))
-  });
-})(window.$);
+    isNativeAndroid : (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent)),
+    isWideScreen : window.innerWidth >= 960 && (window.orientation === 90 || window.orentation === -90)
