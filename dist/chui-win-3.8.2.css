@@ -1410,7 +1410,7 @@ li.selected > .deletion-indicator::before {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.button.delete {
+button.delete {
   float: right;
   color: #ffffff;
   text-align: center;
@@ -1437,13 +1437,13 @@ li.selected > .deletion-indicator::before {
   padding: 0;
   overflow: hidden;
 }
-.button.delete:hover {
+button.delete:hover {
   border-color: #ffffff !important;
 }
-.button.delete:hover::before {
+button.delete:hover::before {
   color: #ffffff;
 }
-.button.delete::before {
+button.delete::before {
   font-family: "Segoe UI Symbol";
   font-weight: normal;
   content: "\E107";
@@ -1455,7 +1455,7 @@ li.selected > .deletion-indicator::before {
   text-align: center;
   margin-top: 8px;
 }
-li.selected > .button.delete {
+li.selected > button.delete {
   transform: translate3d(0, 0, 0);
 }
 html[dir=rtl] .deletion-indicator {
@@ -1469,7 +1469,7 @@ html[dir=rtl] .list.showIndicators li {
   padding-left: 0;
   padding-right: 34px;
 }
-html[dir=rtl] .button.delete {
+html[dir=rtl] button.delete {
   float: left;
 }
 html[dir=rtl] .list.editable > li > .deletion-indicator,
@@ -1479,8 +1479,8 @@ html[dir=rtl] .list.deletable > li > .deletion-indicator {
   margin-left: -20px;
   right: -40px;
 }
-html[dir=rtl] .list.editable > li > .button.delete,
-html[dir=rtl] .list.deletable > li > .button.delete {
+html[dir=rtl] .list.editable > li > button.delete,
+html[dir=rtl] .list.deletable > li > button.delete {
   transform: translate3d(-80px, 0, 0);
   left: 0;
   right: auto;
@@ -1514,7 +1514,7 @@ html[dir=rtl] .list.showIndicators > li.selected {
   margin-right: 0;
   padding-left: 45px;
 }
-html[dir=rtl] .list.showIndicators > li.selected > .button.delete {
+html[dir=rtl] .list.showIndicators > li.selected > button.delete {
   transform: translate3d(6px, 0, 0);
 }
 /* ==============================

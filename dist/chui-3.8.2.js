@@ -1664,23 +1664,46 @@ if(window.jQuery) {
             } else {
               // Mark list as edited:
               $(list).data('list-edit', true);
-              var clone = $(this).closest('li').clone();
-              item.prev().before(clone);
-              item.remove();
+              var item = $(this).closest('li');
+              var prev = item.prev();
+              // Clone the items to replace the
+              // transitioned ones alter:
+              var itemClone = item.clone();
+              var prevClone = prev.clone();
+              var height = item[0].offsetHeight;
+              item.css({'-webkit-transform': 'translate3d(0,-' + height + 'px,0)'});
+
+              prev.css({'-webkit-transform': 'translate3d(0,' + height + 'px,0)'});              
+              setTimeout(function() {
+                item.replaceWith(prevClone)
+                prev.replaceWith(itemClone)
+              }, 250);
             }
           });
 
           // Move list item down:
           $(list).on('singletap', '.move-down', function(e) {
             var item = $(this).closest('li');
+            var next = item.next();
+            // Clone the items to replace the
+            // transitioned ones alter:
+            var itemClone = item.clone();
+            var nextClone = next.clone();
             if ((window.$chocolatechipjs && item.is('li:last-child')[0]) || window.jQuery && item.is('li:last-child')) {
               return;
             } else {
               // Mark list as edited:
               $(list).data('list-edit', true);
-              var clone = $(this).closest('li').clone();
-              item.next().after(clone);
-              item.remove();
+
+              var height = item[0].offsetHeight;
+              item.css({'-webkit-transform': 'translate3d(0,' + height + 'px,0)'});
+
+              next.css({'-webkit-transform': 'translate3d(0,-' + height + 'px,0)'});
+              item.prev().css({'-webkit-transform': 'translate3d(0,0,0)'});
+              setTimeout(function() {
+                item.replaceWith(nextClone)
+                next.replaceWith(itemClone)
+              }, 250);
             }
           });
 
