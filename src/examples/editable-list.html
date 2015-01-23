@@ -11,7 +11,7 @@
     ];
 
     $(function() {
-      if (localStorage.getItem('chosen-items')) {
+      if (localStorage && localStorage.getItem('chosen-items')) {
         var items = localStorage.getItem('chosen-items');
         items = items.split("'")[1];
         JSON.parse(items).forEach(function(ctx) {
@@ -77,5 +77,4 @@
     </section>
   </article>
 </body>
-</html>
 </html>
