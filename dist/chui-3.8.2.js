@@ -1540,6 +1540,7 @@ if(window.jQuery) {
         return;
       }
 
+      var transform = ($.isiOS || $.isSafari) ? transform: 'transform';
       var editLabel = settings.editLabel;
       var doneLabel = settings.doneLabel;
       var deleteLabel = settings.deleteLabel;
@@ -1673,9 +1674,9 @@ if(window.jQuery) {
               var itemClone = item.clone();
               var prevClone = prev.clone();
               var height = item[0].offsetHeight;
-              item.css({'-webkit-transform': 'translate3d(0,-' + height + 'px,0)'});
+              item.css({transform: 'translate3d(0,-' + height + 'px,0)'});
 
-              prev.css({'-webkit-transform': 'translate3d(0,' + height + 'px,0)'});              
+              prev.css({transform: 'translate3d(0,' + height + 'px,0)'});              
               setTimeout(function() {
                 item.replaceWith(prevClone)
                 prev.replaceWith(itemClone)
@@ -1698,10 +1699,10 @@ if(window.jQuery) {
               $(list).data('list-edit', true);
 
               var height = item[0].offsetHeight;
-              item.css({'-webkit-transform': 'translate3d(0,' + height + 'px,0)'});
+              item.css({transform: 'translate3d(0,' + height + 'px,0)'});
 
-              next.css({'-webkit-transform': 'translate3d(0,-' + height + 'px,0)'});
-              item.prev().css({'-webkit-transform': 'translate3d(0,0,0)'});
+              next.css({transform: 'translate3d(0,-' + height + 'px,0)'});
+              item.prev().css({transform: 'translate3d(0,0,0)'});
               setTimeout(function() {
                 item.replaceWith(nextClone)
                 next.replaceWith(itemClone)
@@ -1716,7 +1717,7 @@ if(window.jQuery) {
             $(list).data('list-edit', true);
             var direction = '-1200%';
             if ($('html').attr('dir') === 'rtl') direction = '1000%';
-            $(this).siblings().css({'-webkit-transform': 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out', 'transform': 'translate3d(' + direction + ',0,0)', 'transition': 'all 1s ease-out'});
+            $(this).siblings().css({transform: 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out', 'transform': 'translate3d(' + direction + ',0,0)', 'transition': 'all 1s ease-out'});
             setTimeout(function() {
               $($this).parent().remove();
             }, 500);
