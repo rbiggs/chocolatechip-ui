@@ -168,12 +168,23 @@
               var itemClone = item.clone();
               var prevClone = prev.clone();
               var height = item[0].offsetHeight;
-              item.css({transform: 'translate3d(0,-' + height + 'px,0)'});
+              item.css({
+                "-webkit-transform": "translate3d(0,-" + height + "px,0)",
+                "transform": "translate3d(0,-" + height + "px,0)"
+              });
 
-              prev.css({transform: 'translate3d(0,' + height + 'px,0)'});              
+              prev.css({
+                "-webkit-transform": "translate3d(0," + height + "px,0)",
+                "transform": "translate3d(0," + height + "px,0)"
+              });              
               setTimeout(function() {
-                item.replaceWith(prevClone)
-                prev.replaceWith(itemClone)
+                if (window.$chocolatechipjs) {
+                  $.replace(prevClone, item);
+                  $.replace(itemClone, prev);
+                } else {
+                  item.replaceWith(prevClone)
+                  prev.replaceWith(itemClone)
+                }
               }, 250);
             }
           });
@@ -193,13 +204,22 @@
               $(list).data('list-edit', true);
 
               var height = item[0].offsetHeight;
-              item.css({transform: 'translate3d(0,' + height + 'px,0)'});
-
-              next.css({transform: 'translate3d(0,-' + height + 'px,0)'});
-              item.prev().css({transform: 'translate3d(0,0,0)'});
+              item.css({
+                '-webkit-transform': 'translate3d(0,' + height + 'px,0)',
+                transform: 'translate3d(0,' + height + 'px,0)'
+              });
+              next.css({
+                "-webkit-transform": "translate3d(0,-" + height + "px,0)",
+                "transform": "translate3d(0,-" + height + "px,0)"
+              });
               setTimeout(function() {
-                item.replaceWith(nextClone)
-                next.replaceWith(itemClone)
+                if (window.$chocolatechipjs) {
+                   $.replace(nextClone, item);
+                   $.replace(itemClone, next);
+                } else {
+                  item.replaceWith(nextClone)
+                  next.replaceWith(itemClone)
+                }
               }, 250);
             }
           });
