@@ -112,12 +112,16 @@ gulp js ios && gulp watch_ios
 ```
 gulp js win && gulp watch_win
 ```
+##ChocolateChipJS
+
+If you want to use ChocolateChipJS instead of jQuery, you can just run the following command:
 
 
+```
+gulp --chocolatechipjs
+```
 
-###Gruntjs
-
-As of version 3.6.0 ChocolateChip-UI no longer uses Gruntjs to build. If you have ChocolateChip-UI 3.5.5 or earlier, Gruntjs will work with that. You can download an older version by clicking the "releases" link at the top of the page in the repository info header. This will display all available tagged versions of ChocolateChip-UI. Clicking a version will start the download.
+This will put the latest version of ChocolateChipJS in the chui folder and also output all examples to use ChocolateChipJS instead of jQuery. You can learn more about how to use ChocolateChipJS on [our website](http://chocolatechip-ui.com).
 
 ###Note
 

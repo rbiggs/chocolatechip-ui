@@ -8,9 +8,9 @@
    \:~==~:/
 
 ChocolateChip.js
-Copyright 2014 Sourcebits www.sourcebits.com
+Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.0
+Version: 3.8.2
 */
 (function() {
   'use strict';
@@ -130,7 +130,7 @@ Version: 3.8.0
 
   $.extend({
  
-    version : "3.8.0",
+    version : "3.8.2",
     
     libraryName : 'ChocolateChip',
     
@@ -1218,29 +1218,12 @@ Version: 3.8.0
            }
          } 
          ret.push(p);
-      } else if (typeof selector === 'string' && selector.substr(0,1) === '.' ) {
-        newSelector = selector.split('.')[1];
-        if (p.nodeName === 'BODY') {
-          ret.push(p);
-        }
-        if (p.classList.contains(newSelector)) {
+      } else if (typeof selector === 'string') {
+        if ($(p).is(selector).length) {
           ret.push(p);
         } else {
           ret.push($(p).ancestor(selector)[0]);
         }
-      } else if (typeof selector === 'string' && selector.substr(0,1) === '#' ) {
-        newSelector = selector.split('#')[1];
-        if (p.getAttribute('id') === newSelector) {
-          ret.push(p);
-        } else {
-          ret.push($(p).ancestor(selector)[0]);
-        }
-      } else { 
-        if (p.tagName && (p.tagName.toLowerCase() === selector)) {
-          ret.push(p);
-        } else {
-          ret.push($(p).ancestor(selector)[0]);
-        } 
       }
       return ret;
     },
@@ -1263,7 +1246,7 @@ Version: 3.8.0
         _siblings.splice(_siblings.indexOf(ctx),1);
         if (selector) {
           _siblings.each(function(node) {
-            if (node.nodeName === selector.toUpperCase()) {
+            if ([node].is(selector)[0]) {
               ret.push(node);
             }
           });
@@ -1275,7 +1258,72 @@ Version: 3.8.0
       });
       return ret.length ? ret.unique() : this;
     },
+           
+    clone : function ( value ) {
+      if (!this.length) return [];
+      var ret = [];
+      this.each(function(ctx) {
+        if (value === true || !value) {
+          ret.push(ctx.cloneNode(true));
+        } else {
+          ret.push(ctx.cloneNode(false));
+        }
+      });
+      return ret.length ? ret[0] : this;
+    },
+        
+    wrap : function ( string ) {
+      if (!this.length) return [];
+      this.each(function(ctx) {
+        var tempNode = $.make(string);
+        tempNode = tempNode[0];
+        var whichClone = $(ctx).clone(true);
+        tempNode.appendChild(whichClone);
+        ctx.parentNode.insertBefore(tempNode, ctx.nextSibling);
+        $(ctx).remove(ctx);
+      });
+      return this;
+    },
     
+    unwrap : function ( ) {
+      if (!this.length) return [];
+      var parentNode = null;
+      this.each(function(node) {
+        if (node.parentNode === parentNode) {
+          return;
+        }
+        parentNode = node.parentNode;
+        if (node.parentNode.nodeName === 'BODY') {
+          return false;
+        }
+        $.replace(node, node.parentNode);
+      });
+      return this;
+    },
+    
+    remove : function ( ) {
+      if (!this.length) return [];
+      this.each(function(ctx) {
+        $(ctx).unbind();
+        $(ctx).removeData();
+        ctx.parentNode.removeChild(ctx);
+      });
+    },
+    
+    empty : function ( ) {
+      if (!this.length) return [];
+      var ret = [];
+      this.each(function(ctx) {
+        $(ctx).unbind();
+        ctx.textContent = '';
+        ret.push(ctx);
+      });
+      return returnResult(ret);
+    }
+  });
+
+
+  $.fn.extend({
     bind : function( event, callback, capturePhase ) {
       if (!this.length) return [];
       capturePhase = capturePhase || false;
@@ -1403,37 +1451,10 @@ Version: 3.8.0
       });
       return ret.length ? ret : this;
     },
-    
-    animate : function ( options ) {
-      if (!this.length) return [];  
-      var onEnd = null;
-      var duration = duration || '.5s';
-      var easing = easing || 'linear';
-      var css = {};
-      var transition;
-      var transitionEnd;
-      if ('ontransitionend' in window) {
-        transition = 'transition';
-        transitionEnd = 'transitionend';
-      } else {
-        transition = '-webkit-transition';
-        transitionEnd = 'webkitTransitionEnd';
-      }
-      css[transition] = 'all ' + duration + ' ' + easing;
-      this.forEach(function(ctx) {
-        for (var prop in options) {
-          if (prop === 'onEnd') {
-            onEnd = options[prop];
-            $(ctx).bind(transitionEnd, onEnd());
-          } else {
-            css[prop] = options[prop];
-          }
-        }
-        $(ctx).css(css);
-      });
-      return this;
-    },
-        
+  });
+
+
+  $.fn.extend({
     // This only operates on the first element in the collection.
     data : function( key, value ) {
       if (!this.length) return [];
@@ -1493,75 +1514,6 @@ Version: 3.8.0
         }
         return this;
       });
-    },
-    
-    clone : function ( value ) {
-      if (!this.length) return [];
-      var ret = [];
-      this.each(function(ctx) {
-        if (value === true || !value) {
-          ret.push(ctx.cloneNode(true));
-        } else {
-          ret.push(ctx.cloneNode(false));
-        }
-      });
-      return ret.length ? ret[0] : this;
-    },
-        
-    wrap : function ( string ) {
-      if (!this.length) return [];
-      this.each(function(ctx) {
-        var tempNode = $.make(string);
-        tempNode = tempNode[0];
-        var whichClone = $(ctx).clone(true);
-        tempNode.appendChild(whichClone);
-        ctx.parentNode.insertBefore(tempNode, ctx.nextSibling);
-        $(ctx).remove(ctx);
-      });
-      return this;
-    },
-    
-    unwrap : function ( ) {
-      if (!this.length) return [];
-      var parentNode = null;
-      this.each(function(node) {
-        if (node.parentNode === parentNode) {
-          return;
-        }
-        parentNode = node.parentNode;
-        if (node.parentNode.nodeName === 'BODY') {
-          return false;
-        }
-        $.replace(node, node.parentNode);
-      });
-      return this;
-    },
-    
-    remove : function ( ) {
-      if (!this.length) return [];
-      this.each(function(ctx) {
-        $(ctx).unbind();
-        $(ctx).removeData();
-        ctx.parentNode.removeChild(ctx);
-      });
-    },
-    
-    empty : function ( ) {
-      if (!this.length) return [];
-      var ret = [];
-      this.each(function(ctx) {
-        $(ctx).unbind();
-        ctx.textContent = '';
-        ret.push(ctx);
-      });
-      return returnResult(ret);
-    },
-    
-    ready : function ( callback ) {
-      if (!this.length) return [];
-      $.ready(function() {
-        return callback.call(callback);
-      });
     }
   });
 
@@ -1590,6 +1542,47 @@ Version: 3.8.0
     
        $.DOMReadyList.push(callback);
       }
+    }
+  });
+  $.fn.extend({  
+    ready : function ( callback ) {
+      if (!this.length) return [];
+      $.ready(function() {
+        return callback.call(callback);
+      });
+    }
+  });
+
+
+  $.fn.extend({
+    animate : function ( options ) {
+      if (!this.length) return [];  
+      var onEnd = null;
+      var duration = duration || '.5s';
+      var easing = easing || 'linear';
+      var css = {};
+      var transition;
+      var transitionEnd;
+      if ('ontransitionend' in window) {
+        transition = 'transition';
+        transitionEnd = 'transitionend';
+      } else {
+        transition = '-webkit-transition';
+        transitionEnd = 'webkitTransitionEnd';
+      }
+      css[transition] = 'all ' + duration + ' ' + easing;
+      this.forEach(function(ctx) {
+        for (var prop in options) {
+          if (prop === 'onEnd') {
+            onEnd = options[prop];
+            $(ctx).bind(transitionEnd, onEnd());
+          } else {
+            css[prop] = options[prop];
+          }
+        }
+        $(ctx).css(css);
+      });
+      return this;
     }
   });
 
@@ -1739,414 +1732,6 @@ Version: 3.8.0
 
 
   $.extend($, {
-    /*
-      options = {
-        url : 'the/path/here',
-        type : ('GET', 'POST', PUT, 'DELETE'),
-        data : myData,
-        async : 'synch' || 'asynch',
-        user : username (string),
-        password : password (string),
-        dataType : ('html', 'json', 'text', 'script', 'xml', 'form'),
-        headers : {},
-        success : callbackForSuccess,
-        error : callbackForError,
-        context: null
-      }
-    */
-    ajax : function ( options ) {
-      // Default settings:
-      var settings = {
-        type: 'GET',
-        beforeSend: $.noop,
-        success: $.noop,
-        error: $.noop,
-        context: null,
-        async: true,
-        timeout: 0
-      };
-      $.extend(settings, options);
-      var dataTypes = {
-        script: 'text/javascript, application/javascript',
-        json:   'application/json',
-        xml:    'application/xml, text/xml',
-        html:   'text/html',
-        text:   'text/plain',
-        form:   'application/x-www-form-urlencoded'
-      };
-      var xhr = new XMLHttpRequest();
-      var deferred = new $.Deferred();
-      var type = settings.type || 'GET';
-      var async  = settings.async || false;      
-      var params = settings.data || null;
-      var context = options.context || deferred;
-      xhr.queryString = params;
-      xhr.timeout = settings.timeout ? settings.timeout : 0;
-      xhr.open(type, settings.url, async);
-      if (!!settings.headers) {  
-        for (var prop in settings.headers) { 
-          if(settings.headers.hasOwnProperty(prop)) { 
-            xhr.setRequestHeader(prop, settings.headers[prop]);
-          }
-        }
-      }
-      if (settings.dataType) {
-        xhr.setRequestHeader('Content-Type', dataTypes[settings.dataType]);
-      }
-      xhr.handleResp = settings.success; 
-
-      var handleResponse = function() {
-        if (xhr.status === 0 && xhr.readyState === 4 || xhr.status >= 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 ) {
-          if (settings.dataType && (settings.dataType === 'json')) {
-            xhr.handleResp(JSON.parse(xhr.responseText));
-            deferred.resolve(xhr.responseText, settings.context, xhr);
-          } else {
-            xhr.handleResp(xhr.responseText);
-            deferred.resolve(xhr.responseText, settings.context, xhr);
-          }
-        } else if(xhr.status >= 400) {
-          if (!!error) {
-            error(xhr);
-            deferred.reject(xhr.status, settings.context, xhr);
-          }
-        }
-      };
-
-      if (async) {
-        if (settings.beforeSend !== $.noop) {
-          settings.beforeSend(xhr, settings);
-        }
-        xhr.onreadystatechange = handleResponse;
-        xhr.send(params);
-      } else {
-        if (settings.beforeSend !== $.noop) {
-          settings.beforeSend(xhr, settings);
-        }
-        xhr.send(params);
-        handleResponse();
-      }
-      return deferred;
-    },
-    
-    // Parameters: url, data, success, dataType.
-    get : function ( url, data, success, dataType ) {
-      if (!url) {
-        return;
-      }
-      if (!data) {
-        return $.ajax({url : url, type: 'GET'}); 
-      }
-      if (!dataType) {
-        dataType = null;
-      }
-      if (typeof data === 'function' && !success) {
-        return $.ajax({url : url, type: 'GET', success : data});
-      } else if (typeof data === 'string' && typeof success === 'function') {
-        return $.ajax({url : url, type: 'GET', data : data, success : success, dataType : dataType});
-      }
-    },
-    
-    // Parameters: url, data, success.
-    getJSON : function ( url, data, success ) {
-      if (!url) {
-        return;
-      }
-      if (!data) {
-        return;
-      }
-      if (typeof data === 'function' && !success) {
-        $.ajax({url : url, type: 'GET', async: true, success : data, dataType : 'json'});
-      } else if (typeof data === 'string' && typeof success === 'function') {
-        $.ajax({url : url, type: 'GET', data : data, success : success, dataType : 'json'});
-      }
-    },
-
-    /*
-      // JSONP arguments:
-      var options = {
-        url: 'http:/whatever.com/stuff/here',
-        callback: function() {
-           // do stuff here
-        },
-        callbackType: 'jsonCallback=?',
-        timeout: 5000
-      }
-    */
-    JSONP : function ( options ) {
-      var settings = {
-        url : null,
-        callback: $.noop,
-        callbackType : 'callback=?',
-        timeout: null
-      };
-      $.extend(settings, options);
-      var deferred = new $.Deferred();
-      var fn = 'fn_' + $.uuidNum(),
-      script = document.createElement('script'),
-      head = $('head')[0];
-      script.setAttribute('id', fn);
-      var startTimeout = new Date();
-      window[fn] = function(data) {
-        head.removeChild(script);
-        settings.callback(data);
-        deferred.resolve(data, 'resolved', settings);
-        delete window[fn];
-      };
-      var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length-1);
-      script.src = settings.url.replace(settings.callbackType, strippedCallbackStr + fn);
-      head.appendChild(script);
-      if (settings.timeout) {
-        var waiting = setTimeout(function() {
-          if (new Date() - startTimeout > 0) {
-            deferred.reject('timedout', settings);
-            settings.callback = $.noop;
-          }
-        }, settings.timeout);
-      }
-      return deferred;
-    },
-    
-    // Parameters: url, data, success, dataType.
-    post : function ( url, data, success, dataType ) {
-      if (!url) {
-        return;
-      }
-      if (!data) {
-        return;
-      }
-      if (typeof data === 'function' && !dataType) {
-        if (typeof success === 'string') {
-           dataType = success;
-        } else {
-          dataType = 'form';
-        }
-        $.ajax({url : url, type: 'POST', success : data, dataType : dataType});
-      } else if (typeof data === 'string' && typeof success === 'function') {
-        if (!dataType) {
-          dataType = 'form';
-        }
-        $.ajax({url : url, type: 'POST', data : data, success : success, dataType : dataType});
-      }
-    }
-  });
-
-
-
-  $.extend($, {
-    xhr: function(options) {
-      if (!options) throw('No options where provided to xhr request.');
-      if (typeof options !== 'object') throw('Expected an object as argument for options, received something else.');
-      var protocol;
-      // Default settings:
-      var settings = {
-        type: 'GET',
-        beforeSend: $.noop,
-        success: $.noop,
-        error: $.noop,
-        context: null,
-        async: true,
-        timeout: 0
-      };
-      if (options.data) {
-        options.data = encodeURIComponent(options.data);
-      }
-      $.extend(settings, options);
-      var dataTypes = {
-        script: 'text/javascript, application/javascript',
-        json:   'application/json',
-        xml:    'application/xml, text/xml',
-        html:   'text/html',
-        text:   'text/plain'
-      };
-
-      return new Promise(function(resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        var type = settings.type || 'get';
-        var async  = settings.async || false;      
-        var params = settings.data || null;
-        xhr.queryString = params;
-        xhr.timeout = settings.timeout ? settings.timeout : 0;
-        xhr.open(type, settings.url, async);
-
-        // Setup headers:
-        if (!!settings.headers) {  
-          for (var prop in settings.headers) { 
-            if(settings.headers.hasOwnProperty(prop)) { 
-              xhr.setRequestHeader(prop, settings.headers[prop]);
-            }
-          }
-        }
-        if (settings.dataType) {
-          xhr.setRequestHeader('Content-Type', dataTypes[settings.dataType]);
-        }
-
-        // Get the protocol being used:
-        protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol;
-        // Send request:
-
-        // Handle load success:
-        xhr.onload = function() {
-          if (xhr.status === 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 || (xhr.status === 0 && protocol === 'file:')) {
-            // Resolve the promise with the response text:
-            resolve(xhr.response);
-          } else {
-            // Otherwise reject with the status text
-            // which will hopefully be a meaningful error:
-            reject(new Error(xhr.statusText));
-          }
-        };
-
-        // Handle error:
-        xhr.onerror = function() {
-          reject(new Error("There was a network error."));
-        };
-
-        // Send request:
-        if (async) {
-          if (settings.beforeSend !== $.noop) {
-            settings.beforeSend(xhr, settings);
-          }
-          xhr.send(params);
-        } else {
-          if (settings.beforeSend !== $.noop) {
-            settings.beforeSend(xhr, settings);
-          }
-        }
-
-      });
-    }
-  });
-  $.extend($.xhr, {
-    // Parameters: url, data, success, dataType.
-    get : function ( url, data, success, dataType ) {
-      if (!url) {
-        return;
-      }
-      if (!data) {
-        return $.xhr({url : url, type: 'GET'}); 
-      }
-      if (!dataType) {
-        dataType = null;
-      }
-      if (typeof data === 'function' && !success) {
-        return $.xhr({url : url, type: 'GET', success : data});
-      } else if (typeof data === 'string' && typeof success === 'function') {
-        return $.xhr({url : url, type: 'GET', data : data, success : success, dataType : dataType});
-      }
-    },
-    
-    // Parameters: url, data, success.
-    getJSON : function ( url, data, success ) {
-      if (!url) {
-        return;
-      }
-      if (!data) {
-        return;
-      }
-      if (typeof data === 'function' && !success) {
-        $.xhr({url : url, type: 'GET', async: true, success : data, dataType : 'json'});
-      } else if (typeof data === 'string' && typeof success === 'function') {
-        $.xhr({url : url, type: 'GET', data : data, success : success, dataType : 'json'});
-      }
-    },
-
-    /*
-      // JSONP arguments:
-      var options = {
-        url: 'http:/whatever.com/stuff/here',
-        callback: function() {
-           // do stuff here
-        },
-        callbackType: 'jsonCallback=?',
-        timeout: 5000
-      }
-    */
-    JSONP : function ( options ) {
-      var settings = {
-        url : null,
-        callback: $.noop,
-        callbackType : 'callback=?',
-        timeout: null
-      };
-      $.extend(settings, options);
-      //var deferred = new $.Deferred();
-      var fn = 'fn_' + $.uuidNum(),
-      script = document.createElement('script'),
-      head = $('head')[0];
-      script.setAttribute('id', fn);
-      var startTimeout = new Date();
-      window[fn] = function(data) {
-        head.removeChild(script);
-        settings.callback(data);
-        deferred.resolve(data, 'resolved', settings);
-        delete window[fn];
-      };
-      var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length-1);
-      script.src = settings.url.replace(settings.callbackType, strippedCallbackStr + fn);
-      head.appendChild(script);
-      if (settings.timeout) {
-        var waiting = setTimeout(function() {
-          if (new Date() - startTimeout > 0) {
-            deferred.reject('timedout', settings);
-            settings.callback = $.noop;
-          }
-        }, settings.timeout);
-      }
-      //return deferred;
-      return new Promise(function(resolve, reject) {
-        var fn = 'fn_' + $.uuidNum(),
-        script = document.createElement('script'),
-        head = $('head')[0];
-        script.setAttribute('id', fn);
-        var startTimeout = new Date();
-        window[fn] = function(data) {
-          head.removeChild(script);
-          settings.callback(data);
-          resolve(data);
-          //deferred.resolve(data, 'resolved', settings);
-          delete window[fn];
-        };
-        var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length-1);
-        script.src = settings.url.replace(settings.callbackType, strippedCallbackStr + fn);
-        head.appendChild(script);
-        if (settings.timeout) {
-          var waiting = setTimeout(function() {
-            if (new Date() - startTimeout > 0) {
-              //deferred.reject('timedout', settings);
-              reject('The request timedout.');
-              settings.callback = $.noop;
-            }
-          }, settings.timeout);
-        }        
-      });
-    },
-    
-    // Parameters: url, data, success, dataType.
-    post : function ( url, data, success, dataType ) {
-      if (!url) {
-        return;
-      }
-      if (!data) {
-        return;
-      }
-      if (typeof data === 'function' && !dataType) {
-        if (typeof success === 'string') {
-           dataType = success;
-        } else {
-          dataType = 'form';
-        }
-        $.xhr({url : url, type: 'POST', success : data, dataType : dataType});
-      } else if (typeof data === 'string' && typeof success === 'function') {
-        if (!dataType) {
-          dataType = 'form';
-        }
-        $.xhr({url : url, type: 'POST', data : data, success : success, dataType : dataType});
-      }
-    }
-  });
-
-
-  $.extend($, {
     isiPhone : /iphone/img.test(navigator.userAgent),
     isiPad : /ipad/img.test(navigator.userAgent),
     isiPod : /ipod/img.test(navigator.userAgent),
@@ -2169,78 +1754,6 @@ Version: 3.8.0
     isSafari : (!/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent)),
     isChrome : /Chrome/img.test(navigator.userAgent),
     isNativeAndroid : (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent))
-  });
-
-
-  $.extend($, {
-    
-    templates : {},
-     
-    template : function ( tmpl, variable ) {
-      var regex, delimiterOpen, delimiterClosed;
-      variable = variable ? variable : 'data';
-      regex = /\[\[=([\s\S]+?)\]\]/g;
-      delimiterOpen = '[[';
-      delimiterClosed = ']]'; 
-      var template =  new Function(variable, 
-        "var p=[];" + "p.push('" + tmpl
-        .replace(/[\r\t\n]/g, " ")
-        .split("'").join("\\'")
-        .replace(regex,"',$1,'")
-        .split(delimiterOpen).join("');")
-        .split(delimiterClosed).join("p.push('") + "');" +
-        "return p.join('');");
-      return template;
-    }
-  });
-
-
-  $.extend($, {
-    subscriptions : {},
-    
-    // Topic: string defining topic: /some/topic
-    // Data: a string, number, array or object.
-    subscribe : function (topic, callback) {
-      var token = ($.uuidNum());
-      if (!$.subscriptions[topic]) {
-        $.subscriptions[topic] = [];
-      }
-      $.subscriptions[topic].push({
-        token: token,
-        callback: callback
-      });
-      return token;
-    },
-    
-    unsubscribe : function ( token ) {
-      setTimeout(function() {
-        for (var m in $.subscriptions) {
-          if ($.subscriptions[m]) {
-             for (var i = 0, len = $.subscriptions[m].length; i < len; i++) {
-                if ($.subscriptions[m][i].token === token) {
-                  $.subscriptions[m].splice(i, 1);
-                  return token;
-                }
-             }
-          }
-        }
-        return false;
-      });        
-    },
-    
-    publish : function ( topic, args ) {
-      if (!$.subscriptions[topic]) {
-        return false;
-      }
-      setTimeout(function () {
-        var len = $.subscriptions[topic] ? $.subscriptions[topic].length : 0;
-        while (len--) {
-           $.subscriptions[topic][len].callback(topic, args);
-        }
-        return true;
-      });
-    }
-    
   });
 
 
@@ -2512,327 +2025,270 @@ Version: 3.8.0
   });
 
 
-  (function() {
-    /*jshint validthis:true */
-    var extend;
-    var cycle;
-    var queue;
-
-    extend = function(obj, name, val, config) {
-      return Object.defineProperty(obj, name, {
-        value: val,
-        writable: true,
-        configurable: config !== false
-      });
-    };
-
-    queue = (function() {
-      var first, last, item;
-
-      function Item(fn,self) {
-        this.fn = fn;
-        this.self = self;
-        this.next = undefined;
+  $.extend($, {
+    /*
+      options = {
+        url : 'the/path/here',
+        type : ('GET', 'POST', PUT, 'DELETE'),
+        data : myData,
+        async : 'synch' || 'asynch',
+        user : username (string),
+        password : password (string),
+        dataType : ('html', 'json', 'text', 'script', 'xml', 'form'),
+        headers : {},
+        success : callbackForSuccess,
+        error : callbackForError,
+        context: null
       }
+    */
+    ajax : function ( options ) {
+      // Default settings:
+      var settings = {
+        type: 'GET',
+        beforeSend: $.noop,
+        success: $.noop,
+        error: $.noop,
+        context: null,
+        async: true,
+        timeout: 0
+      };
+      $.extend(settings, options);
+      var dataTypes = {
+        script: 'text/javascript, application/javascript',
+        json:   'application/json',
+        xml:    'application/xml, text/xml',
+        html:   'text/html',
+        text:   'text/plain',
+        form:   'application/x-www-form-urlencoded'
+      };
+      var xhr = new XMLHttpRequest();
+      var deferred = new $.Deferred();
+      var type = settings.type || 'GET';
+      var async  = settings.async || false;      
+      var params = settings.data || null;
+      var context = options.context || deferred;
+      xhr.queryString = params;
+      xhr.timeout = settings.timeout ? settings.timeout : 0;
+      xhr.open(type, settings.url, async);
+      if (!!settings.headers) {  
+        for (var prop in settings.headers) { 
+          if(settings.headers.hasOwnProperty(prop)) { 
+            xhr.setRequestHeader(prop, settings.headers[prop]);
+          }
+        }
+      }
+      if (settings.dataType) {
+        xhr.setRequestHeader('Content-Type', dataTypes[settings.dataType]);
+      }
+      xhr.handleResp = settings.success; 
 
-      return {
-        add: function (fn, self) {
-          item = new Item(fn, self);
-          if (last) {
-            last.next = item;
+      var handleResponse = function() {
+        if (xhr.status === 0 && xhr.readyState === 4 || xhr.status >= 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 ) {
+          if (settings.dataType && (settings.dataType === 'json')) {
+            xhr.handleResp(JSON.parse(xhr.responseText));
+            deferred.resolve(xhr.responseText, settings.context, xhr);
+          } else {
+            xhr.handleResp(xhr.responseText);
+            deferred.resolve(xhr.responseText, settings.context, xhr);
           }
-          else {
-            first = item;
+        } else if(xhr.status >= 400) {
+          if (!!error) {
+            error(xhr);
+            deferred.reject(xhr.status, settings.context, xhr);
           }
-          last = item;
-          item = undefined;
+        }
+      };
+
+      if (async) {
+        if (settings.beforeSend !== $.noop) {
+          settings.beforeSend(xhr, settings);
+        }
+        xhr.onreadystatechange = handleResponse;
+        xhr.send(params);
+      } else {
+        if (settings.beforeSend !== $.noop) {
+          settings.beforeSend(xhr, settings);
+        }
+        xhr.send(params);
+        handleResponse();
+      }
+      return deferred;
+    },
+    
+    // Parameters: url, data, success, dataType.
+    get : function ( url, data, success, dataType ) {
+      if (!url) {
+        return;
+      }
+      if (!data) {
+        return $.ajax({url : url, type: 'GET'}); 
+      }
+      if (!dataType) {
+        dataType = null;
+      }
+      if (typeof data === 'function' && !success) {
+        return $.ajax({url : url, type: 'GET', success : data});
+      } else if (typeof data === 'string' && typeof success === 'function') {
+        return $.ajax({url : url, type: 'GET', data : data, success : success, dataType : dataType});
+      }
+    },
+    
+    // Parameters: url, data, success.
+    getJSON : function ( url, data, success ) {
+      if (!url) {
+        return;
+      }
+      if (!data) {
+        return;
+      }
+      if (typeof data === 'function' && !success) {
+        $.ajax({url : url, type: 'GET', async: true, success : data, dataType : 'json'});
+      } else if (typeof data === 'string' && typeof success === 'function') {
+        $.ajax({url : url, type: 'GET', data : data, success : success, dataType : 'json'});
+      }
+    },
+
+    /*
+      // JSONP arguments:
+      var options = {
+        url: 'http:/whatever.com/stuff/here',
+        callback: function() {
+           // do stuff here
         },
-        unshift: function() {
-          var f = first;
-          first = last = cycle = undefined;
-
-          while (f) {
-            f.fn.call(f.self);
-            f = f.next;
-          }
-        }
+        callbackType: 'jsonCallback=?',
+        timeout: 5000
+      }
+    */
+    JSONP : function ( options ) {
+      var settings = {
+        url : null,
+        callback: $.noop,
+        callbackType : 'callback=?',
+        timeout: null
       };
-    })();
-
-    function schedule(fn, self) {
-      queue.add(fn,self);
-      if (!cycle) {
-        cycle = setTimeout(queue.unshift);
+      $.extend(settings, options);
+      var deferred = new $.Deferred();
+      var fn = 'fn_' + $.uuidNum(),
+      script = document.createElement('script'),
+      head = $('head')[0];
+      script.setAttribute('id', fn);
+      var startTimeout = new Date();
+      window[fn] = function(data) {
+        head.removeChild(script);
+        settings.callback(data);
+        deferred.resolve(data, 'resolved', settings);
+        delete window[fn];
+      };
+      var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length-1);
+      script.src = settings.url.replace(settings.callbackType, strippedCallbackStr + fn);
+      head.appendChild(script);
+      if (settings.timeout) {
+        var waiting = setTimeout(function() {
+          if (new Date() - startTimeout > 0) {
+            deferred.reject('timedout', settings);
+            settings.callback = $.noop;
+          }
+        }, settings.timeout);
       }
-    }
-
-    // Check that Promise is thenable:
-    function isThenable(obj) {
-      var _then, obj_type = typeof obj;
-
-      if (obj !== null &&
-        (
-          obj_type === "object" || obj_type === "function"
-        )
-      ) {
-        _then = obj.then;
+      return deferred;
+    },
+    
+    // Parameters: url, data, success, dataType.
+    post : function ( url, data, success, dataType ) {
+      if (!url) {
+        return;
       }
-      return typeof _then === "function" ? _then : false;
-    }
-
-    function notify() {
-      for (var i = 0; i < this.chain.length; i++) {
-        notifyIsolated(
-          this,
-          (this.state === 1) ? this.chain[i].success : this.chain[i].failure,
-          this.chain[i]
-        );
+      if (!data) {
+        return;
       }
-      this.chain.length = 0;
-    }
-
-    function notifyIsolated(self, callback, chain) {
-      var ret, _then;
-      try {
-        if (callback === false) {
-          chain.reject(self.msg);
+      if (typeof data === 'function' && !dataType) {
+        if (typeof success === 'string') {
+           dataType = success;
         } else {
-          if (callback === true) {
-            ret = self.msg;
-          } else {
-            ret = callback.call(undefined, self.msg);
-          }
-          if (ret === chain.promise) {
-            chain.reject(new TypeError("Promise-chain cycle"));
-          } else if (_then = isThenable(ret)) {
-            _then.call(ret, chain.resolve, chain.reject);
-          } else {
-            chain.resolve(ret);
-          }
+          dataType = 'form';
         }
-      }
-      catch (err) {
-        chain.reject(err);
-      }
-    }
-
-    function resolve(msg) {
-      var _then, deferred, self = this;
-      if (self.triggered) { return; }
-      self.triggered = true;
-      if (self.deferred) {
-        self = self.deferred;
-      }
-
-      try {
-        if (_then = isThenable(msg)) {
-          deferred = new MakeDeferred(self);
-          _then.call(msg,
-            function() { resolve.apply(deferred, arguments); },
-            function() { reject.apply(deferred, arguments); }
-          );
-        } else {
-          self.msg = msg;
-          self.state = 1;
-          if (self.chain.length > 0) {
-            schedule(notify,self);
-          }
+        $.ajax({url : url, type: 'POST', success : data, dataType : dataType});
+      } else if (typeof data === 'string' && typeof success === 'function') {
+        if (!dataType) {
+          dataType = 'form';
         }
-      }
-      catch (err) {
-        reject.call(deferred || (new MakeDeferred(self)), err);
+        $.ajax({url : url, type: 'POST', data : data, success : success, dataType : dataType});
       }
     }
+  });
 
-    function reject(msg) {
-      var self = this;
-      if (self.triggered) { return; }
-      self.triggered = true;
-      if (self.deferred) {
-        self = self.deferred;
-      }
-      self.msg = msg;
-      self.state = 2;
-      if (self.chain.length > 0) {
-        schedule(notify, self);
-      }
+
+
+  $.extend($, {
+    
+    templates : {},
+     
+    template : function ( tmpl, variable ) {
+      var regex, delimiterOpen, delimiterClosed;
+      variable = variable ? variable : 'data';
+      regex = /\[\[=([\s\S]+?)\]\]/g;
+      delimiterOpen = '[[';
+      delimiterClosed = ']]'; 
+      var template =  new Function(variable, 
+        "var p=[];" + "p.push('" + tmpl
+        .replace(/[\r\t\n]/g, " ")
+        .split("'").join("\\'")
+        .replace(regex,"',$1,'")
+        .split(delimiterOpen).join("');")
+        .split(delimiterClosed).join("p.push('") + "');" +
+        "return p.join('');");
+      return template;
     }
+  });
 
-    function iteratePromises(Constructor, arr, resolver, rejecter) {
-      for (var idx = 0; idx < arr.length; idx++) {
-        (function IIFE(idx) {
-          Constructor.resolve(arr[idx])
-          .then(
-            function(msg) {
-              resolver(idx, msg);
-            },
-            rejecter
-          );
-        })(idx);
+
+  $.extend($, {
+    subscriptions : {},
+    
+    // Topic: string defining topic: /some/topic
+    // Data: a string, number, array or object.
+    subscribe : function (topic, callback) {
+      var token = ($.uuidNum());
+      if (!$.subscriptions[topic]) {
+        $.subscriptions[topic] = [];
       }
-    }
-
-    function MakeDeferred(self) {
-      this.deferred = self;
-      this.triggered = false;
-    }
-
-    function Deferred(self) {
-      this.promise = self;
-      this.state = 0;
-      this.triggered = false;
-      this.chain = [];
-      this.msg = undefined;
-    }
-
-    function Promise(executor) {
-      if (typeof executor !== "function") {
-        throw new TypeError("Not a function");
-      }
-
-      if (this.isValidPromise !== 0) {
-        throw new TypeError("Not a promise");
-      }
-
-      // Indicate the Promise is initialized:
-      this.isValidPromise = 1;
-
-      var deferred = new Deferred(this);
-
-      this.then = function(success, failure) {
-        var obj = {
-          success: typeof success === "function" ? success : true,
-          failure: typeof failure === "function" ? failure : false
-        };
-        // `.then()` can be used against a different promise 
-        // constructor for making a chained promise.
-        obj.promise = new this.constructor(function extractChain(resolve,reject) {
-          if (typeof resolve !== "function" || typeof reject !== "function") {
-            throw new TypeError("Not a function");
-          }
-
-          obj.resolve = resolve;
-          obj.reject = reject;
-        });
-        deferred.chain.push(obj);
-
-        if (deferred.state !== 0) {
-          schedule(notify, deferred);
-        }
-
-        return obj.promise;
-      };
-      this["catch"] = function(failure) {
-        return this.then(undefined, failure);
-      };
-
-      try {
-        executor.call(
-          undefined,
-          function(msg) {
-            resolve.call(deferred, msg);
-          },
-          function(msg) {
-            reject.call(deferred, msg);
-          }
-        );
-      }
-      catch (err) {
-        reject.call(deferred, err);
-      }
-    }
-
-    var PromisePrototype = extend({}, "constructor", Promise, false
-    );
-
-    extend(
-      Promise,"prototype", PromisePrototype, false
-    );
-
-    // Check if Promise is initialized:
-    extend(PromisePrototype, "isValidPromise", 0, false
-    );
-
-    extend(Promise, "resolve", function (msg) {
-      var Constructor = this;
-
-      // Make sure it is a valide Promise:
-      if (msg && typeof msg === "object" && msg.isValidPromise === 1) {
-        return msg;
-      }
-
-      return new Constructor(function executor(resolve,reject) {
-        if (typeof resolve !== "function" || typeof reject !== "function") {
-          throw new TypeError("Not a function");
-        }
-
-        resolve(msg);
+      $.subscriptions[topic].push({
+        token: token,
+        callback: callback
       });
-    });
-
-    extend(Promise, "reject", function (msg) {
-      return new this(function executor(resolve, reject) {
-        if (typeof resolve !== "function" || typeof reject !== "function") {
-          throw new TypeError("Not a function");
-        }
-
-        reject(msg);
-      });
-    });
-
-    extend(Promise, "all", function (arr) {
-      var Constructor = this;
-
-      // Make sure argument is an array:
-      if (Object.prototype.toString.call(arr) !== "[object Array]") {
-        return Constructor.reject(new TypeError("Not an array"));
-      }
-      if (arr.length === 0) {
-        return Constructor.resolve([]);
-      }
-
-      return new Constructor(function executor(resolve,reject) {
-        if (typeof resolve !== "function" || typeof reject !== "function") {
-          throw new TypeError("Not a function");
-        }
-
-        var len = arr.length, msgs = new Array(len), count = 0;
-
-        iteratePromises(Constructor, arr, function resolver(idx, msg) {
-          msgs[idx] = msg;
-          if (++count === len) {
-            resolve(msgs);
+      return token;
+    },
+    
+    unsubscribe : function ( token ) {
+      setTimeout(function() {
+        for (var m in $.subscriptions) {
+          if ($.subscriptions[m]) {
+             for (var i = 0, len = $.subscriptions[m].length; i < len; i++) {
+                if ($.subscriptions[m][i].token === token) {
+                  $.subscriptions[m].splice(i, 1);
+                  return token;
+                }
+             }
           }
-        },reject);
-      });
-    });
-
-    extend(Promise, "race", function (arr) {
-      var Constructor = this;
-
-      // Make sure argument is an array:
-      if (Object.prototype.toString.call(arr) !== "[object Array]") {
-        return Constructor.reject(new TypeError("Not an array"));
-      }
-
-      return new Constructor(function executor(resolve, reject) {
-        if (typeof resolve !== "function" || typeof reject !== "function") {
-          throw new TypeError("Not a function");
         }
-
-        iteratePromises(Constructor, arr, function resolver(idx, msg) {
-          resolve(msg);
-        },reject);
+        return false;
+      });        
+    },
+    
+    publish : function ( topic, args ) {
+      if (!$.subscriptions[topic]) {
+        return false;
+      }
+      setTimeout(function () {
+        var len = $.subscriptions[topic] ? $.subscriptions[topic].length : 0;
+        while (len--) {
+           $.subscriptions[topic][len].callback(topic, args);
+        }
+        return true;
       });
-    });
-    // If native Promise exists in window, do not use this.
-    if ("Promise" in window && "resolve" in window.Promise && "reject" in window.Promise && "all" in window.Promise && "race" in window.Promise) {
-      return;
-    } else {
-      // Otherwise do use this:
-      return window.Promise = Promise;
     }
-  })();
+    
+  });
 
 
   window.$chocolatechipjs = $;

@@ -12,7 +12,7 @@ var gulp = require('gulp')
 ,   header = require('gulp-header')
 ,   footer = require('gulp-footer');
 
-//Add Trailing slash to projectPath if not exists.
+// Add Trailing slash to projectPath if not exists.
 if (pkg.projectPath !== "")
   pkg.projectPath = pkg.projectPath.replace(/\/?$/, '/');
 
@@ -149,6 +149,11 @@ gulp.task('js', function () {
     .pipe(rename("chui-" + pkg.version + ".min.js"))
     .pipe(gulp.dest(pkg.projectPath + 'chui/'))
     .pipe(gulp.dest(pkg.projectPath + 'dist/'));
+
+    if (gutils.env.chocolatechipjs) {
+      gulp.src(["src/chocolatechipjs/chocolatechip-*.js"])
+        .pipe(gulp.dest(pkg.projectPath + 'chui/'))
+    }
 });
 
 // Copy out media:
@@ -294,13 +299,3 @@ gulp.task('watch:html', function() {
 
 //Watch All - html js & less
 gulp.task('watch', ['watch:less', 'watch:scripts', 'watch:html']);
-
-var chocolatechipjs_start = '(function() {\n';
-var chocolatechipjs_end = '\n})(window.CHUIJSLIB);';
-
-gulp.task('chocolatechipjs', function() {
-  gulp.src([
-    "src/chocolatechipjs/chocolatechip-*.js"
-  ])
-  .pipe(gulp.dest(pkg.projectPath + 'chui/'))
-});
