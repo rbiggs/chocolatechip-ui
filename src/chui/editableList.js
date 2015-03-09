@@ -1,6 +1,7 @@
 (function($) {
   "use strict";
   $.fn.extend({
+    
     ////////////////////////////
     // Initialize Editable List,
     // allows moving items and
@@ -90,10 +91,18 @@
         }
       });
 
-      var listData = [];
-      this.find('li').forEach(function(ctx) {
-        listData.push($(ctx).attr('data-ui-value'));
+      // Setup identifiers for list items.
+      // These will help determine position & deletion.
+      var listItemPosition = [];
+      $(this).find('li').forEach(function(ctx, idx) {
+        if (idx === 0) {
+          $(ctx).attr('data-list-position', '0')
+        } else {
+          $(ctx).attr('data-list-position', idx)
+        }
+        listItemPosition.push(idx);
       });
+      $(this).attr('data-list-items-position', listItemPosition.join(','));
 
       // Callback to setup indicator interactions:
       var setupDeletability = function(callback, list, button) {
@@ -123,7 +132,12 @@
                 $($this).text(settings.editLabel);
                 $(list).removeClass('showIndicators');
                 $(list).find('li').removeClass('selected');
-              });            
+              });     
+              var movedItems = [];
+              $(list).find('li').forEach(function(ctx, idx) {
+                movedItems.push($(ctx).attr('data-list-position'));
+              });  
+              $(list).attr('data-list-items-position', movedItems.join(','));        
             }
           });
 
@@ -231,7 +245,23 @@
             $(list).data('list-edit', true);
             var direction = '-1200%';
             if ($('html').attr('dir') === 'rtl') direction = '1000%';
-            $(this).siblings().css({transform: 'translate3d(' + direction + ',0,0)', '-webkit-transition': 'all 1s ease-out', 'transform': 'translate3d(' + direction + ',0,0)', 'transition': 'all 1s ease-out'});
+            $(this).siblings().css({
+              '-webkit-transform': 'translate3d(' + direction + ',0,0)', 
+              '-webkit-transition': 'all 1s ease-out', 
+              'transform': 'translate3d(' + direction + ',0,0)', 
+              'transition': 'all 1s ease-out'
+            });
+
+            // Handle storing info about deleted items on the list itself:
+            var deletedItems = $(list).attr('data-list-items-deleted');
+            if (deletedItems === undefined) {
+              deletedItems = [$(this).closest('li').attr('data-list-position')];
+            } else {
+              deletedItems = deletedItems.split(',');
+              deletedItems.push($(this).closest('li').attr('data-list-position'));
+            }
+            $(list).attr('data-list-items-deleted', deletedItems.sort().join(','));
+
             setTimeout(function() {
               $($this).parent().remove();
             }, 500);
