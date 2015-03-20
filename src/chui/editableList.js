@@ -124,7 +124,7 @@
               // Execute callback if edit was performed:
               //========================================
               if ($(list).data('list-edit')) {
-                callback.call(callback, $this);
+                callback.call(callback, list);
               }
               setTimeout(function() {
                 $this.classList.remove('done');
