@@ -30,23 +30,31 @@
       var callback = settings.callback || $.noop;
       var panelOpen, panelClose, popup;
       if (settings.empty) {
-        popup = $.concat('<div class="popup closed" role="alertdialog" id="', id, '"><div class="panel"></div></div>');
+        popup = $.concat('<div class="popup" role="alertdialog" id="', id, '"><div class="panel"></div></div>');
       } else {
-        popup = $.concat('<div class="popup closed', '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
+        popup = $.concat('<div class="popup', '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
       }
     
       $('body').append(popup);
       if (callback && continueButton) {
         $('.popup').find('.continue').on($.eventStart, function() {
-          $('.popup').UIPopupClose();
-          callback.call(callback);
+          var $this = $(this);
+          if ($.isAndroid || $.isChrome) {
+            $this.addClass('selected');
+            setTimeout(function() {
+              $this.removeClass('selected');
+              $('.popup').UIPopupClose();
+              callback.call(callback);
+            }, 300);
+          } else {
+            $('.popup').UIPopupClose();
+            callback.call(callback);
+          }
         });
       }
     
       $.UICenterPopup();
-      setTimeout(function() {
-        $('body').find('.popup').removeClass('closed');
-      }, 200);
+      $('body').find('.popup').addClass('opened');
       $('body').find('.popup').UIBlock('0.5');
       var events = $.eventStart + ' singletap ' + $.eventEnd;
       $('.mask').on(events, function(e) {
@@ -89,8 +97,17 @@
     // Handle Closing Popups:
     //////////////////////////
     $('body').on($.eventStart, '.cancel', function() {
-      if ($(this).closest('.popup')[0]) {
-        $(this).closest('.popup').UIPopupClose();
+      var $this = $(this);
+      if ($this.closest('.popup')[0]) {
+        if ($.isAndroid || $.isChrome) {
+          $this.addClass('selected');
+          setTimeout(function() {
+            $this.closest('.popup').UIPopupClose();
+            $this.removeClass('selected');
+          }, 300);
+        } else {
+          $this.closest('.popup').UIPopupClose();
+        }
       }
     });
     /////////////////////////////////////////////////

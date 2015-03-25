@@ -31,12 +31,20 @@
           }
           var listItem;
           if (e.target.nodeName === 'LI') {
+            listItem = e.target;
             $(results).html(e.target.textContent.trim());
           } else {
             listItem = $(e.target).closest('li')[0];
             $(results).html(listItem.textContent.trim());
           }
-          $.UIPopoverClose();
+          $(listItem).addClass('selected');
+          if ($.isAndroid || $.isChrome) {
+            setTimeout(function() {
+              $.UIPopoverClose();
+            }, 300);
+          } else {
+            $.UIPopoverClose();
+          }
         });
       };
         

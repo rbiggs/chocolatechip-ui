@@ -6,7 +6,11 @@
 @moreButtonHover: contrast(@primaryColor);
 @tabbarMoreSVGHover: escape('<svg width="39px" height="11px" viewBox="0 0 39 11" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="more" fill="@{moreButtonHover}"><circle id="Oval" cx="5.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="19.172" cy="5.172" r="5.172"></circle><circle id="Oval" cx="33.172" cy="5.172" r="5.172"></circle></g></g></svg>');
 body.hasTabBar article {
-  top: 77px !important;
+  top: 97px !important;
+
+  & > section > .list:first-of-type {
+    margin-top: 0 !important;
+  }
 
   .previous:not(.navigable), & .next:not(.navigable) {
     display: none;
@@ -20,16 +24,15 @@ body.hasTabBar article {
   -webkit-box-orient: horizontal;
   -webkit-box-align: center;
   .box-sizing(border-box);
-  height: 30px;
+  height: 44px;
   position: absolute;
   left: 0;
   top: 47px;
   right: 0;
-  background-color: @tabbarColor;
 }
 .tabbar > button {
-  color: contrast(@tabbarColor);
-  background-color: @tabbarColor;
+  -webkit-appearance: none;
+  background-color: transparent !important;
   position: relative;
   display: block !important;
   #flex > .flex(1) !important;
@@ -37,31 +40,26 @@ body.hasTabBar article {
   height: 100%;
   text-align: center;
   line-height: 17px;
-  padding: 6px 10px 4px;
+  padding: 10px 10px 4px;
   border: none;
-  border-bottom: solid 3px @tabbarColor;
-  border-right: solid 1px @tabbarButtonBorder;
-  box-shadow: none;
+  border-bottom: solid 1px @tabbarColor;
+  box-shadow: none !important;
   border-radius: 0 !important;
+  background-size: 1100% 1100%;
 
-  &:last-of-type {
-    border-right: none;
-    border-left: none;
+  & > label {
+    font-size: 12px !important;
   }
 
-  .isDesktop &:hover {
+  &:focus {
+    outline: none !important;
+  }
+
+  .isDesktop &:hover, &.selected {
     opacity: 1 !important;
     box-shadow: none !important;
     border-bottom: solid 3px @primaryColor;
-    background-color: @primaryColor !important; 
-    color: contrast(@primaryColor) !important;   
-  }
-
-  &.selected {
-    color: @buttonTextColor !important;
-    opacity: 1 !important;
-    box-shadow: none !important;
-    border-bottom: solid 3px @primaryColor;
+    padding: 11px 10px 3px;
   }
 
   &.more {
@@ -70,32 +68,29 @@ body.hasTabBar article {
     #flex > .flex-direction(column);
     #flex > .justify-content(center);
     #flex > .align-items(center);
+    padding: 13px 10px 3px;
 
+    &.selected, &:hover {
+      padding: 13px 10px 3px;
+    }
+
+    & > label {
+      display: none;
+    }
     &::before {
       content: '';
       display: block;
       height: 20px;
+      width: 40px;
       background-image: url("@{imageMaskRoot}@{tabbarMoreSVG}");
       background-position: 50% 50%;
       background-size: 40% 40%;
       background-repeat: no-repeat;
-    }
-    &:hover::before {
-      background-image: url("@{imageMaskRoot}@{tabbarMoreSVGHover}");
     }
   }
 
   > span, & > .icon {
     display: block;
     #flex > .flex(1) !important;
-  }
-}
-
-html[dir=rtl] {
-  .tabbar > button:first-child {
-    border-right: none !important;
-  }
-  .tabbar > button:last-child {
-    border-right: solid 1px @tabbarButtonBorder !important;
   }
 }

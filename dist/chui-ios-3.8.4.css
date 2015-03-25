@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-iOS.css
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.3
+Version: 3.8.4
 */
 /*
   To create a custom theme, uncomment the second of each of the following, then adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -2181,6 +2181,13 @@ button.slide-out-button::before {
   -webkit-mask-size: 90% 90%;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2281px%22%20height%3D%2260px%22%20viewBox%3D%220%200%2081%2060%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20id%3D%22slideout%22%20fill%3D%22%23000000%22%3E%3Crect%20id%3D%22Rectangle%22%20x%3D%228%22%20y%3D%220%22%20width%3D%2264.167%22%20height%3D%227.666%22%3E%3C/rect%3E%3Crect%20id%3D%22Rectangle%22%20x%3D%228%22%20y%3D%2226%22%20width%3D%2264.167%22%20height%3D%227.667%22%3E%3C/rect%3E%3Crect%20id%3D%22Rectangle%22%20x%3D%228%22%20y%3D%2252%22%20width%3D%2264.167%22%20height%3D%227.666%22%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+button.slide-out-button.focused::before {
+  background-color: #000000;
+  -webkit-mask-position: 50% 50%;
+  -webkit-mask-size: 90% 90%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,%3Csvg%20width%3D%2260px%22%20height%3D%2260px%22%20viewBox%3D%220%200%2060%2060%22%20version%3D%221.1%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20xmlns%3Axlink%3D%22http%3A//www.w3.org/1999/xlink%22%3E%3Cg%20id%3D%22Page-1%22%20stroke%3D%22none%22%20stroke-width%3D%221%22%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20id%3D%22Artboard-1%22%20fill%3D%22%23000000%22%3E%3Crect%20id%3D%22Rectangle-3%22%20transform%3D%22translate%2829.500000,%2029.500000%29%20rotate%28-45.000000%29%20translate%28-29.500000,%20-29.500000%29%20%22%20x%3D%2225.65%22%20y%3D%22-2.31980515%22%20width%3D%227.7%22%20height%3D%2263.6396103%22%3E%3C/rect%3E%3Crect%20id%3D%22Rectangle-4%22%20transform%3D%22translate%2830.000000,%2030.000000%29%20rotate%2845.000000%29%20translate%28-30.000000,%20-30.000000%29%20%22%20x%3D%2226.15%22%20y%3D%22-1.11269837%22%20width%3D%227.7%22%20height%3D%2262.2253967%22%3E%3C/rect%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 body.slide-out-app > article {
   display: none !important;
