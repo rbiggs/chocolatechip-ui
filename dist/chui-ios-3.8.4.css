@@ -326,6 +326,7 @@ button {
   border-color: #007aff;
   background-color: rgba(255, 255, 255, 0.01);
   -webkit-font-smoothing: antialiased;
+  margin: 0 5px;
 }
 .isDesktop button:hover {
   cursor: pointer;
@@ -380,8 +381,7 @@ button.action {
 nav > button {
   max-width: 100px;
 }
-button.align-flush,
-.toolbar > button.align-flush {
+.align-flush {
   position: absolute;
   right: 15px;
   margin-right: 0 !important;
@@ -1500,6 +1500,7 @@ html[dir=rtl] body.splitlayout > article.detail {
   -webkit-trasform-origin: center center;
   trasform-origin: center center;
   min-height: 100px;
+  left: calc(-100%);
 }
 .popup.closed {
   -webkit-transform: scale(0);

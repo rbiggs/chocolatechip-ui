@@ -75,18 +75,22 @@
       font-family: SegoeWP, SegoeUI, HelveticaNeue, Roboto, Sans-serif;
     }
     .horizontal.centered {
-      width: 300px;
+      width: 250px;
       display: -wekbit-flex;
       display: flex;
+    }
+    .isiOS .horizontal.centered,
+    .isDesktopSafari .horizontal.centered {
+      width: 130px;
     }
   </style>
 </head>
 <body>
   <nav>
     <h1>Popover</h1>
-    <div class='horizontal centered'>
+    <div class='horizontal centered align-flush''>
       <button class='show-popover' id="showPopover1">Fruits</button>
-      <button class='show-popover align-flush' id="showPopover2">Deserts</button>
+      <button class='show-popover' id="showPopover2">Deserts</button>
     </div>
   </nav>
   <article id="main" class="current">

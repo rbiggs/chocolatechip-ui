@@ -1160,9 +1160,9 @@ if(window.jQuery) {
       var callback = settings.callback || $.noop;
       var panelOpen, panelClose, popup;
       if (settings.empty) {
-        popup = $.concat('<div class="popup" role="alertdialog" id="', id, '"><div class="panel"></div></div>');
+        popup = $.concat('<div class="popup closed" role="alertdialog" id="', id, '"><div class="panel"></div></div>');
       } else {
-        popup = $.concat('<div class="popup', '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
+        popup = $.concat('<div class="popup closed', '" role="alertdialog" id="', id, '"><div class="panel">', title, message, '</div><footer>', cancelButton, continueButton, '</footer>', panelClose, '</div>');
       }
     
       $('body').append(popup);
@@ -1184,7 +1184,10 @@ if(window.jQuery) {
       }
     
       $.UICenterPopup();
-      $('body').find('.popup').addClass('opened');
+      setTimeout(function() {
+      	$('body').find('.popup').addClass('opened');
+        $('body').find('.popup').removeClass('closed');
+      }, 200);
       $('body').find('.popup').UIBlock('0.5');
       var events = $.eventStart + ' singletap ' + $.eventEnd;
       $('.mask').on(events, function(e) {
