@@ -1500,7 +1500,7 @@ html[dir=rtl] body.splitlayout > article.detail {
   -webkit-trasform-origin: center center;
   trasform-origin: center center;
   min-height: 100px;
-  left: calc(-100%);
+  left: calc(45%);
 }
 .popup.closed {
   -webkit-transform: scale(0);
