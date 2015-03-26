@@ -417,6 +417,10 @@ html[dir=rtl] button.backTo::before {
   right: -4px;
   left: auto;
 }
+html[dir=rtl] .align-flush {
+  right: auto;
+  left: 15px;
+}
 html[dir=rtl] .toolbar > button.align-flush {
   right: auto;
   left: 15px;
