@@ -142,4 +142,3 @@ git config core.autocrlf input
 core.eol tells Git to always checkout this repository with LF. 
 core.autocrlf tells Git to convert CRLF to LF on commit.
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/2f123684cf50f62013c044733bfc36fb "githalytics.com")](http://githalytics.com/sourcebitsllc/chocolatechip-ui)
