@@ -1006,13 +1006,13 @@ html[dir=rtl] li.comp div > h3 + h4 {
 }
 @media only screen and (max-width: 480px) and (orientation: portrait) {
   li.comp > div:first-child + aside > h4:nth-child(1) {
-    max-width: 45% !important;
     flex: 1;
   }
   li.comp > div:first-child + aside {
     -webkit-box-pack: end;
     -webkit-justify-content: end;
     justify-content: flex-end;
+    display: flex;
   }
 }
 /* ==============================
@@ -2985,9 +2985,9 @@ html[dir=rtl] li.switched h4 {
   animation-duration: .65s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
-  -webkit-transition: all 0.5s ease-out;
-  -moz-transition: all 0.5s ease-out;
-  transition: all 0.5s ease-out;
+  -webkit-transition: all 0.1s ease-out;
+  -moz-transition: all 0.1s ease-out;
+  transition: all 0.1s ease-out;
 }
 .switch.traditional {
   width: 70px;
