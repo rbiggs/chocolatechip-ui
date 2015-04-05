@@ -302,7 +302,9 @@ button {
 button:focus {
   outline: none;
 }
-button:not(.segment) {
+button:not(.segment),
+button:not(.back),
+button:not(.backTo) {
   -webkit-appearance: none;
   box-shadow: none;
   border: none;
@@ -350,32 +352,17 @@ button:not(.segment) {
   background-position: center center;
   -webkit-animation-fill-mode: forwards;
 }
-button:not(.segment):not(.back),
-button:not(.segment):not(.backTo) {
-  background-image: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.025) 10%);
-  background-size: 1000% 1000%;
-  background-repeat: no-repeat;
-  background-position: center center;
-  box-shadow: 0 1px 4px #666666;
-  -webkit-animation-timing-function: ease-out;
-  animation-timing-function: ease-out;
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-button:not(.segment):not(.back).selected,
-button:not(.segment):not(.backTo).selected {
-  animation-name: tapRipple;
-  box-shadow: 0 5px 8px 2px rgba(0, 0, 0, 0.25);
-}
-button:not(.segment):focus {
+button:not(.segment):focus,
+button:not(.back):focus,
+button:not(.backTo):focus {
   outline: none !important;
 }
-button:not(.segment).no-border {
+button:not(.segment).no-border,
+button:not(.back).no-border,
+button:not(.backTo).no-border {
   border: none !important;
 }
-button:not(.segment).action {
+button.action {
   color: #666666;
   background-color: #f5f5f5;
   margin: 0 auto;
@@ -388,15 +375,34 @@ button:not(.segment).action {
   display: -webkit-flex;
   display: flex;
 }
-section > button:not(.segment).action.action {
+section > button.action.action {
   margin: 20px auto;
 }
-.isDesktop button:not(.segment).action:hover {
+.isDesktop button.action:hover {
   box-shadow: 0 3px 7px #666666;
   box-shadow: 0 5px 8px 2px rgba(0, 0, 0, 0.25);
 }
-nav > button:not(.segment).back,
-nav > button:not(.segment).backTo {
+button:not(.back),
+button:not(.backTo) {
+  background-image: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.025) 10%);
+  background-size: 1000% 1000%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  box-shadow: 0 1px 4px #666666;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+button:not(.back).selected,
+button:not(.backTo).selected {
+  animation-name: tapRipple;
+  box-shadow: 0 5px 8px 2px rgba(0, 0, 0, 0.25);
+}
+nav > .back,
+nav > .backTo {
   padding: 10px;
   text-align: left;
   background-color: transparent;
@@ -427,14 +433,14 @@ nav > button:not(.segment).backTo {
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
-nav > button:not(.segment).back:hover,
-nav > button:not(.segment).backTo:hover {
+nav > .back:hover,
+nav > .backTo:hover {
   -webkit-animation-name: backButtonRipple;
   animation-name: backButtonRipple;
   background-color: transparent !important;
 }
-nav > button:not(.segment).back::before,
-nav > button:not(.segment).backTo::before {
+nav > .back::before,
+nav > .backTo::before {
   display: block;
   content: '';
   -webkit-mask-image: none !important;
@@ -447,8 +453,8 @@ nav > button:not(.segment).backTo::before {
   transition: all 0.25s ease-out;
   -webkit-transform: rotate(-45deg);
 }
-nav > button:not(.segment).back::after,
-nav > button:not(.segment).backTo::after {
+nav > .back::after,
+nav > .backTo::after {
   display: block;
   content: '';
   -webkit-mask-image: none !important;
@@ -466,18 +472,15 @@ body.isChrome a.button.backTo {
 }
 body.isNativeAndroidBrowser button.back,
 body.isNativeAndroidBrowser button.backTo {
-  top: 0;
+  top: -4px;
   bottom: 0;
 }
 body.isNativeAndroidBrowser button.back::after,
 body.isNativeAndroidBrowser button.backTo::after {
-  top: -2px;
-}
-body.isNativeAndroidBrowser button.backTo::after {
   top: 2px;
 }
 body.isNativeAndroidBrowser button.back::before {
-  top: 8px;
+  top: 12px;
 }
 nav > button,
 nav > div > button,
@@ -1278,7 +1281,8 @@ html[dir=rtl] .segmented.align-flush {
   width: 30px !important;
   height: 30px !important;
 }
-.segmented.paging.horizontal > button:hover {
+.segmented.paging.horizontal > button:hover,
+.segmented.paging.horizontal > button.selected {
   box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.07) !important;
   background-color: rgba(0, 0, 0, 0.07) !important;
 }
@@ -1335,7 +1339,8 @@ html[dir=rtl] .segmented.paging.horizontal > button:first-of-type::before {
   width: 30px !important;
   height: 30px !important;
 }
-.segmented.paging.vertical > button:hover {
+.segmented.paging.vertical > button:hover,
+.segmented.paging.vertical > button.selected {
   box-shadow: 0 0 3px 3px rgba(0, 0, 0, 0.07) !important;
   background-color: rgba(0, 0, 0, 0.07) !important;
 }

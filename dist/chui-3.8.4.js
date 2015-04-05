@@ -2966,6 +2966,13 @@ if(window.jQuery) {
         var broadcast = 'data-binding-' + $(this).attr('data-controller');
         $.publish(broadcast, $(this).val());
       });
+    },
+
+    //////////////////////////////////////
+    // Unbind a specific controller/model:
+    //////////////////////////////////////
+    UIUnBindData : function (controller) {
+      delete $.subscriptions['data-binding-' + controller];
     }
   });
 

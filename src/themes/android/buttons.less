@@ -18,7 +18,7 @@ button {
     outline: none;
   }
 }
-button:not(.segment) {
+button:not(.segment), button:not(.back), button:not(.backTo) {
   -webkit-appearance: none;
   box-shadow: none; 
   border: none;
@@ -57,26 +57,6 @@ button:not(.segment) {
   background-position: center center;
   -webkit-animation-fill-mode: forwards;
 
-  &:not(.back),
-  &:not(.backTo) {
-    background-image: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.025) 10%);
-    background-size: 1000% 1000%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    box-shadow: 0 1px 4px #666666;
-    -webkit-animation-timing-function: ease-out;
-    animation-timing-function: ease-out;
-    -webkit-animation-duration: .5s;
-    animation-duration: .5s;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
-
-    &.selected {
-      animation-name: tapRipple;
-      box-shadow: 0 5px 8px 2px rgba(0,0,0,0.25);
-    }
-  }
-
   &:focus {
     outline: none !important;
   }
@@ -84,89 +64,107 @@ button:not(.segment) {
   &.no-border {
     border: none !important;
   }
+}
+button.action {
+  color: @textColor;
+  background-color: @actionButtonColor;
+  margin: 0 auto;
+  .size(auto, 40px);
+  min-width: 200px;
+  max-width: 300px;
+  margin: 20px auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
 
-  &.action {
-    color: @textColor;
-    background-color: @actionButtonColor;
-    margin: 0 auto;
-    .size(auto, 40px);
-    min-width: 200px;
-    max-width: 300px;
+  section > &.action {
     margin: 20px auto;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
+  }
+  .isDesktop &:hover {
+    box-shadow: 0 3px 7px @boxShadow;
+    box-shadow: 0 5px 8px 2px rgba(0,0,0,0.25);
+  }
+}
 
-    section > &.action {
-      margin: 20px auto;
-    }
-    .isDesktop &:hover {
-      box-shadow: 0 3px 7px @boxShadow;
-      box-shadow: 0 5px 8px 2px rgba(0,0,0,0.25);
-    }
+button:not(.back),
+button:not(.backTo) {
+  background-image: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.025) 10%);
+  background-size: 1000% 1000%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  box-shadow: 0 1px 4px #666666;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out;
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  &.selected {
+    animation-name: tapRipple;
+    box-shadow: 0 5px 8px 2px rgba(0,0,0,0.25);
+  }
+}
+nav > &.back, nav > &.backTo {
+  padding: 10px;
+  text-align: left;
+  background-color: transparent;
+  background-image: none;
+  background-image: -webkit-linear-gradient(left, black, black);
+  background-image: linear-gradient(left, black, black);
+  background-size: 19px 2px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  position: relative;
+  overflow: visible;
+  box-shadow: none;
+  margin: 0 0 0 0;
+  border: none;
+  border-radius: 50%;
+  .size(35px, 35px);
+  .transition(all .4s ease-out);
+  font-size: 0 !important;
+  -webkit-animation-name: '';
+  top: 0;
+
+  -webkit-animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+  animation-duration: .5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+
+  &:hover {
+    -webkit-animation-name: backButtonRipple;
+    animation-name: backButtonRipple;
+    background-color: transparent !important;
   }
 
-  nav > &.back, nav > &.backTo {
-    padding: 10px;
-    text-align: left;
-    background-color: transparent;
-    background-image: none;
-    background-image: -webkit-linear-gradient(left, black, black);
-    background-image: linear-gradient(left, black, black);
-    background-size: 19px 2px;
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    position: relative;
-    overflow: visible;
-    box-shadow: none;
-    margin: 0 0 0 0;
-    border: none;
-    border-radius: 50%;
-    .size(35px, 35px);
-    .transition(all .4s ease-out);
-    font-size: 0 !important;
-    -webkit-animation-name: '';
-    top: 0;
+  &::before {
+    display: block;
+    content: '';
+    -webkit-mask-image: none !important;
+    background-color: black;
+    height: 2px;
+    width: 14px;
+    position: absolute;
+    top: 12px;
+    left: 6px;
+    transition: all .25s ease-out;
+    -webkit-transform: rotate(-45deg);
+  }
 
-    -webkit-animation-duration: 0.5s;
-    -webkit-animation-timing-function: ease-out;
-    -webkit-animation-fill-mode: forwards;
-    animation-duration: .5s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-
-    &:hover {
-      -webkit-animation-name: backButtonRipple;
-      animation-name: backButtonRipple;
-      background-color: transparent !important;
-    }
-
-    &::before {
-      display: block;
-      content: '';
-      -webkit-mask-image: none !important;
-      background-color: black;
-      height: 2px;
-      width: 14px;
-      position: absolute;
-      top: 12px;
-      left: 6px;
-      transition: all .25s ease-out;
-      -webkit-transform: rotate(-45deg);
-    }
-
-    &::after {
-      display: block;
-      content: '';
-      -webkit-mask-image: none !important;
-      background-color: black;
-      height: 2px;
-      width: 14px;
-      position: absolute;
-      top: 22px !important;
-      left: 6px;
-      -webkit-transform: rotate(45deg);
-    }
+  &::after {
+    display: block;
+    content: '';
+    -webkit-mask-image: none !important;
+    background-color: black;
+    height: 2px;
+    width: 14px;
+    position: absolute;
+    top: 22px !important;
+    left: 6px;
+    -webkit-transform: rotate(45deg);
   }
 }
 
@@ -181,19 +179,16 @@ body {
 
   &.isNativeAndroidBrowser {
 
-    button.back, button.backTo {
-      top: 0;
-       bottom: 0;
+    &  button.back, & button.backTo {
+      top: -4px;
+      bottom: 0;
 
        &::after {
-        top: -2px;
+        top: 2px;
        }
     }
-    button.backTo::after {
-      top: 2px;
-    }
     button.back::before {
-      top: 8px;
+      top: 12px;
     }
   }    
 }
