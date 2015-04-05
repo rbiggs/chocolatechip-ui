@@ -18,7 +18,7 @@ if (pkg.projectPath !== "")
 
 var whichLib = pkg.jquery.url;
 var pkgVersion = pkg.version;
-if (gutils.env.chocolatechipjs) whichLib = "../chui/chocolatechip-" + pkgVersion + ".js";
+if (gutils.env.chocolatechipjs) whichLib = "../chui/chocolatechip-" + chocolatechipJSVersion + ".js";
 
 
 // Define values for file headers:

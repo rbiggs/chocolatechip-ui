@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.3
+Version: 3.8.4
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -936,9 +936,15 @@ if(window.jQuery) {
       $(destinationHref).addClass('navigable');
       setTimeout(function() {
         $this.removeClass('selected');
-      }, 500);
+      }, 1000);
       var destination = $(destinationHref);
-      $.UIGoToArticle(destination);
+      if ($.isAndroid || $.isChrome) {
+        setTimeout(function() {
+          $.UIGoToArticle(destination);
+        }, 200);
+      } else {
+        $.UIGoToArticle(destination);
+      }
     });
     $('li[data-goto]').forEach(function(ctx) {
       $(ctx).closest('article').addClass('navigable');
@@ -968,13 +974,12 @@ if(window.jQuery) {
     ///////////////////////////////////
     $('body').on('singletap', 'button', function() {
       var $this = $(this);
-      if ($this.parent('.segmented')[0]) return;
-      if ($this.parent('.tabbar')[0]) return;
-      if ($.isDesktop) return;
+      if ($this.parent('.segmented')[0] || $this.parent('.tabbar')[0]) return;
+      if (this.classList.contains('slide-out-button') || this.classList.contains('back') || this.classList.contains('backTo')) return;
       $this.addClass('selected');
       setTimeout(function() {
         $this.removeClass('selected');
-      }, 500);
+      }, 1000);
     });
   });
 
@@ -1163,13 +1168,24 @@ if(window.jQuery) {
       $('body').append(popup);
       if (callback && continueButton) {
         $('.popup').find('.continue').on($.eventStart, function() {
-          $('.popup').UIPopupClose();
-          callback.call(callback);
+          var $this = $(this);
+          if ($.isAndroid || $.isChrome) {
+            $this.addClass('selected');
+            setTimeout(function() {
+              $this.removeClass('selected');
+              $('.popup').UIPopupClose();
+              callback.call(callback);
+            }, 300);
+          } else {
+            $('.popup').UIPopupClose();
+            callback.call(callback);
+          }
         });
       }
     
       $.UICenterPopup();
       setTimeout(function() {
+      	$('body').find('.popup').addClass('opened');
         $('body').find('.popup').removeClass('closed');
       }, 200);
       $('body').find('.popup').UIBlock('0.5');
@@ -1214,8 +1230,17 @@ if(window.jQuery) {
     // Handle Closing Popups:
     //////////////////////////
     $('body').on($.eventStart, '.cancel', function() {
-      if ($(this).closest('.popup')[0]) {
-        $(this).closest('.popup').UIPopupClose();
+      var $this = $(this);
+      if ($this.closest('.popup')[0]) {
+        if ($.isAndroid || $.isChrome) {
+          $this.addClass('selected');
+          setTimeout(function() {
+            $this.closest('.popup').UIPopupClose();
+            $this.removeClass('selected');
+          }, 300);
+        } else {
+          $this.closest('.popup').UIPopupClose();
+        }
       }
     });
     /////////////////////////////////////////////////
@@ -1266,10 +1291,10 @@ if(window.jQuery) {
         if ((popover.width() + offset.left) > window.innerWidth) {
           popover.css({
             'left': ((window.innerWidth - popover.width())-20) + 'px',
-            'top': (calcTop + 20) + 'px'
+            'top': (calcTop - 30) + 'px'
           });
         } else {
-          popover.css({'left': left + 'px', 'top': (calcTop + 20) + 'px'});
+          popover.css({'left': left + 'px', 'top': (calcTop - 30) + 'px'});
         }
       };
 
@@ -1278,7 +1303,12 @@ if(window.jQuery) {
         $('body').UIUnblock();
         return;
       }
-      $('body').append(popover);      
+      $('body').append(popover);   
+      if ($.isAndroid || $.isChrome) {
+        setTimeout(function() {
+          $(popoverID).addClass('opened'); 
+        }, 50);
+      } 
       if ($.isWin) {
         $(popoverID).addClass('open');
       }
@@ -1352,7 +1382,8 @@ if(window.jQuery) {
       var callback = (options && options.callback) ? options.callback : $.noop;
       var selected = (options && options.selected > 0) ? options.selected : 0;
       this.find('button').forEach(function(ctx, idx) {
-        $(ctx).find('button').attr('role','radio');
+        $(ctx).attr('role','radio');
+        $(ctx).addClass('segment');
         if (idx === selected) {
           ctx.setAttribute('aria-checked', 'true');
           ctx.classList.add('selected');
@@ -1391,7 +1422,7 @@ if(window.jQuery) {
       if (className) _segmented.push(' ' + className);
       _segmented.push('">');
       labels.forEach(function(ctx, idx) {
-        _segmented.push('<button role="radio"');
+        _segmented.push('<button role="radio" class="segment"');
         _segmented.push('"');
         _segmented.push('>');
         _segmented.push(ctx);
@@ -1869,12 +1900,21 @@ if(window.jQuery) {
       settings.id = $.Uuid();
       settings.listClass = '';
       settings.background = '';
-      settings.handle = '<div class="handle"></div>';
+      settings.handle = '<div class="handle"><span></span></div>';
       if (options) $.extend(settings, options);
       var sheet = $.concat('<div id="', settings.id, '" class="sheet', settings.listClass, '"', settings.background, '>', settings.handle, '<section class="scroller-vertical"></section></div>');
       $('body').append(sheet);
       $('.sheet .handle').on($.eventStart, function() {
-        $.UIHideSheet();
+        var $this = $(this);
+        if ($.isAndroid || $.isChrome) {
+          $this.addClass('selected');
+          setTimeout(function() {
+            $this.removeClass('selected');
+            $.UIHideSheet();
+          }, 500);
+        } else {
+          $.UIHideSheet();
+        }
       });
     },
     UIShowSheet : function ( id ) {
@@ -1941,23 +1981,49 @@ if(window.jQuery) {
       $('#global-nav').append(slideoutButton);
       $('.slide-out-button').on($.eventStart, function() {
         $('.slide-out').toggleClass('open');
+        $(this).toggleClass('focused');
       });
       if (!dynamic) {
         $('.slide-out').on('singletap', 'li', function() {
+          var $this = $(this);
+          $this.addClass('selected');
+          setTimeout(function() {
+            $this.removeClass('selected');
+          }, 500);
           var whichArticle = '#' + $(this).attr('data-show-article');
           $.UINavigationHistory[0] = whichArticle;
           $.UISetHashOnUrl(whichArticle);
           $.publish('chui/navigate/leave', $('article.show')[0].id);
           $.publish('chui/navigate/enter', whichArticle);
-          $('.slide-out').removeClass('open');
-          $('article').removeClass('show');
-          $('article').prev().removeClass('show');
-          $(whichArticle).addClass('show');
-          $(whichArticle).prev().addClass('show');
+          if ($.isAndroid || $.isChrome) {
+            setTimeout(function() {
+            $('.slide-out').removeClass('open');
+            $('article').removeClass('show');
+            $('article').prev().removeClass('show');
+            $(whichArticle).addClass('show');
+            $(whichArticle).prev().addClass('show');
+            $('.slide-out-button').removeClass('focused');
+            }, 400);
+          } else {
+            $('.slide-out').removeClass('open');
+            $('article').removeClass('show');
+            $('article').prev().removeClass('show');
+            $(whichArticle).addClass('show');
+            $(whichArticle).prev().addClass('show');
+            $('.slide-out-button').removeClass('focused');
+          }
         });
       } else {
         $('.slide-out').on('singletap', 'li', function() {
-          callback(this);
+          if ($.isAndroid || $.isChrome) {
+            setTimeout(function() {
+              callback(this);
+              $('.slide-out-button').removeClass('focused');
+            }, 400);
+          } else {
+            callback(this);
+            $('.slide-out-button').removeClass('focused');
+          }
         });
       }
     }
@@ -2788,7 +2854,8 @@ if(window.jQuery) {
       } else { 
         newPlace = width * newPoint + offset; offset -= newPoint; 
       }
-      input.css({'background-size': Math.round(newPlace) + 'px 10px'});         
+      if ($.isAndroid || $.isChrome) input.css({'background-size': Math.round(newPlace) + 'px 3px, 100% 2px'});
+      else input.css({'background-size': Math.round(newPlace) + 'px 10px'});         
     }
   });
   $(function() {
@@ -2899,6 +2966,13 @@ if(window.jQuery) {
         var broadcast = 'data-binding-' + $(this).attr('data-controller');
         $.publish(broadcast, $(this).val());
       });
+    },
+
+    //////////////////////////////////////
+    // Unbind a specific controller/model:
+    //////////////////////////////////////
+    UIUnBindData : function (controller) {
+      delete $.subscriptions['data-binding-' + controller];
     }
   });
 
