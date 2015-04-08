@@ -61,7 +61,7 @@
       var height = $('li').eq(0)[0].clientHeight;
 
       if (settings.deletable) {
-        deleteButton = $.concat('<button class="delete"><label>', deleteLabel, '</label></button');
+        deleteButton = $.concat('<button class="delete"><label>', deleteLabel, '</label></button>');
         deletionIndicator = '<span class="deletion-indicator"></span>';
         $(this).addClass('deletable');
       }
@@ -70,7 +70,7 @@
         var moveDownIndicator = "<span class='move-down'></span>";
         $(this).addClass('editable');
       }
-      editButton = $.concat('<button class="edit">', editLabel, '</button');
+      editButton = $.concat('<button class="edit">', editLabel, '</button>');
       if (!$(this).closest('article').prev().find('.edit')[0] && !$(this).closest('article').prev().find('.done')[0]) {
         $(this).closest('article').prev().append(editButton);
       }
