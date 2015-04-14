@@ -10,7 +10,7 @@
 ChocolateChip.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.2
+Version: 3.8.3
 */
 (function() {
   'use strict';
@@ -130,7 +130,7 @@ Version: 3.8.2
 
   $.extend({
  
-    version : "3.8.2",
+    version : "3.8.3",
     
     libraryName : 'ChocolateChip',
     
@@ -2240,6 +2240,23 @@ Version: 3.8.2
       return template;
     }
   });
+
+  // Define repeater.
+  // This lets you output a template repeatedly,
+  // using an array of data.
+  $.template.repeater = function( element, tmpl, data) {
+    var template = $.template(tmpl);
+    // Exit if data is not repeatable:
+    if (!$.isArray(data)) {
+      console.error('$.template.repeater() requires data of type Array.');
+      return '$.template.repeater() requires data of type Array.';
+    }
+    if ($.isArray(data)) {
+      data.forEach(function(item) {
+        $(element).append(template(item));
+      });
+    }
+  };
 
 
   $.extend($, {
