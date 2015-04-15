@@ -2265,8 +2265,8 @@ Version: 3.8.5
         repeater.removeClass('cloak');
         var t = $.template(template);
         $.template.data[d].forEach(function(item) {
-          $.template.index += 1;
           repeater.append(t(item));
+          $.template.index += 1;
         });
         delete $.template.data[d];
       });      
