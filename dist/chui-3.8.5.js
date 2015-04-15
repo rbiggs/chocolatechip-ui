@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.4
+Version: 3.8.5
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -2416,20 +2416,28 @@ if(window.jQuery) {
   // This lets you output a template repeatedly,
   // using an array of data.
 
+
   $.template.data = {};
   
+  $.template.index = 0;
+
   $.template.repeater = function( element, tmpl, data) {
     if (!element) {
       var repeaters = $('[data-repeater]');
+      $.template.index = 0;
       repeaters.forEach(function(repeater) {
         var template = repeater.innerHTML;
         repeater = $(repeater);
         var d = repeater.attr('data-repeater');
-        if (!d) return;
+        if (!d || !$.template.data[d]) {
+          console.error("No matching data for template. Check your data assignment on $.template.data or the template's data-repeater value.");
+          return;
+        }
         repeater.empty();
         repeater.removeClass('cloak');
         var t = $.template(template);
         $.template.data[d].forEach(function(item) {
+          $.template.index += 1;
           repeater.append(t(item));
         });
         delete $.template.data[d];
