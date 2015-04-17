@@ -10,7 +10,7 @@
 ChocolateChip.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.5
+Version: 3.8.6
 */
 (function() {
   'use strict';
@@ -130,7 +130,7 @@ Version: 3.8.5
 
   $.extend({
  
-    version : "3.8.5",
+    version : "3.8.6",
     
     libraryName : 'ChocolateChip',
     
@@ -1757,272 +1757,327 @@ Version: 3.8.5
   });
 
 
-  $.extend({
-    Deferred : function (callback) {
-      var status = 'pending';
-      var doneCallback = [];
-      var failCallback = [];
-      var progressCallback = [];
-      var resultArgs = null;
+  (function() {
+    /*jshint validthis:true */
+    var extend;
+    var cycle;
+    var queue;
 
-      var promise = {
-        done: function() {
-          for (var i = 0; i < arguments.length; i++) {
-            // Skip any falsy arguments:
-            if (!arguments[i]) {
-              continue;
-            }
-            if (Array.isArray(arguments[i])) {
-              var arr = arguments[i];
-              for (var j = 0; j < arr.length; j++) {
-                // Execute callback if deferred has been resolved:
-                if (status === 'resolved') {
-                  arr[j].apply(this, resultArgs);
-                }
-                doneCallback.push(arr[j]);
-              }
-            } else {
-              // Execute callback if deferred has been resolved:
-              if (status === 'resolved') {
-                arguments[i].apply(this, resultArgs);
-              }
-              doneCallback.push(arguments[i]);
-            }
-          }
-          return this;
-        },
+    extend = function(obj, name, val, config) {
+      return Object.defineProperty(obj, name, {
+        value: val,
+        writable: true,
+        configurable: config !== false
+      });
+    };
 
-        fail: function() {
-          for (var i = 0; i < arguments.length; i++) {
-            // Skip falsy arguments:
-            if (!arguments[i]) {
-              continue;
-            }
-            if (Array.isArray(arguments[i])) {
-              var arr = arguments[i];
-              for (var j = 0; j < arr.length; j++) {
-                // Execute callback if deferred has been resolved:
-                if (status === 'rejected') {
-                  arr[j].apply(this, resultArgs);
-                }
-                failCallback.push(arr[j]);
-              }
-            } else {
-              // Execute callback if deferred has been resolved:
-              if (status === 'rejected') {
-                arguments[i].apply(this, resultArgs);
-              }
-              failCallback.push(arguments[i]);
-            }
-          }
-          return this;
-        },
+    queue = (function() {
+      var first, last, item;
 
-        always: function() {
-          return this.done.apply(this, arguments).fail.apply(this, arguments);
-        },
-
-        progress: function() {
-          for (var i = 0; i < arguments.length; i++) {
-            // Skip falsy arguments:
-            if (!arguments[i]) {
-              continue;
-            }
-            if (Array.isArray(arguments[i])) {
-              var arr = arguments[i];
-              for (var j = 0; j < arr.length; j++) {
-                // Execute callback if deferred has been resolved:
-                if (status === 'pending') {
-                  progressCallback.push(arr[j]);
-                }
-              }
-            } else {
-              // Execute callback if deferred has been resolved:
-              if (status === 'pending') {
-                progressCallback.push(arguments[i]);
-              }
-            }
-          }
-          return this;
-        },
-
-        then: function() {
-          // Fail callback:
-          if (arguments.length > 1 && arguments[1]) {
-            this.fail(arguments[1]);
-          }
-          // Done callback:
-          if (arguments.length > 0 && arguments[0]) {
-            this.done(arguments[0]);
-          }
-          // Progress callback:
-          if (arguments.length > 2 && arguments[2]) {
-            this.progress(arguments[2]);
-          }
-        },
-
-        promise: function(obj) {
-          if (obj === null || obj === undefined) {
-            return promise;
-          } else {
-            for (var i in promise) {
-              obj[i] = promise[i];
-            }
-            return obj;
-          }
-        },
-
-        state: function() {
-          return status;
-        },
-
-        debug: function() {
-          console.log('[debug]', doneCallback, failCallback, status);
-        },
-
-        isRejected: function() {
-          return status === 'rejected';
-        },
-
-        isResolved: function() {
-          return status === 'resolved';
-        },
-
-        pipe: function(done, fail) {
-          // Private method to execute handlers in pipe:
-          var executeHandler = function(array, handler) {
-            if ($.isArray(array)) {
-              for (var i = 0; i < array.length; i++) {
-                handler(array[i]);
-              }
-            } else {
-              handler(array);
-            }
-          };
-          return $.Deferred(function(def) {
-            executeHandler(done, function(func) {
-              // Filter function:
-              if (typeof func === 'function') {
-                deferred.done(function() {
-                  var returnVal = func.apply(this, arguments);
-                  // If a new deferred/promise is returned, 
-                  // its state is passed to the current deferred/promise:
-                  if (returnVal && typeof returnVal === 'function') {
-                    returnVal.promise().then(def.resolve, def.reject, def.notify);
-                  } else { 
-                    // If new return val is passed, 
-                    // it is passed to the piped done:
-                    def.resolve(returnVal);
-                  }
-                });
-              } else {
-                deferred.done(def.resolve);
-              }
-            });
-            executeHandler(fail, function(func) {
-              if (typeof func === 'function') {
-                deferred.fail(function() {
-                  var returnVal = func.apply(this, arguments);
-                  if (returnVal && typeof returnVal === 'function') {
-                    returnVal.promise().then(def.resolve, def.reject, def.notify);
-                  } else {
-                    def.reject(returnVal);
-                  }
-                });
-              } else {
-                deferred.fail(def.reject);
-              }
-            });
-          }).promise();
-        }
-      };
-
-      var deferred = {
-        resolveWith: function(context) {
-          if (status === 'pending') {
-            status = 'resolved';
-            resultArgs = (arguments.length > 1) ? arguments[1] : [];
-            for (var i = 0; i < doneCallback.length; i++) {
-              doneCallback[i].apply(context, resultArgs);
-            }
-          }
-          return this;
-        },
-
-        rejectWith: function(context) {
-          if (status === 'pending') {
-            status = 'rejected';
-            resultArgs = (arguments.length > 1) ? arguments[1] : [];
-            for (var i = 0; i < failCallback.length; i++) {
-              failCallback[i].apply(context, resultArgs);
-            }
-          }
-          return this;
-        },
-
-        notifyWith: function(context) {
-          if (status === 'pending') {
-            resultArgs = 2 <= arguments.length ? $.slice.call(arguments, 1) : [];
-            for (var i = 0; i < progressCallback.length; i++) {
-              progressCallback[i].apply(context, resultArgs);
-            }
-          }
-          return this;
-        },
-
-        resolve: function() {
-          return this.resolveWith(this, arguments);
-        },
-
-        reject: function() {
-          return this.rejectWith(this, arguments);
-        },
-
-        notify: function() {
-          return this.notifyWith(this, arguments);
-        }
-      };
-
-      var obj = promise.promise(deferred);
-
-      if (callback) {
-        callback.apply(obj, [obj]);
+      function Item(fn,self) {
+        this.fn = fn;
+        this.self = self;
+        this.next = undefined;
       }
 
-      return obj;
-    }
-  });
+      return {
+        add: function (fn, self) {
+          item = new Item(fn, self);
+          if (last) {
+            last.next = item;
+          }
+          else {
+            first = item;
+          }
+          last = item;
+          item = undefined;
+        },
+        unshift: function() {
+          var f = first;
+          first = last = cycle = undefined;
 
-  $.extend({
-    when : function() {
-      if (arguments.length < 2) {
-        var obj = arguments.length ? arguments[0] : undefined;
-        if (obj && (typeof obj.isResolved === 'function' && typeof obj.isRejected === 'function')) {
-          return obj.promise();      
+          while (f) {
+            f.fn.call(f.self);
+            f = f.next;
+          }
+        }
+      };
+    })();
+
+    function schedule(fn, self) {
+      queue.add(fn,self);
+      if (!cycle) {
+        cycle = setTimeout(queue.unshift);
+      }
+    }
+
+    // Check that Promise is thenable:
+    function isThenable(obj) {
+      var _then, obj_type = typeof obj;
+
+      if (obj !== null &&
+        (
+          obj_type === "object" || obj_type === "function"
+        )
+      ) {
+        _then = obj.then;
+      }
+      return typeof _then === "function" ? _then : false;
+    }
+
+    function notify() {
+      for (var i = 0; i < this.chain.length; i++) {
+        notifyIsolated(
+          this,
+          (this.state === 1) ? this.chain[i].success : this.chain[i].failure,
+          this.chain[i]
+        );
+      }
+      this.chain.length = 0;
+    }
+
+    function notifyIsolated(self, callback, chain) {
+      var ret, _then;
+      try {
+        if (callback === false) {
+          chain.reject(self.msg);
         } else {
-          return $.Deferred().resolve(obj).promise();
-        }
-      } else {
-        return (function(args) {
-          var D = $.Deferred();
-          var size = args.length;
-          var done = 0;  
-          var params = [];
-          params.length = size;
-            // Resolve params: params of each resolve, 
-            // we need to track them down to be able to pass them in 
-            // the correct order if the master needs to be resolved:
-          for (var i = 0; i < args.length; i++) {
-            (function(j) {
-              args[j].done(function() { params[j] = (arguments.length < 2) ? arguments[0] : arguments; if (++done === size) { D.resolve.apply(D, params); }})
-              .fail(function() { D.reject(arguments); });
-            })(i);
+          if (callback === true) {
+            ret = self.msg;
+          } else {
+            ret = callback.call(undefined, self.msg);
           }
-          return D.promise();
-        })(arguments);
+          if (ret === chain.promise) {
+            chain.reject(new TypeError("Promise-chain cycle"));
+          } else if (_then = isThenable(ret)) {
+            _then.call(ret, chain.resolve, chain.reject);
+          } else {
+            chain.resolve(ret);
+          }
+        }
+      }
+      catch (err) {
+        chain.reject(err);
       }
     }
-  });
+
+    function resolve(msg) {
+      var _then, deferred, self = this;
+      if (self.triggered) { return; }
+      self.triggered = true;
+      if (self.deferred) {
+        self = self.deferred;
+      }
+
+      try {
+        if (_then = isThenable(msg)) {
+          deferred = new MakeDeferred(self);
+          _then.call(msg,
+            function() { resolve.apply(deferred, arguments); },
+            function() { reject.apply(deferred, arguments); }
+          );
+        } else {
+          self.msg = msg;
+          self.state = 1;
+          if (self.chain.length > 0) {
+            schedule(notify,self);
+          }
+        }
+      }
+      catch (err) {
+        reject.call(deferred || (new MakeDeferred(self)), err);
+      }
+    }
+
+    function reject(msg) {
+      var self = this;
+      if (self.triggered) { return; }
+      self.triggered = true;
+      if (self.deferred) {
+        self = self.deferred;
+      }
+      self.msg = msg;
+      self.state = 2;
+      if (self.chain.length > 0) {
+        schedule(notify, self);
+      }
+    }
+
+    function iteratePromises(Constructor, arr, resolver, rejecter) {
+      for (var idx = 0; idx < arr.length; idx++) {
+        (function IIFE(idx) {
+          Constructor.resolve(arr[idx])
+          .then(
+            function(msg) {
+              resolver(idx, msg);
+            },
+            rejecter
+          );
+        })(idx);
+      }
+    }
+
+    function MakeDeferred(self) {
+      this.deferred = self;
+      this.triggered = false;
+    }
+
+    function Deferred(self) {
+      this.promise = self;
+      this.state = 0;
+      this.triggered = false;
+      this.chain = [];
+      this.msg = undefined;
+    }
+
+    function Promise(executor) {
+      if (typeof executor !== "function") {
+        throw new TypeError("Not a function");
+      }
+
+      if (this.isValidPromise !== 0) {
+        throw new TypeError("Not a promise");
+      }
+
+      // Indicate the Promise is initialized:
+      this.isValidPromise = 1;
+
+      var deferred = new Deferred(this);
+
+      this.then = function(success, failure) {
+        var obj = {
+          success: typeof success === "function" ? success : true,
+          failure: typeof failure === "function" ? failure : false
+        };
+        // `.then()` can be used against a different promise 
+        // constructor for making a chained promise.
+        obj.promise = new this.constructor(function extractChain(resolve,reject) {
+          if (typeof resolve !== "function" || typeof reject !== "function") {
+            throw new TypeError("Not a function");
+          }
+
+          obj.resolve = resolve;
+          obj.reject = reject;
+        });
+        deferred.chain.push(obj);
+
+        if (deferred.state !== 0) {
+          schedule(notify, deferred);
+        }
+
+        return obj.promise;
+      };
+      this["catch"] = function(failure) {
+        return this.then(undefined, failure);
+      };
+
+      try {
+        executor.call(
+          undefined,
+          function(msg) {
+            resolve.call(deferred, msg);
+          },
+          function(msg) {
+            reject.call(deferred, msg);
+          }
+        );
+      }
+      catch (err) {
+        reject.call(deferred, err);
+      }
+    }
+
+    var PromisePrototype = extend({}, "constructor", Promise, false
+    );
+
+    extend(
+      Promise,"prototype", PromisePrototype, false
+    );
+
+    // Check if Promise is initialized:
+    extend(PromisePrototype, "isValidPromise", 0, false
+    );
+
+    extend(Promise, "resolve", function (msg) {
+      var Constructor = this;
+
+      // Make sure it is a valide Promise:
+      if (msg && typeof msg === "object" && msg.isValidPromise === 1) {
+        return msg;
+      }
+
+      return new Constructor(function executor(resolve,reject) {
+        if (typeof resolve !== "function" || typeof reject !== "function") {
+          throw new TypeError("Not a function");
+        }
+
+        resolve(msg);
+      });
+    });
+
+    extend(Promise, "reject", function (msg) {
+      return new this(function executor(resolve, reject) {
+        if (typeof resolve !== "function" || typeof reject !== "function") {
+          throw new TypeError("Not a function");
+        }
+
+        reject(msg);
+      });
+    });
+
+    extend(Promise, "all", function (arr) {
+      var Constructor = this;
+
+      // Make sure argument is an array:
+      if (Object.prototype.toString.call(arr) !== "[object Array]") {
+        return Constructor.reject(new TypeError("Not an array"));
+      }
+      if (arr.length === 0) {
+        return Constructor.resolve([]);
+      }
+
+      return new Constructor(function executor(resolve,reject) {
+        if (typeof resolve !== "function" || typeof reject !== "function") {
+          throw new TypeError("Not a function");
+        }
+
+        var len = arr.length, msgs = new Array(len), count = 0;
+
+        iteratePromises(Constructor, arr, function resolver(idx, msg) {
+          msgs[idx] = msg;
+          if (++count === len) {
+            resolve(msgs);
+          }
+        },reject);
+      });
+    });
+
+    extend(Promise, "race", function (arr) {
+      var Constructor = this;
+
+      // Make sure argument is an array:
+      if (Object.prototype.toString.call(arr) !== "[object Array]") {
+        return Constructor.reject(new TypeError("Not an array"));
+      }
+
+      return new Constructor(function executor(resolve, reject) {
+        if (typeof resolve !== "function" || typeof reject !== "function") {
+          throw new TypeError("Not a function");
+        }
+
+        iteratePromises(Constructor, arr, function resolver(idx, msg) {
+          resolve(msg);
+        },reject);
+      });
+    });
+    // If native Promise exists in window, do not use this.
+    if ("Promise" in window && "resolve" in window.Promise && "reject" in window.Promise && "all" in window.Promise && "race" in window.Promise) {
+      return;
+    } else {
+      // Otherwise do use this:
+      return window.Promise = Promise;
+    }
+  })();
 
 
   $.extend($, {
@@ -2041,7 +2096,10 @@ Version: 3.8.5
         context: null
       }
     */
-    ajax : function ( options ) {
+    ajax: function(options) {
+      if (!options) throw('No options where provided to xhr request.');
+      if (typeof options !== 'object') throw('Expected an object as argument for options, received something else.');
+      var protocol;
       // Default settings:
       var settings = {
         type: 'GET',
@@ -2052,84 +2110,92 @@ Version: 3.8.5
         async: true,
         timeout: 0
       };
+      if (options.data) {
+        options.data = encodeURIComponent(options.data);
+      }
       $.extend(settings, options);
       var dataTypes = {
         script: 'text/javascript, application/javascript',
         json:   'application/json',
         xml:    'application/xml, text/xml',
         html:   'text/html',
-        text:   'text/plain',
-        form:   'application/x-www-form-urlencoded'
+        text:   'text/plain'
       };
-      var xhr = new XMLHttpRequest();
-      var deferred = new $.Deferred();
-      var type = settings.type || 'GET';
-      var async  = settings.async || false;      
-      var params = settings.data || null;
-      var context = options.context || deferred;
-      xhr.queryString = params;
-      xhr.timeout = settings.timeout ? settings.timeout : 0;
-      xhr.open(type, settings.url, async);
-      if (!!settings.headers) {  
-        for (var prop in settings.headers) { 
-          if(settings.headers.hasOwnProperty(prop)) { 
-            xhr.setRequestHeader(prop, settings.headers[prop]);
+
+      // Create a new Promise object:
+      return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        var type = settings.type || 'get';
+        var async  = settings.async || false;      
+        var params = settings.data || null;
+        xhr.queryString = params;
+        xhr.timeout = settings.timeout ? settings.timeout : 0;
+        xhr.open(type, settings.url, async);
+
+        // Setup headers:
+        if (!!settings.headers) {  
+          for (var prop in settings.headers) { 
+            if(settings.headers.hasOwnProperty(prop)) { 
+              xhr.setRequestHeader(prop, settings.headers[prop]);
+            }
           }
         }
-      }
-      if (settings.dataType) {
-        xhr.setRequestHeader('Content-Type', dataTypes[settings.dataType]);
-      }
-      xhr.handleResp = settings.success; 
+        if (settings.dataType) {
+          xhr.setRequestHeader('Content-Type', dataTypes[settings.dataType]);
+        }
 
-      var handleResponse = function() {
-        if (xhr.status === 0 && xhr.readyState === 4 || xhr.status >= 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 ) {
-          if (settings.dataType && (settings.dataType === 'json')) {
-            xhr.handleResp(JSON.parse(xhr.responseText));
-            deferred.resolve(xhr.responseText, settings.context, xhr);
+        // Get the protocol being used:
+        protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol;
+        // Send request:
+
+        // Handle load success:
+        xhr.onload = function() {
+          if (xhr.status === 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 || (xhr.status === 0 && protocol === 'file:')) {
+            // Resolve the promise with the response text:
+            resolve(xhr.response);
           } else {
-            xhr.handleResp(xhr.responseText);
-            deferred.resolve(xhr.responseText, settings.context, xhr);
+            // Otherwise reject with the status text
+            // which will hopefully be a meaningful error:
+            reject(new Error(xhr.statusText));
           }
-        } else if(xhr.status >= 400) {
-          if (!!error) {
-            error(xhr);
-            deferred.reject(xhr.status, settings.context, xhr);
-          }
-        }
-      };
+        };
 
-      if (async) {
-        if (settings.beforeSend !== $.noop) {
-          settings.beforeSend(xhr, settings);
+        // Handle error:
+        xhr.onerror = function() {
+          reject(new Error("There was a network error."));
+        };
+
+        // Send request:
+        if (async) {
+          if (settings.beforeSend !== $.noop) {
+            settings.beforeSend(xhr, settings);
+          }
+          xhr.send(params);
+        } else {
+          if (settings.beforeSend !== $.noop) {
+            settings.beforeSend(xhr, settings);
+          }
         }
-        xhr.onreadystatechange = handleResponse;
-        xhr.send(params);
-      } else {
-        if (settings.beforeSend !== $.noop) {
-          settings.beforeSend(xhr, settings);
-        }
-        xhr.send(params);
-        handleResponse();
-      }
-      return deferred;
-    },
-    
+
+      });
+    }
+  });
+  $.extend($.ajax, {
     // Parameters: url, data, success, dataType.
     get : function ( url, data, success, dataType ) {
       if (!url) {
         return;
       }
       if (!data) {
-        return $.ajax({url : url, type: 'GET'}); 
+        return $.xhr({url : url, type: 'GET'}); 
       }
       if (!dataType) {
         dataType = null;
       }
       if (typeof data === 'function' && !success) {
-        return $.ajax({url : url, type: 'GET', success : data});
+        return $.xhr({url : url, type: 'GET', success : data});
       } else if (typeof data === 'string' && typeof success === 'function') {
-        return $.ajax({url : url, type: 'GET', data : data, success : success, dataType : dataType});
+        return $.xhr({url : url, type: 'GET', data : data, success : success, dataType : dataType});
       }
     },
     
@@ -2142,9 +2208,9 @@ Version: 3.8.5
         return;
       }
       if (typeof data === 'function' && !success) {
-        $.ajax({url : url, type: 'GET', async: true, success : data, dataType : 'json'});
+        $.xhr({url : url, type: 'GET', async: true, success : data, dataType : 'json'});
       } else if (typeof data === 'string' && typeof success === 'function') {
-        $.ajax({url : url, type: 'GET', data : data, success : success, dataType : 'json'});
+        $.xhr({url : url, type: 'GET', data : data, success : success, dataType : 'json'});
       }
     },
 
@@ -2167,7 +2233,7 @@ Version: 3.8.5
         timeout: null
       };
       $.extend(settings, options);
-      var deferred = new $.Deferred();
+      //var deferred = new $.Deferred();
       var fn = 'fn_' + $.uuidNum(),
       script = document.createElement('script'),
       head = $('head')[0];
@@ -2190,7 +2256,33 @@ Version: 3.8.5
           }
         }, settings.timeout);
       }
-      return deferred;
+      //return deferred;
+      return new Promise(function(resolve, reject) {
+        var fn = 'fn_' + $.uuidNum(),
+        script = document.createElement('script'),
+        head = $('head')[0];
+        script.setAttribute('id', fn);
+        var startTimeout = new Date();
+        window[fn] = function(data) {
+          head.removeChild(script);
+          settings.callback(data);
+          resolve(data);
+          //deferred.resolve(data, 'resolved', settings);
+          delete window[fn];
+        };
+        var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length-1);
+        script.src = settings.url.replace(settings.callbackType, strippedCallbackStr + fn);
+        head.appendChild(script);
+        if (settings.timeout) {
+          var waiting = setTimeout(function() {
+            if (new Date() - startTimeout > 0) {
+              //deferred.reject('timedout', settings);
+              reject('The request timedout.');
+              settings.callback = $.noop;
+            }
+          }, settings.timeout);
+        }        
+      });
     },
     
     // Parameters: url, data, success, dataType.
@@ -2207,16 +2299,15 @@ Version: 3.8.5
         } else {
           dataType = 'form';
         }
-        $.ajax({url : url, type: 'POST', success : data, dataType : dataType});
+        $.xhr({url : url, type: 'POST', success : data, dataType : dataType});
       } else if (typeof data === 'string' && typeof success === 'function') {
         if (!dataType) {
           dataType = 'form';
         }
-        $.ajax({url : url, type: 'POST', data : data, success : success, dataType : dataType});
+        $.xhr({url : url, type: 'POST', data : data, success : success, dataType : dataType});
       }
     }
   });
-
 
 
   $.extend($, {
