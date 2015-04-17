@@ -18,7 +18,7 @@ if (pkg.projectPath !== "")
 
 var whichLib = pkg.jquery.url;
 var pkgVersion = pkg.version;
-if (gutils.env.chocolatechipjs) whichLib = "../chui/chocolatechip-" + chocolatechipJSVersion + ".js";
+if (gutils.env.chocolatechipjs) whichLib = "../chui/chocolatechip-" + pkg.chocolatechipJSVersion + ".js";
 
 
 // Define values for file headers:
@@ -151,7 +151,7 @@ gulp.task('js', function () {
     .pipe(gulp.dest(pkg.projectPath + 'dist/'));
 
     if (gutils.env.chocolatechipjs) {
-      gulp.src(["src/chocolatechipjs/chocolatechip-*.js"])
+      gulp.src(["src/chocolatechipjs/chocolatechip*.js"])
         .pipe(gulp.dest(pkg.projectPath + 'chui/'))
     }
 });
