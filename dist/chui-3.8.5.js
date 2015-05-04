@@ -281,7 +281,7 @@ if(window.jQuery) {
       $.eventMove = 'MSPointerMove';
       $.eventCancel = 'MSPointerCancel';
     // Touch events for iOS & Android:
-    } else if ('ontouchstart' in window) {
+    } else if ('ontouchstart' in window && /mobile/img.test(navigator.userAgent)) {
       $.eventStart = 'touchstart';
       $.eventEnd = 'touchend';
       $.eventMove = 'touchmove';
