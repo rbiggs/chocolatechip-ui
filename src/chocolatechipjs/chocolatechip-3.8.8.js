@@ -10,7 +10,7 @@
 ChocolateChip.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.7
+Version: 3.8.8
 */
 (function() {
   'use strict';
@@ -130,7 +130,7 @@ Version: 3.8.7
 
   $.extend({
  
-    version : "3.8.7",
+    version : "3.8.8",
     
     libraryName : 'ChocolateChip',
     
@@ -404,6 +404,7 @@ Version: 3.8.7
           ret.push(ctx);
         }
       });
+      ret.sort(function(a, b) { return a - b; });
       return ret.length ? ret : [];
     },
     
@@ -2159,8 +2160,7 @@ Version: 3.8.7
 
         // Get the protocol being used:
         protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol;
-        // Send request:
-
+        
         // Handle load success:
         xhr.onload = function() {
           if (xhr.status === 200 && xhr.status < 300 && xhr.readyState === 4 || xhr.status === 304 && xhr.readyState === 4 || (xhr.status === 0 && protocol === 'file:')) {

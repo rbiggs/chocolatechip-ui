@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.5
+Version: 3.8.6
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -377,6 +377,7 @@ if(window.jQuery) {
   var tapTimeout;
   var longTapDelay = 750;
   var singleTapDelay = 150;
+  $.gestureLength = 0;
   if ($.isAndroid) singleTapDelay = 200;
   var longTapTimeout;
   function parentIfText(node) {
@@ -420,7 +421,7 @@ if(window.jQuery) {
       if (e.originalEvent) e = e.originalEvent;
   
       // Handle MSPointer Events:
-      if (window.navigator.msPointerEnabled  || window.navigator.pointerEnabled) {
+      if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) {
         if (window && window.jQuery && $ === window.jQuery) {
           if (e.originalEvent && !e.originalEvent.isPrimary) return;
         } else {
@@ -533,7 +534,7 @@ if(window.jQuery) {
       }
     });
     body.on($.eventEnd, function(e) {
-      if (window.navigator.msPointerEnabled) {
+      if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) {
         if (window && window.jQuery && $ === window.jQuery) {
           if (e.originalEvent && !e.originalEvent.isPrimary) return;
         } else {
