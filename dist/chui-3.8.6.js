@@ -2016,6 +2016,12 @@ if(window.jQuery) {
         });
       } else {
         $('.slide-out').on('singletap', 'li', function() {
+          var $this = $(this);
+          $this.addClass('selected');
+          $('.slide-out').removeClass('open');
+          setTimeout(function() {
+            $this.removeClass('selected');
+          }, 500);
           if ($.isAndroid || $.isChrome) {
             setTimeout(function() {
               callback(this);
