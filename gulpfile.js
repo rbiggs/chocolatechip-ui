@@ -154,6 +154,28 @@ gulp.task('js', function () {
       gulp.src(["src/chocolatechipjs/chocolatechip*.js"])
         .pipe(gulp.dest(pkg.projectPath + 'chui/'))
     }
+
+    // Output TypeScript declaration files:
+    gulp.src(["src/typings/chui/*"])
+      .pipe(gulp.dest(pkg.projectPath + "dist/typings/chui"))
+      .pipe(gulp.dest(pkg.projectPath + 'chui/typings/chui'));
+    if (gutils.env.chocolatechipjs) {
+      gulp.src(["src/typings/tsd.d.ts"])
+        .pipe(header('/// <reference path="chocolatechip/chocolatechip.d.ts" />\n'))
+        .pipe(gulp.dest(pkg.projectPath + "dist/typings"))
+        .pipe(gulp.dest(pkg.projectPath + 'chui/typings'));
+      gulp.src(["src/typings/chocolatechip/chocolatechip.d.ts"])
+        .pipe(gulp.dest(pkg.projectPath + "dist/typings/chocolatechip"))
+        .pipe(gulp.dest(pkg.projectPath + 'chui/typings/chocolatechip'));
+    } else {
+      gulp.src(["src/typings/tsd.d.ts"])
+        .pipe(header('/// <reference path="jquery/jquery.d.ts" />\n'))
+        .pipe(gulp.dest(pkg.projectPath + "dist/typings"))
+        .pipe(gulp.dest(pkg.projectPath + 'chui/typings'));
+      gulp.src(["src/typings/jquery/jquery.d.ts"])
+        .pipe(gulp.dest(pkg.projectPath + "dist/typings/jquery"))
+        .pipe(gulp.dest(pkg.projectPath + 'chui/typings/jquery'));
+    }
 });
 
 // Copy out media:
