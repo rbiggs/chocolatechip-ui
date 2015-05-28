@@ -2019,6 +2019,7 @@ if(window.jQuery) {
           var $this = $(this);
           $this.addClass('selected');
           $('.slide-out').removeClass('open');
+          $('.slide-out-button').removeClass('focused');
           setTimeout(function() {
             $this.removeClass('selected');
           }, 500);
