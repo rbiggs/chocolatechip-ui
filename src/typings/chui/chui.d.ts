@@ -165,7 +165,7 @@ interface ChocolateChipStatic {
   /**
    * Reset the value of the stepper to its defaults at initialization. Pass it a reference to the stepper to reset.
    */
-  UIResetStepper(stepper: Element| string): void;
+  UIResetStepper(stepper: HTMLElement| string): void;
 
   /**
    * Create a switch control. Possible options: { id: '#myId', name: 'fruit.mango', state: 'on', value: 'Mango', checked: 'on', style: 'traditional', callback: function() { alert('hi');}}
@@ -207,7 +207,7 @@ interface ChocolateChipStatic {
 }
 
 /**
- * Interface for ChocolateChipJS Element Array.
+ * Interface for ChocolateChipJS HTMLElement Array.
  */
 interface ChocolateChipElementArray {
 
@@ -260,7 +260,7 @@ interface ChocolateChipElementArray {
    *
    * @param contained A DOM element to match elements against.
    */
-  haz(contained: Element): ChocolateChipElementArray;
+  haz(contained: HTMLElement): ChocolateChipElementArray;
 
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
@@ -273,7 +273,7 @@ interface ChocolateChipElementArray {
    *
    * @param contained A DOM element to match elements against.
    */
-  haznt(contained: Element): ChocolateChipElementArray;
+  haznt(contained: HTMLElement): ChocolateChipElementArray;
 
   /**
    * Return any of the matched elements that have the given class.
@@ -699,7 +699,7 @@ interface JQueryStatic {
   /**
    * Reset the value of the stepper to its defaults at initialization. Pass it a reference to the stepper to reset.
    */
-  UIResetStepper(stepper: Element| string): void;
+  UIResetStepper(stepper: HTMLElement| string): void;
 
   /**
    * Create a switch control. Possible options: { id: '#myId', name: 'fruit.mango', state: 'on', value: 'Mango', checked: 'on', style: 'traditional', callback: function() { alert('hi');}}
@@ -749,7 +749,7 @@ interface JQuery {
    * Iterate over an Array object, executing a function for each matched element.
    */
   //forEach(func: (ctx: any, idx: number) => void, JQuery: any): void;
-  forEach(callback: (ctx: Element, idx: number) => any): JQuery;
+  forEach(callback: (ctx: HTMLElement, idx: number) => any): JQuery;
 
   /**
    * Check the current matched set of elements against a selector or element and return it
@@ -794,7 +794,7 @@ interface JQuery {
    *
    * @param contained A DOM element to match elements against.
    */
-  haz(contained: Element): JQuery;
+  haz(contained: HTMLElement): JQuery;
 
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
@@ -807,7 +807,7 @@ interface JQuery {
    *
    * @param contained A DOM element to match elements against.
    */
-  haznt(contained: Element): JQuery;
+  haznt(contained: HTMLElement): JQuery;
 
   /**
    * Return any of the matched elements that have the given class.

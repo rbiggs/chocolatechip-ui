@@ -35,11 +35,11 @@ interface ChocolateChipStatic {
   /**
    * Replace one element with another.
    *
-   * @param new Element
-   * @param old Element
+   * @param new HTMLElement
+   * @param old HTMLElement
    * @return
    */
-  replace(newElement: Element, oldElement: Element): void;
+  replace(newElement: HTMLElement, oldElement: HTMLElement): void;
 
   /**
    * Load a JavaScript file from a url, then execute it.
@@ -214,7 +214,7 @@ interface ChocolateChipStatic {
    *
    * param newContent The content to insert. May be an HTML string, DOM element, or an array of DOM elements.
    */
-  replace(newELement:Element, oldElement: Element): void;
+  replace(newELement:HTMLElement, oldElement: HTMLElement): void;
 
   /**
    * Perform an asynchronous HTTP (Ajax) request.
@@ -268,9 +268,9 @@ interface ChocolateChipStatic {
    * Accepts a string containing a CSS selector which is then used to match a set of elements.
    *
    * @param selector A string containing a selector expression
-   * @param context A DOM Element to use as context
+   * @param context A DOM HTMLElement to use as context
    */
-  (selector: string, context?: Element|ChocolateChipElementArray): ChocolateChipElementArray;
+  (selector: string, context?: HTMLElement|ChocolateChipElementArray): ChocolateChipElementArray;
 
   /**
    * Binds a function to be executed when the DOM has finished loading.
@@ -285,7 +285,7 @@ interface ChocolateChipStatic {
    *
    * @param element A DOM element to wrap in an array.
    */
-  (element: Element): ChocolateChipElementArray;
+  (element: HTMLElement): ChocolateChipElementArray;
 
   /**
    * Accepts a string containing a CSS selector which is then used to match a set of elements.
@@ -433,11 +433,11 @@ interface ChocolateChipStatic {
   /**
    * Grabs values from a form and converts them into a JSON object.
    *
-   * @param rootNode: string|Element A form whose values you want to convert to JSON.
+   * @param rootNode: string|HTMLElement A form whose values you want to convert to JSON.
    * @param delimiter string A delimiter to namespace your form values. The default is "."
    * You use the form input's name to set up the namespace structure for your JSON, e.g. name="newUser.name.first".
    */
-  form2JSON(rootNode: string | Element, delimiter: string): Object;
+  form2JSON(rootNode: string | HTMLElement, delimiter: string): Object;
 }
 
 interface PluginInterface {
@@ -624,7 +624,7 @@ interface ChocolateChipXHR {
   ajax: (settings: ChocolateChipAjaxSettings) => PromiseConstructor;
 }
 
-interface ChocolateChipElementArray extends Array<Element> {
+interface ChocolateChipElementArray extends Array<HTMLElement> {
   /**
    * Iterate over an Array object, executing a function for each matched element.
    */
@@ -642,7 +642,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    *
    * @param number Index value indicating the node you wish to access from a collection. This is zero-based.
    */
-  eq(index: number): Element;
+  eq(index: number): HTMLElement;
 
   /**
    * Search for a given element from among the matched elements on a collection.
@@ -656,7 +656,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    *
    * @param selector A selector representing an element to look for in a collection of elements.
    */
-  index(selector: string | Element): number;
+  index(selector: string | HTMLElement): number;
 
   /**
    * Check the current matched set of elements against a selector or element and return it
@@ -702,7 +702,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    *
    * @param contained A DOM element to match elements against.
    */
-  has(contained: Element): ChocolateChipElementArray;
+  has(contained: HTMLElement): ChocolateChipElementArray;
 
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
@@ -715,7 +715,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    *
    * @param contained A DOM element to match elements against.
    */
-  hasnt(contained: Element): ChocolateChipElementArray;
+  hasnt(contained: HTMLElement): ChocolateChipElementArray;
 
   /**
    * Get the descendants of each element in the current set of matched elements, filtered by a selector or element.
@@ -729,7 +729,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    *
    * @param element An element to match elements against.
    */
-  find(element: Element): ChocolateChipElementArray;
+  find(element: HTMLElement): ChocolateChipElementArray;
 
   /**
    * Get the immediately preceding sibling of each element in the set of matched elements.
@@ -987,14 +987,14 @@ interface ChocolateChipElementArray extends Array<Element> {
    *
    * param content HTML string, DOM element, array of elements to insert before each element in the set of matched elements.
    */
-  before(content: ChocolateChipElementArray | Element | string): ChocolateChipElementArray;
+  before(content: ChocolateChipElementArray | HTMLElement | string): ChocolateChipElementArray;
 
   /**
    * Insert content, specified by the parameter, after each element in the set of matched elements.
    *
    * param content HTML string, DOM element, array of elements to insert after each element in the set of matched elements.
    */
-  after(content: ChocolateChipElementArray | Element | string): ChocolateChipElementArray;
+  after(content: ChocolateChipElementArray | HTMLElement | string): ChocolateChipElementArray;
 
   /**
    * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
@@ -1002,7 +1002,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    * param content DOM element, array of elements, or HTML string to insert at the end of each element in the set
    * of matched elements.
    */
-  append(content: ChocolateChipElementArray|Element|Text|string): ChocolateChipElementArray;
+  append(content: ChocolateChipElementArray|HTMLElement|Text|string): ChocolateChipElementArray;
 
   /**
    * Insert content, specified by the parameter, at the beginning of each element in the set of matched elements.
@@ -1010,7 +1010,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    * param content DOM element, array of elements, or HTML string to insert at the beginning of each element in the set
    * of matched elements.
    */
-  prepend(content: ChocolateChipElementArray|Element|Text|string): ChocolateChipElementArray;
+  prepend(content: ChocolateChipElementArray|HTMLElement|Text|string): ChocolateChipElementArray;
 
   /**
    * Insert every element in the set of matched elements to the beginning of the target.
@@ -1018,7 +1018,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    * @param target A selector, element, or HTML string;
    * the matched set of elements will be inserted at the beginning of the element specified by this parameter.
    */
-  prependTo(target: any[]|Element|string): ChocolateChipElementArray;
+  prependTo(target: any[]|HTMLElement|string): ChocolateChipElementArray;
 
   /**
    * Insert every element in the set of matched elements to the end of the target.
@@ -1027,7 +1027,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    * the matched set of elements will be inserted at the end of the element specified by this parameter.
    * If no position value is provided it will simply append the content to the target.
    */
-  appendTo(target: any[]|Element|string): ChocolateChipElementArray;
+  appendTo(target: any[]|HTMLElement|string): ChocolateChipElementArray;
 
   /**
    * Insert element(s) into the target element.
@@ -1095,7 +1095,7 @@ interface ChocolateChipElementArray extends Array<Element> {
    * @param text The text to set as the content of each matched element. When Number is supplied,
    * it will be converted to a String representation. To delete text, use ChocolateChipElementArray.empty() or ChocolateChipElementArray.remove().
    */
-  text(text: string | number): Element;
+  text(text: string | number): HTMLElement;
 
   /**
    * Attach a handler to an event for the elements.
