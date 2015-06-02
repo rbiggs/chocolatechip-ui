@@ -52,16 +52,22 @@ interface ChocolateChipStatic {
 
   /**
    * Return the version of the current browser.
+   *
+   * @return number Returns the current browser's version.
    */
   browserVersion(): number;
 
   /**
    * Hide the navigation bar, raising up the content below it.
+   *
+   * @return void
    */
   UIHideNavBar(): void;
 
   /**
    * If the navigation bar is hidden, show it, pushing down the content to make room.
+   *
+   * @return void
    */
   UIShowNavBar(): void;
 
@@ -74,11 +80,14 @@ interface ChocolateChipStatic {
    * Navigate to the article indicated by the provided destination ID. This enters the destination into the navigation history array.
    *
    * param destination An id for the article to navigate to.
+   * @return void
    */
   UIGoToArticle(destination: string): void;
 
   /**
    * Go back to the previous article from whence you came. This resets the navigation history array.
+   *
+   * @return void
    */
   UIGoBack(): void;
 
@@ -91,11 +100,14 @@ interface ChocolateChipStatic {
    * Display a transparent screen over the UI.
    *
    * @param opacity The percentage of opacity for the screen.
+   * @return void
    */
   UIBlock(opacity?: number): void;
 
   /**
    * Remove the transparent screen covering the UI.
+   *
+   * @return void
    */
   UIUnblock(): void;
 
@@ -111,11 +123,14 @@ interface ChocolateChipStatic {
    * Create and show a Popover. Options: {id: "#myPopover", title: "Whatever", callback: function() {console.log('Blah!');}}.
    *
    * param options UIPopoverOptions
+   * @return void
    */
   UIPopover(options: UIPopoverOptions): void;
 
   /**
    * Close any currently visible popovers.
+   *
+   * @return void
    */
   UIPopoverClose(): void;
 
@@ -129,21 +144,29 @@ interface ChocolateChipStatic {
   /**
    * Initialize a horiontal or vertical paging control. This uses a segmented control in the navigation bar with a class
    * like "segmented paging horizontal" or "segmented paging vertical". It uses a single article with multiple sections to paginate.
+   *
+   * @return void
    */
   UIPaging(): void;
 
   /**
    * Creates a sheet. Minimum option is an id: {id : 'starTrek', listClass :'enterprise', background: 'transparent', handle: false }
+   *
+   * @return void
    */
   UISheet(options: UISheetOptions): void;
 
   /**
    * Show a sheet by passing this its ID.
+   *
+   * @return void
    */
   UIShowSheet(id: string): void;
 
   /**
    * Hide any currently displayed sheets.
+   *
+   * @return void
    */
   UIHideSheet(): void;
 
@@ -164,27 +187,37 @@ interface ChocolateChipStatic {
 
   /**
    * Reset the value of the stepper to its defaults at initialization. Pass it a reference to the stepper to reset.
+   *
+   * @return void
    */
   UIResetStepper(stepper: HTMLElement| string): void;
 
   /**
    * Create a switch control. Possible options: { id: '#myId', name: 'fruit.mango', state: 'on', value: 'Mango', checked: 'on', style: 'traditional', callback: function() { alert('hi');}}
+   *
+   * @return void
    */
   UICreateSwitch(options: UICreateSwitchOptions): void;
 
   /**
    * Creates a tabbar. On iOS this is at the bottom of the screen. On Android and Windows, it is at the top.
    * Options: {id: 'mySpecialTabbar', tabs: 4, labels: ["Refresh", "Add", "Info", "Downloads", "Favorite"], icons: ["refresh", "add", "info", "downloads", "favorite"], selected: 2 }
+   *
+   * @return void
    */
   UITabbar(options: UITabbarOptions): void;
 
   /**
    * Create a search bar for an article. Options: { articleId: '#products', id: 'productSearch', placeholder: 'Find a product', results: 5 }
+   *
+   * @return void
    */
   UISearch(options: UISearchOptions): void;
 
   /**
    * Create and initialize a swipable carousel. Options: {target : '#myCarousel', panels: ['<p>stuff</p>','<p>more</p>'], loop: true, pagination: true }
+   *
+   * @return void
    */
   UISetupCarousel(options: UISetupCarouselOptions): void;
 
@@ -193,6 +226,7 @@ interface ChocolateChipStatic {
    * You can bind a single model to its controller by providing its name as the argument: $.UIBindData('input-value');
    *
    * @param controller A string indicating the controller whose value a model is bound to.
+   * @return void
    */
   UIBindData(controller?: string): void;
 
@@ -201,6 +235,7 @@ interface ChocolateChipStatic {
    * If you provide a controller name as the argument, only that controller will be unbound.
    *
    * @param controller A controller to unbind.
+   * @return void
    */
   UIUnBindData(controller?: string): void;
 
@@ -213,6 +248,8 @@ interface ChocolateChipElementArray {
 
   /**
    * Iterate over an Array object, executing a function for each matched element.
+   *
+   * @return void
    */
 
   forEach(func: (ctx: any, idx: number) => void): void;
@@ -222,6 +259,7 @@ interface ChocolateChipElementArray {
    * if it matches the given arguments.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   iz(selector: string): ChocolateChipElementArray;
 
@@ -230,6 +268,7 @@ interface ChocolateChipElementArray {
    * if it matches the given arguments.
    *
    * @param elements One or more elements to match the current set of elements against.
+   * @return HTMLElement[]
    */
   iz(element: any): ChocolateChipElementArray;
 
@@ -238,6 +277,7 @@ interface ChocolateChipElementArray {
    * if it does not match the given arguments.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   iznt(selector: string): ChocolateChipElementArray;
 
@@ -246,6 +286,7 @@ interface ChocolateChipElementArray {
    * if it does not match the given arguments.
    *
    * @param elements One or more elements to match the current set of elements against.
+   * @return HTMLElement[]
    */
   iznt(element: any): ChocolateChipElementArray;
 
@@ -253,12 +294,14 @@ interface ChocolateChipElementArray {
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   haz(selector: string): ChocolateChipElementArray;
   /**
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
    * @param contained A DOM element to match elements against.
+   * @return HTMLElement[]
    */
   haz(contained: HTMLElement): ChocolateChipElementArray;
 
@@ -266,12 +309,14 @@ interface ChocolateChipElementArray {
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   haznt(selector: string): ChocolateChipElementArray;
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
    * @param contained A DOM element to match elements against.
+   * @return HTMLElement[]
    */
   haznt(contained: HTMLElement): ChocolateChipElementArray;
 
@@ -279,6 +324,7 @@ interface ChocolateChipElementArray {
    * Return any of the matched elements that have the given class.
    *
    * @param className The class name to search for.
+   * @return HTMLElement[]
    */
   hazClass(className: string): ChocolateChipElementArray;
 
@@ -286,6 +332,7 @@ interface ChocolateChipElementArray {
    * Return any of the matched elements that do not have the given class.
    *
    * @param className The class name to search for.
+   * @return HTMLElement[]
    */
   hazntClass(className: string): ChocolateChipElementArray;
 
@@ -294,6 +341,7 @@ interface ChocolateChipElementArray {
    * Return any of the matched elements that have the given attribute.
    *
    * @param className The class name to search for.
+   * @return HTMLElement[]
    */
   hasAttr(attributeName: string): ChocolateChipElementArray;
 
@@ -301,6 +349,7 @@ interface ChocolateChipElementArray {
    * Return any of the matched elements that do not have the given attribute.
    *
    * @param className The class name to search for.
+   * @return HTMLElement[]
    */
   hazntAttr(attributeName: string): ChocolateChipElementArray;
 
@@ -310,6 +359,7 @@ interface ChocolateChipElementArray {
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param handler A function to execute each time the event is triggered.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   bind(eventType: string | ChUIEventInterface, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -319,6 +369,7 @@ interface ChocolateChipElementArray {
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param handler A function to execute each time the event is triggered.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   unbind(eventType: string | ChUIEventInterface, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -330,6 +381,7 @@ interface ChocolateChipElementArray {
    * @param handler A function to execute each time the event is triggered. The keyword "this" will refer
    * to the element receiving the event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   delegate(selector: any, eventType: string | ChUIEventInterface, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -340,6 +392,7 @@ interface ChocolateChipElementArray {
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param handler A function handler assigned to this event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   undelegate(selector: any, eventType: string | ChUIEventInterface, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -350,6 +403,7 @@ interface ChocolateChipElementArray {
    * @param selector A string defining the descendant elements are listening for the event.
    * @param handler A function handler assigned to this event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   on( eventType: string | ChUIEventInterface, selector: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): ChocolateChipStatic;
 
@@ -361,6 +415,7 @@ interface ChocolateChipElementArray {
    * @param selector A string defining the descendant elements are listening for the event.
    * @param handler A function handler assigned to this event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   off( eventType?: string | ChUIEventInterface, selector?: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): ChocolateChipStatic;
 
@@ -381,49 +436,66 @@ interface ChocolateChipElementArray {
    * @param color The color for the busy indicator: "#ff0000".
    * @param position Optional positioning, such as "align-flush".
    * @param duration The time for the busy indicator to display: "500ms".
+   * @return void
    */
   UIBusy(options: UIBusyOptions): void;
 
   /**
    * Close the currently displayed Popup. This is executed on the popup: $('#myPopup').UIPopupClose().
+   *
+   * @return void
    */
   UIPopupClose(): void;
 
   /**
    * Initialize a segmented control. Options: {selected: 2, callback: function() {console.log('Blah');}}
+   *
+   * @return void
    */
   UISegmented(options: UISegmentedOptions): void;
 
   /**
    * This method allows the user to use a segmented control to toggle a set of panels. It is executed on the segmented control.
    * The options id is the contain of the panels. The options callback is to execute when the user toggles a panel.
+   *
+   * @return void
    */
   UIPanelToggle(panelsContainer: string, callback: () => any): void;
 
   /**
    * Make a list editable. This can be enabling changing the order of list items, or deleting them, or both. Options: {editLabel: "Edit", doneLabel: "Done",
    * deleteLabel: "Delete", callback: function() {alert('Bye bye!');}, deletable: true, movable: true}.
+   *
+   * @return void
    */
   UIEditList(options: UIEditListOptions): void;
 
   /**
    * Convert a simple list into a selection list. This converts the list into a radio button group, meaning only one can be selected at any time.
    * You can name the radios buttons using the options name. Options: {name: "selectedNamesGroup", selected: 2, callback: function() {alert('hi');}}
+   *
+   * @return void
    */
   UISelectList(): void;
 
   /**
    * Create a stepper control by executing it on a span with the class "stepper". Possible options: {start: 0, end: 10, defaultValue: 3}.
+   *
+   * @return void
    */
   UIStepper(): void;
 
   /**
    * Initialize any existing switch controls: $('.switch').UISwitch();
+   *
+   * @return void
    */
   UISwitch(): void;
 
   /**
    * Execute this on a range control to initialize it.
+   *
+   * @return void
    */
   UIRange(): void;
 }
@@ -607,17 +679,22 @@ interface JQueryStatic {
   /**
    * Navigate to the article indicated by the provided destination ID. This enters the destination into the navigation history array.
    *
-   * param destination An id for the article to navigate to.
+   * @param destination An id for the article to navigate to.
+   * @return void
    */
   UIGoToArticle(destination: string): void;
 
   /**
    * Go back to the previous article from whence you came. This resets the navigation history array.
+   *
+   * @return void
    */
   UIGoBack(): void;
 
   /**
    * Go back to the article indicated by the provided ID. This is for non-linear back navigation. This will reset the navigation history array to match the current state.
+   *
+   * @return void
    */
   UIGoBackToArticle(articleID: string): void;
 
@@ -625,11 +702,14 @@ interface JQueryStatic {
    * Display a transparent screen over the UI.
    *
    * @param opacity The percentage of opacity for the screen.
+   * @return void
    */
   UIBlock(opacity?: number): void;
 
   /**
    * Remove the transparent screen covering the UI.
+   *
+   * @return void
    */
   UIUnblock(): void;
 
@@ -637,47 +717,60 @@ interface JQueryStatic {
    * Create and show a Popup with title and message. Possible options: {id: "#myPopup", title: "My Popup",
    * message: "Woohoo!", cancelButton: "Forget It!", contiueButton: "Whatever", callback: function() {console.log('Blah!');}, empty: false }.
    *
-   * param options UIPopupOptions
+   * @param options UIPopupOptions
+   * @return void
    */
   UIPopup(options: UIPopupOptions): void;
 
   /**
    * Create and show a Popover. Options: {id: "#myPopover", title: "Whatever", callback: function() {console.log('Blah!');}}.
    *
-   * param options UIPopoverOptions
+   * @param options UIPopoverOptions
+   * @return void
    */
   UIPopover(options: UIPopoverOptions): void;
 
   /**
    * Close any currently visible popovers.
+   *
+   * @return void
    */
   UIPopoverClose(): void;
 
   /**
    * Create a segmented control: {id: "mySegments", className: "seggie", labels: ["one", "two","three"], selected: 1}
    *
-   * param: options UICreateSegmentedOptions
+   * @param: options UICreateSegmentedOptions
+   * @return JQuery
    */
   UICreateSegmented(options: UICreateSegmentedOptions): JQuery;
 
   /**
    * Initialize a horiontal or vertical paging control. This uses a segmented control in the navigation bar with a class
    * like "segmented paging horizontal" or "segmented paging vertical". It uses a single article with multiple sections to paginate.
+   *
+   * @return void
    */
   UIPaging(): void;
 
   /**
    * Creates a sheet. Minimum option is an id: {id : 'starTrek', listClass :'enterprise', background: 'transparent', handle: false }
+   *
+   * @return void
    */
   UISheet(options: UISheetOptions): void;
 
   /**
    * Show a sheet by passing this its ID.
+   *
+   * @return void
    */
   UIShowSheet(id: string): void;
 
   /**
    * Hide any currently displayed sheets.
+   *
+   * @return void
    */
   UIHideSheet(): void;
 
@@ -698,27 +791,37 @@ interface JQueryStatic {
 
   /**
    * Reset the value of the stepper to its defaults at initialization. Pass it a reference to the stepper to reset.
+   *
+   * @return void
    */
   UIResetStepper(stepper: HTMLElement| string): void;
 
   /**
    * Create a switch control. Possible options: { id: '#myId', name: 'fruit.mango', state: 'on', value: 'Mango', checked: 'on', style: 'traditional', callback: function() { alert('hi');}}
+   *
+   * @return void
    */
   UICreateSwitch(options: UICreateSwitchOptions): void;
 
   /**
    * Creates a tabbar. On iOS this is at the bottom of the screen. On Android and Windows, it is at the top.
    * Options: {id: 'mySpecialTabbar', tabs: 4, labels: ["Refresh", "Add", "Info", "Downloads", "Favorite"], icons: ["refresh", "add", "info", "downloads", "favorite"], selected: 2 }
+   *
+   * @return void
    */
   UITabbar(options: UITabbarOptions): void;
 
   /**
    * Create a search bar for an article. Options: { articleId: '#products', id: 'productSearch', placeholder: 'Find a product', results: 5 }
+   *
+   * @return void
    */
   UISearch(options: UISearchOptions): void;
 
   /**
    * Create and initialize a swipable carousel. Options: {target : '#myCarousel', panels: ['<p>stuff</p>','<p>more</p>'], loop: true, pagination: true }
+   *
+   * @return void
    */
   UISetupCarousel(options: UISetupCarouselOptions): void;
 
@@ -727,6 +830,7 @@ interface JQueryStatic {
    * You can bind a single model to its controller by providing its name as the argument: $.UIBindData('input-value');
    *
    * @param controller A string indicating the controller whose value a model is bound to.
+   * @return void
    */
   UIBindData(controller?: string): void;
 
@@ -735,6 +839,7 @@ interface JQueryStatic {
    * If you provide a controller name as the argument, only that controller will be unbound.
    *
    * @param controller A controller to unbind.
+   * @return void
    */
   UIUnBindData(controller?: string): void;
 
@@ -747,8 +852,10 @@ interface JQuery {
 
   /**
    * Iterate over an Array object, executing a function for each matched element.
+   *
+   * @param callback A function to execute while looping over an interable. This takes to arguments: ctx: HTMLElement and idx: number.
+   * @return JQuery
    */
-  //forEach(func: (ctx: any, idx: number) => void, JQuery: any): void;
   forEach(callback: (ctx: HTMLElement, idx: number) => any): JQuery;
 
   /**
@@ -756,6 +863,7 @@ interface JQuery {
    * if it matches the given arguments.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return JQuery
    */
   iz(selector: string): JQuery;
 
@@ -764,6 +872,7 @@ interface JQuery {
    * if it matches the given arguments.
    *
    * @param elements One or more elements to match the current set of elements against.
+   * @return JQuery
    */
   iz(element: any): JQuery;
 
@@ -772,6 +881,7 @@ interface JQuery {
    * if it does not match the given arguments.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return JQuery
    */
   iznt(selector: string): JQuery;
 
@@ -780,6 +890,7 @@ interface JQuery {
    * if it does not match the given arguments.
    *
    * @param elements One or more elements to match the current set of elements against.
+   * @return JQuery
    */
   iznt(element: any): JQuery;
 
@@ -787,12 +898,14 @@ interface JQuery {
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return JQuery
    */
   haz(selector: string): JQuery;
   /**
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
    * @param contained A DOM element to match elements against.
+   * @return JQuery
    */
   haz(contained: HTMLElement): JQuery;
 
@@ -800,12 +913,14 @@ interface JQuery {
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return JQuery
    */
   haznt(selector: string): JQuery;
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
    * @param contained A DOM element to match elements against.
+   * @return JQuery
    */
   haznt(contained: HTMLElement): JQuery;
 
@@ -813,6 +928,7 @@ interface JQuery {
    * Return any of the matched elements that have the given class.
    *
    * @param className The class name to search for.
+   * @return JQuery
    */
   hazClass(className: string): JQuery;
 
@@ -820,6 +936,7 @@ interface JQuery {
    * Return any of the matched elements that do not have the given class.
    *
    * @param className The class name to search for.
+   * @return JQuery
    */
   hazntClass(className: string): JQuery;
 
@@ -828,6 +945,7 @@ interface JQuery {
    * Return any of the matched elements that have the given attribute.
    *
    * @param className The class name to search for.
+   * @return JQuery
    */
   hasAttr(attributeName: string): JQuery;
 
@@ -835,11 +953,14 @@ interface JQuery {
    * Return any of the matched elements that do not have the given attribute.
    *
    * @param className The class name to search for.
+   * @return JQuery
    */
   hazntAttr(attributeName: string): JQuery;
 
   /**
    * Center an element to the screen.
+   *
+   * @return void
    */
   UICenter(): void;
 
@@ -850,49 +971,66 @@ interface JQuery {
    * @param color The color for the busy indicator: "#ff0000".
    * @param position Optional positioning, such as "align-flush".
    * @param duration The time for the busy indicator to display: "500ms".
+   * @return void
    */
   UIBusy(options: UIBusyOptions): void;
 
   /**
    * Close the currently displayed Popup. This is executed on the popup: $('#myPopup').UIPopupClose().
+   *
+   * @return void
    */
   UIPopupClose(): void;
 
   /**
    * Initialize a segmented control. Options: {selected: 2, callback: function() {console.log('Blah');}}
+   *
+   * @return void
    */
   UISegmented(options: UISegmentedOptions): void;
 
   /**
    * This method allows the user to use a segmented control to toggle a set of panels. It is executed on the segmented control.
    * The options id is the contain of the panels. The options callback is to execute when the user toggles a panel.
+   *
+   * @return void
    */
   UIPanelToggle(panelsContainer: string, callback: () => any): void;
 
   /**
    * Make a list editable. This can be enabling changing the order of list items, or deleting them, or both. Options: {editLabel: "Edit", doneLabel: "Done",
    * deleteLabel: "Delete", callback: function() {alert('Bye bye!');}, deletable: true, movable: true}.
+   *
+   * @return void
    */
   UIEditList(options: UIEditListOptions): void;
 
   /**
    * Convert a simple list into a selection list. This converts the list into a radio button group, meaning only one can be selected at any time.
    * You can name the radios buttons using the options name. Options: {name: "selectedNamesGroup", selected: 2, callback: function() {alert('hi');}}
+   *
+   * @return void
    */
   UISelectList(): void;
 
   /**
    * Create a stepper control by executing it on a span with the class "stepper". Possible options: {start: 0, end: 10, defaultValue: 3}.
+   *
+   * @return void
    */
   UIStepper(): void;
 
   /**
    * Initialize any existing switch controls: $('.switch').UISwitch();
+   *
+   * @return void
    */
   UISwitch(): void;
 
   /**
    * Execute this on a range control to initialize it.
+   *
+   * @return void
    */
   UIRange(): void;
 
@@ -910,6 +1048,7 @@ interface JQuery {
    *
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param handler A function to execute each time the event is triggered.
+   * @return JQuery
    */
   bind(eventType: string | ChUIEventInterface, handler: (eventObject: JQueryEventObject) => any): JQuery;
   /**
@@ -918,6 +1057,7 @@ interface JQuery {
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param eventData An object containing data that will be passed to the event handler.
    * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from occurring and stops the event from bubbling. The default is true.
+   * @return JQuery
    */
   bind(eventType: string | ChUIEventInterface, eventData: any, preventBubble: boolean): JQuery;
   /**
@@ -925,6 +1065,7 @@ interface JQuery {
    *
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from occurring and stops the event from bubbling. The default is true.
+   * @return JQuery
    */
   bind(eventType: string | ChUIEventInterface, preventBubble: boolean): JQuery;
 
@@ -938,6 +1079,7 @@ interface JQuery {
    * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
    * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
    * @param handler A handler function previously attached for the event(s), or the special value false.
+   * @return JQuery
    */
   off(events: string | ChUIEventInterface, selector?: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
   /**
@@ -945,6 +1087,7 @@ interface JQuery {
    *
    * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as "click", "keydown.myPlugin", or ".myPlugin".
    * @param handler A handler function previously attached for the event(s), or the special value false.
+   * @return JQuery
    */
   off(events: string | ChUIEventInterface, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
@@ -953,6 +1096,7 @@ interface JQuery {
    *
    * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
    * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false. Rest parameter args is for optional parameters passed to jQuery.trigger(). Note that the actual parameters on the event handler function must be marked as optional (? syntax).
+   * @return JQuery
    */
   on(events: string | ChUIEventInterface, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
   /**
@@ -961,6 +1105,7 @@ interface JQuery {
    * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
    * @param data Data to be passed to the handler in event.data when an event is triggered.
    * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+   * @return JQuery
   */
   on(events: string | ChUIEventInterface, data : any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
   /**
@@ -969,6 +1114,7 @@ interface JQuery {
    * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
    * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
    * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+   * @return JQuery
    */
   on(events: string | ChUIEventInterface, selector: string, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
   /**
@@ -978,6 +1124,7 @@ interface JQuery {
    * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
    * @param data Data to be passed to the handler in event.data when an event is triggered.
    * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+   * @return JQuery
    */
   on(events: string | ChUIEventInterface, selector: string, data: any, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
 
@@ -986,6 +1133,7 @@ interface JQuery {
    *
    * @param events A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
    * @param handler A function to execute at the time the event is triggered.
+   * @return JQuery
    */
   one(events: string | ChUIEventInterface, handler: (eventObject: JQueryEventObject) => any): JQuery;
   /**
@@ -994,6 +1142,7 @@ interface JQuery {
    * @param events A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
    * @param data An object containing data that will be passed to the event handler.
    * @param handler A function to execute at the time the event is triggered.
+   * @return JQuery
    */
   one(events: string | ChUIEventInterface, data: Object, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
@@ -1003,6 +1152,7 @@ interface JQuery {
    * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
    * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
    * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+   * @return JQuery
    */
   one(events: string | ChUIEventInterface, selector: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
   /**
@@ -1012,6 +1162,7 @@ interface JQuery {
    * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
    * @param data Data to be passed to the handler in event.data when an event is triggered.
    * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+   * @return JQuery
    */
   one(events: string | ChUIEventInterface, selector: string, data: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
 
@@ -1020,6 +1171,7 @@ interface JQuery {
    *
    * @param eventType A string containing a JavaScript event type, such as click or submit.
    * @param extraParameters Additional parameters to pass along to the event handler.
+   * @return JQuery
    */
   trigger(eventType: string | ChUIEventInterface, extraParameters?: any[]|Object): JQuery;
 
@@ -1028,6 +1180,7 @@ interface JQuery {
    *
    * @param eventType A string containing a JavaScript event type, such as click or submit.
    * @param extraParameters An array of additional parameters to pass along to the event handler.
+   * @return Object
    */
   triggerHandler(eventType: string | ChUIEventInterface, ...extraParameters: any[]): Object;
 
@@ -1036,6 +1189,7 @@ interface JQuery {
    *
    * @param eventType A string containing a JavaScript event type, such as click or submit.
    * @param handler The function that is to be no longer executed.
+   * @return JQuery
    */
   unbind(eventType?: string | ChUIEventInterface, handler?: (eventObject: JQueryEventObject) => any): JQuery;
   /**
@@ -1043,6 +1197,7 @@ interface JQuery {
    *
    * @param eventType A string containing a JavaScript event type, such as click or submit.
    * @param fls Unbinds the corresponding 'return false' function that was bound using .bind( eventType, false ).
+   * @return JQuery
    */
   unbind(eventType: string | ChUIEventInterface, fls: boolean): JQuery;
 
@@ -1052,6 +1207,7 @@ interface JQuery {
    * @param selector A selector which will be used to filter the event results.
    * @param eventType A string containing a JavaScript event type, such as "click" or "keydown"
    * @param handler A function to execute at the time the event is triggered.
+   * @return JQuery
    */
   undelegate(selector: string | ChUIEventInterface, eventType: string, handler?: (eventObject: JQueryEventObject) => any): JQuery;
   /**
@@ -1059,6 +1215,7 @@ interface JQuery {
    *
    * @param selector A selector which will be used to filter the event results.
    * @param events An object of one or more event types and previously bound functions to unbind from them.
+   * @return JQuery
    */
   undelegate(selector: string | ChUIEventInterface, events: Object): JQuery;
 }
@@ -1101,11 +1258,15 @@ interface UICreateSwitchOptions {
 interface UISlideoutInterface {
   /**
    * Creates and initializes a slide out menu. Possible options: {dynamic: true, callback: function() { alert("Woohoo!");}}
+   *
+   * @return void
    */
   (options: UISlideoutOptions): void;
 
   /**
    * Populates a slideout menu.
+   *
+   * @return void
    */
   populate(array: Object[]): void;
 }

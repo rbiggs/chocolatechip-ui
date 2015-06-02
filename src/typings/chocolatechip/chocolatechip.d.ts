@@ -28,7 +28,7 @@ interface ChocolateChipStatic {
    * Create a ChocolateChip collection object by creating elements from an HTML string.
    *
    * @param selector
-   * @return
+   * @return any
    */
   make(selector: string): ChocolateChipElementArray;
 
@@ -37,7 +37,7 @@ interface ChocolateChipStatic {
    *
    * @param new HTMLElement
    * @param old HTMLElement
-   * @return
+   * @return HTMLElement[]
    */
   replace(newElement: HTMLElement, oldElement: HTMLElement): void;
 
@@ -46,17 +46,16 @@ interface ChocolateChipStatic {
    *
    * @param url A string containing the URL where the script resides.
    * @param callback A callback function that is executed after the script loads.
-   * @return
+   * @return void
    */
   require(url: string, callback: Function): Function;
 
   /**
-   * Process JavaScript returned by Ajax request. An optional name can be used to create a custom
-   * variable name by which the data is exposed, otherwise it is exposed with the variable "data".
+   * Process JavaScript returned by Ajax request. An optional name can be used to create a custom variable name by which the data is exposed, otherwise it is exposed with the variable "data".
    *
    * @param url A string containing the URL where the script resides.
    * @param callback A callback function that is executed after the script loads.
-   * @return
+   * @return Function
    */
   processJSON(json: string, name?: string): any;
 
@@ -65,12 +64,14 @@ interface ChocolateChipStatic {
    *
    * @param callback A function to execute.
    * @param duration The number of milliseconds to delay execution.
-   * @return
+   * @return any
    */
   delay(callback: Function, duration?: number): any;
 
   /**
    * An empty function.
+   *
+   * @return any
    */
   noop(): void;
 
@@ -84,8 +85,8 @@ interface ChocolateChipStatic {
 
   /**
    * This method takes a space-delimited string of words and returns it as an array where the individual words are indices.
-   * @param string Any string with values separated by spaces.
    *
+   * @param string Any string with values separated by spaces.
    * @return string[]
    */
   w( string: string ): string[];
@@ -94,6 +95,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is a string.
    *
    * @param obj Object to test whether or not it is a string.
+   * @return boolean
    */
   isString( obj: any ): boolean;
 
@@ -101,6 +103,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is an array.
    *
    * @param obj Object to test whether or not it is an array.
+   * @return boolean
    */
   isArray(obj: any): boolean;
 
@@ -108,6 +111,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is a function.
    *
    * @param obj Object to test whether or not it is an function.
+   * @return boolean
    */
   isFunction(obj: any): boolean;
 
@@ -115,6 +119,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is an object.
    *
    * @param obj Object to test whether or not it is an object.
+   * @return boolean
    */
   isObject(obj: any): boolean;
 
@@ -122,6 +127,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is an empty object.
    *
    * @param obj Object to test whether or not it is an empty object.
+   * @return boolean
    */
   isEmptyObject(obj: any): boolean;
 
@@ -129,6 +135,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is an empty object.
    *
    * @param obj Object to test whether or not it is an empty object.
+   * @return boolean
    */
   isEmptyObject(obj: any): boolean;
 
@@ -136,6 +143,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is a number.
    *
    * @param obj Object to test whether or not it is a number.
+   * @return boolean
    */
   isNumber(obj: any): boolean;
 
@@ -143,6 +151,7 @@ interface ChocolateChipStatic {
    * Determine whether the argument is an integer.
    *
    * @param obj Object to test whether or not it is an integer.
+   * @return boolean
    */
   isInteger(obj: any): boolean;
 
@@ -150,15 +159,16 @@ interface ChocolateChipStatic {
    * Determine whether the argument is a float.
    *
    * @param obj Object to test whether or not it is a float.
+   * @return boolean
    */
   isFloat(obj: any): boolean;
 
   /**
-   * A generic iterator function, which can be used to seamlessly iterate over arrays. Arrays and array-like objects
-   * with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1.
+   * A generic iterator function, which can be used to seamlessly iterate over arrays. Arrays and array-like objects with a length property (such as a function's arguments object) are iterated by numeric index, from 0 to length-1.
    *
    * @param collection The object or array to iterate over.
    * @param callback The function that will be executed on every object.
+   * @return any
    */
   each(
     collection: any,
@@ -170,6 +180,7 @@ interface ChocolateChipStatic {
    * This method converts a string of hyphenated tokens into a camel cased string.
    *
    * @param string A string of hyphenated tokens.
+   * @return string
    */
   camelize(string: string): string;
 
@@ -177,6 +188,7 @@ interface ChocolateChipStatic {
    * This method converts a camel case string into lowercase with hyphens.
    *
    * @param string A camel case string.
+   * @return string
    */
   deCamelize(string: string): string;
 
@@ -185,6 +197,7 @@ interface ChocolateChipStatic {
    *
    * @param string A string.
    * @param boolean A boolean value.
+   * @return string
    */
   capitalize(string: string, boolean?: boolean): string;
 
@@ -192,29 +205,30 @@ interface ChocolateChipStatic {
    * Object used to store string templates and parsed templates.
    *
    * @param string A string defining the template.
-   * @param string A label used to access an object's properties in the template. If none is provided it defaults
-   * to "data": [[= data.name]].
+   * @param string A label used to access an object's properties in the template. If none is provided it defaults to "data": [[= data.name]].
+   * @return void
    */
   templates: Object;
 
   /**
    * This method returns a parsed template.
+   *
+   * @return string
    */
   template( template: string, variable?: string ): string;
 
   /**
-   * This is the base for the plugin "extend" interface,
-   * which allows you to add methods that can iterate over element collections.
+   * This is the base for the plugin "extend" interface, which allows you to add methods that can iterate over element collections.
    */
   fn: PluginInterface;
 
   /**
-   * Replace each element in the set of matched elements with the provided new content and return the set of elements
-   * that was removed.
+   * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
    *
    * param newContent The content to insert. May be an HTML string, DOM element, or an array of DOM elements.
+   * @return void
    */
-  replace(newELement:HTMLElement, oldElement: HTMLElement): void;
+  replace(newELement: HTMLElement, oldElement: HTMLElement): void;
 
   /**
    * Perform an asynchronous HTTP (Ajax) request.
@@ -227,8 +241,9 @@ interface ChocolateChipStatic {
    * @param url A string containing the URL to which the request is sent.
    * @param success A callback function that is executed if the request succeeds.
    * @param dataType The type of data expected from the server. Default: Intelligent Guess (json, or html).
+   * @return Promise
    */
-  get(url: string, data?:any, success?: (data: any) => any, dataType?: string): Promise<any>;
+  get(url: string, data?: any, success?: (data: any) => any, dataType?: string): Promise<any>;
 
   /**
    * Load data from the server using a HTTP POST request.
@@ -237,6 +252,7 @@ interface ChocolateChipStatic {
    * @param data A plain object or string that is sent to the server with the request.
    * @param success A callback function that is executed if the request succeeds.
    * @param dataType The type of data expected from the server.
+   * @return Promise
    */
   post(url: string, data?: any, success?: () => any, dataType?: string): Promise<any>;
 
@@ -246,13 +262,15 @@ interface ChocolateChipStatic {
    * @param url A string containing the URL to which the request is sent.
    * @param data A plain object or string that is sent to the server with the request.
    * @param success A callback function that is executed if the request succeeds.
+   * @return Promise
    */
-  getJSON(url: string, data?:any, success?: (data: any) => any): Promise<any>;
+  getJSON(url: string, data?: any, success?: (data: any) => any): Promise<any>;
 
   /**
-   *  Load JSON from a remote server using the JSONP technique.
+   * Load JSON from a remote server using the JSONP technique.
    *
    * @param url A string
+   * @return Promise
    */
   jsonp(url: string, success?: (data: any) => any, callbackType?:string, timeout?: number): Promise<any>;
 
@@ -261,6 +279,7 @@ interface ChocolateChipStatic {
    * Specify a function to execute when the DOM is fully loaded.
    *
    * @param handler A function to execute after the DOM is ready.
+   * @return any
    */
   ready(handler: () => any): void;
 
@@ -269,6 +288,7 @@ interface ChocolateChipStatic {
    *
    * @param selector A string containing a selector expression
    * @param context A DOM HTMLElement to use as context
+   * @return HTMLElement[]
    */
   (selector: string, context?: HTMLElement|ChocolateChipElementArray): ChocolateChipElementArray;
 
@@ -276,6 +296,7 @@ interface ChocolateChipStatic {
    * Binds a function to be executed when the DOM has finished loading.
    *
    * @param callback A function to execute after the DOM is ready.
+   * @return void
    */
   (callback: () => any): void;
 
@@ -284,6 +305,7 @@ interface ChocolateChipStatic {
    * Accepts a string containing a CSS selector which is then used to match a set of elements.
    *
    * @param element A DOM element to wrap in an array.
+   * @return HTMLElement[]
    */
   (element: HTMLElement): ChocolateChipElementArray;
 
@@ -291,9 +313,14 @@ interface ChocolateChipStatic {
    * Accepts a string containing a CSS selector which is then used to match a set of elements.
    *
    * @param elementArray An array of DOM elements to convert into a ChocolateChip Collection.
+   * @return HTMLElement[]
    */
   (elementArray: ChocolateChipElementArray): ChocolateChipElementArray;
 
+  /**
+   * If no argument is provided, return the document as a ChocolateChipElementArray.
+   * @return Document[]
+   */
   (): Document[];
 
   /**
@@ -302,6 +329,7 @@ interface ChocolateChipStatic {
    *
    * @param topic string A topic to subscribe to. This can be a single term, or any type of namespaced term with delimiters.
    * @data any You can receive any type: string, number, array, object, etc.
+   * @return any
    */
   subscribe(topic: string, callback: (topic: string, data: any) => any);
 
@@ -309,16 +337,18 @@ interface ChocolateChipStatic {
    * Unsubscribe from a topic. Pass this the topic you wish to unsubscribe from. The subscription will be terminated immediately.
    *
    * @param topic string The name of the topic to unsubscribe from.
+   * @return void
    */
-  unsubscribe(topic: string);
+  unsubscribe(topic: string): void;
 
   /**
    *  Publish a topic with data for the topic's subscribers to receive.
    *
    * @param topic string The topic you wish to publish.
    * @param data The data to send with the publication. This can be of any type: string, number, array, object, etc.
+   * @return void
    */
-  publish(topic: string, data: any);
+  publish(topic: string, data: any): void;
 
   /**
    * Whether device is iPhone.
@@ -445,6 +475,7 @@ interface PluginInterface {
    * This method extends ChocolateChipElementArray, enabling iteration over collection items.
    *
    * @param object Object literal of properties and values. Value can be strings, number, array, objects or functions.
+   * @return HTMLElement[]
    */
   extend: (object: any) => ChocolateChipElementArray;
 }
@@ -455,16 +486,20 @@ interface PluginInterface {
 interface Promise<T> {
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
+   *
    * @param onfulfilled The callback to execute when the Promise is resolved.
    * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of which ever callback is executed.
+   * @return Promise A Promise for the completion of which ever callback is executed.
+   * @return Promise A new Promise
    */
   then<TResult>(onfulfilled?: (value: T) => TResult | Promise<TResult>, onrejected?: (reason: any) => TResult | Promise<TResult>): Promise<TResult>;
 
   /**
    * Attaches a callback for only the rejection of the Promise.
+   *
    * @param onrejected The callback to execute when the Promise is rejected.
-   * @returns A Promise for the completion of the callback.
+   * @return Promise A Promise for the completion of the callback.
+   * @return Promise A new Promise
    */
   catch(onrejected?: (reason: any) => T | Promise<T>): Promise<T>;
 }
@@ -477,62 +512,66 @@ interface PromiseConstructor {
 
   /**
    * Creates a new Promise.
-   * @param init A callback used to initialize the promise. This callback is passed two arguments:
-   * a resolve callback used resolve the promise with a value or the result of another promise,
-   * and a reject callback used to reject the promise with a provided reason or error.
+   *
+   * @param init A callback used to initialize the promise. This callback is passed two arguments: a resolve callback used resolve the promise with a value or the result of another promise, and a reject callback used to reject the promise with a provided reason or error.
+   * @return Promise A new Proimise
    */
   new <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
 
   <T>(init: (resolve: (value?: T | Promise<T>) => void, reject: (reason?: any) => void) => void): Promise<T>;
 
   /**
-   * Creates a Promise that is resolved with an array of results when all of the provided Promises
-   * resolve, or rejected when any Promise is rejected.
+   * Creates a Promise that is resolved with an array of results when all of the provided Promises resolve, or rejected when any Promise is rejected.
+   *
    * @param values An array of Promises.
-   * @returns A new Promise.
+   * @return Promise A new Promise.
    */
   all<T>(values: (T | Promise<T>)[]): Promise<T[]>;
 
   /**
-   * Creates a Promise that is resolved with an array of results when all of the provided Promises
-   * resolve, or rejected when any Promise is rejected.
+   * Creates a Promise that is resolved with an array of results when all of the provided Promises resolve, or rejected when any Promise is rejected.
+   *
    * @param values An array of values.
    * @returns A new Promise.
    */
   all(values: Promise<void>[]): Promise<void>;
 
   /**
-   * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved
-   * or rejected.
+   * Creates a Promise that is resolved or rejected when any of the provided Promises are resolved or rejected.
+   *
    * @param values An array of Promises.
-   * @returns A new Promise.
+   * @return Promise A new Promise.
    */
   race<T>(values: (T | Promise<T>)[]): Promise<T>;
 
   /**
    * Creates a new rejected promise for the provided reason.
+   *
    * @param reason The reason the promise was rejected.
-   * @returns A new rejected Promise.
+   * @return Promise A new rejected Promise.
    */
   reject(reason: any): Promise<void>;
 
   /**
    * Creates a new rejected promise for the provided reason.
+   *
    * @param reason The reason the promise was rejected.
-   * @returns A new rejected Promise.
+   * @return void A Promise is rejected.
    */
   reject<T>(reason: any): Promise<T>;
 
   /**
    * Creates a new resolved promise for the provided value.
+   *
    * @param value A promise.
-   * @returns A promise whose internal state matches the provided promise.
+   * @return Promise A promise whose internal state matches the provided promise.
    */
   resolve<T>(value: T | Promise<T>): Promise<T>;
 
   /**
-   * Creates a new resolved promise .
-   * @returns A resolved promise.
+   * Creates a new resolved promise.
+   *
+   * @return Promise A resolved promise.
    */
   resolve(): Promise<void>;
 }
@@ -564,6 +603,7 @@ interface ChocolateChipAjaxSettings {
    * infer it based on the MIME type of the response.
    */
   dataType?: string;
+
   /**
    * The type of request to make ("POST" or "GET"), default is "GET". Note: Other HTTP request methods,
    * such as PUT and DELETE, can also be used here, but they are not supported by all browsers.
@@ -573,12 +613,14 @@ interface ChocolateChipAjaxSettings {
   /**
    * A pre-request callback function that can be used to modify the XMLHTTPRequest object before it is sent.
    * Use this to set custom headers, etc. This is an Ajax Event. Returning false in the beforeSend function will cancel the request.
+   * @return void
    */
   beforeSend?: (xhr: XMLHttpRequest, settings: ChocolateChipAjaxSettings) => void;
 
   /**
    * A function to be called if the request succeeds. The function gets passed three arguments: The data returned from the server,
    * formatted according to the dataType parameter; a string describing the status; and the XMLHttpRequest object. This is an Ajax Event.
+   * @return void
    */
   success?: (xhr: XMLHttpRequest) => void;
 
@@ -627,11 +669,16 @@ interface ChocolateChipXHR {
 interface ChocolateChipElementArray extends Array<HTMLElement> {
   /**
    * Iterate over an Array object, executing a function for each matched element.
+   *
+   * @param Function
+   * @return void
    */
-  //each(Function: (ctx: any, idx: number) => void, ChocolateChipStatic: any): void;
   each(func: (ctx: any, idx: number) => any): void;
+
   /**
    * Sorts an array and removes duplicates before returning it.
+   *
+   * @return Array
    */
   unique<T, TSort>(): T[];
 
@@ -641,12 +688,15 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * position amongst its siblings.
    *
    * @param number Index value indicating the node you wish to access from a collection. This is zero-based.
+   * @return HTMLElement
    */
   eq(index: number): HTMLElement;
 
   /**
    * Search for a given element from among the matched elements on a collection.
    * This method returns the index value as an integer.
+   *
+   * @return number
    */
   index(): number;
 
@@ -655,6 +705,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * This method returns the index value as an integer.
    *
    * @param selector A selector representing an element to look for in a collection of elements.
+   * @return number
    */
   index(selector: string | HTMLElement): number;
 
@@ -663,6 +714,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * if it matches the given arguments.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   is(selector: string): ChocolateChipElementArray;
 
@@ -671,6 +723,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * if it matches the given arguments.
    *
    * @param elements One or more elements to match the current set of elements against.
+   * @ return HTMLElement[]
    */
   is(element: any): ChocolateChipElementArray;
 
@@ -680,6 +733,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * if it does not match the given arguments.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @ return HTMLElement[]
    */
   isnt(selector: string): ChocolateChipElementArray;
 
@@ -688,6 +742,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * if it does not match the given arguments.
    *
    * @param elements One or more elements to match the current set of elements against.
+   * @ return HTMLElement[]
    */
   isnt(element: any): ChocolateChipElementArray;
 
@@ -695,12 +750,14 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @ return HTMLElement[]
    */
   has(selector: string): ChocolateChipElementArray;
   /**
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
    * @param contained A DOM element to match elements against.
+   * @ return HTMLElement[]
    */
   has(contained: HTMLElement): ChocolateChipElementArray;
 
@@ -708,12 +765,14 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @ return HTMLElement[]
    */
   hasnt(selector: string): ChocolateChipElementArray;
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
    * @param contained A DOM element to match elements against.
+   * @ return HTMLElement[]
    */
   hasnt(contained: HTMLElement): ChocolateChipElementArray;
 
@@ -721,6 +780,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Get the descendants of each element in the current set of matched elements, filtered by a selector or element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @ return HTMLElement[]
    */
   find(selector: string): ChocolateChipElementArray;
 
@@ -728,16 +788,21 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Get the descendants of each element in the current set of matched elements, filtered by a selector or element.
    *
    * @param element An element to match elements against.
+   * @ return HTMLElement[]
    */
   find(element: HTMLElement): ChocolateChipElementArray;
 
   /**
    * Get the immediately preceding sibling of each element in the set of matched elements.
+   *
+   * @ return HTMLElement[]
    */
   prev(): ChocolateChipElementArray;
 
   /**
    * Get the immediately following sibling of each element in the set of matched elements.
+   *
+   * @ return HTMLElement[]
    */
   next(): ChocolateChipElementArray;
 
@@ -748,6 +813,8 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
 
   /**
    * Reduce the set of matched elements to the last in the set.
+   *
+   * @return HTMLElement[]
    */
   last(): ChocolateChipElementArray;
 
@@ -755,6 +822,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Get the children of each element in the set of matched elements, optionally filtered by a selector.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   children(selector?: string): ChocolateChipElementArray;
 
@@ -763,6 +831,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * If multiple elements have the same parent, only one instance of the parent is returned.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   parent(selector?: string): ChocolateChipElementArray;
 
@@ -772,6 +841,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * retrieving that ancestor based on its distance from the element.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   ancestor(selector: string | number): ChocolateChipElementArray;
 
@@ -780,6 +850,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * itself and traversing up through its ancestors in the DOM tree.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   closest(selector: string | number): ChocolateChipElementArray;
 
@@ -788,11 +859,14 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
    *
    * @param selector A string containing a selector expression to match elements against.
+   * @return HTMLElement[]
    */
   siblings(selector?: string): ChocolateChipElementArray;
 
   /**
    * Get the HTML contents of the first element in the set of matched elements.
+   *
+   * @return HTMLElement[]
    */
   html(): ChocolateChipElementArray;
 
@@ -800,6 +874,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Set the HTML contents of each element in the set of matched elements.
    *
    * @param htmlString A string of HTML to set as the content of each matched element.
+   * @return HTMLElement[]
    */
   html(htmlString: string): ChocolateChipElementArray;
 
@@ -808,6 +883,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Get the value of style properties for the first element in the set of matched elements.
    *
    * @param propertyName A CSS property.
+   * @return string
    */
   css(propertyName: string): string;
 
@@ -816,6 +892,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param propertyName A CSS property name.
    * @param value A value to set for the property.
+   * @return HTMLElement[]
    */
   css(propertyName: string, value: string): ChocolateChipElementArray;
 
@@ -823,6 +900,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Set one or more CSS properties for the set of matched elements.
    *
    * @param properties An object of property-value pairs to set.
+   * @return HTMLElement[]
    */
   css(properties: Object): ChocolateChipElementArray;
 
@@ -830,6 +908,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Get the value of an attribute for the first element in the set of matched elements.
    *
    * @param attributeName The name of the attribute to get.
+   * @return string
    */
   attr(attributeName: string): string;
 
@@ -838,6 +917,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param attributeName A string indicating the attribute to set.
    * @param value A string indicating the value to set the attribute to.
+   * @return HTMLElement[]
    */
   attr(attributeName: string, value: string): ChocolateChipElementArray;
 
@@ -845,6 +925,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Remove an attribute from a node.
    *
    * @param attributeName A string indicating the attribute to remove.
+   * @return HTMLElement[]
    */
   removeAttr(attributeName: string): ChocolateChipElementArray;
 
@@ -852,6 +933,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Return any of the matched elements that have the given attribute.
    *
    * @param className The class name to search for.
+   * @return HTMLElement[]
    */
   hasAttr(attributeName: string): ChocolateChipElementArray;
 
@@ -860,6 +942,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param propertyName A string indicating the property to set.
    * @param value A string indicating the value to set the property to.
+   * @return HTMLElement[]
    */
   prop(propertyName: string, value: string): ChocolateChipElementArray;
 
@@ -867,6 +950,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Adds the specified class(es) to each of the set of matched elements.
    *
    * @param className One or more space-separated classes to be added to the class attribute of each matched element.
+   * @return HTMLElement[]
    */
   addClass(className: string): ChocolateChipElementArray;
 
@@ -874,6 +958,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Remove a single class or multiple classes from each element in the set of matched elements.
    *
    * @param className One or more space-separated classes to be removed from the class attribute of each matched element.
+   * @return HTMLElement[]
    */
   removeClass(className?: string): ChocolateChipElementArray;
 
@@ -881,6 +966,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Add or remove a classe from each element in the set of matched elements, depending on whether the class is present or not.
    *
    * @param className One or more class names (separated by spaces) to be toggled for each element in the matched set.
+   * @return HTMLElement[]
    */
   toggleClass(className: string, swtch?: boolean): ChocolateChipElementArray;
 
@@ -888,6 +974,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Return any of the matched elements that have the given class.
    *
    * @param className The class name to search for.
+   * @return HTMLElement[]
    */
   hasClass(className: string): ChocolateChipElementArray;
 
@@ -896,6 +983,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param key A string naming the piece of data to set.
    * @param value The new data value; it can be any Javascript type including Array or Object.
+   * @return HTMLElement[]
    */
   data(key: string, value: any): ChocolateChipElementArray;
 
@@ -904,6 +992,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * data(name).
    *
    * @param key Name of the data stored.
+   * @return any
    */
   data(key: string): any;
 
@@ -911,6 +1000,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Remove the value at the named data store for the first element in the element collection, as set by data(name, value).
    *
    * @param key Name of the data stored.
+   * @return any
    */
   removeData(key: string): any;
 
@@ -919,6 +1009,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param key A string naming the piece of data to set.
    * @param value The new data value; it must be a string. You can convert JSON into a string to use with this.
+   * @return HTMLElement[]
    */
   dataset(key: string, value: any): ChocolateChipElementArray;
 
@@ -926,6 +1017,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   * Retrieve a dataset key's value for the first element in the element collection.
    *
    * @param key A string naming the piece of data to set.
+   * @return HTMLElement[]
    */
   dataset(key: string): ChocolateChipElementArray;
 
@@ -933,6 +1025,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Return the value at the named data store for the first element in the element collection, as set by data(name, value).
    *
    * @param key Name of the data stored.
+   * @return any
    */
   data(key: string): any;
 
@@ -941,6 +1034,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param key A string naming the piece of data to set.
    * @param value The new data value; it can be any Javascript type including Array or Object.
+   * @return HTMLElement[]
    */
   data(key: string, value?: any): ChocolateChipElementArray;
 
@@ -948,21 +1042,27 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Get the current value of the first element in the set of matched elements.
    */
   val(): any;
+
   /**
    * Set the value of each element in the set of matched elements.
    *
    * @param value A string of text or an array of strings corresponding to the value of each matched element
    * to set as selected/checked.
+   * @return any
    */
   val(value: string): ChocolateChipElementArray;
 
   /**
-   * Set the property of an element to enabled by removing the "disabled" attribute;
+   * Set the property of an element to enabled by removing the "disabled" attribute.
+   *
+   * @return HTMLElement[]
    */
   enable(): ChocolateChipElementArray;
 
   /**
-   * Set the property of an element to "disabled"
+   * Set the property of an element to "disabled".
+   *
+   * @return HTMLElement[]
    */
   disable(): ChocolateChipElementArray;
 
@@ -971,6 +1071,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param speed A string or number determining how long the animation will run.
    * @param callback A function to call once the animation is complete.
+   * @return HTMLElement[]
    */
   show(duration?: number | string, callback?: Function): ChocolateChipElementArray;
 
@@ -979,58 +1080,64 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    *
    * @param duration A string or number determining how long the animation will run.
    * @param callback A function to call once the animation is complete.
+   * @return HTMLElement[]
    */
   hide(duration?: number | string, callback?: Function): ChocolateChipElementArray;
 
   /**
    * Insert content, specified by the parameter, before each element in the set of matched elements.
    *
-   * param content HTML string, DOM element, array of elements to insert before each element in the set of matched elements.
+   * @param content HTML string, DOM element, array of elements to insert before each element in the set of matched elements.
+   * @return HTMLElement[]
    */
   before(content: ChocolateChipElementArray | HTMLElement | string): ChocolateChipElementArray;
 
   /**
    * Insert content, specified by the parameter, after each element in the set of matched elements.
    *
-   * param content HTML string, DOM element, array of elements to insert after each element in the set of matched elements.
+   * @param content HTML string, DOM element, array of elements to insert after each element in the set of matched elements.
+   * @return HTMLElement[]
    */
   after(content: ChocolateChipElementArray | HTMLElement | string): ChocolateChipElementArray;
 
   /**
    * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
    *
-   * param content DOM element, array of elements, or HTML string to insert at the end of each element in the set
+   * @param content DOM element, array of elements, or HTML string to insert at the end of each element in the set
    * of matched elements.
+   * @return HTMLElement[]
    */
   append(content: ChocolateChipElementArray|HTMLElement|Text|string): ChocolateChipElementArray;
 
   /**
    * Insert content, specified by the parameter, at the beginning of each element in the set of matched elements.
    *
-   * param content DOM element, array of elements, or HTML string to insert at the beginning of each element in the set
-   * of matched elements.
+   * @param content DOM element, array of elements, or HTML string to insert at the beginning of each element in the set of matched elements.
+   * @return HTMLElement[]
    */
   prepend(content: ChocolateChipElementArray|HTMLElement|Text|string): ChocolateChipElementArray;
 
   /**
    * Insert every element in the set of matched elements to the beginning of the target.
    *
-   * @param target A selector, element, or HTML string;
-   * the matched set of elements will be inserted at the beginning of the element specified by this parameter.
+   * @param target A selector, element, or HTML string. The matched set of elements will be inserted at the beginning of the element specified by this parameter.
+   * @return HTMLElement[]
    */
   prependTo(target: any[]|HTMLElement|string): ChocolateChipElementArray;
 
   /**
    * Insert every element in the set of matched elements to the end of the target.
    *
-   * @param target A selector, element, or HTML string;
-   * the matched set of elements will be inserted at the end of the element specified by this parameter.
+   * @param target A selector, element, or HTML string. The matched set of elements will be inserted at the end of the element specified by this parameter.
    * If no position value is provided it will simply append the content to the target.
+   * @return HTMLElement[]
    */
   appendTo(target: any[]|HTMLElement|string): ChocolateChipElementArray;
 
   /**
    * Insert element(s) into the target element.
+   *
+   * @return HTMLElement[]
    */
   insert(content: string, position: number | string): ChocolateChipElementArray;
 
@@ -1038,6 +1145,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Create a copy of the set of matched elements.
    *
    * @param value A Boolean indicating whether to copy the element(s) with their children. A true value copies the children.
+   * @return HTMLElement[]
    */
   clone(value?: boolean): ChocolateChipElementArray;
 
@@ -1045,55 +1153,67 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * Wrap an HTML structure around each element in the set of matched elements.
    *
    * @param wrappingElement A selector or HTML string specifying the structure to wrap around the matched elements.
+   * @return HTMLElement[]
    */
   wrap(wrappingElement: string): ChocolateChipElementArray;
 
   /**
    * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
+   *
+   * @return HTMLElement[]
    */
   unwrap(): ChocolateChipElementArray;
 
   /**
-   * Remove the set of matched elements from the DOM. If there are any attached events,
-   * this will remove them to prevent memory leaks.
+   * Remove the set of matched elements from the DOM. If there are any attached events, this will remove them to prevent memory leaks.
    *
    * @param selector A selector expression that filters the set of matched elements to be removed.
+   * @return HTMLElement[]
    */
   remove(selector?: string): ChocolateChipElementArray;
 
   /**
    * Remove all child nodes of the set of matched elements from the DOM.
+   *
+   * @return HTMLElement[]
    */
   empty(): ChocolateChipElementArray;
 
   /**
    * Get an object of the current coordinates of the first element in the set of matched elements, relative to the document.
    * These are: top, left, bottom and right. The values are numbers representing pixel values.
+   * @return Object
    */
   offset(): offsetObject;
 
   /**
    * Get the current computed width for the first element in the set of matched elements,
    * including padding but excluding borders.
+   *
+   * @return number
    */
   width(): number;
 
   /**
    * Get the current computed height for the first element in the set of matched elements,
    * including padding but excluding borders.
+   *
+   * @return number
    */
   height(): number;
 
   /**
    * Get the combined text contents of each element in the set of matched elements, including their descendants.
+   *
+   * @return string
    */
   text(): string;
 
   /**
    * Set the content of each element in the set of matched elements to the specified text.
    *
-   * @param text The text to set as the content of each matched element. When Number is supplied,
-   * it will be converted to a String representation. To delete text, use ChocolateChipElementArray.empty() or ChocolateChipElementArray.remove().
+   * @param text The text to set as the content of each matched element. When Number is supplied, it will be converted to a String representation. To delete text, use ChocolateChipElementArray.empty() or ChocolateChipElementArray.remove().
+   * @return HTMLElement
    */
   text(text: string | number): HTMLElement;
 
@@ -1103,6 +1223,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param handler A function to execute each time the event is triggered.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   bind(eventType: string, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -1112,6 +1233,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param handler A function to execute each time the event is triggered.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   unbind(eventType: string, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -1123,6 +1245,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param handler A function to execute each time the event is triggered. The keyword "this" will refer
    * to the element receiving the event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   delegate(selector: any, eventType: string, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -1133,6 +1256,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
    * @param handler A function handler assigned to this event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   undelegate(selector: any, eventType: string, handler: (eventObject: Event) => any, useCapture?: boolean): ChocolateChipStatic;
 
@@ -1143,6 +1267,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param selector A string defining the descendant elements are listening for the event.
    * @param handler A function handler assigned to this event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   on( eventType: string, selector: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): ChocolateChipStatic;
 
@@ -1154,6 +1279,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param selector A string defining the descendant elements are listening for the event.
    * @param handler A function handler assigned to this event.
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
+   * @return ChocolateChipStatic
    */
   off( eventType?: string, selector?: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): ChocolateChipStatic;
 
@@ -1168,8 +1294,9 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param options And object of key value pairs define the CSS properties and values to animate.
    * @param duration A string representing the time. Should have a time identifier: "200s", "200ms", etc.
    * @param easing A string indicating the easing for the animation, such as "ease-out", "ease-in", "ease-in-out".
+   * @return void
    */
-   animate(options: Object, duration?: string, easing?: string );
+   animate(options: Object, duration?: string, easing?: string ): void;
 }
 
 /**
