@@ -306,7 +306,7 @@ if(window.jQuery) {
     isAndroid : (/android/img.test(navigator.userAgent) && !/trident/img.test(navigator.userAgent)),
     isWebOS : /webos/img.test(navigator.userAgent),
     isBlackberry : /blackberry/img.test(navigator.userAgent),
-    isTouchEnabled : ('createTouch' in document),
+    isTouchEnabled : ('createTouch' in document && (!$.isWinPhone || !$.isIEEdge)),
     isOnline :  navigator.onLine,
     isStandalone : navigator.standalone,
     isiOS6 : navigator.userAgent.match(/OS 6/i),
