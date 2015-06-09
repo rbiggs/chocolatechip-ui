@@ -10,7 +10,7 @@
 ChocolateChip.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.8
+Version: 3.8.9
 */
 (function() {
   'use strict';
@@ -130,7 +130,7 @@ Version: 3.8.8
 
   $.extend({
  
-    version : "3.8.8",
+    version : "3.8.9",
     
     libraryName : 'ChocolateChip',
     
@@ -964,6 +964,7 @@ Version: 3.8.8
     
     dataset : function ( key, value ) {
       if (!this.length) return [];
+      if(!document.body.dataset) return [];
       var ret = [];
       if (typeof value === 'string' && value.length >= 0) {
         this.each(function(node) {
@@ -2238,63 +2239,37 @@ Version: 3.8.8
         timeout: 5000
       }
     */
-    JSONP : function ( options ) {
+    JSONP: function(options) {
       var settings = {
-        url : null,
+        url: null,
         callback: $.noop,
-        callbackType : 'callback=?',
+        callbackType: 'callback=?',
         timeout: null
       };
       $.extend(settings, options);
-      //var deferred = new $.Deferred();
-      var fn = 'fn_' + $.uuidNum(),
-      script = document.createElement('script'),
-      head = $('head')[0];
-      script.setAttribute('id', fn);
-      var startTimeout = new Date();
-      window[fn] = function(data) {
-        head.removeChild(script);
-        settings.callback(data);
-        deferred.resolve(data, 'resolved', settings);
-        delete window[fn];
-      };
-      var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length-1);
-      script.src = settings.url.replace(settings.callbackType, strippedCallbackStr + fn);
-      head.appendChild(script);
-      if (settings.timeout) {
-        var waiting = setTimeout(function() {
-          if (new Date() - startTimeout > 0) {
-            deferred.reject('timedout', settings);
-            settings.callback = $.noop;
-          }
-        }, settings.timeout);
-      }
-      //return deferred;
       return new Promise(function(resolve, reject) {
         var fn = 'fn_' + $.uuidNum(),
-        script = document.createElement('script'),
-        head = $('head')[0];
+          script = document.createElement('script'),
+          head = $('head')[0];
         script.setAttribute('id', fn);
-        var startTimeout = new Date();
+        var startTimeout = Number(new Date());
         window[fn] = function(data) {
           head.removeChild(script);
           settings.callback(data);
           resolve(data);
-          //deferred.resolve(data, 'resolved', settings);
           delete window[fn];
         };
-        var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length-1);
+        var strippedCallbackStr = settings.callbackType.substr(0, settings.callbackType.length - 1);
         script.src = settings.url.replace(settings.callbackType, strippedCallbackStr + fn);
         head.appendChild(script);
         if (settings.timeout) {
           var waiting = setTimeout(function() {
-            if (new Date() - startTimeout > 0) {
-              //deferred.reject('timedout', settings);
+            if (Number(new Date()) - startTimeout > 0) {
               reject('The request timedout.');
               settings.callback = $.noop;
             }
           }, settings.timeout);
-        }        
+        }
       });
     },
     
