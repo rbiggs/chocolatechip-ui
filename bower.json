@@ -1,0 +1,44 @@
+{
+  "name": "ChocolateChipJS",
+  "version": "3.8.8",
+  "homepage": "https://github.com/sourcebits-robertbiggs/ChocolateChipJS",
+  "authors": [
+    "sourcebits-robertbiggs <robert.biggs@sourcebits.com>"
+  ],
+  "description": "A JavaScript library for mobile Web app development.",
+  "main": [
+    "dist/chui-3.8.6.js",
+    "dist/chui-3.8.6.min.js",
+    "dist/chui-android-3.8.6.css",
+    "dist/chui-android-3.8.6.min.css",
+    "dist/chui-ios-3.8.6.css",
+    "dist/chui-ios-3.8.6.min.css",
+    "dist/chui-win-3.8.6.css",
+    "dist/chui-win-3.8.6.min.css",
+    "dist/typings"
+  ],
+  "keywords": [
+    "javascript",
+    "mobile",
+    "chocolatechipjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".*",
+    "**/.*",
+    "gulpfile.js",
+    "LINCESE",
+    "node_modules",
+    "bower_components",
+    "src",
+    "pics",
+    "images",
+    "chui",
+    "data",
+    "examples-android",
+    "examples-ios",
+    "examples-win",
+    "package.json",
+    "README.md"
+  ]
+}
