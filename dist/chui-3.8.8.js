@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.6
+Version: 3.8.8
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -297,32 +297,41 @@ if(window.jQuery) {
 
 
   $.extend({
-    isIEEdge : (navigator.userAgent.match(/windows nt/i) && navigator.userAgent.match(/edge/i)),
-    isWinPhone : (/trident/img.test(navigator.userAgent) && /mobile/img.test(navigator.userAgent)),
-    isiPhone : /iphone/img.test(navigator.userAgent),
-    isiPad : /ipad/img.test(navigator.userAgent),
-    isiPod : /ipod/img.test(navigator.userAgent),
-    isiOS : /ip(hone|od|ad)/img.test(navigator.userAgent),
-    isAndroid : (/android/img.test(navigator.userAgent) && !/trident/img.test(navigator.userAgent)),
+    isMobile : /mobile/img.test(navigator.userAgent),
+    isTrident : /trident/img.test(navigator.userAgent),
+    isIEEdge : /edge/img.test(navigator.userAgent),
+    isWinPhone : /trident/img.test(navigator.userAgent) && /mobile/img.test(navigator.userAgent),
+    isiPhone : !/edge/img.test(navigator.userAgent) && !$.isWinPhone && !/trident/img.test(navigator.userAgent) && /iphone/img.test(navigator.userAgent),
+    isiPad : !/edge/img.test(navigator.userAgent) && /ipad/img.test(navigator.userAgent),
+    isiPod : !$.isWinPhone && !/edge/img.test(navigator.userAgent) && /ipod/img.test(navigator.userAgent),
+    isiOS : !/edge/img.test(navigator.userAgent) && !/trident/img.test(navigator.userAgent) && /ip(hone|od|ad)/img.test(navigator.userAgent),
+    isAndroid : !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) &&  (/android/img.test(navigator.userAgent) && !/trident/img.test(navigator.userAgent)),
     isWebOS : /webos/img.test(navigator.userAgent),
     isBlackberry : /blackberry/img.test(navigator.userAgent),
-    isTouchEnabled : ('createTouch' in document && (!$.isWinPhone || !$.isIEEdge)),
+    
+    isTouchEnabled : !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && 'createTouch' in document,
+    
     isOnline :  navigator.onLine,
     isStandalone : navigator.standalone,
-    isiOS6 : navigator.userAgent.match(/OS 6/i),
-    isiOS7 : navigator.userAgent.match(/OS 7/i),
-    isWin : /trident/img.test(navigator.userAgent),
-    isIE10 : navigator.userAgent.match(/msie 10/i),
-    isIE11 : (navigator.userAgent.match(/windows nt/i) && navigator.userAgent.match(/trident/i)),
-    isWebkit : navigator.userAgent.match(/webkit/),
-    isMobile : /mobile/img.test(navigator.userAgent),
+    isiOS6 : !/trident/img.test(navigator.userAgent) && !$.isEdge && /OS 6/img.test(navigator.userAgent),
+    isiOS7 : !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /OS 7/img.test(navigator.userAgent),
+    isiOS8 : !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /OS 8/img.test(navigator.userAgent),
+    isiOS9 : !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /OS 9/img.test(navigator.userAgent),
+    isWin : /edge/img.test(navigator.userAgent) || /trident/img.test(navigator.userAgent),
+    isIE10 : /msie 10/img.test(navigator.userAgent),
+    isIE11 : (/windows nt/img.test(navigator.userAgent) && /trident/img.test(navigator.userAgent)),
+    
+    isWebkit : !/edge/img.test(navigator.userAgent) && !$.isWinPhone && !/trident/img.test(navigator.userAgent) && /webkit/img.test(navigator.userAgent),
     isDesktop : !(/mobile/img.test(navigator.userAgent)),
-    isSafari : (!/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent)),
-    isChrome : /Chrome/img.test(navigator.userAgent),
-    isNativeAndroid : (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent)),
+    isSafari : (!/edge/img.test(navigator.userAgent) && !/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent)),
+    
+    isChrome : !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /Chrome/img.test(navigator.userAgent),
+    
+    isNativeAndroid : ((/samsung/img.test(navigator.userAgent) || /Galaxy Nexus/img.test(navigator.userAgent) || /HTC/img.test(navigator.userAgent) || /LG/img.test(navigator.userAgent)) && !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) &&  /android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent)),
+
     isWideScreen : window.innerWidth >= 960 && (window.orientation === 90 || window.orentation === -90),
     isWideScreenPortrait : window.innerWidth >= 960 && (window.orientation !== 90 || window.orientation !== -90)
-    });
+  });
 
 
   
