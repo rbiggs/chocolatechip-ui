@@ -84,11 +84,11 @@
           }, 500);
           if ($.isAndroid || $.isChrome) {
             setTimeout(function() {
-              callback(this);
+              callback($this);
               $('.slide-out-button').removeClass('focused');
             }, 400);
           } else {
-            callback(this);
+            callback($this);
             $('.slide-out-button').removeClass('focused');
           }
         });
