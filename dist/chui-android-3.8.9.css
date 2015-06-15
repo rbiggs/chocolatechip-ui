@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-Android.css
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.8
+Version: 3.8.9
 */
 /*
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -2769,11 +2769,11 @@ body.slide-out-app > article.show {
 body.slide-out-app > #global-nav {
   box-shadow: 0 3px 10px 2px rgba(0, 0, 0, 0.2) !important;
 }
-body.slide-out-app > nav.show:not(':first-of-type') {
+body.slide-out-app > nav:not(:first-of-type).show {
   display: block !important;
   z-index: 1111111111;
-  left: 200px;
-  right: 200px;
+  left: 80px;
+  right: 80px;
 }
 body.slide-out-app > nav:not(:first-of-type) {
   display: none !important;
