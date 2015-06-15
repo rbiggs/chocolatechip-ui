@@ -1,4 +1,4 @@
-// Type definitions for chocolatechip v3.8.8
+// Type definitions for chocolatechip v3.8.11
 // Project: https://github.com/chocolatechipui/ChocolateChipJS
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
