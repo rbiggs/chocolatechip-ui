@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.8
+Version: 3.8.9
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
