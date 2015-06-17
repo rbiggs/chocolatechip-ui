@@ -1,4 +1,4 @@
-// Type definitions for chocolatechip v3.8.8
+// Type definitions for chocolatechip v3.8.11
 // Project: https://github.com/chocolatechipui/ChocolateChipJS
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
@@ -251,13 +251,13 @@ interface ChocolateChipStatic {
      * This method returns a parsed template.
      *
      */
-    template: IChocolateChipTemplate;
+    template: ChocolateChipTemplate;
 
 
     /**
      * This is the base for the plugin "extend" interface, which allows you to add methods that can iterate over element collections.
      */
-    fn: IChocolateChipPlugin;
+    fn: ChocolateChipPlugin;
 
     /**
      * Replace each element in the set of matched elements with the provided new content and return the set of elements that was removed.
@@ -510,7 +510,7 @@ interface ChocolateChipStatic {
     form2JSON(rootNode: string | HTMLElement, delimiter: string): Object;
 }
 
-interface IChocolateChipPlugin {
+interface ChocolateChipPlugin {
     /**
      * This method extends ChocolateChipElementArray, enabling iteration over collection items.
      *
@@ -520,7 +520,7 @@ interface IChocolateChipPlugin {
     extend: (object: any) => ChocolateChipElementArray;
 }
 
-interface IChocolateChipTemplate {
+interface ChocolateChipTemplate {
     /**
      * This method parses a string and an optoinal variable name and returns a parsed template in the form of a function. You can then pass this function data to get rendered nodes.
      *
@@ -1261,7 +1261,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
      * These are: top, left, bottom and right. The values are numbers representing pixel values.
      * @return Object
      */
-    offset(): IChocolateChipOffsetObject;
+    offset(): ChocolateChipOffsetObject;
 
     /**
      * Get the current computed width for the first element in the set of matched elements,
@@ -1377,9 +1377,9 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
 }
 
 /**
- * Interface for offset o bject.
+ * Interface for offset object.
  */
-interface IChocolateChipOffsetObject {
+interface ChocolateChipOffsetObject {
     top: number;
     left: number;
     bottom: number;
