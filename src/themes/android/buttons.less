@@ -212,9 +212,12 @@ html[dir=rtl] button {
    
   &.back, &.backTo {
     margin: 0 0 0 16px;
+    &::before {
+      top: 13px;
+    }
     
     &::after {
-      .transform(rotate(180deg));
+      .transform(rotate(230deg));
       right: auto;
     }
   }

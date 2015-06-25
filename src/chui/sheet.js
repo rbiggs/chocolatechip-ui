@@ -13,13 +13,17 @@
       }
     */
     UISheet : function ( options ) {
-      if (!options) var options = {};
-      if (options.background) options.background =  $.concat(' style="background-color:', options.background, '" ');
-      if (options.handle === false) options.handle = '';
-      var settings = {};
-      settings.id = $.Uuid();
-      settings.listClass = '';
-      settings.background = '';
+      var settings = {
+        id: $.Uuid(),
+        listClass: '',
+        background: '',
+        handle: true
+      }
+      if (options) {
+        $.extend(settings, options);
+      }
+      if (settings.background) settings.background =  $.concat(' style="background-color:', settings.background, '" ');
+      if (settings.handle === false) settings.handle = '';
       settings.handle = '<div class="handle"><span></span></div>';
       if (options) $.extend(settings, options);
       var sheet = $.concat('<div id="', settings.id, '" class="sheet', settings.listClass, '"', settings.background, '>', settings.handle, '<section class="scroller-vertical"></section></div>');

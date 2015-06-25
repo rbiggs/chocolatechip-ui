@@ -11,9 +11,16 @@
           callback: function() { alert('Boring!'); }
         }
       */
+      var settings = {
+        selected: 0,
+        callback: $.noop
+      }
+      if (options) {
+        $.extend(settings, options);
+      }
       if ($(this).hazClass('paging').length) return;
-      var callback = (options && options.callback) ? options.callback : $.noop;
-      var selected = (options && options.selected > 0) ? options.selected : 0;
+      var callback = settings.callback;
+      var selected = settings.selected;
       this.find('button').forEach(function(ctx, idx) {
         $(ctx).attr('role','radio');
         $(ctx).addClass('segment');

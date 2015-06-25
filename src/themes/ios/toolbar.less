@@ -57,19 +57,35 @@ div.toolbar {
 }
 
 html[dir=rtl] {
+  div.toolbar {
+
+    &.current {
+      .transform(translate3d(-101%,0,0)) !important;
+    }
+
+    &.next  {
+      .transform(translate3d(101%,0,0)) !important;
+    }
+
+    &.previous {
+      .transform(translate3d(0,0,0)) !important;
+    }
+  }
   .splitlayout {
 
     > .master + .toolbar {
-      right: 0;
+      right: -324px;;
       left: 320px;
       width: 320px;
       border-right: none;
       border-left: solid 1px @splitLayoutBorders !important;
     }
 
-    > .detail + .toolbar  {
+    > .detail + .toolbar, > .detail + .toolbar.current  {
       right: 320px;
       left: 0;
+      /*margin-right: 320px;*/
+      .transform(translate3d(0,0,0)) !important;
     }
   }
 }

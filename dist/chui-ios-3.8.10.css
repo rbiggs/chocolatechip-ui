@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-iOS.css
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.9
+Version: 3.8.10
 */
 /*
   To create a custom theme, uncomment the second of each of the following, then adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -1273,16 +1273,32 @@ div.toolbar.previous {
   -webkit-transform: translate3d(-101%, 0, 0) !important;
   transform: translate3d(-101%, 0, 0) !important;
 }
+html[dir=rtl] div.toolbar.current {
+  -webkit-transform: translate3d(-101%, 0, 0) !important;
+  transform: translate3d(-101%, 0, 0) !important;
+}
+html[dir=rtl] div.toolbar.next {
+  -webkit-transform: translate3d(101%, 0, 0) !important;
+  transform: translate3d(101%, 0, 0) !important;
+}
+html[dir=rtl] div.toolbar.previous {
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
+}
 html[dir=rtl] .splitlayout > .master + .toolbar {
-  right: 0;
+  right: -324px;
   left: 320px;
   width: 320px;
   border-right: none;
   border-left: solid 1px #c8c8c7 !important;
 }
-html[dir=rtl] .splitlayout > .detail + .toolbar {
+html[dir=rtl] .splitlayout > .detail + .toolbar,
+html[dir=rtl] .splitlayout > .detail + .toolbar.current {
   right: 320px;
   left: 0;
+  /*margin-right: 320px;*/
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
 }
 /* ==============================
    Split Layout
@@ -1366,6 +1382,9 @@ html[dir=rtl] body.splitlayout > article.master {
 }
 html[dir=rtl] body.splitlayout > article.detail {
   right: 320px !important;
+  left: 0 !important;
+}
+html[dir=rtl] body.splitlayout > article.detail .toolbar {
   left: 0 !important;
 }
 @media only screen and (max-device-width: 320px) and (orientation: portrait) {
@@ -1796,12 +1815,13 @@ html[dir=rtl] .list > li > .move-down {
 html[dir=rtl] .list > li > button.delete {
   -webkit-transform: translate3d(-80px, 0, 0);
   transform: translate3d(-80px, 0, 0);
-  left: 0;
+  left: -10px !important;
   right: auto;
 }
 html[dir=rtl].deletable.showIndicators > li,
 html[dir=rtl].editable.showIndicators > li {
   margin-right: 0px;
+  margin-left: 0px !important;
 }
 html[dir=rtl] .list.deletable > li.selected,
 html[dir=rtl] .list.editable > li.selected {
@@ -1862,7 +1882,7 @@ html[dir=rtl] .list.showIndicators > li > button.delete,
 html[dir=rtl] .list.deletable.showIndicators > li > button.delete,
 html[dir=rtl] .list.editable.showIndicators > li > button.delete {
   right: auto;
-  left: 0 !important;
+  left: -10px !important;
 }
 /* ==============================
    Form Elements
@@ -2281,11 +2301,13 @@ html[dir=rtl] .slide-out.open {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-right: none;
+  margin: 0;
 }
 .stepper > button:last-of-type {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-left: none;
+  margin: 0;
 }
 html[dir=rtl] .stepper > button:first-of-type {
   border-radius: 4px;

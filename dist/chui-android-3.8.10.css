@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-Android.css
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.9
+Version: 3.8.10
 */
 /*
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -177,19 +177,16 @@ article > section {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  visibility: visible;
 }
 .next {
   -webkit-transform: translate3d(105%, 0, 0);
   -moz-transform: translate3d(105%, 0, 0);
   transform: translate3d(105%, 0, 0);
-  visibility: hidden;
 }
 .previous {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  visibility: hidden;
 }
 html[dir=rtl] .current {
   -webkit-transform: translate3d(0, 0, 0);
@@ -202,6 +199,36 @@ html[dir=rtl] .next {
   transform: translate3d(-100%, 0, 0);
 }
 html[dir=rtl] .previous {
+  -webkit-transform: translate3d(105%, 0, 0);
+  -moz-transform: translate3d(105%, 0, 0);
+  transform: translate3d(105%, 0, 0);
+}
+body.isNativeAndroidBrowser .current {
+  -webkit-transform: 0 0 0;
+  -moz-transform: 0 0 0;
+  transform: 0 0 0;
+}
+body.isNativeAndroidBrowser .next {
+  -webkit-transform: 105% 0 0;
+  -moz-transform: 105% 0 0;
+  transform: 105% 0 0;
+}
+body.isNativeAndroidBrowser .previous {
+  -webkit-transform: -100% 0 0;
+  -moz-transform: -100% 0 0;
+  transform: -100% 0 0;
+}
+html[dir=rtl] body.isNativeAndroidBrowser .current {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+html[dir=rtl] body.isNativeAndroidBrowser .next {
+  -webkit-transform: translate3d(-100%, 0, 0);
+  -moz-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+html[dir=rtl] body.isNativeAndroidBrowser .previous {
   -webkit-transform: translate3d(105%, 0, 0);
   -moz-transform: translate3d(105%, 0, 0);
   transform: translate3d(105%, 0, 0);
@@ -507,11 +534,15 @@ html[dir=rtl] button.back,
 html[dir=rtl] button.backTo {
   margin: 0 0 0 16px;
 }
+html[dir=rtl] button.back::before,
+html[dir=rtl] button.backTo::before {
+  top: 13px;
+}
 html[dir=rtl] button.back::after,
 html[dir=rtl] button.backTo::after {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  transform: rotate(180deg);
+  -webkit-transform: rotate(230deg);
+  -moz-transform: rotate(230deg);
+  transform: rotate(230deg);
   right: auto;
 }
 html[dir=rtl] button.align-flush {
@@ -727,7 +758,7 @@ li[data-show-article].touched {
   cursor: pointer;
 }
 .isDesktop .list > li[data-goto].nav:hover::after {
-  border-color: #ffffff;
+  border-color: #007aff;
 }
 /* ==============================
    list title & subtitle      
@@ -1844,9 +1875,9 @@ button.show-popover::after {
   border-bottom: solid 4px #000000;
   border-top: solid 4px transparent;
   border-left: solid 4px transparent;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
 nav > button.show-popover::after {
   border-right: solid 4px #000000;
