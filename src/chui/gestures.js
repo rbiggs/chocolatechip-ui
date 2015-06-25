@@ -10,7 +10,7 @@
   var tapTimeout;
   var longTapDelay = 750;
   var singleTapDelay = 150;
-  $.gestureLength = 0;
+  $.gestureLength = 50;
   if ($.isAndroid) singleTapDelay = 200;
   var longTapTimeout;
   function parentIfText(node) {
@@ -121,49 +121,6 @@
             touch.y2 = e.touches[0].pageY;
           }
         }
-      }
-      if ($.isAndroid) {
-        $.gestureLength = 50;
-        if (!!touch.el) {
-          // Swipe detection:
-          if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > $.gestureLength) ||
-        (touch.y2 && Math.abs(touch.y1 - touch.y2) > $.gestureLength))  {
-            swipeTimeout = setTimeout(function() {
-              e.preventDefault();
-              if (touch && touch.el) {
-                touch.el.trigger('swipe');
-                touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
-                touch = {};
-              }
-            }, 0);
-          // Normal tap:
-          } else if ('last' in touch) {
-            // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
-            tapTimeout = setTimeout(function() {
-            // Trigger universal 'tap' with the option to cancelTouch():
-            if (touch && touch.el) {
-              touch.el.trigger('tap');
-            }
-            // Trigger double tap immediately:
-            if (touch && touch.isDoubleTap) {
-              if (touch && touch.el) {
-              touch.el.trigger('doubletap');
-              touch = {};
-              }
-            } else {
-              // Trigger single tap after singleTapDelay:
-              touchTimeout = setTimeout(function(){
-              touchTimeout = null;
-              if (touch && touch.el) {
-                touch.el.trigger('singletap');
-                touch = {};
-                return false;
-              }
-              }, singleTapDelay);
-            }
-            }, 0);
-          }
-        } else { return; }  
       }
     });
     body.on($.eventEnd, function(e) {

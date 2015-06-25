@@ -79,7 +79,7 @@
     // Pass the id of the stepper to reset.
     // It's value will be reset to the default.
     ///////////////////////////////////////////
-    // Pass it the id of the stepper:
+    // Pass in a reference to a stepper:
     UIResetStepper : function ( stepper ) {
       var defaultValue = stepper.data('ui-value').defaultValue;
       stepper.find('label').html(defaultValue);

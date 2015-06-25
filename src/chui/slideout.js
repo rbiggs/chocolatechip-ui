@@ -14,19 +14,10 @@
     };
     */
     UISlideout : function ( options ) {
-      var position, dynamic, callback = $.noop;
-      if (options && options.position)  {
-        position = options.position;
-      } else {
-        position = 'left';
-      }
-      if (options && options.dynamic) {
-        dynamic = options.dynamic;
-      } else {
-        dynamic = false;
-      }
-      if (options && options.callback) {
-        callback = options.callback;
+      var settings = {
+        position: 'left',
+        dynamic: false,
+        callback: $.noop
       }
       var slideoutButton = $("<button class='slide-out-button'></button>");
       var slideOut = '<div class="slide-out"><section></section></div>';
@@ -43,7 +34,7 @@
         $('.slide-out').toggleClass('open');
         $(this).toggleClass('focused');
       });
-      if (!dynamic) {
+      if (!settings.dynamic) {
         $('.slide-out').on('singletap', 'li', function() {
           var $this = $(this);
           $this.addClass('selected');
@@ -84,11 +75,11 @@
           }, 500);
           if ($.isAndroid || $.isChrome) {
             setTimeout(function() {
-              callback($this);
+              settings.callback($this);
               $('.slide-out-button').removeClass('focused');
             }, 400);
           } else {
-            callback($this);
+            settings.callback($this);
             $('.slide-out-button').removeClass('focused');
           }
         });

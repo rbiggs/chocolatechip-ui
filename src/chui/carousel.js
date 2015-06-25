@@ -37,13 +37,18 @@
       })();
         
       var UICarousel = function ( options ) {
+        var settings = {
+          snapThreshold: null,
+          loop: true
+        };
         if (!options) return;
+        $.extend(settings, options);
         var ul, li, className;
         this.carouselContainer = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
         this.options = {
-          panels: options.panels || 3,
-          snapThreshold: null,
-          loop: options.loop || true
+          panels: settings.panels,
+          snapThreshold: settings.snapThreshold,
+          loop: settings.loop
         };
         // Adjustment for RTL carousels:
         if ($.isRTL) {

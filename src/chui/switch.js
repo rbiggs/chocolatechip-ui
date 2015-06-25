@@ -69,8 +69,7 @@
           state : 'on' || 'off' //(off is default),
           value : 'Mango' || '',
           checked: 'on' || '',
-          style: 'traditional' || '',
-          callback : callback
+          style: 'traditional' || ''
         }
       */
       var settings = {
