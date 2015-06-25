@@ -1,4 +1,4 @@
-// ChocolateChip-UI 3.8.9
+// ChocolateChip-UI 3.8.10
 /**
  These TypeScript delcarations for ChocolateChip-UI contain interfaces for both ChocolateChipJS and jQuery. Depending on which library you are using, you will get the type interfaces appropriate for it.
 */
