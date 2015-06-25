@@ -28,17 +28,39 @@ article {
    =========================== */
 .current {
   .transform(translate3d(0,0,0));
-  visibility: visible;
 }
 .next {
   .transform(translate3d(105%,0,0));
-  visibility: hidden;
 }
 .previous {
   .transform(translate3d(0,0,0));
-  visibility: hidden;
 }
 html[dir=rtl] {
+
+  .current {
+    .transform(translate3d(0,0,0));
+  }
+
+  .next {
+    .transform(translate3d(-100%,0,0));
+  }
+
+  .previous {
+    .transform(translate3d(105%,0,0));
+  }
+}
+body.isNativeAndroidBrowser {
+  .current {
+    .transform(0, 0, 0);
+  }
+  .next {
+    .transform(105%, 0, 0);
+  }
+  .previous {
+    .transform(-100%, 0, 0);
+  }  
+}
+html[dir=rtl] body.isNativeAndroidBrowser {
 
   .current {
     .transform(translate3d(0,0,0));

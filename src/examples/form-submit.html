@@ -22,19 +22,11 @@
 
   </style>
   <script>
-  /*
-    This example uses the ChocolateChipJS method $.form2JSON. Since this is specific to ChocolateChip, this example will not work with jQuery. There are existing jQuery plugins that do the same thing which you can find by searching for "jQuery plugin form to JSON".
-  */
-    function submitForm() {
-      var formData = $.form2JSON('#userForm');
-      var data = JSON.stringify(formData);
-      window.location = 'form-target.html?' + data;
-    }
     $(function() {
-      $('button.done').on('click', function() {
-        $('#userForm')[0].submit();
-      });
-      $('#selectList').UISelectList({ selected: 0, name:'user.job' });    
+      $('#selectList').UISelectList({
+        selected: 1,
+        callback: $.noop
+      })    
     });
   </script>
 </head>

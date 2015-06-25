@@ -183,7 +183,7 @@ html[dir=rtl] {
 
     & > button.delete {
       .transform(translate3d(-80px,0,0));
-      left: 0;
+      left: -10px !important;
       right: auto;
     }
   }
@@ -191,6 +191,7 @@ html[dir=rtl] {
   &.deletable.showIndicators > li,
   &.editable.showIndicators > li {
     margin-right: 0px;
+    margin-left: 0px !important;
   }
   .list.deletable > li,
   .list.editable > li {
@@ -238,7 +239,7 @@ html[dir=rtl] {
 
     & > button.delete {
       right: auto;
-      left: 0 !important;
+      left: -10px !important;
     }
   }
 }

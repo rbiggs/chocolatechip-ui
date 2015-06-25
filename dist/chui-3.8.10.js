@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.9
+Version: 3.8.10
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -386,7 +386,7 @@ if(window.jQuery) {
   var tapTimeout;
   var longTapDelay = 750;
   var singleTapDelay = 150;
-  $.gestureLength = 0;
+  $.gestureLength = 50;
   if ($.isAndroid) singleTapDelay = 200;
   var longTapTimeout;
   function parentIfText(node) {
@@ -497,49 +497,6 @@ if(window.jQuery) {
             touch.y2 = e.touches[0].pageY;
           }
         }
-      }
-      if ($.isAndroid) {
-        $.gestureLength = 50;
-        if (!!touch.el) {
-          // Swipe detection:
-          if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > $.gestureLength) ||
-        (touch.y2 && Math.abs(touch.y1 - touch.y2) > $.gestureLength))  {
-            swipeTimeout = setTimeout(function() {
-              e.preventDefault();
-              if (touch && touch.el) {
-                touch.el.trigger('swipe');
-                touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
-                touch = {};
-              }
-            }, 0);
-          // Normal tap:
-          } else if ('last' in touch) {
-            // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
-            tapTimeout = setTimeout(function() {
-            // Trigger universal 'tap' with the option to cancelTouch():
-            if (touch && touch.el) {
-              touch.el.trigger('tap');
-            }
-            // Trigger double tap immediately:
-            if (touch && touch.isDoubleTap) {
-              if (touch && touch.el) {
-              touch.el.trigger('doubletap');
-              touch = {};
-              }
-            } else {
-              // Trigger single tap after singleTapDelay:
-              touchTimeout = setTimeout(function(){
-              touchTimeout = null;
-              if (touch && touch.el) {
-                touch.el.trigger('singletap');
-                touch = {};
-                return false;
-              }
-              }, singleTapDelay);
-            }
-            }, 0);
-          }
-        } else { return; }  
       }
     });
     body.on($.eventEnd, function(e) {
@@ -1388,9 +1345,16 @@ if(window.jQuery) {
           callback: function() { alert('Boring!'); }
         }
       */
+      var settings = {
+        selected: 0,
+        callback: $.noop
+      }
+      if (options) {
+        $.extend(settings, options);
+      }
       if ($(this).hazClass('paging').length) return;
-      var callback = (options && options.callback) ? options.callback : $.noop;
-      var selected = (options && options.selected > 0) ? options.selected : 0;
+      var callback = settings.callback;
+      var selected = settings.selected;
       this.find('button').forEach(function(ctx, idx) {
         $(ctx).attr('role','radio');
         $(ctx).addClass('segment');
@@ -1853,14 +1817,22 @@ if(window.jQuery) {
     }
     */
     UISelectList : function (options) {
-      var name = (options && options.name) ? options.name : $.Uuid();
+      var settings = {
+        name: $.Uuid(),
+        selected: 0,
+        callback: $.noop
+      }
+      if (options) {
+        $.extend(settings, options);
+      }
+      var name = settings.name;
       var list = this[0];
       list.classList.add('select');
       $(list).find('li').forEach(function(ctx, idx) {
         var value = ctx.getAttribute("data-select-value") !== null ? ctx.getAttribute("data-select-value") : "";
         ctx.setAttribute('role', 'radio');
         $(ctx).removeClass('selected').find('input').removeAttr('checked');
-        if (options && options.selected === idx) {
+        if (settings.selected === idx) {
           ctx.setAttribute('aria-checked', 'true');
           ctx.classList.add('selected');
           if (!$(ctx).find('input')[0]) {
@@ -1882,9 +1854,7 @@ if(window.jQuery) {
         $(item).addClass('selected');
         item.setAttribute('aria-checked', true);
         $(item).find('input').prop('checked',true);
-        if (options && options.callback) {
-          options.callback.apply(this, arguments);
-        }
+        settings.callback.apply(this, arguments);
       });
     }
   });
@@ -1903,13 +1873,17 @@ if(window.jQuery) {
       }
     */
     UISheet : function ( options ) {
-      if (!options) var options = {};
-      if (options.background) options.background =  $.concat(' style="background-color:', options.background, '" ');
-      if (options.handle === false) options.handle = '';
-      var settings = {};
-      settings.id = $.Uuid();
-      settings.listClass = '';
-      settings.background = '';
+      var settings = {
+        id: $.Uuid(),
+        listClass: '',
+        background: '',
+        handle: true
+      }
+      if (options) {
+        $.extend(settings, options);
+      }
+      if (settings.background) settings.background =  $.concat(' style="background-color:', settings.background, '" ');
+      if (settings.handle === false) settings.handle = '';
       settings.handle = '<div class="handle"><span></span></div>';
       if (options) $.extend(settings, options);
       var sheet = $.concat('<div id="', settings.id, '" class="sheet', settings.listClass, '"', settings.background, '>', settings.handle, '<section class="scroller-vertical"></section></div>');
@@ -1964,19 +1938,10 @@ if(window.jQuery) {
     };
     */
     UISlideout : function ( options ) {
-      var position, dynamic, callback = $.noop;
-      if (options && options.position)  {
-        position = options.position;
-      } else {
-        position = 'left';
-      }
-      if (options && options.dynamic) {
-        dynamic = options.dynamic;
-      } else {
-        dynamic = false;
-      }
-      if (options && options.callback) {
-        callback = options.callback;
+      var settings = {
+        position: 'left',
+        dynamic: false,
+        callback: $.noop
       }
       var slideoutButton = $("<button class='slide-out-button'></button>");
       var slideOut = '<div class="slide-out"><section></section></div>';
@@ -1993,7 +1958,7 @@ if(window.jQuery) {
         $('.slide-out').toggleClass('open');
         $(this).toggleClass('focused');
       });
-      if (!dynamic) {
+      if (!settings.dynamic) {
         $('.slide-out').on('singletap', 'li', function() {
           var $this = $(this);
           $this.addClass('selected');
@@ -2034,11 +1999,11 @@ if(window.jQuery) {
           }, 500);
           if ($.isAndroid || $.isChrome) {
             setTimeout(function() {
-              callback($this);
+              settings.callback($this);
               $('.slide-out-button').removeClass('focused');
             }, 400);
           } else {
-            callback($this);
+            settings.callback($this);
             $('.slide-out-button').removeClass('focused');
           }
         });
@@ -2154,7 +2119,7 @@ if(window.jQuery) {
     // Pass the id of the stepper to reset.
     // It's value will be reset to the default.
     ///////////////////////////////////////////
-    // Pass it the id of the stepper:
+    // Pass in a reference to a stepper:
     UIResetStepper : function ( stepper ) {
       var defaultValue = stepper.data('ui-value').defaultValue;
       stepper.find('label').html(defaultValue);
@@ -2232,8 +2197,7 @@ if(window.jQuery) {
           state : 'on' || 'off' //(off is default),
           value : 'Mango' || '',
           checked: 'on' || '',
-          style: 'traditional' || '',
-          callback : callback
+          style: 'traditional' || ''
         }
       */
       var settings = {
@@ -2301,6 +2265,7 @@ if(window.jQuery) {
         selected : 0
       };
       $.extend(settings, options);
+      if (!options.tabs || !options.labels) console.error("The tab bar needs labels and the number of tabs to function.")
       $('body').addClass('hasTabBar');
       if ($.isiOS6) $('body').addClass('isiOS6');
       var tabbar = '<div class="tabbar" id="' + settings.id + '">';
@@ -2540,13 +2505,18 @@ if(window.jQuery) {
       })();
         
       var UICarousel = function ( options ) {
+        var settings = {
+          snapThreshold: null,
+          loop: true
+        };
         if (!options) return;
+        $.extend(settings, options);
         var ul, li, className;
         this.carouselContainer = typeof options.target === 'string' ? document.querySelector(options.target) : options.target;
         this.options = {
-          panels: options.panels || 3,
-          snapThreshold: null,
-          loop: options.loop || true
+          panels: settings.panels,
+          snapThreshold: settings.snapThreshold,
+          loop: settings.loop
         };
         // Adjustment for RTL carousels:
         if ($.isRTL) {

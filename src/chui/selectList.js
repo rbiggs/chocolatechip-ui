@@ -18,14 +18,22 @@
     }
     */
     UISelectList : function (options) {
-      var name = (options && options.name) ? options.name : $.Uuid();
+      var settings = {
+        name: $.Uuid(),
+        selected: 0,
+        callback: $.noop
+      }
+      if (options) {
+        $.extend(settings, options);
+      }
+      var name = settings.name;
       var list = this[0];
       list.classList.add('select');
       $(list).find('li').forEach(function(ctx, idx) {
         var value = ctx.getAttribute("data-select-value") !== null ? ctx.getAttribute("data-select-value") : "";
         ctx.setAttribute('role', 'radio');
         $(ctx).removeClass('selected').find('input').removeAttr('checked');
-        if (options && options.selected === idx) {
+        if (settings.selected === idx) {
           ctx.setAttribute('aria-checked', 'true');
           ctx.classList.add('selected');
           if (!$(ctx).find('input')[0]) {
@@ -47,9 +55,7 @@
         $(item).addClass('selected');
         item.setAttribute('aria-checked', true);
         $(item).find('input').prop('checked',true);
-        if (options && options.callback) {
-          options.callback.apply(this, arguments);
-        }
+        settings.callback.apply(this, arguments);
       });
     }
   });

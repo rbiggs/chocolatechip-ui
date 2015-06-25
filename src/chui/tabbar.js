@@ -20,6 +20,7 @@
         selected : 0
       };
       $.extend(settings, options);
+      if (!options.tabs || !options.labels) console.error("The tab bar needs labels and the number of tabs to function.")
       $('body').addClass('hasTabBar');
       if ($.isiOS6) $('body').addClass('isiOS6');
       var tabbar = '<div class="tabbar" id="' + settings.id + '">';
