@@ -1943,6 +1943,9 @@ if(window.jQuery) {
         dynamic: false,
         callback: $.noop
       }
+      if (options && typeof options === "object") {
+        $.extend(settings, options);
+      }
       var slideoutButton = $("<button class='slide-out-button'></button>");
       var slideOut = '<div class="slide-out"><section></section></div>';
       $('article').removeClass('next');
