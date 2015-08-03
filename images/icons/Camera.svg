@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    width="100px" height="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+<path fill="#010101" d="M60.571,53.802c0,5.572-4.521,10.092-10.099,10.092c-5.571,0-10.09-4.52-10.09-10.092
+   c0-5.578,4.519-10.091,10.09-10.091C56.051,43.711,60.571,48.224,60.571,53.802"/>
+<path fill="#010101" d="M80.755,26.891H40.382c0-3.713-3.009-6.727-6.729-6.727h-6.728c-3.712,0-6.721,3.014-6.728,6.727h-6.721
+   c-3.716,0-6.731,3.011-6.731,6.729h6.724c3.72,0,6.729,3.014,6.729,6.728v26.911c0,3.719-3.009,6.727-6.729,6.727H6.747
+   c0,3.721,3.016,6.728,6.731,6.728h67.277c3.715,0,6.728-3.007,6.728-6.728V33.62C87.482,29.902,84.47,26.891,80.755,26.891
+    M50.479,70.622c-9.289,0-16.818-7.529-16.818-16.826c0-9.292,7.529-16.819,16.818-16.819c9.292,0,16.821,7.528,16.821,16.819
+   C67.3,63.093,59.771,70.622,50.479,70.622 M75.709,47.075c-2.792,0-5.046-2.26-5.046-5.046c0-2.779,2.254-5.046,5.046-5.046
+   c2.782,0,5.046,2.268,5.046,5.046C80.755,44.814,78.491,47.075,75.709,47.075"/>
+<g opacity="0.5" enable-background="new    ">
+   <g>
+      <defs>
+         <rect id="SVGID_1_" x="70.657" y="36.982" width="10.091" height="10.092"/>
+      </defs>
+      <clipPath id="SVGID_2_">
+         <use xlink:href="#SVGID_1_"  overflow="visible"/>
+      </clipPath>
+      <g clip-path="url(#SVGID_2_)">
+         <defs>
+            <rect id="SVGID_3_" x="70.663" y="36.982" width="10.092" height="10.092"/>
+         </defs>
+         <clipPath id="SVGID_4_">
+            <use xlink:href="#SVGID_3_"  overflow="visible"/>
+         </clipPath>
+         <path clip-path="url(#SVGID_4_)" fill="#010101" d="M75.709,36.982c-2.792,0-5.046,2.268-5.046,5.046
+            c0,2.786,2.254,5.046,5.046,5.046c2.782,0,5.046-2.26,5.046-5.046C80.755,39.25,78.491,36.982,75.709,36.982"/>
+      </g>
+   </g>
+</g>
+<polygon fill="#010101" points="6.747,73.984 6.747,73.984 6.747,33.62 "/>
+<g opacity="0.5" enable-background="new    ">
+   <g>
+      <defs>
+         <rect id="SVGID_5_" x="6.743" y="33.62" width="13.456" height="40.365"/>
+      </defs>
+      <clipPath id="SVGID_6_">
+         <use xlink:href="#SVGID_5_"  overflow="visible"/>
+      </clipPath>
+      <g clip-path="url(#SVGID_6_)">
+         <defs>
+            <rect id="SVGID_7_" x="6.747" y="33.62" width="13.452" height="40.365"/>
+         </defs>
+         <clipPath id="SVGID_8_">
+            <use xlink:href="#SVGID_7_"  overflow="visible"/>
+         </clipPath>
+         <path clip-path="url(#SVGID_8_)" fill="#010101" d="M20.199,67.258V40.347c0-3.713-3.009-6.728-6.729-6.728H6.747v40.365h6.724
+            C17.19,73.984,20.199,70.977,20.199,67.258"/>
+      </g>
+   </g>
+</g>
+</svg>

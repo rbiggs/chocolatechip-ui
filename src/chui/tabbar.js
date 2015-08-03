@@ -116,7 +116,7 @@
         $('article').forEach(function(ctx) {
           if (window.jQuery) {
             $(ctx).scrollTop(0);
-          } else if (window.$chocolatechipjs) {
+          } else if (window.chocolatechipjs) {
             ctx.scrollTop = 0;
           }
         });

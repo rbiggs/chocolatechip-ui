@@ -18,7 +18,7 @@ if (pkg.projectPath !== "")
 
 var whichLib = pkg.jquery.url;
 var pkgVersion = pkg.version;
-if (gutils.env.chocolatechipjs) whichLib = "../chui/chocolatechip-" + pkg.chocolatechipJSVersion + ".js";
+if (gutils.env.chocolatechipjs) whichLib = "../chui/chocolatechipjs-" + pkg.chocolatechipJSVersion + ".js";
 
 
 // Define values for file headers:
@@ -91,8 +91,8 @@ gulp.task('js', function () {
     'window.CHUIJSLIB;',
     'if(window.jQuery) {',
     '  window.CHUIJSLIB = window.jQuery;',
-    '} else if (window.$chocolatechipjs) {',
-    '  window.CHUIJSLIB = window.$chocolatechipjs;',
+    '} else if (window.chocolatechipjs) {',
+    '  window.CHUIJSLIB = window.chocolatechipjs;',
     '}',
     '(function($) {\n'
   ].join('\n');
@@ -151,30 +151,28 @@ gulp.task('js', function () {
     .pipe(gulp.dest(pkg.projectPath + 'dist/'));
 
     if (gutils.env.chocolatechipjs) {
-      gulp.src(["src/chocolatechipjs/chocolatechip*.js"])
+      gulp.src(["src/chocolatechipjs/chocolatechipjs*.js"])
         .pipe(gulp.dest(pkg.projectPath + 'chui/'))
     }
 
     // Output TypeScript declaration files:
     gulp.src(["src/typings/chui/*"])
       .pipe(gulp.dest(pkg.projectPath + "dist/typings/chui"))
-      .pipe(gulp.dest(pkg.projectPath + 'chui/typings/chui'));
+      .pipe(gulp.dest(pkg.projectPath + 'typings/chui'));
     if (gutils.env.chocolatechipjs) {
       gulp.src(["src/typings/tsd.d.ts"])
-        .pipe(header('/// <reference path="chocolatechip/chocolatechip.d.ts" />\n'))
+        .pipe(header('/// <reference path="chocolatechipjs/chocolatechipjs.d.ts" />\n'))
         .pipe(gulp.dest(pkg.projectPath + "dist/typings"))
-        .pipe(gulp.dest(pkg.projectPath + 'chui/typings'));
-      gulp.src(["src/typings/chocolatechip/chocolatechip.d.ts"])
-        .pipe(gulp.dest(pkg.projectPath + "dist/typings/chocolatechip"))
-        .pipe(gulp.dest(pkg.projectPath + 'chui/typings/chocolatechip'));
+        .pipe(gulp.dest(pkg.projectPath + 'typings'));
+      gulp.src(["src/typings/chocolatechipjs/chocolatechipjs.d.ts"])
+        .pipe(gulp.dest(pkg.projectPath + "dist/typings/chocolatechipjs"))
+        .pipe(gulp.dest(pkg.projectPath + 'typings/chocolatechipjs'));
     } else {
       gulp.src(["src/typings/tsd.d.ts"])
         .pipe(header('/// <reference path="jquery/jquery.d.ts" />\n'))
-        .pipe(gulp.dest(pkg.projectPath + "dist/typings"))
-        .pipe(gulp.dest(pkg.projectPath + 'chui/typings'));
+        .pipe(gulp.dest(pkg.projectPath + 'typings'));
       gulp.src(["src/typings/jquery/jquery.d.ts"])
-        .pipe(gulp.dest(pkg.projectPath + "dist/typings/jquery"))
-        .pipe(gulp.dest(pkg.projectPath + 'chui/typings/jquery'));
+        .pipe(gulp.dest(pkg.projectPath + 'typings/jquery'));
     }
 });
 

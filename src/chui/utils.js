@@ -100,7 +100,7 @@
         });
         return ret;
 
-      } else if (window.$chocolatechipjs) {
+      } else if (window.chocolatechipjs) {
         return this.is(selector);
       }
     },
@@ -124,7 +124,7 @@
     iznt : function ( selector ) {
       if (window.jQuery) {
         return this.not(selector);
-      } else if (window.$chocolatechipjs) {
+      } else if (window.chocolatechipjs) {
         return this.isnt(selector);
       }
     },
@@ -149,7 +149,7 @@
           }
         });
         return ret;        
-      } else if (window.$chocolatechipjs) {
+      } else if (window.chocolatechipjs) {
         return this.hasnt(selector);
       }
     },
@@ -165,7 +165,7 @@
           }
         });
         return ret;
-      } else if(window.$chocolatechipjs) {
+      } else if(window.chocolatechipjs) {
         return this.hasClass(className);
       }
     },
@@ -182,7 +182,7 @@
           }
         });
         return ret;
-      } else if (window.$chocolatechipjs) {
+      } else if (window.chocolatechipjs) {
         var ret = [];
         this.forEach(function(ctx) {
           if (ctx.classList.contains(className)) {
@@ -204,7 +204,7 @@
           }
         });
         return ret;
-      } else if (window.$chocolatechipjs) {
+      } else if (window.chocolatechipjs) {
         var ret = [];
 
         return ret;
@@ -223,7 +223,7 @@
           }
         });
         return ret;
-      } else if (window.$chocolatechipjs) {
+      } else if (window.chocolatechipjs) {
         var ret = [];
           if (!ctx.hasAttribute(property)){
             ret.push(ctx);
