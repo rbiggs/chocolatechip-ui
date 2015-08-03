@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "target": "es5"
+  },
+  "files": [
+    "typings/tsd.d.ts"
+  ]
+}

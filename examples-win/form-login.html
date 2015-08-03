@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Windows</title>
+  <link rel="stylesheet" href="../chui/chui-win-3.8.11.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.8.11.js"></script>
+  <style type="text/css" media="all">
+    /* Set background color for invalid inputs: */
+    input:focus:invalid {
+      background-color: rgba(225,0,0,0.05);
+    }
+    .horizontal.centered {
+      margin-top: 20px;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-orientation: horizontal;
+      -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -wekbit-box-pack: center;
+      -wekbit-justify-content: center;
+      -ms-justify-content: center;
+      justify-content: center;
+    }
+    button {
+      display: inline-block;
+      margin: auto;
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+    <nav>
+      <h1>Login</h1>    
+    </nav>
+    <article class='current'>
+      <section>
+        <h2>You must log in to play</h2>
+        <ul ui-implements='form' class='list'>
+          <li class='comp'>
+            <div>
+              <label for='userName'>User name:</label>
+            </div>
+            <aside>
+              <input id="userName" type="text" name="user.username" autocapitalize="off" autocorrect="off" required>
+            </aside>
+          </li>
+          <li class='comp'>
+            <div>
+              <label for='password'>Password:</label>
+            </div>
+            <aside>
+              <input id="password" type="password" name="user.password" autocapitalize="off" autocorrect="off" required>
+            </aside>
+          </li>
+        </ul> 
+      <div class='horizontal centered'>
+        <button id="loginSubmit">Login</button>
+        <button id="goToForgotPassword">Forgot password?</button>
+      </div>
+      </section>
+    </article>
+</body>
+</html>

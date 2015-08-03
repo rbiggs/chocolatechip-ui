@@ -88,10 +88,14 @@
       destinationToolbar = destination.next().hazClass('toolbar');
       destination.removeClass('previous next').addClass('current');
       destination.prev().removeClass('previous next').addClass('current');
-      destinationToolbar.removeClass('previous next').addClass('current');
+      if (destinationToolbar && destinationToolbar.length) {
+        destinationToolbar.removeClass('previous next').addClass('current');
+      }
       currentArticle.removeClass('current').addClass('next');
       currentArticle.prev().removeClass('current').addClass('next');
-      currentToolbar.removeClass('current').addClass('next');
+      if (currentToolbar && currentToolbar.length) {
+        currentToolbar.removeClass('current').addClass('next');
+      }
       $('.toolbar.previous').removeClass('previous').addClass('next');
       $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
       triggerNavigationEvent(destination);
@@ -117,10 +121,14 @@
       destinationToolbar = destination.next().hazClass('toolbar');
       destination.removeClass('previous').addClass('current');
       destination.prev().removeClass('previous').addClass('current');
-      destinationToolbar.removeClass('previous').addClass('current');
+      if (destinationToolbar[0] && destinationToolbar.length) {
+        destinationToolbar.removeClass('previous').addClass('current');
+      }
       currentArticle.removeClass('current').addClass('next');
       currentArticle.prev().removeClass('current').addClass('next');
-      currentToolbar.removeClass('current').addClass('next');
+      if (currentToolbar[0] && currentToolbar.length) {
+        currentToolbar.removeClass('current').addClass('next');
+      }
       $.UISetHashOnUrl($.UINavigationHistory[histLen-2]);
       if ($.UINavigationHistory.length === 1) return;
       $.UINavigationHistory.pop();
@@ -151,10 +159,14 @@
       destinationToolbar = destination.next().hazClass('toolbar');
       current.removeClass('current').addClass('previous');
       currentNav.removeClass('current').addClass('previous');
-      currentToolbar.removeClass('current').addClass('previous');
+      if (currentToolbar && currentToolbar.length) {
+        currentToolbar.removeClass('current').addClass('previous');
+      }
       destination.removeClass(navigationClass).addClass('current');
       destinationNav.removeClass(navigationClass).addClass('current');
-      destinationToolbar.removeClass(navigationClass).addClass('current');
+      if (destinationToolbar && destinationToolbar.length) {
+        destinationToolbar.removeClass(navigationClass).addClass('current');
+      }
     
       $.UISetHashOnUrl(destination[0].id);
       setTimeout(function() {

@@ -170,7 +170,7 @@
           // Move list item up:
           $(list).on('singletap', '.move-up', function(e) {
             var item = $(this).closest('li');
-            if ((window.$chocolatechipjs && item.is('li:first-child')[0]) || window.jQuery && item.is('li:first-child')) {
+            if ((window.chocolatechipjs && item.is('li:first-child')[0]) || window.jQuery && item.is('li:first-child')) {
               return;
             } else {
               // Mark list as edited:
@@ -192,7 +192,7 @@
                 "transform": "translate3d(0," + height + "px,0)"
               });              
               setTimeout(function() {
-                if (window.$chocolatechipjs) {
+                if (window.chocolatechipjs) {
                   $.replace(prevClone, item);
                   $.replace(itemClone, prev);
                 } else {
@@ -211,7 +211,7 @@
             // transitioned ones alter:
             var itemClone = item.clone();
             var nextClone = next.clone();
-            if ((window.$chocolatechipjs && item.is('li:last-child')[0]) || window.jQuery && item.is('li:last-child')) {
+            if ((window.chocolatechipjs && item.is('li:last-child')[0]) || window.jQuery && item.is('li:last-child')) {
               return;
             } else {
               // Mark list as edited:
@@ -227,7 +227,7 @@
                 "transform": "translate3d(0,-" + height + "px,0)"
               });
               setTimeout(function() {
-                if (window.$chocolatechipjs) {
+                if (window.chocolatechipjs) {
                    $.replace(nextClone, item);
                    $.replace(itemClone, next);
                 } else {

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Windows</title>
+  <link rel="stylesheet" href="../chui/chui-win-3.8.11.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.8.11.js"></script>
+  <script>
+    $(function() {
+      $("#goToLast").on("singletap", function() {
+         $.UIGoToArticle("#article3");
+       });
+       $('#backToMain').on('singletap', function() {
+         $.UIGoBackToArticle('#main');
+       });
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>Non-Linear Navigation</h1>
+  </nav>
+  <article id='main' class='current'>
+    <section>
+      <ul class='list' role='list'>
+        <li role='button' class='nav' data-goto="article2">
+          <h3>Item</h3>
+        </li>
+      </ul>
+      <br><br>
+      <button id='goToLast' href='javascript:void(null)' class="action">Straight to Detail Article</button>
+    </section>
+  </article>
+  <nav>
+    <button class="back">Back</button>
+    <h1>Second Article</h1>
+  </nav>
+  <article id="article2" class='next'>
+    <section>
+      <ul class='list' role='list'>
+        <li role='button' data-goto="article3" class='nav'>
+          <span class='counter'>1</span>
+          <h3>Item</h3>
+          <h4>Item Subtitle</h4>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav>
+    <button id='backToMain' class='backTo'>Back</button>
+    <h1>BackTo Button</h1>
+  </nav>
+  <article id="article3" class='next'>
+    <section>
+      <ul class='list'>
+        <li>
+          <h3>Item</h3>
+          <h4>Item Subtitle</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>
