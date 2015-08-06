@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-iOS.css
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.11
+Version: 3.9.0
 */
 /*
   To create a custom theme, uncomment the second of each of the following, then adjust the color for @primaryColor. If you want a secondary color, uncomment the line for @secondaryColor and set it's value to what you want.
@@ -2150,14 +2150,14 @@ article.current.blurred.removeBlurSlow {
 .slide-out {
   position: absolute;
   top: 45px;
-  left: 0;
+  right: 0;
   bottom: 0;
   background-color: #ffffff;
   z-index: 111111111;
-  width: 100%;
+  width: 90%;
   visibility: hidden;
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
   overflow-x: hidden;
@@ -2179,6 +2179,8 @@ article.current.blurred.removeBlurSlow {
   visibility: visible;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
+  border-left: solid 1px #c8c8c8;
+  box-shadow: -3px 0 6px rgba(0, 0, 0, 0.25);
 }
 .slide-out > section {
   -webkit-box-flex: 1;
@@ -2192,7 +2194,7 @@ button.slide-out-button {
   position: absolute;
   z-index: 1111111;
   top: 5px;
-  left: 15px;
+  right: 15px;
   width: 35px;
   height: 35px;
   -webkit-box-sizing: border-box;
@@ -2224,24 +2226,38 @@ body.slide-out-app > article.show {
   display: block !important;
   /*margin-top: 20px !important;*/
 }
+body.slide-out-app > article.navigable {
+  display: block !important;
+}
 body.slide-out-app > nav:not(:first-of-type) {
-  display: none !important;
+  display: none;
+}
+body.slide-out-app > nav:not(:first-of-type).current {
+  display: flex !important;
+  display: -webkit-flex !important;
+  display: -webkit-box !important;
 }
 body.slide-out-app > nav:not(:first-of-type).show {
   display: block !important;
   z-index: 10000;
 }
+html[dir=rtl] .slide-out {
+  right: 10%;
+}
 html[dir=rtl] button.slide-out-button {
-  right: 15px;
-  left: auto;
+  left: 15px;
+  right: auto;
 }
 html[dir=rtl] .slide-out {
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+  border-left: none;
+  border-right: solid 1px #c8c8c8;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.25);
 }
 html[dir=rtl] .slide-out.open {
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0) !important;
 }
 /* ==============================
    Stepper Control

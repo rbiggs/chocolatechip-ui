@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.11
+Version: 3.9.0
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -472,7 +472,7 @@ if(window.jQuery) {
     });
     body.on($.eventMove, function(e) {
       if (e.originalEvent) e = e.originalEvent;
-      if (window.navigator.msPointerEnabled) {
+      if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) {
         if (window && window.jQuery && $ === window.jQuery) {
           if (e.originalEvent && !e.originalEvent.isPrimary) return;
         } else {
@@ -693,13 +693,13 @@ if(window.jQuery) {
     }
     function determineDurationType (duration) {
       if (/m/.test(duration)) {
-        return parseFloat(duration); 
+        return parseFloat(duration);
       } else if (/s/.test(duration)) {
         return parseFloat(duration) * 100;
       }
     }
     tansitionDuration = determineDurationType($('article').eq(0).css(transition));
-    
+
     setTimeout(function() {
       $(target).trigger({type: 'navigationend'});
     }, tansitionDuration);
@@ -743,7 +743,7 @@ if(window.jQuery) {
       var currentArticle = $('article.current');
       var destination = $(articleID);
       var currentToolbar;
-      var destinationToolbar;      
+      var destinationToolbar;
       if ($.UINavigationHistory.length === 0) {
         destination = $('article:first-of-type');
         $.UINavigationHistory.push('#' + destination[0].id);
@@ -815,7 +815,7 @@ if(window.jQuery) {
       triggerNavigationEvent(destination);
     },
     isNavigating : false,
-  
+
     ///////////////////////////////
     // Navigate to Specific Article
     ///////////////////////////////
@@ -824,7 +824,7 @@ if(window.jQuery) {
       $.isNavigating = true;
       var current = $('article.current');
       var currentNav = current.prev();
-      destination = $(destination); 
+      destination = $(destination);
       var destinationID = '#' + destination[0].id;
       var destinationNav = destination.prev();
       var currentToolbar;
@@ -847,7 +847,7 @@ if(window.jQuery) {
       if (destinationToolbar && destinationToolbar.length) {
         destinationToolbar.removeClass(navigationClass).addClass('current');
       }
-    
+
       $.UISetHashOnUrl(destination[0].id);
       setTimeout(function() {
         $.isNavigating = false;
@@ -868,35 +868,40 @@ if(window.jQuery) {
     ///////////////////////////////////////////////////////////
     // Make sure that navs and articles have navigation states:
     ///////////////////////////////////////////////////////////
-    $('nav:not(#global-nav)').forEach(function(ctx, idx) {
-      // Prevent if splitlayout for tablets:
-      if ($('body')[0].classList.contains('splitlayout')) return;
-      if (idx === 0) {
-        ctx.classList.add('current');
-      } else { 
-        ctx.classList.add('next'); 
-      }
-    });
-  
-    $('article').forEach(function(ctx, idx) {
-      // Prevent if splitlayout for tablets:
-      if ($('body')[0].classList.contains('splitlayout')) return;
-      if ($('body')[0].classList.contains('slide-out-app')) return;
-      if (idx === 0) {
-        ctx.classList.add('current');
-      } else { 
-        ctx.classList.add('next'); 
-      }
-    }); 
+    var body = $('body')[0]
+    setTimeout(function() {
+      $('nav:not(#global-nav)').forEach(function(ctx, idx) {
+        // Prevent if splitlayout for tablets:
+        if (body.classList.contains('splitlayout')) return;
+        if ($('body')[0].classList.contains('slide-out-app')) return;
+        if (idx === 0) {
+          ctx.classList.add('current');
+        } else {
+          ctx.classList.add('next');
+        }
+      });
+
+      $('article').forEach(function(ctx, idx) {
+        // Prevent if splitlayout for tablets:
+        if (body.classList.contains('splitlayout')) return;
+        if (body.classList.contains('slide-out-app')) return;
+        if (idx === 0) {
+          ctx.classList.add('current');
+        } else {
+          ctx.classList.add('next');
+        }
+      });
+    }, 50);
       ///////////////////////////
     // Initialize Back Buttons:
     ///////////////////////////
     $('body').on('singletap', '.back', function() {
+      if (this.hasAttribute('disabled')) return;
       if (this.classList.contains('back')) {
         $.UIGoBack();
       }
     });
-  
+
     ////////////////////////////////
     // Handle navigation list items:
     ////////////////////////////////
@@ -927,7 +932,7 @@ if(window.jQuery) {
       var navigable =  '#' + ctx.getAttribute('data-goto');
       $(navigable).addClass('navigable');
     });
-  
+
     /////////////////////////////////////
     // Init navigation url hash tracking:
     /////////////////////////////////////
@@ -944,11 +949,13 @@ if(window.jQuery) {
   });
 
 
+
   $(function() {
     ///////////////////////////////////
     // Initialize singletap on buttons:
     ///////////////////////////////////
     $('body').on('singletap', 'button', function() {
+      if (this.hasAttribute('disabled')) return;
       var $this = $(this);
       if ($this.parent('.segmented')[0] || $this.parent('.tabbar')[0]) return;
       if (this.classList.contains('slide-out-button') || this.classList.contains('back') || this.classList.contains('backTo')) return;
@@ -958,6 +965,7 @@ if(window.jQuery) {
       }, 1000);
     });
   });
+
 
 
   $.fn.extend({
@@ -1939,9 +1947,9 @@ if(window.jQuery) {
     // Use $.UISlideout.populate to polate slideout.
     // See widget-factor.js for details.
     ////////////////////////////////////////////////
-    /* 
+    /*
     var options = {
-      position: position, 
+      position: position,
       dynamic: false,
       callback: $.noop
     };
@@ -1957,10 +1965,7 @@ if(window.jQuery) {
       }
       var slideoutButton = $("<button class='slide-out-button'></button>");
       var slideOut = '<div class="slide-out"><section></section></div>';
-      $('article').removeClass('next');
-      $('article').removeClass('current');
-      $('article').prev().removeClass('next');
-      $('article').prev().removeClass('current');
+      var articles = $('article');
       $('body').append(slideOut);
       $('body').addClass('slide-out-app');
       $('article:first-of-type').addClass('show');
@@ -1969,32 +1974,59 @@ if(window.jQuery) {
       $('.slide-out-button').on($.eventStart, function() {
         $('.slide-out').toggleClass('open');
         $(this).toggleClass('focused');
+        // Slide-out was closed && navigable is current:
+        if ($(".slide-out.open")[0] && $('.navigable').hazClass('current')[0]) {
+          $('.back').prop('disabled', 'disabled');
+          $('.back').attr('disabled', 'disabled');
+        }
+        // Slide-out was open && is not current:
+        if ($(".slide-out.open")[0] && !$('.navigable').hazClass('current')[0]) {
+          $('.back').removeAttr('disabled');
+        }
+        // Slide-out was open && navigable is current:
+        if (!$(".slide-out.open")[0] && $('.navigable').hazClass('current')[0]) {
+           $('.back').removeAttr('disabled');
+        }
+        // Slide-out was open && navigable is not current:
+        if (!$(".slide-out.open")[0] && $('.navigable').hazntClass('current')[0]) {
+          $('.back').removeAttr('disabled');
+        }
       });
       if (!settings.dynamic) {
         $('.slide-out').on('singletap', 'li', function() {
+          $.UINavigationHistory.splice(0,1);
           var $this = $(this);
           $this.addClass('selected');
           setTimeout(function() {
             $this.removeClass('selected');
           }, 500);
           var whichArticle = '#' + $(this).attr('data-show-article');
+          $('.navigable').removeClass('previous').addClass('next');
+          $('.navigable').prev().removeClass('previous').addClass('next');
+          $('.navigable').removeClass('current').removeClass('previous').addClass('next');
+          $('.navigable').prev().removeClass('current').removeClass('previous').addClass('next');
           $.UINavigationHistory[0] = whichArticle;
           $.UISetHashOnUrl(whichArticle);
           $.publish('chui/navigate/leave', $('article.show')[0].id);
           $.publish('chui/navigate/enter', whichArticle);
+          $('.back').removeProp('disabled');
+          if ($(whichArticle).hazClass('navigable')[0]) {
+            $(whichArticle).removeClass('next').addClass('current');
+            $(whichArticle).prev().removeClass('next').addClass('current');
+          }
           if ($.isAndroid || $.isChrome) {
             setTimeout(function() {
             $('.slide-out').removeClass('open');
-            $('article').removeClass('show');
-            $('article').prev().removeClass('show');
+            articles.removeClass('show');
+            articles.prev().removeClass('show');
             $(whichArticle).addClass('show');
             $(whichArticle).prev().addClass('show');
             $('.slide-out-button').removeClass('focused');
             }, 400);
           } else {
             $('.slide-out').removeClass('open');
-            $('article').removeClass('show');
-            $('article').prev().removeClass('show');
+            articles.removeClass('show');
+            articles.prev().removeClass('show');
             $(whichArticle).addClass('show');
             $(whichArticle).prev().addClass('show');
             $('.slide-out-button').removeClass('focused');
@@ -2029,7 +2061,7 @@ if(window.jQuery) {
     // The key will be the id of the article to be shown.
     // The value is the title for the list item.
     // [{music:'Music'},{docs:'Documents'},{recipes:'Recipes'}]
-    /////////////////////////////////////////////////////////////////  
+    /////////////////////////////////////////////////////////////////
     populate: function( args ) {
       var slideout = $('.slide-out');
       if (!slideout[0]) return;
@@ -2050,6 +2082,7 @@ if(window.jQuery) {
       }
     }
   });
+
 
 
   $.fn.extend({

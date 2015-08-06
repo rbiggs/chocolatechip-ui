@@ -10,7 +10,9 @@ Please visit [ChocolateChip-UI's Website](http://chocolatechip-ui.com) for docum
 
 ##Building 
 
-If you do not want to build the framework from scratch, you can use the pre-compiled version in the dist folder. This is just the framework, minus examples, demos, etc.
+You do not have to build ChocolateChipUI. This repository has all examples and test pre-built for you. To view the iOS examples, please use the Safari Browser. For Android, use Chrome. For Windows Phone, use IE 10 or MS Edge. 
+
+If you want or need to make modifications to the code for whatever reason, you'll need to build the files from the source code. For details how to do that, read on.
 
 ChocolateChip-UI uses Gulpjs to build. This is a Node package, so you'll first need to have [Node installed](http://http://nodejs.org). After installing Nodejs, or if you already have it installed, on Mac OS X use the terminal to cd to the directory. On Windows you can use the Windows command prompt to do this. Once you are in the folder, run the following command in your terminal. 
 

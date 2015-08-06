@@ -1,83 +1,91 @@
 /* ==============================
    Slide Out
    =========================== */
-.slide-out {
-  position: absolute;
-  top: 44pt;
-  left: 0;
-  bottom: 0;
-  background-color: @appBkColor;
-  z-index: 111111111;
-  width: 100%;
-  visibility: hidden;
-  transform: translate3d(-100%,0,0);
-  transition: all .25s ease-out;
-  overflow-x: hidden;
-  overflow-y: auto;
-  box-sizing: border-box;
-  #flex > .display(flex);
-  #flex > .flex-direction(column);
-  #flex > .justify-content(flex-start);
-  #flex > .align-items(stretch);
-
-  &.open {
-    visibility: visible;
-    transform: translate3d(0,0,0);
-  }
-
-  > section {
-    #flex > .flex(1);
-    padding-bottom: 100px;
+body.slide-out-app {
+  & > .slide-out {
+    position: absolute;
+    top: 44pt;
+    right: 0;
+    bottom: 0;
+    background-color: @appBkColor;
+    z-index: 111111111;
+    width: 90%;
+    visibility: hidden;
+    transform: translate3d(100%,0,0);
+    transition: all .25s ease-out;
     overflow-x: hidden;
     overflow-y: auto;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
+    box-sizing: border-box;
+    #flex > .display(flex);
+    #flex > .flex-direction(column);
+    #flex > .justify-content(flex-start);
+    #flex > .align-items(stretch);
+    border-left: solid 1px rgba(255,255,255,.5);
+    box-shadow: -3px 0 8px rgba(255,255,255,0.25);
 
-    > ul.list {
-      margin-top: 20px;
+    &.open {
+      visibility: visible;
+      transform: translate3d(0,0,0);
+    }
+
+    > section {
+      #flex > .flex(1);
+      padding-bottom: 100px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -ms-overflow-style: -ms-autohiding-scrollbar;
+
+      > ul.list {
+        margin-top: 20px;
+      }
     }
   }
-}
 
-button.slide-out-button {
-  position: absolute;
-  z-index: 1111111;
-  top: 0 !important;
-  left: 15px;
-  height: 35px;
-  width: 35px;
-  box-sizing: border-box;
-  margin-left: -5px !important;
-
-  &::before {
-    content: '\E179';
-    display: block;
+  button.slide-out-button {
+    position: absolute;
+    z-index: 1111111;
+    top: 16px !important;
+    right: 15px !important;
+    left: auto !important;
     height: 35px;
     width: 35px;
-    color: @buttonTextColor;
-    font-family: "Segoe UI Symbol";
-    font-weight: normal;
-    font-size: 14pt;
-    text-align: left;
-    display: block;
-    margin: 2px 0 0 -5px;
+    box-sizing: border-box;
+    margin-left: 20px !important;
+
+    &::before {
+      content: '\E179';
+      display: block;
+      height: 35px;
+      width: 35px;
+      color: @buttonTextColor;
+      font-family: "Segoe UI Symbol";
+      font-weight: normal;
+      font-size: 14pt;
+      text-align: left;
+      display: block;
+      margin: 2px 0 0 -5px;
+    }
+  }
+
+  button.slide-out-button:hover::before {
+    color: @navBkgnd;
+  }
+
+  & > article,
+  & > nav:not(:first-of-type) {
+    display: none;
+
+    &.current {
+      #flex > .display(flex) !important;
+    }
+  }
+
+  & > article.show,
+  & > nav.show  {
+    display: block !important;
+    z-index: 100;
   }
 }
-
-button.slide-out-button:hover::before {
-  color: @navBkgnd;
-}
-
-body.slide-out-app > article,
-body.slide-out-app > nav:not(:first-of-type) {
-  display: none !important;
-}
-
-body.slide-out-app > article.show,
-body.slide-out-app > nav.show  {
-  display: block !important;
-  z-index: 100;
-}
-
 .slideout-header {
   background-color: @appBkColor !important;
 
@@ -88,9 +96,14 @@ body.slide-out-app > nav.show  {
   }
 }
 
-html[dir=rtl] {
+html[dir=rtl] body.slide-out-app {
   .slide-out {
-    transform: translate3d(100%,0,0);
+    transform: translate3d(-100%,0,0);
+    right: auto !important;
+    left: 0 !important;
+    border-left: none;
+    border-right: solid 1px rgba(255,255,255,.5);
+    box-shadow: 3px 0 8px rgba(255,255,255,0.25);
     
     &.open {
       transform: translate3d(0,0,0);
@@ -98,6 +111,8 @@ html[dir=rtl] {
   }
   button.slide-out-button {
     margin-right: 10px !important;
+    left: 0px !important;
+    right: auto !important;
 
     &::before {
       margin: 2px -17px 0 0 !important;;

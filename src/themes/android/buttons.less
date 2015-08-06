@@ -125,7 +125,7 @@ nav > &.back, nav > &.backTo {
   .transition(all .4s ease-out);
   font-size: 0 !important;
   -webkit-animation-name: '';
-  top: 0;
+  top: 12px;
 
   -webkit-animation-duration: 0.5s;
   -webkit-animation-timing-function: ease-out;
@@ -152,6 +152,7 @@ nav > &.back, nav > &.backTo {
     left: 6px;
     transition: all .25s ease-out;
     -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
   }
 
   &::after {
@@ -165,6 +166,7 @@ nav > &.back, nav > &.backTo {
     top: 22px !important;
     left: 6px;
     -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 }
 
@@ -180,12 +182,12 @@ body {
   &.isNativeAndroidBrowser {
 
     &  button.back, & button.backTo {
-      top: -4px;
+      top: 6px;
       bottom: 0;
 
-       &::after {
-        top: 2px;
-       }
+      &::after {
+       top: 2px;
+      }
     }
     button.back::before {
       top: 12px;
@@ -213,12 +215,17 @@ html[dir=rtl] button {
   &.back, &.backTo {
     margin: 0 0 0 16px;
     &::before {
-      top: 13px;
+      top: 12px;
+      left: 17px;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
     }
     
     &::after {
-      .transform(rotate(230deg));
       right: auto;
+      left: 17px;
+      -webkit-transform: rotate(-45deg);
+      transform: rotate(-45deg);
     }
   }
 

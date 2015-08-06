@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI-Win.css
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.8.11
+Version: 3.9.0
 */
 /*
   To create a custom theme, adjust the color for @primaryColor. If you want a secondary color, say on the background of your lists, adjust the color of @listBkColor to the color you want.
@@ -1764,16 +1764,16 @@ input[type="range"] {
 /* ==============================
    Slide Out
    =========================== */
-.slide-out {
+body.slide-out-app > .slide-out {
   position: absolute;
   top: 44pt;
-  left: 0;
+  right: 0;
   bottom: 0;
   background-color: #000000;
   z-index: 111111111;
-  width: 100%;
+  width: 90%;
   visibility: hidden;
-  transform: translate3d(-100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
   transition: all 0.25s ease-out;
   overflow-x: hidden;
   overflow-y: auto;
@@ -1786,12 +1786,14 @@ input[type="range"] {
   justify-content: flex-start;
   -ms-flex-align: stretch;
   align-items: stretch;
+  border-left: solid 1px rgba(255, 255, 255, 0.5);
+  box-shadow: -3px 0 8px rgba(255, 255, 255, 0.25);
 }
-.slide-out.open {
+body.slide-out-app > .slide-out.open {
   visibility: visible;
   transform: translate3d(0, 0, 0);
 }
-.slide-out > section {
+body.slide-out-app > .slide-out > section {
   -ms-flex: 1;
   flex: 1;
   padding-bottom: 100px;
@@ -1799,20 +1801,21 @@ input[type="range"] {
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
-.slide-out > section > ul.list {
+body.slide-out-app > .slide-out > section > ul.list {
   margin-top: 20px;
 }
-button.slide-out-button {
+body.slide-out-app button.slide-out-button {
   position: absolute;
   z-index: 1111111;
-  top: 0 !important;
-  left: 15px;
+  top: 16px !important;
+  right: 15px !important;
+  left: auto !important;
   height: 35px;
   width: 35px;
   box-sizing: border-box;
-  margin-left: -5px !important;
+  margin-left: 20px !important;
 }
-button.slide-out-button::before {
+body.slide-out-app button.slide-out-button::before {
   content: '\E179';
   height: 35px;
   width: 35px;
@@ -1824,12 +1827,17 @@ button.slide-out-button::before {
   display: block;
   margin: 2px 0 0 -5px;
 }
-button.slide-out-button:hover::before {
+body.slide-out-app button.slide-out-button:hover::before {
   color: #000000;
 }
 body.slide-out-app > article,
 body.slide-out-app > nav:not(:first-of-type) {
-  display: none !important;
+  display: none;
+}
+body.slide-out-app > article.current,
+body.slide-out-app > nav:not(:first-of-type).current {
+  display: -ms-flexbox !important;
+  display: flex !important;
 }
 body.slide-out-app > article.show,
 body.slide-out-app > nav.show {
@@ -1844,16 +1852,23 @@ body.slide-out-app > nav.show {
   color: #ffffff !important;
   margin-top: 20px !important;
 }
-html[dir=rtl] .slide-out {
-  transform: translate3d(100%, 0, 0);
+html[dir=rtl] body.slide-out-app .slide-out {
+  transform: translate3d(-100%, 0, 0);
+  right: auto !important;
+  left: 0 !important;
+  border-left: none;
+  border-right: solid 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 3px 0 8px rgba(255, 255, 255, 0.25);
 }
-html[dir=rtl] .slide-out.open {
+html[dir=rtl] body.slide-out-app .slide-out.open {
   transform: translate3d(0, 0, 0);
 }
-html[dir=rtl] button.slide-out-button {
+html[dir=rtl] body.slide-out-app button.slide-out-button {
   margin-right: 10px !important;
+  left: 0px !important;
+  right: auto !important;
 }
-html[dir=rtl] button.slide-out-button::before {
+html[dir=rtl] body.slide-out-app button.slide-out-button::before {
   margin: 2px -17px 0 0 !important;
 }
 /* ==============================

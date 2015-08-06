@@ -7,13 +7,13 @@ body.isNativeAndroidBrowser .slide-out {
 .slide-out {
   position: absolute;
   top: 48px;
-  left: 0;
+  right: 0;
   bottom: 0;
   background-color: @appBkColor;
   z-index: 111111111;
-  width: 100%;
+  width: 90%;
   visibility: hidden;
-  .transform(translate3d(-100%,0,0));
+  .transform(translate3d(100%,0,0));
   .transition(all .25s ease-out);
   .overflow-y-scroll;
   -webkit-overflow-scrolling: touch;
@@ -25,6 +25,8 @@ body.isNativeAndroidBrowser .slide-out {
   &.open {
     visibility: visible;
     .transform(translate3d(0,0,0));
+    border-left: solid 1px #c8c8c8;
+    box-shadow: -3px 0 6px rgba(0,0,0,0.25);
   }
 
   > section {
@@ -41,6 +43,7 @@ body.isNativeAndroidBrowser .slide-out {
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
     background-image: -webkit-radial-gradient(circle, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.045) 20%);
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0.045) 20%);
     background-size: 1000% 1000%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -57,7 +60,7 @@ nav > button.slide-out-button {
   position: absolute;
   z-index: 1111111;
   top: 8px;
-  left: 10px;
+  right: 10px;
   .size(35px, 35px);
   background-image: -webkit-linear-gradient(left, black, black) !important;
   background-image: linear-gradient(left, black, black) !important;
@@ -93,9 +96,9 @@ nav > button.slide-out-button {
     background-image: linear-gradient(left, black, black);
     background-repeat: no-repeat;
     -webkit-animation-name: '';
-    -webkit-transform: rotate(360deg);
+    -webkit-transform: rotate(180deg);
     animation-name: '';
-    transform: rotate(360deg);
+    transform: rotate(180deg);
     background-position: 9px center;
 
     &::before {
@@ -144,12 +147,19 @@ nav > button.slide-out-button {
 body.slide-out-app {
   
   > article {
-    display: none !important;
+    display: none;
   
     &.show {
       display: block !important;
       z-index: 100;      
     }
+    &.navigable {
+      display: block !important;
+    }
+  }
+
+  > nav {
+    box-shadow: none !important;
   }
 
   > #global-nav {
@@ -158,19 +168,34 @@ body.slide-out-app {
 
   > nav {
 
+    & > .back,
+    & > .backTo {
+      left: 0;
+      right: auto;
+    }
+
     &:not(:first-of-type).show {
       display: block !important;
       z-index: 1111111111;
-      left: 80px;
+      left: 0;
       right: 80px;
     }
 
     &:not(:first-of-type) {
-      display: none !important;
-    }   
+      display: none !important; 
+
+      &.current {
+        display: -webkit-flex !important;
+        display: flex !important;
+        width: 80% !important;
+        left: 0 !important;
+      } 
+    } 
   }
 }
-
+body.isNativeAndroidBrowser.slide-out-app > nav.current {
+  display: block !important;
+}
 .slideout-header {
   background-color: @appBkColor !important;
   border-bottom: none !important;
@@ -181,18 +206,41 @@ body.slide-out-app {
   }
 }
 
-html[dir=rtl] {
+html[dir=rtl] body.slide-out-app {
   button.slide-out-button {
-    right: 5px !important;
-    left: auto !important;
+    left: 5px !important;
+    right: auto !important;
+
+    &.focused {
+      &::before {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        left: 16px;
+      }
+
+      &::after {
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        left: 16px;
+      }
+    }
   }
   .slide-out {
-    -webkit-transform: translate3d(100%,0,0);
-    transform: translate3d(100%,0,0);
+    right: 10%;
+    left: auto;
+    -webkit-transform: translate3d(-100%,0,0);
+    transform: translate3d(-100%,0,0);
     
     &.open {
       -webkit-transform: translate3d(0,0,0);
       transform: translate3d(0,0,0);
+      border-left: none;
+      border-right: solid 1px #c8c8c8;
+      box-shadow: 3px 0 6px rgba(0,0,0,0.25);
     }
+  }
+  > nav:not(:first-of-type).show {
+    left: auto !important;
+    right: 0;
   }
 }
