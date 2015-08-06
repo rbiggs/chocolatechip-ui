@@ -13,13 +13,13 @@
     }
     function determineDurationType (duration) {
       if (/m/.test(duration)) {
-        return parseFloat(duration); 
+        return parseFloat(duration);
       } else if (/s/.test(duration)) {
         return parseFloat(duration) * 100;
       }
     }
     tansitionDuration = determineDurationType($('article').eq(0).css(transition));
-    
+
     setTimeout(function() {
       $(target).trigger({type: 'navigationend'});
     }, tansitionDuration);
@@ -63,7 +63,7 @@
       var currentArticle = $('article.current');
       var destination = $(articleID);
       var currentToolbar;
-      var destinationToolbar;      
+      var destinationToolbar;
       if ($.UINavigationHistory.length === 0) {
         destination = $('article:first-of-type');
         $.UINavigationHistory.push('#' + destination[0].id);
@@ -135,7 +135,7 @@
       triggerNavigationEvent(destination);
     },
     isNavigating : false,
-  
+
     ///////////////////////////////
     // Navigate to Specific Article
     ///////////////////////////////
@@ -144,7 +144,7 @@
       $.isNavigating = true;
       var current = $('article.current');
       var currentNav = current.prev();
-      destination = $(destination); 
+      destination = $(destination);
       var destinationID = '#' + destination[0].id;
       var destinationNav = destination.prev();
       var currentToolbar;
@@ -167,7 +167,7 @@
       if (destinationToolbar && destinationToolbar.length) {
         destinationToolbar.removeClass(navigationClass).addClass('current');
       }
-    
+
       $.UISetHashOnUrl(destination[0].id);
       setTimeout(function() {
         $.isNavigating = false;
@@ -188,35 +188,40 @@
     ///////////////////////////////////////////////////////////
     // Make sure that navs and articles have navigation states:
     ///////////////////////////////////////////////////////////
-    $('nav:not(#global-nav)').forEach(function(ctx, idx) {
-      // Prevent if splitlayout for tablets:
-      if ($('body')[0].classList.contains('splitlayout')) return;
-      if (idx === 0) {
-        ctx.classList.add('current');
-      } else { 
-        ctx.classList.add('next'); 
-      }
-    });
-  
-    $('article').forEach(function(ctx, idx) {
-      // Prevent if splitlayout for tablets:
-      if ($('body')[0].classList.contains('splitlayout')) return;
-      if ($('body')[0].classList.contains('slide-out-app')) return;
-      if (idx === 0) {
-        ctx.classList.add('current');
-      } else { 
-        ctx.classList.add('next'); 
-      }
-    }); 
+    var body = $('body')[0]
+    setTimeout(function() {
+      $('nav:not(#global-nav)').forEach(function(ctx, idx) {
+        // Prevent if splitlayout for tablets:
+        if (body.classList.contains('splitlayout')) return;
+        if ($('body')[0].classList.contains('slide-out-app')) return;
+        if (idx === 0) {
+          ctx.classList.add('current');
+        } else {
+          ctx.classList.add('next');
+        }
+      });
+
+      $('article').forEach(function(ctx, idx) {
+        // Prevent if splitlayout for tablets:
+        if (body.classList.contains('splitlayout')) return;
+        if (body.classList.contains('slide-out-app')) return;
+        if (idx === 0) {
+          ctx.classList.add('current');
+        } else {
+          ctx.classList.add('next');
+        }
+      });
+    }, 50);
       ///////////////////////////
     // Initialize Back Buttons:
     ///////////////////////////
     $('body').on('singletap', '.back', function() {
+      if (this.hasAttribute('disabled')) return;
       if (this.classList.contains('back')) {
         $.UIGoBack();
       }
     });
-  
+
     ////////////////////////////////
     // Handle navigation list items:
     ////////////////////////////////
@@ -247,7 +252,7 @@
       var navigable =  '#' + ctx.getAttribute('data-goto');
       $(navigable).addClass('navigable');
     });
-  
+
     /////////////////////////////////////
     // Init navigation url hash tracking:
     /////////////////////////////////////

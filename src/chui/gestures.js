@@ -99,7 +99,7 @@
     });
     body.on($.eventMove, function(e) {
       if (e.originalEvent) e = e.originalEvent;
-      if (window.navigator.msPointerEnabled) {
+      if (window.navigator.pointerEnabled || window.navigator.msPointerEnabled) {
         if (window && window.jQuery && $ === window.jQuery) {
           if (e.originalEvent && !e.originalEvent.isPrimary) return;
         } else {

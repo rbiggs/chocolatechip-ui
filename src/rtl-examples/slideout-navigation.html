@@ -64,7 +64,7 @@
   <script>
     $(function() {
       $.UISlideout();
-      $.UISlideout.populate([{music:'موسيقى'},{pictures:'الصور'},{dictionary:'قاموس'},{contacts:'اتصال'}]);
+      $.UISlideout.populate([{music:'موسيقى'},{pictures:'الصور'},{dictionary:'قاموس'},{fruits:'فاكهة'}]);
     });
   </script>
 </head>
@@ -237,41 +237,153 @@
       </ul>
     </section>
   </article>
-  <nav>
-    <h1>اتصالات</h1>
+
+
+
+  <nav class='next'>
+    <h1>فاكهة</h1>
   </nav>
-  <article id='contacts'>
+  <article id='fruits' class='next'>
     <section>
+      <h2>فاكهة</h2>
       <ul class='list'>
+        <li class="nav" data-goto="apples">
+          <h3>تفاحة</h3>
+        </li>
+        <li class="nav" data-goto="oranges">
+          <h3>برتقال</h3>
+        </li>
+        <li class="nav" data-goto="bananas">
+          <h3>موز</h3>
+        </li>
+        <li class="nav" data-goto="peaches">
+          <h3>خوخ</h3>
+        </li>
+        <li class="nav" data-goto="apricots">
+          <h3>مشمش</h3>
+        </li>
+        <li class="nav" data-goto="cherries">
+          <h3>كرز</h3>
+        </li>
+       </ul>
+    </section>
+  </article>
+  <nav class="next">
+    <button class="back">رجوع</button>
+    <h1>تفاحة</h1>
+  </nav>
+  <article class="next" id="apples">
+    <section>
+      <h2>استعمال</h2>
+      <ul class="list">
         <li>
-          <h3>John Doe</h3>
-          </h4>Bagley's Bagels</h4>
-          <p>111-111-1111</p>
+          <h3>عصير</h3>
         </li>
         <li>
-          <h3>Suzy Cue</h3>
-          </h4>Jeff's Jiffies</h4>
-          <p>222-222-2222</p>
+          <h3>المعجنات</h3>
         </li>
         <li>
-          <h3>Paul Parker</h3>
-          </h4>Bonzo's</h4>
-          <p>333-333-3333</p>
+          <h3>عصير التفاح</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav class="next">
+    <button class="back">رجوع</button>
+    <h1>برتقال</h1>
+  </nav>
+  <article class="next" id="oranges">
+    <section>
+      <h2>استعمال</h2>
+      <ul class="list">
+        <li>
+          <h3>عصير</h3>
         </li>
         <li>
-          <h3>Mary Joe</h3>
-          </h4>Borx International</h4>
-          <p>444-444-4444</p>
+          <h3>العصائر</h3>
         </li>
         <li>
-          <h3>Joe Bodoni</h3>
-          </h4>Sasquatch Suits</h4>
-          <p>555-555-5555</p>
+          <h3>سلطة فواكه</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav class="next">
+    <button class="back">رجوع</button>
+    <h1>موز</h1>
+  </nav>
+  <article class="next" id="bananas">
+    <section>
+      <h2>استعمال</h2>
+      <ul class="list">
+        <li>
+          <h3>العصائر</h3>
         </li>
         <li>
-          <h3>Edna Edmond</h3>
-          </h4>MacDoogle's</h4>
-          <p>666-666-6666</p>
+          <h3>بودنغ</h3>
+        </li>
+        <li>
+          <h3>سلطة فواكه</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav class="next">
+    <button class="back">رجوع</button>
+    <h1>خوخ</h1>
+  </nav>
+  <article class="next" id="peaches">
+    <section>
+      <h2>استعمال</h2>
+      <ul class="list">
+        <li>
+          <h3>فطيرة</h3>
+        </li>
+        <li>
+          <h3>حلويات</h3>
+        </li>
+        <li>
+          <h3>العصائر</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav class="next">
+    <button class="back">رجوع</button>
+    <h1>مشمش</h1>
+  </nav>
+  <article class="next" id="apricots">
+    <section>
+      <h2>استعمال</h2>
+      <ul class="list">
+        <li>
+          <h3>حبوب</h3>
+        </li>
+        <li>
+          <h3>العصائر</h3>
+        </li>
+        <li>
+          <h3>سلطة فواكه</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav class="next">
+    <button class="back">رجوع</button>
+    <h1>كرز</h1>
+  </nav>
+  <article class="next" id="cherries">
+    <section>
+      <h2>استعمال</h2>
+      <ul class="list">
+        <li>
+          <h3>فطائر</h3>
+        </li>
+        <li>
+          <h3>المعجنات</h3>
+        </li>
+        <li>
+          <h3>سلطة فواكه</h3>
         </li>
       </ul>
     </section>
