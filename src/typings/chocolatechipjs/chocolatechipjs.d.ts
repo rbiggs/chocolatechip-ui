@@ -1283,40 +1283,31 @@ declare type OpenEndedDictionary = Object;
  * @param init An object literal of key value pairs to set method, headers, body, credentials or cache.
  * @return Promise.
  */
+
 interface fetch {
-  (input: {
-    url: string;
-    request: Request;
-  },
-  init: {
-    method?: {
-      delete?: string;
-      get?: string;
-      head?: string;
-      options?: string;
-      post?: string;
-      put?: string;
-    };
-    headers?: Headers;
+  (input: string, 
+    init?: {
+    method?: string;
+    headers?: {};
     body?: any;
-    mode: {
+    mode?:  {
       cors: string;
       "no-cors": string;
       "same-origin": string;
     };
-    credentials: {
+    credentials?: {
       omit: string;
       "same-origin": string;
       include: string;
     };
-    cache: {
+    cache?: {
       default: string;
       "no-store": string;
       reload: string;
       "no-cache": string;
       "force-cache": string;
       "only-if-cached": string;
-    };
+    }
   }): Promise<any>;
 }
 
@@ -1336,7 +1327,7 @@ interface Headers {
 }
 
 interface decode {
-  (body): FormData;
+  (body: any): FormData;
 }
 
 interface Request {
@@ -1394,8 +1385,12 @@ interface Response {
   headers: Headers;
   bodyUsed: boolean;
 }
-interface Window {
-  jsonp: {}
+interface ChocolateChipStatic {
+  jsonp(url: string, options?: {
+    timeout?: number;
+    callbackName?: string;
+    clear?: boolean;
+  }): any 
 }
 
 
