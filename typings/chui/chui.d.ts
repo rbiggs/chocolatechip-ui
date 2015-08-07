@@ -1,8 +1,8 @@
-// Type definitions for chui v3.8.11
+// Type definitions for chui v3.9.0
 // Project: https://github.com/chocolatechipui/chocolatechip-ui
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// ChocolateChip-UI 3.8.11
+// ChocolateChip-UI 3.9.0
 /**
  These TypeScript delcarations for ChocolateChip-UI contain interfaces for both ChocolateChipJS and jQuery. Depending on which library you are using, you will get the type interfaces appropriate for it.
 */
@@ -226,8 +226,8 @@ interface ChocolateChipStatic {
        */
       (options?: {
           dynamic?: boolean;
-          callback?: Function;
-      }): void;
+          callback?: (args?: any) => any;
+      }): any;
 
       /**
        * Populates a slideout menu.
@@ -292,7 +292,7 @@ interface ChocolateChipStatic {
    */
   UISetupCarousel(options: {
       target: any;
-      panels: string[];
+      panels: ChocolateChipElementArray;
       loop?: boolean;
       pagination?: boolean;
   }): void;
@@ -925,8 +925,8 @@ interface JQueryStatic {
        */
       (options?: {
           dynamic?: boolean;
-          callback?: Function;
-      }): void;
+          callback?: (args?: any) => any;
+      }): any;
 
       /**
        * Populates a slideout menu.
@@ -991,7 +991,7 @@ interface JQueryStatic {
    */
   UISetupCarousel(options: {
       target: any;
-      panels: string[];
+      panels: JQuery;
       loop?: boolean;
       pagination?: boolean;
   }): void;
