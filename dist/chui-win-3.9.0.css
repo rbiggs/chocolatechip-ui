@@ -1338,8 +1338,6 @@ html[dir=rtl] .popup footer > button:first-of-type {
   opacity: .35;
 }
 .deletion-indicator {
-  display: -ms-flexbox;
-  display: flex;
   box-sizing: border-box;
   padding: 2px 5px 13px 1px;
   height: 24px;
@@ -1800,6 +1798,7 @@ body.slide-out-app > .slide-out > section {
   overflow-x: hidden;
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-style: autohiding-scrollbar;
 }
 body.slide-out-app > .slide-out > section > ul.list {
   margin-top: 20px;
