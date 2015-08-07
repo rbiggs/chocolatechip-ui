@@ -15,7 +15,6 @@
     */
     UISlideout : function ( options ) {
       var settings = {
-        position: 'left',
         dynamic: false,
         callback: $.noop
       }
