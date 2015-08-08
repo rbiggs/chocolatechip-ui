@@ -4,6 +4,8 @@
 
 ##ChocolateChip-UI
 
+[![TypeScript definitions on DefinitelyTyped](//definitelytyped.org/badges/standard-flat.svg)](http://definitelytyped.org)
+
 ChocolateChip-UI is a framework for making mobile Web apps. It has three components: semantic HTML5 markup, CSS and JavaScript. To successfully make an app with ChocolateChip-UI you'll need at least moderate experience working with JavaScript. This is so you can use templates, make Ajax requests and handle callbacks for user interaction. If this is beyond your current skills, consider getting someone with Web development experience to help you. ChocolateChip-UI is built on jQuery, so you will need a compatible version of it to work with ChocolateChip-UI.
 
 Please visit [ChocolateChip-UI's Website](http://chocolatechip-ui.com) for documentation and tutorials. This project includes examples for iOS, Android and Windows Phone 8 to help you get going.
