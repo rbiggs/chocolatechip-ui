@@ -1307,7 +1307,8 @@ interface fetch {
       "no-cache": string;
       "force-cache": string;
       "only-if-cached": string;
-    }
+    };
+    timeout?: number;
   }): Promise<any>;
 }
 
@@ -1385,6 +1386,7 @@ interface Response {
   headers: Headers;
   bodyUsed: boolean;
 }
+
 interface ChocolateChipStatic {
   jsonp(url: string, options?: {
     timeout?: number;
@@ -1393,6 +1395,10 @@ interface ChocolateChipStatic {
   }): any 
 }
 
-
+interface Window {
+  chocolatechipjs: ChocolateChipStatic;
+  $: ChocolateChipStatic;
+  jsonp: any;
+}
 declare var $: ChocolateChipStatic;
 declare var fetch: fetch;
