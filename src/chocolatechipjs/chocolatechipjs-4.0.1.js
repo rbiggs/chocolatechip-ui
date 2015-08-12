@@ -10,28 +10,32 @@
 ChocolateChipJS
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 4.0.0
+Version: 4.0.1
 */
 function chocolatechipjs(selector, context) {
+  var _this = this;
   var idRE = /^#([\w-]*)$/;
   var classRE = /^\.([\w-]+)$/;
   var tagRE = /^[\w-]+$/;
+  var slice = function(elements) {
+    return [].slice.apply(elements);
+  };
   var getId = function(selector) {
     var el = document.getElementById(selector.split('#')[1]);
     return el ? [el] : [];
   };
   var getTag = function(selector, context) {
     if (context) {
-      return [].slice.apply(context.getElementsByTagName(selector));
+      return slice(context.getElementsByTagName(selector));
     } else {
-      return [].slice.apply(document.getElementsByTagName(selector));
+      return slice(document.getElementsByTagName(selector));
     }
   };
   var getClass = function(selector, context) {
     if (context) {
-      return [].slice.apply(context.getElementsByClassName(selector.split('.')[1]));
+      return slice(context.getElementsByClassName(selector.split('.')[1]));
     } else {
-      return [].slice.apply(document.getElementsByClassName(selector.split('.')[1]));
+      return slice(document.getElementsByClassName(selector.split('.')[1]));
     }
   };
   var getNode = function(selector, context) {
@@ -44,20 +48,20 @@ function chocolatechipjs(selector, context) {
       return selector;
     if (!context && typeof selector === 'string') {
       if (/<\/?[^>]+>/.test(selector)) {
-        return this.make(selector);
+        return _this.make(selector);
       }
       if (tagRE.test(selector)) {
         return getTag(selector);
       } else if (classRE.test(selector)) {
         return getClass(selector);
       } else {
-        return [].slice.apply(document.querySelectorAll(selector));
+        return slice(document.querySelectorAll(selector));
       }
     } else {
       if (context) {
-        return [].slice.apply(context.querySelectorAll(selector));
+        return slice(context.querySelectorAll(selector));
       } else {
-        return [].slice.apply(document.querySelectorAll(selector));
+        return slice(document.querySelectorAll(selector));
       }
     }
   };
@@ -69,7 +73,7 @@ function chocolatechipjs(selector, context) {
   }
   if (!!context) {
     if (typeof context === 'string') {
-      return [].slice.apply(document.querySelectorAll(context + ' ' + selector));
+      return slice(document.querySelectorAll(context + ' ' + selector));
     } else if (context.nodeType === 1) {
       return getNode(selector, context);
     }
@@ -98,7 +102,7 @@ function chocolatechipjs(selector, context) {
   } else if (selector instanceof Array) {
     return selector;
   } else if (/NodeListConstructor/i.test(selector.constructor.toString())) {
-    return [].slice.apply(selector);
+    return slice(selector);
   } else if (selector === window) {
     return [];
   }
@@ -122,7 +126,7 @@ function chocolatechipjs(selector, context) {
         });
       }
     });
-    return this;
+    return chocolatechipjs;
   };
   chocolatechipjs.fn = {
     extend: function(object) {
@@ -130,32 +134,38 @@ function chocolatechipjs(selector, context) {
     }
   };
 })(chocolatechipjs);
-window['chocolatechipjs'] = chocolatechipjs;
-if (typeof window['$'] === 'undefined') {
-  window['$'] = chocolatechipjs;
+window.chocolatechipjs = chocolatechipjs;
+if (typeof window.$ === 'undefined') {
+  window.$ = chocolatechipjs;
 }
+var _this = this;
 (function($) {
+  var slice = function(elements) {
+    return [].slice.apply(elements);
+  };
   $.extend($, {
     libraryName: "ChocolateChip",
-    version: '4.0.0',
+    version: '4.0.1',
     noop: function() {},
     uuidNum: function() {
       var d = new Date().getTime();
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
+      var randomLetter = charset[Math.floor(Math.random() * charset.length)];
+      return randomLetter + 'xxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = (d + Math.random() * 16) % 16 | 0;
         d = Math.floor(d / 16);
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
       });
     },
     makeUuid: function() {
-      return "chch_" + this.uuidNum();
+      return $.uuidNum();
     },
     uuid: 0,
     make: function(HTMLString) {
       var ret = [];
       var temp = document.createElement('div');
       temp.innerHTML = HTMLString;
-      temp = [].slice.apply(temp.childNodes);
+      temp = slice(temp.childNodes);
       temp.forEach(function(ctx) {
         if (ctx.nodeType === 1) {
           ret.push(ctx);
@@ -176,7 +186,7 @@ if (typeof window['$'] === 'undefined') {
       }
     },
     html: function(HTMLString) {
-      return this.make(HTMLString);
+      return $.make(HTMLString);
     },
     replace: function(newElem, oldElem) {
       if (!newElem || !oldElem)
@@ -187,7 +197,7 @@ if (typeof window['$'] === 'undefined') {
       return;
     },
     require: function(src, callback) {
-      callback = callback || this.noop;
+      callback = callback || _this.noop;
       var script = document.createElement('script');
       script.setAttribute('type', 'text/javascript');
       script.setAttribute('src', src);
@@ -208,7 +218,7 @@ if (typeof window['$'] === 'undefined') {
     },
     defer: function(func) {
       func = func || $.noop;
-      return this.delay.apply($, [func, 1].concat([].slice.call(arguments, 1)));
+      return $.delay.apply($, [func, 1].concat([].slice.call(arguments, 1)));
     },
     returnResult: function(result) {
       if (typeof result === 'string')
@@ -260,7 +270,7 @@ if (typeof window['$'] === 'undefined') {
         var str = string.split(' ');
         var newstr = [];
         str.forEach(function(item) {
-          newstr.push($this.capitalize(item));
+          return newstr.push($this.capitalize(item));
         });
         return newstr.join(' ');
       } else {
@@ -309,21 +319,17 @@ if (typeof window['$'] === 'undefined') {
     isAndroid: (/android/img.test(navigator.userAgent) && !/trident/img.test(navigator.userAgent)),
     isWebOS: /webos/img.test(navigator.userAgent),
     isBlackberry: /blackberry/img.test(navigator.userAgent),
-    isTouchEnabled: ('createTouch' in document),
+    isTouchEnabled: !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && 'createTouch' in document,
     isOnline: navigator.onLine,
-    isStandalone: navigator['standalone'],
-    isiOS6: navigator.userAgent.match(/OS 6/i),
-    isiOS7: navigator.userAgent.match(/OS 7/i),
-    isWin: /trident/img.test(navigator.userAgent),
-    isWinPhone: (/trident/img.test(navigator.userAgent) && /mobile/img.test(navigator.userAgent)),
-    isIE10: navigator.userAgent.match(/msie 10/i),
-    isIE11: navigator.userAgent.match(/msie 11/i),
-    isWebkit: navigator.userAgent.match(/webkit/),
-    isMobile: /mobile/img.test(navigator.userAgent),
-    isDesktop: !(/mobile/img.test(navigator.userAgent)),
-    isSafari: (!/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent)),
-    isChrome: /Chrome/img.test(navigator.userAgent),
-    isNativeAndroid: (/android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent) && !/chrome/i.test(navigator.userAgent))
+    isStandalone: navigator.standalone,
+    isWin: /edge/img.test(navigator.userAgent) || /trident/img.test(navigator.userAgent),
+    isIE10: /msie 10/img.test(navigator.userAgent),
+    isIE11: (/windows nt/img.test(navigator.userAgent) && /trident/img.test(navigator.userAgent)),
+    isWebkit: (!/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /webkit/img.test(navigator.userAgent)),
+    isDesktop: (!/mobile/img.test(navigator.userAgent)),
+    isSafari: (!/edge/img.test(navigator.userAgent) && !/Chrome/img.test(navigator.userAgent) && /Safari/img.test(navigator.userAgent) && !/android/img.test(navigator.userAgent)),
+    isChrome: !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /Chrome/img.test(navigator.userAgent) && !((/samsung/img.test(navigator.userAgent) || /Galaxy Nexus/img.test(navigator.userAgent) || /HTC/img.test(navigator.userAgent) || /LG/img.test(navigator.userAgent)) && !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent)),
+    isNativeAndroid: ((/samsung/img.test(navigator.userAgent) || /Galaxy Nexus/img.test(navigator.userAgent) || /HTC/img.test(navigator.userAgent) || /LG/img.test(navigator.userAgent)) && !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && /android/i.test(navigator.userAgent) && /webkit/i.test(navigator.userAgent))
   });
 })(chocolatechipjs);
 (function($) {
@@ -341,7 +347,7 @@ if (typeof window['$'] === 'undefined') {
             key = element.id;
           } else {
             ++chocolatechipjs['uuid'];
-            key = chocolatechipjs['makeUuid']();
+            key = chocolatechipjs['uuidNum']();
             element.setAttribute("id", key);
           }
           if (this.keys.indexOf(key) >= 0) {
@@ -466,6 +472,7 @@ if (typeof window['$'] === 'undefined') {
       return $['returnResult'](ret);
     },
     removeData: function(key) {
+      var _this = this;
       if (!this.length)
         return [];
       this.each(function(ctx) {
@@ -474,23 +481,26 @@ if (typeof window['$'] === 'undefined') {
           return;
         }
         if (!$['chch_cache'].data[ctx.id]) {
-          return this;
+          return _this;
         }
         if (!key) {
           delete $['chch_cache'].data[id];
-          return this;
+          return _this;
         }
         if (Object.keys($['chch_cache'].data[id]).length === 0) {
           delete $['chch_cache'].data[id];
         } else {
           delete $['chch_cache'].data[id][key];
         }
-        return this;
+        return _this;
       });
     }
   });
 })(chocolatechipjs);
 (function($) {
+  var slice = function(elements) {
+    return [].slice.apply(elements);
+  };
   $.fn.extend({
     each: function(callback, ctx) {
       if (!this.length)
@@ -529,15 +539,15 @@ if (typeof window['$'] === 'undefined') {
         return ret;
       if (context) {
         $(context).forEach(function() {
-          [].slice.apply(context.querySelectorAll(selector)).forEach(function(node) {
-            ret.push(node);
+          slice(context.querySelectorAll(selector)).forEach(function(node) {
+            return ret.push(node);
           });
         });
       } else {
         $(this).forEach(function(ctx) {
           if (ctx.children && ctx.children.length) {
-            [].slice.apply(ctx.querySelectorAll(selector)).forEach(function(node) {
-              ret.push(node);
+            slice(ctx.querySelectorAll(selector)).forEach(function(node) {
+              return ret.push(node);
             });
           }
         });
@@ -591,7 +601,7 @@ if (typeof window['$'] === 'undefined') {
       var __is = function(node, arg) {
         $this = this;
         if (typeof arg === 'string') {
-          if ([].slice.apply(node.parentNode.querySelectorAll(arg)).indexOf(node) >= 0) {
+          if (slice(node.parentNode.querySelectorAll(arg)).indexOf(node) >= 0) {
             return node;
           }
         } else if (typeof arg === 'function') {
@@ -629,7 +639,7 @@ if (typeof window['$'] === 'undefined') {
       var __isnt = function(node, arg) {
         $this = this;
         if (typeof arg === 'string') {
-          if ([].slice.apply(node.parentNode.querySelectorAll(arg)).indexOf(node) === -1) {
+          if (slice(node.parentNode.querySelectorAll(arg)).indexOf(node) === -1) {
             return node;
           }
         } else if (typeof arg === 'function') {
@@ -637,7 +647,7 @@ if (typeof window['$'] === 'undefined') {
             return node;
           }
         } else if (arg.length) {
-          if ([].slice.apply(arg).indexOf(node) === -1) {
+          if (slice(arg).indexOf(node) === -1) {
             return node;
           }
         } else if (arg.nodeType === 1) {
@@ -669,7 +679,7 @@ if (typeof window['$'] === 'undefined') {
             return node;
           }
         } else if (arg.nodeType === 1) {
-          if ([].slice.apply(this.children).indexOf(arg)) {
+          if (slice(this.children).indexOf(arg)) {
             return node;
           }
         } else {
@@ -697,7 +707,7 @@ if (typeof window['$'] === 'undefined') {
             items.push(item);
           }
         } else if (arg.nodeType === 1) {
-          if (![].slice.apply(item.children).indexOf(arg)) {
+          if (!slice(item.children).indexOf(arg)) {
             items.push(item);
           }
         }
@@ -772,7 +782,7 @@ if (typeof window['$'] === 'undefined') {
         return node;
       };
       this.each(function(node) {
-        __before(node, content);
+        return __before(node, content);
       });
       return this;
     },
@@ -801,7 +811,7 @@ if (typeof window['$'] === 'undefined') {
         return this;
       };
       this.each(function(node) {
-        __after(node, args);
+        return __after(node, args);
       });
       return this;
     },
@@ -811,13 +821,13 @@ if (typeof window['$'] === 'undefined') {
       var ret = [];
       if (!selector) {
         this.each(function(node) {
-          [].slice.apply(node.children).forEach(function(ctx) {
-            ret.push(ctx);
+          slice(node.children).forEach(function(ctx) {
+            return ret.push(ctx);
           });
         });
       } else {
         this.forEach(function(node) {
-          [].slice.apply(node.children).forEach(function(ctx) {
+          slice(node.children).forEach(function(ctx) {
             if ($(ctx).is(selector)[0]) {
               ret.push(ctx);
             }
@@ -847,7 +857,7 @@ if (typeof window['$'] === 'undefined') {
           });
         } else {
           _siblings.each(function(node) {
-            ret.push(node);
+            return ret.push(node);
           });
         }
       });
@@ -858,7 +868,7 @@ if (typeof window['$'] === 'undefined') {
         return [];
       var ret = [];
       this.each(function(ctx) {
-        ret.push(ctx.parentNode);
+        return ret.push(ctx.parentNode);
       });
       ret = ret['unique']();
       return $['returnResult'](ret);
@@ -950,7 +960,7 @@ if (typeof window['$'] === 'undefined') {
       var cnt = content;
       if (typeof cnt === 'string') {
         this.each(function(node) {
-          __insert(node, content, position);
+          return __insert(node, content, position);
         });
       } else if (cnt instanceof Array) {
         this.each(function(node, idx) {
@@ -958,12 +968,12 @@ if (typeof window['$'] === 'undefined') {
             cnt = cnt.reverse();
           }
           cnt.each(function(n, i) {
-            __insert(node, n, position);
+            return __insert(node, n, position);
           });
         });
       } else if (cnt.nodeType === 1) {
         this.each(function(node) {
-          __insert(node, cnt, position);
+          return __insert(node, cnt, position);
         });
       }
       return this;
@@ -985,7 +995,7 @@ if (typeof window['$'] === 'undefined') {
         return [];
       this.reverse();
       this.each(function(item) {
-        $(selector)[0].insertBefore(item, $(selector)[0].firstChild);
+        return $(selector)[0].insertBefore(item, $(selector)[0].firstChild);
       });
       return this;
     },
@@ -993,7 +1003,7 @@ if (typeof window['$'] === 'undefined') {
       if (!this.length)
         return [];
       this.each(function(item) {
-        $(selector).append(item);
+        return $(selector).append(item);
       });
       return this;
     },
@@ -1513,12 +1523,13 @@ if (typeof window['$'] === 'undefined') {
       return this;
     },
     unbind: function(event, callback, capturePhase) {
+      var _this = this;
       if (!this.length)
         return [];
       var id;
       this.each(function(ctx) {
         if (!ctx.id || !$['chch_cache'].events.hasKey(ctx.id)) {
-          return this;
+          return _this;
         }
         capturePhase = capturePhase || false;
         id = ctx.getAttribute('id');
@@ -1555,7 +1566,7 @@ if (typeof window['$'] === 'undefined') {
       if (!this.length)
         return [];
       this.each(function(ctx) {
-        $(ctx).unbind(event, callback, capturePhase);
+        return $(ctx).unbind(event, callback, capturePhase);
       });
     },
     on: function(event, selector, callback, capturePhase) {
@@ -2173,7 +2184,14 @@ function isForbiddenMethod(method) {
         }
         return;
       }
+      var reqTimeout;
+      if (init && init.timeout) {
+        reqTimeout = setTimeout(function() {
+          reject(new TypeError('Request timed out at: ' + input));
+        }, init.timeout);
+      }
       xhr.onload = function() {
+        clearTimeout(reqTimeout);
         var status = (xhr.status === 1223) ? 204 : xhr.status;
         if (status < 100 || status > 599) {
           reject(new TypeError('Network request failed'));
@@ -2189,6 +2207,7 @@ function isForbiddenMethod(method) {
         resolve(new Response(body, options));
       };
       xhr.onerror = function() {
+        clearTimeout(reqTimeout);
         reject(new TypeError('Network request failed'));
       };
       xhr.open(request.method, request.url, true);
@@ -2305,29 +2324,9 @@ function isForbiddenMethod(method) {
     form2JSON: function(rootNode, delimiter) {
       rootNode = typeof rootNode === 'string' ? $(rootNode)[0] : rootNode;
       delimiter = delimiter || '.';
-      var formValues = getFormValues(rootNode);
       var result = {};
       var arrays = {};
-
-      function getFormValues(rootNode) {
-        var result = [];
-        var currentNode = rootNode.firstChild;
-        while (currentNode) {
-          if (currentNode.nodeName.match(/INPUT|SELECT|TEXTAREA/i)) {
-            result.push({
-              name: currentNode.name,
-              value: getFieldValue(currentNode)
-            });
-          } else {
-            var subresult = getFormValues(currentNode);
-            result = result.concat(subresult);
-          }
-          currentNode = currentNode.nextSibling;
-        }
-        return result;
-      }
-
-      function getFieldValue(fieldNode) {
+      var getFieldValue = function(fieldNode) {
         if (fieldNode.nodeName === 'INPUT') {
           if (fieldNode.type.toLowerCase() === 'radio' || fieldNode.type.toLowerCase() === 'checkbox') {
             if (fieldNode.checked) {
@@ -2348,9 +2347,25 @@ function isForbiddenMethod(method) {
           }
         }
         return '';
-      }
-
-      function getSelectedOptionValue(selectNode) {
+      };
+      var getFormValues = function(rootNode) {
+        var result = [];
+        var currentNode = rootNode.firstChild;
+        while (currentNode) {
+          if (currentNode.nodeName.match(/INPUT|SELECT|TEXTAREA/i)) {
+            result.push({
+              name: currentNode.name,
+              value: getFieldValue(currentNode)
+            });
+          } else {
+            var subresult = getFormValues(currentNode);
+            result = result.concat(subresult);
+          }
+          currentNode = currentNode.nextSibling;
+        }
+        return result;
+      };
+      var getSelectedOptionValue = function(selectNode) {
         var multiple = selectNode.multiple;
         if (!multiple) {
           return selectNode.value;
@@ -2364,7 +2379,8 @@ function isForbiddenMethod(method) {
           });
           return result;
         }
-      }
+      };
+      var formValues = getFormValues(rootNode);
       formValues.forEach(function(item) {
         var value = item.value;
         if (value !== '') {
@@ -2504,7 +2520,7 @@ function isForbiddenMethod(method) {
         var template = $.template(tmpl);
         if ($.isArray(data)) {
           data.forEach(function(item) {
-            $(element).append(template(item));
+            return $(element).append(template(item));
           });
         }
       }
