@@ -10,7 +10,7 @@
 ChocolateChipJS
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 4.0.1
+Version: 4.0.2
 */
 function chocolatechipjs(selector, context) {
   var _this = this;
@@ -145,7 +145,7 @@ var _this = this;
   };
   $.extend($, {
     libraryName: "ChocolateChip",
-    version: '4.0.1',
+    version: '4.0.2',
     noop: function() {},
     uuidNum: function() {
       var d = new Date().getTime();
@@ -386,7 +386,7 @@ var _this = this;
           if (typeof event === 'undefined') {
             cache[idx].each(function(item) {
               document.getElementById(element).removeEventListener(item[0], item[1], item[2]);
-              $['chch_cache'].events.keys.splice(idx, 1);
+              $.chch_cache.events.keys.splice(idx, 1);
               cache[idx].splice(idx, 1);
             });
             cache.splice(idx, 1);
@@ -395,8 +395,8 @@ var _this = this;
             cache[idx].each(function(item) {
               if (item[0] === event) {
                 document.getElementById(element).removeEventListener(item[0], item[1], item[2]);
-                $['chch_cache'].events.values.splice(idx, 1);
-                $['chch_cache'].events.keys.splice(idx, 1);
+                $.chch_cache.events.values.splice(idx, 1);
+                $.chch_cache.events.keys.splice(idx, 1);
               }
             });
           }
@@ -404,8 +404,8 @@ var _this = this;
             $this.values[idx].each(function(item) {
               if (item[0] === event) {
                 document.getElementById(element).removeEventListener(item[0], item[1], item[2]);
-                $['chch_cache'].events.values.splice(idx, 1);
-                $['chch_cache'].events.keys.splice(idx, 1);
+                $.chch_cache.events.values.splice(idx, 1);
+                $.chch_cache.events.keys.splice(idx, 1);
               }
             });
           }
@@ -428,29 +428,29 @@ var _this = this;
       if (value || value === 0) {
         var val = value;
         if (!ctx.id) {
-          ++$['uuid'];
-          id = $['makeUuid']();
+          ++$.uuid;
+          id = $.makeUuid();
           ctx.setAttribute("id", id);
-          $['chch_cache'].data[id] = {};
-          $['chch_cache'].data[id][key] = val;
+          $.chch_cache.data[id] = {};
+          $.chch_cache.data[id][key] = val;
         } else {
           id = ctx.id;
-          if (!$['chch_cache'].data[id]) {
-            $['chch_cache'].data[id] = {};
-            $['chch_cache'].data[id][key] = val;
+          if (!$.chch_cache.data[id]) {
+            $.chch_cache.data[id] = {};
+            $.chch_cache.data[id][key] = val;
           } else {
-            $['chch_cache'].data[id][key] = val;
+            $.chch_cache.data[id][key] = val;
           }
         }
       } else {
         if (key && id) {
-          if (!$['chch_cache'].data[id])
+          if (!$.chch_cache.data[id])
             return;
-          if ($['chch_cache'].data[id][key] === 0)
-            return $['chch_cache'].data[id][key];
-          if (!$['chch_cache'].data[id][key])
+          if ($.chch_cache.data[id][key] === 0)
+            return $.chch_cache.data[id][key];
+          if (!$.chch_cache.data[id][key])
             return;
-          return $['chch_cache'].data[id][key];
+          return $.chch_cache.data[id][key];
         }
       }
       return this;
@@ -467,7 +467,7 @@ var _this = this;
           ret.push(node);
         });
       } else {
-        return this[0].dataset[$['camelize'](key)];
+        return this[0].dataset[$.camelize(key)];
       }
       return $['returnResult'](ret);
     },
@@ -480,17 +480,17 @@ var _this = this;
         if (!id) {
           return;
         }
-        if (!$['chch_cache'].data[ctx.id]) {
+        if (!$.chch_cache.data[ctx.id]) {
           return _this;
         }
         if (!key) {
-          delete $['chch_cache'].data[id];
+          delete $.chch_cache.data[id];
           return _this;
         }
-        if (Object.keys($['chch_cache'].data[id]).length === 0) {
-          delete $['chch_cache'].data[id];
+        if (Object.keys($.chch_cache.data[id]).length === 0) {
+          delete $.chch_cache.data[id];
         } else {
-          delete $['chch_cache'].data[id][key];
+          delete $.chch_cache.data[id][key];
         }
         return _this;
       });
@@ -767,7 +767,7 @@ var _this = this;
         return [];
       var __before = function(node, content) {
         if (typeof content === 'string') {
-          content = $['make'](content);
+          content = $.make(content);
         }
         if (content && content.constructor === Array) {
           var len = content.length;
@@ -792,7 +792,7 @@ var _this = this;
       var __after = function(node, content) {
         var parent = node.parentNode;
         if (typeof content === 'string') {
-          content = $['make'](content);
+          content = $.make(content);
         }
         if (content && content.constructor === Array) {
           var i = 0,
@@ -861,7 +861,7 @@ var _this = this;
           });
         }
       });
-      return ret.length ? ret['unique']() : this;
+      return ret.length ? ret.unique() : this;
     },
     parent: function() {
       if (!this.length)
@@ -870,8 +870,8 @@ var _this = this;
       this.each(function(ctx) {
         return ret.push(ctx.parentNode);
       });
-      ret = ret['unique']();
-      return $['returnResult'](ret);
+      ret = ret.unique();
+      return $.returnResult(ret);
     },
     ancestor: function(selector) {
       if (!this.length)
@@ -1055,7 +1055,7 @@ var _this = this;
           ret.push(ctx.cloneNode(false));
         }
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     css: function(property, value) {
       if (!this.length)
@@ -1069,7 +1069,7 @@ var _this = this;
         this.forEach(function(node) {
           for (var key in property) {
             if (property.hasOwnProperty(key)) {
-              node.style[$['camelize'](key)] = property[key];
+              node.style[$.camelize(key)] = property[key];
             }
           }
           ret.push(node);
@@ -1082,11 +1082,11 @@ var _this = this;
         if (!this.length)
           return [];
         this.forEach(function(node) {
-          node.style[$['camelize'](property)] = value;
+          node.style[$.camelize(property)] = value;
           ret.push(node);
         });
       }
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     width: function() {
       if (!this.length)
@@ -1118,7 +1118,7 @@ var _this = this;
         ctx.textContent = '';
         ret.push(ctx);
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     html: function(content) {
       if (!this.length)
@@ -1138,7 +1138,7 @@ var _this = this;
       this.each(function(node) {
         __html(node, content);
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     text: function(string) {
       if (!this.length)
@@ -1201,7 +1201,7 @@ var _this = this;
         }
         ret.push(node);
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     hasClass: function(className) {
       if (!this.length)
@@ -1218,12 +1218,12 @@ var _this = this;
               ret.push(node);
             }
           });
-          ret = ret['unique']();
+          ret = ret.unique();
         } else if (node && node.classList && node.classList.contains(className)) {
           ret.push(node);
         }
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     removeClass: function(className) {
       if (!this.length)
@@ -1246,7 +1246,7 @@ var _this = this;
         }
         ret.push(node);
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     toggleClass: function(className) {
       if (!this.length)
@@ -1256,7 +1256,7 @@ var _this = this;
         node.classList.toggle(className);
         ret.push(node);
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     attr: function(property, value) {
       if (!this.length)
@@ -1292,7 +1292,7 @@ var _this = this;
           ret.push(node);
         }
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     removeAttr: function(attribute) {
       if (!this.length)
@@ -1304,7 +1304,7 @@ var _this = this;
           ret.push(node);
         }
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     disable: function() {
       if (!this.length)
@@ -1315,7 +1315,7 @@ var _this = this;
         node.setAttribute('disabled', true);
         node.style.cursor = 'default';
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     enable: function() {
       if (!this.length)
@@ -1326,12 +1326,12 @@ var _this = this;
         node.removeAttribute('disabled');
         node.style.cursor = 'auto';
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     hide: function(speed, callback) {
       if (!this.length)
         return [];
-      var cbk = callback || $['noop'];
+      var cbk = callback || $.noop;
       if (!this.length)
         return [];
       var ret = [];
@@ -1342,7 +1342,7 @@ var _this = this;
         height: 0,
         padding: 0
       };
-      var transition = $['isWebkit'] ? '-webkit-transition' : 'transition';
+      var transition = $.isWebkit ? '-webkit-transition' : 'transition';
       this.each(function(ctx) {
         storedDimensions['padding'] = $(ctx).css('padding');
         storedDimensions['height'] = $(ctx).css('height');
@@ -1405,12 +1405,12 @@ var _this = this;
         }
         ret.push(ctx);
       });
-      return $['returnResult'](ret);
+      return $.returnResult(ret);
     },
     show: function(speed, callback) {
       if (!this.length)
         return [];
-      var cbk = callback || $['noop'];
+      var cbk = callback || $.noop;
       var createCSSAnim = function(opacity, height, padding) {
         return {
           opacity: opacity,
@@ -1518,7 +1518,7 @@ var _this = this;
         return [];
       capturePhase = capturePhase || false;
       this.each(function(ctx) {
-        $['chch_cache'].events.set(ctx, event, callback, capturePhase);
+        $.chch_cache.events.set(ctx, event, callback, capturePhase);
       });
       return this;
     },
@@ -1528,12 +1528,12 @@ var _this = this;
         return [];
       var id;
       this.each(function(ctx) {
-        if (!ctx.id || !$['chch_cache'].events.hasKey(ctx.id)) {
+        if (!ctx.id || !$.chch_cache.events.hasKey(ctx.id)) {
           return _this;
         }
         capturePhase = capturePhase || false;
         id = ctx.getAttribute('id');
-        $['chch_cache'].events._delete(id, event, callback, capturePhase);
+        $.chch_cache.events._delete(id, event, callback, capturePhase);
       });
       return this;
     },
@@ -2105,15 +2105,33 @@ function isForbiddenMethod(method) {
     return (methods.indexOf(uppercased) > -1) ? uppercased : method;
   }
 
-  function Request(url, options) {
+  function Request(input, options) {
     options = options || {};
-    this.url = url;
+    var body = options.body;
+    if (Request.prototype.isPrototypeOf(input)) {
+      if (input.bodyUsed) {
+        throw new TypeError('Already read');
+      }
+      this.url = input.url;
+      this.credentials = input.credentials;
+      if (!options.headers) {
+        this.headers = new Headers(input.headers);
+      }
+      this.method = input.method;
+      this.mode = input.mode;
+      if (!body) {
+        body = input._bodyInit;
+        input.bodyUsed = true;
+      }
+    } else {
+      this.url = input;
+    }
     this.credentials = options.credentials || 'omit';
     this.headers = new Headers(options.headers);
     this.method = normalizeMethod(options.method || 'GET');
     this.mode = options.mode || null;
     this.referrer = null;
-    if ((this.method === 'GET' || this.method === 'HEAD') && options.body) {
+    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
       throw new TypeError('Body not allowed for GET or HEAD requests');
     }
     if (isForbiddenMethod(this.method)) {
@@ -2294,6 +2312,8 @@ function isForbiddenMethod(method) {
       } else {
         return;
       }
+      if (form.nodeName !== "FORM")
+        return;
       elements = [].slice.apply(form.elements);
       var names = '';
       var escaped = '';
