@@ -1949,14 +1949,12 @@ if(window.jQuery) {
     ////////////////////////////////////////////////
     /*
     var options = {
-      position: position,
       dynamic: false,
       callback: $.noop
     };
     */
     UISlideout : function ( options ) {
       var settings = {
-        position: 'left',
         dynamic: false,
         callback: $.noop
       }

@@ -515,6 +515,15 @@ interface ChocolateChipStatic {
      * @return void.
      */
     repeater: (element: ChocolateChipElementArray, template: string, data: any) => void;
+
+    /**
+     * A object that holds the reference to the controller for a repeater.
+     * This is used to cache the data that a repeater uses. After the repeater is rendered, the reference is deleted from this object.
+     *
+     */
+    data: {
+      controllerName: any;
+    };
   };
 
 }
