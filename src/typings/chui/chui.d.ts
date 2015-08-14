@@ -1014,6 +1014,54 @@ interface JQueryStatic {
    */
   UIUnBindData(controller?: string): void;
 
+  /**
+   * Object used to store string templates and parsed templates.
+   *
+   * @param string A string defining the template.
+   * @param string A label used to access an object's properties in the template. If none is provided it defaults to "data": [[= data.name]].
+   * @return void
+   */
+  templates: Object;
+
+  /**
+   * This method returns a parsed template.
+   *
+   */
+  template: {
+
+    /**
+     * This method parses a string and an optoinal variable name and returns a parsed template in the form of a function. You can then pass this function data to get rendered nodes.
+     *
+     * @param template A string of markup to use as a template.
+     * @param variable An option name to use in the template. If it were "myData": [[= myData.name]]. Otherwise it defaults to "data": [[= data.name]].
+     * @return A function.
+     */
+    (template: string, variable?: string): Function;
+
+    /**
+     * A method to repeated output a template.
+     *
+     * @param element The target container into which the content will be inserted.
+     * @param template A string of markup.
+     * @param data The iterable data the template will consume.
+     * @return void.
+     */
+    repeater: (element: ChocolateChipElementArray, template: string, data: any) => void;
+
+    /**
+     * A object that holds the reference to the controller for a repeater.
+     * This is used to cache the data that a repeater uses. After the repeater is rendered, the reference is deleted from this object.
+     *
+     */
+    data: {
+        repeaterName?: any;
+    };
+  
+    /**
+     * Use this value to output an index value in a template repeater.
+     */
+    index: number;
+  };
 }
 
 /**
