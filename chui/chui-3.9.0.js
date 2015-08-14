@@ -1949,7 +1949,6 @@ if(window.jQuery) {
     ////////////////////////////////////////////////
     /*
     var options = {
-      position: position,
       dynamic: false,
       callback: $.noop
     };

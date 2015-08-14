@@ -1046,7 +1046,7 @@ interface JQueryStatic {
      * @param data The iterable data the template will consume.
      * @return void.
      */
-    repeater: (element: ChocolateChipElementArray, template: string, data: any) => void;
+    repeater: (element: JQuery, template: string, data: any) => void;
 
     /**
      * A object that holds the reference to the controller for a repeater.
