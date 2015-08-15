@@ -201,7 +201,7 @@ interface ChocolateChipStatic {
    * @param array An array of elements.
    * @param callback A callback to execute on each element. This has two parameters: the context, followed by the index of the current iteration.
    */
-  each(array: any[], callback: (ctx: any, idx?: number) => any): any[];
+  each<T>(array: T[], callback: (ctx: T, idx: number) => any): any;
 
   /**
    * This method will concatenate strings or values as a cleaner alternative to using the '+' operator.
@@ -557,7 +557,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param Function
    * @return void
    */
-  each(func: (ctx: any, idx: number) => any): void;
+  each(func: <T>(ctx: T, idx: number) => any): void;
 
   /**
    * Sorts an array and removes duplicates before returning it.
@@ -1427,5 +1427,3 @@ interface Window {
 }
 declare var $: ChocolateChipStatic;
 declare var fetch: fetch;
-
-declare var chocolatechipjs: ChocolateChipStatic;
