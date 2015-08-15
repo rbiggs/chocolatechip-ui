@@ -522,7 +522,7 @@ interface ChocolateChipStatic {
      *
      */
     data: {
-      repeaterName: any;
+      repeaterName?: any;
     };
 
     /**
@@ -1427,3 +1427,5 @@ interface Window {
 }
 declare var $: ChocolateChipStatic;
 declare var fetch: fetch;
+
+declare var chocolatechipjs: ChocolateChipStatic;
