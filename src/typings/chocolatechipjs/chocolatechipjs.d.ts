@@ -507,23 +507,33 @@ interface ChocolateChipStatic {
     (template: string, variable?: string): Function;
 
     /**
-     * A method to repeated output a template.
-     *
-     * @param element The target container into which the content will be inserted.
-     * @param template A string of markup.
-     * @param data The iterable data the template will consume.
-     * @return void.
+     * The repeater method used to rendering iterable template data.
      */
-    repeater: (element: ChocolateChipElementArray, template: string, data: any) => void;
+    repeater: {
+      
+      /**
+       * Use this method to render declarative temlate repeaters. This expects a "data-repeater" attribute whose value points to data stored on $.template.data.
+       */
+      (): void;
+      
+      /**
+      * A method to repeated output a template.
+      *
+      * @param element The target container into which the content will be inserted.
+      * @param template A string of markup.
+      * @param data The iterable data the template will consume.
+      * @return void.
+      */
+      (element: ChocolateChipElementArray, template: string, data: any): void;
+    }
 
     /**
-     * A object that holds the reference to the controller for a repeater.
+     * An object that holds the reference to the controller for a repeater.
      * This is used to cache the data that a repeater uses. After the repeater is rendered, the reference is deleted from this object.
+     * Example: $.template.data["myRepeater"] = [{name: "Joe"}, {name: "Sue"}];
      *
      */
-    data: {
-      repeaterName?: any;
-    };
+    data: any;
 
     /**
      * Use this value to output an index value in a template repeater.
@@ -557,7 +567,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param Function
    * @return void
    */
-  each(func: <T>(ctx: T, idx: number) => any): void;
+  each(func: (ctx: any, idx: number) => void): void;
 
   /**
    * Sorts an array and removes duplicates before returning it.
