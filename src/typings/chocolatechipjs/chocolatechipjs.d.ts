@@ -38,7 +38,14 @@ interface ChocolateChipStatic {
    */
   (elementArray: ChocolateChipElementArray): ChocolateChipElementArray;
 
+  /**
+   * Accepts the document element and returns it wrapped in an array.
+   *
+   * @param document The document object.
+   * @return document[]
+   */
   (document: Document): Document[];
+  
   /**
    * If no argument is provided, return the document as a ChocolateChipElementArray.
    * @return Document[]
@@ -426,21 +433,6 @@ interface ChocolateChipStatic {
    */
   isNativeAndroid: boolean;
 
-  JSONPCallbacks: string[];
-  /**
-   * Load JSON from a remote server using the JSONP technique.
-   *
-   * @param url A string
-   * @return Promise
-   */
-  jsonp(
-    options: {
-      timeout?: number;
-      callbackName?: string;
-      clear?: boolean;
-    }
-    ): Promise<any>;
-
   /**
    * Serialize
    */
@@ -541,8 +533,21 @@ interface ChocolateChipStatic {
     index: number;
   };
 
+  /**
+   * ATENTION: DO NOT TOUCH! This is the ChocolateChipJS cache. This is used to store details about registered events and data. You should not touch any of these values, even though they are exposed, as this can seriously impair the behavior of your app.
+   * 
+   * data: this is used by $(element).data() to store data.
+   * events: this is used by the event system.
+   */
   chch_cache: {
+    /**
+     * DO NOT TOUCH! This hold data stored by $(element).data().
+     */
     data: {};
+    
+    /**
+     * DO NOT TOUCH! This stores information about registered events.
+     */
     events: {
       keys: any[];
       values: any[];
@@ -621,7 +626,6 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    */
   is(element: any): ChocolateChipElementArray;
 
-
   /**
    * Check the current matched set of elements against a selector or element and return it
    * if it does not match the given arguments.
@@ -647,6 +651,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @ return HTMLElement[]
    */
   has(selector: string): ChocolateChipElementArray;
+  
   /**
    * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
    *
@@ -662,6 +667,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @ return HTMLElement[]
    */
   hasnt(selector: string): ChocolateChipElementArray;
+  
   /**
    * Reduce the set of matched elements to those that have a descendant that does not match the selector or DOM element.
    *
@@ -748,7 +754,6 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    */
   closest(selector: string | number): ChocolateChipElementArray;
 
-
   /**
    * Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
    *
@@ -771,7 +776,6 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @return HTMLElement[]
    */
   html(htmlString: string): ChocolateChipElementArray;
-
 
   /**
    * Get the value of style properties for the first element in the set of matched elements.
@@ -830,7 +834,6 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @return HTMLElement[]
    */
   hasAttr(attributeName: string): ChocolateChipElementArray;
-
 
   /**
    * Get the value of an attribute for the first element in the set of matched elements.
@@ -1135,7 +1138,6 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    */
   animate(options: Object, duration?: string, easing?: string): void;
 
-
   /**
    * Attach a handler to an event for the elements.
    *
@@ -1203,7 +1205,10 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
   off(eventType?: string, selector?: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): ChocolateChipStatic;
 
   /**
-  *
+  * Trigger an event on an element.
+  * 
+  * @param eventType The event to trigger.
+  * @return void
   */
   trigger(eventType: string): void;
 }
@@ -1305,12 +1310,11 @@ interface PromiseConstructor {
 }
 
 declare var Promise: PromiseConstructor;
-
-
 declare type ByteString = string;
 declare type USVString = string;
 declare type DOMString = string;
 declare type OpenEndedDictionary = Object;
+
 /**
  * Interface for fetch API.
  *
@@ -1318,7 +1322,6 @@ declare type OpenEndedDictionary = Object;
  * @param init An object literal of key value pairs to set method, headers, body, credentials or cache.
  * @return Promise.
  */
-
 interface fetch {
   (input: string,
     init?: {
@@ -1351,6 +1354,9 @@ interface XMLHttpRequest {
    responseURL: string;
 }
 
+/**
+ * Headers Interface. This defines the methods exposed by the Headers object.
+ */
 interface Headers {
    (headers?: any): void;
    append(name: string, value: string): void;
@@ -1366,6 +1372,9 @@ interface decode {
   (body: any): FormData;
 }
 
+/**
+ * Request Interface. This defines the properties and methods exposed by the Request object.
+ */
 interface Request {
   (input: {
     url: string;
@@ -1393,6 +1402,9 @@ interface URLSearchParams {
   ():URLSearchParams;
 }
 
+/**
+ * Resonse Interface. This defines the properties and methods exposed by the Response object.
+ */
 interface Response {
   (body?: {
     blob: Blob;
@@ -1423,9 +1435,31 @@ interface Response {
 }
 
 interface ChocolateChipStatic {
+  
+  /**
+   * A cache to hold callbacks execute by the response from a JSONP request. This is an array of strings. By default these values get purged when the callback execute and exposes the data returned by the request.
+   */
+  JSONPCallbacks: string[];
+  /**
+   * Method to perform JSONP request. 
+   * 
+   * @param url A string defining the url to target.
+   * @param options And object literal of properties: {timeout? number, callbackName?: string, clear?: boolean}
+   */
   jsonp(url: string, options?: {
+    /**
+     * A number representing milliseconds to express when to refect a JSONP request.
+     */
     timeout?: number;
+    
+    /**
+     * The optional name for the callback when the server response will execute. The default value is "callback". However some sites may use a different name for their JSONP function. Consult the documentation on the site to ascertain the correct value for this callback. 
+     */
     callbackName?: string;
+    
+    /**
+     * This value determines whether the callbacks and script associate with JSONP persist or are purged after the request returns. By default this is set to true, meaning that they will be purged.
+     */
     clear?: boolean;
   }): any
 }
@@ -1437,3 +1471,5 @@ interface Window {
 }
 declare var $: ChocolateChipStatic;
 declare var fetch: fetch;
+
+declare var chocolatechipjs: ChocolateChipStatic;
