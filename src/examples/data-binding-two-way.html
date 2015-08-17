@@ -1,0 +1,102 @@
+  <script type="text/javascript">
+    $(function() {
+      /**
+       * Setting up Two-Way Data Binding:
+       * ===============================
+       * ChocolateChip-UI provides a simple solution for one-way data binding using $.UIBindData.
+       * However, if you need two-way data binding, you'll need to set that up yourself. To do so you take advantage of ChocolateChip-UI's pubsub methods. 
+       * In the following example, we want to have a text input bound to its label. We also want the input to be bound to the value of the data model, and the data model to be bound to the value of the itext input. Since this could lead to an infinite loop, the data model setter needs to have a boolean flag to control whether it publishes or not. Effectively, when we set the model from any source other than the text input, we pass a true flag. But if the text input is publishing its data to the model, it passes a false flag so that the model doesn't try to update the text input.
+       */
+
+      // Define data model:
+      var MyDataModel = { 
+        message: 'This is the message.',
+        // Define a setter. 
+        // Provide a flag to determine whether to publish or not:
+        set: function(data, publish) {
+          this.message = data;
+          if (publish) {
+            $.publish('MyDataModelPublication', this.message);
+          }
+        }
+      };
+
+      // Define mediator for data model.
+      // This will update the model when the input value changes.
+      // Pass a false flag so that the data model does not publish back to the text input:
+      var MyDataModelMediator = $.subscribe('data-binding-input-value1', function(topic, data) {
+        MyDataModel.set(data, false);
+      });
+
+      // Bind the label to the input:
+      $.UIBindData('input-value1');
+
+      // Define subscription to update late when input's value is update remotely:
+      $.subscribe('MyDataModelPublication', function(topic, data) {
+        $('#myText1').val(data);
+        $('#myText1').trigger('input');
+      });
+
+      // Publish the initial value of the data model, updating the label value:
+      $.publish('MyDataModelPublication', MyDataModel.message);
+      
+      // Define method to execute when the user clicks the button:
+      var updateMyDataModel =  function() {
+        var message = $('#myText2').val();
+        if (message) {
+          // Send a true flag so that the data model 
+          // publishes back to the text input:
+          MyDataModel.set(message, true);
+        };
+      };
+
+      // Register a click to update the data model:
+      $('#updateText').on('click', updateMyDataModel);
+
+      // Register a click to get the current value of the data model:
+      $('#getDataModel').on('click', function() {
+        $('#dataModelValue').text(MyDataModel.message);
+      });
+
+    });
+  </script>
+  
+</head>
+<body>
+  <nav class="current">
+    <h1>Two-Way Data Binding</h1>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      <h2 class='wrap'>This input is bound to the label and to myTextObject</h2>
+      <ul class="list">
+        <li>
+          <label>Enter data:</label>
+          <input id='myText1' data-controller='input-value1' type='text'>
+        </li>
+        <li>
+          <h3 data-model='input-value1'></h3>
+        </li>
+      </ul>
+      <h2 class='wrap'>This input is not bound. Clicking the button will update myTextObject with the input's value.</h2>
+      <ul class="list">
+        <li>
+          <button id='updateText'>Update Data Model</button>
+        </li>
+        <li><label>Enter data:</label> 
+          <input id='myText2' data-controller='input-value2' type='text'>
+        </li>
+      </ul>
+      <h2>Check the current value of the data model</h2>
+      <ul class="list">
+        <li>
+          <button id="getDataModel">Get Data Model</button>
+        </li>
+        <li>
+          <h3 id='dataModelValue'>&nbsp;</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>
