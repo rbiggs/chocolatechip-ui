@@ -842,7 +842,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param attributeName The name of the attribute to get.
    * @return string
    */
-  prop(attributeName: string): string;
+  prop(attributeName: string): boolean;
 
   /**
    * Set an property for the set of matched elements.
@@ -851,7 +851,15 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param value A string indicating the value to set the property to.
    * @return HTMLElement[]
    */
-  prop(propertyName: string, value: string): ChocolateChipElementArray;
+  prop(propertyName: string, value: boolean | any): ChocolateChipElementArray;
+
+  /**
+   * Remove a property from an element.
+   *
+   * @param propertyName The name of the property to remove
+   * @return an array of concerned elements.
+   */
+  removeProp(propertyName: string): ChocolateChipElementArray;
 
   /**
    * Adds the specified class(es) to each of the set of matched elements.

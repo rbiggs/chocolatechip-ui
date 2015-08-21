@@ -10,7 +10,7 @@
 ChocolateChipJS
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 4.0.2
+Version: 4.0.3
 */
 function chocolatechipjs(selector, context) {
   var _this = this;
@@ -100,7 +100,13 @@ function chocolatechipjs(selector, context) {
       }
     }
   } else if (selector instanceof Array) {
-    return selector;
+    var node;
+    selector.every(function(ctx) {
+      if (!ctx.nodeType) {
+        node = "false";
+      }
+    });
+    return (node === 'false') ? [] : selector;
   } else if (/NodeListConstructor/i.test(selector.constructor.toString())) {
     return slice(selector);
   } else if (selector === window) {
@@ -145,7 +151,7 @@ var _this = this;
   };
   $.extend($, {
     libraryName: "ChocolateChip",
-    version: '4.0.2',
+    version: '4.0.3',
     noop: function() {},
     uuidNum: function() {
       var d = new Date().getTime();
@@ -1181,7 +1187,21 @@ var _this = this;
     prop: function(property, value) {
       if (!this.length)
         return [];
-      return this.attr(property, value);
+      if (value === false) {
+        this[0][property] = false;
+        return [this[0]];
+      } else if (value) {
+        this[0][property] = property;
+        return [this[0]];
+      } else {
+        return this[0][property];
+      }
+    },
+    removeProp: function(property) {
+      if (!this.length)
+        return [];
+      this[0][property] = false;
+      return [this[0]];
     },
     addClass: function(className) {
       if (!this.length)
