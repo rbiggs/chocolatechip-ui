@@ -33,6 +33,6 @@
   "jquery": {
     "url": "http://code.jquery.com/jquery-2.1.4.min.js"
   },
-  "chocolatechipJSVersion": "4.0.0",
+  "chocolatechipJSVersion": "4.0.3",
   "projectPath": ""
 }
