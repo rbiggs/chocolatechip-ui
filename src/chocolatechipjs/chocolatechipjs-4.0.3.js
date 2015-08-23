@@ -111,6 +111,8 @@ function chocolatechipjs(selector, context) {
     return slice(selector);
   } else if (selector === window) {
     return [];
+  } else {
+    return [];
   }
   return this;
 }
@@ -144,7 +146,6 @@ window.chocolatechipjs = chocolatechipjs;
 if (typeof window.$ === 'undefined') {
   window.$ = chocolatechipjs;
 }
-var _this = this;
 (function($) {
   var slice = function(elements) {
     return [].slice.apply(elements);
@@ -203,7 +204,7 @@ var _this = this;
       return;
     },
     require: function(src, callback) {
-      callback = callback || _this.noop;
+      callback = callback || $.noop;
       var script = document.createElement('script');
       script.setAttribute('type', 'text/javascript');
       script.setAttribute('src', src);
