@@ -1760,11 +1760,17 @@ if (typeof window.$ === 'undefined') {
     }
     try {
       if (_then = isThenable(msg)) {
-        deferred = new MakeDeferred(self);
-        _then.call(msg, function() {
-          resolve.apply(deferred, arguments);
-        }, function() {
-          reject.apply(deferred, arguments);
+        schedule(function() {
+          var deferred_wrapper = new MakeDeferred(self);
+          try {
+            _then.call(msg, function() {
+              resolve.apply(deferred_wrapper, arguments);
+            }, function() {
+              reject.apply(deferred_wrapper, arguments);
+            });
+          } catch (err) {
+            reject.call(deferred_wrapper, err);
+          }
         });
       } else {
         self.msg = msg;
@@ -1774,7 +1780,7 @@ if (typeof window.$ === 'undefined') {
         }
       }
     } catch (err) {
-      reject.call(deferred || (new MakeDeferred(self)), err);
+      reject.call(new MakeDeferred(self), err);
     }
   }
 
@@ -2147,18 +2153,17 @@ function isForbiddenMethod(method) {
     } else {
       this.url = input;
     }
-    this.credentials = options.credentials || 'omit';
-    this.headers = new Headers(options.headers);
-    this.method = normalizeMethod(options.method || 'GET');
-    this.mode = options.mode || null;
+    this.credentials = options.credentials || this.credentials || 'omit';
+    if (options.headers || !this.headers) {
+      this.headers = new Headers(options.headers);
+    }
+    this.method = normalizeMethod(options.method || this.method || 'GET');
+    this.mode = options.mode || this.mode || null;
     this.referrer = null;
     if ((this.method === 'GET' || this.method === 'HEAD') && body) {
       throw new TypeError('Body not allowed for GET or HEAD requests');
     }
-    if (isForbiddenMethod(this.method)) {
-      throw new TypeError("forbidden method " + this.method);
-    }
-    this._initBody(options.body);
+    this._initBody(body);
   }
 
   function decode(body) {
