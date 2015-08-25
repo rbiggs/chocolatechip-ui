@@ -28,7 +28,7 @@
       var articles = $('article');
       for (var i = 0; i < settings.tabs; i++) {
         tabbar += '<button class="' + settings.icons[i];
-        if (settings.selected === i+1) {
+        if (settings.selected === i) {
           tabbar += ' selected';
         }
         tabbar += '">' + icon + '<label>' + settings.labels[i] + '</label></button>';
@@ -44,9 +44,8 @@
       });
       $('nav').removeClass('current').addClass('next');
       $('#global-nav').removeClass('next');
-      $('nav').eq(settings.selected).removeClass('next').addClass('current');
-      $('article').removeClass('current').addClass('next');
-      $('article').eq(settings.selected-1).removeClass('next').addClass('current');
+      $('article').eq(settings.selected).removeClass('next').addClass('current');
+      $('article').eq(settings.selected).prev('nav').removeClass('next').addClass('current');
 
       // Setup events on tabs:
       var tabButtonTap = 'singletap';

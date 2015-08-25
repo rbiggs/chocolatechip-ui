@@ -194,6 +194,7 @@
         // Prevent if splitlayout for tablets:
         if (body.classList.contains('splitlayout')) return;
         if ($('body')[0].classList.contains('slide-out-app')) return;
+        if (body.classList.contains('hasTabBar')) return;
         if (idx === 0) {
           ctx.classList.add('current');
         } else {
@@ -205,6 +206,7 @@
         // Prevent if splitlayout for tablets:
         if (body.classList.contains('splitlayout')) return;
         if (body.classList.contains('slide-out-app')) return;
+        if (body.classList.contains('hasTabBar')) return;
         if (idx === 0) {
           ctx.classList.add('current');
         } else {
