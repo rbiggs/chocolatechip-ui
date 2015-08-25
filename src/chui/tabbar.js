@@ -46,7 +46,7 @@
       $('#global-nav').removeClass('next');
       $('article').eq(settings.selected).removeClass('next').addClass('current');
       $('article').eq(settings.selected).prev('nav').removeClass('next').addClass('current');
-
+      $.UINavigationHistory[0] = '#' + $('article').eq(settings.selected)[0].id;
       // Setup events on tabs:
       var tabButtonTap = 'singletap';
       if ($.isAndroid) {
@@ -95,6 +95,7 @@
             $(history[i]).removeClass('next').addClass('previous');
             $(history[i]).prev().removeClass('next').addClass('previous');
           }
+          $.UISetHashOnUrl(history[history.length-1]);
 
         ////////////////////////////////////////////////
         // Otherwise, since the array has only one item, 
@@ -105,6 +106,7 @@
           $('nav.current').removeClass('current').addClass('next');
           $('article').eq(index).removeClass('next').addClass('current');
           $('nav').eq(index+1).removeClass('next').addClass('current');
+          $.UISetHashOnUrl(history[0]);
         }
 
         id = $('article').eq(index)[0].id;
@@ -119,7 +121,6 @@
             ctx.scrollTop = 0;
           }
         });
-        $.UISetHashOnUrl('#'+id);
         $.UINavigationHistory = $(this).data('history');
       });
     }

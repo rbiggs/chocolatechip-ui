@@ -11,7 +11,7 @@ ChocolateChip-UI
 ChUI.js
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 3.9.0
+Version: 3.9.1
 */
 window.CHUIJSLIB;
 if(window.jQuery) {
@@ -706,33 +706,43 @@ if(window.jQuery) {
   }
   $.extend({
     ////////////////////////////////////////////////
-    // Manage location.hash for client side routing:
+    // Boolean to control whether to add hash values
+    // to window.locaction href or not.
+    // Set default to true:
     ////////////////////////////////////////////////
-    UITrackHashNavigation : function ( url, delimiter ) {
-      url = url || true;
-      $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimiter);
+    UIBrowserHashModification: false,
+
+    //////////////////////////////////////
+    // Method to enable hash modification:
+    //////////////////////////////////////
+    UIEnableBrowserHashModification: function() {
+      $.UIBrowserHashModification = true;
+      $.UISetHashOnUrl('#' + $('article.current')[0].id);
     },
+
     /////////////////////////////////////////////////////
     // Set the hash according to where the user is going:
     /////////////////////////////////////////////////////
     UISetHashOnUrl : function ( url, delimiter ) {
-      delimiter = delimiter || '#/';
-      var hash;
-      if (/^#/.test(url)) {
-        hash = delimiter + (url.split('#')[1]);
-      } else {
-        hash = delimiter + url;
-      }
-      if ($.isAndroid) {
-        if (/#/.test(url)) {
-          url = url.split('#')[1];
+      if ($.UIBrowserHashModification) {
+        delimiter = delimiter || '#/';
+        var hash;
+        if (/^#/.test(url)) {
+          hash = delimiter + (url.split('#')[1]);
+        } else {
+          hash = delimiter + url;
         }
-        if (/\//.test(url)) {
-          url = url.split('/')[1];
+        if ($.isAndroid) {
+          if (/#/.test(url)) {
+            url = url.split('#')[1];
+          }
+          if (/\//.test(url)) {
+            url = url.split('/')[1];
+          }
+          window.location.hash = '#/' + url;
+        } else {
+          window.history.replaceState('Object', 'Title', hash);
         }
-        window.location.hash = '#/' + url;
-      } else {
-        window.history.replaceState('Object', 'Title', hash);
       }
     },
     //////////////////////////////////////
@@ -809,9 +819,10 @@ if(window.jQuery) {
       if (currentToolbar[0] && currentToolbar.length) {
         currentToolbar.removeClass('current').addClass('next');
       }
-      $.UISetHashOnUrl($.UINavigationHistory[histLen-2]);
+      $.UINavigationHistory[histLen-2]
       if ($.UINavigationHistory.length === 1) return;
       $.UINavigationHistory.pop();
+      $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
       triggerNavigationEvent(destination);
     },
     isNavigating : false,
@@ -935,13 +946,6 @@ if(window.jQuery) {
       $(navigable).addClass('navigable');
     });
 
-    /////////////////////////////////////
-    // Init navigation url hash tracking:
-    /////////////////////////////////////
-    // If there's more than one article:
-    if ($('article').eq(1)[0]) {
-      $.UISetHashOnUrl($('article').eq(0)[0].id);
-    }
     /////////////////////////////////////////////////////////
     // Stop rubber banding when dragging down on nav:
     /////////////////////////////////////////////////////////
@@ -949,7 +953,6 @@ if(window.jQuery) {
       e.preventDefault();
     });
   });
-
 
 
   $(function() {
@@ -2334,12 +2337,9 @@ if(window.jQuery) {
       });
       $('nav').removeClass('current').addClass('next');
       $('#global-nav').removeClass('next');
-      // $('nav').eq(settings.selected).removeClass('next').addClass('current');
-      // $('article').removeClass('current').addClass('next');
-      
       $('article').eq(settings.selected).removeClass('next').addClass('current');
       $('article').eq(settings.selected).prev('nav').removeClass('next').addClass('current');
-
+      $.UINavigationHistory[0] = '#' + $('article').eq(settings.selected)[0].id;
       // Setup events on tabs:
       var tabButtonTap = 'singletap';
       if ($.isAndroid) {
@@ -2388,6 +2388,7 @@ if(window.jQuery) {
             $(history[i]).removeClass('next').addClass('previous');
             $(history[i]).prev().removeClass('next').addClass('previous');
           }
+          $.UISetHashOnUrl(history[history.length-1]);
 
         ////////////////////////////////////////////////
         // Otherwise, since the array has only one item, 
@@ -2398,6 +2399,7 @@ if(window.jQuery) {
           $('nav.current').removeClass('current').addClass('next');
           $('article').eq(index).removeClass('next').addClass('current');
           $('nav').eq(index+1).removeClass('next').addClass('current');
+          $.UISetHashOnUrl(history[0]);
         }
 
         id = $('article').eq(index)[0].id;
@@ -2412,7 +2414,6 @@ if(window.jQuery) {
             ctx.scrollTop = 0;
           }
         });
-        $.UISetHashOnUrl('#'+id);
         $.UINavigationHistory = $(this).data('history');
       });
     }

@@ -1,8 +1,8 @@
-// Type definitions for chui v3.9.0
+// Type definitions for chui v3.9.1
 // Project: https://github.com/chocolatechipui/chocolatechip-ui
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// ChocolateChip-UI 3.9.0
+// ChocolateChip-UI 3.9.1
 /**
  These TypeScript delcarations for ChocolateChip-UI contain interfaces for both ChocolateChipJS and jQuery. Depending on which library you are using, you will get the type interfaces appropriate for it.
 */
@@ -783,6 +783,17 @@ interface JQueryStatic {
    * Determine whether navigation is in progress or not.
    */
   isNavigating: boolean;
+
+  /**
+   * Tell ChocolateChip-UI to not modify window hash during navigation.
+   * The default value is false.
+   */
+  UIBrowserHashModification: boolean;
+
+  /**
+   * Method to tell ChocolateChip-UI to register navigation history on Window hash.
+   */
+  UIEnableBrowserHashModification(): void;
 
   /**
    * Navigate to the article indicated by the provided destination ID. This enters the destination into the navigation history array.
