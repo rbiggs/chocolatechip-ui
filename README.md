@@ -10,6 +10,9 @@ ChocolateChip-UI is a framework for making mobile Web apps. It has three compone
 
 Please visit [ChocolateChip-UI's Website](http://chocolatechip-ui.com) for documentation and tutorials. This project includes examples for iOS, Android and Windows Phone 8 to help you get going.
 
+##NPM
+The fastest way to get going with ChocolateChip-UI is to install the NPM mobule ```chui```. This will allow you to quickly create the type of ChocolateChip-UI project you want. Please visit [NPM](https://www.npmjs.com/package/chui) for directions on how to use it
+
 ##Building 
 
 You do not have to build ChocolateChipUI. This repository has all examples and test pre-built for you. To view the iOS examples, please use the Safari Browser. For Android, use Chrome. For Windows Phone, use IE 10 or MS Edge. 
