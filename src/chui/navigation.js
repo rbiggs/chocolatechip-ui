@@ -26,33 +26,43 @@
   }
   $.extend({
     ////////////////////////////////////////////////
-    // Manage location.hash for client side routing:
+    // Boolean to control whether to add hash values
+    // to window.locaction href or not.
+    // Set default to true:
     ////////////////////////////////////////////////
-    UITrackHashNavigation : function ( url, delimiter ) {
-      url = url || true;
-      $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1], delimiter);
+    UIBrowserHashModification: false,
+
+    //////////////////////////////////////
+    // Method to enable hash modification:
+    //////////////////////////////////////
+    UIEnableBrowserHashModification: function() {
+      $.UIBrowserHashModification = true;
+      $.UISetHashOnUrl('#' + $('article.current')[0].id);
     },
+
     /////////////////////////////////////////////////////
     // Set the hash according to where the user is going:
     /////////////////////////////////////////////////////
     UISetHashOnUrl : function ( url, delimiter ) {
-      delimiter = delimiter || '#/';
-      var hash;
-      if (/^#/.test(url)) {
-        hash = delimiter + (url.split('#')[1]);
-      } else {
-        hash = delimiter + url;
-      }
-      if ($.isAndroid) {
-        if (/#/.test(url)) {
-          url = url.split('#')[1];
+      if ($.UIBrowserHashModification) {
+        delimiter = delimiter || '#/';
+        var hash;
+        if (/^#/.test(url)) {
+          hash = delimiter + (url.split('#')[1]);
+        } else {
+          hash = delimiter + url;
         }
-        if (/\//.test(url)) {
-          url = url.split('/')[1];
+        if ($.isAndroid) {
+          if (/#/.test(url)) {
+            url = url.split('#')[1];
+          }
+          if (/\//.test(url)) {
+            url = url.split('/')[1];
+          }
+          window.location.hash = '#/' + url;
+        } else {
+          window.history.replaceState('Object', 'Title', hash);
         }
-        window.location.hash = '#/' + url;
-      } else {
-        window.history.replaceState('Object', 'Title', hash);
       }
     },
     //////////////////////////////////////
@@ -129,9 +139,10 @@
       if (currentToolbar[0] && currentToolbar.length) {
         currentToolbar.removeClass('current').addClass('next');
       }
-      $.UISetHashOnUrl($.UINavigationHistory[histLen-2]);
+      $.UINavigationHistory[histLen-2]
       if ($.UINavigationHistory.length === 1) return;
       $.UINavigationHistory.pop();
+      $.UISetHashOnUrl($.UINavigationHistory[$.UINavigationHistory.length-1]);
       triggerNavigationEvent(destination);
     },
     isNavigating : false,
@@ -255,13 +266,6 @@
       $(navigable).addClass('navigable');
     });
 
-    /////////////////////////////////////
-    // Init navigation url hash tracking:
-    /////////////////////////////////////
-    // If there's more than one article:
-    if ($('article').eq(1)[0]) {
-      $.UISetHashOnUrl($('article').eq(0)[0].id);
-    }
     /////////////////////////////////////////////////////////
     // Stop rubber banding when dragging down on nav:
     /////////////////////////////////////////////////////////
@@ -269,4 +273,3 @@
       e.preventDefault();
     });
   });
-})(window.$);
