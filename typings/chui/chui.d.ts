@@ -90,6 +90,17 @@ interface ChocolateChipStatic {
   isNavigating: boolean;
 
   /**
+   * Tell ChocolateChip-UI to not modify window hash during navigation.
+   * The default value is false.
+   */
+  UIBrowserHashModification: boolean;
+
+  /**
+   * Method to tell ChocolateChip-UI to register navigation history on Window hash.
+   */
+  UIEnableBrowserHashModification(): void;
+
+  /**
    * Navigate to the article indicated by the provided destination ID. This enters the destination into the navigation history array.
    *
    * param destination An id for the article to navigate to.
