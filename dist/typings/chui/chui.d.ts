@@ -1,8 +1,8 @@
-// Type definitions for chui v3.9.0
+// Type definitions for chui v3.9.1
 // Project: https://github.com/chocolatechipui/chocolatechip-ui
 // Definitions by: Robert Biggs <http://chocolatechip-ui.com>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// ChocolateChip-UI 3.9.0
+// ChocolateChip-UI 3.9.1
 /**
  These TypeScript delcarations for ChocolateChip-UI contain interfaces for both ChocolateChipJS and jQuery. Depending on which library you are using, you will get the type interfaces appropriate for it.
 */
@@ -88,6 +88,17 @@ interface ChocolateChipStatic {
    * Determine whether navigation is in progress or not.
    */
   isNavigating: boolean;
+
+  /**
+   * Tell ChocolateChip-UI to not modify window hash during navigation.
+   * The default value is false.
+   */
+  UIBrowserHashModification: boolean;
+
+  /**
+   * Method to tell ChocolateChip-UI to register navigation history on Window hash.
+   */
+  UIEnableBrowserHashModification(): void;
 
   /**
    * Navigate to the article indicated by the provided destination ID. This enters the destination into the navigation history array.
@@ -1025,6 +1036,33 @@ interface JQueryStatic {
    */
   UIUnBindData(controller?: string): void;
 
+  /**
+   * Subscribe to a publication. You provide the topic you want to subscribe to, as well as a callback to execute when a publication occurs.
+   * Any data passed by the publisher is exposed to the callback as its second parameter. The callback's first parameter is the published topic.
+   *
+   * @param topic string A topic to subscribe to. This can be a single term, or any type of namespaced term with delimiters.
+   * @data any You can receive any type: string, number, array, object, etc.
+   * @return any
+   */
+  subscribe(topic: string, callback: (topic: string, data: any) => boolean): boolean;
+
+  /**
+   * Unsubscribe from a topic. Pass this the topic you wish to unsubscribe from. The subscription will be terminated immediately.
+   *
+   * @param topic string The name of the topic to unsubscribe from.
+   * @return void
+   */
+  unsubscribe(topic: string): void;
+
+  /**
+   *    Publish a topic with data for the topic's subscribers to receive.
+   *
+   * @param topic string The topic you wish to publish.
+   * @param data The data to send with the publication. This can be of any type: string, number, array, object, etc.
+   * @return void
+   */
+  publish(topic: string, data: any): string;
+  
   /**
    * Object used to store string templates and parsed templates.
    *
