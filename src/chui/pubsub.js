@@ -1,5 +1,6 @@
 (function($) {
   "use strict";
+  if (window.chocolatechipjs) return;
   $.extend({
     subscriptions : {},
 
