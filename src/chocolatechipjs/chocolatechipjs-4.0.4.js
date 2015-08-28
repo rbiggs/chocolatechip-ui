@@ -10,7 +10,7 @@
 ChocolateChipJS
 Copyright 2015 Sourcebits www.sourcebits.com
 License: MIT
-Version: 4.0.3
+Version: 4.0.4
 */
 function chocolatechipjs(selector, context) {
   var _this = this;
@@ -152,10 +152,10 @@ if (typeof window.$ === 'undefined') {
   };
   $.extend($, {
     libraryName: "ChocolateChip",
-    version: '4.0.3',
+    version: '4.0.4',
     noop: function() {},
     uuidNum: function() {
-      var d = new Date().getTime();
+      var d = Date.now();
       var charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split('');
       var randomLetter = charset[Math.floor(Math.random() * charset.length)];
       return randomLetter + 'xxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -2541,8 +2541,11 @@ function isForbiddenMethod(method) {
     if (!element) {
       var repeaters = $('[data-repeater]');
       $.template.index = 0;
+      var imgSrc;
+      var re = /data-src/img;
       repeaters.forEach(function(repeater) {
         var template = repeater.innerHTML;
+        template = template.replace(re, 'src');
         var r = $(repeater);
         var d = r.attr('data-repeater');
         if (!d || !$.template.data[d]) {
