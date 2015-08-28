@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI iOS</title>
+  <link rel="stylesheet" href="../chui/chui-ios-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <style>
+    .grid > .col {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 100% auto;
+      background-color: #000;
+      -webkit-transition: all .125s ease-out;
+      transition: all .125s ease-out;
+    }
+    @media only screen and (min-width: 320px) {
+      .grid > .col {
+        height: 100px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 480px) {
+      .grid > .col {
+        height: 150px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (max-width: 599px) {
+      .grid {
+        -wekbit-flex-direction: horizontal;
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+      }
+      .isWindows .grid {
+        display: flex;
+      }
+    }
+    @media only screen and (min-width: 640px) {
+      .grid > .col {
+        height: 200px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 768px) {
+      .grid > .col {
+        height: 250px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 1024px) {
+      .grid > .col {
+        height: 300px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 1200px) {
+      .grid > .col {
+        height: 350px;
+        background-size: auto 100%;
+      }
+    }
+    @media only screen and (min-width: 1400px) {
+      .grid > .col {
+        height: 500px;
+        background-size: auto 100%;
+      }
+    }
+  </style>
+  <script>
+    $(function() {
+      $.UISlideout();
+      $.UISlideout.populate([{music:'موسيقى'},{pictures:'الصور'},{dictionary:'قاموس'},{contacts:'اتصال'}]);
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>موسيقى</h1>
+  </nav>
+  <article id='music'>
+    <section>
+      <h2>موسيقى</h2>
+      <ul class='list'>
+       <li class='comp'>
+          <aside>
+            <img title='Aamel Aaqla' src="../rtl-images/arabic/Aamel_Aaqlah.jpg" height="80px">
+          </aside>
+          <div>
+            <h3 title='Nancy Ajram'>نانسي عجرم</h3>
+            <h4>أعمل عاقلة</h4>
+            <p>هي واحدة من الأغاني المفضلة لدينا من قبل نانسي.</p>
+          </div>
+          <aside>
+            <span class='show-detail'></span>
+          </aside>
+        </li>
+        <li class='comp'>
+          <aside>
+            <img title='El Leila' src="../rtl-images/arabic/Amr_Diab-El_Leila.jpg" height="80px">
+          </aside>
+          <div>
+            <h3 title='Amr Diab'>عمرو دياب</h3>
+            <h4>الليلة</h4>
+            <p>قال انه لا يوجد لديه الخوف في خلط أحدث الأساليب العالم مع نظيره الغناء عاطفي.</p>
+          </div>
+          <aside>
+            <span class='show-detail'></span>
+          </aside>
+        </li>
+        <li class='comp'>
+          <aside>
+            <img title='Ykhallili Albak' src="../rtl-images/arabic/Ykhallili_Albak_Najwa.jpg" height="80px">
+          </aside>
+          <div>
+            <h3 title='Najwa Karam'>نجوى كرم‎</h3>
+            <h4>يخليلي قلبك</h4>
+            <p>نجوى لديها وسيلة فريدة من نوعها في الغناء.</p>
+          </div>
+          <aside>
+            <span class='show-detail'></span>
+          </aside>
+        </li>
+        <li class='comp'>
+          <aside>
+            <img title='Bent Osol' src="../rtl-images/arabic/Diana_Haddad_Bent_Osol.jpg" height="80px">
+          </aside>
+          <div>
+            <h3 title='Diana Haddad'>ديانا حداد</h3>
+            <h4>بنت أصول</h4>
+            <p>ديانا هي أسطورة. موسيقاها يحرك الروح. ونحن لا يمكن أبدا أن نسمع ما يكفي من صوتها.</p>
+          </div>
+          <aside>
+            <span class='show-detail'></span>
+          </aside>
+        </li>
+        <li class='comp'>
+          <aside>
+            <img title='Jaber Alkaser' src="../rtl-images/arabic/jaber_alkaser_Rasheed.jpg" height="80px">
+          </aside>
+          <div>
+            <h3 title='Rashid Majid'>راشد الماجد‎</h3>
+            <h4>جبار حبك</h4>
+            <p>راشد الماجد هو الموسيقى العربية الكلاسيكية. وهو من أبرز المطربين.</p>
+          </div>
+          <aside>
+            <span class='show-detail'></span>
+          </aside>
+        </li>
+      </ul>        
+    </section>
+  </article>
+  <nav>
+    <h1>الصور</h1>
+  </nav>
+  <article id='pictures'>
+    <section>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-01.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-02.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-03.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-04.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-05.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-06.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-07.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-08.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-09.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-10.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-11.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-12.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-13.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-14.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-15.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-16.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-17.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-18.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-19.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-20.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-21.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-22.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-23.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-24.jpg')"></div>
+      </div>
+      <div class="grid no-wrap">
+        <div class="col flex-1" style="background-image: url('../pics/pic-25.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-26.jpg')"></div>
+        <div class="col flex-1" style="background-image: url('../pics/pic-27.jpg')"></div>
+      </div>
+    </section>
+  </article>
+  <nav>
+    <h1>قاموس</h1>
+  </nav>
+  <article id='dictionary'>
+    <section>
+      <ul class='list'>
+        <li>
+        <ol>
+          <li>رفيف - رَفيفٌ :
+          <ol>
+            [ ر ف ف ]. ( مصدر رَفَّ ، يَرِفُّ ).
+            <li>" رَفيفُ الثَّغْرِ " : بَريقٌ .</li>
+            <li> ثَوْبٌ رَفيفٌ " : رَقيقٌ . </li>
+            <li>" شَجَرَةٌ رَفيفَةٌ " : مُنْتَدِيَةٌ . " شَجَرٌ رَفيفٌ ". </li>
+            <li>" شَجَرَةٌ رَفيفَةٌ " : مُنْتَدِيَةٌ . " شَجَرٌ رَفيفٌ ". </li>
+            <li>" أَرْضٌ ذاتُ رَفيفٍ " : خِصْبَةٌ .</li>
+            <li>" هُوَ رَفِيفُ الأَخْلاَقِ " : حَسَنُهَا . </li>
+            <li>" ذاتُ الرَّفيفِ " : البَساتِينُ يَرُفُّ نَباتُها وَشَجَرُها مِنَ الرَّيِّ والنَّضارَةِ .</li>
+            <li>"ذاتُ الرَّفيفِ " : سُفُنٌ تُنْضَدُ في النَّهْرِ لِلْعُبُورِ عَلَيْها .</li>
+            المعجم: الغني
+          </ol>
+          </li>
+          <li>
+            رَفيف :
+            <ul>
+              <li>مصدر رفَّ / رفَّ إلى / رفَّ بـ / رفَّ على / رفَّ لـ .</li>
+              <li>المعجم: اللغة العربية المعاصر</li>
+            </ul>
+          </li>
+          <li>
+            رَفيف : 
+            <ul>
+              <li>اسم علم مؤنث عربي ، </li>
+              <li>معناه : الخصب حسنُ الأخلاق ، المحبة للطعام والشراب ، الساعية لخدمة الآخرين ، الكريمة ، العطوفة ، المرتاحة ، </li>
+              <li>سقف البيت . وإذا سمي بها المذكر كانت المعاني نفسها في حال التذكير .</li>
+            </ul>
+          </li>
+        </ol>
+      </ul>
+    </section>
+  </article>
+  <nav>
+    <h1>اتصالات</h1>
+  </nav>
+  <article id='contacts'>
+    <section>
+      <ul class='list'>
+        <li>
+          <h3>John Doe</h3>
+          <h4>Bagley's Bagels</h4>
+          <p>111-111-1111</p>
+        </li>
+        <li>
+          <h3>Suzy Cue</h3>
+          </h4>Jeff's Jiffies</h4>
+          <p>222-222-2222</p>
+        </li>
+        <li>
+          <h3>Paul Parker</h3>
+          </h4>Bonzo's</h4>
+          <p>333-333-3333</p>
+        </li>
+        <li>
+          <h3>Mary Joe</h3>
+          </h4>Borx International</h4>
+          <p>444-444-4444</p>
+        </li>
+        <li>
+          <h3>Joe Bodoni</h3>
+          </h4>Sasquatch Suits</h4>
+          <p>555-555-5555</p>
+        </li>
+        <li>
+          <h3>Edna Edmond</h3>
+          </h4>MacDoogle's</h4>
+          <p>666-666-6666</p>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>

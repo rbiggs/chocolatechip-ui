@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI iOS</title>
+  <link rel="stylesheet" href="../chui/chui-ios-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <style type="text/css" media="all">
+    /* Set background color for invalid inputs: */
+    input:focus:invalid {
+      background-color: rgba(225,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+    <nav>
+      <h1>دخول</h1>    
+    </nav>
+    <article class='current'>
+      <section>
+        <h2>يجب أن يتم تسجيل فيها.</h2>
+        <ul ui-implements='form' class='list'>
+          <li class='comp'>
+            <div>
+              <label for='userName'>اسم المستخدم:</label>
+            </div>
+            <aside>
+              <input id="userName" type="text" name=".username" autocapitalize="off" autocorrect="off" required>
+            </aside>
+          </li>
+          <li class='comp'>
+            <div>
+              <label for='password'>كلمة السر:</label>
+            </div>
+            <aside>
+              <input id="password" type="password" name="password" autocapitalize="off" autocorrect="off" required>
+            </aside>
+          </li>
+        </ul> 
+      <div>
+        <br><br>
+        <button id="loginSubmit">دخول</button>
+        <br><br>
+        <button id="goToForgotPassword">نسيت كلمة المرور؟</button>
+      </div>
+      </section>
+    </article>
+</body>
+</html>

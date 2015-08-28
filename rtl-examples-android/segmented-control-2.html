@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Android</title>
+  <link rel="stylesheet" href="../chui/chui-android-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <script>
+    $(function() {
+      // Define options for segmented control:
+      var segmentedOptions = {
+        id: 'mySegmented',
+        labels : ['جبار حبك','بنت أصول','أعمل عاقلة'],
+        selected: 2
+      };
+      // Define callback for Segmented Control:
+      var segmentedResponse = function(e) {
+        e.stopPropagation();
+        $('#output').find('h3 > span').html(($(this).index() + 1));
+      };
+
+      // Create segmented control:
+      var newSegmented = $.UICreateSegmented(segmentedOptions);
+      $('#segmentedPanel').append(newSegmented);
+      
+      // Init Segmented Control:
+      $('#mySegmented').UISegmented({
+        selected: 0, 
+        callback: segmentedResponse
+      });
+
+      // Find the default selected segment and set the output value to that:
+      var selectedPanel = $('.segmented').find('.selected').index();
+      $('#output').find('span').html(selectedPanel + 1);
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>زر مجزأ: ديناميكي</h1>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      <div id='segmentedPanel' class='horizontal centered'>
+      </div>
+      <ul class='list' id='output'>
+        <li>
+          <h3>االذي حددته: <span class='attentionGrapper'></span>.</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>

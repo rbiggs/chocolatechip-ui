@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Windows</title>
+  <link rel="stylesheet" href="../chui/chui-win-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      
+      // Content for Popovers:
+      var popover1Content = "<ul class='list'><li><h3>تفاحة</h3></li><li><h3>مانجو</h3></li><li><h3>مشمش</h3></li><li><h3>موز</h3></li><li><h3>كرز</h3></li><li><h3>عنب</h3></li><li><h3>ليمون</h3></li><li><h3>خوخ</h3></li><li><h3>برقوق</h3></li><li><h3>كمثرى</h3></li><li><h3>برتقال</h3></li></ul>";
+      
+      var popover2Content = "<ul class='list'><li><h3>كعكة</h3></li><li><h3>أيس كريم</h3></li><li><h3>فطائر</h3></li><li><h3>كوكي</h3></li><li><h3>الكعك</h3></li><li><h3>الكريب</h3></li><li><h3>كاسترد</h3></li><li><h3>الكرمل</h3></li><li><h3>حلويات</h3></li></ul>";
+          
+      // Callback for Popovers:
+      var fillPopover1 = function(popover) {
+        // Populate Popover with content:
+        $('.popover').find('section').append(popover1Content);
+        popoverEventHandler();
+      };
+        
+      var fillPopover2 = function(popover) {
+        // Populate Popover with content:
+        $('.popover').find('section').append(popover2Content);
+        popoverEventHandler();
+      };
+        
+      var popoverEventHandler = function(whichPopover) {
+        // Attach event to catch user interaction.
+        // Use singletap to allow user to scroll content.
+        $('.popover').on('singletap', function(e) {
+          var results;
+          if (whichPopover === 'fruitsPopover') {
+            results = '#fruitsChoice';
+          } else if(whichPopover === 'dessertsPopover') {
+            results = '#dessertsChoice';
+          }
+          var listItem;
+          if (e.target.nodeName === 'LI') {
+            listItem = e.target;
+            $(results).html(e.target.textContent.trim());
+          } else {
+            listItem = $(e.target).closest('li')[0];
+            $(results).html(listItem.textContent.trim());
+          }
+          $(listItem).addClass('selected');
+          if ($.isAndroid || $.isChrome) {
+            setTimeout(function() {
+              $.UIPopoverClose();
+            }, 300);
+          } else {
+            $.UIPopoverClose();
+          }
+        });
+      };
+        
+      // Initialize Popover: 
+      $('#showPopover1').on('singletap', function() {
+        var trigger = this;
+        $.UIPopover({
+          title: 'فاكهة',
+          trigger: trigger,
+          content: popover1Content,
+          callback: function() {
+            popoverEventHandler('fruitsPopover');
+          }
+        });
+      });
+      $('#showPopover2').on('singletap', function() {
+        var trigger = this;
+        $.UIPopover({
+          title: 'حلوى',
+          trigger: trigger,
+          content: popover2Content,
+          callback: function() {
+            popoverEventHandler('dessertsPopover');
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+    #choices h4 {
+      font-family: SegoeWP, SegoeUI, HelveticaNeue, Roboto, Sans-serif;
+    }
+    body.isNativeAndroidBrowser nav > .show-popover.align-flush {
+      top: -4px !important;
+    }
+    .horizontal.centered {
+      width: 200px;
+      display: -wekbit-flex;
+      display: flex;
+      top: 5px;
+    }
+    .isiOS .horizontal.centered,
+    .isDesktopSafari .horizontal.centered {
+      width: 130px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>عنصر غطاء</h1>
+    <div class='horizontal centered align-flush'>
+      <button class='show-popover' id="showPopover1">فاكهة</button>
+      <button class='show-popover' id="showPopover2">الحلويات</button>
+    </div>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      </div>
+      <ul class='list'>
+        <li>
+          <h3>مثال عنصر غطاء</h3>
+          <h4>انقر فوق الزر أعلاه.</h4>
+        </li>
+      </ul>
+      <h2>خياراتك</h2>
+      <ul class="list" id='popover-choices'>
+         <li>
+           <h3>فاكهة:</h3>
+           <h4 id="fruitsChoice" class='attentionGrapper'></h4>
+         </li>
+         <li>
+           <h3>حلوى:</h3>
+           <h4 id="dessertsChoice" class='attentionGrapper'></h4>
+         </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>

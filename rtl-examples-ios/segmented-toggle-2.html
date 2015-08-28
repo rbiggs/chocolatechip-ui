@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI iOS</title>
+  <link rel="stylesheet" href="../chui/chui-ios-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <style>
+    #output {
+      font-weight: bold;
+    }
+  </style>
+  <script>
+    $(function() {
+      // Define options for toggle panels:
+      var segmentedOptions = {
+        id: 'mySegmented',
+        labels : ['جبار حبك','بنت أصول','أعمل عاقلة'],
+        selected: 2
+      };
+      // Define callback for Segmented Control:
+      var segmentedResponse = function(e) {
+        e.stopPropagation();
+        $('#output').find('h3 > span').html(($(this).index() + 1));
+      };
+      // Create Segmented Control:
+      var newSegmented = $.UICreateSegmented(segmentedOptions);
+      $('#segmentedPanel').append(newSegmented);
+      // Init Segmented Control:
+      $('.segmented').UISegmented({
+        selected: 2,
+        callback:segmentedResponse
+      });
+      // Init panel toggling:
+      $('.segmented').UIPanelToggle('#toggle-panels',function(){$.noop;});
+      var selectedPanel = $('.segmented').find('.selected').index();
+      $('#output').find('span').html(selectedPanel + 1);
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>زر مجزأ: ديناميكي</h1>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      <div id='segmentedPanel' class='horizontal centered'></div>
+      <div id="toggle-panels">
+        <div>
+          <ul class='list'>
+            <li class='comp'>
+              <aside>
+                <img title='Jaber Alkaser' src="../rtl-images/arabic/jaber_alkaser_Rasheed.jpg" height="80px">
+              </aside>
+              <div>
+                <h3 title='Rashid Majid'>راشد الماجد‎</h3>
+                <h4>جبار حبك</h4>
+                <p>راشد الماجد هو الموسيقى العربية الكلاسيكية. وهو من أبرز المطربين.</p>
+              </div>
+              <aside>
+                <span class='show-detail'></span>
+              </aside>
+            </li>
+          </ul>  
+        </div>
+        <div>
+          <ul class='list'>
+            <li class='comp'>
+              <aside>
+                <img title='Bent Osol' src="../rtl-images/arabic/Diana_Haddad_Bent_Osol.jpg" height="80px">
+              </aside>
+              <div>
+                <h3 title='Diana Haddad'>ديانا حداد</h3>
+                <h4>بنت أصول</h4>
+                <p>ديانا هي أسطورة. موسيقاها يحرك الروح. ونحن لا يمكن أبدا أن نسمع ما يكفي من صوتها.</p>
+              </div>
+              <aside>
+                <span class='show-detail'></span>
+              </aside>
+            </li>
+          </ul>  
+        </div>
+        <div>
+          <ul class='list'>
+            <li class='comp'>
+              <aside>
+                <img title='Aamel Aaqla' src="../rtl-images/arabic/Aamel_Aaqlah.jpg" height="80px">
+              </aside>
+              <div>
+                <h3 title='Nancy Ajram'>نانسي عجرم</h3>
+                <h4>أعمل عاقلة</h4>
+                <p>هي واحدة من الأغاني المفضلة لدينا من قبل نانسي.</p>
+              </div>
+              <aside>
+                <span class='show-detail'></span>
+              </aside>
+            </li>
+          </ul>  
+        </div>
+      </div>
+      <ul class='list' id='output'>
+        <li>
+          <h3 class='attentionGrapper'>االذي حددته: <span class='attentionGrapper'></span>.</h3>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>

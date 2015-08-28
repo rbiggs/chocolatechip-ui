@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Android</title>
+  <link rel="stylesheet" href="../chui/chui-android-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <script>
+    $(function() {
+      $("#goToLast").on("singletap", function() {
+         $.UIGoToArticle("#article3");
+       });
+       $('#backToMain').on('singletap', function() {
+         $.UIGoBackToArticle('#main');
+       });
+    });
+  </script>
+  <style>
+    button.action {
+      margin-right: 20px;
+    }
+    .isiOS section > button.action {
+      margin: 10px auto !important;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <h1>غير الخطي للملاحة</h1>
+  </nav>
+  <article id='main' class='current'>
+    <section>
+      <ul class='list' role='list'>
+        <li role='button' class='nav' data-goto="article2">
+          <h3>عنصر</h3>
+        </li>
+      </ul>
+      <br><br>
+      <button id='goToLast' class="action">انتقل إلى القصة</button>
+    </section>
+  </article>
+  <nav>
+    <button class="back">رجوع</button>
+    <h1>المادة الثانية</h1>
+  </nav>
+  <article id="article2" class='next'>
+    <section>
+      <ul class='list' role='list'>
+        <li role='button' data-goto="article3" class='nav'>
+          <span class='counter'>1</span>
+          <h3>عنصر</h3>
+          <h4>عنوان فرعي</h4>
+        </li>
+      </ul>
+    </section>
+  </article>
+  <nav>
+    <button id='backToMain' class='backTo'>رجوع</button>
+    <h1>زر الرجوع</h1>
+  </nav>
+  <article id="article3" class='next'>
+    <section>
+      <ul class='list'>
+        <li>
+          <h3>عنصر</h3>
+          <h4>عنوان فرعي</h4>
+          <p>لى تم الإتحاد الهزائم الإكتفاء. لم فقامت ناجازاكي قام. وقد استمرار الخنادق و, ذلك الخاسرة اليابانية بـ. كما مرجع فرنسية في, أن لكل المحيط النمسا الساحلية.</p>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI iOS</title>
+  <link rel="stylesheet" href="../chui/chui-ios-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      $('#digits').UIStepper({  
+        start: 1,
+        end: 8,
+        defaultValue: 3
+      });
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>زيادة</h1>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      <ul class='list'>
+        <li>
+          <h3>اختيار قيمة:</h3>
+          <span class='stepper' id="digits"></span>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>

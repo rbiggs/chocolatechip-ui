@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Windows</title>
+  <link rel="stylesheet" href="../chui/chui-win-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <script>
+    var listData = [
+      'التفاح',
+      'البرتقال',
+      'الموز',
+      'الكمثرى',
+      'الخس',
+      'الطماطم',
+      'البطاطا',
+      'هذه هي بعض النصوص سخيفة ليستغرق الكثير من الفضاء.'
+    ];
+
+    $(function() {
+      if (localStorage.getItem('chosen-items')) {
+        var items = localStorage.getItem('chosen-items');
+        items = items.split("'")[1];
+        JSON.parse(items).forEach(function(ctx) {
+          $('#editList').append('<li data-list-item-value="'+ ctx + '"><h3>' + ctx + '</h3></li>');
+        });
+      } else {
+
+        listData.forEach(function(ctx) {
+          $('#editList').append('<li data-list-item-value="'+ ctx + '"><h3>' + ctx + '</h3></li>');
+        });
+      }
+
+      ////////////////////////////////////////
+      // Inialize editable list with callback:
+      ////////////////////////////////////////
+
+      var editableListOptions = {
+        // Uncomment either of these to
+        // disable movable or deletable:
+        // movable: false,
+        // deletable: false,
+        
+        editLabel: 'تحرير',
+        doneLabel: 'منجز',
+        deleteLabel: 'حذف',
+
+        // Define callback for "Done" button:
+        callback: function(item) {
+          var text = $(item).siblings('h3').text();
+          $('#response').html('You deleted: <strong>' + text + '</strong>');
+          var tempArray = [];
+          $('#editList').find('li').forEach(function(ctx) {
+            tempArray.push($(ctx).attr('data-list-item-value'));
+          });
+          tempArray = "'" + JSON.stringify(tempArray) + "'";
+          try {
+            localStorage.setItem('chosen-items', tempArray);
+          } catch(err) {
+            return
+          }
+        }
+      };
+      $('#editList').UIEditList(editableListOptions);
+
+      // Reset list by deleting localStorage:
+      $('#resetList').on('singletap', function() {
+          localStorage.removeItem('chosen-items');
+          $('#editList').empty();
+          listData.forEach(function(ctx) {
+            $('#editList').append('<li data-list-item-value="'+ ctx + '"><h3>' + ctx + '</h3></li>');
+          });
+          $('#editList').UIEditList(editableListOptions);
+          $('#editList').removeClass('showIndicators');
+          $('button.done').addClass('edit').removeClass('done').text('Edit');
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>قائمة قابلة للتحرير</h1>
+  </nav>
+  <article id='main'>
+    <section>
+      <ul class='list' id='editList'>
+      </ul>
+      <p><button id='resetList' class="action">إعادة تعيين القائمة</button></p>
+    </section>
+  </article>
+</body>
+</html>
+</html>
