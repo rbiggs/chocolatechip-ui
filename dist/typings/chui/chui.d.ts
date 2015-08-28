@@ -1044,7 +1044,7 @@ interface JQueryStatic {
    * @data any You can receive any type: string, number, array, object, etc.
    * @return any
    */
-  subscribe(topic: string, callback: (topic: string, data: any) => boolean): boolean;
+  subscribe(topic: string, callback: (topic: string, data: any) => any): boolean;
 
   /**
    * Unsubscribe from a topic. Pass this the topic you wish to unsubscribe from. The subscription will be terminated immediately.
