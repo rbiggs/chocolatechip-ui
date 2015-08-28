@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI iOS</title>
+  <link rel="stylesheet" href="../chui/chui-ios-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <script>
+    $(function() {
+      var initSelectionList = function(elem) {
+        $(elem).UISelectList({
+          selected: 2,
+          callback: function() {
+            $("#response").html($(this).text());
+          }
+        });
+        // Setup selected choice:
+        $('li').each(function(idx, ctx) {
+          if ($(ctx).hasClass('selected')) {
+            $("#response").html($(ctx).text());
+          }
+        });       
+      }
+      initSelectionList('.list');
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>قائمة الاختيار</h1>
+  </nav>
+  <article id='select-example'>
+    <section>
+      <h2>المهام للقيام</h2>
+      <ul class='list select'>
+        <li data-select-value='يأكل'>
+          <h3>يذهب يأكل شيئا.</h3>
+        </li>
+        <li data-select-value='غفوة'>
+          <h3>أخذ غفوة.</h3>
+        </li>
+        <li data-select-value='العمل'>
+          <h3>الحصول على بعض العمل المنجز.</h3>
+        </li>
+        <li data-select-value='لعبة'>
+          <h3>تلعب لعبة.</h3>
+        </li>
+      </ul>
+      <p><strong>أنت ذاهب ل: </strong><span id="response"></span></p>
+    </section>
+  </article>
+</body>
+</html>

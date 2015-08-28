@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Android</title>
+  <link rel="stylesheet" href="../chui/chui-android-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+  <style>
+    div {
+      width: 300px;
+      font:  bold 16pt/20pt Helvetica, sans-serif;
+      -webkit-user-select: none;
+    }
+    section label {
+      display: block;
+      margin-bottom: 6px;
+    }
+    section input[type=range] {
+      width: 200px
+    }
+    html[dir=rtl] body.isNativeAndroidBrowser input[type="range"] {
+      width: 200px;
+    } 
+  </style>
+  <script>
+    $(function() {
+      $('#rangeValue1').html($('#rangeControl1').val());
+      // Safari, Chrome and Firefox use "input",
+      // Windows responds to "change":
+      $('#rangeControl1').on('input change', function() {
+        $('#rangeValue1').html($(this).val());
+      });
+      
+      $('#rangeValue2').html($('#rangeControl2').val());
+      // Safari, Chrome and Firefox use "input",
+      // Windows responds to "change":
+      $('#rangeControl2').on('input change', function() {
+        $('#rangeValue2').html($(this).val());
+      });
+    });
+  </script>
+</head>
+<body>
+  <nav>
+    <h1>نطاق</h1>
+  </nav>
+  <article id="main" class="current">
+    <section>
+      <ul class='list'>
+        <li>
+          <h3>زيادة نقطة بنقطة<span></span></h3>
+          <div>
+            <label>القيمة الحالية: <span id='rangeValue1' class='attentionGrapper'></span></label>
+            <input type="range" id="rangeControl1" value="10" min="0" max="40">
+          </div>
+        </li>
+      </ul>
+      <ul class='list' ui-li-order="stacked" ui-kind='grouped'>
+        <li>
+          <h3>زيادة كل 5 نقطة<span></span></h3>
+          <div>
+            <label>القيمة الحالية: <span id='rangeValue2' class='attentionGrapper'></span></label>
+            <input type="range" id="rangeControl2" step='5' value="20" min="0" max="40">    
+          </div>
+        </li>
+      </ul>
+    </section>
+  </article>
+</body>
+</html>

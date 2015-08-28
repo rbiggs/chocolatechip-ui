@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>ChocolateChip-UI Windows</title>
+  <link rel="stylesheet" href="../chui/chui-win-3.9.2.css">
+  <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="../chui/chui-3.9.2.js"></script>
+    <style>
+    #carousel {
+      width:320px;
+      height:300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    p {
+      padding: 0 40px;
+    }
+    .carousel-track img {
+      display: block;
+      height: auto;
+      width: 300px;
+      max-height: 300px;
+      pointer-events: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+    #stuff {
+      padding: 20px;
+    }
+  </style>
+  <script>
+    var panels = [
+      "<h2>لوحة 1</h2><img src='../images/myPictures/american-football-63109_640.jpg'>",
+      "<h2>لوحة 2</h2><img src='../images/myPictures/couple-168191_640.jpg'>",
+      "<h2>لوحة 3</h2><img src='../images/myPictures/daisy-75190_640.jpg'>",
+      "<h2>لوحة 4</h2><img src='../images/myPictures/dependent-100343_640.jpg'>",
+      "<h2>لوحة 5</h2><img src='../images/myPictures/dreamy-20100_640.jpg'>",
+      "<h2>لوحة 6</h2><img src='../images/myPictures/girl-102831_640.jpg'>",
+      "<h2>لوحة 7</h2><img src='../images/myPictures/lacrosse-165576_640.jpg'>",
+      "<h2>لوحة 8</h2><img src='../images/myPictures/hot-air-balloon-4761_640.jpg'>",
+      "<h2>لوحة 9</h2><img src='../images/myPictures/piercing-123240_640.jpg'>",
+      "<h2>لوحة 10</h2><img src='../images/myPictures/portrait-53899_640.jpg'>",
+      "<h2>لوحة 11</h2><img src='../images/myPictures/quarterback-67701_640.jpg'>",
+      "<h2>لوحة 12</h2><img src='../images/myPictures/rugby-78193_640.jpg'>",
+      "<h2>لوحة 13</h2><img src='../images/myPictures/africa-139343_640.jpg'>",
+      "<h2>لوحة 14</h2><img src='../images/myPictures/baby-19295_640.jpg'>",
+      "<h2>لوحة 15</h2><img src='../images/myPictures/baby-20339_640.jpg'>",
+      "<h2>لوحة 16</h2><img src='../images/myPictures/utah-95032_640.jpg'>",
+      "<h2>لوحة 17</h2><img src='../images/myPictures/germany-70567_640.jpg'>",
+      "<h2>لوحة 18</h2><img src='../images/myPictures/mountain-91385_640.jpg'>",
+      "<h2>لوحة 19</h2><ol><li>حليب</li><li>فاكهة</li><li>خضروات</li><li>جبن</li><li>خبز</li></ol>",
+      "<h2>لوحة 20</h2><p>الوَقْتُ كالسَّيفْ ، إنْ لَمْ تَقْطَعهُ ، قَطَع</p><p>إنْ كانَ الكَلامُ مِنْ فِضةْ ، فَالسكوتُ مِنْ ذَهَب</p><p>عَصفورْ فِيْ اليَّدْ ، خَيْر مِنْ عشْرة على الشَجَرَة</p>"
+      ];
+
+    $(function() {
+      $.UISetupCarousel({ target: '#carousel', panels: panels, loop: false, pagination: true });
+    });
+  </script>
+</head>
+<body>
+  <nav class="current">
+      <h1>تدور دائري</h1>
+  </nav>
+  <article id="main" class="current">
+    <section> 
+      <div id="carousel"></div>
+      <p>مثال على ناقل دائري من المحتوى.</p>        
+    </section>
+  </article>
+</body>
+</html>
