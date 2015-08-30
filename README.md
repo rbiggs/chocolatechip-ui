@@ -4,8 +4,6 @@
 
 ##ChocolateChip-UI
 
-![ChocolateChip-UI: 3.9.2](http://chocolatechip-ui.com/image/badges/ChocolateChipUI.svg) ![ChocolateChipJS: v4.0.4](http://chocolatechip-ui.com/image/badges/ChocolateChipJS.svg) ![License: Open Source](http://chocolatechip-ui.com/image/badges//license-MIT.svg)
-
 [TypeScript definitions on DefinitelyTyped](http://definitelytyped.org)
 
 
