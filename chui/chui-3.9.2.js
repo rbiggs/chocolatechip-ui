@@ -632,7 +632,7 @@ if(window.jQuery) {
 
 
 
-  if (!window.chocolatechipjs) {
+  if (window.jQuery) {
     $.extend({
       subscriptions : {},
 
