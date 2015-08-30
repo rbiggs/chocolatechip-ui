@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="157px" height="20px" viewBox="0 0 157 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="157" height="20" rx="3"></rect>
+        <linearGradient x1="0%" y1="0%" x2="0%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#BBBBBB" stop-opacity="0.1" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.1" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ChocolateChip--UI-v3.9.2-brightgreen">
+            <g id="a" fill="#FFFFFF">
+                <rect id="Rectangle-path" x="0" y="0" width="157" height="20" rx="3"></rect>
+            </g>
+            <g id="Clipped">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Rectangle-path"></g>
+                <g id="Group" mask="url(#mask-2)">
+                    <path d="M0,0 L111,0 L111,20 L0,20 L0,0 Z" id="Shape" fill="#555555"></path>
+                    <path d="M111,0 L157,0 L157,20 L111,20 L111,0 Z" id="Shape" fill="#44CC11"></path>
+                    <path d="M0,0 L157,0 L157,20 L0,20 L0,0 Z" id="Shape" fill="url(#linearGradient-3)"></path>
+                </g>
+            </g>
+            <g id="Group" transform="translate(11.000000, 4.000000)" font-size="11" font-family="Helvetica" font-weight="normal">
+                <g id="ChocolateChip-UI-+-ChocolateChip-UI">
+                    <text id="ChocolateChip-UI" fill-opacity="0.3" fill="#010101">
+                        <tspan x="0.5" y="11" fill="#010101">ChocolateChip-UI</tspan>
+                    </text>
+                    <text id="ChocolateChip-UI" fill="#FFFFFF">
+                        <tspan x="0.5" y="10" fill="#FFFFFF">ChocolateChip-UI</tspan>
+                    </text>
+                </g>
+                <g id="v3.9.2-+-v3.9.2" transform="translate(108.000000, 0.000000)">
+                    <text id="v3.9.2" fill-opacity="0.3" fill="#010101">
+                        <tspan x="0" y="11" fill="#010101">v3.9.2</tspan>
+                    </text>
+                    <text id="v3.9.2" fill="#FFFFFF">
+                        <tspan x="0" y="10" fill="#FFFFFF">v3.9.2</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
