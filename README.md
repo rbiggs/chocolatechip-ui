@@ -4,7 +4,7 @@
 
 ##ChocolateChip-UI
 
-![ChocolateChip-UI: 3.9.2](src/badges/ChocolateChipUI.svg) ![ChocolateChipJS: v4.0.4](src/badges/ChocolateChipJS.svg) ![License: Open Source](src/badges/license-MIT.svg)
+![ChocolateChip-UI: 3.9.2](http://chocolatechip-ui.com/image/badges/ChocolateChipUI.svg) ![ChocolateChipJS: v4.0.4](http://chocolatechip-ui.com/image/badges/ChocolateChipJS.svg) ![License: Open Source](http://chocolatechip-ui.com/image/badges//license-MIT.svg)
 
 [TypeScript definitions on DefinitelyTyped](http://definitelytyped.org)
 
