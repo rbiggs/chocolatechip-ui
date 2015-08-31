@@ -221,6 +221,7 @@
         if (idx === 0) {
           ctx.classList.add('current');
         } else {
+          if ($(ctx).closest('.sheet')[0]) return
           ctx.classList.add('next');
         }
       });
