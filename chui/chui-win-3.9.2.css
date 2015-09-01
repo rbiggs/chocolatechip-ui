@@ -45,15 +45,18 @@ body {
   overflow: hidden;
   font: normal 14px/18px SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
   -ms-touch-action: none;
+  touch-action: none;
 }
 body {
   /* Change background color for your app: */
   background-color: #000000;
   font: normal 10pt/13pt SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
   -ms-user-select: none;
+  user-select: none;
 }
 body * {
   -ms-user-select: none;
+  user-select: none;
 }
 /* ==============================
    Article (view) styles
@@ -68,7 +71,9 @@ article {
   overflow-x: hidden;
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-style: autohiding-scrollbar;
   -ms-scroll-chaining: none;
+  scroll-chaining: none;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
@@ -116,6 +121,7 @@ article > section,
   overflow-x: hidden;
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-style: autohiding-scrollbar;
   box-sizing: border-box;
   -ms-flex: 1;
   flex: 1;
@@ -295,6 +301,7 @@ nav > h1 {
   font-weight: normal;
   padding: 2px 10px 0px 0px;
   -ms-touch-action: none;
+  touch-action: none;
   position: relative;
   z-index: -1;
   white-space: nowrap;
@@ -375,6 +382,7 @@ li,
   font-size: initial;
   border: solid 1px transparent;
   -ms-user-select: none;
+  user-select: none;
 }
 .list > li.show-detail::after {
   content: 'i';
@@ -1004,6 +1012,9 @@ body.splitlayout {
   display: -ms-flexbox;
   -ms-flex-direction: row;
   -ms-flex-align: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
 }
 body.splitlayout > nav {
   background-color: #1a1a1a !important;
@@ -1155,6 +1166,7 @@ nav > .busy {
   overflow-x: hidden;
   overflow-y: auto;
   -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-style: autohiding-scrollbar;
   padding-bottom: 0;
   position: absolute;
   top: 4px;
@@ -1608,7 +1620,8 @@ html[dir=rtl] select::-ms-expand {
   outline: none !important;
   color: #000;
 }
-.searchBar > input[type="search"]::-ms-clear {
+.searchBar > input[type="search"]::-ms-clear,
+.searchBar > input[type="search"]::clear {
   color: #000;
   border: solid 1px #000;
   height: 20px;
@@ -1998,6 +2011,7 @@ html[dir=rtl] li.switched h4 {
   line-height: 28px;
   cursor: pointer;
   -ms-user-select: none;
+  user-select: none;
   animation-duration: .65s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
@@ -2323,6 +2337,8 @@ body.hasTabBar > article {
   padding: 1px 1px 10px;
   -ms-user-select: none;
   -ms-touch-action: none;
+  user-select: none;
+  touch-action: none;
 }
 .carousel-track > li.carousel-panel-active {
   border: none;
