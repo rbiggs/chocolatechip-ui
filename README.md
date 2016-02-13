@@ -3,7 +3,6 @@
 
 ##ChocolateChip-UI
 
-[![ChocolateChip-UI: v3.9.2](http://chocolatechip-ui.com/images/badges/ChocolateChipUI.svg)]() [![ChocolateChipJS: v4.0.4](http://chocolatechip-ui.com/images/badges/ChocolateChipJS.svg)]() [![license: MIT](http://chocolatechip-ui.com/images/badges/license.svg)]()
 
 [TypeScript definitions on DefinitelyTyped](http://definitelytyped.org)
 
