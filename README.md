@@ -7,7 +7,7 @@
 
 ##This framework is no longer being maintained here. If you want the latest version, please switch to: https://github.com/chocolatechip-ui/chocolatechipui.
 
-Also please visit the new website for [ChocolateChip-UI](https://chocolatechip-ui.github.io).
+###Also please visit the new website for [ChocolateChip-UI](https://chocolatechip-ui.github.io).
 
 For Version 3.9.2, continue below.
 
